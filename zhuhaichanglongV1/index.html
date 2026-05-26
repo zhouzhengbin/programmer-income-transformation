@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0284C7">
+<title>🐬 珠海长隆全家专属攻略 · 2026.05.30</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Noto+Sans+SC:wght@300;400;500;700&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sky:#0EA5E9;--sky-d:#0369A1;--sky-dd:#0C4A6E;--sky-l:#E0F2FE;--sky-ll:#F0F9FF;
+  --teal:#0D9488;--teal-l:#CCFBF1;--coral:#F97316;--coral-l:#FED7AA;
+  --gold:#F59E0B;--gold-l:#FEF3C7;--rose:#F43F5E;--violet:#7C3AED;
+  --green:#16A34A;--green-l:#DCFCE7;
+  --ink:#0C4A6E;--ink-m:#1E40AF;--text:#334155;--muted:#64748B;--faint:#94A3B8;
+  --bg:#F0F9FF;--white:#FFFFFF;
+  --shadow:0 4px 20px rgba(12,74,110,.1);--shadow-lg:0 12px 40px rgba(12,74,110,.15);
+  --r4:4px;--r8:8px;--r12:12px;--r16:16px;--r24:24px;--r9999:9999px;
+  --ff-d:'ZCOOL XiaoWei','Noto Sans SC',sans-serif;
+  --ff-b:'Noto Sans SC',sans-serif;
+  --ff-n:'Nunito','Noto Sans SC',sans-serif;
+  --trans:.25s ease;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--ff-b);font-size:15px;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#E0F2FE}::-webkit-scrollbar-thumb{background:var(--sky);border-radius:2px}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* ── PROGRESS BAR ── */
+#progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;z-index:9999;background:linear-gradient(90deg,var(--sky),var(--teal),var(--gold),var(--coral));box-shadow:0 0 8px var(--sky);transition:width .08s linear}
+
+/* ── HERO ── */
+#hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(160deg,#0C4A6E 0%,#0369A1 30%,#0EA5E9 65%,#06B6D4 100%)}
+.hero-bg-img{position:absolute;inset:0;background:url('https://www.chimelong.com/d/file/p/2025/07-15/20f3a4d1f9afd9dfa83ba90d2b981c88.png') center/cover;opacity:.25;animation:heroZoom 20s ease-in-out infinite alternate}
+@keyframes heroZoom{0%{transform:scale(1)}100%{transform:scale(1.08)}}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,74,110,.3) 0%,rgba(3,105,161,.1) 50%,rgba(12,74,110,.7) 100%)}
+.hero-waves{position:absolute;bottom:0;left:0;width:100%;overflow:hidden;line-height:0}
+.hero-waves svg{display:block;width:calc(100%+2px);height:80px}
+.wave1{animation:waveAnim 8s cubic-bezier(.55,.5,.45,.5) infinite}
+.wave2{animation:waveAnim 12s cubic-bezier(.55,.5,.45,.5) reverse infinite;opacity:.5}
+@keyframes waveAnim{0%{transform:translateX(0)}50%{transform:translateX(-25px)}100%{transform:translateX(0)}}
+.hero-content{position:relative;z-index:2;text-align:center;padding:0 20px 100px;max-width:750px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);border-radius:var(--r9999);padding:7px 18px;font-size:13px;font-weight:700;color:#BAE6FD;letter-spacing:2px;margin-bottom:24px;backdrop-filter:blur(10px);animation:fadeDown .8s .1s both}
+.hero-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:#7DD3FC;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+.hero-title{font-family:var(--ff-d);font-size:clamp(38px,8vw,76px);color:#FFF;line-height:1.15;margin-bottom:14px;text-shadow:0 2px 20px rgba(0,0,0,.3);animation:fadeDown .8s .3s both}
+.hero-title .hi{background:linear-gradient(135deg,#BAE6FD,#FDE68A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-lead{color:rgba(255,255,255,.88);font-size:clamp(15px,2.5vw,18px);line-height:1.75;margin-bottom:36px;animation:fadeDown .8s .5s both}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+
+/* countdown */
+.countdown{display:flex;gap:16px;justify-content:center;margin-bottom:40px;animation:fadeUp .8s .7s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.cd-item{text-align:center}
+.cd-num{font-family:var(--ff-n);font-size:clamp(38px,6vw,56px);font-weight:900;color:#FDE68A;text-shadow:0 0 20px rgba(253,230,138,.5);line-height:1;display:block}
+.cd-lab{font-size:11px;color:rgba(255,255,255,.6);letter-spacing:1px;margin-top:4px}
+.cd-sep{font-size:40px;color:rgba(255,255,255,.4);align-self:center;margin-top:-8px}
+
+/* hero facts */
+.hero-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:32px;animation:fadeUp .8s .9s both}
+.hfact{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.25);border-radius:var(--r12);padding:14px 10px;backdrop-filter:blur(12px)}
+.hfact b{display:block;font-family:var(--ff-n);font-size:clamp(20px,3.5vw,28px);font-weight:900;color:#FFF;line-height:1.1;margin-bottom:6px}
+.hfact span{font-size:12px;color:rgba(255,255,255,.75);line-height:1.4}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s 1.1s both}
+.btn-hero-p{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:rgba(255,255,255,.95);color:var(--sky-dd);border:none;border-radius:var(--r9999);font-family:var(--ff-b);font-size:15px;font-weight:700;cursor:pointer;transition:var(--trans);box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.btn-hero-p:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.btn-hero-s{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:rgba(255,255,255,.15);color:#FFF;border:1px solid rgba(255,255,255,.4);border-radius:var(--r9999);font-size:15px;cursor:pointer;transition:var(--trans);backdrop-filter:blur(10px)}
+.btn-hero-s:hover{background:rgba(255,255,255,.25);transform:translateY(-2px)}
+
+/* ── TOPNAV ── */
+#topnav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(14,165,233,.15);box-shadow:0 2px 12px rgba(12,74,110,.06)}
+.nav-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;overflow-x:auto;scrollbar-width:none;padding:0 16px;gap:4px}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-inner a{flex:0 0 auto;padding:10px 13px;border-radius:var(--r9999);color:var(--muted);font-size:13px;font-weight:700;transition:var(--trans);white-space:nowrap}
+.nav-inner a:hover,.nav-inner a.active{color:var(--sky-d);background:var(--sky-l)}
+
+/* ── MAIN LAYOUT ── */
+main{max-width:1000px;margin:0 auto;padding:0 16px 80px}
+section{scroll-margin-top:56px;padding:56px 0}
+section+section{border-top:1px solid rgba(14,165,233,.1)}
+
+/* ── SECTION HEADER ── */
+.sec-head{margin-bottom:32px}
+.sec-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--sky-d);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.sec-eyebrow::before{content:'';display:block;width:20px;height:2px;background:var(--sky);border-radius:2px}
+.sec-title{font-family:var(--ff-d);font-size:clamp(26px,4.5vw,40px);color:var(--ink);line-height:1.15;margin-bottom:10px}
+.sec-sub{color:var(--muted);font-size:14px;max-width:620px;line-height:1.65}
+
+/* ── CARDS ── */
+.card{background:var(--white);border:1px solid rgba(14,165,233,.12);border-radius:var(--r16);box-shadow:var(--shadow);transition:var(--trans);padding:22px}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.card h3{font-family:var(--ff-d);font-size:18px;color:var(--ink);margin-bottom:8px}
+.card p,.card li{color:var(--muted);font-size:14px;line-height:1.7}
+.card ul,.card ol{padding-left:18px}
+.card li+li{margin-top:5px}
+
+/* ── FAMILY ── */
+.family-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.fcard{background:var(--white);border:1px solid rgba(14,165,233,.15);border-radius:var(--r16);padding:22px 16px;text-align:center;transition:var(--trans);cursor:pointer;position:relative;overflow:hidden}
+.fcard::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.fcard.grandma::before{background:linear-gradient(90deg,#9333EA,#7C3AED)}
+.fcard.dad::before{background:linear-gradient(90deg,var(--sky-d),var(--sky))}
+.fcard.mom::before{background:linear-gradient(90deg,var(--rose),#F97316)}
+.fcard.girl1::before,.fcard.girl2::before{background:linear-gradient(90deg,#10B981,#06B6D4)}
+.fcard.baby::before{background:linear-gradient(90deg,var(--gold),var(--coral))}
+.fcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.fcard-emoji{font-size:48px;display:block;margin-bottom:12px;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.fcard-name{font-family:var(--ff-d);font-size:19px;color:var(--ink);margin-bottom:6px}
+.fcard-tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:var(--r9999);margin-bottom:10px}
+.fcard.grandma .fcard-tag{background:#F3E8FF;color:#7C3AED}
+.fcard.dad .fcard-tag{background:var(--sky-l);color:var(--sky-dd)}
+.fcard.mom .fcard-tag{background:#FFF1F2;color:#BE123C}
+.fcard.girl1 .fcard-tag,.fcard.girl2 .fcard-tag{background:var(--green-l);color:#166534}
+.fcard.baby .fcard-tag{background:var(--gold-l);color:#92400E}
+.fcard-desc{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* group badges */
+.group-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.grp-badge{flex:1;min-width:200px;padding:16px 20px;border-radius:var(--r12);display:flex;align-items:center;gap:14px}
+.grp-badge.a{background:linear-gradient(135deg,#0369A1,#0EA5E9)}
+.grp-badge.b{background:linear-gradient(135deg,#065F46,#0D9488)}
+.grp-badge .gb-icon{font-size:32px}
+.grp-badge .gb-body{color:#fff}
+.grp-badge .gb-title{font-family:var(--ff-d);font-size:16px;font-weight:700;margin-bottom:4px}
+.grp-badge .gb-members{font-size:13px;opacity:.88}
+
+/* ── PARK MAP ── */
+#mapwrap{position:relative;background:linear-gradient(160deg,#E0F7FA 0%,#B2EBF2 50%,#E8F5E9 100%);border-radius:var(--r24);overflow:hidden;box-shadow:var(--shadow-lg);margin-bottom:20px}
+.map-svg-wrap{padding:16px}
+.map-legend{display:flex;flex-wrap:wrap;gap:10px;padding:14px 20px;background:rgba(255,255,255,.8);border-top:1px solid rgba(14,165,233,.15)}
+.leg-item{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--text)}
+.leg-dot{width:14px;height:14px;border-radius:4px;flex-shrink:0}
+
+/* ── TIMELINE ── */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tcard{display:grid;grid-template-columns:90px 1fr;border-radius:var(--r12);overflow:hidden;box-shadow:var(--shadow);margin-bottom:10px;transition:var(--trans);cursor:pointer;background:var(--white);border:1px solid rgba(14,165,233,.1)}
+.tcard:hover{transform:translateX(4px);box-shadow:var(--shadow-lg)}
+.tcard .t-time{padding:18px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--sky-dd);color:#fff;font-family:var(--ff-n);font-size:clamp(14px,2.2vw,18px);font-weight:900;line-height:1.15;text-align:center}
+.tcard .t-time .t-sep{font-size:10px;opacity:.6;margin:2px 0}
+.tcard .t-body{padding:16px 18px}
+.tcard .t-body h3{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.tcard .t-body p{font-size:13.5px;color:var(--muted);line-height:1.65;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:var(--r9999);font-size:12px;font-weight:700}
+.chip.blue{background:var(--sky-l);color:var(--sky-dd)}
+.chip.teal{background:var(--teal-l);color:#065F46}
+.chip.coral{background:var(--coral-l);color:#9A3412}
+.chip.gold{background:var(--gold-l);color:#78350F}
+.chip.green{background:var(--green-l);color:#166534}
+.chip.violet{background:#EDE9FE;color:#5B21B6}
+.chip.pink{background:#FFE4E6;color:#9F1239}
+.tcard.grp-a .t-time{background:var(--sky-dd)}
+.tcard.grp-b .t-time{background:#065F46}
+.tcard.alert .t-time{background:var(--coral)}
+.tcard.gold-t .t-time{background:#92400E}
+
+/* ── GROUPS ── */
+.routes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.route{background:var(--white);border:1px solid rgba(14,165,233,.12);border-radius:var(--r16);overflow:hidden;box-shadow:var(--shadow)}
+.route-head{padding:20px;color:#fff;display:flex;flex-direction:column;gap:6px}
+.route-head.a{background:linear-gradient(135deg,#0C4A6E,#0EA5E9)}
+.route-head.b{background:linear-gradient(135deg,#064E3B,#0D9488)}
+.route-head.ab{background:linear-gradient(135deg,#4C1D95,#7C3AED)}
+.route-tag{display:inline-block;font-size:11px;font-weight:900;padding:3px 10px;background:rgba(255,255,255,.25);border-radius:var(--r9999);width:fit-content}
+.route-head h3{font-family:var(--ff-d);font-size:19px}
+.route-head p{font-size:13px;opacity:.88}
+.route-body{padding:18px}
+.route-body ol,.route-body ul{padding-left:20px}
+.route-body li{color:var(--muted);font-size:13.5px;margin-bottom:7px;line-height:1.6}
+.route-body li:last-child{margin-bottom:0}
+.attr-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px}
+.attr-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:var(--r8);background:var(--sky-ll);border:1px solid rgba(14,165,233,.12)}
+.attr-item .ai-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.attr-item .ai-info strong{display:block;font-size:14px;color:var(--ink);font-weight:700;margin-bottom:2px}
+.attr-item .ai-info span{font-size:12px;color:var(--muted)}
+.attr-item .ai-tag{margin-left:auto;flex-shrink:0;font-size:11px;font-weight:900;padding:2px 8px;border-radius:var(--r9999)}
+
+/* ── SHOW TABLE ── */
+.show-timeline{display:flex;flex-direction:column;gap:0;background:var(--white);border-radius:var(--r16);overflow:hidden;box-shadow:var(--shadow-lg)}
+.show-head{display:grid;grid-template-columns:1fr 130px 180px 100px;background:var(--sky-dd);color:#fff;font-size:13px;font-weight:900;padding:12px 18px;gap:12px}
+.show-row{display:grid;grid-template-columns:1fr 130px 180px 100px;gap:12px;padding:14px 18px;border-bottom:1px solid rgba(14,165,233,.08);transition:var(--trans);align-items:center;cursor:pointer}
+.show-row:hover{background:var(--sky-ll)}
+.show-row:last-child{border-bottom:0}
+.show-row .sr-name{font-weight:700;color:var(--ink);font-size:14px;display:flex;align-items:center;gap:8px}
+.show-row .sr-time{font-family:var(--ff-n);font-size:13px;font-weight:700;color:var(--muted)}
+.show-row .sr-time b{color:var(--sky-d);font-size:14px}
+.show-row .sr-note{font-size:12px;color:var(--muted)}
+.show-row .sr-who{display:flex;gap:4px;flex-wrap:wrap}
+.who-dot{width:8px;height:8px;border-radius:50%}
+.show-alert{background:#FFF7ED;border:1px solid rgba(249,115,22,.2);border-radius:var(--r12);padding:14px 18px;display:flex;align-items:flex-start;gap:12px;margin-top:14px;font-size:13.5px;color:#9A3412}
+.show-alert .sa-icon{font-size:22px;flex-shrink:0}
+
+/* ── HOTEL ── */
+.hotel-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.hotel-card{min-height:220px;border-radius:var(--r16);overflow:hidden;position:relative;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:22px;box-shadow:var(--shadow-lg)}
+.hotel-card::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,74,110,.1),rgba(12,74,110,.8));z-index:0}
+.hotel-card.hengqin{background:url('https://www.chimelong.com/d/file/p/2025/07-15/70e1f08e16d15e25555d3aa784cc1787.png') center/cover}
+.hotel-card.water{background:url('https://cdn.chimelong.com/assets/images/list0.50d65c2.jpg') center/cover}
+.hotel-card-body{position:relative;z-index:1}
+.hotel-card-body .hc-tag{display:inline-block;font-size:11px;font-weight:900;padding:3px 10px;border-radius:var(--r9999);margin-bottom:8px;background:rgba(255,255,255,.25)}
+.hotel-card-body h3{font-family:var(--ff-d);font-size:20px;margin-bottom:6px}
+.hotel-card-body p{font-size:13px;opacity:.88;line-height:1.6}
+.hotel-cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+
+/* ── RAIN ── */
+.rain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.rain-card{background:var(--white);border:1px solid rgba(14,165,233,.12);border-radius:var(--r16);overflow:hidden;box-shadow:var(--shadow)}
+.rain-card-head{padding:14px 18px;display:flex;align-items:center;gap:10px}
+.rain-card-head.blue{background:linear-gradient(135deg,#0369A1,#0EA5E9)}
+.rain-card-head.red{background:linear-gradient(135deg,#BE123C,#F43F5E)}
+.rain-card-head.amber{background:linear-gradient(135deg,#92400E,#F59E0B)}
+.rain-card-head .rh-icon{font-size:28px}
+.rain-card-head h3{font-family:var(--ff-d);font-size:18px;color:#fff}
+.rain-card-body{padding:16px 18px}
+.rain-card-body ul{padding-left:18px}
+.rain-card-body li{font-size:13.5px;color:var(--muted);margin-bottom:7px;line-height:1.6}
+
+/* ── PACKING ── */
+.pack-progress{background:var(--sky-l);border-radius:var(--r12);padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:16px}
+.pack-progress .pp-label{font-weight:700;color:var(--sky-dd);white-space:nowrap;font-size:14px}
+.pp-bar-wrap{flex:1;height:10px;background:rgba(14,165,233,.15);border-radius:5px;overflow:hidden}
+.pp-bar{height:100%;background:linear-gradient(90deg,var(--sky),var(--teal));border-radius:5px;transition:width .5s ease}
+.pp-pct{font-family:var(--ff-n);font-weight:900;color:var(--sky-d);font-size:15px;white-space:nowrap}
+.pack-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.pack-section{background:var(--white);border:1px solid rgba(14,165,233,.12);border-radius:var(--r16);overflow:hidden;box-shadow:var(--shadow)}
+.pack-sec-head{padding:14px 18px;display:flex;align-items:center;gap:10px}
+.pack-sec-head.blue{background:linear-gradient(90deg,#0369A1,#0EA5E9)}
+.pack-sec-head.green{background:linear-gradient(90deg,#065F46,#0D9488)}
+.pack-sec-head.orange{background:linear-gradient(90deg,#9A3412,#F97316)}
+.pack-sec-head.violet{background:linear-gradient(90deg,#4C1D95,#7C3AED)}
+.pack-sec-head .psh-icon{font-size:24px}
+.pack-sec-head h3{font-family:var(--ff-d);font-size:17px;color:#fff}
+.pack-items{padding:12px}
+.pack-item{display:flex;align-items:center;gap:10px;padding:9px 8px;border-radius:var(--r8);cursor:pointer;transition:var(--trans);font-size:14px;color:var(--text);user-select:none}
+.pack-item:hover{background:var(--sky-ll)}
+.pack-item.checked{color:var(--faint);text-decoration:line-through}
+.pack-item .pi-check{width:22px;height:22px;border-radius:6px;border:2px solid rgba(14,165,233,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--trans)}
+.pack-item.checked .pi-check{background:var(--teal);border-color:var(--teal);color:#fff}
+
+/* ── FLOATING CONTROLS ── */
+#float-right{position:fixed;right:14px;bottom:74px;z-index:500;display:flex;flex-direction:column;gap:10px}
+.fb{width:50px;height:50px;border-radius:50%;background:var(--white);border:1.5px solid rgba(14,165,233,.25);box-shadow:var(--shadow-lg);color:var(--sky-d);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--trans)}
+.fb:hover,.fb.on{background:var(--sky);color:#fff;border-color:var(--sky);box-shadow:0 0 20px rgba(14,165,233,.4)}
+#btn-top{position:fixed;right:14px;bottom:14px;z-index:500;width:46px;height:46px;border-radius:50%;background:var(--sky-dd);border:none;color:#fff;font-size:18px;cursor:pointer;box-shadow:var(--shadow-lg);transition:var(--trans);opacity:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
+#btn-top.show{opacity:1;pointer-events:all}
+#btn-top:hover{transform:scale(1.1)}
+
+/* ── MUSIC PANEL ── */
+#music-panel{position:fixed;right:70px;bottom:160px;z-index:600;width:240px;background:var(--white);border:1px solid rgba(14,165,233,.2);border-radius:var(--r16);box-shadow:var(--shadow-lg);padding:14px;display:none}
+#music-panel.open{display:block;animation:panelIn .2s ease}
+@keyframes panelIn{from{opacity:0;transform:scale(.95) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.mp-title{font-size:12px;font-weight:700;color:var(--faint);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.mp-track-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:12px;padding:8px 10px;background:var(--sky-ll);border-radius:var(--r8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mp-controls{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px}
+.mp-btn{width:36px;height:36px;border-radius:50%;background:var(--sky-l);border:none;color:var(--sky-d);font-size:16px;cursor:pointer;transition:var(--trans);display:flex;align-items:center;justify-content:center}
+.mp-btn.play{width:44px;height:44px;background:var(--sky-dd);color:#fff;font-size:20px}
+.mp-btn:hover{transform:scale(1.1)}
+.mp-tracks{display:flex;flex-direction:column;gap:3px}
+.mp-track-item{padding:7px 10px;border-radius:var(--r8);font-size:13px;cursor:pointer;transition:var(--trans);color:var(--text)}
+.mp-track-item:hover{background:var(--sky-ll)}
+.mp-track-item.active{background:var(--sky-l);color:var(--sky-dd);font-weight:700}
+.mp-vol{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(14,165,233,.1)}
+.mp-vol span{font-size:12px;color:var(--faint)}
+.mp-vol input{flex:1;-webkit-appearance:none;height:4px;border-radius:2px;background:var(--sky-l);outline:none;cursor:pointer}
+
+/* ── VOICE INDICATOR ── */
+#voice-indicator{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);z-index:800;background:var(--sky-dd);color:#fff;padding:10px 20px;border-radius:var(--r9999);font-size:13px;font-weight:700;box-shadow:var(--shadow-lg);display:none;max-width:85vw;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:voiceIn .3s ease}
+@keyframes voiceIn{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+#voice-indicator.show{display:block}
+.vi-wave{display:inline-flex;gap:3px;align-items:flex-end;margin-left:8px}
+.vi-wave span{width:3px;background:#7DD3FC;border-radius:2px;animation:vwave .8s ease infinite}
+.vi-wave span:nth-child(1){height:8px;animation-delay:0s}
+.vi-wave span:nth-child(2){height:14px;animation-delay:.15s}
+.vi-wave span:nth-child(3){height:10px;animation-delay:.3s}
+.vi-wave span:nth-child(4){height:16px;animation-delay:.1s}
+@keyframes vwave{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1.2)}}
+
+/* ── REVEAL ANIM ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal.d1{transition-delay:.1s}
+.reveal.d2{transition-delay:.2s}
+.reveal.d3{transition-delay:.3s}
+.reveal.d4{transition-delay:.4s}
+
+/* ── NOTICE BOX ── */
+.notice{border-radius:var(--r12);padding:16px 20px;margin-bottom:18px;display:flex;gap:14px;align-items:flex-start}
+.notice.warn{background:#FFF7ED;border:1px solid rgba(249,115,22,.25)}
+.notice.info{background:var(--sky-ll);border:1px solid rgba(14,165,233,.2)}
+.notice.ok{background:var(--green-l);border:1px solid rgba(22,163,74,.2)}
+.notice.red{background:#FFF1F2;border:1px solid rgba(244,63,94,.2)}
+.notice .ni{font-size:22px;flex-shrink:0;margin-top:1px}
+.notice .nc h4{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.notice .nc p,.notice .nc li{font-size:13.5px;color:var(--muted);line-height:1.65}
+.notice .nc ul{padding-left:16px}
+
+/* ── METRIC CARD ── */
+.metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.metric{background:var(--white);border:1px solid rgba(14,165,233,.12);border-radius:var(--r12);padding:18px 14px;text-align:center;box-shadow:var(--shadow)}
+.metric .m-num{font-family:var(--ff-n);font-size:clamp(22px,4vw,32px);font-weight:900;color:var(--sky-d);display:block;line-height:1;margin-bottom:6px}
+.metric .m-lab{font-size:12px;color:var(--muted)}
+
+/* ── FISH DECOR ── */
+.fish{position:fixed;font-size:28px;animation:fishSwim linear infinite;pointer-events:none;z-index:0;top:30vh}
+@keyframes fishSwim{0%{left:-80px;opacity:0}5%{opacity:.5}95%{opacity:.5}100%{left:calc(100vw + 80px);opacity:0}}
+.fish.rev{animation:fishSwimRev linear infinite}
+@keyframes fishSwimRev{0%{right:-80px;opacity:0}5%{opacity:.5}95%{opacity:.5}100%{right:calc(100vw + 80px);opacity:0}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .hero-facts{grid-template-columns:repeat(2,1fr)}
+  .family-grid{grid-template-columns:repeat(3,1fr)}
+  .routes-grid,.hotel-cards-3,.rain-grid{grid-template-columns:1fr}
+  .show-head,.show-row{grid-template-columns:1fr 120px}
+  .show-head .sr-note,.show-head .sr-who,.show-row .sr-note,.show-row .sr-who{display:none}
+  .pack-grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .family-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-facts{grid-template-columns:repeat(2,1fr)}
+  .hotel-grid{grid-template-columns:1fr}
+  .tcard{grid-template-columns:70px 1fr}
+  .metric-row{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- VOICE INDICATOR -->
+<div id="voice-indicator">🎙 正在朗读...<span class="vi-wave"><span></span><span></span><span></span><span></span></span></div>
+
+<!-- MUSIC PANEL -->
+<div id="music-panel">
+  <div class="mp-title">🎵 背景音乐</div>
+  <div id="mp-track-display" class="mp-track-name">未播放</div>
+  <div class="mp-controls">
+    <button class="mp-btn" id="mp-prev">⏮</button>
+    <button class="mp-btn play" id="mp-play">▶</button>
+    <button class="mp-btn" id="mp-next">⏭</button>
+  </div>
+  <div class="mp-tracks" id="mp-tracks"></div>
+  <div class="mp-vol">
+    <span>🔈</span>
+    <input type="range" id="mp-vol" min="0" max="1" step="0.05" value="0.45">
+    <span>🔊</span>
+  </div>
+</div>
+
+<!-- FLOATING BUTTONS -->
+<div id="float-right">
+  <button class="fb" id="btn-music" title="背景音乐" onclick="toggleMusicPanel()">🎵</button>
+  <button class="fb" id="btn-voice" title="语音播报" onclick="toggleVoice()">🔊</button>
+</div>
+<button id="btn-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- ███ HERO ███ -->
+<section id="hero">
+  <div class="hero-bg-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content" data-speech="欢迎收听珠海长隆全家专属攻略！2026年5月30日周六，我们全家六口从佛山千灯湖出发，自驾前往珠海长隆横琴湾酒店，开启两天一晚的精彩海洋王国之旅！成员包括：婆婆七十岁，爸爸妈妈，双胞胎姐姐六岁半，还有小宝宝三岁半。行程精心策划，保证老人舒适，孩子尽兴，大人轻松！">
+    <div class="hero-eyebrow"><span class="dot"></span>家庭专属深度攻略 · 珠海长隆横琴湾</div>
+    <h1 class="hero-title">2026 全家<span class="hi">海洋王国</span><br>两天一晚攻略</h1>
+    <p class="hero-lead">6人家庭 · 佛山千灯湖自驾出发 · 横琴湾酒店住宿<br>婆婆70岁 + 爸爸妈妈 + 6.5岁双胞胎姐姐 + 3.5岁小宝贝</p>
+    <div class="hero-facts">
+      <div class="hfact"><b>05:30</b><span>千灯湖出发<br>目标07:45到酒店</span></div>
+      <div class="hfact"><b>09:00</b><span>早享入园<br>A/B两组同时出发</span></div>
+      <div class="hfact"><b>17:00</b><span>长隆秀开演<br>15:30剧院开园</span></div>
+      <div class="hfact"><b>20:00</b><span>海洋幻彩烟花秀<br>压轴盛典</span></div>
+    </div>
+    <div class="countdown">
+      <div class="cd-item"><span class="cd-num" id="cd-d">--</span><span class="cd-lab">天</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-item"><span class="cd-num" id="cd-h">--</span><span class="cd-lab">时</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-item"><span class="cd-num" id="cd-m">--</span><span class="cd-lab">分</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-item"><span class="cd-num" id="cd-s">--</span><span class="cd-lab">秒</span></div>
+    </div>
+    <div class="hero-btns">
+      <button class="btn-hero-p" onclick="document.getElementById('members').scrollIntoView({behavior:'smooth'})">📋 查看攻略</button>
+      <button class="btn-hero-s" onclick="document.getElementById('shows').scrollIntoView({behavior:'smooth'})">🎭 演出时间</button>
+    </div>
+  </div>
+  <div class="hero-waves">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="wave1" d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" fill="#F0F9FF"/>
+      <path class="wave2" d="M0,55 C240,20 480,70 720,55 C960,40 1200,70 1440,55 L1440,80 L0,80 Z" fill="#F0F9FF" opacity="0.6"/>
+    </svg>
+  </div>
+</section>
+
+<!-- NAV -->
+<div id="topnav">
+  <div class="nav-inner">
+    <a href="#members">👨‍👩‍👧‍👧 成员</a>
+    <a href="#map">🗺 地图</a>
+    <a href="#day1">📅 Day1</a>
+    <a href="#groups">🅰🅱 分组</a>
+    <a href="#shows">🎭 演出</a>
+    <a href="#hotel">🏨 酒店</a>
+    <a href="#rain">🌧 预案</a>
+    <a href="#day2">📅 Day2</a>
+    <a href="#packing">🎒 行李</a>
+    <a href="#tips">💡 提醒</a>
+  </div>
+</div>
+
+<main>
+
+<!-- ████ SECTION: 成员 ████ -->
+<section id="members" data-speech="本次旅行全家六口：婆婆七十岁，是B组舒适线的核心成员，步速慢一些，安排室内动物馆和剧场休息；爸爸是A组队长，带两个六岁半的双胞胎姐姐冲刺激项目；妈妈是B组守护者，带三岁半小宝贝游玩温和项目；两个六岁半的双胞胎姐姐可以参与企鹅过山车、冰山过山车等大部分项目；三岁半小宝贝主要观赏类项目，以旋转类和互动类为主。分工明确，各得其乐！">
+  <div class="sec-head reveal">
+    <div class="sec-eyebrow">出行阵容</div>
+    <h2 class="sec-title">🌟 我们这一家六口</h2>
+    <p class="sec-sub">周六出行 · 佛山千灯湖自驾 · 全程两天一晚 · 三代同行</p>
+  </div>
+  <div class="metric-row reveal d1">
+    <div class="metric"><span class="m-num">6</span><span class="m-lab">出行人数</span></div>
+    <div class="metric"><span class="m-num">2</span><span class="m-lab">游玩天数</span></div>
+    <div class="metric"><span class="m-num">~130</span><span class="m-lab">公里车程</span></div>
+    <div class="metric"><span class="m-num">20:00</span><span class="m-lab">烟花压轴时间</span></div>
+  </div>
+  <div class="family-grid reveal d2">
+    <div class="fcard grandma" data-speech="婆婆，七十岁，是全家最需要照顾的成员。B组舒适线的重心，安排室内动物馆参观和剧场欣赏演出，中午适当休息。步速慢，不追刺激项目，剧场优先靠近出口位置。" onclick="speakText(this)">
+      <span class="fcard-emoji">👵</span>
+      <div class="fcard-name">婆婆</div>
+      <div class="fcard-tag">70岁 · B组</div>
+      <div class="fcard-desc">室内动物馆＋剧场为主<br>中午需充分休息<br>剧场靠近出口入座</div>
+    </div>
+    <div class="fcard dad" data-speech="爸爸，成年男性，A组队长。负责带两个六岁半双胞胎姐姐冲刺激项目，同时掌管全家证件票务，负责停车授权和前台办理，是全家的后勤总指挥。" onclick="speakText(this)">
+      <span class="fcard-emoji">👨</span>
+      <div class="fcard-name">爸爸</div>
+      <div class="fcard-tag">成人 · A组队长</div>
+      <div class="fcard-desc">带双胞胎冲刺激项目<br>掌管证件票务<br>停车授权·前台办理</div>
+    </div>
+    <div class="fcard mom" data-speech="妈妈，成年女性，B组守护者。带三岁半小宝贝游玩温和项目，同时照顾婆婆，安排白鲸馆、鲸鲨馆、企鹅馆等室内舒适项目。小宝贝一旦累了或哭闹，立刻回酒店休息，不硬撑行程。" onclick="speakText(this)">
+      <span class="fcard-emoji">👩</span>
+      <div class="fcard-name">妈妈</div>
+      <div class="fcard-tag">成人 · B组守护</div>
+      <div class="fcard-desc">带小宝贝·照顾婆婆<br>走温和动物观赏线<br>小宝累即刻回酒店</div>
+    </div>
+    <div class="fcard girl1" data-speech="双胞胎大姐姐，六岁半，A组成员。只要身高满足要求，可以参与企鹅过山车、冰山过山车等大多数刺激项目。入园先量身高，不要踮脚，按现场安全员标准。" onclick="speakText(this)">
+      <span class="fcard-emoji">👧</span>
+      <div class="fcard-name">姐姐①</div>
+      <div class="fcard-tag">6.5岁 · A组</div>
+      <div class="fcard-desc">双胞胎大姐姐<br>可玩大部分刺激项目<br>入园先量身高</div>
+    </div>
+    <div class="fcard girl2" data-speech="双胞胎二姐姐，六岁半，A组成员。和姐姐一起冲刺激项目，鹦鹉过山车要看身高和胆量，不要强迫。每玩两个室外项目补一次水，避免午后暴晒崩盘。" onclick="speakText(this)">
+      <span class="fcard-emoji">👧</span>
+      <div class="fcard-name">姐姐②</div>
+      <div class="fcard-tag">6.5岁 · A组</div>
+      <div class="fcard-desc">双胞胎二姐姐<br>和姐姐组队冲项目<br>鹦鹉看胆量再决定</div>
+    </div>
+    <div class="fcard baby" data-speech="小宝贝，三岁半，B组核心。不参与过山车，以旋转类、互动类、观赏类项目为主，比如海豚转转车、旋转水战。中午十二点半到两点是体力低谷，优先午睡。小宝哭闹超过十分钟，直接回酒店，第二天补漏。" onclick="speakText(this)">
+      <span class="fcard-emoji">👶</span>
+      <div class="fcard-name">小宝贝</div>
+      <div class="fcard-tag">3.5岁 · B组</div>
+      <div class="fcard-desc">旋转·互动·观赏类<br>12:30-14:00须午睡<br>哭闹超10分钟回酒店</div>
+    </div>
+  </div>
+  <div class="group-badges reveal d3">
+    <div class="grp-badge a">
+      <span class="gb-icon">🚀</span>
+      <div class="gb-body">
+        <div class="gb-title">A组 · 刺激线</div>
+        <div class="gb-members">爸爸 + 双胞胎姐姐①② · 冲热门过山车·室外刺激项目</div>
+      </div>
+    </div>
+    <div class="grp-badge b">
+      <span class="gb-icon">🌿</span>
+      <div class="gb-body">
+        <div class="gb-title">B组 · 舒适线</div>
+        <div class="gb-members">妈妈 + 小宝贝 + 婆婆 · 室内动物馆·剧场演出·温和项目</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ████ SECTION: 地图 ████ -->
+<section id="map" data-speech="海洋王国园区地图。园区分为六大区域：北部极地探险区有白鲸馆、企鹅馆、北极熊馆；中部鲸鲨馆是全家共同必打卡；西部梦幻海洋区是刺激项目集中地，有企鹅过山车、冰山过山车；南部横琴海是演出中心，巡游、烟花都在这里；东部有海豚湾和海狮岛；儿童区在东南角，适合小宝贝。集合点设在鲸鲨馆门口和横琴海入口，不要约在某个项目出口。">
+  <div class="sec-head reveal">
+    <div class="sec-eyebrow">游玩路线图</div>
+    <h2 class="sec-title">🗺 海洋王国分区地图</h2>
+    <p class="sec-sub">长隆海洋王国共132公顷，点击各区了解详情 · A/B分组路线用颜色标注</p>
+  </div>
+  <div id="mapwrap" class="reveal d1">
+    <div class="map-svg-wrap">
+<svg viewBox="0 0 760 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" font-family="'Noto Sans SC',sans-serif">
+  <!-- Ocean background -->
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%"><stop offset="0%" stop-color="#B2EBF2"/><stop offset="100%" stop-color="#80DEEA"/></radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="760" height="480" fill="url(#bg)" rx="16"/>
+  <!-- Decorative waves -->
+  <path d="M0,420 Q190,400 380,420 Q570,440 760,420 L760,480 L0,480Z" fill="rgba(0,188,212,0.18)"/>
+  <path d="M0,440 Q190,425 380,445 Q570,460 760,440 L760,480 L0,480Z" fill="rgba(0,188,212,0.12)"/>
+
+  <!-- ZONE 1: 极地探险 (Polar) – top-left -->
+  <rect x="30" y="28" width="180" height="135" rx="12" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1.5"/>
+  <text x="120" y="50" text-anchor="middle" font-size="11" font-weight="bold" fill="#1D4ED8">❄️ 极地探险区</text>
+  <rect x="44" y="58" width="148" height="26" rx="6" fill="#3B82F6"/>
+  <text x="118" y="76" text-anchor="middle" font-size="11.5" fill="white" font-weight="bold">🐋 白鲸剧场 11:00 14:00 17:45</text>
+  <rect x="44" y="90" width="68" height="24" rx="6" fill="#60A5FA"/>
+  <text x="78" y="106" text-anchor="middle" font-size="11" fill="white">🐧 企鹅馆</text>
+  <rect x="118" y="90" width="74" height="24" rx="6" fill="#60A5FA"/>
+  <text x="155" y="106" text-anchor="middle" font-size="11" fill="white">🐻‍❄️ 北极熊馆</text>
+  <rect x="44" y="120" width="148" height="24" rx="6" fill="#BFDBFE" stroke="#93C5FD" stroke-width="1"/>
+  <text x="118" y="136" text-anchor="middle" font-size="11" fill="#1E40AF" font-weight="bold">B组优先 · 老人&小宝</text>
+
+  <!-- ZONE 2: 鲸鲨馆 – top-center, landmark -->
+  <rect x="290" y="18" width="180" height="65" rx="12" fill="#FDE68A" stroke="#F59E0B" stroke-width="2"/>
+  <text x="380" y="40" text-anchor="middle" font-size="14" font-weight="bold" fill="#78350F">🦈 鲸鲨馆 · 全家必去</text>
+  <text x="380" y="58" text-anchor="middle" font-size="11.5" fill="#92400E">全天开放 · 集合点① · 冷气舒适</text>
+  <circle cx="380" cy="48" r="26" fill="none" stroke="#F59E0B" stroke-width="2" stroke-dasharray="4 3" opacity="0.6"/>
+
+  <!-- ZONE 3: 梦幻海洋·刺激项目 – top-right -->
+  <rect x="550" y="28" width="180" height="155" rx="12" fill="#DCFCE7" stroke="#22C55E" stroke-width="1.5"/>
+  <text x="640" y="50" text-anchor="middle" font-size="11" font-weight="bold" fill="#166534">🎢 梦幻海洋·刺激区</text>
+  <rect x="564" y="58" width="152" height="24" rx="6" fill="#16A34A"/>
+  <text x="640" y="75" text-anchor="middle" font-size="11.5" fill="white" font-weight="bold">🎢 企鹅过山车 A组首冲</text>
+  <rect x="564" y="88" width="152" height="24" rx="6" fill="#22C55E"/>
+  <text x="640" y="104" text-anchor="middle" font-size="11.5" fill="white" font-weight="bold">🧊 冰山过山车 A组</text>
+  <rect x="564" y="118" width="74" height="24" rx="6" fill="#4ADE80"/>
+  <text x="601" y="134" text-anchor="middle" font-size="11" fill="white">💦 超级激流</text>
+  <rect x="644" y="118" width="72" height="24" rx="6" fill="#4ADE80"/>
+  <text x="680" y="134" text-anchor="middle" font-size="11" fill="white">🦜 鹦鹉车</text>
+  <rect x="564" y="148" width="152" height="24" rx="6" fill="#BBF7D0" stroke="#86EFAC" stroke-width="1"/>
+  <text x="640" y="163" text-anchor="middle" font-size="11" fill="#166534" font-weight="bold">A组专属 · 每2项补水</text>
+
+  <!-- ZONE 4: 横琴海·演出中心 – center -->
+  <ellipse cx="350" cy="280" rx="120" ry="75" fill="#FEF9C3" stroke="#EAB308" stroke-width="2"/>
+  <text x="350" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#713F12">🌊 横琴海·演出中心</text>
+  <text x="350" y="274" text-anchor="middle" font-size="11" fill="#92400E">🎠 海洋大巡游 15:00</text>
+  <text x="350" y="290" text-anchor="middle" font-size="11" fill="#92400E">🌙 夜光巡游 19:15</text>
+  <text x="350" y="306" text-anchor="middle" font-size="11" fill="#B45309" font-weight="bold">🎆 烟花秀 20:00 ⭐</text>
+
+  <!-- ZONE 5: 海豚湾·海狮岛 – right-center -->
+  <rect x="590" y="200" width="150" height="140" rx="12" fill="#F0FDFA" stroke="#0D9488" stroke-width="1.5"/>
+  <text x="665" y="220" text-anchor="middle" font-size="11" font-weight="bold" fill="#065F46">🐬 海豚湾·海狮岛</text>
+  <rect x="604" y="228" width="122" height="24" rx="6" fill="#0D9488"/>
+  <text x="665" y="244" text-anchor="middle" font-size="11.5" fill="white">🐬 海豚剧场 12:00</text>
+  <text x="665" y="266" text-anchor="middle" font-size="11" fill="#0F766E">15:30 · 17:00</text>
+  <rect x="604" y="275" width="122" height="24" rx="6" fill="#14B8A6"/>
+  <text x="665" y="291" text-anchor="middle" font-size="11.5" fill="white">🦭 海狮剧场 13:00</text>
+  <text x="665" y="309" text-anchor="middle" font-size="11" fill="#0F766E">14:30 · 16:00 · 18:00</text>
+  <rect x="604" y="318" width="122" height="20" rx="6" fill="#CCFBF1" stroke="#5EEAD4" stroke-width="1"/>
+  <text x="665" y="332" text-anchor="middle" font-size="11" fill="#065F46">全家共同·老人舒适</text>
+
+  <!-- ZONE 6: 儿童乐园&海豚岛 – bottom-left -->
+  <rect x="30" y="300" width="170" height="140" rx="12" fill="#FFF7ED" stroke="#F97316" stroke-width="1.5"/>
+  <text x="115" y="320" text-anchor="middle" font-size="11" font-weight="bold" fill="#9A3412">🎡 亲子&儿童区</text>
+  <rect x="44" y="328" width="142" height="24" rx="6" fill="#F97316"/>
+  <text x="115" y="344" text-anchor="middle" font-size="11.5" fill="white">🌀 海豚转转车·旋转水战</text>
+  <rect x="44" y="358" width="142" height="24" rx="6" fill="#FB923C"/>
+  <text x="115" y="374" text-anchor="middle" font-size="11.5" fill="white">🐬 海豚岛·触摸池</text>
+  <rect x="44" y="388" width="142" height="24" rx="6" fill="#FDBA74"/>
+  <text x="115" y="403" text-anchor="middle" font-size="11" fill="#7C2D12">5D城堡影院 11:30起</text>
+  <rect x="44" y="418" width="142" height="20" rx="6" fill="#FED7AA" stroke="#FDBA74" stroke-width="1"/>
+  <text x="115" y="432" text-anchor="middle" font-size="11" fill="#9A3412">小宝贝首选区域</text>
+
+  <!-- ZONE 7: 长隆剧院 – bottom-center -->
+  <rect x="240" y="375" width="175" height="82" rx="12" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.5"/>
+  <text x="327" y="396" text-anchor="middle" font-size="11" font-weight="bold" fill="#4C1D95">🎪 长隆剧院</text>
+  <rect x="254" y="403" width="147" height="24" rx="6" fill="#7C3AED"/>
+  <text x="327" y="419" text-anchor="middle" font-size="11.5" fill="white" font-weight="bold">🎠 长隆秀 17:00开演</text>
+  <text x="327" y="447" text-anchor="middle" font-size="11" fill="#6D28D9">剧院15:30开园 · 单独购票</text>
+
+  <!-- ZONE 8: 横琴湾酒店 – bottom-right -->
+  <rect x="590" y="360" width="150" height="98" rx="12" fill="#F0F9FF" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="665" y="382" text-anchor="middle" font-size="11" font-weight="bold" fill="#0C4A6E">🏨 横琴湾酒店</text>
+  <rect x="604" y="390" width="122" height="22" rx="6" fill="#0EA5E9"/>
+  <text x="665" y="405" text-anchor="middle" font-size="11.5" fill="white">入住15:00 · 早享入园</text>
+  <text x="665" y="427" text-anchor="middle" font-size="11" fill="#0369A1">水世界 09:30-21:30</text>
+  <text x="665" y="443" text-anchor="middle" font-size="10.5" fill="#0369A1">集合点②酒店大堂</text>
+
+  <!-- CONNECTING PATHS A组 -->
+  <path d="M210,95 Q260,95 290,83" stroke="#1D4ED8" stroke-width="2" stroke-dasharray="6 4" fill="none" marker-end="url(#arrowBlue)" opacity="0.7"/>
+  <path d="M470,83 Q510,60 550,90" stroke="#16A34A" stroke-width="2" stroke-dasharray="6 4" fill="none" opacity="0.7"/>
+  <!-- A组 route arrow -->
+  <path d="M630,185 Q630,200 620,210" stroke="#16A34A" stroke-width="2" stroke-dasharray="5 3" fill="none" opacity="0.7"/>
+
+  <!-- B组路线 hints -->
+  <path d="M200,140 Q240,160 260,200" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="5 3" fill="none" opacity="0.6"/>
+  <path d="M300,355 Q340,360 360,355" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="5 3" fill="none" opacity="0.6"/>
+
+  <!-- LEGEND TOP -->
+  <rect x="30" y="200" width="100" height="62" rx="8" fill="rgba(255,255,255,0.8)" stroke="rgba(14,165,233,0.2)" stroke-width="1"/>
+  <text x="80" y="218" text-anchor="middle" font-size="10" font-weight="bold" fill="#334155">路线说明</text>
+  <line x1="40" y1="230" x2="70" y2="230" stroke="#1D4ED8" stroke-width="2" stroke-dasharray="5 3"/>
+  <text x="75" y="233" font-size="10" fill="#1E40AF">A组路线</text>
+  <line x1="40" y1="248" x2="70" y2="248" stroke="#0D9488" stroke-width="2" stroke-dasharray="5 3"/>
+  <text x="75" y="251" font-size="10" fill="#065F46">B组路线</text>
+  
+  <!-- STAR markers for集合点 -->
+  <circle cx="380" cy="84" r="8" fill="#F59E0B" opacity="0.9"/>
+  <text x="380" y="88" text-anchor="middle" font-size="10" fill="white" font-weight="bold">集</text>
+  <text x="380" y="100" text-anchor="middle" font-size="10" fill="#78350F" font-weight="bold">集合点①</text>
+
+  <circle cx="665" cy="443" r="0" fill="none"/>
+  <!-- hotel集合 -->
+  <circle cx="590" cy="390" r="7" fill="#0EA5E9" opacity="0.9"/>
+  <text x="590" y="394" text-anchor="middle" font-size="10" fill="white" font-weight="bold">集</text>
+</svg>
+    </div>
+    <div class="map-legend">
+      <div class="leg-item"><div class="leg-dot" style="background:#3B82F6"></div>极地探险 B组</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#F59E0B"></div>🦈鲸鲨馆 全家</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#22C55E"></div>刺激项目 A组</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#EAB308"></div>横琴海演出</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#0D9488"></div>海豚·海狮</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#F97316"></div>亲子·儿童区</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#7C3AED"></div>长隆剧院</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#0EA5E9"></div>横琴湾酒店</div>
+    </div>
+  </div>
+  <div class="notice info reveal d2">
+    <span class="ni">📍</span>
+    <div class="nc"><h4>集合点约定（重要！不要约在项目出口）</h4>
+    <p>集合点①：<strong>鲸鲨馆门口</strong>（园区中心，四方向可达）；集合点②：<strong>酒店大堂</strong>（晚间回流/紧急情况）。A/B组每 1.5小时微信报位置，手机保证有电。</p></div>
+  </div>
+</section>
+
+<!-- ████ SECTION: DAY 1 ████ -->
+<section id="day1" data-speech="五月三十日第一天详细时间线。凌晨五点起床准备，五点半从佛山千灯湖出发，自驾约两小时十到四十分钟，七点四十五到八点半抵达横琴湾酒店。爸爸办理前台手续，停车授权、票务核验、确认早享入园时间；妈妈带小宝和婆婆去洗手间补水涂防晒。八点半到九点前往早享入园通道。九点A组和B组分别出发，A组冲企鹅过山车等热门项目，B组进鲸鲨馆白鲸馆。十点二十全家在鲸鲨馆集合，然后看十一点白鲸剧场。十一点五十错峰午餐，一点看海狮剧场。下午两点补票，十四点半到三点看巡游。三点二十五分长隆秀分流，十五点三十五分前必须离开海洋王国。五点长隆秀开演。十八点四十回海洋王国夜场，十九点十五夜光巡游，二十点烟花秀。二十点二十回酒店休息。">
+  <div class="sec-head reveal">
+    <div class="sec-eyebrow">第一天 · 5月30日周六</div>
+    <h2 class="sec-title">📅 Day 1 主时间线</h2>
+    <p class="sec-sub">「稳妥版」全天行程。早享入园若确认8点可入，整体前移1小时执行。</p>
+  </div>
+
+  <div class="notice warn reveal d1">
+    <span class="ni">⚠️</span>
+    <div class="nc"><h4>到酒店第一件事 — 必问清楚</h4>
+    <p>① 住房套票早享入园几点（官网写"提前至少1小时"，不是固定9点）② 长隆秀是否需提前换票/绑定身份证 ③ 第二天是否仍可多次入园 ④ 停车授权怎么办理 ⑤ 水世界退房日权益</p></div>
+  </div>
+
+  <div class="timeline">
+    <div class="tcard reveal" data-speech="凌晨五点起床，五点半从佛山千灯湖出发。导航目的地：珠海长隆横琴湾酒店。周六清早路况好，但带孩子要按两小时十分到两小时四十分预留。车上早餐以不洒不油低糖为主，小宝贝可以在车里继续睡。" onclick="speakCard(this)">
+      <div class="t-time">05:00<span class="t-sep">|</span>05:30</div>
+      <div class="t-body"><h3>🌙 起床·装车·从千灯湖出发</h3>
+      <p>导航「珠海长隆横琴湾酒店」，全程约130km。周六早路况稳，但带孩子按<strong>2小时10分-2小时40分</strong>预留。车上早餐不洒不油不腻，小宝可继续睡。</p>
+      <div class="chips"><span class="chip blue">证件随身</span><span class="chip teal">泳衣另装一袋</span><span class="chip gold">小宝可车里睡</span></div></div>
+    </div>
+    <div class="tcard reveal d1" data-speech="七点四十五到八点半抵达横琴湾酒店。爸爸立刻去前台礼宾部：停车授权（停车免费但须登记）、票务和身份证核验、确认早享入园时间、长隆秀入场规则、是否需要换票。妈妈带小宝和婆婆去洗手间、涂防晒霜、补水，不要全家挤在前台。" onclick="speakCard(this)">
+      <div class="t-time">07:45<span class="t-sep">|</span>08:30</div>
+      <div class="t-body"><h3>🏨 酒店停车·办手续·寄存行李</h3>
+      <p><strong>爸爸</strong>：前台/礼宾 → 停车授权+票务核验+确认早享时间+长隆秀换票规则。<strong>妈妈</strong>：带小宝贝和婆婆去洗手间、涂防晒、补水，不全家堵在前台。大件行李可先寄存，随身只带入园包。</p>
+      <div class="chips"><span class="chip blue">停车授权须办</span><span class="chip coral">问清早享几点</span><span class="chip violet">问清水世界权益</span></div></div>
+    </div>
+    <div class="tcard reveal d2" data-speech="八点半到九点，全家前往海洋王国早享入园通道。如果早享是九点，八点四十左右到入口最舒服；如果确认八点已可入园，立刻进园，不在酒店久停。老人和小宝贝不要追赶，进园后先定集合点在鲸鲨馆门口。" onclick="speakCard(this)">
+      <div class="t-time">08:30<span class="t-sep">|</span>09:00</div>
+      <div class="t-body"><h3>🚪 前往海洋王国早享通道</h3>
+      <p>确认早享9点→8:40到入口；确认早享8点→<strong>立刻进园不等</strong>。进园第一件事：确认集合点（鲸鲨馆门口），A/B组同时发出，各自路线启动。</p>
+      <div class="chips"><span class="chip teal">酒店早享权益</span><span class="chip blue">集合点鲸鲨馆门口</span></div></div>
+    </div>
+    <div class="tcard grp-a reveal" data-speech="九点到十点十五分，A/B两组分别启动。A组爸爸带双胞胎姐姐，先冲企鹅过山车、冰山过山车、超级激流，按身高和现场开放情况选择，鹦鹉过山车看胆量决定。入园必须先测身高，不要踮脚。B组妈妈带小宝贝和婆婆，进鲸鲨馆或海豚湾，不带老人和小宝排刺激项目长队。两组约十点二十集合。" onclick="speakCard(this)">
+      <div class="t-time">09:00<span class="t-sep">|</span>10:15</div>
+      <div class="t-body"><h3>⚡ A/B两组分头出发</h3>
+      <p><strong class="chip blue" style="font-size:13px">A组</strong> 爸爸+姐姐们 → 企鹅过山车→冰山过山车→超级激流（按开放和排队情况）。先量身高，不踮脚。<br><strong class="chip teal" style="font-size:13px">B组</strong> 妈妈+小宝+婆婆 → 鲸鲨馆/白鲸馆/海豚湾，室内冷气优先，控制体力消耗。</p>
+      <div class="chips"><span class="chip blue">A组抢热门</span><span class="chip teal">B组降体耗</span><span class="chip gold">10:20前集合</span></div></div>
+    </div>
+    <div class="tcard grp-b reveal d1" data-speech="十点二十到十一点四十五，全家集合在鲸鲨馆，共同参观这个全家高价值室内项目，适合拍照和休息，婆婆和小宝都能轻松欣赏。十一点白鲸剧场是当天最顺的第一场大剧场，建议全家提前二十分钟入场，坐边侧靠近出口位置，方便带小宝临时离场。" onclick="speakCard(this)">
+      <div class="t-time">10:20<span class="t-sep">|</span>11:45</div>
+      <div class="t-body"><h3>🦈 全家鲸鲨馆 + 11:00白鲸剧场</h3>
+      <p><strong>鲸鲨馆：全家共同必做</strong>，室内冷气，视觉震撼，适合老人小孩拍照休息。<strong>11:00白鲸剧场</strong>（官方确认场次）：全天候恒温4000座，建议<strong>提前20-25分钟</strong>入场，边侧靠出口坐，方便小宝中途离场。</p>
+      <div class="chips"><span class="chip gold">全家集合</span><span class="chip blue">11:00白鲸场</span><span class="chip teal">提前20分进场</span></div></div>
+    </div>
+    <div class="tcard reveal d2" data-speech="十一点五十到十三点二十，错峰午餐加海狮剧场。不要拖到十二点半以后再吃，要在极地区域就近吃简餐，一点看海狮剧场。海狮表演互动性强，小宝和婆婆都会喜欢。如果小宝很困，妈妈和婆婆可以放弃海狮，找室内冷气区推车午睡。" onclick="speakCard(this)">
+      <div class="t-time">11:50<span class="t-sep">|</span>13:20</div>
+      <div class="t-body"><h3>🍜 错峰午餐 + 13:00海狮剧场</h3>
+      <p>不拖到12:30再吃！就近极地区或海象山简餐。<strong>13:00 海狮剧场</strong>（官方确认场次）互动性强，小宝和婆婆都喜欢。若小宝困，妈妈+婆婆找室内冷气区推车午睡，不强撑。</p>
+      <div class="chips"><span class="chip coral">11:50先吃</span><span class="chip blue">13:00海狮</span><span class="chip gold">小宝午睡优先</span></div></div>
+    </div>
+    <div class="tcard reveal" data-speech="十三点三十到十五点二十，补项目加十五点海洋大巡游。A组补冰山激流丛林过山车，B组补企鹅馆北极熊馆海豚岛触摸池。十四点半开始往横琴海移动，十五点准时看海洋大巡游。提前十五分钟站位即可，不必过早暴晒。巡游看完立刻集合准备分流。" onclick="speakCard(this)">
+      <div class="t-time">13:30<span class="t-sep">|</span>15:20</div>
+      <div class="t-body"><h3>🎡 补项目 + 15:00海洋大巡游⭐</h3>
+      <p>A组补：冰山激流/丛林过山车。B组补：企鹅馆、北极熊馆、海豚岛、触摸池。<strong>14:30</strong>开始向横琴海移动，<strong>15:00 海洋大巡游</strong>（官方确认），提前15分钟站位，不必过早暴晒。巡游看完即刻集合分流。</p>
+      <div class="chips"><span class="chip teal">14:00白鲸备选</span><span class="chip blue">14:30海狮备选</span><span class="chip gold">15:00全家巡游</span></div></div>
+    </div>
+    <div class="tcard alert reveal d1" data-speech="十五点二十五到十六点四十五，长隆秀分流，这是全天最关键节点。看秀的人十五点三十五前必须离开海洋王国！不然赶不上十五点三十长隆剧院开园！回酒店取水上洗手间，十六点进剧院。如果小宝贝不看秀或已经很累，妈妈带小宝回酒店办入住休息或玩水世界，由爸爸带两个姐姐和婆婆看秀。十七点长隆秀开演。" onclick="speakCard(this)">
+      <div class="t-time">15:25<span class="t-sep">|</span>16:45</div>
+      <div class="t-body"><h3>🎪 长隆秀分流 ⚡ 关键节点！</h3>
+      <p><strong style="color:#BE123C">15:35前必须离开海洋王国</strong>（剧院15:30开园，赶不上就晚了）。回酒店取水+洗手间→16:00进剧院。<br>方案A：全家看秀，小宝带耳罩。<br>方案B：爸爸+姐姐们+婆婆看秀，妈妈+小宝回酒店休息/水世界。</p>
+      <div class="chips"><span class="chip pink">15:35前出园</span><span class="chip violet">16:00剧院开园</span><span class="chip blue">17:00长隆秀开演</span></div></div>
+    </div>
+    <div class="tcard reveal d2" data-speech="十七点到十八点半，长隆秀全场约九十分钟。长隆秀由来自二十多个国家的顶尖马戏艺术家表演，已获全球主题娱乐协会最佳演艺奖，非常精彩！看秀的一边享受；妈妈带小宝在酒店休息或玩水世界。十八点半酒店大堂或水世界门口集合。" onclick="speakCard(this)">
+      <div class="t-time">17:00<span class="t-sep">|</span>18:30</div>
+      <div class="t-body"><h3>🎠 长隆秀 / 酒店水世界恢复</h3>
+      <p><strong>长隆秀</strong>（荣获TEA全球最佳演艺奖）约90分钟，来自20+国家顶尖马戏演员，精彩非凡。<br>看秀：票已买优先看，小宝带耳罩。<br>不看：酒店水世界（室内营业至21:30），小宝玩水后容易困，别安排硬行程。</p>
+      <div class="chips"><span class="chip violet">长隆秀≈90分钟</span><span class="chip teal">水世界至21:30</span><span class="chip gold">18:30大堂集合</span></div></div>
+    </div>
+    <div class="tcard gold-t reveal" data-speech="十八点四十到二十点十五，回海洋王国夜场。若套票确认可多次入园，十九点十五夜光大巡游，二十点海洋幻彩烟花秀。烟花秀融合烟花水秀无人机灯光激光，超级震撼。注意小宝贝可能怕响，带耳罩或提前站远一点。如果孩子已经很累，可以在酒店附近远观烟花，不必站最前排。" onclick="speakCard(this)">
+      <div class="t-time">18:40<span class="t-sep">|</span>20:15</div>
+      <div class="t-body"><h3>✨ 夜场回园 · 19:15夜光巡游 · 20:00烟花🎆</h3>
+      <p>套票多次入园确认后回园。<strong>19:15夜光大巡游</strong>（官方确认），荧光热气球+仙子夜光Party。<strong>20:00海洋幻彩烟花秀</strong>（官方确认），烟花+水秀+无人机+激光，年度压轴！小宝怕响→带耳罩/站远一点，孩子累了→酒店附近远观即可。</p>
+      <div class="chips"><span class="chip violet">19:15夜光巡游</span><span class="chip gold">20:00烟花压轴⭐</span><span class="chip coral">小宝带耳罩</span></div></div>
+    </div>
+    <div class="tcard reveal d1" data-speech="二十点二十到二十一点三十，回酒店洗澡夜宵早睡。这天不要再安排复杂活动。争取二十二点前睡觉，第二天要补漏。泳衣和第二天入园包提前分好，避免早上全家翻箱。" onclick="speakCard(this)">
+      <div class="t-time">20:20<span class="t-sep">|</span>21:30</div>
+      <div class="t-body"><h3>🏨 回酒店·洗澡·夜宵·早睡</h3>
+      <p>这天不再安排复杂活动。<strong>争取22:00前入睡</strong>（第二天要补漏）。泳衣和第二天入园包提前分好放门口，避免早上全家翻箱。婆婆脚最重要，回房先热水泡脚。</p>
+      <div class="chips"><span class="chip teal">低刺激收尾</span><span class="chip blue">22:00前入睡</span><span class="chip gold">明天补漏</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ████ SECTION: 分组路线 ████ -->
+<section id="groups" data-speech="A组B组详细路线说明。A组：爸爸带双胞胎姐姐冲刺激项目。入园先量身高，不踮脚，按现场安全员标准。优先企鹅过山车，身高约一米一以上儿童须成人陪同，六岁半大概率满足；冰山过山车，一米零到一米二需成人陪同；超级激流；鹦鹉过山车要求一米三二以上，六岁半如果还不到一米三二就跳过，不争；丛林过山车是亲子型可补。每玩两个室外项目补一次水。B组：妈妈带小宝贝和婆婆走舒适线。首选鲸鲨馆白鲸馆企鹅馆北极熊馆海豚岛。三岁半小宝不强塞过山车，以旋转类互动类观赏类为主，比如海豚转转车旋转水战。剧场优先靠近出口坐，方便临时离场。午后十二点半到两点是小宝体力低谷，安排午睡或室内动物馆。">
+  <div class="sec-head reveal">
+    <div class="sec-eyebrow">分组路线详解</div>
+    <h2 class="sec-title">🅰🅱 A/B 两组专属路线</h2>
+    <p class="sec-sub">每组都有高价值内容，不是「陪跑」——A组得速度刺激，B组得舒适观赏，集合点把全家体验重新拼起来。</p>
+  </div>
+  <div class="routes-grid">
+    <!-- A组 -->
+    <div class="route reveal" data-speech="A组刺激项目详情：爸爸加双胞胎两姐姐。入园先测身高，诚实不踮脚。第一目标：企鹅过山车，儿童一米零到一米二须成人陪同，六岁半姐姐大概率可参与；冰山过山车，同样要求；超级激流全家激流，欢乐；鹦鹉过山车最刺激，需一米三二以上，姐姐不够高就跳过。丛林过山车亲子型可以弥补。每玩两项补水，午后当心暴晒崩盘。" onclick="speakCard(this)">
+      <div class="route-head a">
+        <div class="route-tag">A 组 · 刺激线</div>
+        <h3>🚀 爸爸 + 双胞胎姐姐①②</h3>
+        <p>冲热门室外刺激项目 · 速度优先</p>
+      </div>
+      <div class="route-body">
+        <ul class="attr-list">
+          <li class="attr-item"><span class="ai-icon">🎢</span><div class="ai-info"><strong>企鹅过山车</strong><span>1.0-1.2m须成人陪同 · A组首冲</span></div><span class="ai-tag chip green">必玩</span></li>
+          <li class="attr-item"><span class="ai-icon">🧊</span><div class="ai-info"><strong>冰山过山车</strong><span>1.0m以下不可乘坐 · 入园第二目标</span></div><span class="ai-tag chip green">必玩</span></li>
+          <li class="attr-item"><span class="ai-icon">💦</span><div class="ai-info"><strong>超级激流</strong><span>家庭激流·全程刺激·会湿身</span></div><span class="ai-tag chip blue">推荐</span></li>
+          <li class="attr-item"><span class="ai-icon">🌳</span><div class="ai-info"><strong>丛林过山车</strong><span>家庭型·胆小也能玩·可补票</span></div><span class="ai-tag chip teal">亲子</span></li>
+          <li class="attr-item"><span class="ai-icon">🦜</span><div class="ai-info"><strong>鹦鹉过山车</strong><span>需1.32m以上·姐姐未达到则跳过</span></div><span class="ai-tag chip coral">看身高</span></li>
+        </ul>
+        <div class="chips" style="margin-top:12px">
+          <span class="chip blue">入园先量身高</span>
+          <span class="chip coral">每2项补一次水</span>
+          <span class="chip gold">不拖B组</span>
+        </div>
+      </div>
+    </div>
+    <!-- B组 -->
+    <div class="route reveal d1" data-speech="B组舒适项目详情：妈妈加小宝贝加婆婆。首选鲸鲨馆，全家共同高价值，室内冷气，婆婆和小宝都能轻松享受。白鲸馆和白鲸剧场，十一点和十四点各一场；企鹅馆北极熊馆，室内冷气适合午后热的时候走；海豚岛触摸池，亲子互动，小宝很喜欢；五点城堡影院，十一点三十起每半小时一场，适合小宝观看。剧场靠近出口坐，中午十二点半到两点安排午睡，不强塞刺激项目。" onclick="speakCard(this)">
+      <div class="route-head b">
+        <div class="route-tag">B 组 · 舒适线</div>
+        <h3>🌿 妈妈 + 小宝贝 + 婆婆</h3>
+        <p>室内动物馆·剧场演出 · 体力低消耗</p>
+      </div>
+      <div class="route-body">
+        <ul class="attr-list">
+          <li class="attr-item"><span class="ai-icon">🦈</span><div class="ai-info"><strong>鲸鲨馆</strong><span>全天开放·室内冷气·视觉震撼</span></div><span class="ai-tag chip gold">必做</span></li>
+          <li class="attr-item"><span class="ai-icon">🐋</span><div class="ai-info"><strong>白鲸馆·白鲸剧场</strong><span>11:00/14:00/17:45场 · 提前20分进</span></div><span class="ai-tag chip blue">必看</span></li>
+          <li class="attr-item"><span class="ai-icon">🐧</span><div class="ai-info"><strong>企鹅馆·北极熊馆</strong><span>室内线·午后热时走·老人轻松</span></div><span class="ai-tag chip teal">舒适</span></li>
+          <li class="attr-item"><span class="ai-icon">🐬</span><div class="ai-info"><strong>海豚岛·触摸池</strong><span>亲子互动·小宝情绪回血·无限制</span></div><span class="ai-tag chip green">亲子</span></li>
+          <li class="attr-item"><span class="ai-icon">🎬</span><div class="ai-info"><strong>5D城堡影院</strong><span>11:30起每30分钟一场·刺激体验</span></div><span class="ai-tag chip coral">推荐</span></li>
+        </ul>
+        <div class="chips" style="margin-top:12px">
+          <span class="chip teal">剧场靠出口坐</span>
+          <span class="chip gold">12:30-14:00午睡</span>
+          <span class="chip blue">少排长队</span>
+        </div>
+      </div>
+    </div>
+    <!-- AB集合 -->
+    <div class="route reveal d2" data-speech="AB两组集合与共同行程。全家共同必做项目：鲸鲨馆全家集合参观；十五点海洋大巡游全家观看；二十点海洋幻彩烟花秀是压轴项目全家共同。集合点约定：集合点一在鲸鲨馆门口，集合点二在酒店大堂。不要约在某个项目出口，因为出口太多容易错位。A/B组每一个半小时微信报位置，手机必须保证有电。" onclick="speakCard(this)">
+      <div class="route-head ab">
+        <div class="route-tag">全家 · 集合汇合</div>
+        <h3>🌟 AB共同行程节点</h3>
+        <p>集合点固定 · 不约在项目出口</p>
+      </div>
+      <div class="route-body">
+        <ul class="attr-list">
+          <li class="attr-item"><span class="ai-icon">🦈</span><div class="ai-info"><strong>鲸鲨馆（集合点①）</strong><span>10:20全家集合·共同游览</span></div><span class="ai-tag chip gold">集合</span></li>
+          <li class="attr-item"><span class="ai-icon">🎠</span><div class="ai-info"><strong>海洋大巡游 15:00</strong><span>全家观看·提前15分站位即可</span></div><span class="ai-tag chip blue">必看</span></li>
+          <li class="attr-item"><span class="ai-icon">🎆</span><div class="ai-info"><strong>烟花秀 20:00</strong><span>年度压轴·小宝带耳罩·可远观</span></div><span class="ai-tag chip violet">压轴⭐</span></li>
+          <li class="attr-item"><span class="ai-icon">🏨</span><div class="ai-info"><strong>酒店大堂（集合点②）</strong><span>18:30秀后集合·紧急备用点</span></div><span class="ai-tag chip teal">集合</span></li>
+        </ul>
+        <div class="chips" style="margin-top:12px">
+          <span class="chip violet">每1.5h报位置</span>
+          <span class="chip coral">手机保证有电</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ████ SECTION: 演出时间 ████ -->
+<section id="shows" data-speech="官方演出时间表，所有时间均来自长隆官网实时查询。白鲸剧场：十一点、十四点、十七点四十五，我们安排十一点场。海豚剧场：十二点、十五点三十、十七点，建议十二点场和十五点三十场。海狮剧场：十三点、十四点三十、十六点、十八点，建议十三点场。五点城堡影院：十一点三十到十四点每三十分钟一场，十五点到十九点每六十分钟一场。水上飞人大汇演：十六点，A组分流前看。海洋大巡游：十五点整，全家必看。海洋猛犸音乐派对：十七点，A组可看。海洋夜光大巡游：十九点十五，夜场看。海洋幻彩烟花秀：二十点整，年度压轴。长隆秀：十七点开演，十五点三十剧院开园，需要提前十五点三十五从海洋王国出发！">
+  <div class="sec-head reveal">
+    <div class="sec-eyebrow">官方演出 · 实时查询</div>
+    <h2 class="sec-title">🎭 官方演出时间表</h2>
+    <p class="sec-sub">以下时间均来自<strong>长隆官网2026年实时数据</strong>（查询日期：2026年5月26日）· 以当天官网/现场公告为准</p>
+  </div>
+  <div class="show-timeline reveal d1">
+    <div class="show-head">
+      <div>演出节目</div>
+      <div>今日场次</div>
+      <div>我家安排</div>
+      <div>适合谁</div>
+    </div>
+    <div class="show-row" data-speech="白鲸剧场，官方场次十一点、十四点、十七点四十五。全天候恒温四千座，白鲸水中芭蕾，我家安排十一点场，A/B两组全家观看，提前二十分钟进场。" onclick="speakCard(this)">
+      <div class="sr-name">🐋 白鲸剧场</div>
+      <div class="sr-time"><b>11:00</b> · 14:00 · 17:45</div>
+      <div class="sr-note">✅ 安排 <strong>11:00场</strong> 全家·提前20分进场</div>
+      <div class="sr-who"><span class="chip blue" style="font-size:11px">全家</span></div>
+    </div>
+    <div class="show-row" data-speech="海豚剧场，官方场次十二点、十五点三十、十七点。海豚与人类嬉戏，室外场馆，夏季需防晒。建议B组看十二点场，避开长队。" onclick="speakCard(this)">
+      <div class="sr-name">🐬 海豚剧场</div>
+      <div class="sr-time"><b>12:00</b> · 15:30 · 17:00</div>
+      <div class="sr-note">B组可选 <strong>12:00场</strong> · 室外防晒</div>
+      <div class="sr-who"><span class="chip teal" style="font-size:11px">B组</span></div>
+    </div>
+    <div class="show-row" data-speech="海狮剧场，官方场次十三点、十四点三十、十六点、十八点。互动性强，海狮争霸赛，老人小孩都喜欢。建议全家看十三点场，和午餐接续。" onclick="speakCard(this)">
+      <div class="sr-name">🦭 海狮剧场</div>
+      <div class="sr-time"><b>13:00</b> · 14:30 · 16:00 · 18:00</div>
+      <div class="sr-note">✅ 安排 <strong>13:00场</strong> 全家</div>
+      <div class="sr-who"><span class="chip blue" style="font-size:11px">全家</span></div>
+    </div>
+    <div class="show-row" data-speech="五点城堡影院，十一点三十到十四点每三十分钟一场，十五点到十九点每六十分钟一场。动感座椅，五感体验，适合小宝和大孩子。B组可在室内午睡前后插入。" onclick="speakCard(this)">
+      <div class="sr-name">🎬 5D城堡影院</div>
+      <div class="sr-time">11:30起每30分 / 15:00起每60分</div>
+      <div class="sr-note">B组灵活插入·室内避热</div>
+      <div class="sr-who"><span class="chip coral" style="font-size:11px">B组</span></div>
+    </div>
+    <div class="show-row" data-speech="水上飞人大汇演，十六点，水上摩托艇特技，刺激精彩。A组十六点前完成分流准备前可看，时间紧凑注意！" onclick="speakCard(this)">
+      <div class="sr-name">🏄 水上飞人大汇演</div>
+      <div class="sr-time"><b>16:00</b></div>
+      <div class="sr-note">A组分流前可顺路看</div>
+      <div class="sr-who"><span class="chip green" style="font-size:11px">A组</span></div>
+    </div>
+    <div class="show-row" data-speech="海洋大巡游，十五点整，大型花车汇演，吉祥物同台，全家最佳拍照时刻。提前十五分钟站位即可，不必过早暴晒。全家必看！" onclick="speakCard(this)">
+      <div class="sr-name">🎠 海洋大巡游 ⭐</div>
+      <div class="sr-time"><b>15:00</b></div>
+      <div class="sr-note">✅ 全家必看·提前15分站位</div>
+      <div class="sr-who"><span class="chip gold" style="font-size:11px">全家⭐</span></div>
+    </div>
+    <div class="show-row" data-speech="海洋猛犸音乐派对，十七点，超级猛犸卖萌互动，可登乘猛犸。身高限制一米到一米九六，两个姐姐可参与。A组长隆秀看完晚上有时间可插入。" onclick="speakCard(this)">
+      <div class="sr-name">🦣 海洋猛犸派对</div>
+      <div class="sr-time"><b>17:00</b></div>
+      <div class="sr-note">登乘1.0-1.96m·姐姐可参与</div>
+      <div class="sr-who"><span class="chip green" style="font-size:11px">A组</span></div>
+    </div>
+    <div class="show-row" data-speech="海洋夜光大巡游，十九点十五，荧光热气球，仙子夜光派对，夜间气氛绝佳。看完约二十分钟后等待烟花秀，氛围极好。" onclick="speakCard(this)">
+      <div class="sr-name">🌙 夜光大巡游</div>
+      <div class="sr-time"><b>19:15</b></div>
+      <div class="sr-note">夜场回园后首看·氛围极佳</div>
+      <div class="sr-who"><span class="chip violet" style="font-size:11px">全家</span></div>
+    </div>
+    <div class="show-row" style="background:linear-gradient(90deg,rgba(253,230,138,.08),transparent)" data-speech="海洋幻彩烟花秀，二十点整，全年压轴盛典。烟花加水秀加无人机加灯光激光加高科技投影，震撼无比。注意小宝贝可能怕响声，提前准备儿童耳罩，或站到稍远一点的位置，不影响观赏。" onclick="speakCard(this)">
+      <div class="sr-name">🎆 烟花秀 ⭐ 压轴</div>
+      <div class="sr-time"><b>20:00</b></div>
+      <div class="sr-note">✅ 全家压轴·提前30分占位·小宝带耳罩</div>
+      <div class="sr-who"><span class="chip gold" style="font-size:11px">全家⭐</span></div>
+    </div>
+    <div class="show-row" style="background:linear-gradient(90deg,rgba(167,139,250,.08),transparent)" data-speech="长隆秀，十七点正式开演，十五点三十剧院开园。五月三日到五月三十一日每天一场，十七点准时开演。由来自二十多个国家的世界顶尖马戏演员演绎，已获全球主题娱乐协会最佳演艺大奖。重要：十五点三十五分必须离开海洋王国出发，才能十六点赶到剧院。" onclick="speakCard(this)">
+      <div class="sr-name">🎪 长隆秀（剧院）</div>
+      <div class="sr-time"><b>17:00</b> 开演</div>
+      <div class="sr-note">剧院<b>15:30</b>开园·5/30单场·须15:35前出园⚠️</div>
+      <div class="sr-who"><span class="chip violet" style="font-size:11px">全家</span></div>
+    </div>
+  </div>
+  <div class="show-alert reveal d2">
+    <span class="sa-icon">🚨</span>
+    <div><strong>长隆秀卡点提醒</strong>：5月3日-5月31日每天仅一场，17:00开演，剧院15:30开园。<strong>我们必须在15:35前离开海洋王国</strong>，否则赶不上。看完15:00巡游后立刻集合分流，不要临时再插项目！</div>
+  </div>
+</section>
+
+<!-- ████ SECTION: 酒店水世界 ████ -->
+<section id="hotel" data-speech="横琴湾酒店与水世界安排。酒店正式入住时间是下午三点，但早到可以办理票务、行李寄存和停车授权。住客享有多次入园特权和早享入园权益，最重要的是到前台确认早享具体几点。水世界五月三十日周六营业时间：室内九点三十到二十一点三十，室外十点三十到二十一点三十，海豚之窗八点到二十一点三十。最适合玩水世界的时间：长隆秀期间小宝贝撤退就玩水世界，或者晚上看完秀回来玩，以及第二天午餐后短玩。谁最适合：三岁半小宝、妈妈、婆婆。小宝玩水后容易犯困，后面不要再安排硬行程。">
+  <div class="sec-head reveal">
+    <div class="sec-eyebrow">住宿·水乐园</div>
+    <h2 class="sec-title">🏨 横琴湾酒店 &amp; 水世界</h2>
+    <p class="sec-sub">酒店本身就是"第二个乐园"——合理利用住客特权，让全家旅程更从容。</p>
+  </div>
+  <div class="hotel-grid reveal d1">
+    <div class="hotel-card hengqin">
+      <div class="hotel-card-body">
+        <span class="hc-tag">🏨 横琴湾酒店</span>
+        <h3>15:00入住 · 先寄存行李</h3>
+        <p>早到不保证拿房，但可办：票务/证件核验、寄存行李、停车授权。下午看秀分流时，让不看秀的人回酒店办入住休息。</p>
+      </div>
+    </div>
+    <div class="hotel-card water">
+      <div class="hotel-card-body">
+        <span class="hc-tag">🏊 水世界</span>
+        <h3>周六 09:30-21:30（室内）</h3>
+        <p>5月30日周六：室内09:30-21:30，室外10:30-21:30，海豚之窗08:00-21:30。退房日权益入住时以前台确认为准。</p>
+      </div>
+    </div>
+  </div>
+  <div class="hotel-cards-3 reveal d2">
+    <div class="card" data-speech="什么时候玩水世界最合适？最佳是长隆秀期间小宝贝撤退时，或者首日晚饭后不回海洋王国时。第二天中午退房后也可短玩，但要问清楚退房日的水世界权益。" onclick="speakCard(this)">
+      <h3>⏰ 最佳水世界时机</h3>
+      <p>①长隆秀期间（17:00-18:30），小宝+妈妈撤退来玩最合适。<br>②首日晚餐后若不回园，夜间玩水。<br>③第二天午餐后退房短玩（入住时确认退房日权益）。</p>
+    </div>
+    <div class="card" data-speech="谁最适合玩水世界？三岁半小宝贝最适合，有专属儿童区；妈妈陪同玩水；婆婆可在旁观看休息。大孩子如果白天刺激项目没玩够，水世界可作晚上的情绪奖励。" onclick="speakCard(this)">
+      <h3>👨‍👩‍👧 谁最适合</h3>
+      <p>三岁半小宝贝+妈妈+婆婆观看。大孩子若白天没玩够，水世界作晚间奖励。小宝玩水后<strong>必定犯困</strong>，之后别安排硬行程。</p>
+    </div>
+    <div class="card" data-speech="水世界必须携带物品：泳衣泳镜拖鞋必带；儿童浴巾和干衣服；手机防水袋；塑料袋装湿泳衣；儿童洗浴用品。建议提前装好放在专门的水世界包里，不要在酒店房间翻找浪费时间。" onclick="speakCard(this)">
+      <h3>🎒 水世界必带清单</h3>
+      <p>泳衣·泳镜·拖鞋·儿童浴巾·干衣服·手机防水袋·塑料袋（装湿衣）·儿童洗浴用品。建议装好放专门的"水世界包"，到房间直接拎走。</p>
+    </div>
+  </div>
+  <div class="notice info reveal d3">
+    <span class="ni">💎</span>
+    <div class="nc"><h4>横琴湾酒店住客特权（入住时务必确认）</h4>
+    <ul>
+      <li>早享入园：官网写"提前至少1小时"，到酒店当天确认具体几点</li>
+      <li>多次入园：长隆秀后回园必须确认，不能想当然</li>
+      <li>停车授权：免费停车但须到礼宾部登记车牌</li>
+      <li>水世界权益：退房日是否可用，入住时必问</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ████ SECTION: 雨天人多预案 ████ -->
+<section id="rain" data-speech="雨天和人多预案。珠海五月底又热又潮，阵雨概率高。真正的核心不是避雨，而是把室内项目放到天气最差体力最低的时候。下雨应对方案：立刻切室内线，鲸鲨馆、白鲸馆、企鹅馆、北极熊馆、五点城堡影院、白鲸海豚海狮剧场，雨停后再补室外机动，不在雨中硬排队。人多应对方案：只保六个核心项目，鲸鲨馆、白鲸剧场、企鹅馆北极熊馆、一个大孩子过山车、十五点巡游、长隆秀或二十点烟花，其他都可以放弃。孩子累了：小宝哭闹超过十分钟直接回酒店恢复；婆婆步速变慢，停止跨区追项目；晚间烟花可远观，不必站最前。">
+  <div class="sec-head reveal">
+    <div class="sec-eyebrow">应急预案</div>
+    <h2 class="sec-title">🌧 雨天·人多·孩子累 预案</h2>
+    <p class="sec-sub">珠海5月底阵雨概率高。<strong>核心原则：室内项目留到天气最差、体力最低时用。</strong></p>
+  </div>
+  <div class="rain-grid">
+    <div class="rain-card reveal" data-speech="下雨预案：立刻切室内线！不在雨中硬排队。室内优先项目：鲸鲨馆，白鲸馆，企鹅馆，北极熊馆，五点城堡影院，白鲸、海豚、海狮剧场。雨停后再补室外机动项目。不要因为下雨就放弃出行，室内项目一样精彩！" onclick="speakCard(this)">
+      <div class="rain-card-head blue"><span class="rh-icon">🌧</span><h3>下雨应对</h3></div>
+      <div class="rain-card-body">
+        <ul>
+          <li>立刻切室内线，不在雨中硬排</li>
+          <li>鲸鲨馆·白鲸馆·企鹅馆·北极熊馆</li>
+          <li>5D城堡影院（每30-60分一场）</li>
+          <li>白鲸/海豚/海狮三大剧场</li>
+          <li>雨停后再补室外项目</li>
+          <li>随身必备轻薄雨衣（不推荐只带伞）</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rain-card reveal d1" data-speech="人很多时的应对方案：只保六个核心项目，不强排超过四十五分钟的队。六个核心：鲸鲨馆；白鲸剧场；企鹅馆或北极熊馆；一个大孩子过山车（企鹅或冰山）；十五点海洋大巡游；长隆秀或二十点烟花。其他都可以放弃，宁可少玩不累着老人小孩。" onclick="speakCard(this)">
+      <div class="rain-card-head red"><span class="rh-icon">👥</span><h3>人太多应对</h3></div>
+      <div class="rain-card-body">
+        <ul>
+          <li>只保6个核心项目，不强排45min+</li>
+          <li>① 鲸鲨馆</li>
+          <li>② 白鲸剧场（11:00场）</li>
+          <li>③ 企鹅馆/北极熊馆</li>
+          <li>④ 一个大孩子过山车</li>
+          <li>⑤ 15:00海洋大巡游</li>
+          <li>⑥ 长隆秀 OR 20:00烟花</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rain-card reveal d2" data-speech="孩子累了的应对方案：小宝贝哭闹超过十分钟，立刻去酒店恢复，不硬撑；婆婆步速明显变慢，停止跨区追项目，就地找椅子休息或进室内场馆；姐姐们嚷嚷累了，先补水补食物再判断；晚间烟花可以在酒店附近远观，不必强行挤到最前排。第二天可以补漏，不是今天必须全部打卡。" onclick="speakCard(this)">
+      <div class="rain-card-head amber"><span class="rh-icon">😴</span><h3>孩子老人累了</h3></div>
+      <div class="rain-card-body">
+        <ul>
+          <li>小宝哭闹超10分钟→直接回酒店</li>
+          <li>婆婆步速变慢→停止跨区追项目</li>
+          <li>姐姐嚷嚷累→先补水补食再判断</li>
+          <li>晚间烟花→可在酒店远观，不必挤前排</li>
+          <li>第二天可以补漏，今天不必全打卡</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="notice warn reveal d3">
+    <span class="ni">🌡️</span>
+    <div class="nc"><h4>天气预报（2026年5月26日查询）</h4>
+    <p>珠海5月30日预计 <strong>28-24°C</strong>，有阵雨风险，体感闷热。防暑防晒物资：防晒帽、防晒霜、小风扇、保温水杯（全天多补水）、轻薄雨衣人手一件（不推荐只带伞）。</p></div>
+  </div>
+</section>
+
+<!-- ████ SECTION: DAY 2 ████ -->
+<section id="day2" data-speech="第二天补漏路线。第二天的价值是补漏和轻松，不是把第一天没完成的焦虑搬过来。若套票支持多次入园，早上继续用酒店早享权益。七点半起床早餐，退房前把大件行李寄存好，随身只带入园包。九点到十一点三十补第一天漏掉的项目：A组补没玩到的过山车和水上飞人；B组补海豚岛触摸池海鸟世界海象岛；全家可再刷鲸鲨馆或五点影院。十一点三十午餐后，如果返程不急可去水世界短玩；如果孩子疲劳，直接取车回佛山，别把第二天拖成夜归。建议最晚十三点出发，避开下午高峰。">
+  <div class="sec-head reveal">
+    <div class="sec-eyebrow">第二天 · 5月31日</div>
+    <h2 class="sec-title">📅 Day 2 补漏路线</h2>
+    <p class="sec-sub">第二天的节奏是<strong>「从容补漏」</strong>，不是把第一天的焦虑复制过来。</p>
+  </div>
+  <div class="timeline">
+    <div class="tcard reveal" data-speech="七点半到八点四十五，起床早餐退房准备。大件行李收好行李寄存，随身只带入园包。退房时间官方说明为上午十一点，建议入住时以酒店前台确认为准。证件和退房单随身携带。" onclick="speakCard(this)">
+      <div class="t-time">07:30<span class="t-sep">|</span>08:45</div>
+      <div class="t-body"><h3>🌅 起床·早餐·退房准备</h3>
+      <p>大件行李收好寄存，随身只带入园包。退房时间建议入住时以前台确认为准（官方一般为11:00）。</p>
+      <div class="chips"><span class="chip blue">证件退房单随身</span><span class="chip teal">大行李先寄存</span></div></div>
+    </div>
+    <div class="tcard grp-a reveal d1" data-speech="九点到十一点三十，补第一天漏掉的项目。A组补没玩到的过山车，或者水上飞人大汇演十六点场；B组补海豚岛、触摸池、海鸟世界、海象岛。全家可再刷鲸鲨馆或五点城堡影院。原则：按缺口补，不重复排长队，不攀比昨天的数量。" onclick="speakCard(this)">
+      <div class="t-time">09:00<span class="t-sep">|</span>11:30</div>
+      <div class="t-body"><h3>🎠 补昨天漏掉的项目</h3>
+      <p><strong>A组补</strong>：漏掉的过山车/水上飞人(16:00)/丛林过山车。<br><strong>B组补</strong>：海豚岛·触摸池·海鸟世界·海象岛。<br><strong>全家</strong>：可再刷鲸鲨馆 or 5D影院一场。</p>
+      <div class="chips"><span class="chip blue">按缺口补</span><span class="chip teal">不重复排长队</span><span class="chip gold">比昨天轻松</span></div></div>
+    </div>
+    <div class="tcard reveal d2" data-speech="十一点半到十三点，午餐后撤退或玩水世界。如果返程不急，午餐后回酒店水世界短玩一到两小时；如果孩子疲劳，直接取车回佛山千灯湖，别把第二天拖成夜归。建议最晚下午一点出发，避开下午高速拥堵高峰。佛山到珠海约一百三十公里，正常约两小时，带小孩预留两到三小时。" onclick="speakCard(this)">
+      <div class="t-time">11:30<span class="t-sep">|</span>13:00</div>
+      <div class="t-body"><h3>🚗 午餐后撤退 or 水世界短玩</h3>
+      <p>返程不急→午餐后水世界短玩1-2小时再走；孩子疲劳→<strong>直接取车回佛山</strong>，别拖成夜归。建议<strong>最晚13:00出发</strong>，避开下午高速拥堵高峰。</p>
+      <div class="chips"><span class="chip teal">水世界短玩</span><span class="chip coral">或直接返程</span><span class="chip blue">最晚13:00走</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ████ SECTION: 行李 ████ -->
+<section id="packing" data-speech="行李分工清单，分四个包。证件票务包由爸爸负责：全部身份证和儿童证件，酒店订单和套票二维码，长隆秀票务信息，车牌号用于停车授权，微信支付宝确认有余额。小宝贝包由妈妈负责：薄外套备用衣裤，湿巾纸巾小零食，轻便推车或腰凳，儿童耳罩降噪，儿童防晒霜，帽子遮阳。天气应对包：轻薄雨衣人手一件，防晒帽防晒霜，小手持风扇，保温补水杯，防水袋密封袋。水世界包：泳衣泳镜拖鞋，浴巾干衣塑料袋，儿童洗浴用品，手机防水袋。点击每个物品可以标记已打包。">
+  <div class="sec-head reveal">
+    <div class="sec-eyebrow">出发前准备</div>
+    <h2 class="sec-title">🎒 行李分工清单</h2>
+    <p class="sec-sub">四个包各司其职，现场不乱。点击物品标记已打包 → 进度实时更新。</p>
+  </div>
+  <div class="pack-progress reveal d1">
+    <div class="pp-label">📦 打包进度</div>
+    <div class="pp-bar-wrap"><div class="pp-bar" id="pp-bar" style="width:0%"></div></div>
+    <div class="pp-pct" id="pp-pct">0%</div>
+  </div>
+  <div class="pack-grid reveal d2">
+    <div class="pack-section">
+      <div class="pack-sec-head blue"><span class="psh-icon">📋</span><h3>爸爸 · 证件票务包</h3></div>
+      <div class="pack-items" id="pack-1">
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>全部身份证（3大人）</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>儿童相关证件（3个孩子）</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>酒店订单二维码</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>套票二维码（截图备用）</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>长隆秀票务信息</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>车牌号记好（停车授权）</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>微信/支付宝确认余额</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>长隆客服电话：400-883-0083</div>
+      </div>
+    </div>
+    <div class="pack-section">
+      <div class="pack-sec-head orange"><span class="psh-icon">👶</span><h3>妈妈 · 小宝贝包</h3></div>
+      <div class="pack-items" id="pack-2">
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>薄外套（昼夜温差大）</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>备用衣裤×2套</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>湿巾·纸巾·小零食</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>儿童耳罩（烟花/长隆秀用）</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>轻便推车或腰凳</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>儿童防晒霜+遮阳帽</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>医药包（退烧·防晕车·创可贴）</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>充电宝（手机全程有电）</div>
+      </div>
+    </div>
+    <div class="pack-section">
+      <div class="pack-sec-head green"><span class="psh-icon">🌦️</span><h3>天气应对包</h3></div>
+      <div class="pack-items" id="pack-3">
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>轻薄雨衣（每人一件）</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>防晒帽（全员必备）</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>防晒霜SPF50+</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>手持小风扇（至少2个）</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>大容量保温水杯（每人）</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>防水袋+密封袋若干</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>运动鞋（老人防滑底）</div>
+      </div>
+    </div>
+    <div class="pack-section">
+      <div class="pack-sec-head violet"><span class="psh-icon">🏊</span><h3>水世界包</h3></div>
+      <div class="pack-items" id="pack-4">
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>泳衣（每人）</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>泳镜</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>防滑拖鞋</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>儿童浴巾×2</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>备用干衣（每人）</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>手机防水袋</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>塑料袋（装湿泳衣）</div>
+        <div class="pack-item" onclick="togglePack(this)"><div class="pi-check">✓</div>儿童洗浴用品</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ████ SECTION: 重要提示 ████ -->
+<section id="tips" data-speech="出发前重要提示。五月二十九日晚上务必再打开长隆旅游APP核对：海洋王国当天营业时间，早享项目列表，长隆秀入场方式，园内表演时间，天气预警。若任何信息与本攻略不同，以官方当天公告和现场工作人员为准。客服热线四零零八八三零零八三，可提前致电咨询。最后祝全家旅途愉快，平安健康，姐姐们玩得尽兴，小宝贝留下美好记忆，婆婆轻松舒适，爸爸妈妈享受难得的亲子时光！">
+  <div class="sec-head reveal">
+    <div class="sec-eyebrow">出发前确认</div>
+    <h2 class="sec-title">💡 重要提示与官方信息</h2>
+  </div>
+  <div class="notice red reveal d1">
+    <span class="ni">📱</span>
+    <div class="nc"><h4>5月29日晚（出发前一天）必做</h4>
+    <ul>
+      <li>打开<strong>长隆旅游APP</strong>：核对海洋王国5月30日营业时间（含早享）</li>
+      <li>确认长隆秀入场方式（是否须提前换票/绑定身份证）</li>
+      <li>查看园内表演时间是否临时调整</li>
+      <li>查看天气预警，决定雨衣还是雨伞</li>
+      <li>确认套票二维码正常可用（截图备用）</li>
+    </ul></div>
+  </div>
+  <div class="notice ok reveal d2">
+    <span class="ni">🎉</span>
+    <div class="nc"><h4>祝全家旅途愉快！</h4>
+    <p>客服热线：<strong>400-883-0083</strong>（9:00-18:00，酒店预订9:00-20:30）。以官方当天公告和现场工作人员为准。如有任何变动，灵活应对，本攻略只是骨架，现场才是答案 😊</p></div>
+  </div>
+  <div style="text-align:center;padding:20px 0;color:var(--muted);font-size:13px" class="reveal d3">
+    <p>本攻略基于长隆官网 2026年5月26日实时数据整理</p>
+    <p style="margin-top:6px">官方网站：<a href="https://www.chimelong.com" style="color:var(--sky-d);font-weight:700">www.chimelong.com</a> · 客服：400-883-0083</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+// ── COUNTDOWN ──
+function countdown(){
+  const target=new Date('2026-05-30T05:30:00').getTime();
+  const now=Date.now();
+  const diff=target-now;
+  if(diff<=0){document.getElementById('cd-d').textContent='00';document.getElementById('cd-h').textContent='00';document.getElementById('cd-m').textContent='00';document.getElementById('cd-s').textContent='00';return;}
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor((diff%86400000)/3600000);
+  const m=Math.floor((diff%3600000)/60000);
+  const s=Math.floor((diff%60000)/1000);
+  document.getElementById('cd-d').textContent=String(d).padStart(2,'0');
+  document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+}
+setInterval(countdown,1000);countdown();
+
+// ── SCROLL PROGRESS ──
+window.addEventListener('scroll',()=>{
+  const sc=document.documentElement.scrollTop;
+  const sh=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('progress-bar').style.width=(sc/sh*100)+'%';
+  document.getElementById('btn-top').classList.toggle('show',sc>300);
+  // nav highlight
+  document.querySelectorAll('section[id]').forEach(sec=>{
+    const top=sec.offsetTop-80;
+    const bot=top+sec.offsetHeight;
+    if(sc>=top&&sc<bot){
+      const id=sec.id;
+      document.querySelectorAll('.nav-inner a').forEach(a=>{
+        a.classList.toggle('active',a.getAttribute('href')==='#'+id);
+      });
+    }
+  });
+});
+
+// ── REVEAL OBSERVER ──
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');revObs.unobserve(e.target);}
+  });
+},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+// ── SECTION SPEECH OBSERVER ──
+let voiceEnabled=false;
+let autoRead=true;
+const secObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting&&voiceEnabled&&autoRead){
+      const txt=e.target.getAttribute('data-speech');
+      if(txt) setTimeout(()=>speakText2(txt),400);
+    }
+  });
+},{threshold:0.35});
+document.querySelectorAll('section[data-speech]').forEach(sec=>secObs.observe(sec));
+
+// ── SPEECH SYNTHESIS ──
+let synth=window.speechSynthesis;
+let currentUtter=null;
+let bestVoice=null;
+
+function initVoice(){
+  const voices=synth.getVoices();
+  const pref=['Microsoft Huihui','Microsoft Yaoyao','Google 普通话','Ting-Ting','zh-CN'];
+  for(const p of pref){
+    const v=voices.find(v2=>v2.name.includes(p)||v2.lang===p);
+    if(v){bestVoice=v;break;}
+  }
+  if(!bestVoice) bestVoice=voices.find(v=>v.lang.startsWith('zh'))||voices[0];
+}
+synth.onvoiceschanged=initVoice;
+initVoice();
+
+function speakText2(txt){
+  if(!synth||!voiceEnabled) return;
+  synth.cancel();
+  const u=new SpeechSynthesisUtterance(txt);
+  u.lang='zh-CN';
+  u.rate=0.92;
+  u.pitch=1.05;
+  if(bestVoice) u.voice=bestVoice;
+  currentUtter=u;
+  const vi=document.getElementById('voice-indicator');
+  vi.classList.add('show');
+  const preview=txt.substring(0,30)+(txt.length>30?'…':'');
+  vi.innerHTML='🎙 '+preview+'<span class="vi-wave"><span></span><span></span><span></span><span></span></span>';
+  u.onend=()=>{ vi.classList.remove('show'); };
+  u.onerror=()=>{ vi.classList.remove('show'); };
+  synth.speak(u);
+}
+
+function speakCard(el){
+  voiceEnabled=true;
+  const txt=el.getAttribute('data-speech')||el.innerText.replace(/\n+/g,' ').substring(0,400);
+  speakText2(txt);
+}
+window.speakCard=speakCard;
+window.speakText=speakCard;
+
+function toggleVoice(){
+  voiceEnabled=!voiceEnabled;
+  const btn=document.getElementById('btn-voice');
+  if(!voiceEnabled){
+    synth.cancel();
+    document.getElementById('voice-indicator').classList.remove('show');
+    btn.classList.remove('on');
+    btn.title='语音已关闭';
+  } else {
+    btn.classList.add('on');
+    btn.title='语音已开启（点击关闭）';
+    speakText2('语音导览已开启，点击或滑到任何区域，我将自动朗读全部内容。');
+  }
+}
+window.toggleVoice=toggleVoice;
+
+// Enable voice on first user interaction
+function enableVoiceOnce(){
+  if(!voiceEnabled){
+    voiceEnabled=true;
+    document.getElementById('btn-voice').classList.add('on');
+  }
+  document.removeEventListener('touchstart',enableVoiceOnce);
+}
+document.addEventListener('touchstart',enableVoiceOnce,{once:true});
+
+// Hover to read on cards
+document.querySelectorAll('[data-speech]').forEach(el=>{
+  if(!el.tagName.match(/SECTION/i)){
+    el.addEventListener('mouseenter',()=>{
+      if(!voiceEnabled) return;
+      const txt=el.getAttribute('data-speech');
+      if(txt) speakText2(txt);
+    });
+  }
+});
+
+// ── MUSIC PLAYER ──
+const tracks=[
+  {name:'🌊 夏日海风',url:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'},
+  {name:'🎵 轻松旅途',url:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'},
+  {name:'☀️ 阳光假期',url:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'},
+  {name:'🎶 海洋梦境',url:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3'},
+  {name:'🌺 欢乐出游',url:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3'}
+];
+let curTrack=0;
+let audio=null;
+let isPlaying=false;
+
+const mpTrackDisplay=document.getElementById('mp-track-display');
+const mpPlayBtn=document.getElementById('mp-play');
+const mpTracksEl=document.getElementById('mp-tracks');
+
+// build track list
+tracks.forEach((t,i)=>{
+  const div=document.createElement('div');
+  div.className='mp-track-item'+(i===0?' active':'');
+  div.textContent=t.name;
+  div.onclick=()=>{loadTrack(i);togglePlay(true);};
+  mpTracksEl.appendChild(div);
+});
+
+function loadTrack(idx){
+  curTrack=idx;
+  if(audio){audio.pause();}
+  audio=new Audio(tracks[idx].url);
+  audio.volume=parseFloat(document.getElementById('mp-vol').value);
+  audio.loop=false;
+  audio.onended=()=>loadTrack((curTrack+1)%tracks.length) && playAudio();
+  mpTrackDisplay.textContent=tracks[idx].name;
+  document.querySelectorAll('.mp-track-item').forEach((el,i)=>el.classList.toggle('active',i===idx));
+}
+
+function playAudio(){
+  if(!audio) loadTrack(0);
+  audio.play().then(()=>{isPlaying=true;mpPlayBtn.textContent='⏸';document.getElementById('btn-music').classList.add('on');}).catch(()=>{});
+}
+
+function pauseAudio(){
+  if(audio) audio.pause();
+  isPlaying=false;
+  mpPlayBtn.textContent='▶';
+  document.getElementById('btn-music').classList.remove('on');
+}
+
+function togglePlay(forcePlay){
+  if(forcePlay||!isPlaying) playAudio();
+  else pauseAudio();
+}
+
+mpPlayBtn.addEventListener('click',()=>togglePlay());
+document.getElementById('mp-prev').addEventListener('click',()=>{loadTrack((curTrack-1+tracks.length)%tracks.length);if(isPlaying)playAudio();});
+document.getElementById('mp-next').addEventListener('click',()=>{loadTrack((curTrack+1)%tracks.length);if(isPlaying)playAudio();});
+document.getElementById('mp-vol').addEventListener('input',e=>{if(audio)audio.volume=parseFloat(e.target.value);});
+
+loadTrack(0);
+
+function toggleMusicPanel(){
+  const panel=document.getElementById('music-panel');
+  panel.classList.toggle('open');
+  if(!audio) loadTrack(0);
+}
+window.toggleMusicPanel=toggleMusicPanel;
+
+// ── PACKING CHECKLIST ──
+function togglePack(el){
+  el.classList.toggle('checked');
+  updatePackProgress();
+}
+window.togglePack=togglePack;
+
+function updatePackProgress(){
+  const all=document.querySelectorAll('.pack-item');
+  const checked=document.querySelectorAll('.pack-item.checked');
+  const pct=all.length?Math.round(checked.length/all.length*100):0;
+  document.getElementById('pp-bar').style.width=pct+'%';
+  document.getElementById('pp-pct').textContent=pct+'% ('+checked.length+'/'+all.length+')';
+}
+updatePackProgress();
+
+// ── FISH ANIMATION ──
+const fishEmoji=['🐟','🐠','🐡','🐬','🦭','🦑'];
+function spawnFish(){
+  if(document.querySelectorAll('.fish').length>4) return;
+  const f=document.createElement('div');
+  f.className='fish';
+  f.textContent=fishEmoji[Math.floor(Math.random()*fishEmoji.length)];
+  f.style.top=Math.random()*70+10+'vh';
+  const dur=Math.random()*14+18;
+  f.style.animationDuration=dur+'s';
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),dur*1000);
+}
+setInterval(spawnFish,7000);
+
+// ── ENABLE VOICE ON FIRST INTERACTION ──
+document.addEventListener('click',()=>{
+  if(!voiceEnabled){ voiceEnabled=true; document.getElementById('btn-voice').classList.add('on'); }
+},{ once:true });
+</script>
+</body>
+</html>
