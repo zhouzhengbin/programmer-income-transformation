@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f7f5" />
+  <title>广州涉外经济职业技术学院（中职部）适合度分析</title>
+  <style>
+    :root {
+      --bg: #f4f7f5;
+      --paper: #ffffff;
+      --ink: #1f2a28;
+      --muted: #5d6b68;
+      --line: #d9e0dd;
+      --green: #23725d;
+      --blue: #2b638f;
+      --amber: #a15d17;
+      --red: #a23b3b;
+      --soft-green: #e7f2ee;
+      --soft-blue: #e7eef5;
+      --soft-amber: #f7eddc;
+      --soft-red: #f8e8e8;
+      --shadow: 0 18px 42px rgba(31, 42, 40, .08);
+      --radius: 8px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(231, 242, 238, .9), rgba(244, 247, 245, 0) 360px),
+        var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.68;
+      letter-spacing: 0;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: clamp(28px, 6vw, 72px) 0 22px;
+      border-bottom: 1px solid rgba(35, 114, 93, .18);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    h1, h2, h3 { line-height: 1.22; margin: 0; letter-spacing: 0; }
+
+    h1 {
+      max-width: 920px;
+      font-size: clamp(28px, 5.3vw, 58px);
+      font-weight: 850;
+    }
+
+    .subtitle {
+      max-width: 900px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: clamp(16px, 2vw, 20px);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 24px;
+    }
+
+    .score-panel, .note-panel, .card, .fact, .quote, .source-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .score-panel {
+      padding: clamp(18px, 3vw, 28px);
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: clamp(16px, 3vw, 28px);
+      align-items: center;
+    }
+
+    .score {
+      width: clamp(132px, 20vw, 184px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: conic-gradient(var(--amber) 0 62%, #e7ece9 62% 100%);
+      position: relative;
+    }
+
+    .score::after {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: 50%;
+      background: var(--paper);
+      border: 1px solid var(--line);
+    }
+
+    .score strong {
+      position: relative;
+      z-index: 1;
+      display: block;
+      text-align: center;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1;
+    }
+
+    .score span {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 7px;
+      font-weight: 700;
+    }
+
+    .verdict-label {
+      color: var(--amber);
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .verdict-title {
+      font-size: clamp(21px, 3vw, 32px);
+      font-weight: 850;
+      margin-bottom: 10px;
+    }
+
+    .verdict-text { color: var(--muted); margin: 0; }
+
+    .note-panel {
+      padding: 20px;
+      display: grid;
+      align-content: center;
+      gap: 12px;
+    }
+
+    .note-panel b {
+      color: var(--green);
+      font-size: 18px;
+    }
+
+    .note-panel p { margin: 0; color: var(--muted); }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(244, 247, 245, .92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      width: min(var(--max), calc(100% - 24px));
+      margin: 0 auto;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 10px 0;
+      scrollbar-width: thin;
+    }
+
+    .nav-inner a {
+      flex: 0 0 auto;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    main { padding: 26px 0 64px; }
+
+    section {
+      margin: clamp(28px, 5vw, 54px) 0;
+      scroll-margin-top: 74px;
+    }
+
+    .section-head {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(24px, 3.6vw, 40px);
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 850px;
+      color: var(--muted);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card, .fact, .quote, .source-card {
+      padding: 18px;
+    }
+
+    .card h3, .fact h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .card p, .fact p, .quote p, .source-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 4px 9px;
+      margin: 0 6px 8px 0;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--green);
+      background: var(--soft-green);
+      border: 1px solid rgba(35, 114, 93, .18);
+    }
+
+    .tag.blue { color: var(--blue); background: var(--soft-blue); border-color: rgba(43, 99, 143, .18); }
+    .tag.amber { color: var(--amber); background: var(--soft-amber); border-color: rgba(161, 93, 23, .2); }
+    .tag.red { color: var(--red); background: var(--soft-red); border-color: rgba(162, 59, 59, .2); }
+
+    .fact.big {
+      display: grid;
+      gap: 6px;
+      min-height: 142px;
+    }
+
+    .metric {
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 850;
+      color: var(--green);
+      line-height: 1.05;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      min-width: 900px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #edf3f0;
+      color: #263532;
+      font-size: 13px;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .mini {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .good { border-left: 5px solid var(--green); }
+    .watch { border-left: 5px solid var(--amber); }
+    .risk { border-left: 5px solid var(--red); }
+    .info { border-left: 5px solid var(--blue); }
+
+    .path {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      counter-reset: step;
+    }
+
+    .path .card {
+      position: relative;
+      padding-top: 48px;
+    }
+
+    .path .card::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      font-weight: 850;
+      font-size: 13px;
+    }
+
+    .matrix {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .bar {
+      height: 9px;
+      background: #e7ece9;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      width: var(--w);
+      background: var(--c, var(--green));
+    }
+
+    .decision {
+      display: grid;
+      gap: 10px;
+    }
+
+    .decision-row {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      padding: 14px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .decision-row strong { color: var(--green); }
+
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      counter-reset: q;
+    }
+
+    .check {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px 14px 14px 44px;
+      position: relative;
+    }
+
+    .check::before {
+      counter-increment: q;
+      content: counter(q);
+      position: absolute;
+      left: 14px;
+      top: 15px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--soft-blue);
+      color: var(--blue);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .source-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .source-card h3 {
+      font-size: 16px;
+      margin: 0 0 6px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 26px 0 40px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .print {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 30;
+      border: 1px solid rgba(35, 114, 93, .28);
+      background: var(--green);
+      color: #fff;
+      border-radius: 999px;
+      padding: 11px 14px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid, .grid-3, .grid-2, .matrix, .source-list { grid-template-columns: 1fr; }
+      .path { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .score-panel { grid-template-columns: 1fr; }
+      .score { margin: 0 auto; }
+      .decision-row { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .wrap { width: min(var(--max), calc(100% - 22px)); }
+      header { padding-top: 26px; }
+      .path, .checklist { grid-template-columns: 1fr; }
+      .card, .fact, .quote, .source-card { padding: 15px; }
+      .print { display: none; }
+      table { min-width: 780px; font-size: 13px; }
+      th, td { padding: 10px 11px; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      nav, .print { display: none; }
+      .card, .fact, .quote, .source-card, .score-panel, .note-panel, .table-wrap { box-shadow: none; }
+      section { break-inside: avoid; }
+      a { color: #000; text-decoration: underline; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="eyebrow">
+        <span>截至 2026-05-27 公开资料核验</span>
+        <span>官方来源优先</span>
+        <span>面向择校决策</span>
+      </div>
+      <h1>广州涉外经济职业技术学院（中职部）全网信息核验与适合度分析</h1>
+      <p class="subtitle">针对“男孩较叛逆、上普通好一点高中有难度、家长希望保留升学和未来选择”的具体情境，整理学校真实身份、招生计划、升学路径、费用、风险点与实地核验清单。</p>
+
+      <div class="hero-grid">
+        <div class="score-panel">
+          <div class="score" aria-label="适合度 62 分">
+            <strong>62<span>/100</span></strong>
+          </div>
+          <div>
+            <div class="verdict-label">综合判断</div>
+            <div class="verdict-title">有条件适合，可作为“中职升学备选”，不宜只听推荐就定。</div>
+            <p class="verdict-text">如果孩子进普通高中后大概率长期垫底、厌学，且对护理、动漫、计算机、电商、轨道交通等职业方向有真实兴趣，这所学校有可走的中职升学通道。若核心目标是普通高考冲本科，普通高中或更强的公办/重点中职升学班仍应优先比较。</p>
+          </div>
+        </div>
+
+        <div class="note-panel">
+          <b>最关键的一句话</b>
+          <p>它是“民办、中专、合格学校、依托本校高职资源”的中职部，不是官方意义上的公办重点中职；好处是升学路径清楚、专业多，风险是费用高、品牌层级一般、宣传话术必须逐条核验。</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav aria-label="页面导航">
+    <div class="nav-inner">
+      <a href="#quick">先看结论</a>
+      <a href="#identity">学校身份</a>
+      <a href="#admission">招生与费用</a>
+      <a href="#pathway">升学路径</a>
+      <a href="#fit">适合度</a>
+      <a href="#teacher">老师说法核验</a>
+      <a href="#risks">风险与问题</a>
+      <a href="#visit">到校必问</a>
+      <a href="#sources">资料来源</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section id="quick">
+      <div class="section-head">
+        <h2>先看结论</h2>
+        <p>家长最需要先判断：这是不是一条能让孩子“从混乱状态重新进入轨道”的路，而不是只看学校宣传。</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card good">
+          <span class="tag">适合</span>
+          <h3>普通高中压力过大，想换到职教升学赛道</h3>
+          <p>中职生可走三二分段、3+证书春季高考、自主招生等路径。对文化课基础弱但愿意学技能的孩子，路径更具体。</p>
+        </div>
+        <div class="card watch">
+          <span class="tag amber">谨慎</span>
+          <h3>孩子“叛逆”不是选学校能自动解决</h3>
+          <p>要实地看手机管理、晚修、班主任跟班、宿舍纪律、心理支持和处分机制。管理不匹配，换学校只是换一个冲突场景。</p>
+        </div>
+        <div class="card risk">
+          <span class="tag red">不适合</span>
+          <h3>目标是普通高考本科且家庭预算紧</h3>
+          <p>中职路线与普通高中路线不同；该校民办收费明显高于多数公办中职。若只是“保底有书读”，不应付出高额成本。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="identity">
+      <div class="section-head">
+        <h2>学校真实身份</h2>
+        <p>把“官方可核验事实”和“宣传性说法”分开看，是这次判断的第一步。</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="fact big">
+          <span class="tag">官方招生指南</span>
+          <h3>中职部性质</h3>
+          <div class="metric">民办中专</div>
+          <p>2026 年广州市报考指南列明：广州涉外经济职业技术学院（中职部）为民办、校本部，学校类别中专，学校等级为合格学校，地址为广州市白云区沙太路大源北 28 号。</p>
+        </div>
+        <div class="fact big">
+          <span class="tag blue">大学部背景</span>
+          <h3>高职学院性质</h3>
+          <div class="metric">民办高职</div>
+          <p>高职学院为 2004 年经广东省政府批准、教育部备案的省属全日制普通高职院校；章程写明办学性质为非营利性民办全日制普通高等学校。</p>
+        </div>
+        <div class="fact big">
+          <span class="tag amber">需要看清</span>
+          <h3>学校层级</h3>
+          <div class="metric">合格学校</div>
+          <p>“合格学校”不等于国家级重点、省级重点或示范中职。若招生人员说“重点”“公办”“包升学”，要请其拿出教育主管部门文件。</p>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:14px">
+        <div class="card info">
+          <h3>可以确认的资源基础</h3>
+          <p>学校官网显示，高职学院有康复医学院、信息工程、艺术教育、商贸、机电汽车等院系与产业学院；官网称校园占地 634.82 亩、实训室 148 个、图书 152.67 万册、校企合作单位 170 多家。这里能支撑“有大学部资源”的基本判断。</p>
+        </div>
+        <div class="card watch">
+          <h3>不能自动推出的结论</h3>
+          <p>有大学部不等于中职生都能使用同等师资和资源，也不等于保证升入本校大专，更不等于本科稳妥。中职部具体班级的任课教师、实训频次、升学数据，需要单独要书面材料。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="admission">
+      <div class="section-head">
+        <h2>2026 招生与费用</h2>
+        <p>以下按广州市官方 2026 年高中阶段学校招生报考指南整理。实际填报以中考服务平台最终数据为准。</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="fact">
+          <h3>第一批次三二分段</h3>
+          <p><b>2 个专业，150 个总计划，面向广州 80 个计划。</b>护理对接本校高职护理，动漫与游戏制作对接本校高职动漫制作技术。</p>
+        </div>
+        <div class="fact">
+          <h3>第四批次中职计划</h3>
+          <p><b>2050 个总计划，面向广州 300 个计划，总宿位 300。</b>专业覆盖医药健康、计算机、艺术、电商、航空轨道、外语、会计、机电等。</p>
+        </div>
+        <div class="fact">
+          <h3>费用区间</h3>
+          <p>普通方向多在 <b>15395-22195 元/学年</b>；国际/升学方向最高到 <b>42705 元/学年</b>；住宿费多为 2800、3000 或 5000 元/学年。</p>
+        </div>
+      </div>
+
+      <h3 style="margin:24px 0 10px;font-size:22px">第一批次：三二分段专业</h3>
+      <div class="table-wrap" role="region" aria-label="三二分段招生表">
+        <table>
+          <thead>
+            <tr>
+              <th>专业</th>
+              <th>类别</th>
+              <th>招生总计划</th>
+              <th>面向广州计划</th>
+              <th>学费/年</th>
+              <th>住宿费/年</th>
+              <th>高职阶段对接</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>护理</td>
+              <td>三二分段，全日制</td>
+              <td>120</td>
+              <td>70</td>
+              <td>21083 元</td>
+              <td>2800 元</td>
+              <td>广州涉外经济职业技术学院（护理）</td>
+            </tr>
+            <tr>
+              <td>动漫与游戏制作</td>
+              <td>三二分段，全日制</td>
+              <td>30</td>
+              <td>10</td>
+              <td>20593 元</td>
+              <td>2800 元</td>
+              <td>广州涉外经济职业技术学院（动漫制作技术）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin:24px 0 10px;font-size:22px">第四批次：中职其他专业计划</h3>
+      <div class="table-wrap" role="region" aria-label="第四批次招生表">
+        <table>
+          <thead>
+            <tr>
+              <th>专业/方向</th>
+              <th>总计划</th>
+              <th>广州计划</th>
+              <th>学费/年</th>
+              <th>住宿费/年</th>
+              <th>判断提示</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>计算机网络技术（华为 ICT）</td><td>150</td><td>15</td><td>18195</td><td>2800</td><td>适合确有计算机兴趣者，需核验证书、课程和企业合作真实性。</td></tr>
+            <tr><td>药剂</td><td>60</td><td>10</td><td>19195</td><td>2800</td><td>医药方向要求细致和纪律，需关注升学证书要求。</td></tr>
+            <tr><td>口腔修复工艺</td><td>60</td><td>10</td><td>19195</td><td>2800</td><td>偏技术操作，就业与升学均需看实训条件。</td></tr>
+            <tr><td>护理</td><td>150</td><td>15</td><td>19195</td><td>2800</td><td>男生可有差异化机会，但职业纪律、夜班和服务属性要提前接受。</td></tr>
+            <tr><td>医学检验技术</td><td>60</td><td>10</td><td>19195</td><td>2800</td><td>需要较稳定的理化基础和规范意识。</td></tr>
+            <tr><td>中医康复技术</td><td>60</td><td>10</td><td>19195</td><td>2800</td><td>康养方向与学校康复资源匹配度较高，但需看实习基地。</td></tr>
+            <tr><td>计算机应用</td><td>60</td><td>10</td><td>18195</td><td>2800</td><td>适合动手型学生，需防止只学浅层办公软件。</td></tr>
+            <tr><td>动漫与游戏制作</td><td>60</td><td>10</td><td>17705</td><td>2800</td><td>行业竞争强，建议看作品集训练、软件课时和升学去向。</td></tr>
+            <tr><td>计算机网络技术</td><td>80</td><td>10</td><td>18195</td><td>2800</td><td>比普通计算机应用更偏网络，适合愿意考证的学生。</td></tr>
+            <tr><td>艺术设计与制作</td><td>100</td><td>15</td><td>19805</td><td>2800</td><td>要看孩子是否愿意长期画图、改稿、做项目。</td></tr>
+            <tr><td>工艺美术</td><td>60</td><td>10</td><td>19805</td><td>2800</td><td>适合美术基础或兴趣明确者。</td></tr>
+            <tr><td>电子商务</td><td>60</td><td>10</td><td>17705</td><td>2800</td><td>学校位于大源电商区域附近，需核验真实项目和实训比例。</td></tr>
+            <tr><td>跨境电子商务</td><td>80</td><td>10</td><td>17705</td><td>2800</td><td>英语和平台运营都要跟上，不是简单开网店。</td></tr>
+            <tr><td>市场营销</td><td>60</td><td>10</td><td>17705</td><td>2800</td><td>就业面广但门槛较低，升学目标要更明确。</td></tr>
+            <tr><td>飞机设备维修</td><td>60</td><td>10</td><td>18195</td><td>2800</td><td>需确认实训设备、合作单位和身体条件要求。</td></tr>
+            <tr><td>航空服务</td><td>60</td><td>10</td><td>18195</td><td>2800</td><td>通常有身高、形象、体检等限制，谨慎看“高薪就业”宣传。</td></tr>
+            <tr><td>城市轨道交通运营服务</td><td>60</td><td>10</td><td>18195</td><td>2800</td><td>看合作企业与就业是否真实对口。</td></tr>
+            <tr><td>城市轨道交通车辆运用与检修</td><td>60</td><td>10</td><td>18195</td><td>2800</td><td>更偏技术维修，适合动手能力强者。</td></tr>
+            <tr><td>汽车运用与维修</td><td>60</td><td>10</td><td>18195</td><td>2800</td><td>传统技能方向，需看新能源课程占比。</td></tr>
+            <tr><td>商务英语（中新升学）</td><td>50</td><td>10</td><td>33195</td><td>5000</td><td>费用高，必须核验海外/升学项目合同、录取条件和退出机制。</td></tr>
+            <tr><td>商务英语（中格升学）</td><td>60</td><td>10</td><td>23195</td><td>5000</td><td>涉外项目不等于一定适合叛逆孩子，语言学习自律要求高。</td></tr>
+            <tr><td>市场营销（中日升学）</td><td>50</td><td>10</td><td>42705</td><td>5000</td><td>中职阶段费用最高，除非目标非常明确，否则不建议冲动选择。</td></tr>
+            <tr><td>计算机网络技术（中韩升学）</td><td>60</td><td>10</td><td>23195</td><td>5000</td><td>核验语言、升学、签证、额外费用和退费条款。</td></tr>
+            <tr><td>会计事务</td><td>100</td><td>10</td><td>21705</td><td>3000</td><td>稳定但兴趣门槛明显，叛逆男孩若排斥细账慎选。</td></tr>
+            <tr><td>商务英语</td><td>100</td><td>10</td><td>22195</td><td>3000</td><td>英语基础差且抗拒背诵者不宜只因“涉外”选择。</td></tr>
+            <tr><td>机电技术应用</td><td>130</td><td>15</td><td>18195</td><td>2800</td><td>动手型男孩可考虑，需看实训设备和高职衔接。</td></tr>
+            <tr><td>商务日语</td><td>50</td><td>10</td><td>15395</td><td>5000</td><td>学费较低但住宿高，语言方向需长期投入。</td></tr>
+            <tr><td>商务韩语</td><td>50</td><td>10</td><td>15395</td><td>5000</td><td>兴趣驱动明显，不能只看“出国”想象。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mini" style="margin-top:10px">注：上表仅统计官方指南列出的学费、住宿费；校服、教材、体检、保险、伙食、交通、实习材料、考证、国际项目额外费用等需另行向学校索取书面收费清单。</p>
+    </section>
+
+    <section id="pathway">
+      <div class="section-head">
+        <h2>升学路径怎么理解</h2>
+        <p>家长说的“可参加高考”，在中职语境里通常不是普通高中那套夏季普通高考，而是职教高考体系。这个区别很关键。</p>
+      </div>
+
+      <div class="path">
+        <div class="card good">
+          <h3>三二分段</h3>
+          <p>中职 3 年加高职 2 年，过程考核和转段考核合格后进入对口高职专业，最终可获全日制大专。确定性较强，但专业和学校绑定更强。</p>
+        </div>
+        <div class="card info">
+          <h3>3+证书春季高考</h3>
+          <p>中职毕业生取得相应技能证书后，参加语文、数学、英语三科统考；设本科和专科批次，但本科需要专业对口和职业技能测试。</p>
+        </div>
+        <div class="card watch">
+          <h3>普通高考</h3>
+          <p>中职生若符合广东普通高考报名条件，也可能走夏季高考，但课程体系不按普通高中高考训练设计，实际难度和机会成本都要考虑。</p>
+        </div>
+        <div class="card risk">
+          <h3>就业或在职提升</h3>
+          <p>部分学生直接就业，后续通过成人高考、自考、开放大学等提升学历。该路径不是家长所说的“更多选择”的最佳版本，只能作为兜底。</p>
+        </div>
+      </div>
+
+      <div class="quote watch" style="margin-top:14px">
+        <h3>三二分段的重要限制</h3>
+        <p>官方政策写明：中职三二分段学生如符合高职院校录取条件，就不能参加高职院校其他分类考试和录取，例如 3+证书和高职自主招生；参加 3+证书被本科高校录取的除外。也就是说，三二分段更稳，但会牺牲一部分专科择校自由。</p>
+      </div>
+    </section>
+
+    <section id="fit">
+      <div class="section-head">
+        <h2>结合这个男孩的适合度</h2>
+        <p>“叛逆”背后可能是学习挫败、关系对抗、手机依赖、同伴影响、目标感弱。择校要看学校能不能把这些问题转化为可执行的日常结构。</p>
+      </div>
+
+      <div class="matrix">
+        <div class="card">
+          <h3>升学选择空间</h3>
+          <p>中职升学通道存在，但与普通高中路线不同。三二分段稳定性较好，3+证书选择面更大但需要自律和证书。</p>
+          <div class="bar"><i style="--w:68%;--c:var(--green)"></i></div>
+        </div>
+        <div class="card">
+          <h3>对叛逆学生的管理匹配</h3>
+          <p>学校宣传常说管理严格，但公开资料不足以判断班主任、宿舍、手机、晚修执行力。必须实地看。</p>
+          <div class="bar"><i style="--w:50%;--c:var(--amber)"></i></div>
+        </div>
+        <div class="card">
+          <h3>专业吸引力</h3>
+          <p>专业面宽，对男孩可选计算机、机电、汽车、轨道、动漫、电商，也可考虑护理。关键是让孩子亲自选，不要由家长替他“安排前途”。</p>
+          <div class="bar"><i style="--w:74%;--c:var(--green)"></i></div>
+        </div>
+        <div class="card">
+          <h3>费用压力</h3>
+          <p>三年中职阶段常见总成本约 5.4 万到 14.3 万元以上，后续高职阶段仍按民办高职收费。预算敏感家庭应优先看公办中职。</p>
+          <div class="bar"><i style="--w:38%;--c:var(--red)"></i></div>
+        </div>
+        <div class="card">
+          <h3>学校层级与口碑确定性</h3>
+          <p>官方等级为合格学校；高职学院有一定规模和资源，但质量报告也承认师资领军人才、招生稳定、产教深度融合等挑战。</p>
+          <div class="bar"><i style="--w:55%;--c:var(--amber)"></i></div>
+        </div>
+        <div class="card">
+          <h3>作为备选的价值</h3>
+          <p>如果孩子普通高中希望不大，又不想去纯就业导向学校，这所民办中职部可纳入比较名单，但应与公办中职、重点中职、综合高中一起横向比较。</p>
+          <div class="bar"><i style="--w:70%;--c:var(--green)"></i></div>
+        </div>
+      </div>
+
+      <div class="decision" style="margin-top:14px">
+        <div class="decision-row">
+          <strong>优先普通高中</strong>
+          <span>如果孩子能进入普通高中且仍愿意学，普通高中保留普通高考本科路线，选择面最宽。</span>
+        </div>
+        <div class="decision-row">
+          <strong>优先公办/重点中职</strong>
+          <span>如果目标是低成本、升学氛围、管理稳定，应先比较公办中职、国家级/省级重点中职和中本贯通/高质量三二分段项目。</span>
+        </div>
+        <div class="decision-row">
+          <strong>考虑广州涉外中职部</strong>
+          <span>如果孩子对该校专业有兴趣，家庭能承受民办费用，并且实地核验后确认管理、班风、升学数据可信，可作为中职升学备选。</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="teacher">
+      <div class="section-head">
+        <h2>老师推荐语逐条核验</h2>
+        <p>截图里的说法不是都错，但需要换成“可证明、可追问、可比较”的语言。</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card good">
+          <span class="tag">基本成立</span>
+          <h3>“有自己的大学部，能享受大学教育资源”</h3>
+          <p>学校官网确有“广州涉外学院附属中职学校（部）”入口，高职学院拥有多个学院、产业学院和实训基地。成立的是“依托高职资源”的判断。</p>
+        </div>
+        <div class="card watch">
+          <span class="tag amber">需追问</span>
+          <h3>“师资很雄厚”</h3>
+          <p>高职学院官网公布了高职专任教师和师资结构，但中职部本身的专任教师数量、双师型比例、升学班教师稳定性没有在官方资料中完整公开。</p>
+        </div>
+        <div class="card watch">
+          <span class="tag amber">部分成立</span>
+          <h3>“实训条件比较好，有利于升学”</h3>
+          <p>高职学院公开资料显示实训室数量和企业合作较多；但是否给中职生常态使用、每周多少实训课、由谁授课、设备是否够用，需要看课表和实训记录。</p>
+        </div>
+        <div class="card risk">
+          <span class="tag red">不能泛化</span>
+          <h3>“不要选技校，技校校风没那么好”</h3>
+          <p>中专、职高、技校只是管理部门和培养类型不同，不能一概而论。真正影响叛逆孩子的是班风、宿舍、手机、同伴、班主任和学校执行力。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="risks">
+      <div class="section-head">
+        <h2>好的与不好的</h2>
+        <p>真正客观的择校，不是把学校说好或说坏，而是把“这所学校适合什么家庭、不适合什么家庭”说清楚。</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card good">
+          <h3>优势</h3>
+          <p>有官方招生计划；依托高职学院，专业面宽；医药健康、计算机、艺术、电商、轨道交通等方向齐全；三二分段提供全日制大专通道；广州白云区位置对珠三角家庭较方便。</p>
+        </div>
+        <div class="card risk">
+          <h3>短板</h3>
+          <p>民办收费高；官方等级只是合格学校；三二分段对接本校高职，学校选择不够开放；中职部详细升学率、班风、师资、管理数据公开不足；第三方平台宣传口径混杂，容易夸大。</p>
+        </div>
+        <div class="card watch">
+          <h3>高职学院自述挑战</h3>
+          <p>2023 年高职质量报告提到：缺少有影响的大师、名师和专业领军人物；高层次项目与高水平成果不多；招生稳定仍有压力；产教双元深度合作不够；省级以上重点专业、高水平专业群和精品课程数量不足。</p>
+        </div>
+        <div class="card info">
+          <h3>对家长的现实建议</h3>
+          <p>不要把它当成“更轻松上大学”的捷径。它更像一条民办职教升学路：如果孩子愿意被结构化管理、愿意围绕专业重新建立成就感，它有价值；如果只是逃避学习，风险仍然很高。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="visit">
+      <div class="section-head">
+        <h2>到校必问清单</h2>
+        <p>带着这些问题去，不要只听招生老师介绍。能给书面材料、能看现场、能说清楚失败去向的学校，可信度更高。</p>
+      </div>
+
+      <div class="checklist">
+        <div class="check">孩子入读后拿什么学籍？毕业证全称是什么？是否能在教育系统查验？</div>
+        <div class="check">所报班型是第一批三二分段，还是第四批普通中职/职教高考班？两者升学限制不同。</div>
+        <div class="check">近三年三二分段转段通过人数、未通过人数、未通过学生去向分别是多少？</div>
+        <div class="check">近三年 3+证书春季高考本科、专科、公办专科、民办专科录取名单能否脱敏查看？</div>
+        <div class="check">班主任是否住校或晚间值班？晚修、手机、请假、外出、宿舍熄灯如何执行？</div>
+        <div class="check">是否允许看一节真实课堂、晚修和宿舍公共区域，而不是只看样板路线？</div>
+        <div class="check">中职生每周实训课多少节？在哪些实训室？由中职老师还是高职老师授课？</div>
+        <div class="check">所有收费项目、退费规则、国际项目额外费用、考证费用能否一次性书面列明？</div>
+        <div class="check">叛逆、冲突、霸凌、沉迷手机、夜不归宿等情况的处理流程是什么？家校沟通频率怎样？</div>
+        <div class="check">如果孩子读一个月明显不适应，是否可以转专业、转班或退学？手续和费用如何处理？</div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <div class="section-head">
+        <h2>资料来源与可信度</h2>
+        <p>本页优先采用教育主管部门、学校官网、学校章程和质量年报。第三方招生平台和自媒体只用于发现线索，不作为核心判断依据。</p>
+      </div>
+
+      <div class="source-list">
+        <div class="source-card">
+          <h3>广州市招生考试委员会办公室：2026 年报考指南</h3>
+          <p><a href="https://gzzk.gz.gov.cn/attachment/8/8023/8023906/10816552.pdf" target="_blank" rel="noopener">查看官方 PDF</a>。用于核验中职部性质、学校等级、地址、电话、2026 招生计划、学费和住宿费。</p>
+        </div>
+        <div class="source-card">
+          <h3>广东省教育考试院：2026 年 3+证书考试通知</h3>
+          <p><a href="https://eea.gd.gov.cn/gkmlpt/content/4/4782/post_4782227.html" target="_blank" rel="noopener">查看官方通知</a>。用于核验中职生 3+证书报名对象、考试科目、不得与普通高考兼报、批次规则。</p>
+        </div>
+        <div class="source-card">
+          <h3>广州涉外经济职业技术学院官网：学校简介</h3>
+          <p><a href="https://www.gziec.edu.cn/home/page/index/id/11.html" target="_blank" rel="noopener">查看学校官网</a>。用于了解高职学院办学背景、院系、专业、师资、实训、校企合作等学校自述信息。</p>
+        </div>
+        <div class="source-card">
+          <h3>广东省教育厅核准章程</h3>
+          <p><a href="https://edu.gd.gov.cn/attachment/0/467/467525/3577223.pdf" target="_blank" rel="noopener">查看章程 PDF</a>。用于核验高职学院为非营利性民办全日制普通高等学校、举办者、办学层次等。</p>
+        </div>
+        <div class="source-card">
+          <h3>高等职业教育质量报告（2023 年度）</h3>
+          <p><a href="https://www.tech.net.cn/upfiles/zlbg2023_new/xx/guangdong/guangdong%20%2859%29.pdf" target="_blank" rel="noopener">查看质量报告</a>。用于核验校园条件、学生规模、师资结构、经费和学校自述挑战。</p>
+        </div>
+        <div class="source-card">
+          <h3>资料边界</h3>
+          <p>未把第三方平台的“升学率”“就业率”“校风评价”“包推荐”等宣传口径直接当事实。涉及孩子决策时，应要求学校提供盖章或官网发布的近三年数据。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button class="print" onclick="window.print()">打印/保存 PDF</button>
+
+  <footer>
+    <div class="wrap">
+      <p>本报告为公开资料检索与择校适合度分析，不替代教育主管部门最终招生数据、学校正式合同或家长实地考察。志愿填报前，请以广州市中考服务平台和学校盖章材料为准。</p>
+    </div>
+  </footer>
+</body>
+</html>
