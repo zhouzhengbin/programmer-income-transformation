@@ -1,0 +1,2318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>电脑赚钱完整指南 · 2026精选25个自动化项目</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=DM+Mono:wght@400;500;600&family=Playfair+Display:wght@700;900&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Noto Sans SC','PingFang SC',sans-serif;background:#0F0E0A;color:#1A1810;line-height:1.7;overflow-x:hidden}
+
+/* ── HERO ─────────────────────── */
+.hero{min-height:100vh;background:linear-gradient(160deg,#0F0E0A 0%,#1A1510 40%,#0A0F1A 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 15% 50%,rgba(124,58,237,.18) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 85% 50%,rgba(8,145,178,.15) 0%,transparent 60%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.hero-inner{position:relative;max-width:900px;z-index:1}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.4);color:#A78BFA;padding:5px 16px;border-radius:99px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:32px}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:#A78BFA;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.hero-title{font-family:'Noto Serif SC',serif;font-size:clamp(32px,7vw,72px);font-weight:900;color:#F0EDE4;line-height:1.1;margin-bottom:16px;letter-spacing:-.02em}
+.hero-title em{background:linear-gradient(135deg,#EAB308,#F59E0B,#D97706);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:normal}
+.hero-sub{font-size:clamp(14px,2.5vw,18px);color:#6B6050;letter-spacing:.1em;margin-bottom:20px}
+.hero-desc{font-size:16px;color:#5A5040;max-width:640px;margin:0 auto 48px;line-height:2}
+.hero-desc strong{color:#D97706}
+.hero-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;margin-bottom:48px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden}
+.hstat{padding:20px 32px;text-align:center;border-right:1px solid rgba(255,255,255,.05)}
+.hstat:last-child{border-right:none}
+.hstat-n{display:block;font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,40px);font-weight:700;color:#EAB308;line-height:1}
+.hstat-l{font-size:11px;color:#5A5040;letter-spacing:.1em;margin-top:4px;display:block}
+.scroll-hint{color:#4A4030;font-size:13px;letter-spacing:.1em;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ── NAV ─────────────────────── */
+.nav{position:sticky;top:0;z-index:200;background:rgba(15,14,10,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.07);padding:0 24px}
+.nav-inner{max-width:1380px;margin:0 auto;display:flex;align-items:center;gap:4px;padding:10px 0;flex-wrap:wrap}
+.nav-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:#4A4030;text-transform:uppercase;margin-right:8px;white-space:nowrap}
+.nav-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;font-size:12px;color:#6A6050;text-decoration:none;border:1px solid rgba(255,255,255,.08);border-radius:4px;transition:all .15s;white-space:nowrap;background:transparent}
+.nav-btn:hover{color:#EAB308;border-color:rgba(234,179,8,.4);background:rgba(234,179,8,.06)}
+.nav-btn-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* ── CONTENT WRAPPER ─────────── */
+.main{background:#F8F5EE;border-radius:24px 24px 0 0;margin-top:-24px;position:relative;z-index:10;padding-bottom:80px}
+
+/* ── SECTION HEADER ─────────── */
+.section-header{padding:64px 32px 32px;max-width:1380px;margin:0 auto}
+.section-eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.section-title{font-family:'Noto Serif SC',serif;font-size:clamp(24px,4vw,40px);font-weight:900;line-height:1.2;margin-bottom:10px}
+.section-desc{font-size:15px;color:#7A7060;max-width:700px;line-height:1.8}
+.section-count{font-family:'DM Mono',monospace;font-size:12px;background:rgba(0,0,0,.06);padding:3px 10px;border-radius:99px;color:#8A8070;margin-left:auto;white-space:nowrap}
+
+/* ── PROJECT CARD ────────────── */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(580px,1fr));gap:24px;max-width:1380px;margin:0 auto;padding:0 32px 32px}
+.card{background:#FFF;border-radius:12px;border:1px solid #E8E2D8;box-shadow:0 2px 12px rgba(24,20,8,.04);overflow:hidden;transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column}
+.card:hover{box-shadow:0 8px 32px rgba(24,20,8,.1);transform:translateY(-2px)}
+
+/* Card Header */
+.card-head{padding:20px 24px 16px;display:flex;align-items:flex-start;gap:14px}
+.card-emoji{font-size:32px;flex-shrink:0;line-height:1;margin-top:2px}
+.card-meta{flex:1;min-width:0}
+.card-badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.card-tag{font-family:'DM Mono',monospace;font-size:10.5px;font-weight:600;padding:2px 9px;border-radius:99px;border:1px solid;white-space:nowrap}
+.card-name{font-family:'Noto Serif SC',serif;font-size:clamp(17px,2.5vw,21px);font-weight:900;line-height:1.3;color:#1A1810;margin-bottom:4px}
+.card-income{font-size:13px;color:#6A6050;font-family:'DM Mono',monospace}
+.card-income strong{color:#16A34A}
+
+/* Card Body */
+.card-body{padding:0 24px;flex:1}
+.card-intro{font-size:14.5px;color:#4A4030;line-height:1.78;padding:16px;background:#FAFAF5;border-radius:8px;border-left:3px solid;margin-bottom:16px}
+.card-why{font-size:14px;color:#6A6050;line-height:1.78;margin-bottom:16px;padding:12px 14px;border-radius:8px;background:rgba(234,179,8,.07);border:1px solid rgba(234,179,8,.2)}
+.card-why-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#D97706;text-transform:uppercase;margin-bottom:6px;display:block}
+
+/* Tools */
+.card-tools{margin-bottom:16px}
+.card-section-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#8A8070;text-transform:uppercase;margin-bottom:8px;display:block}
+.tools-list{display:flex;flex-wrap:wrap;gap:6px}
+.tool-badge{font-size:12px;color:#4A4030;background:#F0EDE5;border:1px solid #DDD8CE;padding:3px 10px;border-radius:4px;display:flex;align-items:center;gap:4px}
+.tool-badge::before{content:'🔧';font-size:10px}
+
+/* Steps */
+.card-steps{margin-bottom:16px}
+.steps-list{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:14px;padding:12px 14px;border-radius:8px;transition:background .1s;border:1px solid transparent}
+.step:hover{background:#F8F5EE;border-color:#E8E2D8}
+.step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;font-weight:600;flex-shrink:0;color:#FFF;margin-top:1px}
+.step-content{}
+.step-title{font-size:14.5px;font-weight:700;color:#1A1810;margin-bottom:3px}
+.step-desc{font-size:13.5px;color:#6A6050;line-height:1.7}
+
+/* Tips & Warning */
+.card-tips{margin-bottom:12px;padding:14px;background:#F0FDF4;border-radius:8px;border:1px solid #BBF7D0}
+.card-warn{margin-bottom:16px;padding:14px;background:#FEF3C7;border-radius:8px;border:1px solid #FCD34D}
+.tips-label{font-size:11px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#16A34A;margin-bottom:8px;display:block}
+.warn-label{font-size:11px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#D97706;margin-bottom:8px;display:block}
+.tip-item{font-size:13px;color:#14532D;padding:2px 0;display:flex;align-items:flex-start;gap:6px;line-height:1.6}
+.tip-item::before{content:'✓';color:#16A34A;font-weight:700;flex-shrink:0;margin-top:2px}
+.warn-item{font-size:13px;color:#92400E;padding:2px 0;display:flex;align-items:flex-start;gap:6px;line-height:1.6}
+.warn-item::before{content:'⚠';flex-shrink:0;margin-top:2px}
+
+/* Card Footer */
+.card-foot{padding:14px 24px;background:#F8F5EE;border-top:1px solid #E8E2D8;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.foot-cost{font-family:'DM Mono',monospace;font-size:12px;padding:4px 10px;border-radius:4px;font-weight:500}
+
+/* ── LEGEND ─────────────────── */
+.legend{max-width:1380px;margin:0 auto;padding:40px 32px 0}
+.legend-box{background:#FFF;border:1px solid #E8E2D8;border-radius:12px;padding:24px 28px;display:flex;flex-wrap:wrap;gap:28px}
+.lg-group{flex:1;min-width:220px}
+.lg-title{font-family:'DM Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.16em;color:#8A8070;text-transform:uppercase;margin-bottom:12px;display:block}
+.lg-items{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.lg-badge{font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;border:1px solid;font-family:'DM Mono',monospace}
+.lg-desc{font-size:12px;color:#8A8070}
+
+/* ── FOOTER ─────────────────── */
+.footer{background:#0F0E0A;color:#3A3528;text-align:center;padding:64px 24px;font-size:13px;line-height:2.3}
+.footer strong{color:#EAB308}
+.footer-quote{font-family:'Noto Serif SC',serif;font-size:18px;color:#4A4030;margin-bottom:24px;font-style:italic}
+
+/* ── DIVIDER ────────────────── */
+.section-divider{max-width:1380px;margin:0 auto;padding:16px 32px 0;display:flex;align-items:center;gap:16px}
+.div-line{flex:1;height:1px;background:#E0DAD0}
+
+/* ── RESPONSIVE ─────────────── */
+@media(max-width:1200px){.projects-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.projects-grid{padding:0 16px 24px}.section-header{padding:48px 16px 24px}.hero-stats{flex-direction:column;gap:0}.hstat{border-right:none;border-bottom:1px solid rgba(255,255,255,.05)}.legend{padding:24px 16px 0}.legend-box{padding:16px}}
+@media(max-width:480px){.card-head{gap:10px}.card-emoji{font-size:26px}.projects-grid{grid-template-columns:1fr;gap:16px}.step{padding:10px 12px}}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-tag"><span class="hero-tag-dot"></span>可高度自动化 · 一台电脑 · 零/低成本</div>
+    <h1 class="hero-title">用电脑<em>赚钱</em>的完整指南</h1>
+    <p class="hero-sub">2026年 · 精选项目 · 小白友好</p>
+    <p class="hero-desc">从百科全书中精选出 <strong>25个</strong> 可在家用电脑完成、高度自动化、零成本或低成本启动的赚钱项目<br>
+    每个项目包含完整操作步骤，<strong>看完即会，当天可以开始</strong></p>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-n">25</span><span class="hstat-l">精选项目</span></div>
+      <div class="hstat"><span class="hstat-n">6</span><span class="hstat-l">大类方向</span></div>
+      <div class="hstat"><span class="hstat-n">175+</span><span class="hstat-l">操作步骤</span></div>
+      <div class="hstat"><span class="hstat-n">零/低</span><span class="hstat-l">启动成本</span></div>
+      <div class="hstat"><span class="hstat-n">1台</span><span class="hstat-l">电脑即可</span></div>
+    </div>
+    <div class="scroll-hint">↓ 向下滚动查看所有项目</div>
+  </div>
+</section>
+<nav class="nav"><div class="nav-inner"><span class="nav-label">分类</span><a class="nav-btn" href="#cat-ai"><span class="nav-btn-dot" style="background:#7C3AED"></span>🤖 AI工具变现</a><a class="nav-btn" href="#cat-content"><span class="nav-btn-dot" style="background:#DC2626"></span>📱 内容创作变现</a><a class="nav-btn" href="#cat-ecom"><span class="nav-btn-dot" style="background:#D97706"></span>🛒 电商零售自动化</a><a class="nav-btn" href="#cat-freelance"><span class="nav-btn-dot" style="background:#0891B2"></span>💻 自由接单技能变现</a><a class="nav-btn" href="#cat-knowledge"><span class="nav-btn-dot" style="background:#0F766E"></span>🎓 知识付费变现</a><a class="nav-btn" href="#cat-auto"><span class="nav-btn-dot" style="background:#475569"></span>⚙️ 自动化工具盈利</a></div></nav>
+<main class="main">
+
+<div class="legend"><div class="legend-box">
+<div class="lg-group">
+  <span class="lg-title">💰 启动成本说明</span>
+  <div class="lg-items">
+    <span class="lg-badge" style="background:#DCFCE7;color:#16A34A;border-color:#86EFAC">完全免费</span><span class="lg-desc">注册账号即可开始</span>
+    <span class="lg-badge" style="background:#DBEAFE;color:#2563EB;border-color:#93C5FD">低成本</span><span class="lg-desc">月费100-500元内</span>
+    <span class="lg-badge" style="background:#FEF3C7;color:#D97706;border-color:#FCD34D">极低成本</span><span class="lg-desc">单次5-60元以内</span>
+  </div>
+</div>
+<div class="lg-group">
+  <span class="lg-title">🖥️ 共同要求</span>
+  <div class="lg-items">
+    <span class="lg-desc">✓ 一台能上网的电脑（手机也可开始）</span>
+    <span class="lg-desc">✓ 无需特殊技能，看完步骤即可上手</span>
+    <span class="lg-desc">✓ 大多数项目可高度自动化，省时省力</span>
+  </div>
+</div>
+</div></div>
+
+<div class="section-divider" id="cat-ai">
+  <div class="div-line"></div>
+</div>
+<div class="section-header">
+  <div class="section-eyebrow" style="color:#7C3AED">
+    <span style="font-size:20px">🤖</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase">AI工具变现</span>
+    <span class="section-count">6 个项目</span>
+  </div>
+  <h2 class="section-title" style="color:#7C3AED">AI工具变现</h2>
+</div>
+<div class="projects-grid">
+
+<div class="card" id="p01">
+  <div class="card-head">
+    <span class="card-emoji">🎨</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 免费起步</span>
+    <span class="card-tag" style="background:#7C3AED14;color:#7C3AED;border-color:#7C3AED40">🔥 热门爆款</span>
+    </div>
+      <div class="card-name">AI绘图商业接单</div>
+      <div class="card-income">预期月收入：<strong>500–8000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#7C3AED">用AI绘图工具生成高质量图片，接受企业或个人的商业委托，包括Logo概念图、游戏原画、商品海报、小说封面、头像定制等，按张或按套收费。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      AI一键出图，原本需要专业画师2天完成的插图，AI 2分钟完成。你作为'提示词工程师'，掌握出图技巧就能接单，不需要会画画。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">Midjourney（月费约10美元）</span><span class="tool-badge">即梦AI / 文心一格（国内免费）</span><span class="tool-badge">微信/淘宝接单</span><span class="tool-badge">小红书发作品引流</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#7C3AED">1</span>
+          <div class="step-content">
+            <div class="step-title">注册工具账号</div>
+            <div class="step-desc">登录 ideogram.ai（免费）或 即梦AI（国内免费）。如有条件，可开通 Midjourney 基础套餐（约10美元/月）。也可直接使用免费的文心一格、通义万相。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">2</span>
+          <div class="step-content">
+            <div class="step-title">学习提示词写法</div>
+            <div class="step-desc">记住公式：【主体内容】+【风格】+【光线/颜色】+【画面比例】。例如：'一只穿着宇航服的猫坐在月球上，赛博朋克风格，霓虹灯光，16:9比例'。每天练习10条提示词。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">3</span>
+          <div class="step-content">
+            <div class="step-title">建立作品集</div>
+            <div class="step-desc">用不同风格出图50张以上（插画、海报、头像、商业场景），整理成图册，制作成小红书图文或微博相册。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">4</span>
+          <div class="step-content">
+            <div class="step-title">发布接单信息</div>
+            <div class="step-desc">在小红书发帖：'AI定制头像/插图，48小时内出稿，价格公道'。在闲鱼发布：'AI绘图接单，人物/场景/海报'。在淘宝开店：定制AI插画。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">5</span>
+          <div class="step-content">
+            <div class="step-title">报价与沟通</div>
+            <div class="step-desc">头像定制：30-80元/张；插图：100-500元/张；商业海报：200-1000元/套；游戏原画概念图：300-2000元/张。先让客户发参考图，确认风格后收50%定金。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">6</span>
+          <div class="step-content">
+            <div class="step-title">批量提升效率</div>
+            <div class="step-desc">学会一次出图4张（Midjourney U指令选最佳）、利用variations变体功能微调。复杂项目，先出草图让客户确认，再精修。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">7</span>
+          <div class="step-content">
+            <div class="step-title">建立私域复购</div>
+            <div class="step-desc">完成订单后，加客户微信，定期发作品。可做'AI头像月卡'：99元/月，每月为同一客户更新4张头像。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">先用国内免费工具接小单，赚到钱再投资 Midjourney</div><div class="tip-item">在小红书每天发1-2张作品，保持曝光，慢慢涨粉自然接单</div><div class="tip-item">加入AI绘图交流群，学习爆款提示词，有人免费分享</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">不要声称图片是手绘创作，需告知客户为AI生成。商业用途需核实工具的版权授权条款。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">免费起步</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P01</span>
+  </div>
+</div>
+<div class="card" id="p02">
+  <div class="card-head">
+    <span class="card-emoji">🎬</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 免费起步</span>
+    <span class="card-tag" style="background:#7C3AED14;color:#7C3AED;border-color:#7C3AED40">🔥 自动化最强</span>
+    </div>
+      <div class="card-name">AI批量口播视频生产</div>
+      <div class="card-income">预期月收入：<strong>2000–20000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#7C3AED">用AI生成文案脚本→AI数字人自动配音朗读→剪映自动剪辑合成，批量产出口播视频，发布到抖音/快手/视频号赚广告分成，或帮企业制作产品介绍视频。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      传统口播视频需要真人出镜、录音、剪辑，耗时3-5小时。AI流水线30分钟产一条视频，可日产10条，完全不需露脸。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">剪映电脑版（免费）</span><span class="tool-badge">HeyGen / 硅基流动 / D-ID（AI数字人）</span><span class="tool-badge">ChatGPT / 文心一言（写文案）</span><span class="tool-badge">OBS录屏（免费）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#7C3AED">1</span>
+          <div class="step-content">
+            <div class="step-title">选定账号方向</div>
+            <div class="step-desc">选一个垂直方向：知识科普（健康/历史/财经）、行业资讯、产品评测、故事讲述等。垂直方向更容易涨粉和变现。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">2</span>
+          <div class="step-content">
+            <div class="step-title">用AI生成脚本</div>
+            <div class="step-desc">打开文心一言或 ChatGPT，输入：'帮我写一篇关于【主题】的口播文案，500字，语气轻松，有转折感，开头要吸引人'。复制结果，检查修改一遍。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">3</span>
+          <div class="step-content">
+            <div class="step-title">生成AI数字人视频</div>
+            <div class="step-desc">登录 HeyGen.com（有免费额度）或国内的硅基流动（有免费试用）。选一个虚拟主播形象，粘贴文案，点击生成，几分钟后下载视频。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">4</span>
+          <div class="step-content">
+            <div class="step-title">剪辑加工</div>
+            <div class="step-desc">打开剪映，导入AI数字人视频，添加：字幕（自动识别）、背景音乐（剪映免费曲库）、开场动画、结尾引导关注。全程模板操作，不需剪辑技术。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">5</span>
+          <div class="step-content">
+            <div class="step-title">批量发布</div>
+            <div class="step-desc">每天发布1-3条，发布时间选7-9点/12-13点/20-22点。标题加热词：'很多人不知道''你一定要了解''这件事太重要了'。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">6</span>
+          <div class="step-content">
+            <div class="step-title">开通变现</div>
+            <div class="step-desc">抖音：粉丝1000+即可开通购物车卖货；5000+开通中视频计划（播放量换钱）。视频号：开通流量主，播放量换广告分成。快手：磁力聚星平台接品牌合作。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">7</span>
+          <div class="step-content">
+            <div class="step-title">接企业订单</div>
+            <div class="step-desc">会做批量视频后，去猪八戒/飞猪威客发布：'帮企业制作产品介绍视频，AI数字人口播，100元/条'，轻松接到企业单。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">剪映有'数字人'功能，可免费试用，不用注册HeyGen</div><div class="tip-item">内容比形式更重要，好的脚本是成功关键</div><div class="tip-item">做完10条视频后分析数据，留下播放最好的风格继续做</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">不能搬运他人视频，所有内容要原创。数字人形象需使用合规来源，不能仿冒真人。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">免费起步</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P02</span>
+  </div>
+</div>
+<div class="card" id="p03">
+  <div class="card-head">
+    <span class="card-emoji">✍️</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#7C3AED14;color:#7C3AED;border-color:#7C3AED40">🔥 零门槛</span>
+    </div>
+      <div class="card-name">AI文案写作接单</div>
+      <div class="card-income">预期月收入：<strong>1000–10000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#7C3AED">用AI工具辅助生成各类商业文案，包括产品详情页、朋友圈软文、公众号推文、短视频脚本、活动策划、招商手册等，承接企业和个人的文案撰写需求。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      90%的中小企业主不会写文案，但每天都需要发朋友圈、写介绍、做推广。你用AI+人工打磨，10分钟出一篇，他们要花几个小时。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">ChatGPT / 文心一言 / 通义千问（均免费）</span><span class="tool-badge">DeepSeek（免费，中文最强）</span><span class="tool-badge">Word / 石墨文档（免费）</span><span class="tool-badge">微信接单</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#7C3AED">1</span>
+          <div class="step-content">
+            <div class="step-title">掌握核心提示词</div>
+            <div class="step-desc">记住万能公式：'你是一名资深【行业】文案策划，请为【产品/服务名称】写一篇【文案类型】，目标客户是【人群描述】，要求【风格/字数/重点】'。这个公式能覆盖80%的需求。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">2</span>
+          <div class="step-content">
+            <div class="step-title">建立样本库</div>
+            <div class="step-desc">用AI生成50篇不同行业的文案（餐饮/美容/教育/房产/电商等），打上行业标签，存档备用。这是你的'作品集'，也是你以后修改的模板。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">3</span>
+          <div class="step-content">
+            <div class="step-title">确定接单渠道</div>
+            <div class="step-desc">在微信朋友圈发：'专业文案写作，产品描述/推广软文/短视频脚本，48小时交稿'。在闲鱼搜索'文案外包'，跟同类卖家学定价。在猪八戒网注册发布服务。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">4</span>
+          <div class="step-content">
+            <div class="step-title">定价策略</div>
+            <div class="step-desc">朋友圈软文：50-200元/篇；产品详情页：200-800元/页；视频脚本：100-500元/条；活动策划：500-3000元/次；公众号月度运营：800-3000元/月。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">5</span>
+          <div class="step-content">
+            <div class="step-title">接单流程</div>
+            <div class="step-desc">客户下单→收集资料（产品信息/竞品/目标客群）→让AI生成3个方向→自己筛选修改→交稿→收款。全程可在手机上完成。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">6</span>
+          <div class="step-content">
+            <div class="step-title">提升单价</div>
+            <div class="step-desc">学习'AIDA框架'（注意-兴趣-欲望-行动）和'FAB法则'（特点-优势-利益），把这些营销理论包装到你的服务介绍里，显得更专业，能报更高的价。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">7</span>
+          <div class="step-content">
+            <div class="step-title">打造个人品牌</div>
+            <div class="step-desc">在公众号/小红书写文章：'我用AI帮XX公司写了一条朋友圈，带来了50个询盘'，附上截图，快速建立信任。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">DeepSeek是目前中文最好的免费AI，写文案比ChatGPT更接地气</div><div class="tip-item">接到第一单时，不管多便宜，都要认真做，留下好评是最贵的资产</div><div class="tip-item">可以专注一个行业（比如美容/餐饮），做深做透，报价比杂而不精的高3倍</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">交稿前必须自己通读修改，AI会产生错误信息，文案中的数据要核实。不要声称全是手写原创，可以说'AI辅助+人工精修'。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P03</span>
+  </div>
+</div>
+<div class="card" id="p04">
+  <div class="card-head">
+    <span class="card-emoji">🏷️</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#7C3AED14;color:#7C3AED;border-color:#7C3AED40">🔥 无门槛</span>
+    </div>
+      <div class="card-name">AI数据标注兼职</div>
+      <div class="card-income">预期月收入：<strong>300–3000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#7C3AED">为AI训练公司提供数据标注服务：给图片画框框（哪里是汽车/行人/信号灯）、判断AI回答质量、给语音做文字转录、给对话打标签等。按任务量计费，自由兼职。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      所有AI模型的训练都需要大量人工标注的数据，这是AI公司必须外包的基础工作。全球对标注员需求旺盛，任务24小时在线，随时能做。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">电脑浏览器即可</span><span class="tool-badge">Scale AI / 灵动标注 / 数据堂 / 龙猫数据（注册即用）</span><span class="tool-badge">无需任何软件</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#7C3AED">1</span>
+          <div class="step-content">
+            <div class="step-title">选择平台注册</div>
+            <div class="step-desc">国内平台：登录'数据堂'（datatang.com）、'龙猫数据'、'灵动标注'，注册账号，完成实名认证。海外平台：Scale AI、Remotasks、Toloka（需要科学上网），报酬以美元计算，折合人民币更高。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">2</span>
+          <div class="step-content">
+            <div class="step-title">通过入职测试</div>
+            <div class="step-desc">每个平台都有几道测试题，检验你是否能正确标注。认真阅读标注指南，一般测试题不难，正确率80%以上即可通过。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">3</span>
+          <div class="step-content">
+            <div class="step-title">选择适合自己的任务</div>
+            <div class="step-desc">图片标注：最常见，拖动画框，适合新手。文本分类：判断语句情感（正面/负面/中性）。语音转写：听录音打文字。RLHF（强化学习反馈）：判断两个AI回答哪个更好，单价最高。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">4</span>
+          <div class="step-content">
+            <div class="step-title">每天固定做任务</div>
+            <div class="step-desc">每天投入1-3小时，按任务量计费。熟练后，普通图片标注每小时可完成40-60个任务，按0.2-1元/个算，每小时收入8-60元不等。RLHF类任务单价5-30元/条。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">5</span>
+          <div class="step-content">
+            <div class="step-title">提升等级获取高价任务</div>
+            <div class="step-desc">各平台都有等级制度，完成一定量的任务且质量达标后，可以解锁高单价任务（专业医疗/法律/代码类标注）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">6</span>
+          <div class="step-content">
+            <div class="step-title">多平台并行</div>
+            <div class="step-desc">同时注册3-5个平台，任务多的时候在任务多的平台做。遇到节假日需求高峰期，抓紧多做。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">7</span>
+          <div class="step-content">
+            <div class="step-title">推荐返利</div>
+            <div class="step-desc">数据堂等平台有邀请机制，邀请朋友注册并完成任务，可获得下线收益的5%-10%作为佣金。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">RLHF类（给AI打分）单价最高，但需要英文能力。中文标注任务更简单，适合入门</div><div class="tip-item">做任务时要仔细看标注规范，质量分影响能否继续接高价任务</div><div class="tip-item">可以用外接大屏幕提高效率，同时开两个任务窗口</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">不要刷单或随意点击，质量不达标会被封号扣钱。选择有口碑的平台，避免做完任务不给钱的小平台。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P04</span>
+  </div>
+</div>
+<div class="card" id="p05">
+  <div class="card-head">
+    <span class="card-emoji">📸</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#2563EB14;color:#2563EB;border-color:#2563EB40">💰 极低成本</span>
+    <span class="card-tag" style="background:#7C3AED14;color:#7C3AED;border-color:#7C3AED40">🔥 超高频需求</span>
+    </div>
+      <div class="card-name">AI证件照/写真照生成</div>
+      <div class="card-income">预期月收入：<strong>500–5000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#7C3AED">用AI工具将普通生活照一键转换成各种规格的证件照（1寸/2寸/蓝底白底红底），或将普通照片变成写真大片、艺术风格照，面向有拍照需求的个人用户接单。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      去照相馆拍证件照需要30-80元，用AI工具10秒完成，一张收费5-15元客户也乐意。写真照套餐500-1000元，AI工具加上后期处理，几分钟出图，利润极高。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">HivisionIDPhotos（开源免费）</span><span class="tool-badge">即梦AI / Flux模型（免费额度）</span><span class="tool-badge">Canva（免费版）</span><span class="tool-badge">微信/小红书接单</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#7C3AED">1</span>
+          <div class="step-content">
+            <div class="step-title">配置免费工具</div>
+            <div class="step-desc">方法一（证件照）：访问 github.com/Zeyi-Lin/HivisionIDPhotos，按说明在本地运行（需要基础操作能力）。简单方法：直接用'证件照之家'等在线网站，上传图片自动处理，每次约1元成本。方法二（写真）：用即梦AI或LiblibAI，上传参考图+选风格，免费额度每天可出10-20张。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">2</span>
+          <div class="step-content">
+            <div class="step-title">测试出图质量</div>
+            <div class="step-desc">用自己的照片测试5-10次，对比不同参数设置的效果，找到出图最稳定的工作流程。保存好每次的参数设置。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">3</span>
+          <div class="step-content">
+            <div class="step-title">制作服务展示</div>
+            <div class="step-desc">用Canva制作对比图：左边是客户原图，右边是处理后的效果图。做5-10组对比，制作成小红书图文或视频。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">4</span>
+          <div class="step-content">
+            <div class="step-title">发布接单</div>
+            <div class="step-desc">小红书发帖：'AI证件照，10秒换背景，5元/张，效果满意再付款'。闲鱼挂单：'证件照AI处理，一寸二寸各种底色'。朋友圈发对比图，主动推给有需要的朋友。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">5</span>
+          <div class="step-content">
+            <div class="step-title">设计套餐</div>
+            <div class="step-desc">证件照单张：5-10元；证件照5张：20元；写真艺术照1张：15-30元；写真艺术照10张套餐：99-199元；企业员工证件照批量：200-500元/次（20人以内）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">6</span>
+          <div class="step-content">
+            <div class="step-title">批量处理提效</div>
+            <div class="step-desc">企业客户会一次性提交几十张员工照片，用AI工具批量处理，一次能完成所有图片，30分钟内交付，收费200-500元。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">7</span>
+          <div class="step-content">
+            <div class="step-title">扩展服务</div>
+            <div class="step-desc">掌握证件照后，延伸到：照片修复（老照片翻新20-50元/张）、照片上色（黑白变彩色10-30元/张）、人物抠图（5-15元/张）。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">在学校、医院、政府机关附近的社群发广告，这些地方经常需要证件照</div><div class="tip-item">企业批量订单是最稳定的收入，主动联系HR说可以做员工证件照</div><div class="tip-item">用微信零钱收款，小额支付最方便</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">证件照有严格规格要求（如护照、签证照），要认真核对官方尺寸标准，不符合规格会被客户投诉。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#2563EB14;color:#2563EB;border:1px solid #2563EB30">极低成本</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P05</span>
+  </div>
+</div>
+<div class="card" id="p06">
+  <div class="card-head">
+    <span class="card-emoji">🎙️</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 免费起步</span>
+    <span class="card-tag" style="background:#7C3AED14;color:#7C3AED;border-color:#7C3AED40">🔥 冷门暴利</span>
+    </div>
+      <div class="card-name">AI配音接单服务</div>
+      <div class="card-income">预期月收入：<strong>800–8000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#7C3AED">用AI语音合成工具，将文字转成各种音色的人声，为视频、广告、有声书、企业宣传片、游戏等提供配音服务，无需真人录音棚，一台电脑即可完成。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      传统配音需要配音演员+录音棚，成本高且周期长。AI配音30秒生成，1元/分钟的成本，对外收费20-100元/分钟，利润超高。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">剪映（内置免费配音）</span><span class="tool-badge">Azure TTS / 微软Azure（月1000分钟免费）</span><span class="tool-badge">ElevenLabs（免费额度）</span><span class="tool-badge">Audacity（免费音频处理）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#7C3AED">1</span>
+          <div class="step-content">
+            <div class="step-title">掌握主流工具</div>
+            <div class="step-desc">剪映电脑版→点击'文本朗读'→选择音色（女声/男声/方言等）→可调节语速语调→导出音频。这是最简单的方法，完全免费。进阶：注册 ElevenLabs.io（英文最好的AI配音），每月1万字符免费。国内：魔音工坊、讯飞配音（有免费额度）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">2</span>
+          <div class="step-content">
+            <div class="step-title">建立音色样本库</div>
+            <div class="step-desc">用各工具测试不同音色，录制10-30秒样本：普通话女声（甜美/成熟/新闻播报）、男声（浑厚/年轻/专业）、方言（粤语/闽南语/四川话）。整理成音色目录，接单时让客户试听选择。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">3</span>
+          <div class="step-content">
+            <div class="step-title">确定接单渠道</div>
+            <div class="step-desc">猪八戒/威客：发布'专业AI配音，广告/视频/有声书'。淘宝开店：'AI配音服务，按字计费'。闲鱼：'配音接单，快速交付'。B站/小红书：发配音样本吸引客户。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">4</span>
+          <div class="step-content">
+            <div class="step-title">定价标准</div>
+            <div class="step-desc">企业广告配音：50-200元/分钟（含后期处理）；视频配音：30-100元/分钟；有声书：0.3-1元/字，一本书几万字，单笔订单几千元；游戏旁白：100-500元/段；电话客服语音：200-1000元/套。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">5</span>
+          <div class="step-content">
+            <div class="step-title">接单流程</div>
+            <div class="step-desc">客户发来文案→确认字数和时长→选音色→生成音频→用Audacity降噪/调整音量→发送试听样本→确认修改→付款收尾。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">6</span>
+          <div class="step-content">
+            <div class="step-title">提升音质</div>
+            <div class="step-desc">用Audacity（免费）给AI音频做降噪处理，去除电子感；用混响插件让声音更饱满；给企业配音时，加上轻音乐背景，显得更专业。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#7C3AED">7</span>
+          <div class="step-content">
+            <div class="step-title">接有声书大单</div>
+            <div class="step-desc">联系起点中文网、番茄小说的签约作者，提供'有声书配音'服务。一本网络小说10-30万字，按0.5元/字算，一单就是5-15万元的大项目。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">剪映配音完全免费，新手先用这个练手和接基础单</div><div class="tip-item">在B站上传配音样本视频，注明'接配音单'，有大量主动找上门的客户</div><div class="tip-item">配音+字幕+剪辑打包卖，比单独卖配音利润高50%</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">不能用明星或知名人物的声音训练/克隆模型接单，涉及侵权和违法。企业广告用途需确认客户有文案版权。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">免费起步</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P06</span>
+  </div>
+</div>
+</div>
+
+<div class="section-divider" id="cat-content">
+  <div class="div-line"></div>
+</div>
+<div class="section-header">
+  <div class="section-eyebrow" style="color:#DC2626">
+    <span style="font-size:20px">📱</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase">内容创作变现</span>
+    <span class="section-count">4 个项目</span>
+  </div>
+  <h2 class="section-title" style="color:#DC2626">内容创作变现</h2>
+</div>
+<div class="projects-grid">
+
+<div class="card" id="p07">
+  <div class="card-head">
+    <span class="card-emoji">🎥</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#DC262614;color:#DC2626;border-color:#DC262640">🔥 规模化</span>
+    </div>
+      <div class="card-name">短视频账号矩阵变现</div>
+      <div class="card-income">预期月收入：<strong>3000–50000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#DC2626">围绕同一类内容，同时运营3-10个账号，将同一视频素材批量分发到不同平台和账号，用量的优势弥补单个账号的不确定性，从广告分成、带货佣金、接单中获益。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      算法是概率游戏：单个账号每条视频爆发概率10%，10个账号同时发就等于10倍尝试机会。内容成本几乎不变，但变现机会倍增。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">剪映电脑版（免费）</span><span class="tool-badge">抖音/快手/视频号（免费注册）</span><span class="tool-badge">手机支架+补光灯（可选，50元以内）</span><span class="tool-badge">ChatGPT/文心一言（写脚本）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#DC2626">1</span>
+          <div class="step-content">
+            <div class="step-title">选定内容方向</div>
+            <div class="step-desc">选能持续做100集以上的垂直方向：职场技巧、生活常识、历史故事、健康知识、财经解读、萌宠日常等。越垂直，算法越容易推送给精准用户。避免太热门的领域（竞争激烈）和太冷门的领域（没有受众）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">2</span>
+          <div class="step-content">
+            <div class="step-title">制作内容模板</div>
+            <div class="step-desc">用剪映制作标准化视频模板：片头3秒（logo+一句话引出话题）+正文30-60秒+片尾3秒（关注引导）。保存为草稿，每次换内容，其他部分复用。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">3</span>
+          <div class="step-content">
+            <div class="step-title">批量注册账号</div>
+            <div class="step-desc">在抖音/快手/视频号各注册3-5个账号，用不同手机号，设置不同的账号名和头像。账号定位要有差异（同类内容的不同角度），避免被判定为搬运。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">4</span>
+          <div class="step-content">
+            <div class="step-title">内容微差异化</div>
+            <div class="step-desc">同一个内容，微调片头语句、换一张封面图、调整BGM，即可在不同账号发布。AI工具可以快速生成同一主题的不同版本脚本。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">5</span>
+          <div class="step-content">
+            <div class="step-title">建立发布日历</div>
+            <div class="step-desc">每天发布时间表：早7:30/午12:00/晚8:00 是三个黄金时间段。用Excel做发布记录，跟踪每个账号的数据表现。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">6</span>
+          <div class="step-content">
+            <div class="step-title">开通多渠道变现</div>
+            <div class="step-desc">粉丝1000+：开抖音购物车/快手小黄车，发选品视频带货赚佣金（5%-30%）。5000粉丝：申请中视频计划，播放量换现金。10000粉丝：接品牌合作广告（500-5000元/条）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">7</span>
+          <div class="step-content">
+            <div class="step-title">矩阵化管理</div>
+            <div class="step-desc">用飞书/腾讯文档建表格，记录每个账号、每条视频的：发布时间、播放量、点赞、评论、涨粉数、收入。每周复盘，淘汰表现差的账号方向，加大投入表现好的。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">前3个月不要期待大收入，专注做内容积累数据，找到爆款规律再复制</div><div class="tip-item">一个账号爆了之后，把爆款内容用其他账号重新发一遍，蹭自己的热度</div><div class="tip-item">用AI工具生成脚本后，记得加入自己的亲身经历或观点，内容更真实更有传播力</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">严禁搬运他人视频，即使加字幕也算侵权。账号矩阵需要保持内容原创性，否则全部被封。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P07</span>
+  </div>
+</div>
+<div class="card" id="p08">
+  <div class="card-head">
+    <span class="card-emoji">📰</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#DC262614;color:#DC2626;border-color:#DC262640">🔥 稳定长线</span>
+    </div>
+      <div class="card-name">公众号图文内容变现</div>
+      <div class="card-income">预期月收入：<strong>1000–30000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#DC2626">在微信公众号发布有价值的图文内容，通过广告分成（流量主）、接品牌软文、卖知识付费产品、引流私域销售等多种方式变现，是长期稳定的内容资产。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      微信有13亿用户，公众号文章可以无限期传播。一篇爆款文章可能在一年后还持续带来粉丝和收入。沉淀的粉丝是真实的私域资产，不受平台算法控制。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">微信公众号（免费注册）</span><span class="tool-badge">秀米/135编辑器（免费排版）</span><span class="tool-badge">ChatGPT/文心一言（辅助写作）</span><span class="tool-badge">新榜/西瓜数据（免费查数据）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#DC2626">1</span>
+          <div class="step-content">
+            <div class="step-title">注册公众号</div>
+            <div class="step-desc">访问 mp.weixin.qq.com，选择'订阅号'（个人可注册）。填写账号信息，选择一个精准的账号名称（如：职场干货精选、育儿百科全书、财经早读等）。头像用专业图片，简介写清楚'每天分享XXX干货'。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">2</span>
+          <div class="step-content">
+            <div class="step-title">确定选题方向</div>
+            <div class="step-desc">研究法：在公众号搜索同类账号，看哪些文章阅读量最高。在微信指数查热词。用AI帮你想50个同领域选题：'帮我列出50个关于【职场/育儿/健康】的公众号爆款选题'。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">3</span>
+          <div class="step-content">
+            <div class="step-title">写出高质量文章</div>
+            <div class="step-desc">结构公式：标题（含数字+痛点/好奇心）→开头3句话抓住人→正文分3-5个要点→结尾互动引导。字数：1000-3000字为佳。用AI生成初稿，自己加入案例、观点、个人经历，让内容更有温度。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">4</span>
+          <div class="step-content">
+            <div class="step-title">精美排版</div>
+            <div class="step-desc">登录 xiumi.us（秀米），选择排版模板，分段清晰，适当加粗重点，配相关图片（pixabay.com 有免费图片）。设置封面图（712×405像素）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">5</span>
+          <div class="step-content">
+            <div class="step-title">持续发布积累粉丝</div>
+            <div class="step-desc">初期每周发2-3篇。发完后，分享到朋友圈、微信群、其他平台引流。加入同领域交流群，互相推荐账号（换粉）。发布朋友圈：'我写了一篇关于XXX的文章，感兴趣的点开看看'。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">6</span>
+          <div class="step-content">
+            <div class="step-title">开通流量主</div>
+            <div class="step-desc">粉丝满500后申请开通流量主（广告分成）。每1000次阅读大概能分到5-30元广告费，取决于领域和粉丝质量。财经/法律/教育类账号广告单价最高。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">7</span>
+          <div class="step-content">
+            <div class="step-title">接软文+卖产品</div>
+            <div class="step-desc">粉丝5000+开始有品牌主动联系投放软文（500-5000元/篇）。在文章末尾推广知识付费：'扫码加入知识星球/领取电子书'，引导付费。粉丝1万+，可以卖自己的课程、产品。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">选一个你真正感兴趣的方向，坚持1年比发100篇停掉更有价值</div><div class="tip-item">在别的平台（知乎/小红书）同步发文章，多渠道引粉到公众号</div><div class="tip-item">文章开头第一段最重要，决定用户是否继续读，反复修改前100字</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">不得转载他人文章（即使注明来源），会被投诉侵权。涉及医疗、法律、金融的内容需谨慎核实，错误信息会被举报封号。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P08</span>
+  </div>
+</div>
+<div class="card" id="p09">
+  <div class="card-head">
+    <span class="card-emoji">🔍</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#DC262614;color:#DC2626;border-color:#DC262640">🔥 长尾流量</span>
+    </div>
+      <div class="card-name">知乎专业回答变现</div>
+      <div class="card-income">预期月收入：<strong>500–8000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#DC2626">在知乎找到高关注量问题，写出高质量的专业回答，通过知乎好物推荐（内容带货）、盐选专栏（付费内容）、回答引流到私域销售产品课程等方式变现。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      知乎一个爆款回答可以持续收到赞和阅读5年以上，是真正的'睡后收入'。平台用户学历高、消费力强，广告单价高。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">知乎（免费注册）</span><span class="tool-badge">文心一言/DeepSeek（辅助写作）</span><span class="tool-badge">知乎好物推荐（内置变现工具）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#DC2626">1</span>
+          <div class="step-content">
+            <div class="step-title">找高价值问题</div>
+            <div class="step-desc">在知乎搜索你擅长领域的关键词，筛选：关注人数1000+、回答数20以内的问题（说明这个问题有需求但竞争不激烈）。工具：直接搜索+分析数据；或用'知乎热搜'看趋势话题。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">2</span>
+          <div class="step-content">
+            <div class="step-title">写出爆款回答</div>
+            <div class="step-desc">结构：先给出结论（3秒抓住读者）→用亲身经历/案例展开→给出具体可操作的建议→结尾留悬念或引导互动。字数：500-2000字，超过3000字需要有极强的内容价值。用AI生成初稿，加入自己的真实经历。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">3</span>
+          <div class="step-content">
+            <div class="step-title">建立专业人设</div>
+            <div class="step-desc">完善个人资料：职业头衔要专业（如'5年职场HR经验'/'国家注册营养师'），头像要真实专业。坚持在同一领域回答，算法会把你定向推给该领域用户。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">4</span>
+          <div class="step-content">
+            <div class="step-title">开通好物推荐</div>
+            <div class="step-desc">知乎账号通过基础审核后，开通'好物推荐'功能，在回答中插入京东/淘宝商品链接，用户点击购买后，你获得佣金（3%-20%不等）。例如：回答健身问题→推荐蛋白粉→每笔订单赚5-30元。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">5</span>
+          <div class="step-content">
+            <div class="step-title">开通盐选计划</div>
+            <div class="step-desc">盐选专栏（付费专栏）：将系列回答整理成专栏，设定付费价格（9.9-99元），读者订阅后你得到70%收益。适合做知识分享型账号。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">6</span>
+          <div class="step-content">
+            <div class="step-title">用回答引流</div>
+            <div class="step-desc">在回答最后写：'更多内容在公众号XXX'或'关注我，私信发你完整版资料'，引导用户加微信，再私域销售课程/咨询/产品。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">7</span>
+          <div class="step-content">
+            <div class="step-title">批量产出</div>
+            <div class="step-desc">用AI帮你列出本领域所有热门问题，按优先级排队，每天写2-3个回答。坚持30天，积累50+高质量回答，自然开始有稳定流量。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">专业领域回答比泛娱乐类变现价值更高，医疗/法律/财经回答带货佣金更高</div><div class="tip-item">第一个回答出现在问题靠前位置很关键，凌晨发、快速积累点赞最有效</div><div class="tip-item">与其跨领域，不如在一个细分领域做到知乎前三，精准流量更值钱</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">不能虚构专业资质，不能发布虚假医疗/投资信息，违反平台规则会被封号。好物推荐需要如实使用过或了解产品，不要推荐自己不了解的劣质产品。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P09</span>
+  </div>
+</div>
+<div class="card" id="p10">
+  <div class="card-head">
+    <span class="card-emoji">🌸</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#DC262614;color:#DC2626;border-color:#DC262640">🔥 女性市场爆发</span>
+    </div>
+      <div class="card-name">小红书种草博主</div>
+      <div class="card-income">预期月收入：<strong>1000–20000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#DC2626">在小红书发布图文或视频内容，通过商品种草分享积累粉丝，再通过品牌合作（接广告）、好物推荐（带货佣金）、引流私域卖课等方式变现。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      小红书月活3亿，用户中女性占多数，消费意愿强，对'真实分享'的信任度高。品牌在小红书的广告预算在持续增加，即使是小博主也能接到单。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">小红书APP（免费）</span><span class="tool-badge">Canva（免费图片设计）</span><span class="tool-badge">iPhone或安卓手机（现有手机即可）</span><span class="tool-badge">蒲公英平台（官方接单）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#DC2626">1</span>
+          <div class="step-content">
+            <div class="step-title">明确账号定位</div>
+            <div class="step-desc">选一个你真实生活中的标签：学生党平价好物/职场妈妈育儿/健身博主/美食探店/学习打卡/旅行笔记/美妆测评。定位越清晰，涨粉越快。账号名字包含关键词，如'好物实测小白'。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">2</span>
+          <div class="step-content">
+            <div class="step-title">发前9张图打基础</div>
+            <div class="step-desc">第一批发9张笔记，代表你账号的风格基调。参考同类爆款：拍照角度、滤镜风格、文字排版、标题格式。用Canva制作统一的图片风格（颜色/字体）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">3</span>
+          <div class="step-content">
+            <div class="step-title">掌握爆款标题公式</div>
+            <div class="step-desc">公式一：数字+结论：'入手5件，只有这1件值得买'。公式二：对比：'买XX之前，一定要看这篇'。公式三：共鸣：'月薪5000的我，怎么用平价产品过上精致生活'。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">4</span>
+          <div class="step-content">
+            <div class="step-title">每日更新保持活跃</div>
+            <div class="step-desc">每天发1-2篇笔记。发完后的前30分钟是关键：回复所有评论，让算法判定内容有互动价值，会推给更多人。去同类博主下面评论，增加曝光。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">5</span>
+          <div class="step-content">
+            <div class="step-title">申请蒲公英平台</div>
+            <div class="step-desc">粉丝1000+后，可在蒲公英（小红书官方接单平台）注册，设置接单价格。品牌会主动找你合作。1000粉丝：100-500元/条；5000粉丝：500-2000元/条；1万粉：2000-8000元/条。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">6</span>
+          <div class="step-content">
+            <div class="step-title">开通好物推荐</div>
+            <div class="step-desc">在小红书开通'好物推荐'，推荐商品后用户购买你获得佣金。和种草笔记结合，做真实测评，佣金10%-25%。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#DC2626">7</span>
+          <div class="step-content">
+            <div class="step-title">引流私域扩大变现</div>
+            <div class="step-desc">笔记末尾写'想要完整清单/测评报告的在评论留言，或关注后私信我'，用私信引导用户加微信，在微信群/朋友圈销售深度内容或产品。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">小红书SEO很重要：标题+正文包含关键词，搜索流量可以持续带来粉丝</div><div class="tip-item">用小红书内置的数据分析工具，看哪篇笔记流量最好，复制那种风格</div><div class="tip-item">和同量级博主互相推荐（换粉），比单打独斗涨粉快3-5倍</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">不得发布虚假测评（没用过的产品说好用），违规会被封号。接广告需在笔记中标注'广告'字样（蒲公英合作自动标注）。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P10</span>
+  </div>
+</div>
+</div>
+
+<div class="section-divider" id="cat-ecom">
+  <div class="div-line"></div>
+</div>
+<div class="section-header">
+  <div class="section-eyebrow" style="color:#D97706">
+    <span style="font-size:20px">🛒</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase">电商零售自动化</span>
+    <span class="section-count">3 个项目</span>
+  </div>
+  <h2 class="section-title" style="color:#D97706">电商零售自动化</h2>
+</div>
+<div class="projects-grid">
+
+<div class="card" id="p11">
+  <div class="card-head">
+    <span class="card-emoji">📦</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#2563EB14;color:#2563EB;border-color:#2563EB40">💰 低成本</span>
+    <span class="card-tag" style="background:#D9770614;color:#D97706;border-color:#D9770640">🔥 零库存</span>
+    </div>
+      <div class="card-name">无货源一件代发电商</div>
+      <div class="card-income">预期月收入：<strong>2000–20000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#D97706">在淘宝/拼多多开店，展示产品图片，有买家下单后，你去1688找厂家以更低价格采购，让厂家直接发货给买家，你赚中间差价。全程不需要备货囤货，零库存风险。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      你负责销售，厂家负责生产发货，分工明确。一台电脑可以同时管理几百个商品、几个店铺，理论上订单越多收入越高，边际成本接近零。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">淘宝/拼多多/抖音小店（开店免费）</span><span class="tool-badge">1688.com（进货平台）</span><span class="tool-badge">超级店长/店小秘（ERP管理工具）</span><span class="tool-badge">ChatGPT（写商品文案）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#D97706">1</span>
+          <div class="step-content">
+            <div class="step-title">选品是核心</div>
+            <div class="step-desc">用选品工具（淘宝搜索+阿里巴巴数据）找'蓝海产品'：月销量500-2000个（不是太烂也不是竞争激烈）、好评率95%+、利润空间30%以上。工具：数据魔方（免费版）、快卖客。避开：手机壳/数据线（竞争太激烈）；选：细分小众功能性产品。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">2</span>
+          <div class="step-content">
+            <div class="step-title">在1688找货源</div>
+            <div class="step-desc">登录 1688.com，搜索选定的产品，找到月销量高、评分高、支持'一件代发'的供应商。联系供应商确认：最低起订量（1件即可）、代发快递（一般是快递费3-8元）、发货时间（48小时内）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">3</span>
+          <div class="step-content">
+            <div class="step-title">开店并上架商品</div>
+            <div class="step-desc">在淘宝/拼多多注册店铺（个人可开）。从1688下载供应商的产品图片，用AI工具优化商品标题和详情文案（更吸引买家）。设定售价：进价×1.5倍以上（要覆盖平台扣点+快递补贴+利润）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">4</span>
+          <div class="step-content">
+            <div class="step-title">处理订单</div>
+            <div class="step-desc">买家下单→你收到订单通知→登录1688找供应商下单→填写买家地址→供应商发货→买家收货确认→你收到货款。建议用'超级店长'等ERP工具，可以半自动化处理订单，大量订单时不会出错。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">5</span>
+          <div class="step-content">
+            <div class="step-title">客服与售后</div>
+            <div class="step-desc">建议设置自动回复：打开旺旺自动回复，预设'亲，已为您安排发货，快递单号会在48小时内更新，感谢支持'等模板。退款处理：如果买家要退货，联系供应商协商，大多数供应商支持无理由退货（快递费自付）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">6</span>
+          <div class="step-content">
+            <div class="step-title">优化提升排名</div>
+            <div class="step-desc">每天登录刷新宝贝（拼多多主动推价）、回复评价、补充图片、参加平台活动。积累10条以上好评后，转化率明显提升，系统会给更多流量。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">7</span>
+          <div class="step-content">
+            <div class="step-title">扩大规模</div>
+            <div class="step-desc">一个产品跑通后，复制模型，开发第二个、第三个选品。可以同时运营2-3个平台（淘宝+拼多多+抖音小店），同样的产品多平台卖，收入叠加。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">选品比运营更重要，用1-2周时间研究产品，比后期苦苦运营高效10倍</div><div class="tip-item">1688有'代发货'专区，专门针对无货源卖家，供应商稳定、速度快</div><div class="tip-item">遇到差评不要慌，第一时间主动联系买家解决问题，90%的差评可以协商改为好评</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">不要售卖仿冒名牌商品，淘宝/拼多多对假货查处严格，封店罚款。认真核实产品质量，差评堆积会导致店铺流量清零。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#2563EB14;color:#2563EB;border:1px solid #2563EB30">低成本</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P11</span>
+  </div>
+</div>
+<div class="card" id="p12">
+  <div class="card-head">
+    <span class="card-emoji">♻️</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#D9770614;color:#D97706;border-color:#D9770640">🔥 零风险起步</span>
+    </div>
+      <div class="card-name">闲鱼二手倒卖翻转</div>
+      <div class="card-income">预期月收入：<strong>1000–10000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#D97706">在闲鱼平台低价收购或直接从平台上找低价商品，整理/修复后以更高价格转卖，赚取差价。核心是掌握'信息差'：知道什么值钱、在哪里便宜买到。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      每天都有大量人低价急售商品，不懂行的人以为不值钱，懂行的人1分钟判断价值。学会一个品类的行情，就能稳定赚差价。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">闲鱼APP（免费）</span><span class="tool-badge">转转APP（免费）</span><span class="tool-badge">1688/拼多多（进货参考）</span><span class="tool-badge">手机拍照（现有手机即可）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#D97706">1</span>
+          <div class="step-content">
+            <div class="step-title">选定品类</div>
+            <div class="step-desc">从你熟悉的品类开始：数码产品（手机/相机/游戏机）、运动器材（健身设备）、名品（包包/手表，需要鉴定知识）、图书教材、乐器、玩具。新手建议从'图书'或'小家电'入手，风险低、好判断价值。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">2</span>
+          <div class="step-content">
+            <div class="step-title">学习行情价格</div>
+            <div class="step-desc">在闲鱼搜索某一商品，点击'已卖出'（过滤器里选），看真实成交价格。同时在拼多多/淘宝查同款新品价格。两者差距超过40%的产品，就有套利空间。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">3</span>
+          <div class="step-content">
+            <div class="step-title">关键词捡漏法</div>
+            <div class="step-desc">在闲鱼搜索：'处理''清仓''急出''低价''搬家卖'等关键词，结合产品名。开启'新品优先'排序，第一时间看到刚发布的低价商品。这些卖家通常不知道市场价，急于出手。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">4</span>
+          <div class="step-content">
+            <div class="step-title">收货整理翻新</div>
+            <div class="step-desc">买到后：清洁外观、拍高质量照片（光线充足、背景干净）、写专业详情（品牌/型号/成色/配件清单）。好的拍摄和描述能让同一件商品多卖20%-50%。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">5</span>
+          <div class="step-content">
+            <div class="step-title">发布售卖</div>
+            <div class="step-desc">在闲鱼/转转发布：标题含关键词（品牌+型号+成色）、价格参考'已卖出'均价、设置地区（本地同城更容易成交）。发布时间选中午12点或晚上8-10点，曝光更高。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">6</span>
+          <div class="step-content">
+            <div class="step-title">同城收货模式</div>
+            <div class="step-desc">在微信群/朋友圈发：'高价回收旧手机/旧电脑/旧相机'，上门收货更方便卖家，你也能更低价收到，再线上高价出售。这个模式稳定后，一天能收到几十件商品。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">7</span>
+          <div class="step-content">
+            <div class="step-title">专精一个品类</div>
+            <div class="step-desc">做3个月后，选定一个你最熟悉的品类深耕，比如'二手游戏机'，成为这个圈子的专家。建立粉丝群（游戏机交流群），圈内人主动找你买卖，形成口碑。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">第一个月从5件开始，用少量资金练手，弄清楚这个品类的坑在哪里</div><div class="tip-item">多研究'已卖出'数据，比看'在售'更能了解真实市场</div><div class="tip-item">同城当面交易更安全，也能更快收到货款</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">二手手机一定要当面验机（能开机/无锁机/IMEI未拉黑），避免收到赃物或问题机。不要收购明显低于市价太多的商品（可能是赃物）。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P12</span>
+  </div>
+</div>
+<div class="card" id="p13">
+  <div class="card-head">
+    <span class="card-emoji">💾</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#D9770614;color:#D97706;border-color:#D9770640">🔥 全自动化</span>
+    </div>
+      <div class="card-name">数字商品电商（无实物发货）</div>
+      <div class="card-income">预期月收入：<strong>500–15000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#D97706">在电商平台销售数字产品：考试资料、PPT模板、Excel工具表、电子书、教程合集、设计素材等。买家付款后自动发送下载链接，无需发实物快递，完全自动化。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      数字产品成本几乎为零，一份资料可以卖给无数人，边际收益为零，这是最完美的'睡后收入'模型。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">闲鱼/淘宝（平台）</span><span class="tool-badge">夸克网盘/蓝奏云（存储文件）</span><span class="tool-badge">Word/PDF编辑器（制作产品）</span><span class="tool-badge">AI工具（生产内容）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#D97706">1</span>
+          <div class="step-content">
+            <div class="step-title">选定产品方向</div>
+            <div class="step-desc">高需求数字产品：考研/考公/考证资料包（各类大纲+真题+笔记）、PPT精品模板（工作/毕业/商务）、Excel实用工具（预算表/数据分析/日程管理）、简历模板（行业专用版）、Prompt提示词合集（各类AI工具）、短视频脚本模板。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">2</span>
+          <div class="step-content">
+            <div class="step-title">制作数字产品</div>
+            <div class="step-desc">方法1（整理型）：从免费渠道收集公开资料（百度文库/知乎/官方网站），整理成结构清晰的PDF/Word，加上封面和目录，包装成专业产品。方法2（原创型）：用AI生成内容，自己编辑整理，比如'100个爆款标题公式''职场英语邮件模板50篇'。方法3（工具型）：在Excel里做好公式和逻辑，制作成实用工具表，如'个人理财追踪表''客户跟进管理表'。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">3</span>
+          <div class="step-content">
+            <div class="step-title">存储和发货设置</div>
+            <div class="step-desc">把产品文件上传到'夸克网盘'或'蓝奏云'，创建分享链接。在闲鱼/淘宝写商品描述：'下单后自动发送网盘链接，永久有效，即时下载'。买家付款时，在旺旺/闲鱼发送链接，或设置自动回复发送链接。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">4</span>
+          <div class="step-content">
+            <div class="step-title">定价策略</div>
+            <div class="step-desc">参考同类商品定价：简单模板：5-20元；完整课程体系：49-199元；工具软件：19-99元；系列合集：39-199元。价格太低显得没价值，太高又卖不动，测试3个价位找最优。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">5</span>
+          <div class="step-content">
+            <div class="step-title">批量上架商品</div>
+            <div class="step-desc">一个方向下面可以有很多产品：'考研英语'方向→单词书/真题解析/作文模板/阅读方法/历年真题→分别上架，形成矩阵。越多商品上架，被搜索到的概率越高。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">6</span>
+          <div class="step-content">
+            <div class="step-title">关键词优化</div>
+            <div class="step-desc">商品标题加入用户会搜索的关键词：'2026最新版''高分必备''即买即用''永久有效'。在商品详情说清楚内容包括什么、有什么用、适合什么人。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#D97706">7</span>
+          <div class="step-content">
+            <div class="step-title">用AI持续生产</div>
+            <div class="step-desc">用AI工具批量生产内容：'帮我生成50套PPT目录结构（商务汇报风格）'→整理成模板包出售。一天可以生产10-20个数字产品。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">把相关产品打包成'超值套装'，单价提高3倍，转化率反而更高</div><div class="tip-item">在小红书/知乎发相关干货，文末说'完整版在闲鱼店铺'，引流效果极好</div><div class="tip-item">每个月更新一次内容，在标题加'2026年更新版'，老客户也会复购</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">不能售卖他人受版权保护的付费课程或书籍。所有内容需要合法来源，官方免费发布的考试大纲可以整理售卖，他人付费课程不可以。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P13</span>
+  </div>
+</div>
+</div>
+
+<div class="section-divider" id="cat-freelance">
+  <div class="div-line"></div>
+</div>
+<div class="section-header">
+  <div class="section-eyebrow" style="color:#0891B2">
+    <span style="font-size:20px">💻</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase">自由接单技能变现</span>
+    <span class="section-count">5 个项目</span>
+  </div>
+  <h2 class="section-title" style="color:#0891B2">自由接单技能变现</h2>
+</div>
+<div class="projects-grid">
+
+<div class="card" id="p14">
+  <div class="card-head">
+    <span class="card-emoji">🎞️</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 免费</span>
+    <span class="card-tag" style="background:#0891B214;color:#0891B2;border-color:#0891B240">🔥 需求量大</span>
+    </div>
+      <div class="card-name">视频剪辑接单</div>
+      <div class="card-income">预期月收入：<strong>2000–20000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#0891B2">学习视频剪辑技能，通过威客平台和自媒体平台接受各类视频制作订单：短视频剪辑、Vlog制作、婚礼视频、产品宣传片、企业宣传片等，按项目收费。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      短视频时代，每个企业和个人都需要视频内容，但多数人不会剪辑，专业剪辑师收费高昂。你用免费工具学会基础剪辑，就能填补这个需求缺口。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">剪映电脑版（免费）</span><span class="tool-badge">DaVinci Resolve（免费专业版）</span><span class="tool-badge">猪八戒/Upwork（接单平台）</span><span class="tool-badge">B站/抖音（展示作品）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#0891B2">1</span>
+          <div class="step-content">
+            <div class="step-title">快速学习基础剪辑</div>
+            <div class="step-desc">使用剪映电脑版（完全免费，功能强大）。学习顺序：①导入素材→②剪切拼接→③加字幕→④加背景音乐→⑤调整色彩→⑥加转场→⑦导出视频。B站搜索'剪映零基础教程'，跟着做3-5个实战项目，一周内可掌握基础。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">2</span>
+          <div class="step-content">
+            <div class="step-title">制作作品集</div>
+            <div class="step-desc">用自己的手机拍3-5段素材，剪辑成：①30秒产品展示视频②1分钟Vlog③2分钟婚礼相册视频。上传到B站作为作品展示。找朋友免费做几个视频，积累真实案例和口碑。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">3</span>
+          <div class="step-content">
+            <div class="step-title">注册接单平台</div>
+            <div class="step-desc">猪八戒网（zhubajie.com）：注册'服务商'，发布视频剪辑服务，附上作品集链接。Upwork（英文平台）：针对海外客户，报价可以用美元，折合后更高。抖音：发剪辑展示视频，简介写'接受视频剪辑定制'。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">4</span>
+          <div class="step-content">
+            <div class="step-title">定价参考</div>
+            <div class="step-desc">短视频剪辑（3分钟以内）：50-300元；企业宣传片（5分钟）：500-3000元；婚礼纪录片（20-60分钟）：1000-5000元；Vlog剪辑（10分钟）：200-800元；短视频月度运营（4条/月）：800-3000元/月。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">5</span>
+          <div class="step-content">
+            <div class="step-title">建立标准流程</div>
+            <div class="step-desc">客户下单→获取素材（云盘传输）→确认剪辑风格（参考视频）→制作初剪→发送审核→修改→终稿交付→收款。用固定流程减少沟通成本，防止无限改稿。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">6</span>
+          <div class="step-content">
+            <div class="step-title">学习进阶效果</div>
+            <div class="step-desc">掌握基础后，学习：颜色分级（达芬奇色彩调整）、运动图形（AE基础）、音频处理（降噪/混音）。每项新技能可以提升报价20%-50%。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">7</span>
+          <div class="step-content">
+            <div class="step-title">建立长期客户关系</div>
+            <div class="step-desc">对接企业客户后，提供月度套餐服务：'每月固定4条视频，打包价1800元/月'，比单次接单更稳定。一个企业稳定合作后，介绍其他企业，形成口碑。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">剪映的'智能剪辑'功能可以自动生成初剪，大大提高效率</div><div class="tip-item">婚礼视频单价高且每年需求量大，可以专注这个细分赛道</div><div class="tip-item">接单初期可以低价甚至免费，先积累评价和案例，后期再提价</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">客户提供的音乐、图片等素材需要确认有版权授权，用于商业视频时需注意版权问题。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P14</span>
+  </div>
+</div>
+<div class="card" id="p15">
+  <div class="card-head">
+    <span class="card-emoji">🖼️</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 免费起步</span>
+    <span class="card-tag" style="background:#0891B214;color:#0891B2;border-color:#0891B240">🔥 门槛低</span>
+    </div>
+      <div class="card-name">平面设计接单</div>
+      <div class="card-income">预期月收入：<strong>1500–15000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#0891B2">使用设计工具为个人或企业制作：名片、海报、Banner广告图、公众号封面、产品包装、PPT模板、Logo设计等，在威客平台或通过私活接单。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      每个开店做生意的人都需要设计，但不是每个人都会用PS/AI。Canva等工具让非专业设计师也能做出专业水准的设计，你负责设计思维和客户沟通，工具帮你实现。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">Canva（免费版强大）</span><span class="tool-badge">Adobe Express（免费）</span><span class="tool-badge">Pixlr（在线免费）</span><span class="tool-badge">猪八戒/威客中国（接单）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#0891B2">1</span>
+          <div class="step-content">
+            <div class="step-title">学习Canva（免费利器）</div>
+            <div class="step-desc">访问 canva.com，注册免费账号（教育邮箱可获得Pro功能）。Canva自带数千个模板：海报/名片/公众号封面/PPT/简历/Instagram帖子。学习：选模板→替换文字→调整颜色→换图片→导出。3天即可上手。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">2</span>
+          <div class="step-content">
+            <div class="step-title">建立设计风格</div>
+            <div class="step-desc">挑选5-10个你最擅长的模板类型，统一成你的设计风格（配色/字体/排版）。风格一致的作品集看起来更专业，帮助建立识别度。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">3</span>
+          <div class="step-content">
+            <div class="step-title">注册威客平台</div>
+            <div class="step-desc">在猪八戒网、威客中国、Upwork注册'设计服务商'，上传作品集（至少10件不同类型作品）。填写服务介绍，关键词含：名片设计、海报制作、公众号封面等。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">4</span>
+          <div class="step-content">
+            <div class="step-title">定价方案</div>
+            <div class="step-desc">名片设计（双面）：50-200元；朋友圈海报/微信公众号封面：50-300元；活动Banner（一套3-5张）：200-800元；Logo设计：200-1500元；PPT模板（10页）：200-600元；产品包装设计：500-2000元。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">5</span>
+          <div class="step-content">
+            <div class="step-title">发朋友圈接私活</div>
+            <div class="step-desc">在微信朋友圈发设计作品+接单说明，朋友和朋友的朋友是最初的客户来源。建立'设计接单'微信群，让身边需要设计的人第一时间想到你。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">6</span>
+          <div class="step-content">
+            <div class="step-title">使用AI辅助设计</div>
+            <div class="step-desc">用AI生成设计灵感：'帮我描述一个科技感的科技公司Logo设计方案'→根据描述在Canva找到最接近的模板→微调完成。Adobe Firefly（免费）可以AI生成图片素材，用于设计作品。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">7</span>
+          <div class="step-content">
+            <div class="step-title">升级技能提高报价</div>
+            <div class="step-desc">学习Adobe Illustrator（矢量设计）或Photoshop（图片处理），可以承接印刷品设计、品牌VI系统等高单价项目。B站有大量免费教程。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">Canva Pro可以用教育邮箱免费获得，或用官方'学生计划'</div><div class="tip-item">接单初期报价低于市场价30%，快速积累评价，评价是最大资产</div><div class="tip-item">公众号封面需求量极大，很多自媒体人不会设计，可以专注这个细分</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">不能使用未授权的图片和字体（特别是商业用途），Canva免费版的部分素材不能用于商业项目，需要升级Pro或使用免费授权素材（Unsplash/Pexels）。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">免费起步</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P15</span>
+  </div>
+</div>
+<div class="card" id="p16">
+  <div class="card-head">
+    <span class="card-emoji">🌐</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#0891B214;color:#0891B2;border-color:#0891B240">🔥 高单价</span>
+    </div>
+      <div class="card-name">网络翻译接单</div>
+      <div class="card-income">预期月收入：<strong>2000–20000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#0891B2">利用语言能力（英/日/韩/法/德/西班牙语等），为个人或企业提供文件翻译、字幕翻译、网页内容翻译等服务。AI翻译工具显著提升效率，人工校对保证质量。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      AI翻译大幅提升效率但并不完美，专业领域（法律/医疗/技术文档）仍需人工审核校对。翻译单价按字或按小时计，熟练后时薪可达100-300元。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">DeepL翻译（免费版）</span><span class="tool-badge">百度翻译API（免费额度）</span><span class="tool-badge">Word/Google文档（免费）</span><span class="tool-badge">猪八戒/Upwork（接单平台）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#0891B2">1</span>
+          <div class="step-content">
+            <div class="step-title">评估自己的语言水平</div>
+            <div class="step-desc">英语六级或同等水平：可接一般文档翻译。英语专业或留学经历：可接专业文档，报价更高。小语种（日/韩/法/德）：供应少需求稳定，比英语翻译竞争小很多。如果外语能力一般，可以先做：中文校对、AI翻译质检（检查AI翻译的错误）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">2</span>
+          <div class="step-content">
+            <div class="step-title">掌握AI翻译工具</div>
+            <div class="step-desc">工作流程：客户文档→DeepL翻译（免费，效果最好）→人工通读校对→修改不自然/错误的地方→交付。重点是你的价值在于'校对和本地化'，不是从头翻译每个字。这让你效率提升5-10倍。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">3</span>
+          <div class="step-content">
+            <div class="step-title">注册接单平台</div>
+            <div class="step-desc">国内：猪八戒、威客中国、译言网（专业翻译平台）。海外：Upwork、Proz（Professional Translation）、Gengo（批量翻译平台，稳定接单）。在Gengo完成测试后，可以持续接标准化翻译任务。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">4</span>
+          <div class="step-content">
+            <div class="step-title">定价参考</div>
+            <div class="step-desc">一般文档：0.1-0.3元/中文字（翻成中文）；0.08-0.2美元/英文单词（英译中）；专业文档（法律/医疗/技术）：0.3-0.8元/中文字；字幕翻译：3-10元/分钟；网页翻译（按页计）：100-500元/页。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">5</span>
+          <div class="step-content">
+            <div class="step-title">找到专业细分方向</div>
+            <div class="step-desc">选择一个你有知识背景的行业：IT技术文档（程序员背景）、医疗文件（医学背景）、法律合同（法律背景）、游戏本地化（游戏爱好者）。专业领域报价是普通翻译的2-3倍。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">6</span>
+          <div class="step-content">
+            <div class="step-title">字幕翻译特别指南</div>
+            <div class="step-desc">Amara.org：平台自带字幕翻译任务，完成后提交获得报酬。Netflix/YouTube：有合作字幕翻译项目，需要通过语言测试。B站：联系UP主翻译海外视频字幕，按分钟数报价。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">7</span>
+          <div class="step-content">
+            <div class="step-title">建立长期合作</div>
+            <div class="step-desc">找到1-2家外贸公司或国际业务企业，成为他们的固定翻译，稳定月收入5000-20000元。比每次找新客户效率高很多。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">日语翻译竞争比英语小很多，市场价格也更高，适合有日语基础的人深耕</div><div class="tip-item">游戏本地化是新兴需求，国内游戏出海需要大量翻译，单价高</div><div class="tip-item">可以在微信朋友圈发：'英语文件翻译，48小时交稿'，有外贸朋友会第一个找你</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">专业文档（医疗/法律）翻译错误可能产生严重后果，需要有相关背景知识。不要接自己能力范围外的专业文档翻译。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P16</span>
+  </div>
+</div>
+<div class="card" id="p17">
+  <div class="card-head">
+    <span class="card-emoji">📋</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#0891B214;color:#0891B2;border-color:#0891B240">🔥 零门槛</span>
+    </div>
+      <div class="card-name">网络问卷调查兼职</div>
+      <div class="card-income">预期月收入：<strong>200–1500元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#0891B2">注册企业调研公司和大学研究机构的受访者平台，定期完成在线问卷调查，每完成一份获得现金奖励或积分（可兑换现金/礼品卡）。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      市场调研公司需要大量真实用户反馈，无法自己找受访者，因此付钱'购买'用户时间。每份问卷5-20分钟，获得1-30元不等，利用零散时间即可完成。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">电脑浏览器即可</span><span class="tool-badge">问卷星/腾讯问卷（免费注册）</span><span class="tool-badge">Keep记录日常（部分平台需要）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#0891B2">1</span>
+          <div class="step-content">
+            <div class="step-title">注册平台账号</div>
+            <div class="step-desc">国内平台：鼎研网（dingyanbao.com）、优优问卷、数字沙盘、研客。海外平台（收入更高）：Swagbucks、Survey Junkie、Prolific（学术研究问卷，单价最高，需要英文）。每个平台都免费注册，如实填写个人信息（年龄/职业/收入等，企业用这些筛选受访者）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">2</span>
+          <div class="step-content">
+            <div class="step-title">完善个人资料</div>
+            <div class="step-desc">注册后完成全部个人档案填写（家庭状况/购物习惯/兴趣爱好等）。档案越完整，被筛选参与问卷的概率越高，收入越多。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">3</span>
+          <div class="step-content">
+            <div class="step-title">每日检查任务</div>
+            <div class="step-desc">每天登录平台检查是否有新问卷。一般早上8-10点平台更新任务最多，第一时间完成可以避免问卷'满额'（每个问卷有固定人数限制）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">4</span>
+          <div class="step-content">
+            <div class="step-title">多平台并行</div>
+            <div class="step-desc">同时注册5-8个平台，每天在每个平台上花15-30分钟完成可用问卷，叠加收入。记录每个平台的积分余额，及时兑换现金。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">5</span>
+          <div class="step-content">
+            <div class="step-title">Prolific高价学术问卷</div>
+            <div class="step-desc">prolific.com：专注学术研究问卷，受访者平均时薪达8-12美元（折合60-90元人民币），远高于普通调研平台。需要英文，按时薪计费，完成后直接PayPal或银行转账。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">6</span>
+          <div class="step-content">
+            <div class="step-title">用户测试平台（更高收入）</div>
+            <div class="step-desc">UserTesting.com：测试网站和App的用户体验，边操作边录屏讲解，每次测试10-20美元（约70-140元），每次15-20分钟。Lookback.io：类似平台，需要用摄像头录制。这类'用户测试'比普通问卷收入高3-5倍。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">7</span>
+          <div class="step-content">
+            <div class="step-title">保持账号活跃</div>
+            <div class="step-desc">定期登录平台，保持账号活跃状态。长时间不登录可能降低被选中的优先级。设置手机提醒，每天固定花30分钟完成平台任务。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">Prolific是收入最高的学术问卷平台，每小时折合人民币60-90元</div><div class="tip-item">用户体验测试（UserTesting）比填问卷收入高，有英语能力的优先注册</div><div class="tip-item">问卷收入不稳定，作为碎片时间利用最合适，不能当主要收入</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">如实填写个人信息，虚假信息会导致账号被封，且平台会在问卷中设置验证题检测随意作答。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P17</span>
+  </div>
+</div>
+<div class="card" id="p18">
+  <div class="card-head">
+    <span class="card-emoji">🔎</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#0891B214;color:#0891B2;border-color:#0891B240">🔥 长期稳定</span>
+    </div>
+      <div class="card-name">SEO搜索优化服务</div>
+      <div class="card-income">预期月收入：<strong>3000–30000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#0891B2">帮助企业网站、电商店铺、公众号在搜索引擎中排名更靠前，从而获得更多免费流量和客户。通过关键词研究、内容优化、网站结构改善等技术手段提升搜索排名。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      每个有网站的企业都希望在百度/Google搜索结果排在前面，这直接等于更多客户。SEO是长期投资，效果稳定，因此企业愿意为此每月付费。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">Google Search Console（免费）</span><span class="tool-badge">百度站长工具（免费）</span><span class="tool-badge">Ahrefs免费版/站长工具SEO（基础免费）</span><span class="tool-badge">ChatGPT（辅助内容创作）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#0891B2">1</span>
+          <div class="step-content">
+            <div class="step-title">系统学习SEO基础</div>
+            <div class="step-desc">学习路径（全部免费资源）：百度搜索推广学院→百度站长学院→Google SEO入门指南。重点掌握：关键词研究（用户搜什么）、页面优化（标题/描述/内容结构）、外链建设（让其他网站链接你）。学习周期：2-4周密集学习可掌握基础。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">2</span>
+          <div class="step-content">
+            <div class="step-title">练手实操</div>
+            <div class="step-desc">建立自己的博客（WordPress免费，域名约60元/年）或在知乎/头条发文章。选一个关键词，按SEO方法写文章，观察排名变化。记录每次操作和效果，积累真实案例数据。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">3</span>
+          <div class="step-content">
+            <div class="step-title">学习关键词工具</div>
+            <div class="step-desc">免费工具：百度指数（baidu.com/s/baidu-index）分析搜索热度；5118.com（部分免费）查竞争难度；Google Keyword Planner（Google广告账户免费使用）。找到'竞争低但搜索量不低'的关键词，是SEO的核心技能。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">4</span>
+          <div class="step-content">
+            <div class="step-title">提供SEO诊断报告</div>
+            <div class="step-desc">接单方式：主动联系中小企业网站，免费做一份SEO诊断报告（找出网站问题），发给老板。很多老板看到报告后会付费让你改善。报告内容：网站速度/关键词排名/内容质量/技术问题。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">5</span>
+          <div class="step-content">
+            <div class="step-title">定价方案</div>
+            <div class="step-desc">SEO诊断报告：500-2000元/次（一次性）；网站SEO月度托管：1500-8000元/月（持续服务）；关键词专项排名：500-3000元/关键词（按效果付费）；内容优化（按文章）：200-800元/篇。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">6</span>
+          <div class="step-content">
+            <div class="step-title">积累案例</div>
+            <div class="step-desc">前几个客户给予优惠价，但要求提供书面证明和排名截图。制作对比图：优化前排名第X，优化后排名第Y。带数据的案例是最有力的销售工具。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0891B2">7</span>
+          <div class="step-content">
+            <div class="step-title">建立规模</div>
+            <div class="step-desc">一个人可以同时服务10-15个客户，每个月稳定收入3-15万元。可以组建小团队（内容写手+技术优化），服务更多客户。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">本地化SEO（帮本地企业在本地搜索结果排名）竞争更小，更容易出效果</div><div class="tip-item">每月给客户发排名报告（截图+数据），透明度高才能留住长期客户</div><div class="tip-item">SEO效果需要3-6个月才明显，要跟客户说清楚，避免期望管理问题</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">不要承诺'保证排名第一'，搜索引擎算法不断变化，排名无法100%保证。不要用'黑帽SEO'（购买垃圾链接/关键词堆砌），会导致客户网站被惩罚。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P18</span>
+  </div>
+</div>
+</div>
+
+<div class="section-divider" id="cat-knowledge">
+  <div class="div-line"></div>
+</div>
+<div class="section-header">
+  <div class="section-eyebrow" style="color:#0F766E">
+    <span style="font-size:20px">🎓</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase">知识付费变现</span>
+    <span class="section-count">3 个项目</span>
+  </div>
+  <h2 class="section-title" style="color:#0F766E">知识付费变现</h2>
+</div>
+<div class="projects-grid">
+
+<div class="card" id="p19">
+  <div class="card-head">
+    <span class="card-emoji">📚</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#0F766E14;color:#0F766E;border-color:#0F766E40">🔥 睡后收入</span>
+    </div>
+      <div class="card-name">在线录播课程销售</div>
+      <div class="card-income">预期月收入：<strong>2000–50000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#0F766E">将自己掌握的某项技能或知识录制成视频课程，上架到知识付费平台，用户购买后可以反复观看，你只需要录制一次，就可以持续销售，是真正的被动收入。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      一旦课程录好，无需额外时间投入，每天都可能有新用户购买。课程内容是你的知识资产，越积累越有价值，不像体力劳动按小时计费。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">OBS录屏软件（免费）</span><span class="tool-badge">剪映（剪辑免费）</span><span class="tool-badge">腾讯课堂/千聊/知识星球（发布平台）</span><span class="tool-badge">微信（销售和服务）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#0F766E">1</span>
+          <div class="step-content">
+            <div class="step-title">选定课程主题</div>
+            <div class="step-desc">可以录课的方向：职业技能（PS/Excel/PPT/编程/运营）、生活技能（烘焙/绘画/手工/健身）、考证备考（会计/教师资格/驾照理论）、自媒体运营（抖音/小红书/公众号）。原则：你比目标学员多知道30%就够了，不需要是最顶级的专家。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">2</span>
+          <div class="step-content">
+            <div class="step-title">设计课程大纲</div>
+            <div class="step-desc">把你的知识分解成10-20个知识点，每个知识点录制一段15-30分钟视频。结构：①新手入门（是什么/为什么）→②核心技能（怎么做，手把手）→③进阶技巧→④实战案例→⑤常见问题。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">3</span>
+          <div class="step-content">
+            <div class="step-title">录制课程视频</div>
+            <div class="step-desc">下载OBS Studio（免费录屏软件）。设置录制区域：全屏/特定区域/摄像头叠加。录制时：打开PPT或软件界面，开始录制，正常讲解操作。不需要完美，说错了剪辑去掉就行。讲课：语速清晰，每讲完一个要点停顿1秒，给观众反应时间。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">4</span>
+          <div class="step-content">
+            <div class="step-title">剪辑制作</div>
+            <div class="step-desc">用剪映剪辑：去掉口误/停顿/咳嗽的片段，加字幕（自动识别），每节课开头加标题字幕，结尾加'下一节预告'。课程封面用Canva制作，专业好看是第一印象。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">5</span>
+          <div class="step-content">
+            <div class="step-title">选择发布平台</div>
+            <div class="step-desc">腾讯课堂：适合技能类，平台自带流量。千聊：适合音频课、系列课。小鹅通：建立私域课程，自己引流到微信。知识星球：适合持续输出型，社群+课程结合。定价：入门课程9.9-49元；中级课程99-299元；系统课程299-999元。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">6</span>
+          <div class="step-content">
+            <div class="step-title">营销推广</div>
+            <div class="step-desc">发布到小红书/抖音：录制课程的幕后花絮，展示课程内容预览。知乎回答相关问题，在回答末尾说'系统学习可以看我的课程'。朋友圈持续分享干货，建立专业形象，学员主动口碑推荐。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">7</span>
+          <div class="step-content">
+            <div class="step-title">持续优化</div>
+            <div class="step-desc">看学员完课率和评价：某节课完课率低，说明内容枯燥需要改进。定期更新课程内容（加入2026年最新的工具变化），维持课程价值。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">先在微信群做免费分享，收集用户反馈，打磨内容再录正式课程</div><div class="tip-item">有10个以上学员的好评，销售转化率提升60%以上，要主动请学员写评价</div><div class="tip-item">做一个免费体验课（1-2集），让用户试看，大幅提高付费转化</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">课程内容必须是真实有价值的内容，夸大效果或虚假宣传（如'学完月入过万'）会被投诉、退款、封号。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P19</span>
+  </div>
+</div>
+<div class="card" id="p20">
+  <div class="card-head">
+    <span class="card-emoji">🌟</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#0F766E14;color:#0F766E;border-color:#0F766E40">🔥 复购稳定</span>
+    </div>
+      <div class="card-name">付费社群/知识星球运营</div>
+      <div class="card-income">预期月收入：<strong>1000–30000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#0F766E">围绕某个垂直主题建立付费社群（知识星球/微信群），定期分享有价值内容、资料、机会、人脉，用户按年/季度缴费成为会员，你获得稳定的订阅收入。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      一个500人的付费社群，每人每年收费99元，就是49500元年收入，全部是重复性收入。专注服务，越做口碑越好，续费率越高。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">知识星球APP（开设免费，平台收费30%）</span><span class="tool-badge">微信（管理社群）</span><span class="tool-badge">腾讯文档（共享资料）</span><span class="tool-badge">语雀（建立知识库）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#0F766E">1</span>
+          <div class="step-content">
+            <div class="step-title">选定社群方向</div>
+            <div class="step-desc">最容易成功的方向：行业信息差（你在某行业有信息优势，帮别人省时间）、副业赚钱方法（分享真实案例和操作步骤）、学习打卡（考研/考证/英语，互相监督）、投资研究（股票/基金分析，注意合规）、创业经验（同类创业者交流）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">2</span>
+          <div class="step-content">
+            <div class="step-title">确定价值主张</div>
+            <div class="step-desc">回答：加入你的社群，用户能得到什么？例如：'每周2篇行业深度报告+10个商机分析+成员专属资源对接'。价值越具体，愿意付费的人越多。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">3</span>
+          <div class="step-content">
+            <div class="step-title">搭建初始内容</div>
+            <div class="step-desc">在正式收费前，准备30天的内容库：30篇精华帖子、10个资料包、5个操作指南。这些内容让初始用户进来就觉得'值了'。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">4</span>
+          <div class="step-content">
+            <div class="step-title">冷启动招募</div>
+            <div class="step-desc">免费引流方法：在知乎/小红书/公众号分享部分内容，文末引导'更多深度内容在星球'。在相关微信群发'试读内容截图'，感兴趣的人申请加入。找10个'种子用户'（愿意付钱且认同价值的），他们是后续口碑的来源。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">5</span>
+          <div class="step-content">
+            <div class="step-title">定价策略</div>
+            <div class="step-desc">试运营期：9.9元/月 或 59元/年（获得第一批用户）。稳定期：99-299元/年（体现专业价值）。高端社群：499-999元/年（限定人数，精品小圈子）。提供'年付享折扣'，鼓励用户一次性付年费。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">6</span>
+          <div class="step-content">
+            <div class="step-title">持续维护</div>
+            <div class="step-desc">每周固定时间：发2-3篇精华内容、回复成员问题、组织话题讨论。每月：发布月度精华总结、推荐新资源、组织线上活动（直播/连麦）。建立'精华帖'标签，让新成员能快速找到历史好内容。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">7</span>
+          <div class="step-content">
+            <div class="step-title">做到高续费率</div>
+            <div class="step-desc">续费率是核心指标，目标60%以上。做到：承诺的内容一定发、及时回复成员问题、让成员之间互相认识（社交价值）、在续费前30天密集输出最好的内容。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">社群质量比规模更重要，500人高活跃社群比5000人僵尸群更值钱</div><div class="tip-item">知识星球会抽取30%流水，也可以用腾讯文档+微信付款码自建社群省手续费</div><div class="tip-item">每季度做一次满意度调查，了解用户需要什么，持续改善内容质量</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">不要在社群提供专业法律/医疗/投资建议，需声明仅供参考。不能诱导拉人头，不能做传销结构。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P20</span>
+  </div>
+</div>
+<div class="card" id="p21">
+  <div class="card-head">
+    <span class="card-emoji">🔗</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#0F766E14;color:#0F766E;border-color:#0F766E40">🔥 零库存佣金</span>
+    </div>
+      <div class="card-name">联盟营销/CPS带货变现</div>
+      <div class="card-income">预期月收入：<strong>500–20000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#0F766E">通过内容推荐商品获得佣金，你不需要备货、不需要发货、不需要售后，只需要分享推荐链接，用户点击购买后，你自动获得佣金，完全自动化。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      联盟营销是全球最成熟的被动收入模式。内容发布后永久有效，一篇文章可能3年后还在为你赚钱。选对产品，佣金可达15%-50%。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">抖音/小红书/公众号（内容平台）</span><span class="tool-badge">淘宝联盟（申请即可）</span><span class="tool-badge">京东联盟（申请即可）</span><span class="tool-badge">抖音精选联盟（开通条件低）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#0F766E">1</span>
+          <div class="step-content">
+            <div class="step-title">注册联盟平台</div>
+            <div class="step-desc">淘宝联盟：alimama.com，用淘宝账号登录，申请加入。京东联盟：union.jd.com。拼多多多多进宝：p.pinduoduo.com。抖音精选联盟：打开抖音→发现→商品橱窗→选品广场。选择已有的内容平台（抖音/小红书/公众号）注册对应联盟。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">2</span>
+          <div class="step-content">
+            <div class="step-title">选品关键技能</div>
+            <div class="step-desc">选品标准：①佣金率15%以上（部分产品高达50%）②销量好（说明有真实需求）③用户评价高（减少退款）④价格合理（50-300元区间转化率高）。避开：大品牌（佣金低，如苹果手机佣金不足1%）。选择：中小品牌爆款（佣金高、差异化强）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">3</span>
+          <div class="step-content">
+            <div class="step-title">创作推荐内容</div>
+            <div class="step-desc">内容形式：小红书图文测评（最容易传播）、抖音视频推荐（覆盖最广）、公众号深度文章（转化率最高）。内容要真诚：说优点也说缺点，比纯广告转化率高3-5倍。不需要买产品：看商家提供的详细信息，综合多个真实评测写即可。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">4</span>
+          <div class="step-content">
+            <div class="step-title">嵌入推广链接</div>
+            <div class="step-desc">在淘宝联盟复制商品推广链接（短链接），嵌入到你的内容中。小红书：发布后在评论区留下'链接在评论里'；抖音：开通商品橱窗，视频直接挂商品；公众号：插入淘口令或超链接。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">5</span>
+          <div class="step-content">
+            <div class="step-title">追踪数据优化</div>
+            <div class="step-desc">每周查看联盟后台：哪个商品点击率高、哪个转化率高、哪个佣金最多。保留表现好的产品，停止推送表现差的。持续测试：同一类商品推荐5个，看哪个最受欢迎，集中推那个。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">6</span>
+          <div class="step-content">
+            <div class="step-title">矩阵化扩大规模</div>
+            <div class="step-desc">建立多个内容账号，每个账号推荐不同品类（美妆/数码/家居/食品），收入叠加。一个人管理3-5个账号，每个账号月收入1000-5000元，总收入3000-25000元。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#0F766E">7</span>
+          <div class="step-content">
+            <div class="step-title">进阶：私域带货</div>
+            <div class="step-desc">把粉丝引导到微信群，在群里定期发推荐（'今天发现一个好东西'），转化率比公域高10倍。建立'好物分享群'，每天分享1-2个推荐，群员主动转发，裂变传播。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">食品/美妆/居家类佣金高且用户复购率高，是最容易起量的品类</div><div class="tip-item">不要一次性推荐太多产品，精选2-3个认真推，比推20个随便写效果好</div><div class="tip-item">发布内容后要持续跟踪30天，爆款内容会在发布后2-4周才达到高峰流量</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">必须在内容中说明'以下含推广链接'，不然涉及不正当广告法律风险。不要推荐自己没用过或不了解的产品，影响用户信任。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P21</span>
+  </div>
+</div>
+</div>
+
+<div class="section-divider" id="cat-auto">
+  <div class="div-line"></div>
+</div>
+<div class="section-header">
+  <div class="section-eyebrow" style="color:#475569">
+    <span style="font-size:20px">⚙️</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase">自动化工具盈利</span>
+    <span class="section-count">4 个项目</span>
+  </div>
+  <h2 class="section-title" style="color:#475569">自动化工具盈利</h2>
+</div>
+<div class="projects-grid">
+
+<div class="card" id="p22">
+  <div class="card-head">
+    <span class="card-emoji">🛠️</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#2563EB14;color:#2563EB;border-color:#2563EB40">💰 低成本</span>
+    <span class="card-tag" style="background:#47556914;color:#475569;border-color:#47556940">🔥 技术变现</span>
+    </div>
+      <div class="card-name">独立开发者工具销售</div>
+      <div class="card-income">预期月收入：<strong>500–50000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#475569">开发一个解决特定问题的小工具（Chrome插件/Python脚本/网站/小程序），上架销售或订阅制收费，一次开发多次销售，是程序员最好的副业模式。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      全球有1000万程序员，有能力的不到10%做过自己的产品，但市场需求是无限的。一个解决真实痛点的小工具，可能每月有稳定的几千到几万的被动收入。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">Python/JavaScript（开发语言，免费）</span><span class="tool-badge">GitHub（代码托管，免费）</span><span class="tool-badge">爱发电/Gumroad（销售平台）</span><span class="tool-badge">VS Code（免费代码编辑器）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#475569">1</span>
+          <div class="step-content">
+            <div class="step-title">找准用户痛点</div>
+            <div class="step-desc">方法：去Reddit的r/entrepreneur/r/productivity、产品社群（v2ex/少数派）、知乎问答，看用户在抱怨什么重复性工作，找没有好工具解决的问题。例子：自动批量处理Excel数据、自动下载某平台视频、自动发送生日祝福邮件、浏览器自动填表。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">2</span>
+          <div class="step-content">
+            <div class="step-title">最小可行版本</div>
+            <div class="step-desc">不要一开始做复杂的产品。先做一个能解决核心问题的最简单版本，不需要好看，只需要管用。例：一个Python脚本（50-200行代码），可以自动完成某个任务，打包成exe文件，就可以销售。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">3</span>
+          <div class="step-content">
+            <div class="step-title">发布与测试</div>
+            <div class="step-desc">把工具发到v2ex/少数派/GitHub，免费给10-20人测试，收集反馈。目标：至少5个人说'这个工具真的解决了我的问题'，说明方向正确。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">4</span>
+          <div class="step-content">
+            <div class="step-title">定价与销售</div>
+            <div class="step-desc">爱发电（afdian.net）：国内创作者订阅平台，支持一次购买或月订阅。Gumroad：面向海外用户，支持美元支付。定价：一次性付费39-199元；月订阅9-39元/月。卖点：省时间（'原来要2小时，现在2秒'）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">5</span>
+          <div class="step-content">
+            <div class="step-title">SEO和内容营销</div>
+            <div class="step-desc">写文章/发视频：'我用Python写了一个工具，帮我每天省2小时'，附上工具介绍和购买链接。在相关专业群分享工具，付费后才能解锁完整版。在GitHub发布免费版，收费版增加更多功能。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">6</span>
+          <div class="step-content">
+            <div class="step-title">订阅制提升稳定性</div>
+            <div class="step-desc">将工具改造为SaaS（Software as a Service）：用户每月付费使用，你每月更新迭代功能。初期10个付费用户×99元/月 = 990元，100个用户 = 9900元/月，只需要维护，不需要每次卖。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">7</span>
+          <div class="step-content">
+            <div class="step-title">开源核心、付费高级</div>
+            <div class="step-desc">把工具的核心部分开源（GitHub），这会带来大量用户和曝光；将高级功能/更好的界面/技术支持包装成付费版本。这是最常见的成功模式（如VS Code、Obsidian）。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">工具类产品的核心是'省时间'，定价只要低于用户节省时间的价值，就会有人买</div><div class="tip-item">一个人无法做大型产品，找一个非常细分的需求，把它做到极致</div><div class="tip-item">GitHub Star数量是最好的背书，公开项目积累Star后，商业版销售会更容易</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">不要做替代付费商业软件功能的工具（版权/法律风险）。爬虫类工具需要注意目标网站的robots协议。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#2563EB14;color:#2563EB;border:1px solid #2563EB30">低成本</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P22</span>
+  </div>
+</div>
+<div class="card" id="p23">
+  <div class="card-head">
+    <span class="card-emoji">🧠</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#47556914;color:#475569;border-color:#47556940">🔥 AI时代新机会</span>
+    </div>
+      <div class="card-name">Prompt提示词包销售</div>
+      <div class="card-income">预期月收入：<strong>300–8000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#475569">将经过测试的高效AI提示词（Prompt）整理成模板集合，按主题打包出售给不懂提示词技巧的用户，帮助他们更好地使用AI工具提升工作效率。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      AI工具日益普及，但大多数人不知道怎么写高效的提示词。一套好的提示词模板可以让工作效率提升10倍，人们愿意花小钱节省大量摸索时间。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">ChatGPT/Claude/DeepSeek（测试用，有免费版）</span><span class="tool-badge">Notion/飞书（整理文档）</span><span class="tool-badge">爱发电/闲鱼（销售平台）</span><span class="tool-badge">小红书/知乎（推广）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#475569">1</span>
+          <div class="step-content">
+            <div class="step-title">收集和测试提示词</div>
+            <div class="step-desc">每天花30分钟与AI工具对话，测试不同提示词的效果。专注于一个领域：职场文案类、AI绘图类、编程辅助类、学习研究类、创意写作类。评估标准：用这个提示词能快速得到专业、准确的结果，而不是模糊或错误的答案。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">2</span>
+          <div class="step-content">
+            <div class="step-title">整理成结构化文档</div>
+            <div class="step-desc">格式：提示词名称→使用场景→完整提示词→示例对话（展示效果）→使用技巧。例如：'会议纪要整理提示词'→'适用于会后整理重点、生成行动项'→完整提示词→效果截图。用Notion或Word整理，清晰美观。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">3</span>
+          <div class="step-content">
+            <div class="step-title">打包成不同产品</div>
+            <div class="step-desc">入门包（9.9-19.9元）：20个常用提示词；职场效率包（39-69元）：50个职场专用提示词（写邮件/做报告/开会纪要等）；AI绘图包（49-99元）：100个Midjourney/SD专用提示词；完整合集（99-299元）：各类提示词200+个+更新承诺。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">4</span>
+          <div class="step-content">
+            <div class="step-title">制作演示内容</div>
+            <div class="step-desc">最有效的营销：录一个屏幕视频，展示'普通提示词'和'我的提示词'效果对比。一眼看出差距，用户立刻想买。发到小红书/抖音，附购买链接。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">5</span>
+          <div class="step-content">
+            <div class="step-title">发布销售</div>
+            <div class="step-desc">在爱发电发布付费合集，设置价格。在闲鱼发布：'AI提示词合集，即时发货，下单后网盘链接'。在知乎/小红书：免费分享几个提示词，建立信任，文末引导购买完整版。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">6</span>
+          <div class="step-content">
+            <div class="step-title">建立社群增加价值</div>
+            <div class="step-desc">建立微信群，购买者可加入。群内每周分享新提示词、AI工具新功能、使用技巧。社群让产品有持续价值，用户会续费或推荐给朋友。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">7</span>
+          <div class="step-content">
+            <div class="step-title">持续更新保持竞争力</div>
+            <div class="step-desc">AI工具每个月都在更新，及时测试新功能，更新提示词包。发布'2026年3月最新版'可以刺激老用户再次购买，也吸引新用户。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">AI绘图提示词（Midjourney/SD）市场需求极大，且用户愿意为效果好的提示词付费</div><div class="tip-item">在小红书发效果对比图（before/after），这类内容传播率比纯文字高10倍</div><div class="tip-item">与其做'大而全'，不如专注一个场景做到极致（比如'法律文书起草提示词'）</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">提示词本身不受版权保护，但整理成产品销售是合法的。不要承诺'用我的提示词保证AI不犯错'，AI仍然会犯错。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P23</span>
+  </div>
+</div>
+<div class="card" id="p24">
+  <div class="card-head">
+    <span class="card-emoji">📲</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#16A34A14;color:#16A34A;border-color:#16A34A40">💰 完全免费</span>
+    <span class="card-tag" style="background:#47556914;color:#475569;border-color:#47556940">🔥 稳定月收</span>
+    </div>
+      <div class="card-name">社媒账号代运营服务</div>
+      <div class="card-income">预期月收入：<strong>2000–20000元/月</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#475569">代替企业或个人运营其社交媒体账号（微信公众号/小红书/抖音/微博），负责内容策划、制作、发布、互动，按月收取服务费。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      每个企业都知道要做社媒，但没有时间和精力，也不懂方法。你用AI工具和模板，高效制作内容，帮助他们保持活跃的账号，按月稳定收费。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">各社交媒体平台（免费）</span><span class="tool-badge">Canva（免费图片制作）</span><span class="tool-badge">ChatGPT/文心一言（内容辅助）</span><span class="tool-badge">腾讯文档（内容计划管理）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#475569">1</span>
+          <div class="step-content">
+            <div class="step-title">确定服务范围</div>
+            <div class="step-desc">基础套餐（1500-3000元/月）：公众号每月发布4篇文章（选题+写作+排版）。进阶套餐（3000-6000元/月）：公众号4篇+小红书8篇。旗舰套餐（6000-15000元/月）：多平台全套运营（公众号+小红书+抖音+微博互动）。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">2</span>
+          <div class="step-content">
+            <div class="step-title">工作流程</div>
+            <div class="step-desc">每月初与客户确认当月主题方向→制作内容日历→AI辅助生成初稿→人工修改→排版→客户审核→发布→数据回报。全程用腾讯文档共享，客户随时看到进度。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">3</span>
+          <div class="step-content">
+            <div class="step-title">找到第一个客户</div>
+            <div class="step-desc">从身边的老板朋友开始：'我帮你运营公众号，第一个月免费，效果好再付费'。做出效果后，请他/她写评价和推荐。联系本地餐饮/美容/教育机构，这类企业最需要社媒运营但最不擅长。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">4</span>
+          <div class="step-content">
+            <div class="step-title">内容制作效率</div>
+            <div class="step-desc">AI写初稿：'帮我写一篇适合【行业】公众号的文章，主题是【XXX】，800字，语气专业亲切'。Canva做配图：用模板10分钟做好看的封面图和内文图片。保存常用模板，第二次开始效率提升50%。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">5</span>
+          <div class="step-content">
+            <div class="step-title">数据报告服务</div>
+            <div class="step-desc">每月15日发数据报告：粉丝增长/阅读量/点赞/互动。对比上月数据分析原因。这个报告让客户感受到价值，是续费的关键依据。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">6</span>
+          <div class="step-content">
+            <div class="step-title">扩大客户数量</div>
+            <div class="step-desc">一人可以同时管理5-8个客户（内容方向不同）。用AI工具一次生成多个版本内容，分配给不同客户。建立SOP（标准操作流程），减少每个账号的时间投入。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">7</span>
+          <div class="step-content">
+            <div class="step-title">发展团队</div>
+            <div class="step-desc">有稳定客户后，招募兼职：文案写手（500-1500元/月）、设计助理（500-1000元/月）。你负责客户关系和策略，团队负责执行，可服务20+客户。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">餐饮/美容/教育行业老板最愿意为社媒运营付费，是最好的初始客户</div><div class="tip-item">服务越标准化，越容易扩大规模。建立固定的内容模板和工作流程</div><div class="tip-item">主动展示你自己账号的数据，是最好的销售工具，证明你真的会做</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">代运营要明确合同：每月发布数量、修改次数限制、不负责粉丝增长保证（算法无法控制）。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#16A34A14;color:#16A34A;border:1px solid #16A34A30">完全免费</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P24</span>
+  </div>
+</div>
+<div class="card" id="p25">
+  <div class="card-head">
+    <span class="card-emoji">🌍</span>
+    <div class="card-meta">
+      <div class="card-badges">
+    <span class="card-tag" style="background:#2563EB14;color:#2563EB;border-color:#2563EB40">💰 低成本</span>
+    <span class="card-tag" style="background:#47556914;color:#475569;border-color:#47556940">🔥 信息差套利</span>
+    </div>
+      <div class="card-name">域名注册倒卖</div>
+      <div class="card-income">预期月收入：<strong>不稳定，爆发型</strong></div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-intro" style="border-color:#475569">提前注册有潜力的域名（品牌名+行业词+短域名），等待企业或个人需要这个域名时，以更高价格转卖，赚取价差。一个好域名可能卖出几千到几十万的价格。</div>
+    <div class="card-why">
+      <span class="card-why-label">💡 为什么能赚钱</span>
+      好域名是稀缺资源，每个域名全球唯一。注册一个潜力域名年费仅60元，如果企业需要，可能支付1万-100万元购买。是典型的低投入高回报套利。
+    </div>
+    <div class="card-tools">
+      <span class="card-section-label">🔧 所需工具</span>
+      <div class="tools-list"><span class="tool-badge">阿里云/腾讯云/万网（注册域名）</span><span class="tool-badge">Sedo/HugeDomains（交易平台）</span><span class="tool-badge">NameBio（查历史成交价）</span><span class="tool-badge">AI工具（辅助判断价值）</span></div>
+    </div>
+    <div class="card-steps">
+      <span class="card-section-label">📋 完整操作步骤（7步）</span>
+      <div class="steps-list"><div class="step">
+          <span class="step-num" style="background:#475569">1</span>
+          <div class="step-content">
+            <div class="step-title">学习域名价值判断</div>
+            <div class="step-desc">有价值的域名特征：简短（5字母以内）、易拼写、含商业关键词、.com后缀为王。价值高的域名：行业词（health.com极值钱）、地名+行业（beijing-hotel.com）、新兴词汇（AI/元宇宙相关）、人名（常见人名）。查历史成交价：登录 NameBio.com，搜索类似域名，看真实成交记录。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">2</span>
+          <div class="step-content">
+            <div class="step-title">寻找潜力域名</div>
+            <div class="step-desc">方法一：关注新兴行业热词，提前注册（如早期注册和'AI''ChatGPT''元宇宙'相关的.com域名）。方法二：创业公司名称+.com（看投融资新闻，创业公司有时已有.cn但没有.com）。方法三：字母数字组合（两拼音/三字母/四字母.com）。每个注册成本：.com约60-70元/年，.cn约30-40元/年。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">3</span>
+          <div class="step-content">
+            <div class="step-title">注册域名</div>
+            <div class="step-desc">登录阿里云/腾讯云/GoDaddy（海外），搜索目标域名，未被注册则立即注册。建议注册10-50个潜力域名，分散风险。一次注册1年，判断有价值后再续费。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">4</span>
+          <div class="step-content">
+            <div class="step-title">挂牌出售</div>
+            <div class="step-desc">在以下平台挂牌：Sedo.com（全球最大域名交易市场）；HugeDoamins.com；阿里云万网域名交易；v2ex论坛域名板块（中文社区）。定价策略：参考NameBio历史成交价，定价比类似成交价低10%-20%，成交率更高。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">5</span>
+          <div class="step-content">
+            <div class="step-title">主动联系潜在买家</div>
+            <div class="step-desc">发现某个创业公司在用 xxx.cn，而你有 xxx.com，主动联系他们邮件/微信：'您好，我拥有 xxx.com 域名，您有兴趣收购吗？'很多企业会积极回应，这种方式成交率高。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">6</span>
+          <div class="step-content">
+            <div class="step-title">域名停放赚广告费</div>
+            <div class="step-desc">把注册的域名'停放'到Sedo等平台，平台会在域名页显示广告，你获得广告分成。等待期间不完全亏损。</div>
+          </div>
+        </div><div class="step">
+          <span class="step-num" style="background:#475569">7</span>
+          <div class="step-content">
+            <div class="step-title">学习行情持续进化</div>
+            <div class="step-desc">加入域名交流群（微信群/论坛），学习最新的价值判断标准。每次成交都是学习机会，研究为什么这个域名值那么多钱。</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="card-tips">
+      <span class="tips-label">✅ 新手小贴士</span>
+      <div class="tip-item">域名投资需要耐心，持有期可能是1-5年，不要借钱投资</div><div class="tip-item">中文域名（中文.com）也有市场，但流动性比英文差很多</div><div class="tip-item">新创公司融资后第一件事往往是买好域名，盯融资新闻是好的选域时机</div>
+    </div>
+    <div class="card-warn">
+      <span class="warn-label">⚠️ 注意事项</span>
+      <div class="warn-item">不要注册知名品牌的变体域名（如gooogle.com、apples.com），属于域名抢注违法行为。不要批量注册大量普通域名，大多数没有价值，亏注册费。</div>
+    </div>
+  </div>
+  <div class="card-foot">
+    <span class="foot-cost" style="background:#2563EB14;color:#2563EB;border:1px solid #2563EB30">低成本</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#AAA098">项目编号 P25</span>
+  </div>
+</div>
+</div>
+
+<footer class="footer">
+  <p class="footer-quote">"世界上不缺机会，缺少的是发现机会并踏出第一步的勇气"</p>
+  <strong>电脑赚钱完整指南 · 2026精选版</strong><br>
+  共收录 <strong>25</strong> 个可高度自动化、一台电脑可完成的赚钱项目<br>
+  涵盖 <strong>6</strong> 大方向 · 超过 <strong>175</strong> 个详细操作步骤<br>
+  <span style="font-size:12px;opacity:.5;display:block;margin-top:12px">本指南内容仅供学习参考，实际收入因个人努力程度、市场情况不同而有差异</span>
+</footer>
+</body>
+</html>
