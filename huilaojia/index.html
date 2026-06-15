@@ -1,0 +1,2294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>2026端午跨省带娃旅行手册 · 佛山→重庆→成都→兰州</title>
+<style>
+  :root {
+    --amber: #F59E0B;
+    --amber-light: #FEF3C7;
+    --amber-pale: #FFFBEB;
+    --teal: #0D9488;
+    --teal-light: #CCFBF1;
+    --teal-dark: #0F766E;
+    --rose: #F43F5E;
+    --rose-light: #FFE4E6;
+    --violet: #7C3AED;
+    --violet-light: #EDE9FE;
+    --sky: #0EA5E9;
+    --sky-light: #E0F2FE;
+    --orange: #EA580C;
+    --orange-light: #FFF7ED;
+    --green: #16A34A;
+    --green-light: #DCFCE7;
+    --gray-50: #F9FAFB;
+    --gray-100: #F3F4F6;
+    --gray-200: #E5E7EB;
+    --gray-300: #D1D5DB;
+    --gray-500: #6B7280;
+    --gray-600: #4B5563;
+    --gray-700: #374151;
+    --gray-800: #1F2937;
+    --gray-900: #111827;
+    --text: #1E293B;
+    --text-sub: #475569;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    --shadow-md: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #F8F6F0;
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ===== HEADER ===== */
+  .hero {
+    background: linear-gradient(145deg, #FEF9EE 0%, #FFF0D6 40%, #FFE8C8 70%, #FDDCB5 100%);
+    padding: 0 0 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(245,158,11,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(13,148,136,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .top-bar {
+    background: linear-gradient(90deg, var(--amber) 0%, #F97316 100%);
+    padding: 8px 20px;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  .hero-inner {
+    padding: 32px 20px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .badge {
+    background: white;
+    border: 1.5px solid var(--amber);
+    color: var(--orange);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .hero-title {
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--gray-900);
+    margin-bottom: 8px;
+  }
+
+  .hero-title span {
+    background: linear-gradient(135deg, var(--amber) 0%, var(--orange) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    color: var(--text-sub);
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+
+  .route-visual {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    padding: 16px;
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    scrollbar-width: none;
+  }
+
+  .route-visual::-webkit-scrollbar { display: none; }
+
+  .city-stop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 70px;
+    flex-shrink: 0;
+  }
+
+  .city-dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .city-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray-700);
+    text-align: center;
+  }
+
+  .city-date {
+    font-size: 10px;
+    color: var(--gray-500);
+    text-align: center;
+  }
+
+  .route-arrow {
+    flex: 1;
+    min-width: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 4px;
+    margin-bottom: 20px;
+  }
+
+  .route-line {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--amber) 0%, var(--orange) 100%);
+    position: relative;
+  }
+
+  .route-line::after {
+    content: '▶';
+    position: absolute;
+    right: -4px;
+    top: -8px;
+    font-size: 10px;
+    color: var(--orange);
+  }
+
+  .route-train {
+    font-size: 9px;
+    color: var(--gray-500);
+    margin-top: 4px;
+    white-space: nowrap;
+  }
+
+  .info-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  .info-card {
+    background: white;
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    box-shadow: var(--shadow);
+    border-left: 3px solid var(--amber);
+  }
+
+  .info-card-label {
+    font-size: 10px;
+    color: var(--gray-500);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+
+  .info-card-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gray-800);
+  }
+
+  /* ===== NAV ===== */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-200);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .sticky-nav::-webkit-scrollbar { display: none; }
+
+  .nav-inner {
+    display: flex;
+    padding: 0 16px;
+    gap: 4px;
+    min-width: max-content;
+  }
+
+  .nav-btn {
+    padding: 12px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-500);
+    border: none;
+    background: none;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .nav-btn.active, .nav-btn:hover {
+    color: var(--orange);
+    border-bottom-color: var(--amber);
+  }
+
+  /* ===== MAIN ===== */
+  .main {
+    padding: 0 16px 80px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* ===== SECTION HEADER ===== */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 28px 0 16px;
+  }
+
+  .section-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--gray-900);
+    line-height: 1.2;
+  }
+
+  .section-subtitle {
+    font-size: 12px;
+    color: var(--gray-500);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  /* ===== PREP CARD ===== */
+  .card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: var(--shadow);
+    margin-bottom: 12px;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-title-icon {
+    font-size: 18px;
+  }
+
+  /* ===== CHECKLIST ===== */
+  .checklist {
+    list-style: none;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 13.5px;
+    color: var(--gray-700);
+    line-height: 1.5;
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+
+  .check-box {
+    width: 20px; height: 20px;
+    border: 2px solid var(--gray-300);
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+  }
+
+  .check-box.checked {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: white;
+  }
+
+  .check-text { flex: 1; }
+  .check-text strong { color: var(--gray-800); }
+
+  .check-tag {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .tag-must { background: #FEE2E2; color: #B91C1C; }
+  .tag-imp { background: var(--amber-light); color: #92400E; }
+  .tag-nice { background: var(--teal-light); color: var(--teal-dark); }
+
+  /* ===== TIMELINE ===== */
+  .day-header {
+    background: linear-gradient(135deg, var(--amber) 0%, var(--orange) 100%);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .day-header.day2 { background: linear-gradient(135deg, var(--teal) 0%, #059669 100%); }
+  .day-header.day3 { background: linear-gradient(135deg, var(--violet) 0%, #6D28D9 100%); }
+  .day-header.day4 { background: linear-gradient(135deg, var(--rose) 0%, #BE123C 100%); }
+
+  .day-header::after {
+    content: attr(data-emoji);
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 48px;
+    opacity: 0.25;
+  }
+
+  .day-num {
+    font-size: 11px;
+    font-weight: 700;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .day-title {
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .day-route {
+    font-size: 12px;
+    opacity: 0.85;
+    margin-top: 6px;
+  }
+
+  .day-warning {
+    background: #FFF3CD;
+    border: 1px solid #FFC107;
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .day-warning .warn-icon { font-size: 18px; flex-shrink: 0; }
+  .day-warning .warn-text { font-size: 13px; color: #856404; line-height: 1.5; }
+  .day-warning .warn-text strong { color: #533F03; }
+
+  .timeline {
+    position: relative;
+    padding-left: 56px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 22px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--amber-light), var(--gray-200));
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  .tl-dot {
+    position: absolute;
+    left: -42px;
+    top: 12px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .tl-content {
+    background: white;
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+  }
+
+  .tl-time {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray-500);
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .tl-type-badge {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .type-transit { background: var(--sky-light); color: #0369A1; }
+  .type-food { background: var(--orange-light); color: var(--orange); }
+  .type-play { background: var(--teal-light); color: var(--teal-dark); }
+  .type-sleep { background: var(--violet-light); color: var(--violet); }
+  .type-warn { background: var(--rose-light); color: var(--rose); }
+  .type-tip { background: var(--green-light); color: var(--green); }
+
+  .tl-heading {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 8px;
+  }
+
+  .tl-body {
+    font-size: 13px;
+    color: var(--text-sub);
+    line-height: 1.65;
+  }
+
+  .tl-body p { margin-bottom: 6px; }
+  .tl-body p:last-child { margin-bottom: 0; }
+
+  .tl-highlight {
+    background: var(--amber-pale);
+    border-left: 3px solid var(--amber);
+    padding: 8px 12px;
+    border-radius: 0 6px 6px 0;
+    margin-top: 8px;
+    font-size: 12.5px;
+    color: #92400E;
+    line-height: 1.55;
+  }
+
+  .tl-highlight.teal {
+    background: var(--teal-light);
+    border-left-color: var(--teal);
+    color: var(--teal-dark);
+  }
+
+  .tl-highlight.rose {
+    background: var(--rose-light);
+    border-left-color: var(--rose);
+    color: #BE123C;
+  }
+
+  .tl-steps {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .tl-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+
+  .step-num {
+    width: 20px; height: 20px;
+    background: var(--gray-100);
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .route-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--sky-light);
+    border: 1px solid #BAE6FD;
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0369A1;
+    margin: 4px 4px 4px 0;
+    flex-shrink: 0;
+  }
+
+  .route-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-top: 8px;
+    align-items: center;
+  }
+
+  .route-arrow-small {
+    font-size: 10px;
+    color: var(--gray-400);
+    margin: 0 2px;
+  }
+
+  /* ===== FOOD CARDS ===== */
+  .food-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .food-item {
+    background: var(--orange-light);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+  }
+
+  .food-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--orange);
+    margin-bottom: 2px;
+  }
+
+  .food-desc {
+    font-size: 11px;
+    color: var(--gray-600);
+    line-height: 1.4;
+  }
+
+  /* ===== ALERT BOX ===== */
+  .alert {
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .alert-red {
+    background: #FFF1F2;
+    border: 1px solid #FECDD3;
+  }
+
+  .alert-green {
+    background: var(--green-light);
+    border: 1px solid #86EFAC;
+  }
+
+  .alert-blue {
+    background: var(--sky-light);
+    border: 1px solid #BAE6FD;
+  }
+
+  .alert-yellow {
+    background: var(--amber-light);
+    border: 1px solid #FDE68A;
+  }
+
+  .alert-icon { font-size: 18px; flex-shrink: 0; }
+
+  .alert-body {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--gray-700);
+    flex: 1;
+  }
+
+  .alert-body strong { color: var(--gray-800); }
+
+  /* ===== AB COMPARISON ===== */
+  .ab-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  @media (max-width: 400px) {
+    .ab-compare { grid-template-columns: 1fr; }
+  }
+
+  .ab-card {
+    border-radius: var(--radius-sm);
+    padding: 12px;
+  }
+
+  .ab-card.plan-a {
+    background: var(--green-light);
+    border: 2px solid #86EFAC;
+  }
+
+  .ab-card.plan-b {
+    background: var(--amber-light);
+    border: 2px solid #FDE68A;
+  }
+
+  .ab-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .plan-a .ab-label { color: var(--green); }
+  .plan-b .ab-label { color: #92400E; }
+
+  .ab-content {
+    font-size: 12.5px;
+    color: var(--gray-700);
+    line-height: 1.55;
+  }
+
+  /* ===== TIPS SECTION ===== */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  @media (max-width: 380px) {
+    .tips-grid { grid-template-columns: 1fr; }
+    .info-cards { grid-template-columns: 1fr; }
+    .food-grid { grid-template-columns: 1fr; }
+  }
+
+  .tip-item {
+    background: white;
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    box-shadow: var(--shadow);
+    border-top: 3px solid var(--amber);
+  }
+
+  .tip-icon { font-size: 22px; margin-bottom: 6px; }
+
+  .tip-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 4px;
+  }
+
+  .tip-desc {
+    font-size: 12px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+
+  /* ===== EMERGENCY / BACKUP ===== */
+  .backup-section {
+    background: linear-gradient(135deg, #FFF1F2 0%, #FFF5F5 100%);
+    border: 1.5px solid #FECDD3;
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 12px;
+  }
+
+  .backup-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--rose);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ===== LANZHOU SPECIAL ===== */
+  .special-card {
+    background: linear-gradient(135deg, #FFF7ED 0%, #FEF3C7 100%);
+    border: 1.5px solid var(--amber);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 12px;
+  }
+
+  .special-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--orange);
+    margin-bottom: 10px;
+  }
+
+  /* ===== MEDICINE BOX ===== */
+  .med-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .med-pill {
+    background: white;
+    border: 1.5px solid var(--rose-light);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--rose);
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    background: linear-gradient(135deg, var(--gray-800) 0%, var(--gray-900) 100%);
+    color: white;
+    text-align: center;
+    padding: 32px 20px;
+    margin-top: 20px;
+  }
+
+  .footer-emoji { font-size: 36px; margin-bottom: 12px; }
+
+  .footer-title {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  .footer-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ===== WEATHER SECTION ===== */
+  .weather-row {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+    margin-top: 8px;
+  }
+
+  .weather-row::-webkit-scrollbar { display: none; }
+
+  .weather-city {
+    flex-shrink: 0;
+    background: white;
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    min-width: 90px;
+  }
+
+  .weather-name {
+    font-size: 11px;
+    color: var(--gray-500);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .weather-icon { font-size: 24px; margin-bottom: 4px; }
+
+  .weather-temp {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--gray-800);
+  }
+
+  .weather-desc {
+    font-size: 10px;
+    color: var(--gray-500);
+    margin-top: 2px;
+  }
+
+  /* ===== TABLE ===== */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 12.5px;
+  }
+
+  .data-table th {
+    background: var(--gray-100);
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 700;
+    color: var(--gray-600);
+    font-size: 11px;
+    letter-spacing: 0.3px;
+  }
+
+  .data-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-700);
+    vertical-align: top;
+    line-height: 1.45;
+  }
+
+  .data-table tr:last-child td { border-bottom: none; }
+
+  /* ===== SCROLL TO TOP ===== */
+  .scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 16px;
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--amber) 0%, var(--orange) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    border: none;
+    z-index: 200;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .scroll-top.visible { opacity: 1; }
+
+  /* ===== KIDS EXPERIENCE BANNER ===== */
+  .kids-banner {
+    background: linear-gradient(135deg, #FFF0F9 0%, #F0FFFE 100%);
+    border: 1.5px solid #F9A8D4;
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .kids-banner-icon { font-size: 32px; flex-shrink: 0; }
+
+  .kids-banner-content h3 {
+    font-size: 14px;
+    font-weight: 800;
+    color: #9D174D;
+    margin-bottom: 4px;
+  }
+
+  .kids-banner-content p {
+    font-size: 12.5px;
+    color: #6B7280;
+    line-height: 1.55;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--gray-200);
+    margin: 8px 0 20px;
+  }
+
+  /* Progress dots for days */
+  .progress-dots {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 20px;
+    justify-content: center;
+  }
+
+  .pdot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    opacity: 0.4;
+  }
+
+  .pdot.active { opacity: 1; }
+
+  /* ===== COLLAPSIBLE ===== */
+  .collapse-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+  }
+
+  .collapse-arrow {
+    font-size: 12px;
+    color: var(--gray-400);
+    transition: transform 0.2s;
+  }
+
+  .collapse-arrow.open { transform: rotate(180deg); }
+
+  .collapse-body {
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    max-height: 0;
+  }
+
+  .collapse-body.open { max-height: 2000px; }
+
+  /* Improve tl dot colors per day */
+  .day1 .tl-dot.transit { background: #DBEAFE; }
+  .day1 .tl-dot.food { background: var(--orange-light); }
+  .day1 .tl-dot.play { background: var(--teal-light); }
+  .day1 .tl-dot.sleep { background: var(--violet-light); }
+
+  .day-section { padding-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="top-bar">🐉 2026年端午节亲子跨省特种兵旅行手册 · 无需思考，按表执行</div>
+  <div class="hero-inner">
+    <div class="badge-row">
+      <div class="badge">👨‍👧 爸爸+3.5岁女儿</div>
+      <div class="badge">4城5段旅程</div>
+      <div class="badge">6月19日出发</div>
+    </div>
+    <h1 class="hero-title">端午带娃<br><span>跨省闯关全攻略</span></h1>
+    <p class="hero-sub">佛山 → 重庆 → 成都 → 兰州 → 老家<br>从珠三角平原到山城立体交通，从熊猫故乡到黄河之畔，一份让孩子见识广阔世界的旅行手册。</p>
+
+    <div class="route-visual">
+      <div class="city-stop">
+        <div class="city-dot" style="background:#FEF3C7">🏙️</div>
+        <div class="city-name">佛山西</div>
+        <div class="city-date">6/19</div>
+      </div>
+      <div class="route-arrow">
+        <div class="route-line"></div>
+        <div class="route-train">G2240</div>
+      </div>
+      <div class="city-stop">
+        <div class="city-dot" style="background:#DBEAFE">🏔️</div>
+        <div class="city-name">重庆</div>
+        <div class="city-date">6/19-20</div>
+      </div>
+      <div class="route-arrow">
+        <div class="route-line"></div>
+        <div class="route-train">D6191</div>
+      </div>
+      <div class="city-stop">
+        <div class="city-dot" style="background:#DCFCE7">🐼</div>
+        <div class="city-name">成都</div>
+        <div class="city-date">6/20-21</div>
+      </div>
+      <div class="route-arrow">
+        <div class="route-line"></div>
+        <div class="route-train">D164</div>
+      </div>
+      <div class="city-stop">
+        <div class="city-dot" style="background:#FCE7F3">🌊</div>
+        <div class="city-name">兰州</div>
+        <div class="city-date">6/21-22</div>
+      </div>
+      <div class="route-arrow">
+        <div class="route-line"></div>
+        <div class="route-train">大巴</div>
+      </div>
+      <div class="city-stop">
+        <div class="city-dot" style="background:#FEF9C3">🏡</div>
+        <div class="city-name">老家</div>
+        <div class="city-date">6/22</div>
+      </div>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="info-card-label">出发车次</div>
+        <div class="info-card-value">G2240 · 10:17 佛山西</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">抵达重庆</div>
+        <div class="info-card-value">17:05 重庆西站</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">酒店位置</div>
+        <div class="info-card-value">重庆君庭 / 成都清居</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">最终落脚</div>
+        <div class="info-card-value">兰州 → 乡下老家</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="sticky-nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('prep')">🎒 行前准备</button>
+    <button class="nav-btn" onclick="scrollTo('day1')">Day 1 重庆</button>
+    <button class="nav-btn" onclick="scrollTo('day2')">Day 2 出发</button>
+    <button class="nav-btn" onclick="scrollTo('day3')">Day 3 熊猫</button>
+    <button class="nav-btn" onclick="scrollTo('day4')">Day 4 兰州</button>
+    <button class="nav-btn" onclick="scrollTo('backup')">☔ 备案</button>
+    <button class="nav-btn" onclick="scrollTo('tips')">💡 贴士</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ====== PREP ====== -->
+  <div id="prep" class="day-section">
+    <div class="section-header">
+      <div class="section-icon" style="background:#FEF3C7">🎒</div>
+      <div>
+        <div class="section-title">行前战略筹备</div>
+        <div class="section-subtitle">出发前三天完成全部打钩</div>
+      </div>
+    </div>
+
+    <!-- 气候预警 -->
+    <div class="card">
+      <div class="card-title"><span class="card-title-icon">🌡️</span>跨省气候速览</div>
+      <div class="weather-row">
+        <div class="weather-city">
+          <div class="weather-name">佛山出发</div>
+          <div class="weather-icon">☀️</div>
+          <div class="weather-temp">31°C</div>
+          <div class="weather-desc">湿热梅雨期</div>
+        </div>
+        <div class="weather-city">
+          <div class="weather-name">重庆</div>
+          <div class="weather-icon">⛅</div>
+          <div class="weather-temp">33°C</div>
+          <div class="weather-desc">闷热多阵雨</div>
+        </div>
+        <div class="weather-city">
+          <div class="weather-name">成都</div>
+          <div class="weather-icon">🌤️</div>
+          <div class="weather-temp">30°C</div>
+          <div class="weather-desc">多云间晴</div>
+        </div>
+        <div class="weather-city">
+          <div class="weather-name">兰州</div>
+          <div class="weather-icon">☀️</div>
+          <div class="weather-temp">28°C日/14°C夜</div>
+          <div class="weather-desc">早晚温差大</div>
+        </div>
+        <div class="weather-city">
+          <div class="weather-name">老家</div>
+          <div class="weather-icon">🌄</div>
+          <div class="weather-temp">25°C</div>
+          <div class="weather-desc">凉爽干燥</div>
+        </div>
+      </div>
+      <div class="alert alert-yellow" style="margin-top:12px">
+        <span class="alert-icon">⚠️</span>
+        <div class="alert-body"><strong>穿搭核心策略：</strong>3套短袖（重庆成都用）+ 2件纯棉长袖 + 1件防风外套（兰州夜间/动车冷气必备）。西北极干燥，务必带高保湿儿童面霜、润唇膏，以及生理盐水喷雾防止孩子流鼻血。</div>
+      </div>
+    </div>
+
+    <!-- 行李核查清单 -->
+    <div class="card">
+      <div class="card-title"><span class="card-title-icon">✅</span>行李核查清单（可点击勾选）</div>
+      <ul class="checklist" id="checklist1">
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text"><strong>一键收纳轻便伞车</strong><br>重庆楼梯极多，没有轻便伞车带娃会崩溃，这是本次旅行的绝对核心装备。</div>
+          <div class="check-tag tag-must">必须</div>
+        </li>
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text"><strong>行程所有车票截图下载到本地</strong><br>G2240/D6191/D164 三张高铁票、熊猫基地观光车票，存为本地相册图片，无需网络。</div>
+          <div class="check-tag tag-must">必须</div>
+        </li>
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text"><strong>孩子随身证件</strong><br>户口本原件或儿童身份证（乘坐高铁/地铁购票查验）。</div>
+          <div class="check-tag tag-must">必须</div>
+        </li>
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text"><strong>常备药包</strong><br>布洛芬退烧（按体重计算剂量）、蒙脱石散止泻、创可贴、体温计，封装在一个专用小包。</div>
+          <div class="check-tag tag-must">必须</div>
+        </li>
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text"><strong>防暑三件套</strong><br>小手持风扇（充电款）、防蚊贴20片、防晒霜SPF50+（孩子专用）。</div>
+          <div class="check-tag tag-imp">重要</div>
+        </li>
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text"><strong>孩子新鲜玩具/贴纸书</strong><br>提前购入2-3本从未见过的贴纸书，高铁上每2小时掏出一本新的，是最强镇静剂。</div>
+          <div class="check-tag tag-imp">重要</div>
+        </li>
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text"><strong>动画片离线下载</strong><br>在家WiFi下提前下载好5-6集从未看过的动画片，长途动车必备。</div>
+          <div class="check-tag tag-imp">重要</div>
+        </li>
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text"><strong>动车生存零食包</strong><br>溶豆、海苔、米饼（不掉渣）、小袋果冻（补水）、切好的水果放保鲜盒。</div>
+          <div class="check-tag tag-imp">重要</div>
+        </li>
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text"><strong>防滑运动鞋（大人小孩都穿）</strong><br>重庆石板路/江边栈道下雨极滑，成都熊猫基地坡道多，凉拖绝对不行。</div>
+          <div class="check-tag tag-imp">重要</div>
+        </li>
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text"><strong>提前预约</strong><br>成都大熊猫基地门票（需实名预约）+ 观光车票。长江索道建议关注「重庆索道」微信公众号提前购票。</div>
+          <div class="check-tag tag-must">必须</div>
+        </li>
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text"><strong>西北护肤品</strong><br>兰州空气极度干燥，带儿童润肤霜+生理盐水喷鼻，防止孩子皮肤干裂或鼻腔干燥出血。</div>
+          <div class="check-tag tag-nice">推荐</div>
+        </li>
+        <li>
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text"><strong>折叠雨伞/轻便雨衣</strong><br>重庆成都都是阵雨多发，轻便雨衣比雨伞更好用（腾出双手推伞车）。</div>
+          <div class="check-tag tag-nice">推荐</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 饮食预案总结 -->
+    <div class="card">
+      <div class="card-title"><span class="card-title-icon">🍜</span>孩子饮食全程总原则</div>
+      <div class="alert alert-red">
+        <span class="alert-icon">🚫</span>
+        <div class="alert-body"><strong>3.5岁孩子的饮食红线：</strong>全程拒绝红油火锅、麻辣烫、大量花椒。重庆、成都、兰州点餐时口头叮嘱老板「完全不要辣椒不要花椒，白汤/清汤」，这是防止行程因孩子肠胃不适崩盘的第一关键。</div>
+      </div>
+      <div class="tl-steps" style="margin-top:12px">
+        <div class="tl-step"><div class="step-num">✓</div><div>抄手/馄饨：永远可以点清汤款，孩子接受度最高</div></div>
+        <div class="tl-step"><div class="step-num">✓</div><div>骨汤煎蛋面：叮嘱白汤，营养管饱</div></div>
+        <div class="tl-step"><div class="step-num">✓</div><div>蒸蛋/清炒时蔬：快餐店/商场中式快餐必有</div></div>
+        <div class="tl-step"><div class="step-num">✓</div><div>兰州牛肉面点"毛细"要"一清"（无辣椒油）</div></div>
+        <div class="tl-step"><div class="step-num">✓</div><div>甜皮鸭（成都）：不辣微甜，孩子超爱</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== DAY 1 ====== -->
+  <div id="day1" class="day-section">
+    <div class="section-header">
+      <div class="section-icon" style="background:#DBEAFE">🏔️</div>
+      <div>
+        <div class="section-title">Day 1 · 6月19日（端午节）</div>
+        <div class="section-subtitle">佛山西 → 重庆西 → 弹子石 → 长江索道 → 君庭酒店</div>
+      </div>
+    </div>
+
+    <div class="day-header" data-emoji="🚄">
+      <div class="day-num">DAY 01 · 6月19日 端午节</div>
+      <div class="day-title">赛博山城首夜<br>夜游两江 + 飞越长江</div>
+      <div class="day-route">佛山西 10:17 ——— G2240 ——— 重庆西 17:05</div>
+    </div>
+
+    <div class="kids-banner">
+      <div class="kids-banner-icon">🎠</div>
+      <div class="kids-banner-content">
+        <h3>今天孩子的认知冲击</h3>
+        <p>第一次坐跨省高铁、第一次看重庆山城立体建筑、第一次乘坐江上游轮看夜景、第一次坐凌空穿越长江的索道缆车。比珠三角平原的任何游乐场都震撼。</p>
+      </div>
+    </div>
+
+    <div class="timeline day1">
+
+      <!-- 10:17 上车 -->
+      <div class="tl-item">
+        <div class="tl-dot transit" style="background:#DBEAFE">🚄</div>
+        <div class="tl-content">
+          <div class="tl-time">10:17 出发<span class="tl-type-badge type-transit">高铁</span></div>
+          <div class="tl-heading">G2240 佛山西 → 重庆西（约6.5小时）</div>
+          <div class="tl-body">
+            <p>进站后直接去候车室候车，带孩子先去上洗手间。上车后找好行李架，把伞车折叠放行李架下方（注意不要遮挡通道）。</p>
+            <div class="tl-highlight">
+              🎯 <strong>高铁生存策略：</strong>中午11:30-12:00带孩子去餐车走动，既消耗体力又能换换环境。争取下午14:00-15:30让孩子在座位上睡1-2小时午觉（可把外套叠成枕头）。睡够了到了重庆才有精力玩夜景。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 17:05 到重庆西 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#E0F2FE">🏙️</div>
+        <div class="tl-content">
+          <div class="tl-time">17:05 抵达<span class="tl-type-badge type-transit">换乘</span></div>
+          <div class="tl-heading">重庆西站 → 君庭酒店（轨道转乘）</div>
+          <div class="tl-body">
+            <div class="route-pills">
+              <div class="route-pill">重庆西站</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">🚇 5号线（石桥铺方向）</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">石桥铺换1号线</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">较场口/小什字站</div>
+            </div>
+            <p style="margin-top:8px">此时正值下班晚高峰，<strong>坚决不打车</strong>（地面极度拥堵）。带行李和伞车优先找有直梯的出入口，重庆西站各地铁站基本配有直梯，拿行李前先看"无障碍通道"标识。</p>
+            <div class="alert alert-blue" style="margin-top:8px">
+              <span class="alert-icon">💡</span>
+              <div class="alert-body">地铁全程约45-50分钟，到小什字/较场口出站后步行或短距离打车至君庭酒店，总计到达酒店约18:00前后。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 18:00 办理入住 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#EDE9FE">🏨</div>
+        <div class="tl-content">
+          <div class="tl-time">约18:00<span class="tl-type-badge type-sleep">入住</span></div>
+          <div class="tl-heading">办理入住 · 君庭酒店</div>
+          <div class="tl-body">
+            <p>放下所有大行李，只带一个轻便小包（手机+钱包+孩子水壶+备用纸尿裤/湿巾）。给孩子换上干爽的衣服，准备出门夜游。</p>
+            <div class="tl-highlight teal">
+              ✅ <strong>当晚行李要诀：</strong>把第二天早上需要的东西（早餐袋、孩子外套）单独放到最容易取到的地方，明天退房前时间紧，不用翻找。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 18:30 打车去弹子石 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#FEF3C7">🚕</div>
+        <div class="tl-content">
+          <div class="tl-time">18:30 出发<span class="tl-type-badge type-transit">打车</span></div>
+          <div class="tl-heading">打车前往弹子石码头（约20分钟）</div>
+          <div class="tl-body">
+            <p>叫滴滴/出租车，目的地报「南岸区弹子石长嘉汇购物公园」，费用约15-20元。在车上可以告诉孩子：「等下我们要去坐江上的大轮船了，船会从这边的山城开到对面的灯光里！」</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 18:50 晚餐 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#FFF7ED">🍽️</div>
+        <div class="tl-content">
+          <div class="tl-time">18:50 晚餐<span class="tl-type-badge type-food">吃饭</span></div>
+          <div class="tl-heading">长嘉汇购物公园内解决晚餐</div>
+          <div class="tl-body">
+            <p>在弹子石码头旁边的长嘉汇商场内吃，冷气足、环境好、有换尿布台。</p>
+            <div class="food-grid">
+              <div class="food-item">
+                <div class="food-name">乡村基（推荐）</div>
+                <div class="food-desc">香菇滑鸡饭+番茄煎蛋汤，孩子最爱，营养热乎，人均约25元</div>
+              </div>
+              <div class="food-item">
+                <div class="food-name">清汤老麻抄手</div>
+                <div class="food-desc">点「清汤」款，类似馄饨，孩子接受度极高，大人加麻辣</div>
+              </div>
+              <div class="food-item">
+                <div class="food-name">骨汤面馆</div>
+                <div class="food-desc">叮嘱「白汤无辣」，孩子点一碗骨汤煎蛋面，价格实惠</div>
+              </div>
+              <div class="food-item">
+                <div class="food-name">商场便利店</div>
+                <div class="food-desc">为孩子备一瓶儿童牛奶和软糕，以防不够吃</div>
+              </div>
+            </div>
+            <div class="alert alert-red" style="margin-top:8px">
+              <span class="alert-icon">🚫</span>
+              <div class="alert-body">今晚<strong>绝对不要</strong>带3岁半孩子去尝红油火锅，肠胃不适会毁掉整个行程。大人的重庆特色，明天早餐再说。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 19:20 坐船 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#CCFBF1">⛴️</div>
+        <div class="tl-content">
+          <div class="tl-time">19:20 上船<span class="tl-type-badge type-play">游览</span></div>
+          <div class="tl-heading">弹子石码头 · 两江游船（约40分钟）</div>
+          <div class="tl-body">
+            <p>从长嘉汇步行下到江边即是弹子石码头（步行约5分钟），广场上可能有气球和鸽子，孩子会很喜欢。</p>
+            <p>这个时间段（约19:20-20:00）是重庆最美的「蓝调时刻」——灯光刚亮起、天空还未完全黑，对岸洪崖洞、来福士大楼的灯火倒映在江面上，极致迷人。孩子坐在船上不用走路，江风吹着最舒服。</p>
+            <div class="tl-highlight">
+              📸 <strong>拍照机位：</strong>船头甲板靠近护栏处，对岸渝中半岛灯光全入画。注意牵好孩子，穿好救生衣。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 20:00 索道南站 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#FCE7F3">🚡</div>
+        <div class="tl-content">
+          <div class="tl-time">20:00 抵达<span class="tl-type-badge type-play">索道</span></div>
+          <div class="tl-heading">长江索道南站（上新街站）</div>
+          <div class="tl-body">
+            <div class="alert alert-red">
+              <span class="alert-icon">⚠️</span>
+              <div class="alert-body"><strong>重要修正：</strong>从弹子石码头到索道南站约3.5公里，徒步需40+分钟！带孩子走这段路大人会崩溃。<br><br>
+              <strong>正确做法：</strong>下船后在南滨路打网约车，10分钟、约12元直达「长江索道南站」（上新街），孩子在车上休息刚好。20:00前轻松到达。</div>
+            </div>
+            <p style="margin-top:10px">端午节旺季排队提示：南站人比北站少，您这个方向安排非常明智。排队时给孩子讲：「我们等下要坐一个超级大飞船，从江的这边飞到对面的高楼那边！」</p>
+            <div class="tl-highlight teal">
+              💳 <strong>买票方式：</strong>在「重庆索道」微信公众号提前购票，或现场窗口购买，带孩子排队时间会更短。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 20:30 步行回酒店 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#DCFCE7">🌃</div>
+        <div class="tl-content">
+          <div class="tl-time">约20:30 到达<span class="tl-type-badge type-transit">步行</span></div>
+          <div class="tl-heading">索道北站（新华路）→ 君庭酒店</div>
+          <div class="tl-body">
+            <p>飞越长江后到达渝中区新华路，步行10-15分钟即可回到君庭酒店，沿途就是解放碑繁华商圈，路面平整好走。</p>
+            <p>顺路在便利店买好第二天早餐（热包子/牛奶面包），省去明天早上找吃的的时间。</p>
+            <div class="tl-highlight rose">
+              😴 <strong>铁律：22:00前孩子必须洗漱完毕入睡！</strong>第二天要感受轨道过山车穿楼，需要充足精力。
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end timeline day1 -->
+  </div>
+
+  <!-- ====== DAY 2 ====== -->
+  <div id="day2" class="day-section">
+    <div class="section-header">
+      <div class="section-icon" style="background:#DCFCE7">🚇</div>
+      <div>
+        <div class="section-title">Day 2 · 6月20日</div>
+        <div class="section-subtitle">轨道穿楼体验 → 重庆北 → 成都市中心漫步</div>
+      </div>
+    </div>
+
+    <div class="day-header day2" data-emoji="🏙️">
+      <div class="day-num">DAY 02 · 6月20日</div>
+      <div class="day-title">轨道过山车穿楼<br>离开山城，抵达蓉城</div>
+      <div class="day-route">重庆北 10:37 ——— D6191 ——— 成都东 13:05</div>
+    </div>
+
+    <div class="kids-banner">
+      <div class="kids-banner-icon">🚈</div>
+      <div class="kids-banner-content">
+        <h3>今天孩子的认知冲击</h3>
+        <p>亲眼目睹并乘坐「轻轨穿进大楼」（李子坝网红站）——这种世界级奇观在珠三角完全不可能存在。地铁在6楼的居民楼里穿行而过，孩子会以为列车要「撞进别人家里」。</p>
+      </div>
+    </div>
+
+    <div class="day-warning">
+      <span class="warn-icon">🗺️</span>
+      <div class="warn-text"><strong>路线说明：</strong>您计划的「曾家岩换10号线」如果直接换，会错过李子坝穿楼。下面的路线已做优化，让您先体验穿楼后再折返曾家岩换10号线，完全不出闸机，省钱省事。</div>
+    </div>
+
+    <div class="timeline">
+
+      <!-- 08:00 退房 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#FEF3C7">🧳</div>
+        <div class="tl-content">
+          <div class="tl-time">08:00<span class="tl-type-badge type-transit">出发</span></div>
+          <div class="tl-heading">退房 · 吃昨晚买好的早餐</div>
+          <div class="tl-body">
+            <p>昨晚便利店备好的早餐（包子/牛奶/面包）在房间内解决，省时省力。退房时检查：证件、手机充电线、孩子最爱的玩具不要漏在枕头下。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 08:40 小什字进站 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#DBEAFE">🚇</div>
+        <div class="tl-content">
+          <div class="tl-time">08:40<span class="tl-type-badge type-transit">地铁</span></div>
+          <div class="tl-heading">小什字站 9号口进入 → 1号线 → 较场口（1站）</div>
+          <div class="tl-body">
+            <div class="route-pills">
+              <div class="route-pill">小什字 9号口</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">🚇 1号线（朝天门方向）</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">较场口下车</div>
+            </div>
+            <p style="margin-top:8px">推行李+伞车，跟着「无障碍/直梯」标识走。较场口是换乘枢纽站，一定要抓紧孩子的手，人比较多。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 核心：2号线穿楼 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#FCE7F3; border:2px solid #F43F5E">⭐</div>
+        <div class="tl-content" style="border:1.5px solid #F43F5E">
+          <div class="tl-time">08:50 —— 09:20<span class="tl-type-badge type-play">核心体验</span></div>
+          <div class="tl-heading">👑 重庆轨道2号线 · 穿楼奇观（超级重点）</div>
+          <div class="tl-body">
+            <div class="route-pills">
+              <div class="route-pill">较场口 换乘2号线</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">鱼洞方向</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">曾家岩</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">牛角沱</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">⭐ 李子坝（穿楼）</div>
+            </div>
+            <div class="alert alert-red" style="margin-top:10px">
+              <span class="alert-icon">🪑</span>
+              <div class="alert-body"><strong>务必坐左侧座位！</strong>坐2号线鱼洞方向，一定要选车厢左侧的位置（面向行进方向的左手边），从这侧能看到列车冲入大楼内部的完整视角，右侧看不到。</div>
+            </div>
+            <div class="tl-highlight" style="margin-top:8px">
+              🎯 <strong>给孩子的台词：</strong>「你看那个大楼！我们的火车要飞进去！里面有人住的！他们家客厅就在火车旁边！」——孩子的表情会让你觉得这趟旅行值了。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 折返 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#FEF9C3">🔄</div>
+        <div class="tl-content">
+          <div class="tl-time">09:20<span class="tl-type-badge type-transit">折返</span></div>
+          <div class="tl-heading">李子坝站 · 不出闸 · 折返曾家岩</div>
+          <div class="tl-body">
+            <p>在李子坝站下车后<strong>不要出闸机</strong>，直接走到对面站台，坐反方向（较场口/大堰村方向）的2号线，往回坐2站，到<strong>曾家岩站</strong>下车。</p>
+            <div class="alert alert-green">
+              <span class="alert-icon">💰</span>
+              <div class="alert-body">全程不出站，只算一次地铁票价，省时省钱。带行李不方便下去外面拍李子坝建筑外观，车厢内体验穿楼震撼感已经100%达到。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 曾家岩换10号线 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#DBEAFE">🔀</div>
+        <div class="tl-content">
+          <div class="tl-time">09:30 —— 10:15<span class="tl-type-badge type-transit">换乘</span></div>
+          <div class="tl-heading">曾家岩换 10号线 → 重庆北站</div>
+          <div class="tl-body">
+            <div class="route-pills">
+              <div class="route-pill">曾家岩</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">🚇 10号线（王家庄方向）</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">重庆北站南广场</div>
+            </div>
+            <div class="alert alert-yellow" style="margin-top:8px">
+              <span class="alert-icon">🎫</span>
+              <div class="alert-body"><strong>注意：</strong>请提前看清您手中D6191车票，是<strong>南广场进站</strong>还是<strong>北广场进站</strong>，10号线两个广场都有站，不要坐过站。北广场对应「重庆北站北广场」站，南广场对应「重庆北站南广场」站。</div>
+            </div>
+            <p style="margin-top:8px">10号线是最新线路，极快极宽敞，全程约30-35分钟，10:10左右稳稳到达，时间宽裕。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- D6191 重庆→成都 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#DBEAFE">🚄</div>
+        <div class="tl-content">
+          <div class="tl-time">10:37 发车<span class="tl-type-badge type-transit">高铁</span></div>
+          <div class="tl-heading">D6191 重庆北 → 成都东（约1小时30分）</div>
+          <div class="tl-body">
+            <p>高铁票已提前购好，进候车室后找座位，让孩子上车前先排队上洗手间。这段车程不长，引导孩子看窗外四川盆地风光，边吃边玩，轻松愉快。</p>
+            <div class="tl-highlight teal">
+              🍀 约13:05抵达成都东站，正好饿了吃午饭，时间节奏完美。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 抵达成都 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#DCFCE7">🐼</div>
+        <div class="tl-content">
+          <div class="tl-time">13:05 抵达<span class="tl-type-badge type-transit">成都</span></div>
+          <div class="tl-heading">成都东站 → 清居酒店（市二医院附近）</div>
+          <div class="tl-body">
+            <div class="route-pills">
+              <div class="route-pill">成都东站</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">🚇 地铁2号线（犀浦方向）</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">市二医院站（6站，约15分钟）</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">步行380米</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">清居酒店</div>
+            </div>
+            <p style="margin-top:8px">成都是平原城市！推伞车走380米路面平整无障碍，比重庆轻松太多。到酒店先放行李，随即出门吃午饭。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 午饭 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#FFF7ED">🍛</div>
+        <div class="tl-content">
+          <div class="tl-time">14:00 午饭<span class="tl-type-badge type-food">吃饭</span></div>
+          <div class="tl-heading">酒店附近找鸡汤饭/抄手馆</div>
+          <div class="tl-body">
+            <p>市二医院附近是老城区，下楼就有本地小馆子。找一家门口有本地老人在吃的面馆，直接坐下。点单：孩子一碗炖鸡汤饭（强调白汤无辣），大人来一碗成都特色红油抄手。人均约15元，便宜实惠。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 午休 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#EDE9FE">😴</div>
+        <div class="tl-content">
+          <div class="tl-time">14:40 —— 16:40<span class="tl-type-badge type-sleep">午休</span></div>
+          <div class="tl-heading">强制午休 2 小时（极其重要）</div>
+          <div class="tl-body">
+            <p>拉上遮光窗帘，大人小孩都睡足两小时。<strong>这一觉是明天早起看熊猫的体力保障</strong>，也是孩子情绪稳定的核心。不睡就玩，明天孩子到熊猫基地就会一直哭。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 春熙路 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#CCFBF1">🌆</div>
+        <div class="tl-content">
+          <div class="tl-time">17:00 —— 20:30<span class="tl-type-badge type-play">游玩</span></div>
+          <div class="tl-heading">成都市中心 · 春熙路/IFS/太古里</div>
+          <div class="tl-body">
+            <div class="route-pills">
+              <div class="route-pill">市二医院站</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">🚇 3号线 1站</div>
+              <div class="route-arrow-small">→</div>
+              <div class="route-pill">春熙路站</div>
+            </div>
+            <div class="tl-steps" style="margin-top:12px">
+              <div class="tl-step">
+                <div class="step-num">1</div>
+                <div><strong>IFS顶楼「爬墙大熊猫」：</strong>直接坐电梯上顶楼雕塑花园，有一只巨型金属大熊猫露脸在楼顶。空间宽阔，孩子可以奔跑，这是孩子今天最惊喜的时刻之一。</div>
+              </div>
+              <div class="tl-step">
+                <div class="step-num">2</div>
+                <div><strong>大慈寺：</strong>从IFS走到太古里中心有千年古刹大慈寺，红墙、锦鲤、静谧，孩子喜欢看鱼。傍晚清凉，适合慢逛。</div>
+              </div>
+              <div class="tl-step">
+                <div class="step-num">3</div>
+                <div><strong>太古里裸眼3D大屏：</strong>天黑后，街口的3D大屏幕亮起，画面从屏幕里「飞出来」，孩子会叫起来。</div>
+              </div>
+              <div class="tl-step">
+                <div class="step-num">4</div>
+                <div><strong>晚餐：</strong>在太古里或IFS商场内吃不辣的粤式茶点或改良川菜。给孩子点蒸蛋+甜皮鸭（成都特色，不辣微甜，孩子超爱）。</div>
+              </div>
+            </div>
+            <div class="tl-highlight rose">
+              😴 <strong>铁律：21:00前必须回到酒店！洗漱完毕，让孩子21:30入睡。</strong>明天6:00要起床打车去熊猫基地，提早睡才能提早醒，孩子心情好才能专注看熊猫。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 提前准备明天 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#FEF9C3">📦</div>
+        <div class="tl-content">
+          <div class="tl-time">睡前<span class="tl-type-badge type-tip">准备</span></div>
+          <div class="tl-heading">睡前打包明天的出发包</div>
+          <div class="tl-body">
+            <p>在便利店或附近超市买好明天的早餐（牛奶+面包/包子），装进小背包。孩子的防晒霜、帽子、孩子水壶装好。把全家明天要穿的衣服放到最显眼的位置。定好<strong>6:00闹钟</strong>（两个手机都设置）。</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end day2 timeline -->
+  </div>
+
+  <!-- ====== DAY 3 ====== -->
+  <div id="day3" class="day-section">
+    <div class="section-header">
+      <div class="section-icon" style="background:#FCE7F3">🐼</div>
+      <div>
+        <div class="section-title">Day 3 · 6月21日</div>
+        <div class="section-subtitle">凌晨突击熊猫基地 → 成都东 → 兰州</div>
+      </div>
+    </div>
+
+    <div class="day-header day3" data-emoji="🐼">
+      <div class="day-num">DAY 03 · 6月21日</div>
+      <div class="day-title">极限突击大熊猫<br>征战大西北</div>
+      <div class="day-route">成都东 14:34 ——— D164 ——— 兰州 21:43</div>
+    </div>
+
+    <div class="kids-banner">
+      <div class="kids-banner-icon">🐼</div>
+      <div class="kids-banner-content">
+        <h3>今天孩子的认知冲击</h3>
+        <p>第一次在真实场景中看到大熊猫吃竹子、撒欢儿打滚，和动画片/绘本里看到的完全不一样。接着坐7小时高铁，窗外风景从四川盆地绿色变成黄土高原褐黄色，孩子能感受到「世界真的很大很不一样」。</p>
+      </div>
+    </div>
+
+    <div class="day-warning">
+      <span class="warn-icon">🚌</span>
+      <div class="warn-text"><strong>交通方案说明：</strong>您提到「地铁转公交」方案——409路首班7:00发车，到西门约15分钟，卡在7:20前到达几乎零容错。带娃拿行李转换风险极高。已为您设计两套方案对比如下，<strong>强烈推荐方案A</strong>。</div>
+    </div>
+
+    <!-- AB对比 -->
+    <div class="ab-compare">
+      <div class="ab-card plan-a">
+        <div class="ab-label">✅ 方案A（强烈推荐）</div>
+        <div class="ab-content">
+          06:30 在酒店门口叫网约车直达<strong>大熊猫基地西门</strong><br><br>
+          约13公里，清晨无堵车，25-30分钟到达，费用约35元<br><br>
+          <strong>✓ 07:00稳稳站在西门</strong><br>
+          ✓ 孩子在车里继续睡半小时<br>
+          ✓ 不用拖行李折腾地铁公交
+        </div>
+      </div>
+      <div class="ab-card plan-b">
+        <div class="ab-label">⚠️ 方案B（备用/原计划）</div>
+        <div class="ab-content">
+          06:20 市二医院站上地铁3号线<br>
+          坐7站到植物园/军区总医院<br>
+          步行等待07:00首班409路公交<br>
+          约07:15-07:20到达西门<br><br>
+          <strong>⚠️ 零容错，公交晚点即崩盘</strong><br>
+          ⚠️ 带行李换乘极累
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline">
+
+      <!-- 06:00 起床 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#FEF9C3">⏰</div>
+        <div class="tl-content">
+          <div class="tl-time">06:00<span class="tl-type-badge type-transit">出发</span></div>
+          <div class="tl-heading">极速起床 · 不要叫醒孩子</div>
+          <div class="tl-body">
+            <p>大人先起床洗漱，把孩子装进伞车（不用完全叫醒，让她在推车里迷糊着），套上外套（早晨6点成都有点凉），盖一块小薄被。把昨晚准备好的早餐袋挂在推车上。</p>
+            <div class="tl-highlight">
+              🥛 <strong>车上吃早餐：</strong>在网约车里让孩子喝牛奶啃面包，不需要特意在餐厅坐下吃，省出30分钟看熊猫。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 06:30 打车 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#DBEAFE">🚕</div>
+        <div class="tl-content">
+          <div class="tl-time">06:30<span class="tl-type-badge type-transit">打车</span></div>
+          <div class="tl-heading">网约车直奔大熊猫基地西门</div>
+          <div class="tl-body">
+            <p>在高德/滴滴搜索「成都大熊猫繁育研究基地-西门」，直接打车前往。清晨成都路面空旷，25-30分钟内必达，费用约35元。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 07:20 进园 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#DCFCE7; border:2px solid #16A34A">🐼</div>
+        <div class="tl-content" style="border:1.5px solid #86EFAC">
+          <div class="tl-time">07:20 —— 11:30<span class="tl-type-badge type-play">看猫</span></div>
+          <div class="tl-heading">大熊猫繁育研究基地 · 高效游览（西门进 → 南门出）</div>
+          <div class="tl-body">
+            <div class="tl-steps">
+              <div class="tl-step">
+                <div class="step-num">1</div>
+                <div><strong>07:30 进门立刻排队坐观光车</strong>（提前在公众号买好票），直奔「星星产房」或「月亮产房」。早上8点是大熊猫最活跃吃竹子的时候，幼崽也最可爱。</div>
+              </div>
+              <div class="tl-step">
+                <div class="step-num">2</div>
+                <div><strong>从产房出来后，顺坡向下走</strong>，路线对推伞车极友好（下坡）。依次经过太阳产房→幼年大熊猫别墅→成年大熊猫展区。</div>
+              </div>
+              <div class="tl-step">
+                <div class="step-num">3</div>
+                <div><strong>11:30 准时从南门出园</strong>，这是「西进南出」的最优路线，不走回头路，距离刚好覆盖主要看点。</div>
+              </div>
+            </div>
+            <div class="tl-highlight">
+              🎯 <strong>带3岁娃看熊猫的核心技巧：</strong>不需要把每一个展区都走到，只需让孩子在产房的玻璃窗前专注看15分钟，比走遍全园更有意义。她记住的是「毛茸茸的大熊猫在吃竹子」这个画面，而不是走了多少路。
+            </div>
+            <div class="alert alert-blue" style="margin-top:8px">
+              <span class="alert-icon">🌿</span>
+              <div class="alert-body"><strong>园区贴士：</strong>园区路面有坡，但主游览路线基本为下坡走向，推伞车轻松。园区内有小卖部，可买水，但价格偏贵，建议自带500ml水壶。园区禁止带食物给熊猫，路边有指示牌，提前告诉孩子。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 赶去成都东 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#FFF7ED">🚕</div>
+        <div class="tl-content">
+          <div class="tl-time">11:30 出园<span class="tl-type-badge type-transit">赶站</span></div>
+          <div class="tl-heading">南门出园 → 成都东站（两个方案）</div>
+          <div class="tl-body">
+            <div class="ab-compare">
+              <div class="ab-card plan-a">
+                <div class="ab-label">✅ 推荐：打车</div>
+                <div class="ab-content">南门外直接打车到成都东站，约20-25公里，约35分钟，费用约50元。孩子可以在车里睡觉。12:20-12:30可抵达。</div>
+              </div>
+              <div class="ab-card plan-b">
+                <div class="ab-label">备用：地铁</div>
+                <div class="ab-content">接驳车→熊猫大道站→地铁3号线→驷马桥→换7号线（外环）→成都东客站，全程约50-60分钟，较累。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 午餐 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#FEF3C7">🍔</div>
+        <div class="tl-content">
+          <div class="tl-time">12:30 午餐<span class="tl-type-badge type-food">吃饭</span></div>
+          <div class="tl-heading">成都东站候车厅二楼 · 快速午餐</div>
+          <div class="tl-body">
+            <p>候车厅二楼有麦当劳、肯德基、康师傅面、德克士等。给孩子点儿童套餐或热汤面条，安全卫生，孩子吃得快。大人来一个汉堡补充体力。</p>
+            <p>13:30在检票口附近找位置坐下休息，等待检票。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- D164 成都→兰州 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#DBEAFE">🚄</div>
+        <div class="tl-content">
+          <div class="tl-time">14:34 发车<span class="tl-type-badge type-transit">高铁</span></div>
+          <div class="tl-heading">D164 成都东 → 兰州（约7小时 · 抵达21:43）</div>
+          <div class="tl-body">
+            <p><strong>7小时长途，这是全程最考验的一段。</strong>请做好充分准备。</p>
+            <div class="tl-steps">
+              <div class="tl-step"><div class="step-num">✓</div><div>每隔2小时掏出一个新的贴纸书/小玩具，保持新鲜感</div></div>
+              <div class="tl-step"><div class="step-num">✓</div><div>播放提前下载好的新动画片（不重复的！）</div></div>
+              <div class="tl-step"><div class="step-num">✓</div><div>引导孩子看窗外地貌变化：「你看树越来越少了，山变成黄色了，我们到大西北了！」</div></div>
+              <div class="tl-step"><div class="step-num">✓</div><div>带好水果（提前切好装保鲜盒）、溶豆、海苔，避免孩子哭闹要吃高铁里的贵零食</div></div>
+            </div>
+            <div class="alert alert-yellow" style="margin-top:10px">
+              <span class="alert-icon">🧥</span>
+              <div class="alert-body"><strong>下车前5分钟：</strong>给孩子和自己穿好长袖外套！兰州晚上9:43到站，室外只有约14-17°C，比成都冷很多，空调列车里暖和，出门一瞬间体感极凉。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 抵达兰州 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#FCE7F3">🌉</div>
+        <div class="tl-content">
+          <div class="tl-time">21:43 抵达<span class="tl-type-badge type-transit">到站</span></div>
+          <div class="tl-heading">兰州站出站 → 步行200米 → 酒店</div>
+          <div class="tl-body">
+            <p>出站后找到「地铁站D口」，步行约200米即达酒店。兰州站附近夜晚较冷，快步走入酒店大厅。</p>
+            <div class="tl-highlight rose">
+              😴 <strong>立刻洗漱，让孩子尽快入睡。今天大人小孩都已经透支，明天还有黄河和大巴，必须休息好。</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end day3 timeline -->
+  </div>
+
+  <!-- ====== DAY 4 ====== -->
+  <div id="day4" class="day-section">
+    <div class="section-header">
+      <div class="section-icon" style="background:#FEF3C7">🌊</div>
+      <div>
+        <div class="section-title">Day 4 · 6月22日</div>
+        <div class="section-subtitle">兰州市区游览 → 12:10大巴回老家</div>
+      </div>
+    </div>
+
+    <div class="day-header day4" data-emoji="🌊">
+      <div class="day-num">DAY 04 · 6月22日</div>
+      <div class="day-title">黄河之畔<br>羊皮筏子 + 巨型水车</div>
+      <div class="day-route">兰州市区游玩 ——— 客运中心 12:10 ——— 乡下老家</div>
+    </div>
+
+    <div class="kids-banner">
+      <div class="kids-banner-icon">🌊</div>
+      <div class="kids-banner-content">
+        <h3>今天孩子的认知冲击</h3>
+        <p>从珠三角清澈平静的珠江，到奔腾浑浊的母亲河黄河——视觉上完全不同。巨大的木制水车嘎吱作响，羊皮吹成的气球扎成筏子漂在河上，这些东西在任何一本南方绘本里都不会出现。还有拉面师傅当面把面团拉成细丝的「魔术」，孩子会目瞪口呆。</p>
+      </div>
+    </div>
+
+    <div class="special-card">
+      <div class="special-title">🧠 向孩子讲解「兰州与南方的不同」知识点输出</div>
+      <div class="tl-steps">
+        <div class="tl-step"><div class="step-num">💧</div><div><strong>黄河水为什么是黄色的？</strong>「因为黄河里面有很多泥沙，就像你玩沙子时水变黄了一样，黄河里的泥沙太多了所以是黄色的。」</div></div>
+        <div class="tl-step"><div class="step-num">🛶</div><div><strong>羊皮筏子怎么做的？</strong>「以前的叔叔们把羊的皮吹成大气球，绑在木架子上，就变成了船！比在南方用木头做船聪明得多！」</div></div>
+        <div class="tl-step"><div class="step-num">💦</div><div><strong>水车是干什么的？</strong>「以前没有水泵，这个大木轮子放进河里，水流推着它转，它就把水从河里带到田里，浇菜用的！」</div></div>
+        <div class="tl-step"><div class="step-num">🍜</div><div><strong>拉面怎么来的？</strong>「师傅把面团用手拉来拉去，越拉越细，比你的头发还细！南方没有人这样做面条的。」</div></div>
+      </div>
+    </div>
+
+    <div class="timeline">
+
+      <!-- 08:00 早餐 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#FEF3C7">🍜</div>
+        <div class="tl-content">
+          <div class="tl-time">08:00<span class="tl-type-badge type-food">早餐</span></div>
+          <div class="tl-heading">正宗兰州牛肉面（一顿难忘的早餐）</div>
+          <div class="tl-body">
+            <p>在酒店附近找一家门口大爷大妈多、灶台冒热气的面馆，不需要找网红店，越朴素越正宗。</p>
+            <div class="food-grid">
+              <div class="food-item">
+                <div class="food-name">孩子：毛细（一清）</div>
+                <div class="food-desc">最细的面条，要求「一清」（完全无辣椒油），汤底清亮，孩子能吃净一整碗</div>
+              </div>
+              <div class="food-item">
+                <div class="food-name">大人：二细 + 辣子</div>
+                <div class="food-desc">「二细」是略粗版，加一勺辣椒油，是最地道的西北清晨灵魂</div>
+              </div>
+            </div>
+            <div class="tl-highlight">
+              🎯 <strong>告诉孩子：</strong>「你看那个叔叔，他正在用手把面条拉长，越来越细，就像变魔术！」让孩子看师傅甩面的过程，是今天记忆最深的5分钟。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 08:40 中山桥 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#DBEAFE">🌉</div>
+        <div class="tl-content">
+          <div class="tl-time">08:40 —— 10:00<span class="tl-type-badge type-play">游览</span></div>
+          <div class="tl-heading">中山铁桥 + 黄河风情线</div>
+          <div class="tl-body">
+            <p>打车前往「中山铁桥」（天下黄河第一桥），车程约5-10分钟，起步价内解决。</p>
+            <div class="tl-steps">
+              <div class="tl-step">
+                <div class="step-num">1</div>
+                <div><strong>看黄河水：</strong>到江边让孩子看泥沙俱下的母亲河，与珠江、长江水色完全不同。可以拾一块黄土色的河边小石头带走。</div>
+              </div>
+              <div class="tl-step">
+                <div class="step-num">2</div>
+                <div><strong>看羊皮筏子：</strong>岸边有筏子客招揽游客，3岁半不建议乘坐（湍急且晃动大），但站在岸边看叔叔们划动羊皮筏子在浑浊大河上穿行，是绝对震撼的画面。</div>
+              </div>
+              <div class="tl-step">
+                <div class="step-num">3</div>
+                <div><strong>走中山桥：</strong>在百年铁桥上走一走，背后是白塔山，桥下是轰鸣的黄河水。可以拍一张「黄河桥上爸爸和女儿」的纪念照。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 水车博览园 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#DCFCE7">🎡</div>
+        <div class="tl-content">
+          <div class="tl-time">10:00 —— 11:00<span class="tl-type-badge type-play">游览</span></div>
+          <div class="tl-heading">黄河水车博览园（孩子最爱）</div>
+          <div class="tl-body">
+            <p>沿着黄河边打车（起步价）前往「兰州水车博览园」。这里有世界上最大的水车群，木制的巨大轮子在黄河水力推动下嘎吱作响，对现代孩子来说就是巨型魔法玩具。</p>
+            <div class="alert alert-green">
+              <span class="alert-icon">🎠</span>
+              <div class="alert-body">园区面积不大，很适合3岁半的孩子游走。可以让孩子「推一推」（摸一摸）水车的木头，感受古代灌溉工具的质感，是一个很好的「自然科学启蒙」场景。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11:00 回酒店 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#FEF9C3">🧳</div>
+        <div class="tl-content">
+          <div class="tl-time">11:00 —— 11:30<span class="tl-type-badge type-transit">退房</span></div>
+          <div class="tl-heading">返回酒店 · 取行李 · 退房</div>
+          <div class="tl-body">
+            <p>打车回到酒店（起步价），取行李，退房。仔细检查：所有证件（户口本/身份证）、孩子最爱的玩具、手机充电线。</p>
+            <div class="tl-highlight rose">
+              ⚠️ 清点证件是这一步的绝对重点，老家需要身份证进出，务必不要落在酒店。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12:10 大巴 -->
+      <div class="tl-item">
+        <div class="tl-dot" style="background:#CCFBF1">🚌</div>
+        <div class="tl-content">
+          <div class="tl-time">12:10 发车<span class="tl-type-badge type-transit">大巴</span></div>
+          <div class="tl-heading">兰州客运中心 → 乡下老家（约3.5小时）</div>
+          <div class="tl-body">
+            <p>兰州客运中心距火车站附近很近，从酒店步行或极短距离打车可达。提前取票，上车前带孩子上一次洗手间。</p>
+            <div class="tl-highlight teal">
+              🏡 <strong>终点站：老家。</strong>旅途结束。孩子终于可以放开奔跑，爷爷奶奶来接，这段3.5小时大巴正好让大人孩子都睡一觉，到了老家满血复活。
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end day4 timeline -->
+
+    <!-- 老家体验建议 -->
+    <div class="special-card">
+      <div class="special-title">🏡 在老家让孩子玩到珠三角没有的体验</div>
+      <div class="tl-steps">
+        <div class="tl-step"><div class="step-num">🌾</div><div><strong>下地里摘菜/认庄稼：</strong>让孩子知道「菜是从土里长出来的，不是从超市拿的」，亲手拔一棵萝卜或摘一颗西红柿，对城市孩子来说是巨大的认知突破。</div></div>
+        <div class="tl-step"><div class="step-num">🐓</div><div><strong>看鸡/喂鸡：</strong>南方城市孩子几乎没见过散养土鸡，让她把玉米粒撒给鸡群，可以引发长达数年的讨论「鸡是怎么生蛋的」。</div></div>
+        <div class="tl-step"><div class="step-num">⭐</div><div><strong>夜晚看星星：</strong>西北乡村无光污染，夜空里银河肉眼可见。指给孩子看北斗七星，这是珠三角灰蒙蒙的夜空里绝对看不到的画面，是最好的天文启蒙。</div></div>
+        <div class="tl-step"><div class="step-num">🌅</div><div><strong>早起看日出：</strong>西北山区日出时天边金红，跟城市里的早晨完全不一样。抱着孩子坐在院子里看一次完整的日出，是这趟旅行最值得的10分钟。</div></div>
+        <div class="tl-step"><div class="step-num">🏃</div><div><strong>裸脚踩黄土：</strong>让孩子脱掉鞋袜，在干燥的黄土地上奔跑，感受西北土地的质感——与南方湿软泥土完全不同。</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== BACKUP ====== -->
+  <div id="backup" class="day-section">
+    <div class="section-header">
+      <div class="section-icon" style="background:#FFF1F2">☔</div>
+      <div>
+        <div class="section-title">备案机制</div>
+        <div class="section-subtitle">突发状况无需慌乱，按方案执行即可</div>
+      </div>
+    </div>
+
+    <!-- 雨天备案 -->
+    <div class="backup-section">
+      <div class="backup-title">☔ 雨天备案（重庆·成都）</div>
+
+      <div class="card-title" style="font-size:14px; margin-bottom:10px">🌧️ 重庆雨天</div>
+      <div class="tl-steps">
+        <div class="tl-step"><div class="step-num">1</div><div>两江游船下雨观景体验打折（玻璃隔着雨水，且有停航风险），<strong>取消游船</strong>，改在长嘉汇商场室内休整。</div></div>
+        <div class="tl-step"><div class="step-num">2</div><div>长嘉汇内的<strong>SEA LIFE海洋探索中心</strong>可替代：水下隧道、海洋生物缸，孩子在室内完全不受雨天影响，玩2小时绰绰有余。</div></div>
+        <div class="tl-step"><div class="step-num">3</div><div>长江索道遇雷暴大风有停运风险，若停运则改打车过桥前往<strong>来福士广场高层观景台</strong>（室内赏两江夜景，有落地大窗）。</div></div>
+        <div class="tl-step"><div class="step-num">4</div><div>第二天雨天不适合带行李坐地铁换公交，<strong>全程打网约车</strong>，但注意重庆市区下雨堵车严重，出发时间提前30分钟。</div></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="card-title" style="font-size:14px; margin-bottom:10px">🌧️ 成都雨天（熊猫基地）</div>
+      <div class="tl-steps">
+        <div class="tl-step"><div class="step-num">1</div><div>雨天熊猫会躲在室内，且园区道路湿滑推伞车危险，<strong>果断放弃熊猫基地</strong>（提前购票的可申请退款）。</div></div>
+        <div class="tl-step"><div class="step-num">2</div><div>替代方案：让孩子睡到8:30自然醒，打车前往<strong>成都自然博物馆</strong>（需提前预约），室内看真实恐龙化石骨架，3岁半孩子会尖叫兴奋。</div></div>
+        <div class="tl-step"><div class="step-num">3</div><div>11:30直接从自然博物馆打车/坐地铁前往成都东站，时间充裕。</div></div>
+      </div>
+    </div>
+
+    <!-- 孩子生病备案 -->
+    <div class="backup-section">
+      <div class="backup-title">🤒 孩子突发发烧/腹泻备案</div>
+      <div class="tl-body">
+        <p style="font-size:13.5px; color:var(--gray-700); margin-bottom:12px">跨温差旅行期间孩子极易感冒发烧，这是概率较高的突发情况，需要提前心理准备和物资准备。</p>
+        <div class="tl-steps">
+          <div class="tl-step"><div class="step-num">1</div><div><strong>测体温超过37.5°C：</strong>立即停止一切行程计划，在酒店房间休息。不要抱着「再玩一会儿」的侥幸心理。</div></div>
+          <div class="tl-step"><div class="step-num">2</div><div><strong>体温38.5°C以上：</strong>按说明书给布洛芬/对乙酰氨基酚退烧，持续观察。若高烧超过39°C或持续6小时不退，打车就近就医，重庆/成都/兰州都有儿童医院。</div></div>
+          <div class="tl-step"><div class="step-num">3</div><div><strong>高铁改签：</strong>一旦孩子生病，在12306 APP上改签当日后续班次（成都到兰州车次较多）。改签手续费视情况而定，孩子健康第一。</div></div>
+          <div class="tl-step"><div class="step-num">4</div><div><strong>腹泻处理：</strong>蒙脱石散+充足饮水，停止所有不易消化食物，改为清粥+蒸蛋，24小时内通常好转。若持续呕吐腹泻超过6小时需就医。</div></div>
+        </div>
+        <div class="med-row">
+          <div class="med-pill">布洛芬</div>
+          <div class="med-pill">对乙酰氨基酚</div>
+          <div class="med-pill">蒙脱石散</div>
+          <div class="med-pill">体温计</div>
+          <div class="med-pill">创可贴</div>
+          <div class="med-pill">口服补液盐</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 错过高铁备案 -->
+    <div class="backup-section">
+      <div class="backup-title">🚄 错过高铁备案</div>
+      <div class="tl-steps">
+        <div class="tl-step"><div class="step-num">1</div><div>立刻打开12306 APP，点击「我的订单」→「改签」，选择当日后续最近班次。高铁改签在开车前可免费改，开车后收一定费用。</div></div>
+        <div class="tl-step"><div class="step-num">2</div><div>D6191（重庆北→成都东）全天班次较多，通常1-2小时后有下一班，影响不大。</div></div>
+        <div class="tl-step"><div class="step-num">3</div><div>D164（成都东→兰州）班次相对少，若错过需确认备用班次时间。若当天无合适班次，联系兰州酒店延迟入住。</div></div>
+      </div>
+    </div>
+
+    <!-- 情绪崩溃 -->
+    <div class="backup-section">
+      <div class="backup-title">😭 孩子情绪崩溃处理方案</div>
+      <div class="tl-steps">
+        <div class="tl-step"><div class="step-num">1</div><div>3岁半孩子在高强度转运中，大概率会在某一个下午进入「情绪崩溃模式」（哭闹、无理取闹、任何事都不满意）。这是<strong>正常的电量耗尽反应</strong>，不是孩子故意调皮。</div></div>
+        <div class="tl-step"><div class="step-num">2</div><div><strong>解决方案：</strong>找最近的有冷气的便利店/商场，买一根软冰淇淋或一瓶常温甜酸奶，让孩子坐在伞车里静置15分钟，不要说教不要指责，等她安静下来。</div></div>
+        <div class="tl-step"><div class="step-num">3</div><div>大人在孩子崩溃时的核心原则：<strong>降低声音、蹲下来、眼神平视</strong>。不要在公共场所提高音量跟她对峙，路人看法不重要，孩子恢复平静最重要。</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== TIPS ====== -->
+  <div id="tips" class="day-section">
+    <div class="section-header">
+      <div class="section-icon" style="background:#DCFCE7">💡</div>
+      <div>
+        <div class="section-title">老爸带娃旅行心法</div>
+        <div class="section-subtitle">从珠三角到大西北的爸爸经验精华</div>
+      </div>
+    </div>
+
+    <div class="tips-grid">
+      <div class="tip-item">
+        <div class="tip-icon">🏋️</div>
+        <div class="tip-title">体力分配</div>
+        <div class="tip-desc">孩子下午14-16点是「垃圾时间」，必须午休。所有重要景点安排在上午9-12点或傍晚17点后。不强迫孩子「再多玩一下」，见好就收。</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-icon">📱</div>
+        <div class="tip-title">手机电量</div>
+        <div class="tip-desc">出发前充满电，随身带充电宝（20000mAh）。高铁上手机是孩子的「镇定剂」，电量不够等于弹药耗尽。</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-icon">🧻</div>
+        <div class="tip-title">湿厕纸</div>
+        <div class="tip-desc">买3包大包装湿厕纸，比普通湿巾厚实，高铁厕所/景区公共卫生间都用得到，是带娃旅行消耗量最大的物资。</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-icon">💰</div>
+        <div class="tip-title">现金备用</div>
+        <div class="tip-desc">全程以手机支付为主，但兰州部分老面馆只收现金，随身带200元现金以备不时之需。</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-icon">🗺️</div>
+        <div class="tip-title">离线地图</div>
+        <div class="tip-desc">提前在高德地图下载重庆、成都、兰州的离线地图包，地下停车场或山区信号差的地方照样导航，不依赖网络。</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-icon">🎒</div>
+        <div class="tip-title">轻装策略</div>
+        <div class="tip-desc">每天出门只带「当天用的东西」，大行李锁在酒店。推车+小斜挎包就够了，大人解放双手才能抱孩子应急。</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-icon">🚰</div>
+        <div class="tip-title">补水</div>
+        <div class="tip-desc">孩子的水壶每次进景区前装满（景区内买水贵）。西北气候极干，兰州每日给孩子饮水量比南方增加30%，多喂水防干燥。</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-icon">📸</div>
+        <div class="tip-title">记录时刻</div>
+        <div class="tip-desc">不要为了拍照耽误孩子体验，「先带孩子玩，回来再拍」。最珍贵的照片往往是孩子自然的表情，而不是摆拍。</div>
+      </div>
+    </div>
+
+    <!-- 旅行预算参考 -->
+    <div class="card" style="margin-top:16px">
+      <div class="card-title"><span class="card-title-icon">💴</span>旅行费用参考（父女二人）</div>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>项目</th>
+              <th>估算金额</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>高铁票×3段</td>
+              <td>约700-900元</td>
+              <td>G2240+D6191+D164，含孩子</td>
+            </tr>
+            <tr>
+              <td>酒店×3晚</td>
+              <td>约500-800元</td>
+              <td>重庆+成都+兰州，中档</td>
+            </tr>
+            <tr>
+              <td>餐饮×4天</td>
+              <td>约300-400元</td>
+              <td>人均40元/餐，三餐×2人×4天</td>
+            </tr>
+            <tr>
+              <td>打车×若干次</td>
+              <td>约200-300元</td>
+              <td>含熊猫基地、景点转移</td>
+            </tr>
+            <tr>
+              <td>地铁×多程</td>
+              <td>约60-80元</td>
+              <td>重庆+成都地铁，孩子免费</td>
+            </tr>
+            <tr>
+              <td>门票</td>
+              <td>约200-300元</td>
+              <td>长江索道+熊猫基地+其他</td>
+            </tr>
+            <tr>
+              <td>零食/应急</td>
+              <td>约150-200元</td>
+              <td>列车零食+便利店+应急</td>
+            </tr>
+            <tr>
+              <td><strong>合计参考</strong></td>
+              <td><strong>约2000-3000元</strong></td>
+              <td>含机动预算，不含大巴票</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 特别的旅行意义 -->
+    <div class="card" style="margin-top:12px; background:linear-gradient(135deg,#FFF9F0 0%,#F0FFF9 100%); border:1.5px solid var(--amber)">
+      <div class="card-title"><span class="card-title-icon">🌍</span>这趟旅行对孩子意味着什么</div>
+      <div style="font-size:13.5px; color:var(--gray-700); line-height:1.7">
+        <p style="margin-bottom:8px">一个3岁半的孩子不会记住所有景点的名字，也不会记住哪趟车是几号，但她会记住：</p>
+        <div class="tl-steps">
+          <div class="tl-step"><div class="step-num">💛</div><div>「爸爸带我坐了很久很久的火车，看到了火车飞进了一栋大楼」</div></div>
+          <div class="tl-step"><div class="step-num">💛</div><div>「我在船上看到了亮晶晶的大桥，爸爸说那个叫重庆」</div></div>
+          <div class="tl-step"><div class="step-num">💛</div><div>「大熊猫真的会吃竹子！不是假的！」</div></div>
+          <div class="tl-step"><div class="step-num">💛</div><div>「黄河的水是黄色的，和我们南边的水不一样」</div></div>
+          <div class="tl-step"><div class="step-num">💛</div><div>「我在老家看到了天上有好多好多星星」</div></div>
+        </div>
+        <p style="margin-top:12px; font-size:13px; color:var(--gray-500)">这些画面会在她大脑里种下一颗种子：世界很大，山川各不同，爸爸带我见识过。</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end main -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-emoji">🎋🐼🌊</div>
+  <div class="footer-title">祝端午旅途一路平安</div>
+  <div class="footer-sub" style="margin-top:6px">爸爸和女儿的山川之旅 · 6月19日出发</div>
+  <div class="footer-sub" style="margin-top:4px">佛山 → 重庆 → 成都 → 兰州 → 老家</div>
+</div>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  // Toggle checkboxes
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+    if (el.classList.contains('checked')) {
+      el.textContent = '✓';
+    } else {
+      el.textContent = '';
+    }
+  }
+
+  // Scroll nav
+  function scrollTo(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      const offset = 60;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }
+
+  // Active nav on scroll
+  const sections = ['prep','day1','day2','day3','day4','backup','tips'];
+  const navBtns = document.querySelectorAll('.nav-btn');
+
+  function updateNav() {
+    let current = 'prep';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 80) {
+        current = id;
+      }
+    });
+    navBtns.forEach((btn, i) => {
+      btn.classList.toggle('active', sections[i] === current);
+    });
+
+    // scroll to top button
+    const btn = document.getElementById('scrollTopBtn');
+    btn.classList.toggle('visible', window.scrollY > 400);
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+
+  // Collapsible
+  function toggleCollapse(el) {
+    const arrow = el.querySelector('.collapse-arrow');
+    const body = el.closest('.card').querySelector('.collapse-body');
+    if (body) {
+      body.classList.toggle('open');
+      if (arrow) arrow.classList.toggle('open');
+    }
+  }
+</script>
+</body>
+</html>
