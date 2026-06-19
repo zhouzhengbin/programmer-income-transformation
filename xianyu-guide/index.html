@@ -1,0 +1,3066 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>闲鱼虚拟产品销售完全指南</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #FF5722;
+  --orange-light: #FF7043;
+  --orange-pale: #FFF3E0;
+  --orange-deep: #BF360C;
+  --gold: #FFB300;
+  --gold-pale: #FFF8E1;
+  --teal: #00897B;
+  --teal-pale: #E0F2F1;
+  --blue: #1565C0;
+  --blue-pale: #E3F2FD;
+  --red: #C62828;
+  --red-pale: #FFEBEE;
+  --green: #2E7D32;
+  --green-pale: #E8F5E9;
+  --purple: #6A1B9A;
+  --purple-pale: #F3E5F5;
+  --gray-100: #FAFAFA;
+  --gray-200: #F5F5F5;
+  --gray-300: #EEEEEE;
+  --gray-400: #BDBDBD;
+  --gray-600: #757575;
+  --gray-800: #424242;
+  --gray-900: #212121;
+  --sidebar-width: 280px;
+  --header-height: 60px;
+  --font-display: 'ZCOOL XiaoWei', serif;
+  --font-body: 'Noto Sans SC', sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: #F8F4F0;
+  color: var(--gray-900);
+  font-size: 15px;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════ HEADER ═══════════════════ */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-height);
+  background: var(--orange);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+  gap: 16px;
+}
+
+.header-logo {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: white;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.header-logo span {
+  background: white;
+  color: var(--orange);
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 13px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.header-progress-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 2px;
+  overflow: hidden;
+  max-width: 300px;
+}
+
+.header-progress-fill {
+  height: 100%;
+  background: white;
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.4s ease;
+}
+
+.header-progress-label {
+  color: rgba(255,255,255,0.85);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: white;
+  font-size: 22px;
+  line-height: 1;
+  margin-left: auto;
+}
+
+/* ═══════════════════ SIDEBAR ═══════════════════ */
+.sidebar {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: white;
+  border-right: 1px solid var(--gray-300);
+  overflow-y: auto;
+  z-index: 900;
+  padding: 16px 0;
+  transition: transform 0.3s ease;
+}
+
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 2px; }
+
+.sidebar-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--gray-600);
+  padding: 12px 20px 6px;
+  text-transform: uppercase;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: var(--gray-800);
+  font-size: 13.5px;
+  line-height: 1.3;
+}
+
+.nav-item:hover {
+  background: var(--orange-pale);
+  color: var(--orange);
+  border-left-color: var(--orange-light);
+}
+
+.nav-item.active {
+  background: var(--orange-pale);
+  color: var(--orange);
+  border-left-color: var(--orange);
+  font-weight: 500;
+}
+
+.nav-item .nav-num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  background: var(--gray-200);
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-600);
+}
+
+.nav-item.active .nav-num {
+  background: var(--orange);
+  color: white;
+}
+
+/* ═══════════════════ MAIN CONTENT ═══════════════════ */
+.main-content {
+  margin-left: var(--sidebar-width);
+  margin-top: var(--header-height);
+  padding: 32px 40px;
+  max-width: 900px;
+}
+
+/* ═══════════════════ HERO ═══════════════════ */
+.hero {
+  background: linear-gradient(135deg, var(--orange) 0%, #FF8F00 100%);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  color: white;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '鱼';
+  position: absolute;
+  right: -20px;
+  top: -30px;
+  font-size: 160px;
+  opacity: 0.08;
+  font-family: var(--font-display);
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-size: 15px;
+  opacity: 0.9;
+  max-width: 500px;
+  margin-bottom: 24px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat strong {
+  display: block;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.hero-stat span {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* ═══════════════════ SECTIONS ═══════════════════ */
+.guide-section {
+  margin-bottom: 48px;
+  scroll-margin-top: calc(var(--header-height) + 16px);
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--orange-pale);
+}
+
+.section-num {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: var(--orange);
+  color: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+.section-title-wrap h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--gray-900);
+  line-height: 1.2;
+}
+
+.section-title-wrap p {
+  font-size: 13px;
+  color: var(--gray-600);
+  margin-top: 3px;
+}
+
+/* ═══════════════════ CARDS ═══════════════════ */
+.card {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 20px;
+  border: 1px solid var(--gray-300);
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════ STEPS ═══════════════════ */
+.steps-list { counter-reset: steps; list-style: none; }
+
+.step-item {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.step-item::before {
+  counter-increment: steps;
+  content: counter(steps);
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  background: var(--orange);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.step-content strong {
+  display: block;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 4px;
+}
+
+/* ═══════════════════ CALLOUT BOXES ═══════════════════ */
+.callout {
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin: 14px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.callout-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.callout.tip { background: var(--teal-pale); border-left: 3px solid var(--teal); }
+.callout.tip .callout-icon::after { content: '💡'; }
+.callout.tip strong { color: var(--teal); }
+
+.callout.warn { background: var(--gold-pale); border-left: 3px solid var(--gold); }
+.callout.warn .callout-icon::after { content: '⚠️'; }
+.callout.warn strong { color: #E65100; }
+
+.callout.danger { background: var(--red-pale); border-left: 3px solid var(--red); }
+.callout.danger .callout-icon::after { content: '🚫'; }
+.callout.danger strong { color: var(--red); }
+
+.callout.success { background: var(--green-pale); border-left: 3px solid var(--green); }
+.callout.success .callout-icon::after { content: '✅'; }
+.callout.success strong { color: var(--green); }
+
+.callout.info { background: var(--blue-pale); border-left: 3px solid var(--blue); }
+.callout.info .callout-icon::after { content: '📌'; }
+.callout.info strong { color: var(--blue); }
+
+.callout.money { background: var(--gold-pale); border-left: 3px solid #F57F17; }
+.callout.money .callout-icon::after { content: '💰'; }
+.callout.money strong { color: #E65100; }
+
+/* ═══════════════════ PRODUCT GRID ═══════════════════ */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.product-card {
+  background: white;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.product-card:hover {
+  border-color: var(--orange);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.product-card .emoji {
+  font-size: 28px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.product-card .name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 4px;
+}
+
+.product-card .profit {
+  font-size: 12px;
+  color: var(--green);
+  font-weight: 500;
+}
+
+.product-card .difficulty {
+  font-size: 11px;
+  color: var(--gray-600);
+  margin-top: 4px;
+}
+
+.difficulty-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-right: 2px;
+}
+
+/* ═══════════════════ TABLE ═══════════════════ */
+.guide-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13.5px;
+  background: white;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--gray-300);
+}
+
+.guide-table th {
+  background: var(--orange);
+  color: white;
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.guide-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--gray-200);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.guide-table tr:last-child td { border-bottom: none; }
+.guide-table tr:hover td { background: var(--gray-100); }
+
+/* ═══════════════════ TAGS / BADGES ═══════════════════ */
+.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 2px;
+}
+
+.tag-orange { background: var(--orange-pale); color: var(--orange-deep); }
+.tag-green { background: var(--green-pale); color: var(--green); }
+.tag-blue { background: var(--blue-pale); color: var(--blue); }
+.tag-red { background: var(--red-pale); color: var(--red); }
+.tag-gold { background: var(--gold-pale); color: #7A5F00; }
+.tag-purple { background: var(--purple-pale); color: var(--purple); }
+
+/* ═══════════════════ CHECKLIST ═══════════════════ */
+.checklist { list-style: none; }
+
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--gray-200);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: background 0.15s;
+  border-radius: 4px;
+  padding: 8px 6px;
+}
+
+.checklist li:last-child { border-bottom: none; }
+
+.checklist li:hover { background: var(--gray-100); }
+
+.check-box {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--gray-400);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  margin-top: 1px;
+}
+
+.checklist li.checked .check-box {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: white;
+}
+
+.checklist li.checked .check-box::after { content: '✓'; font-size: 13px; font-weight: 700; }
+.checklist li.checked > span { text-decoration: line-through; color: var(--gray-600); }
+
+/* ═══════════════════ SCRIPT TEMPLATE ═══════════════════ */
+.script-box {
+  background: #1A1A2E;
+  color: #E8E8E8;
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  font-size: 14px;
+  line-height: 1.8;
+  position: relative;
+  margin: 12px 0;
+}
+
+.script-box .script-label {
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  background: var(--orange);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 10px;
+}
+
+.script-box .highlight { color: #FFD54F; font-weight: 500; }
+.script-box .placeholder { color: #80CBC4; font-style: italic; }
+
+/* ═══════════════════ PRICE CARD ═══════════════════ */
+.pricing-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.price-card {
+  background: white;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+}
+
+.price-card .category { font-size: 12px; color: var(--gray-600); margin-bottom: 6px; }
+.price-card .price { font-size: 22px; font-weight: 700; color: var(--orange); line-height: 1; }
+.price-card .price sub { font-size: 13px; }
+.price-card .desc { font-size: 12px; color: var(--gray-600); margin-top: 6px; }
+
+/* ═══════════════════ TIMELINE ═══════════════════ */
+.timeline { position: relative; padding-left: 30px; margin: 16px 0; }
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--gray-300);
+}
+
+.timeline-item { position: relative; margin-bottom: 20px; }
+
+.timeline-dot {
+  position: absolute;
+  left: -25px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--orange);
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px var(--orange);
+}
+
+.timeline-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--gray-900);
+  margin-bottom: 4px;
+}
+
+.timeline-content {
+  font-size: 13.5px;
+  color: var(--gray-800);
+  line-height: 1.65;
+}
+
+/* ═══════════════════ COMPARISON ═══════════════════ */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.compare-col { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--gray-300); }
+
+.compare-head {
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.compare-body { padding: 12px 16px; }
+
+.compare-item {
+  font-size: 13.5px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+.compare-item:last-child { border-bottom: none; }
+
+.compare-col.green .compare-head { background: var(--green-pale); color: var(--green); }
+.compare-col.red .compare-head { background: var(--red-pale); color: var(--red); }
+
+/* ═══════════════════ PHONE MOCKUP ═══════════════════ */
+.phone-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.phone-mockup {
+  width: 240px;
+  border: 3px solid var(--gray-900);
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background: white;
+}
+
+.phone-screen {
+  background: white;
+  padding: 0;
+}
+
+.phone-topbar {
+  background: var(--orange);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.phone-topbar span { color: white; font-size: 13px; font-weight: 700; }
+
+.phone-content { padding: 10px; }
+
+.phone-input-row {
+  background: var(--gray-100);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--gray-600);
+  margin-bottom: 8px;
+}
+
+.phone-btn {
+  display: block;
+  background: var(--orange);
+  color: white;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+/* ═══════════════════ ALERT BANNER ═══════════════════ */
+.alert-banner {
+  background: var(--orange);
+  color: white;
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.alert-banner .alert-icon { font-size: 20px; flex-shrink: 0; }
+
+/* ═══════════════════ PROGRESS WIDGET ═══════════════════ */
+.progress-widget {
+  background: white;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-800);
+  margin-bottom: 8px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--gray-200);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), var(--gold));
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+
+/* ═══════════════════ FAQ ACCORDION ═══════════════════ */
+.faq-item {
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  margin-bottom: 10px;
+  overflow: hidden;
+  background: white;
+}
+
+.faq-question {
+  padding: 14px 18px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--gray-900);
+  transition: background 0.2s;
+}
+
+.faq-question:hover { background: var(--gray-100); }
+
+.faq-toggle {
+  font-size: 18px;
+  color: var(--orange);
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s;
+  padding: 0 18px;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--gray-800);
+}
+
+.faq-item.open .faq-answer {
+  max-height: 800px;
+  padding: 0 18px 14px;
+}
+
+.faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+/* ═══════════════════ TABS ═══════════════════ */
+.tab-container { margin: 16px 0; }
+
+.tab-nav {
+  display: flex;
+  gap: 4px;
+  border-bottom: 2px solid var(--gray-300);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--gray-600);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+  font-family: var(--font-body);
+}
+
+.tab-btn.active {
+  color: var(--orange);
+  border-bottom-color: var(--orange);
+}
+
+.tab-btn:hover { color: var(--orange-light); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ═══════════════════ STICKY BACK TO TOP ═══════════════════ */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  background: var(--orange);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  z-index: 800;
+  transition: all 0.3s;
+}
+
+.back-to-top:hover { background: var(--orange-deep); transform: translateY(-2px); }
+.back-to-top.visible { display: flex; }
+
+/* ═══════════════════ FORMULA BOX ═══════════════════ */
+.formula-box {
+  background: #1A1A2E;
+  color: #FFD54F;
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin: 12px 0;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.formula-box small {
+  display: block;
+  color: #B0BEC5;
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 6px;
+  letter-spacing: 0;
+}
+
+/* ═══════════════════ DIVIDER ═══════════════════ */
+.section-divider {
+  border: none;
+  border-top: 1px dashed var(--gray-300);
+  margin: 24px 0;
+}
+
+/* ═══════════════════ HIGHLIGHT ROW ═══════════════════ */
+.highlight-row {
+  display: flex;
+  gap: 12px;
+  margin: 16px 0;
+  flex-wrap: wrap;
+}
+
+.highlight-box {
+  flex: 1;
+  min-width: 140px;
+  background: white;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.highlight-box .h-num {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--orange);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.highlight-box .h-label {
+  font-size: 12px;
+  color: var(--gray-600);
+}
+
+/* ═══════════════════ TWO COL LAYOUT ═══════════════════ */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+/* ═══════════════════ SIDEBAR OVERLAY ═══════════════════ */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 850;
+}
+
+/* ═══════════════════ RESPONSIVE ═══════════════════ */
+@media (max-width: 900px) {
+  .main-content {
+    margin-left: 0;
+    padding: 20px 16px;
+    max-width: 100%;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay.open { display: block; }
+
+  .menu-toggle { display: flex; }
+
+  .hero h1 { font-size: 24px; }
+  .hero { padding: 28px 24px; }
+
+  .compare-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .pricing-row {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 20px; }
+  .hero-stats { gap: 16px; }
+  .hero-stat strong { font-size: 20px; }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tab-btn { padding: 7px 10px; font-size: 12.5px; }
+
+  .section-num { width: 36px; height: 36px; font-size: 17px; }
+  .section-title-wrap h2 { font-size: 19px; }
+}
+
+/* ═══════════════════ PRINT ═══════════════════ */
+@media print {
+  .site-header, .sidebar, .menu-toggle, .back-to-top, .sidebar-overlay { display: none; }
+  .main-content { margin: 0; padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-logo">🐟 闲鱼卖货指南 <span>从小白到高手</span></div>
+  <div class="header-progress-bar">
+    <div class="header-progress-fill" id="readProgress"></div>
+  </div>
+  <span class="header-progress-label" id="readLabel">0%</span>
+  <button class="menu-toggle" onclick="toggleSidebar()" aria-label="打开菜单">☰</button>
+</header>
+
+<!-- SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-section-label">📖 快速导航</div>
+
+  <a class="nav-item active" href="#intro" onclick="closeSidebar()">
+    <span class="nav-num">0</span>认识闲鱼平台
+  </a>
+  <a class="nav-item" href="#sec1" onclick="closeSidebar()">
+    <span class="nav-num">1</span>注册账号 · 完美开局
+  </a>
+  <a class="nav-item" href="#sec2" onclick="closeSidebar()">
+    <span class="nav-num">2</span>虚拟产品大全 · 选品攻略
+  </a>
+  <a class="nav-item" href="#sec3" onclick="closeSidebar()">
+    <span class="nav-num">3</span>发布商品 · 手把手教程
+  </a>
+  <a class="nav-item" href="#sec4" onclick="closeSidebar()">
+    <span class="nav-num">4</span>定价策略 · 如何定最优价
+  </a>
+  <a class="nav-item" href="#sec5" onclick="closeSidebar()">
+    <span class="nav-num">5</span>沟通话术 · 秒变销售高手
+  </a>
+  <a class="nav-item" href="#sec6" onclick="closeSidebar()">
+    <span class="nav-num">6</span>防封号 · 安全经营指南
+  </a>
+  <a class="nav-item" href="#sec7" onclick="closeSidebar()">
+    <span class="nav-num">7</span>提升销量 · 流量密码
+  </a>
+  <a class="nav-item" href="#sec8" onclick="closeSidebar()">
+    <span class="nav-num">8</span>各品类详细玩法
+  </a>
+  <a class="nav-item" href="#sec9" onclick="closeSidebar()">
+    <span class="nav-num">9</span>收款 · 发货 · 售后
+  </a>
+  <a class="nav-item" href="#sec10" onclick="closeSidebar()">
+    <span class="nav-num">10</span>进阶 · 打造爆款店铺
+  </a>
+  <a class="nav-item" href="#faq" onclick="closeSidebar()">
+    <span class="nav-num">❓</span>常见问题 FAQ
+  </a>
+
+  <div style="margin: 20px 16px; padding: 14px; background: var(--orange-pale); border-radius: var(--radius-md); border: 1px solid #FFCCBC;">
+    <p style="font-size: 12px; font-weight: 700; color: var(--orange-deep); margin-bottom: 6px;">📊 我的学习进度</p>
+    <div class="progress-bar">
+      <div class="progress-fill" id="sidebarProgress" style="width:0%"></div>
+    </div>
+    <p style="font-size: 11px; color: var(--gray-600); margin-top: 6px;">已完成 <span id="checkCount">0</span> / <span id="totalCheck">0</span> 项清单</p>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+<!-- HERO -->
+<div class="hero" id="intro">
+  <div class="hero-badge">2024年最新 · 完整实战手册</div>
+  <h1>从零开始<br>在闲鱼卖虚拟产品赚钱</h1>
+  <p>不需要囤货、不需要快递、不需要仓库，只需要一部手机，从今天起让你的技能/资源/时间变现。</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>6亿+</strong><span>闲鱼注册用户</span></div>
+    <div class="hero-stat"><strong>0元</strong><span>启动成本</span></div>
+    <div class="hero-stat"><strong>10+</strong><span>虚拟品类</span></div>
+    <div class="hero-stat"><strong>章节11</strong><span>完整流程</span></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SECTION 0: 认识闲鱼
+════════════════════════════════════════ -->
+<section class="guide-section" id="intro-detail">
+  <div class="section-header">
+    <div class="section-num">📖</div>
+    <div class="section-title-wrap">
+      <h2>先搞懂：什么是闲鱼？为什么选它？</h2>
+      <p>读完这里你就能比99%的人更懂这个平台</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">
+      <div class="card-icon" style="background:var(--orange-pale);">🐟</div>
+      闲鱼是什么？
+    </div>
+    <p style="font-size:14px;color:var(--gray-800);line-height:1.8;">闲鱼是阿里巴巴旗下的二手交易平台，2014年上线，目前月活用户超过1亿。大多数人用它卖旧手机、旧衣服——但聪明的卖家早就发现，这里也是<strong style="color:var(--orange)">虚拟产品的宝矿</strong>：无实体、无快递、纯利润。</p>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-col green">
+      <div class="compare-head">
+        ✅ 虚拟产品的优势
+      </div>
+      <div class="compare-body">
+        <div class="compare-item">✓ 零库存，手机就是你的"仓库"</div>
+        <div class="compare-item">✓ 零快递费，发货只需复制粘贴</div>
+        <div class="compare-item">✓ 24小时可出单，睡觉也在赚钱</div>
+        <div class="compare-item">✓ 利润率极高，有时高达80%~95%</div>
+        <div class="compare-item">✓ 可同时运营多个品类</div>
+        <div class="compare-item">✓ 可批量复制，一人开多店</div>
+      </div>
+    </div>
+    <div class="compare-col red">
+      <div class="compare-head">
+        ⚠️ 需要注意的风险
+      </div>
+      <div class="compare-body">
+        <div class="compare-item">✗ 竞争激烈，需要差异化</div>
+        <div class="compare-item">✗ 部分类目有平台限制</div>
+        <div class="compare-item">✗ 刷好评等违规行为会封号</div>
+        <div class="compare-item">✗ 需要持续更新/维护商品</div>
+        <div class="compare-item">✗ 买家可能申请退款纠纷</div>
+        <div class="compare-item">✗ 新号权重低，需要养号期</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-icon"></div>
+    <div><strong>核心逻辑理解：</strong>你卖的是"信息差"或"技能差"或"资源差"。买家不是买不起这些东西，而是<u>不知道怎么弄、懒得弄、找不到入口</u>。你帮他们解决问题，你就值这个钱。</div>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-icon"></div>
+    <div><strong>闲鱼平台规则核心一句话：</strong>闲鱼允许卖"服务类"虚拟商品，但禁止卖侵权内容、违法内容、赌博相关、账号交易（有条件限制）等。具体禁止类目后面会详细说。</div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 1: 注册账号
+════════════════════════════════════════ -->
+<section class="guide-section" id="sec1">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div class="section-title-wrap">
+      <h2>注册账号 · 完美开局</h2>
+      <p>正确的账号设置直接影响你后续的销量和安全性</p>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon"></div>
+    <div><strong>必读：</strong>很多新手跳过这一节直接开卖，导致账号权重低、发布受限、甚至封号。请按照本节一步步来，磨刀不误砍柴工。</div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;color:var(--gray-900);">第一步：下载与注册</h3>
+
+  <ul class="steps-list">
+    <li class="step-item">
+      <div class="step-content">
+        <strong>下载闲鱼 App</strong>
+        安卓/苹果应用商店搜索"闲鱼"，认准官方蓝色小鱼图标。也可以在微信/支付宝小程序中直接用，但功能没有App全。<span class="tag tag-orange">推荐用App</span>
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-content">
+        <strong>用手机号注册（或支付宝直接登录）</strong>
+        如果你有支付宝账号，直接选"支付宝登录"，自动完成实名认证，<strong style="color:var(--green)">权重更高</strong>。没有支付宝的用手机号注册后，第一时间去设置→实名认证。
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-content">
+        <strong>强制完成实名认证</strong>
+        设置 → 账号与安全 → 实名认证。这是发布商品、收款的前提条件，必须完成。身份证+人脸识别，30秒搞定。
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-content">
+        <strong>绑定银行卡（支付宝收款）</strong>
+        打开支付宝 → 银行卡 → 添加银行卡。闲鱼的收款都通过支付宝，记得绑定你常用的银行卡，方便提现。
+      </div>
+    </li>
+  </ul>
+
+  <hr class="section-divider">
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;color:var(--gray-900);">第二步：打造高权重卖家资料（决定你的流量）</h3>
+
+  <div class="card" style="border-left: 3px solid var(--orange);">
+    <div class="card-title">🖼️ 头像怎么选？</div>
+    <p style="font-size:14px;color:var(--gray-800);">用真实人像（或正脸照）做头像，或选择与你所卖品类高度相关的图片（比如卖设计服务就用设计感图，卖AI教程就用科技感图）。<strong>坚决避免：</strong>默认头像、动漫头像、明星图片（侵权）、纯文字头像。</p>
+  </div>
+
+  <div class="card" style="border-left: 3px solid var(--orange);">
+    <div class="card-title">✍️ 昵称怎么起？（关键！影响搜索）</div>
+    <p style="font-size:14px;color:var(--gray-800);margin-bottom:10px;">昵称要体现你的"专业身份"，买家第一眼就能知道你是干啥的。</p>
+    <table class="guide-table">
+      <tr><th>品类</th><th>❌ 烂昵称</th><th>✅ 好昵称</th></tr>
+      <tr><td>PS修图服务</td><td>小美爱生活</td><td>修图师阿飞·PS技术</td></tr>
+      <tr><td>简历代写</td><td>贝贝123</td><td>HR出身·简历优化师</td></tr>
+      <tr><td>AI工具教程</td><td>好奇的小明</td><td>AI副业导师·每天更新</td></tr>
+      <tr><td>游戏代练</td><td>快乐游戏人</td><td>王者荣耀·职业代练</td></tr>
+      <tr><td>图文设计</td><td>设计_001</td><td>5年设计师·海报名片</td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="border-left: 3px solid var(--orange);">
+    <div class="card-title">📝 个人简介怎么写？</div>
+    <p style="font-size:14px;color:var(--gray-800);margin-bottom:10px;">简介是你的"店铺招牌"，限100字以内，要包含：你能做什么 + 你的优势 + 保障承诺。</p>
+    <div class="script-box">
+      <div class="script-label">✅ 优质简介模板</div>
+      <span class="highlight">专注 [你的领域] X年</span>，累计服务 <span class="placeholder">[数量]</span>+ 客户。<br>
+      提供：<span class="highlight">[服务1]</span> / <span class="highlight">[服务2]</span> / <span class="highlight">[服务3]</span><br>
+      <span class="highlight">当天出货，不满意退款</span>，放心购买~
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;color:var(--gray-900);">第三步：养号期（新号必做，老号忽略）</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-title">第1-3天：模拟真实用户行为</div>
+      <div class="timeline-content">每天刷20-30分钟闲鱼，搜索商品，点击浏览，给喜欢的帖子点赞收藏，发1-2条"想要"（类似微信朋友圈）。<strong>不要急着发商品！</strong></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-title">第4-7天：先发一个闲置物品</div>
+      <div class="timeline-content">随便拍一件家里的旧书、旧衣服或旧物品上传，价格随意（甚至可以定高价），目的是让系统识别你是"正常卖家"，不是纯发虚拟广告的账号。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-title">第7天后：开始正式发虚拟商品</div>
+      <div class="timeline-content">完成养号后，账号权重会明显更高，你的商品被推荐的概率大幅提升。新号直接发虚拟商品，曝光量往往是养号后的1/5。</div>
+    </div>
+  </div>
+
+  <div class="callout success">
+    <div class="callout-icon"></div>
+    <div><strong>开局自查清单：</strong>
+      <ul class="checklist" style="margin-top:8px;" data-group="sec1">
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>已下载闲鱼App并注册</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>已完成实名认证</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>已绑定支付宝银行卡</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>头像已换成专业形象</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>昵称已改成专业身份类</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>个人简介已填写完整</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>已完成7天养号（或跳过直接发货）</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 2: 虚拟产品大全
+════════════════════════════════════════ -->
+<section class="guide-section" id="sec2">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div class="section-title-wrap">
+      <h2>虚拟产品大全 · 选品攻略</h2>
+      <p>10大类虚拟品，总有一款适合你，从最简单的开始</p>
+    </div>
+  </div>
+
+  <div class="highlight-row">
+    <div class="highlight-box">
+      <div class="h-num">10+</div>
+      <div class="h-label">主流品类</div>
+    </div>
+    <div class="highlight-box">
+      <div class="h-num">0元</div>
+      <div class="h-label">最低启动成本</div>
+    </div>
+    <div class="highlight-box">
+      <div class="h-num">80%</div>
+      <div class="h-label">平均利润率</div>
+    </div>
+    <div class="highlight-box">
+      <div class="h-num">24h</div>
+      <div class="h-label">全天候出单</div>
+    </div>
+  </div>
+
+  <div class="tab-container">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab(this,'tab-all')">全部品类</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-easy')">🟢 小白首选</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-mid')">🟡 进阶推荐</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-pro')">🔴 高手专区</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-all">
+      <div class="product-grid">
+        <div class="product-card">
+          <span class="emoji">🎨</span>
+          <div class="name">PS修图服务</div>
+          <div class="profit">利润 70-90%</div>
+          <div class="difficulty"><span class="difficulty-dot" style="background:#4CAF50"></span>入门简单</div>
+        </div>
+        <div class="product-card">
+          <span class="emoji">📄</span>
+          <div class="name">简历代写</div>
+          <div class="profit">利润 80-95%</div>
+          <div class="difficulty"><span class="difficulty-dot" style="background:#4CAF50"></span>入门简单</div>
+        </div>
+        <div class="product-card">
+          <span class="emoji">🤖</span>
+          <div class="name">AI教程/工具</div>
+          <div class="profit">利润 85-98%</div>
+          <div class="difficulty"><span class="difficulty-dot" style="background:#4CAF50"></span>入门简单</div>
+        </div>
+        <div class="product-card">
+          <span class="emoji">🎮</span>
+          <div class="name">游戏代练</div>
+          <div class="profit">利润 60-80%</div>
+          <div class="difficulty"><span class="difficulty-dot" style="background:#FF9800"></span>需要技能</div>
+        </div>
+        <div class="product-card">
+          <span class="emoji">📱</span>
+          <div class="name">软件会员号</div>
+          <div class="profit">利润 40-70%</div>
+          <div class="difficulty"><span class="difficulty-dot" style="background:#FF9800"></span>需要资源</div>
+        </div>
+        <div class="product-card">
+          <span class="emoji">📚</span>
+          <div class="name">电子书/课程</div>
+          <div class="profit">利润 90-99%</div>
+          <div class="difficulty"><span class="difficulty-dot" style="background:#4CAF50"></span>整合即可</div>
+        </div>
+        <div class="product-card">
+          <span class="emoji">✍️</span>
+          <div class="name">代写文案/小红书</div>
+          <div class="profit">利润 75-90%</div>
+          <div class="difficulty"><span class="difficulty-dot" style="background:#4CAF50"></span>写作能力</div>
+        </div>
+        <div class="product-card">
+          <span class="emoji">🖼️</span>
+          <div class="name">AI生成素材包</div>
+          <div class="profit">利润 95-99%</div>
+          <div class="difficulty"><span class="difficulty-dot" style="background:#4CAF50"></span>会用AI即可</div>
+        </div>
+        <div class="product-card">
+          <span class="emoji">🎵</span>
+          <div class="name">剪辑/视频制作</div>
+          <div class="profit">利润 70-85%</div>
+          <div class="difficulty"><span class="difficulty-dot" style="background:#FF9800"></span>需要软件</div>
+        </div>
+        <div class="product-card">
+          <span class="emoji">💻</span>
+          <div class="name">代码/网站搭建</div>
+          <div class="profit">利润 80-95%</div>
+          <div class="difficulty"><span class="difficulty-dot" style="background:#F44336"></span>需要技术</div>
+        </div>
+        <div class="product-card">
+          <span class="emoji">🌐</span>
+          <div class="name">翻译服务</div>
+          <div class="profit">利润 70-90%</div>
+          <div class="difficulty"><span class="difficulty-dot" style="background:#FF9800"></span>需要外语</div>
+        </div>
+        <div class="product-card">
+          <span class="emoji">📊</span>
+          <div class="name">PPT代做</div>
+          <div class="profit">利润 75-90%</div>
+          <div class="difficulty"><span class="difficulty-dot" style="background:#4CAF50"></span>入门简单</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-easy">
+      <div class="callout success"><div class="callout-icon"></div><div><strong>小白首选三大品类推荐</strong>：不需要任何专业技能，今天学今天就能卖。</div></div>
+      <div class="card">
+        <div class="card-title"><div class="card-icon" style="background:#E8F5E9">🤖</div>AI教程与工具集合</div>
+        <p style="font-size:14px;color:var(--gray-800)">把ChatGPT、Midjourney、Suno等AI工具的使用教程整合成一个文档/视频包售卖。成本近乎为零，但很多人愿意为"省时间"付费。<br><strong>入门定价：</strong>9.9 ~ 29.9元</p>
+        <div class="callout tip" style="margin-top:10px;font-size:13px;"><div class="callout-icon"></div><div>去B站学3-5个AI工具，自己整理成PDF+截图教程，就是你的产品了。</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><div class="card-icon" style="background:#FFF8E1">📄</div>简历代写/优化</div>
+        <p style="font-size:14px;color:var(--gray-800)">帮人写简历、修改简历、提供简历模板。需求超大（每年应届生近千万），利润极高。<br><strong>入门定价：</strong>19.9 ~ 99元（模板9.9起，定制套餐最高可达500元）</p>
+      </div>
+      <div class="card">
+        <div class="card-title"><div class="card-icon" style="background:#E3F2FD">🖼️</div>AI生成图片/素材包</div>
+        <p style="font-size:14px;color:var(--gray-800)">用Midjourney/Stable Diffusion批量生成头像、壁纸、插画、商业素材，打包成压缩包售卖。<br><strong>入门定价：</strong>3.9 ~ 19.9元/包</p>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-mid">
+      <div class="callout info"><div class="callout-icon"></div><div><strong>进阶品类</strong>：需要一点基础技能或资源，但利润更稳定，客单价更高。</div></div>
+      <table class="guide-table">
+        <tr><th>品类</th><th>所需能力</th><th>客单价范围</th><th>月收入潜力</th></tr>
+        <tr><td>PS修图</td><td>会用PS/剪映</td><td>5-50元/张</td><td>2000-8000元</td></tr>
+        <tr><td>PPT代做</td><td>会用PPT/Canva</td><td>30-300元/个</td><td>3000-12000元</td></tr>
+        <tr><td>文案代写</td><td>写作表达能力</td><td>20-200元/篇</td><td>2000-10000元</td></tr>
+        <tr><td>软件会员</td><td>有货源渠道</td><td>15-80元</td><td>1000-5000元</td></tr>
+        <tr><td>游戏陪玩</td><td>游戏技术好</td><td>20-100元/小时</td><td>1000-6000元</td></tr>
+      </table>
+    </div>
+
+    <div class="tab-panel" id="tab-pro">
+      <div class="callout warn"><div class="callout-icon"></div><div><strong>高手专区</strong>：需要较强的技术/行业经验，但可以做到月入过万甚至更高。</div></div>
+      <table class="guide-table">
+        <tr><th>品类</th><th>所需能力</th><th>客单价范围</th><th>月收入潜力</th></tr>
+        <tr><td>代码开发</td><td>编程技术</td><td>200-5000元/个</td><td>1万-5万+</td></tr>
+        <tr><td>UI/UX设计</td><td>设计软件熟练</td><td>300-3000元/项目</td><td>1万-3万</td></tr>
+        <tr><td>企业培训视频</td><td>某领域专家</td><td>500-5000元/套</td><td>2万-10万</td></tr>
+        <tr><td>SEO服务</td><td>SEO技术经验</td><td>800-5000元/月</td><td>1万-5万</td></tr>
+        <tr><td>股票/投资分析</td><td>金融分析能力</td><td>200-2000元/份</td><td>1万-5万</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="callout money">
+    <div class="callout-icon"></div>
+    <div><strong>选品黄金原则（新手必读）：</strong><br>
+    1️⃣ 先选你最擅长的1个品类，不要什么都卖<br>
+    2️⃣ 先选客单价低（9.9-49元）、成交门槛低的品类快速积累好评<br>
+    3️⃣ 等有了10+好评再开高客单价商品，转化率会大幅提升<br>
+    4️⃣ 一个品类做熟后，再复制到下一个品类</div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 3: 发布商品
+════════════════════════════════════════ -->
+<section class="guide-section" id="sec3">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div class="section-title-wrap">
+      <h2>发布商品 · 手把手教程</h2>
+      <p>每一个字段都有讲究，这里告诉你最优填法</p>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-icon"></div>
+    <div><strong>虚拟商品发布路径：</strong>首页 → 右下角"+"（发布）→ 选择"发布闲置" → 类目选"数字商品"或"服务"→ 按照下面每一步填写。</div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">🖼️ 第一步：主图设计（最重要！决定点击率）</h3>
+
+  <div class="card" style="border-left:3px solid var(--orange);">
+    <div class="card-title">主图的黄金法则</div>
+    <ul style="font-size:14px;color:var(--gray-800);line-height:2;padding-left:20px;">
+      <li><strong>尺寸：</strong>建议 1:1 正方形或 3:4 竖图，分辨率最低 800×800</li>
+      <li><strong>内容：</strong>要有"一句话卖点"文字 + 视觉展示（效果图/截图/模板图）</li>
+      <li><strong>颜色：</strong>背景纯净（白/浅灰/品牌色），文字颜色醒目（橙/红/蓝）</li>
+      <li><strong>禁止：</strong>不要用纯文字图片（闲鱼系统会降权），不要用模糊/水印很重的图</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div class="card" style="border-top:3px solid var(--red);">
+      <div class="card-title">❌ 差主图示例</div>
+      <div style="background:var(--gray-200);padding:12px;border-radius:8px;font-size:13px;color:var(--gray-600);text-align:center;min-height:80px;display:flex;align-items:center;justify-content:center;">
+        「PS修图服务，便宜」<br><small>（纯文字、无视觉、无卖点）</small>
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--green);">
+      <div class="card-title">✅ 好主图示例</div>
+      <div style="background:linear-gradient(135deg,#FFF3E0,#FFE0B2);padding:12px;border-radius:8px;font-size:13px;color:#BF360C;text-align:center;min-height:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;">
+        前/后对比图占50%<br>
+        <span style="font-size:12px;color:#E64A19;margin-top:6px;font-weight:400">「3分钟极速出图·满意退款」</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">📝 第二步：标题写法（SEO关键词布局）</h3>
+
+  <div class="card">
+    <p style="font-size:14px;color:var(--gray-800);margin-bottom:12px;">闲鱼的搜索引擎和淘宝类似，<strong>标题里的关键词直接决定你能被多少人搜索到</strong>。标题最多30个字，要把核心词塞进去。</p>
+    <div class="formula-box">
+      标题公式 = 核心服务词 + 场景/人群词 + 卖点词 + 保障词
+      <small>例：「简历代写 应届生 HR出身 秒过率高 满意改到好」</small>
+    </div>
+    <table class="guide-table" style="margin-top:12px;">
+      <tr><th>品类</th><th>✅ 优质标题示例</th></tr>
+      <tr><td>AI教程</td><td>ChatGPT实战教程 零基础 副业变现 2024最新版附送提示词大全</td></tr>
+      <tr><td>PS修图</td><td>证件照换背景修图 1小时出图 人像精修 商务证件 简历用</td></tr>
+      <tr><td>简历代写</td><td>简历代写优化 应届生春招 HR专业 ATS优化 秒过筛</td></tr>
+      <tr><td>PPT代做</td><td>PPT代做 商务汇报 毕业答辩 24小时交付 高大上模版定制</td></tr>
+      <tr><td>视频剪辑</td><td>短视频剪辑 抖音小红书 账号起号 爆款模板 1天出片</td></tr>
+    </table>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">💬 第三步：商品详情（让买家放心掏钱）</h3>
+
+  <div class="card">
+    <div class="card-title">详情页的"四段论"结构</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-title">①【是什么】1-2句话说清你卖什么</div>
+        <div class="timeline-content">例：「本店提供专业PS修图服务，包含证件照换背景、人像磨皮精修、商品抠图美化」</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-title">②【能做什么】列举你的服务内容</div>
+        <div class="timeline-content">用数字列点，比大段文字转化率高3倍。「✅ 换背景颜色（白/红/蓝）✅ 人像磨皮 ✅ 去除瑕疵 ✅ 尺寸调整」</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-title">③【流程说明】告知买家怎么下单、怎么交付</div>
+        <div class="timeline-content">「下单后请在聊天窗口发送原图 → 我1小时内开始处理 → 成品通过聊天框发给您」</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-title">④【保障承诺】消除买家疑虑</div>
+        <div class="timeline-content">「不满意免费改稿一次 | 真人服务不用AI | 隐私严格保护 | 有问题随时联系我」</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">💰 第四步：价格设置技巧</h3>
+
+  <div class="card">
+    <p style="font-size:14px;color:var(--gray-800);margin-bottom:12px;">价格设置有学问，既不能吓跑买家，又不能便宜到亏本。</p>
+    <table class="guide-table">
+      <tr><th>设置项</th><th>怎么填</th><th>原因</th></tr>
+      <tr><td>主价格</td><td>填套餐最低价（引流款）</td><td>低价吸引点击</td></tr>
+      <tr><td>发货方式</td><td>选"虚拟发货/上门自提"</td><td>虚拟产品无需快递</td></tr>
+      <tr><td>运费</td><td>填0（包邮）</td><td>减少购买障碍</td></tr>
+      <tr><td>库存</td><td>填99（显示充足）</td><td>增加紧迫感</td></tr>
+      <tr><td>品相</td><td>选"全新"</td><td>虚拟商品都是全新</td></tr>
+    </table>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon"></div>
+    <div><strong>闲鱼虚拟商品发布禁区（违者封号）：</strong><br>
+    ❌ 不能出现"微信联系""加我微信"等引流字样<br>
+    ❌ 不能发布成人内容、侵权资源、破解版软件<br>
+    ❌ 不能出现"免费""0元"等明显虚假标题<br>
+    ❌ 标题和描述不能含"出租账号""出售账号密码"等</div>
+  </div>
+
+  <div class="callout success">
+    <div class="callout-icon"></div>
+    <div><strong>发布自查清单：</strong>
+      <ul class="checklist" style="margin-top:8px;" data-group="sec3">
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>主图有视觉展示+一句卖点文字</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>标题含3个以上关键词</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>详情按"四段论"结构填写</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>价格设置合理，有多个套餐梯度</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>发货方式选了"虚拟发货"</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>没有出现违禁词（微信/免费等）</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 4: 定价策略
+════════════════════════════════════════ -->
+<section class="guide-section" id="sec4">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div class="section-title-wrap">
+      <h2>定价策略 · 如何定最优价</h2>
+      <p>价格太低赚不到钱，价格太高没人买，这里告诉你黄金定价法</p>
+    </div>
+  </div>
+
+  <div class="formula-box">
+    最优起始价 = 同类最低价 × 0.8 ~ 1.0
+    <small>先用略低于市场的价格快速积累评价，有了评价再逐步涨价</small>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">📊 各品类参考定价区间</h3>
+
+  <div class="pricing-row">
+    <div class="price-card">
+      <div class="category">AI教程包</div>
+      <div class="price"><sub>¥</sub>9.9<sub>起</sub></div>
+      <div class="desc">单个工具教程<br>套餐可达99元</div>
+    </div>
+    <div class="price-card">
+      <div class="category">简历代写</div>
+      <div class="price"><sub>¥</sub>29<sub>起</sub></div>
+      <div class="desc">基础版29元<br>定制版99-299元</div>
+    </div>
+    <div class="price-card">
+      <div class="category">PS修图</div>
+      <div class="price"><sub>¥</sub>5<sub>起</sub></div>
+      <div class="desc">单图5-15元<br>精修套餐30-80元</div>
+    </div>
+    <div class="price-card">
+      <div class="category">PPT代做</div>
+      <div class="price"><sub>¥</sub>30<sub>起</sub></div>
+      <div class="desc">10页版30元<br>高端定制200-500元</div>
+    </div>
+    <div class="price-card">
+      <div class="category">视频剪辑</div>
+      <div class="price"><sub>¥</sub>20<sub>起</sub></div>
+      <div class="desc">基础剪辑20-50元<br>精剪+特效100+元</div>
+    </div>
+    <div class="price-card">
+      <div class="category">文案代写</div>
+      <div class="price"><sub>¥</sub>15<sub>起</sub></div>
+      <div class="desc">300字15元<br>千字文案50-100元</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:24px 0 12px;">🎯 梯度定价法（最能拉高客单价）</h3>
+
+  <div class="card">
+    <div class="card-title">设计3个套餐等级，让买家自动升档</div>
+    <p style="font-size:14px;color:var(--gray-600);margin-bottom:14px;">以"简历代写"为例：</p>
+    <table class="guide-table">
+      <tr><th>套餐</th><th>名称</th><th>价格</th><th>包含内容</th></tr>
+      <tr>
+        <td><span class="tag tag-green">入门</span></td>
+        <td>基础模板版</td>
+        <td style="color:var(--orange);font-weight:700">¥19.9</td>
+        <td>提供5套精美简历模板，自行填写</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-orange">热门</span></td>
+        <td>专业定制版</td>
+        <td style="color:var(--orange);font-weight:700">¥79</td>
+        <td>根据你的经历全程代写，1次免费修改</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-gold">旗舰</span></td>
+        <td>求职全程版</td>
+        <td style="color:var(--orange);font-weight:700">¥199</td>
+        <td>简历代写+求职信+面试辅导30分钟</td>
+      </tr>
+    </table>
+    <div class="callout tip" style="margin-top:12px;"><div class="callout-icon"></div><div>把主商品标价定在<strong>中间套餐（¥79）</strong>，低套餐吸引流量，高套餐显得中间套餐"超值"。这是电商定价的经典"三选一"效应。</div></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:24px 0 12px;">📈 定价调整时机</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-title">0-5个好评时：低价冲量期</div>
+      <div class="timeline-content">用低于市场价20%的价格，快速积累第一批好评。这是最关键的阶段，不要因为钱少就放弃。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-title">5-20个好评时：逐步提价</div>
+      <div class="timeline-content">每增加5个好评，价格可以上调10%-20%。好评是你涨价的底气。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-title">20+好评时：市场定价</div>
+      <div class="timeline-content">这时候你已经有足够的社会证明，可以按市场正常价格甚至略高于市场定价，买家会因为你的高评价而选择你。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-title">节假日/特殊时期：动态调价</div>
+      <div class="timeline-content">五月招聘季简历需求暴增，可提价30%；双11前后各类虚拟课程销量暴增，把握时机。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 5: 沟通话术
+════════════════════════════════════════ -->
+<section class="guide-section" id="sec5">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <div class="section-title-wrap">
+      <h2>沟通话术 · 秒变销售高手</h2>
+      <p>从买家发第一条消息，到成交收款，每一步的标准话术</p>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <div class="callout-icon"></div>
+    <div><strong>核心思维转变：</strong>不要等买家问，要主动引导。买家说"能便宜吗"不是在拒绝你，而是在问你要理由。给理由，而不是直接降价。</div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">💬 场景一：买家发来"多少钱？"</h3>
+  <div class="script-box">
+    <div class="script-label">✅ 标准应答模板</div>
+    您好！我这里有三个套餐可以选择：<br>
+    <span class="highlight">📌 基础版</span> ¥XX：[一句话说内容]<br>
+    <span class="highlight">🔥 推荐版</span> ¥XX：[一句话说内容]<br>
+    <span class="highlight">💎 旗舰版</span> ¥XX：[一句话说内容]<br><br>
+    请问您具体的需求是什么呢？<span class="placeholder">（帮我推荐最适合的给您）</span>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">💬 场景二：买家说"能不能便宜点/打折？"</h3>
+  <div class="script-box">
+    <div class="script-label">✅ 保价应答模板</div>
+    您好，价格已经是最优惠啦～<br>
+    <span class="highlight">这个价格包含了</span> [强调你的核心价值，如：「3小时快速交付 + 1次免费修改 + 售后保障」]<br><br>
+    其他家便宜的往往 <span class="placeholder">[用AI生成/模板直接套/交付慢]</span>，我这里是真人手工服务。<br>
+    您可以先看看我的评价，都是真实买家反馈的～ 🌟
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">💬 场景三：买家说"发货后才付款？先发货？"</h3>
+  <div class="script-box">
+    <div class="script-label">✅ 安全应答模板</div>
+    您好，非常理解您的顾虑！<br>
+    我们走<span class="highlight">闲鱼担保交易</span>，您付款后平台会<span class="highlight">代为保管资金</span>，<br>
+    我交付成品后资金才会到我账户，对您来说完全<span class="highlight">零风险</span>~<br><br>
+    这也是我一直坚持走平台担保的原因，保护买卖双方都安全。<br>
+    放心拍单吧，有任何问题随时找我！😊
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">💬 场景四：买家说"我想好了，下单了"→ 成功引导好评</h3>
+  <div class="script-box">
+    <div class="script-label">✅ 好评引导话术（发货后）</div>
+    [交付完成品后说]<br><br>
+    您好，已经通过聊天发给您了，<span class="highlight">请查收</span>～<br>
+    如果有任何不满意的地方，<span class="highlight">直接告诉我免费调整</span>，不用客气！<br><br>
+    如果满意的话，<span class="placeholder">麻烦给个5星好评</span>，对我帮助很大～<br>
+    后续有需要随时来找我，老顾客有专属折扣哦！😊
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">💬 场景五：买家投诉说"不满意要退款"</h3>
+  <div class="script-box">
+    <div class="script-label">✅ 处理投诉不慌乱</div>
+    您好，非常抱歉让您不满意！<br>
+    可以麻烦您<span class="highlight">具体说一下哪里需要改进</span>吗？<br>
+    我这边<span class="highlight">马上重新给您处理</span>，直到满意为止～<br><br>
+    [如果实在无法解决]<br>
+    如果您对修改结果还是不满意，我会<span class="highlight">申请全额退款</span>给您，<br>
+    保证让您没有任何损失。您看这样可以吗？
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon"></div>
+    <div><strong>沟通铁律：</strong>永远不要在闲鱼聊天里提"微信""QQ""电话号码"等站外联系方式！闲鱼会扫描关键词，一旦发现会对账号降权，严重的直接封号。</div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">⏱️ 回复速度的重要性</h3>
+  <div class="card">
+    <table class="guide-table">
+      <tr><th>回复时间</th><th>成交率参考</th><th>建议</th></tr>
+      <tr><td>1分钟内</td><td style="color:var(--green);font-weight:700">约80%</td><td>开启闲鱼消息通知，手机不离手</td></tr>
+      <tr><td>1-10分钟</td><td style="color:#FF8F00;font-weight:700">约55%</td><td>尚可接受</td></tr>
+      <tr><td>10-30分钟</td><td style="color:#E64A19;font-weight:700">约30%</td><td>买家可能已去别家</td></tr>
+      <tr><td>30分钟以上</td><td style="color:var(--red);font-weight:700">约10%</td><td>基本流失</td></tr>
+    </table>
+    <div class="callout tip" style="margin-top:10px;font-size:13px;"><div class="callout-icon"></div><div>设置<strong>自动回复</strong>：闲鱼App → 我的 → 卖家中心 → 自动回复，设置一条欢迎语介绍套餐，可以帮你在你不在的时候留住买家。</div></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 6: 防封号
+════════════════════════════════════════ -->
+<section class="guide-section" id="sec6">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <div class="section-title-wrap">
+      <h2>防封号 · 安全经营指南</h2>
+      <p>新手最容易踩坑的地方，这里帮你全部避掉</p>
+    </div>
+  </div>
+
+  <div class="alert-banner">
+    <div class="alert-icon">🚨</div>
+    <div><strong>重要：</strong>账号是你所有努力的基础。一旦封号，好评、粉丝、流量全部清零。请认真阅读本节所有内容。</div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">🚫 绝对不能做的事（必封行为）</h3>
+
+  <div class="card" style="border-left:3px solid var(--red);">
+    <table class="guide-table">
+      <tr><th>违规行为</th><th>后果</th><th>说明</th></tr>
+      <tr>
+        <td><span class="tag tag-red">极危</span> 引导站外成交</td>
+        <td>封号</td>
+        <td>聊天中出现微信/QQ/手机号，系统扫描后自动降权或封号</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-red">极危</span> 刷好评</td>
+        <td>封号</td>
+        <td>找人虚假下单刷评价，一旦被检测，账号永久封禁</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-red">极危</span> 发侵权商品</td>
+        <td>下架+封号</td>
+        <td>盗版视频/软件/课程，版权方投诉即封</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-red">极危</span> 欺诈买家</td>
+        <td>永久封禁</td>
+        <td>收款后不发货、发假货，买家投诉直接封</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-orange">高危</span> 重复发布相同商品</td>
+        <td>商品下架</td>
+        <td>不要短时间内发大量相同标题/图片的商品</td></tr>
+      <tr>
+        <td><span class="tag tag-orange">高危</span> 标题关键词堆砌</td>
+        <td>降权</td>
+        <td>乱填一堆不相关关键词，如「修图PS PPT简历代写翻译PS」</td>
+      </tr>
+    </table>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:24px 0 12px;">✅ 安全运营的正确姿势</h3>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">📋 日常操作规范</div>
+      <ul style="font-size:13.5px;color:var(--gray-800);line-height:2;padding-left:18px;">
+        <li>每天发布上限：3-5条新商品</li>
+        <li>修改已有商品：间隔24小时以上</li>
+        <li>聊天内容：全程走平台，不引流</li>
+        <li>收款必须走：闲鱼担保交易</li>
+        <li>发货方式：选平台内虚拟发货</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">🔒 账号安全设置</div>
+      <ul style="font-size:13.5px;color:var(--gray-800);line-height:2;padding-left:18px;">
+        <li>开启登录保护（设置→安全）</li>
+        <li>绑定支付宝实名认证</li>
+        <li>不要多设备同时登录</li>
+        <li>不要购买他人账号使用</li>
+        <li>定期更新账号密码</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:24px 0 12px;">⚡ 遇到违规处理怎么办？</h3>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">
+      商品突然被下架了怎么办？
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      别慌！商品被下架一般是因为：①标题含违禁词 ②图片含违规内容 ③被同行举报。<br>
+      解决步骤：① 进入"我卖出的"找到下架商品 → 查看下架原因 → 根据原因修改标题/图片 → 重新发布。<br>
+      如果一直下架，去闲鱼App右下角"我的"→ 联系客服 → 申诉。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">
+      账号被限制发布怎么办？
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      限制发布通常是被平台检测到异常行为。处理方法：<br>
+      ① 停止所有发布操作，等待24-72小时<br>
+      ② 完成账号实名认证（如未完成）<br>
+      ③ 在App内联系客服申诉，说明情况<br>
+      ④ 如果无法解除，注册新号重新养号开始（用不同手机号和支付宝）
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">
+      买家给了差评怎么处理？
+      <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">
+      ① 第一时间联系买家，诚恳道歉，询问具体问题<br>
+      ② 提出解决方案（免费重做/退款）<br>
+      ③ 问题解决后，礼貌询问是否可以修改评价<br>
+      ④ 在评价下方回复你的处理说明（给其他买家看）<br>
+      ⑤ 如果差评是恶意的，可以向平台投诉申诉<br>
+      记住：一个差评不会毁掉你，但你对差评的处理态度，会让其他买家看到你的专业性。
+    </div>
+  </div>
+
+  <div class="callout success">
+    <div class="callout-icon"></div>
+    <div><strong>安全经营自查清单：</strong>
+      <ul class="checklist" style="margin-top:8px;" data-group="sec6">
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>从未在聊天中发送过微信/手机号等站外联系方式</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>所有成交都走闲鱼担保交易，没有私下转账</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>商品内容均为合法原创/授权，无侵权</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>没有找人刷过好评</span></li>
+        <li onclick="toggleCheck(this)"><div class="check-box"></div><span>每天发布商品不超过5条</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 7: 提升销量
+════════════════════════════════════════ -->
+<section class="guide-section" id="sec7">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <div class="section-title-wrap">
+      <h2>提升销量 · 流量密码</h2>
+      <p>免费流量怎么来？这是闲鱼算法的底层逻辑</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📡 闲鱼流量算法逻辑（你必须懂的）</div>
+    <p style="font-size:14px;color:var(--gray-800);line-height:1.8;margin-bottom:12px;">闲鱼给你推流量，看的是这几个核心指标（权重从高到低）：</p>
+    <div class="progress-widget">
+      <div class="progress-label"><span>① 商品点击率（主图决定）</span><span>权重最高</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:95%"></div></div>
+      <div class="progress-label" style="margin-top:12px;"><span>② 成交转化率（价格+详情决定）</span><span>极重要</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div>
+      <div class="progress-label" style="margin-top:12px;"><span>③ 回复速度和活跃度</span><span>很重要</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
+      <div class="progress-label" style="margin-top:12px;"><span>④ 好评数量和评分</span><span>重要</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div>
+      <div class="progress-label" style="margin-top:12px;"><span>⑤ 账号权重（注册时间/活跃度）</span><span>基础分</span></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:55%"></div></div>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:24px 0 12px;">🔥 10大免费提流技巧（每天执行）</h3>
+
+  <ul class="steps-list">
+    <li class="step-item">
+      <div class="step-content">
+        <strong>每天"重新上架"商品（提升排名）</strong>
+        进入"我卖出的" → 找到商品 → 点"编辑" → 不修改任何内容 → 直接"保存重新发布"。这会让你的商品重新排到搜索结果前列。<span class="tag tag-orange">每天最多做3次</span>
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-content">
+        <strong>在想法（类似朋友圈）发干货内容</strong>
+        每天发1-2条"想法"，内容是与你品类相关的干货（比如卖简历的，发"5个让HR眼前一亮的简历技巧"），吸引有需求的人主动找你。
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-content">
+        <strong>主动"求购"帖互动</strong>
+        搜索你的品类关键词，找到买家发的"求购"帖，主动留言："我这边有哦，可以聊聊～"。这种精准客户成交率极高。
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-content">
+        <strong>优化商品标题（每周更新）</strong>
+        去搜索框输入你的品类词，查看下拉词（平台推荐词），把高频词加入标题中。每周更新一次标题，保持关键词新鲜度。
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-content">
+        <strong>上传多张展示图（最多9张）</strong>
+        主图+效果展示图+服务流程图+好评截图。图越多，买家看的时间越长，停留时长会正向影响算法推荐。
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-content">
+        <strong>设置"橱窗"把最好的商品置顶</strong>
+        我的 → 编辑资料 → 商品橱窗，把销量最好的商品放在橱窗前3位，新访客第一眼就看到你的爆款。
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-content">
+        <strong>引导老买家晒单/追评</strong>
+        成交后发送："如果您用了觉得不错，欢迎在评价里晒图，这对我帮助很大，也让其他有需要的朋友少走弯路。"图文评价的权重是纯文字评价的3倍。
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-content">
+        <strong>错峰发布，抢占推荐位</strong>
+        闲鱼流量高峰：早7-9点、午12-14点、晚20-23点。在这些时间段重新上架商品，获得更多曝光。
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-content">
+        <strong>蹭热点关键词</strong>
+        遇到大节日/热点事件，在商品标题/描述中加入相关词。比如春招季，简历类商品加"2024春招"；AI热点时，加"最新AI工具"等词。
+      </div>
+    </li>
+    <li class="step-item">
+      <div class="step-content">
+        <strong>适当开启闲鱼付费推广（有钱后）</strong>
+        闲鱼有"置顶推广"功能，按点击付费（CPC），每次点击约0.3-2元。等你有了基础好评后（10个以上），用付费推广快速放大流量，ROI一般在5-15倍。
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 8: 各品类详细玩法
+════════════════════════════════════════ -->
+<section class="guide-section" id="sec8">
+  <div class="section-header">
+    <div class="section-num">8</div>
+    <div class="section-title-wrap">
+      <h2>各品类详细玩法</h2>
+      <p>10大主流虚拟品类，从零到赚钱的完整操作手册</p>
+    </div>
+  </div>
+
+  <div class="tab-container">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab(this,'p-ai')">🤖 AI教程</button>
+      <button class="tab-btn" onclick="switchTab(this,'p-resume')">📄 简历代写</button>
+      <button class="tab-btn" onclick="switchTab(this,'p-photo')">🎨 PS修图</button>
+      <button class="tab-btn" onclick="switchTab(this,'p-ppt')">📊 PPT代做</button>
+      <button class="tab-btn" onclick="switchTab(this,'p-copy')">✍️ 文案代写</button>
+      <button class="tab-btn" onclick="switchTab(this,'p-video')">🎵 视频剪辑</button>
+    </div>
+
+    <!-- AI教程 -->
+    <div class="tab-panel active" id="p-ai">
+      <div class="card" style="border-top:3px solid var(--orange);">
+        <div class="card-title" style="font-size:16px;">🤖 AI工具教程 · 零成本最暴利品类</div>
+        <div class="callout money" style="margin-bottom:14px;"><div class="callout-icon"></div><div><strong>利润率：90-99%</strong> | 成本：几乎为0 | 适合人群：所有人</div></div>
+
+        <h4 style="font-size:14px;font-weight:700;margin:12px 0 8px;">你能卖什么？</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
+          <span class="tag tag-orange">ChatGPT使用教程</span>
+          <span class="tag tag-blue">Midjourney提示词大全</span>
+          <span class="tag tag-green">Suno音乐生成教程</span>
+          <span class="tag tag-purple">Claude高级使用技巧</span>
+          <span class="tag tag-gold">AI副业变现方法</span>
+          <span class="tag tag-orange">AI绘画变现教程</span>
+          <span class="tag tag-blue">Stable Diffusion安装包</span>
+          <span class="tag tag-green">ComfyUI工作流</span>
+        </div>
+
+        <h4 style="font-size:14px;font-weight:700;margin:12px 0 8px;">如何制作你的产品？</h4>
+        <ul class="steps-list">
+          <li class="step-item">
+            <div class="step-content">
+              <strong>学习阶段（1-2天）</strong>
+              去B站/YouTube搜索"ChatGPT教程""Midjourney教程"，认真学3-5个视频，用手机截图记录每一步操作。
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-content">
+              <strong>整理阶段（半天）</strong>
+              用WPS/腾讯文档把步骤整理成PDF文档，配上截图。格式：封面页 → 工具简介 → 注册教程（手把手截图）→ 核心功能操作 → 实战案例 → 变现思路。
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-content">
+              <strong>增值阶段（半天）</strong>
+              赠送"提示词包"（从网上收集100+实用提示词整理成文档），让你的产品更有竞争力。免费赠品的边际成本为零，但能大幅提升成交率。
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-content">
+              <strong>发布阶段</strong>
+              把PDF上传到网盘（百度/阿里云盘），买家付款后发送网盘链接+提取码。注意：在闲鱼聊天窗口里发送网盘链接是安全的。
+            </div>
+          </li>
+        </ul>
+
+        <h4 style="font-size:14px;font-weight:700;margin:14px 0 8px;">定价建议</h4>
+        <table class="guide-table">
+          <tr><th>产品</th><th>价格</th><th>说明</th></tr>
+          <tr><td>单个工具基础教程</td><td>9.9-19.9元</td><td>引流款，快速积累好评</td></tr>
+          <tr><td>某工具完整教程+提示词</td><td>29-59元</td><td>主力款</td></tr>
+          <tr><td>AI副业全套教程包</td><td>99-199元</td><td>包含5-10个工具合集</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- 简历代写 -->
+    <div class="tab-panel" id="p-resume">
+      <div class="card" style="border-top:3px solid var(--orange);">
+        <div class="card-title" style="font-size:16px;">📄 简历代写/优化 · 需求超稳定的黄金品类</div>
+        <div class="callout money" style="margin-bottom:14px;"><div class="callout-icon"></div><div><strong>利润率：80-95%</strong> | 客单价：29-299元 | 旺季：3-5月/9-10月</div></div>
+
+        <h4 style="font-size:14px;font-weight:700;margin:12px 0 8px;">你需要准备什么？</h4>
+        <div class="two-col" style="margin-bottom:14px;">
+          <div class="card" style="border:1px dashed var(--gray-400);">
+            <div class="card-title" style="font-size:13px;">📁 简历模板库（免费获取）</div>
+            <ul style="font-size:13px;color:var(--gray-800);padding-left:16px;line-height:2;">
+              <li>站长之家免费简历模板</li>
+              <li>优设网免费模板</li>
+              <li>Canva免费模板（推荐）</li>
+              <li>吾道幻灯片简历功能</li>
+            </ul>
+          </div>
+          <div class="card" style="border:1px dashed var(--gray-400);">
+            <div class="card-title" style="font-size:13px;">🤖 AI辅助工具（大幅提效）</div>
+            <ul style="font-size:13px;color:var(--gray-800);padding-left:16px;line-height:2;">
+              <li>ChatGPT / Claude（生成文字）</li>
+              <li>豆包（中文场景更好用）</li>
+              <li>简历打磨：Kickresume</li>
+              <li>ATS检测：Jobscan（英文）</li>
+            </ul>
+          </div>
+        </div>
+
+        <h4 style="font-size:14px;font-weight:700;margin:12px 0 8px;">服务流程（全程在闲鱼内完成）</h4>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-title">① 买家付款后：发送信息采集表</div>
+            <div class="timeline-content">在聊天框发一个文字版问卷："请告诉我您的：1.目标岗位 2.教育背景 3.工作经历（可发截图）4.技能特长 5.个人亮点"</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-title">② 用AI辅助生成初稿</div>
+            <div class="timeline-content">把买家信息粘贴给AI，让AI按STAR法则优化各条经历描述，然后你手工润色，保证语言自然流畅。</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-title">③ 套入模板 → 发PDF成品</div>
+            <div class="timeline-content">把优化后的文字套入Canva或WPS模板，导出PDF，通过聊天框或网盘链接发给买家。</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-title">④ 一次免费修改保障</div>
+            <div class="timeline-content">如果买家有调整需求，免费修改一次。这个承诺能大幅提升购买信心。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PS修图 -->
+    <div class="tab-panel" id="p-photo">
+      <div class="card" style="border-top:3px solid var(--orange);">
+        <div class="card-title" style="font-size:16px;">🎨 PS修图服务 · 高频刚需的实操品类</div>
+        <div class="callout money" style="margin-bottom:14px;"><div class="callout-icon"></div><div><strong>利润率：70-90%</strong> | 客单价：5-80元 | 需求：全年稳定</div></div>
+
+        <h4 style="font-size:14px;font-weight:700;margin:12px 0 8px;">最常见需求类型</h4>
+        <table class="guide-table">
+          <tr><th>服务类型</th><th>市场价</th><th>难度</th><th>工具</th></tr>
+          <tr><td>证件照换背景</td><td>5-15元/张</td><td>⭐⭐</td><td>PS/美图秀秀</td></tr>
+          <tr><td>人像磨皮精修</td><td>15-40元/张</td><td>⭐⭐⭐</td><td>PS</td></tr>
+          <tr><td>商品图抠图</td><td>8-20元/张</td><td>⭐⭐</td><td>PS/可画</td></tr>
+          <tr><td>修改照片背景</td><td>10-30元/张</td><td>⭐⭐⭐</td><td>PS</td></tr>
+          <tr><td>图片文字修改</td><td>5-15元/张</td><td>⭐⭐</td><td>PS</td></tr>
+          <tr><td>老照片修复</td><td>20-60元/张</td><td>⭐⭐⭐⭐</td><td>PS/AI工具</td></tr>
+        </table>
+
+        <h4 style="font-size:14px;font-weight:700;margin:14px 0 8px;">没有PS怎么办？用免费工具！</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+          <span class="tag tag-blue">remove.bg（免费抠图）</span>
+          <span class="tag tag-green">Canva（设计+修图）</span>
+          <span class="tag tag-orange">美图秀秀（换背景）</span>
+          <span class="tag tag-purple">Luminar AI（人像精修）</span>
+          <span class="tag tag-gold">Photopea（网页版PS）</span>
+        </div>
+
+        <div class="callout tip"><div class="callout-icon"></div><div>用<strong>remove.bg</strong>免费抠图+<strong>Canva</strong>换背景，可以完成80%的证件照换背景需求，完全不需要PS，速度比PS更快！</div></div>
+      </div>
+    </div>
+
+    <!-- PPT代做 -->
+    <div class="tab-panel" id="p-ppt">
+      <div class="card" style="border-top:3px solid var(--orange);">
+        <div class="card-title" style="font-size:16px;">📊 PPT代做 · 客单价高且稳定的品类</div>
+        <div class="callout money" style="margin-bottom:14px;"><div class="callout-icon"></div><div><strong>利润率：75-90%</strong> | 客单价：30-500元 | 需求集中：开学/年底</div></div>
+
+        <h4 style="font-size:14px;font-weight:700;margin:12px 0 8px;">免费PPT模板来源（不花一分钱）</h4>
+        <ul style="font-size:14px;color:var(--gray-800);line-height:2.2;padding-left:18px;">
+          <li><strong>优品PPT：</strong>优质免费模板，商务/学术都有</li>
+          <li><strong>吾道幻灯片：</strong>国产工具，模板精美，操作简单</li>
+          <li><strong>Canva：</strong>外国网站，设计感超强，有免费套</li>
+          <li><strong>WPS稻壳模板：</strong>数量最多，风格最全</li>
+          <li><strong>叮当设计：</strong>高端商务风免费模板</li>
+        </ul>
+
+        <h4 style="font-size:14px;font-weight:700;margin:14px 0 8px;">收到需求后的标准流程</h4>
+        <ul class="steps-list">
+          <li class="step-item">
+            <div class="step-content">
+              <strong>确认需求（必做！）</strong>
+              问买家：①主题是什么 ②用途（答辩/汇报/课程）③几页 ④风格偏好（商务/简约/创意）⑤有没有素材/文字内容提供
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-content">
+              <strong>选模板 → 填内容</strong>
+              根据风格选合适模板，把买家提供的素材/文字按逻辑填入，注意视觉对齐和配色统一。
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-content">
+              <strong>先发"预览版"</strong>
+              导出低分辨率JPG图片发给买家先看，确认满意后再发高清成品。这个步骤可以防止退款纠纷。
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-content">
+              <strong>确认后发正式文件</strong>
+              发.pptx源文件+.pdf两个格式，让买家方便使用。
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 文案代写 -->
+    <div class="tab-panel" id="p-copy">
+      <div class="card" style="border-top:3px solid var(--orange);">
+        <div class="card-title" style="font-size:16px;">✍️ 文案代写 · 人人都能做的入门品类</div>
+        <div class="callout money" style="margin-bottom:14px;"><div class="callout-icon"></div><div><strong>利润率：80-95%</strong> | 客单价：15-300元 | AI辅助后效率提升10倍</div></div>
+
+        <h4 style="font-size:14px;font-weight:700;margin:12px 0 8px;">可以卖哪些文案服务？</h4>
+        <table class="guide-table">
+          <tr><th>服务类型</th><th>价格参考</th><th>买家群体</th></tr>
+          <tr><td>小红书笔记代写（单篇）</td><td>20-80元</td><td>商家/个人博主</td></tr>
+          <tr><td>抖音视频脚本</td><td>30-150元</td><td>创作者/商家</td></tr>
+          <tr><td>朋友圈文案（10条）</td><td>20-50元</td><td>微商/个人</td></tr>
+          <tr><td>产品详情页文案</td><td>50-300元</td><td>电商卖家</td></tr>
+          <tr><td>自我介绍/个人简介</td><td>15-50元</td><td>求职者/创业者</td></tr>
+          <tr><td>演讲稿/发言稿</td><td>50-300元</td><td>职场人士/学生</td></tr>
+        </table>
+
+        <div class="callout tip" style="margin-top:12px;"><div class="callout-icon"></div><div>用<strong>ChatGPT/豆包</strong>辅助生成初稿，你负责润色、调整语气、加入买家提供的关键信息。熟练后一篇小红书文案只需10-15分钟，性价比极高。</div></div>
+      </div>
+    </div>
+
+    <!-- 视频剪辑 -->
+    <div class="tab-panel" id="p-video">
+      <div class="card" style="border-top:3px solid var(--orange);">
+        <div class="card-title" style="font-size:16px;">🎵 视频剪辑服务 · 需求量最大的创作品类</div>
+        <div class="callout money" style="margin-bottom:14px;"><div class="callout-icon"></div><div><strong>利润率：70-85%</strong> | 客单价：20-300元 | 需求：持续爆炸增长</div></div>
+
+        <h4 style="font-size:14px;font-weight:700;margin:12px 0 8px;">推荐工具（从免费到付费）</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+          <span class="tag tag-green">剪映（免费·最推荐）</span>
+          <span class="tag tag-blue">CapCut（免费）</span>
+          <span class="tag tag-orange">必剪（免费）</span>
+          <span class="tag tag-purple">PR（付费·专业）</span>
+          <span class="tag tag-gold">Final Cut Pro（苹果专业）</span>
+        </div>
+
+        <h4 style="font-size:14px;font-weight:700;margin:12px 0 8px;">新手建议从这些服务入手：</h4>
+        <ul style="font-size:14px;color:var(--gray-800);line-height:2.2;padding-left:18px;">
+          <li><strong>Vlog剪辑：</strong>买家发素材，你剪成成品，加背景音乐字幕 → 30-80元/条</li>
+          <li><strong>带货口播视频剪辑：</strong>去除卡顿/添加字幕/加开场结尾 → 20-50元/条</li>
+          <li><strong>混剪MV：</strong>用买家的照片/视频做成MV，加歌词字幕 → 50-150元</li>
+          <li><strong>账号起号套餐：</strong>包月剪辑，30条视频 → 300-800元/月</li>
+        </ul>
+
+        <div class="callout warn"><div class="callout-icon"></div><div>收到买家素材后先确认：①是否有版权音乐问题 ②是否需要特定尺寸（抖音/小红书/B站不同）③有没有Logo水印要求。提前确认避免返工。</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 9: 收款·发货·售后
+════════════════════════════════════════ -->
+<section class="guide-section" id="sec9">
+  <div class="section-header">
+    <div class="section-num">9</div>
+    <div class="section-title-wrap">
+      <h2>收款 · 发货 · 售后</h2>
+      <p>虚拟商品的交付流程和售后保障体系</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:0 0 16px;">💰 收款方式大全</h3>
+
+  <div class="card">
+    <table class="guide-table">
+      <tr><th>收款方式</th><th>推荐度</th><th>说明</th></tr>
+      <tr>
+        <td>闲鱼担保交易</td>
+        <td><span class="tag tag-green">强烈推荐</span></td>
+        <td>买家付款→平台托管→确认收货后到账，纠纷有平台介入，最安全</td>
+      </tr>
+      <tr>
+        <td>闲鱼即时到账</td>
+        <td><span class="tag tag-orange">部分场景</span></td>
+        <td>买家付款后直接到你的支付宝，风险高，新手不建议</td>
+      </tr>
+      <tr>
+        <td>私下转账</td>
+        <td><span class="tag tag-red">禁止</span></td>
+        <td>平台明令禁止，一旦举报直接封号，买家也可能骗你</td>
+      </tr>
+    </table>
+    <div class="callout success" style="margin-top:12px;"><div class="callout-icon"></div><div><strong>提现时间：</strong>买家确认收货后，资金进入支付宝余额，随时提现到银行卡，T+0到账（部分银行T+1）。</div></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:24px 0 12px;">📦 虚拟商品"发货"方式</h3>
+
+  <div class="two-col">
+    <div class="card" style="border-top:2px solid var(--green);">
+      <div class="card-title">方式一：网盘链接发货（推荐）</div>
+      <ul style="font-size:13.5px;color:var(--gray-800);padding-left:16px;line-height:2.2;">
+        <li>把文件上传到百度网盘/阿里云盘</li>
+        <li>买家付款后，在聊天框发链接+提取码</li>
+        <li>同时在闲鱼"发货"流程里点击"虚拟发货"</li>
+        <li>适合：教程/文档/素材包类产品</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:2px solid var(--blue);">
+      <div class="card-title">方式二：直接聊天发货</div>
+      <ul style="font-size:13.5px;color:var(--gray-800);padding-left:16px;line-height:2.2;">
+        <li>把成品文件直接在聊天框发送</li>
+        <li>闲鱼聊天支持发送图片/文件</li>
+        <li>同时点击"虚拟发货"完成发货流程</li>
+        <li>适合：修图/设计稿/文案等定制类产品</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-icon"></div>
+    <div><strong>重要：</strong>无论用哪种方式交付，都必须在闲鱼App内完成"虚拟发货"操作！否则系统会自动退款给买家。<br>路径：订单详情 → 发货 → 虚拟发货 → 填写发货码（可以填网盘链接）→ 确认发货</div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:24px 0 12px;">🛡️ 售后保障体系搭建</h3>
+
+  <div class="card">
+    <div class="card-title">建立你的"无忧售后"体系，让买家放心下单</div>
+    <table class="guide-table" style="margin-top:10px;">
+      <tr><th>情况</th><th>你的处理方式</th><th>目的</th></tr>
+      <tr><td>买家说不满意</td><td>先道歉，再问具体哪里不满意，提供免费修改</td><td>留住好评</td></tr>
+      <tr><td>买家说看不了文件</td><td>换格式重新发，或指导如何打开</td><td>减少差评</td></tr>
+      <tr><td>买家要求退款</td><td>评估后：能解决→解决；真无法满足→直接退款</td><td>保护账号</td></tr>
+      <tr><td>买家不给好评</td><td>提醒一次即可，不要过度催促</td><td>自然积累</td></tr>
+      <tr><td>买家恶意退款</td><td>提供完整证据，联系闲鱼客服介入</td><td>保护权益</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 10: 进阶打造爆款
+════════════════════════════════════════ -->
+<section class="guide-section" id="sec10">
+  <div class="section-header">
+    <div class="section-num">10</div>
+    <div class="section-title-wrap">
+      <h2>进阶 · 打造爆款店铺</h2>
+      <p>从月入千元到月入万元，这是进阶的核心打法</p>
+    </div>
+  </div>
+
+  <div class="alert-banner">
+    <div class="alert-icon">🚀</div>
+    <div>恭喜你学到这里！这一节是从"能卖货"到"爆款店铺"的质的飞跃。</div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:24px 0 12px;">📊 月入阶段目标拆解</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-title">第1个月：验证可行性（月入500-1000元）</div>
+      <div class="timeline-content">目标：出单5-15笔，积累10个好评。不追求高利润，重点是跑通整个流程，了解买家真实需求。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-title">第2-3月：扩大规模（月入2000-5000元）</div>
+      <div class="timeline-content">优化爆款商品的标题/图片/详情，增加套餐梯度，开始提价，引导买家复购。建立服务流程标准化，每单都能高效交付。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-title">第4-6月：规模化复制（月入8000-20000元）</div>
+      <div class="timeline-content">把你的服务流程做成SOP，雇人帮你执行（众包/外包），自己只负责获客和品控。同时扩展品类，2-3个品类同时运营。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-title">6个月后：品牌化（月入3万+）</div>
+      <div class="timeline-content">打造个人IP品牌，从单打独斗到建立小团队，从闲鱼单平台到多平台（小红书+抖音+微信）引流至闲鱼成交。</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:24px 0 12px;">🔑 爆款商品的5大核心要素</h3>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">① 强买家证言</div>
+      <p style="font-size:13.5px;color:var(--gray-800);">把真实好评截图放到商品图片中（第3-5张图），让新买家看到真实的服务效果。带图好评比无图好评影响力大5倍。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">② 清晰的价值主张</div>
+      <p style="font-size:13.5px;color:var(--gray-800);">标题第一个词就是买家的核心需求。详情第一段就说清楚"买了能得到什么"，不要让买家猜测。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">③ 零风险承诺</div>
+      <p style="font-size:13.5px;color:var(--gray-800);">写上"不满意全额退款""1次免费修改"等保障。这些承诺大多数买家不会真的用，但可以消除犹豫，提升下单率30%以上。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">④ 紧迫感制造</div>
+      <p style="font-size:13.5px;color:var(--gray-800);">写上"今日前X名享受早鸟价""本月只接10个定制订单"等。制造稀缺感，让犹豫的买家下定决心。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">⑤ 持续更新内容</div>
+      <p style="font-size:13.5px;color:var(--gray-800);">每周至少更新一次商品主图或描述，保持商品新鲜度。算法会优先推荐近期活跃更新的商品。</p>
+    </div>
+    <div class="card">
+      <div class="card-title">⑥ 复购体系建立</div>
+      <p style="font-size:13.5px;color:var(--gray-800);">成交后说"老顾客下次来打折"，建立回头客习惯。一个回头客的获客成本是新客的1/10，是爆款店铺的核心资产。</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:24px 0 12px;">🌐 多平台引流策略</h3>
+
+  <div class="card">
+    <div class="card-title">平台矩阵搭建（内容引流到闲鱼成交）</div>
+    <table class="guide-table" style="margin-top:10px;">
+      <tr><th>平台</th><th>内容类型</th><th>引流方式</th><th>效果</th></tr>
+      <tr><td>小红书</td><td>干货笔记/案例展示</td><td>个人简介写"闲鱼同名"</td><td>⭐⭐⭐⭐⭐</td></tr>
+      <tr><td>抖音</td><td>技能展示/客户见证</td><td>个人简介写"闲鱼同名"</td><td>⭐⭐⭐⭐</td></tr>
+      <tr><td>知乎</td><td>专业回答+案例</td><td>回答末尾"感兴趣可以找我"</td><td>⭐⭐⭐</td></tr>
+      <tr><td>B站</td><td>教程视频</td><td>视频简介写闲鱼店铺名</td><td>⭐⭐⭐</td></tr>
+    </table>
+    <div class="callout tip" style="margin-top:12px;"><div class="callout-icon"></div><div><strong>注意：</strong>不要在任何其他平台上直接写闲鱼链接（会被平台屏蔽），用"闲鱼搜：[你的昵称]"这种引导方式。</div></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     FAQ
+════════════════════════════════════════ -->
+<section class="guide-section" id="faq">
+  <div class="section-header">
+    <div class="section-num">❓</div>
+    <div class="section-title-wrap">
+      <h2>常见问题 FAQ</h2>
+      <p>新手最常问的30个问题，点击展开答案</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">没有任何技能，能卖虚拟产品吗？<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">完全可以！你可以先从"资源整合"类产品入手——比如把网上免费但分散的AI工具教程整合成一份文档，帮人省时间。或者从"AI辅助"类服务入手——用ChatGPT帮人写小红书文案，你只需要会用AI工具即可。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">买家在哪里？怎么找到有需求的人？<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">
+      三个方法：①发布商品后等闲鱼主动推流给有搜索需求的买家；②在搜索框搜你的品类词，找"求购"帖主动联系；③发闲鱼想法（类朋友圈），分享相关干货，有需求的人会主动私信你。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">新号没有好评，买家不信任怎么办？<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">三步破局：①定价比同行低20%，用低价换第一批好评；②在详情页说明"新店开业，价格福利期，欢迎监督服务质量"；③提供"先看样品再付款"承诺（比如先免费给看1张修图效果，满意再付款）。拿到第一个好评后，一切会好转。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">每天要花多少时间？能副业兼职做吗？<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">完全可以兼职。启动阶段（前1个月）每天投入2-3小时：发布商品30分钟、回复买家1-2小时、制作产品30分钟。有了第一批好评且流量稳定后，日常维护只需1-2小时即可。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">卖虚拟产品要交税吗？<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">个人偶尔销售属于个人所得，按规定金额较小时无需申报。若月收入超过一定额度（如月均销售额超过3万元），建议咨询当地税务部门或注册个体工商户合规经营。本指南建议：初期先做起来，月入过万后再考虑合规化问题。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">买家付款后说没收到东西要退款，怎么办？<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">先确认是否真的发货了（检查聊天记录和发货记录）。若已发货，把发货记录截图给买家看，引导买家再确认一次网盘链接或文件。若买家坚持退款，可向闲鱼平台提交发货证明，平台会根据证据判定。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">可以卖软件会员账号吗（如Netflix、迪士尼+）？<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">这类业务处于灰色地带，闲鱼有限制但不完全禁止。风险：①正版平台可能封禁账号；②买家体验差会投诉；③闲鱼可能下架商品。如果要做，建议只卖"正规渠道获得的会员"，并做好买家说明和售后。新手不建议从这个品类入手。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">多久能见到收益？<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">如果产品选得对、定价合理、发布操作正确，一般7-14天会出第一单。但请注意：前期出单少是正常的，好评积累是一个过程。绝大多数成功的闲鱼卖家，都经历了前1个月的"艰难期"才爆发的。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">商品被同行恶意举报下架怎么办？<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">①立即查看下架原因；②根据原因调整商品（换图片、改标题、修改描述）；③重新发布；④如果认为是误判，在App内联系客服申诉，提供商品合规的证明（如你的服务说明、无侵权声明等）。
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">闲鱼抽多少佣金？<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">闲鱼目前对个人卖家的虚拟商品交易不收取平台佣金（0%），这是闲鱼对比其他平台的巨大优势。支付宝提现到银行卡：余额提现到银行卡一般也是免费的（大多数银行）。整体来说，你的利润就是实际成交价减去你的时间/工具成本。
+    </div>
+  </div>
+
+  <!-- 最后的进阶建议 -->
+  <div style="background:linear-gradient(135deg,var(--orange) 0%,#FF8F00 100%);border-radius:var(--radius-lg);padding:32px;color:white;margin-top:32px;text-align:center;">
+    <div style="font-family:var(--font-display);font-size:26px;margin-bottom:12px;">🎉 恭喜！你已完成全部学习</div>
+    <p style="opacity:0.9;font-size:15px;max-width:500px;margin:0 auto 20px;">现在你掌握的知识已经足够让你在闲鱼起步。记住：<strong>执行力比知识更重要</strong>。今天就注册，今天就发第一条商品！</p>
+    <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
+      <div style="background:rgba(255,255,255,0.15);border-radius:12px;padding:14px 20px;font-size:14px;">
+        📱 第一步：下载闲鱼App
+      </div>
+      <div style="background:rgba(255,255,255,0.15);border-radius:12px;padding:14px 20px;font-size:14px;">
+        🎯 第二步：选定一个品类
+      </div>
+      <div style="background:rgba(255,255,255,0.15);border-radius:12px;padding:14px 20px;font-size:14px;">
+        🚀 第三步：发出第一个商品
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ════════════════════════════════════════
+     SECTION 11: 禁忌品类全解析
+════════════════════════════════════════ -->
+<section class="guide-section" id="sec11">
+  <div class="section-header">
+    <div class="section-num">🚫</div>
+    <div class="section-title-wrap">
+      <h2>禁忌品类全解析 · 雷区地图</h2>
+      <p>哪些绝对不能卖？哪些可以卖但要注意？一次说清楚</p>
+    </div>
+  </div>
+
+  <div class="callout danger">
+    <div class="callout-icon"></div>
+    <div><strong>重要声明：</strong>以下内容基于闲鱼平台公开规则整理，平台规则随时可能更新，经营前请务必自行核实最新平台规则。</div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;margin:20px 0 12px;">🔴 绝对禁止类（发布即封号）</h3>
+  <table class="guide-table">
+    <tr><th>禁止类型</th><th>举例</th><th>风险说明</th></tr>
+    <tr>
+      <td><span class="tag tag-red">违法内容</span></td>
+      <td>盗版影视/音乐/书籍、黄色内容、赌博工具</td>
+      <td>违反国家法律，平台永久封号且可能面临法律追究</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-red">欺诈性服务</span></td>
+      <td>刷单服务、刷粉服务、虚假流量</td>
+      <td>违反平台规则且涉嫌欺诈，一旦被举报直接封号</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-red">个人信息交易</span></td>
+      <td>出售手机号、身份证、银行卡信息</td>
+      <td>严重违法，可追究刑事责任</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-red">账号密码出售</span></td>
+      <td>出售Netflix/游戏等账号密码</td>
+      <td>涉嫌盗号或违反平台协议，高封号风险</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-red">仿冒品/假货</span></td>
+      <td>盗版软件、破解版激活码</td>
+      <td>侵权，被投诉即封号</td>
+    </tr>
+  </table>
+
+  <h3 style="font-size:15px;font-weight:700;margin:24px 0 12px;">🟡 灰色地带（需谨慎操作）</h3>
+  <table class="guide-table">
+    <tr><th>类型</th><th>说明</th><th>建议</th></tr>
+    <tr>
+      <td>软件会员共享</td>
+      <td>多人共用一个会员账号</td>
+      <td>平台明确禁止，但执行力度不一，风险自担</td>
+    </tr>
+    <tr>
+      <td>免费资源整合转售</td>
+      <td>把网上免费资源打包卖</td>
+      <td>注意版权问题，只整合允许二次传播的资源</td>
+    </tr>
+    <tr>
+      <td>代注册服务</td>
+      <td>帮人注册某平台账号</td>
+      <td>部分平台明确禁止，需看具体平台协议</td>
+    </tr>
+    <tr>
+      <td>情感陪聊</td>
+      <td>提供在线情感聊天服务</td>
+      <td>需明确界定服务范围，避免违规内容</td>
+    </tr>
+  </table>
+
+  <h3 style="font-size:15px;font-weight:700;margin:24px 0 12px;">🟢 安全合规类（放心卖）</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+    <span class="tag tag-green">原创教程/课程</span>
+    <span class="tag tag-green">设计服务</span>
+    <span class="tag tag-green">文案代写</span>
+    <span class="tag tag-green">修图服务</span>
+    <span class="tag tag-green">PPT代做</span>
+    <span class="tag tag-green">翻译服务</span>
+    <span class="tag tag-green">代码开发</span>
+    <span class="tag tag-green">合规教程整合</span>
+    <span class="tag tag-green">AI生成原创内容</span>
+    <span class="tag tag-green">技能培训服务</span>
+    <span class="tag tag-green">咨询服务</span>
+    <span class="tag tag-green">正版软件激活码</span>
+  </div>
+  <div class="callout success"><div class="callout-icon"></div><div>只要是<strong>提供你的真实劳动/技能/原创内容</strong>的服务，基本都是安全合规的。坚守这条线，你的账号就安全。</div></div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 12: 爆款标题词库大全
+════════════════════════════════════════ -->
+<section class="guide-section" id="sec12">
+  <div class="section-header">
+    <div class="section-num">📚</div>
+    <div class="section-title-wrap">
+      <h2>爆款标题词库大全</h2>
+      <p>直接复制使用，覆盖10大主流品类</p>
+    </div>
+  </div>
+
+  <div class="callout info"><div class="callout-icon"></div><div>以下标题词库来源于对闲鱼平台热销商品的分析整理，直接套用能帮你快速获得初始流量。使用时把<span class="tag tag-blue">[括号内容]</span>替换成你自己的信息。</div></div>
+
+  <div class="tab-container">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab(this,'kw-ai')">AI教程</button>
+      <button class="tab-btn" onclick="switchTab(this,'kw-resume')">简历</button>
+      <button class="tab-btn" onclick="switchTab(this,'kw-photo')">修图</button>
+      <button class="tab-btn" onclick="switchTab(this,'kw-ppt')">PPT</button>
+      <button class="tab-btn" onclick="switchTab(this,'kw-copy')">文案</button>
+    </div>
+
+    <div class="tab-panel active" id="kw-ai">
+      <div class="card">
+        <div class="card-title">🤖 AI教程类 高转化标题模板</div>
+        <ul style="font-size:13.5px;color:var(--gray-800);line-height:2.6;padding-left:18px;">
+          <li>ChatGPT实战教程 零基础入门 附赠100+提示词 2024最新 副业变现必备</li>
+          <li>Midjourney AI绘画教程 从注册到出图 附1000+提示词中文版</li>
+          <li>AI副业全套教程 6大工具实战 零基础月入5000+ 附赠资源包</li>
+          <li>Suno AI音乐生成教程 无需乐理 30分钟学会 商用免版权音乐</li>
+          <li>AI写作全套工具合集 ChatGPT+Claude+豆包 提升效率10倍</li>
+          <li>Stable Diffusion本地安装包 整合版 无需科学上网 附安装教程</li>
+          <li>AI绘画提示词大全 1000+咒语词典 分类整理 即开即用</li>
+          <li>2024最新AI工具合集 10大必备AI 附使用教程 学生党必备</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="kw-resume">
+      <div class="card">
+        <div class="card-title">📄 简历类 高转化标题模板</div>
+        <ul style="font-size:13.5px;color:var(--gray-800);line-height:2.6;padding-left:18px;">
+          <li>简历代写 应届生春招 HR专业修改 ATS优化 秒过筛 当日出稿</li>
+          <li>简历模板2024最新 高颜值 Word可编辑 适合应届生/转行/跳槽</li>
+          <li>简历代写优化 IT互联网 金融 运营 产品 5年HR经验 满意为止</li>
+          <li>英文简历代写 留学申请 海外求职 CV优化 名校申请必备</li>
+          <li>毕业简历代写 零工作经验 实习经历包装 应届生专属</li>
+          <li>高端简历定制 大厂背景顾问 领英优化 猎头级别包装</li>
+          <li>简历体检 免费诊断 找出致命缺陷 1天内反馈</li>
+          <li>简历模板大礼包 100套精选 互联网/金融/设计/行政 全行业覆盖</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="kw-photo">
+      <div class="card">
+        <div class="card-title">🎨 修图类 高转化标题模板</div>
+        <ul style="font-size:13.5px;color:var(--gray-800);line-height:2.6;padding-left:18px;">
+          <li>证件照换背景 白底红底蓝底 1小时出图 高清免压缩 简历用</li>
+          <li>PS人像精修 磨皮美白 证件照美化 1寸2寸规格 快速出片</li>
+          <li>商品图抠图精修 淘宝主图 白底图 多规格处理 批量优惠</li>
+          <li>老照片修复 破损泛黄发黑 彩色还原 高清修复 保留细节</li>
+          <li>AI换脸合成 婚纱照制作 旅行证件照 1小时出片</li>
+          <li>图片文字去除 水印去除 Logo去除 背景修补 快速交付</li>
+          <li>婚纱照精修 皮肤磨皮 景深虚化 色调调整 媲美影楼</li>
+          <li>电商产品图精修 服装商品 食品饮料 数码家电 提升转化率</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="kw-ppt">
+      <div class="card">
+        <div class="card-title">📊 PPT代做类 高转化标题模板</div>
+        <ul style="font-size:13.5px;color:var(--gray-800);line-height:2.6;padding-left:18px;">
+          <li>PPT代做 商务汇报 年终总结 24小时交付 高大上风格 可修改</li>
+          <li>毕业答辩PPT代做 学术风 附演讲稿 1-3天交付 一对一沟通</li>
+          <li>PPT模板大全 500套精选 商务/创意/学术 Word可编辑</li>
+          <li>融资路演PPT 创业计划书 商业计划书 专业顾问制作</li>
+          <li>政府汇报PPT 党建主题 总结报告 端庄大气 可定制</li>
+          <li>快速PPT制作 你提供内容我设计 4小时闪电交付</li>
+          <li>PPT转换Word 提取文字内容 格式整理 24小时内完成</li>
+          <li>教学课件PPT 趣味化设计 学生喜欢 符合教学逻辑</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="kw-copy">
+      <div class="card">
+        <div class="card-title">✍️ 文案代写类 高转化标题模板</div>
+        <ul style="font-size:13.5px;color:var(--gray-800);line-height:2.6;padding-left:18px;">
+          <li>小红书笔记代写 爆款选题 SEO优化 适合商家/个人 1天出稿</li>
+          <li>抖音短视频脚本 带货/Vlog/知识分享 爆款结构 当天交付</li>
+          <li>朋友圈文案 每日更新 微商/创业/情感 10条起售 高转化</li>
+          <li>产品详情页文案 卖点提炼 场景化描述 提升转化率30%</li>
+          <li>自我介绍代写 求职/相亲/创业 100字精华版 100%原创</li>
+          <li>公众号文章代写 行业干货/情感/故事 可定制方向 1000字起</li>
+          <li>品牌故事代写 创始人故事 品牌起源 引发共鸣 打动消费者</li>
+          <li>演讲稿/发言稿 婚礼/毕业/年会 量身定制 专业润色</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout tip"><div class="callout-icon"></div><div><strong>使用技巧：</strong>每次发布1个商品测试1个标题，7天后对比哪个标题点击量更高，保留高点击量的，删除低点击量的。这叫"A/B测试"，是电商运营的基本功。</div></div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 13: 一周执行计划
+════════════════════════════════════════ -->
+<section class="guide-section" id="sec13">
+  <div class="section-header">
+    <div class="section-num">📅</div>
+    <div class="section-title-wrap">
+      <h2>第一周每日执行计划</h2>
+      <p>7天打卡计划，从零开始的第一周该做什么，全部列清楚</p>
+    </div>
+  </div>
+
+  <div class="callout info"><div class="callout-icon"></div><div>请把这个当成你的"打工日历"，每天对照执行，不需要思考，照做就对了。</div></div>
+
+  <div class="card" style="border-left:3px solid var(--orange);">
+    <div class="card-title" style="color:var(--orange);">📅 第一天：安装、注册、设置账号</div>
+    <ul class="checklist" data-group="day1">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>下载闲鱼App，用手机号或支付宝注册</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>完成实名认证（设置→账号安全→实名认证）</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>换头像（专业形象，非默认）</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>改昵称（体现专业身份）</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>填写个人简介（参考第1节模板）</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>刷30分钟闲鱼，搜索你计划卖的品类词，研究竞品</span></li>
+    </ul>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--orange);">
+    <div class="card-title" style="color:var(--orange);">📅 第二天：研究市场、确定选品</div>
+    <ul class="checklist" data-group="day2">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>在搜索框搜索你考虑的3个品类词</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>找出每个品类销量前5的商品，记录：标题、价格、主图风格、详情结构</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>根据自己的能力选定1个品类（不要选超过1个！）</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>确定你的起始定价（比同行低20%）</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>收藏5个竞品商品，每天观察他们的变化</span></li>
+    </ul>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--orange);">
+    <div class="card-title" style="color:var(--orange);">📅 第三天：制作产品/整理服务内容</div>
+    <ul class="checklist" data-group="day3">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>制作你的产品（教程PDF/整理服务流程/准备工具）</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>制作商品主图（参考第3节主图法则）</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>写好商品标题（参考第12节词库）</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>按"四段论"写好商品详情</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>设计3个梯度套餐（基础/标准/旗舰）</span></li>
+    </ul>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--orange);">
+    <div class="card-title" style="color:var(--orange);">📅 第四天：发布第一个商品</div>
+    <ul class="checklist" data-group="day4">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>发布第一个商品（发布→数字商品/服务）</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>发布完查看商品展示效果，手机截图确认主图显示正常</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>设置自动回复（我的→卖家中心→自动回复）</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>开启消息推送通知，确保不错过买家消息</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>在"想法"发一条与品类相关的干货内容</span></li>
+    </ul>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--orange);">
+    <div class="card-title" style="color:var(--orange);">📅 第五天：优化+再发布</div>
+    <ul class="checklist" data-group="day5">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>查看昨天商品的曝光量（商品管理→数据）</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>如果曝光低，尝试修改标题，换一个关键词组合</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>发布第2个商品（不同标题/不同主图的同一服务，测试哪个效果好）</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>搜索品类"求购"帖，主动联系3-5个潜在买家</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>再发一条"想法"干货</span></li>
+    </ul>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--orange);">
+    <div class="card-title" style="color:var(--orange);">📅 第六天：学习提升+社群互动</div>
+    <ul class="checklist" data-group="day6">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>浏览同类卖家的"想法"内容，学习他们的内容运营方式</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>给品类相关的"想法"点赞/评论，增加账号活跃度</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>更新商品（编辑后重新保存，刷新排名）</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>思考：我的竞争优势是什么？能不能在详情页更突出？</span></li>
+    </ul>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--orange);">
+    <div class="card-title" style="color:var(--orange);">📅 第七天：复盘总结+计划下周</div>
+    <ul class="checklist" data-group="day7">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>查看所有商品的7天数据：曝光量、点击量、咨询量</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>找出曝光最高的商品，思考原因，复制到其他商品</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>找出曝光最低的商品，决定是修改还是删除</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>如果已有咨询但未成交，复盘话术，思考哪里可以改进</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>制定下周计划：计划发几个商品？要优化什么？</span></li>
+    </ul>
+  </div>
+
+  <div class="callout success"><div class="callout-icon"></div><div><strong>坚持就是胜利：</strong>大多数人看完就不行动，或者行动了3天就放弃。真正执行到第30天的人，几乎都有了第一笔收入。你和他们的差距，就是执行力。</div></div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 14: 工具推荐大全
+════════════════════════════════════════ -->
+<section class="guide-section" id="sec14">
+  <div class="section-header">
+    <div class="section-num">🛠️</div>
+    <div class="section-title-wrap">
+      <h2>效率工具推荐大全</h2>
+      <p>帮你节省90%时间的神器清单，大部分免费</p>
+    </div>
+  </div>
+
+  <div class="tab-container">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab(this,'tool-design')">设计工具</button>
+      <button class="tab-btn" onclick="switchTab(this,'tool-ai')">AI工具</button>
+      <button class="tab-btn" onclick="switchTab(this,'tool-doc')">文档工具</button>
+      <button class="tab-btn" onclick="switchTab(this,'tool-ops')">运营工具</button>
+    </div>
+
+    <div class="tab-panel active" id="tool-design">
+      <table class="guide-table">
+        <tr><th>工具</th><th>用途</th><th>价格</th><th>推荐度</th></tr>
+        <tr><td><strong>Canva</strong></td><td>商品主图设计、PPT制作、社交媒体图</td><td>免费/付费</td><td>⭐⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>美图秀秀</strong></td><td>快速修图、证件照换背景</td><td>免费</td><td>⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>remove.bg</strong></td><td>AI抠图，一键去除背景</td><td>免费（有限量）</td><td>⭐⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>Photopea</strong></td><td>网页版PS，免安装，功能完整</td><td>免费</td><td>⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>可画</strong></td><td>国产设计工具，模板多</td><td>免费/付费</td><td>⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>醒图</strong></td><td>手机端专业修图，抖音出品</td><td>免费</td><td>⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>吾道幻灯片</strong></td><td>AI生成PPT，国产好用</td><td>免费/付费</td><td>⭐⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>优品PPT</strong></td><td>海量免费PPT模板下载</td><td>免费</td><td>⭐⭐⭐⭐</td></tr>
+      </table>
+    </div>
+
+    <div class="tab-panel" id="tool-ai">
+      <table class="guide-table">
+        <tr><th>工具</th><th>用途</th><th>价格</th><th>推荐度</th></tr>
+        <tr><td><strong>豆包</strong></td><td>文案写作、创意构思，中文最好用</td><td>免费</td><td>⭐⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>文心一言</strong></td><td>百度AI，中文写作能力强</td><td>免费</td><td>⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>Kimi</strong></td><td>长文档处理、信息整理提取</td><td>免费</td><td>⭐⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>通义千问</strong></td><td>阿里AI，适合商业内容生成</td><td>免费</td><td>⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>即梦AI</strong></td><td>AI图片生成，抖音出品，中文提示词</td><td>免费/付费</td><td>⭐⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>文生视频（PixVerse）</strong></td><td>AI视频生成，适合素材创作</td><td>免费/付费</td><td>⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>Suno</strong></td><td>AI音乐生成，30秒生成一首歌</td><td>免费/付费</td><td>⭐⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>讯飞星火</strong></td><td>语音转文字、文档处理</td><td>免费</td><td>⭐⭐⭐⭐</td></tr>
+      </table>
+    </div>
+
+    <div class="tab-panel" id="tool-doc">
+      <table class="guide-table">
+        <tr><th>工具</th><th>用途</th><th>价格</th><th>推荐度</th></tr>
+        <tr><td><strong>腾讯文档</strong></td><td>免费云文档，分享给买家查阅</td><td>免费</td><td>⭐⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>飞书文档</strong></td><td>排版美观，适合整理教程</td><td>免费</td><td>⭐⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>百度网盘</strong></td><td>发货必备，存储+分享文件</td><td>免费/付费</td><td>⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>阿里云盘</strong></td><td>不限速，发货体验更好</td><td>免费/付费</td><td>⭐⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>夸克网盘</strong></td><td>下载速度快，适合大文件</td><td>免费</td><td>⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>WPS</strong></td><td>Word/PPT/Excel全套，必装</td><td>免费/付费</td><td>⭐⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>小红书创作服务平台</strong></td><td>分析小红书热词，辅助文案写作</td><td>免费</td><td>⭐⭐⭐</td></tr>
+      </table>
+    </div>
+
+    <div class="tab-panel" id="tool-ops">
+      <table class="guide-table">
+        <tr><th>工具</th><th>用途</th><th>价格</th><th>推荐度</th></tr>
+        <tr><td><strong>闲鱼数据助手</strong></td><td>查看商品数据，分析竞品</td><td>部分免费</td><td>⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>5118</strong></td><td>关键词分析，找热搜词</td><td>付费</td><td>⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>爱站工具</strong></td><td>免费关键词分析</td><td>免费</td><td>⭐⭐⭐</td></tr>
+        <tr><td><strong>微信收款助手</strong></td><td>（备用，私下不要用）</td><td>免费</td><td>—</td></tr>
+        <tr><td><strong>剪映</strong></td><td>视频剪辑，必装，功能最全</td><td>免费</td><td>⭐⭐⭐⭐⭐</td></tr>
+        <tr><td><strong>图怪兽</strong></td><td>快速做图，海报/主图</td><td>免费/付费</td><td>⭐⭐⭐⭐</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 15: 心态与误区
+════════════════════════════════════════ -->
+<section class="guide-section" id="sec15">
+  <div class="section-header">
+    <div class="section-num">💪</div>
+    <div class="section-title-wrap">
+      <h2>新手心态 · 10大常见误区</h2>
+      <p>这些思维错误，让95%的人还没开始就放弃了</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">误区1：「我没有技能，什么都不会，没法卖」<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">真相：你不需要从零学习技能。你现在能做的事情里，有很多是别人不知道怎么做的。你会用微信吗？你会整理文件吗？你会搜索资料吗？这些都能变成服务。更何况，现在有AI工具，让普通人也能输出专业内容。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">误区2：「竞争太激烈了，没有机会了」<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">真相：闲鱼每天新增大量用户，需求也在不断增长。而且你不需要打败所有人，只需要在某个细分领域做到前3名。比如"PS修图"很卷，但"专门给律师做庭审证件照"就很细分，竞争极小。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">误区3：「先学会所有知识再开始」<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">真相：这是完美主义陷阱。在行动中学习，远比在学习中等待高效。很多成功的闲鱼卖家，都是在第一单出了之后才真正搞清楚怎么做。先发布，有问题再解决。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">误区4：「一开始就要大规模，多发商品多开品类」<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">真相：新手精力有限，多而不精只会导致每一个都很平庸。正确做法是：先把一个商品做到月均50单以上，再考虑扩品类。爆款往往是把一件事做到极致。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">误区5：「价格越低越好卖」<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">真相：价格太低反而让买家觉得你的服务不值钱，甚至怀疑有问题。价格体现的是价值感。合理低价（比同行低10-20%）是合理的，但如果你的价格只有市场价的30%，买家反而会怀疑。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">误区6：「发了商品没有人买，说明闲鱼不适合我」<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">真相：大多数商品需要2-4周才能真正跑起来。新账号权重低，前2周曝光少是完全正常的。坚持每天优化、每天更新，权重会慢慢提升。判断一个品类有没有机会，至少要坚持30天再下结论。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">误区7：「遇到差评完了，我的店毁了」<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">真相：一个差评不会毁掉你，但你对差评的处理方式会让其他买家看到你的态度。认真处理差评，在评价下方写出你的解决过程，反而能增加买家信任。大多数成功的店铺都有过差评，关键是如何应对。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">误区8：「一定要找很多朋友来刷单增加好评」<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">真相：这是最危险的行为之一。闲鱼有专门的系统检测虚假评价，一旦检测到，账号直接永久封禁。真实的好评才是最有价值的，哪怕慢一点，也要靠真实服务积累。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">误区9：「我要先做好准备，再找个好时机开始」<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">真相：没有完美的时机。任何时候开始都不算晚，但每晚一天开始，就少一天的积累。现在就是最好的时机。</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">误区10：「别人能赚钱是因为运气好/有资源/认识人」<span class="faq-toggle">+</span></div>
+    <div class="faq-answer">真相：在闲鱼卖虚拟产品，几乎完全靠系统推荐，跟你认识谁没关系。决定成功的因素只有三个：选品对不对、执行是否持续、服务是否到位。这三件事你完全可以控制。</div>
+  </div>
+
+  <div style="background:var(--orange-pale);border-radius:var(--radius-lg);padding:28px;margin-top:24px;text-align:center;">
+    <p style="font-family:var(--font-display);font-size:20px;color:var(--orange-deep);margin-bottom:12px;">一句话送给你</p>
+    <p style="font-size:16px;color:var(--gray-800);line-height:1.8;max-width:500px;margin:0 auto;">在闲鱼卖虚拟产品，<strong>没有那么难，也没有那么容易</strong>。<br>它需要的不是天才，只是一个愿意<strong>认真执行30天</strong>的普通人。<br>那个人可以是你。</p>
+  </div>
+</section>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到顶部">↑</button>
+
+<script>
+// ═══════════════════ TOGGLE SIDEBAR ═══════════════════
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+}
+
+// ═══════════════════ SCROLL PROGRESS ═══════════════════
+window.addEventListener('scroll', function() {
+  var scrollTop = window.scrollY;
+  var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  var pct = Math.round((scrollTop / docHeight) * 100);
+  document.getElementById('readProgress').style.width = pct + '%';
+  document.getElementById('readLabel').textContent = pct + '%';
+  document.getElementById('backToTop').classList.toggle('visible', scrollTop > 400);
+
+  // Active nav item
+  var sections = document.querySelectorAll('.guide-section, #intro-detail');
+  var navItems = document.querySelectorAll('.nav-item');
+  var currentSection = '';
+  sections.forEach(function(s) {
+    var top = s.getBoundingClientRect().top;
+    if (top < 100) currentSection = s.id;
+  });
+  navItems.forEach(function(item) {
+    item.classList.remove('active');
+    var href = item.getAttribute('href');
+    if (href && href.substring(1) === currentSection) item.classList.add('active');
+  });
+});
+
+// ═══════════════════ CHECKLIST ═══════════════════
+var totalChecks = 0;
+var checked = 0;
+function initChecklists() {
+  var items = document.querySelectorAll('.checklist li');
+  totalChecks = items.length;
+  document.getElementById('totalCheck').textContent = totalChecks;
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  updateProgress();
+}
+
+function updateProgress() {
+  var checkedItems = document.querySelectorAll('.checklist li.checked').length;
+  document.getElementById('checkCount').textContent = checkedItems;
+  var totalItems = document.querySelectorAll('.checklist li').length;
+  var pct = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
+  document.getElementById('sidebarProgress').style.width = pct + '%';
+}
+
+// ═══════════════════ FAQ ACCORDION ═══════════════════
+function toggleFaq(el) {
+  var item = el.parentElement;
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i) {
+    i.classList.remove('open');
+  });
+  if (!isOpen) item.classList.add('open');
+}
+
+// ═══════════════════ TABS ═══════════════════
+function switchTab(btn, panelId) {
+  var container = btn.closest('.tab-container');
+  container.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  container.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  btn.classList.add('active');
+  var panel = document.getElementById(panelId);
+  if (panel) panel.classList.add('active');
+}
+
+// ═══════════════════ PROGRESS ANIMATE ═══════════════════
+function animateProgressBars() {
+  var bars = document.querySelectorAll('.progress-fill');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        var target = e.target;
+        var w = target.style.width;
+        target.style.width = '0%';
+        setTimeout(function() { target.style.width = w; }, 100);
+        observer.unobserve(target);
+      }
+    });
+  }, { threshold: 0.3 });
+  bars.forEach(function(b) { observer.observe(b); });
+}
+
+// ═══════════════════ INIT ═══════════════════
+document.addEventListener('DOMContentLoaded', function() {
+  initChecklists();
+  animateProgressBars();
+});
+</script>
+</body>
+</html>

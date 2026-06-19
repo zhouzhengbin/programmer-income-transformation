@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全球一键传播系统 · 完整操作手册</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0f14;
+  --bg2:#13161d;
+  --bg3:#1a1e28;
+  --bg4:#1f2433;
+  --amber:#f5a623;
+  --amber2:#ffd166;
+  --green:#4ade80;
+  --blue:#60a5fa;
+  --red:#f87171;
+  --purple:#c084fc;
+  --text:#e2ddd5;
+  --text2:#a09888;
+  --text3:#5a5550;
+  --border:rgba(245,166,35,0.12);
+  --border2:rgba(255,255,255,0.06);
+  --code-bg:#0a0c10;
+  --radius:4px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Lora','Noto Sans SC',serif;
+  font-size:16px;
+  line-height:1.8;
+  overflow-x:hidden;
+}
+/* subtle grain */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.4;
+}
+
+/* ===== COVER ===== */
+.cover{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:60px 24px;
+  position:relative;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 0%, rgba(245,166,35,0.08) 0%, transparent 60%);
+}
+.cover-tag{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:4px;color:var(--amber);
+  border:1px solid rgba(245,166,35,0.3);
+  padding:5px 18px;margin-bottom:40px;
+  display:inline-block;
+}
+.cover h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,7vw,88px);
+  font-weight:900;line-height:1.05;
+  color:#fff;margin-bottom:24px;
+  letter-spacing:-2px;
+}
+.cover h1 em{
+  font-style:italic;color:var(--amber);
+}
+.cover-sub{
+  font-size:clamp(15px,2vw,19px);
+  color:var(--text2);max-width:680px;
+  margin:0 auto 56px;line-height:1.7;
+  font-family:'Noto Sans SC',sans-serif;font-weight:300;
+}
+.cover-stats{
+  display:flex;gap:48px;justify-content:center;flex-wrap:wrap;
+  padding:32px 48px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,0.02);
+  backdrop-filter:blur(10px);
+}
+.stat-item{text-align:center;}
+.stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:42px;font-weight:900;
+  color:var(--amber);display:block;line-height:1;margin-bottom:6px;
+}
+.stat-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:2px;color:var(--text3);
+}
+.scroll-hint{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  animation:bounce 2s ease-in-out infinite;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--text3);letter-spacing:2px;
+}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
+.scroll-arrow{width:1px;height:40px;background:linear-gradient(to bottom,var(--amber),transparent);}
+
+/* ===== TOC ===== */
+.toc-section{
+  max-width:900px;margin:0 auto;padding:80px 24px;
+}
+.toc-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,4vw,42px);font-weight:700;
+  margin-bottom:8px;color:#fff;
+}
+.toc-subtitle{
+  font-family:'Noto Sans SC',sans-serif;font-weight:300;
+  color:var(--text2);font-size:15px;margin-bottom:48px;
+}
+.toc-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:12px;
+}
+.toc-item{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:18px 20px;
+  border:1px solid var(--border2);
+  background:var(--bg2);
+  cursor:pointer;text-decoration:none;
+  transition:all .2s;
+  position:relative;
+}
+.toc-item::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:3px;background:var(--amber);opacity:0;
+  transition:opacity .2s;
+}
+.toc-item:hover{border-color:var(--border);background:var(--bg3);}
+.toc-item:hover::before{opacity:1;}
+.toc-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--text3);
+  min-width:24px;padding-top:2px;
+}
+.toc-info{}
+.toc-name{
+  font-family:'Noto Sans SC',sans-serif;
+  font-size:14px;font-weight:500;color:var(--text);
+  margin-bottom:2px;
+}
+.toc-desc{
+  font-family:'Noto Sans SC',sans-serif;
+  font-size:12px;color:var(--text3);
+  font-weight:300;
+}
+
+/* ===== CHAPTER HEADER ===== */
+.chapter{max-width:900px;margin:0 auto;padding:0 24px;}
+.chapter-divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--amber),transparent);
+  opacity:.2;margin:0;
+}
+.chapter-header{
+  padding:80px 24px 48px;
+  max-width:900px;margin:0 auto;
+}
+.ch-meta{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:20px;
+}
+.ch-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--amber);
+  border:1px solid rgba(245,166,35,0.3);
+  padding:3px 12px;letter-spacing:2px;
+}
+.ch-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:2px;
+  padding:3px 10px;border-radius:20px;
+}
+.tag-must{background:rgba(74,222,128,0.1);color:var(--green);border:1px solid rgba(74,222,128,0.2);}
+.tag-auto{background:rgba(96,165,250,0.1);color:var(--blue);border:1px solid rgba(96,165,250,0.2);}
+.tag-free{background:rgba(245,166,35,0.1);color:var(--amber);border:1px solid rgba(245,166,35,0.2);}
+.tag-advanced{background:rgba(192,132,252,0.1);color:var(--purple);border:1px solid rgba(192,132,252,0.2);}
+
+.ch-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(26px,4vw,44px);
+  font-weight:900;color:#fff;
+  margin-bottom:16px;line-height:1.15;
+}
+.ch-desc{
+  font-family:'Noto Sans SC',sans-serif;font-weight:300;
+  font-size:15px;color:var(--text2);
+  line-height:1.8;max-width:700px;
+  border-left:3px solid rgba(245,166,35,0.3);
+  padding-left:16px;
+}
+
+/* ===== OVERVIEW BOX ===== */
+.overview-box{
+  background:linear-gradient(135deg,rgba(245,166,35,0.05),rgba(96,165,250,0.03));
+  border:1px solid var(--border);
+  padding:28px 32px;margin-bottom:40px;
+  font-family:'Noto Sans SC',sans-serif;font-weight:300;
+  font-size:14px;color:var(--text2);line-height:1.9;
+}
+.overview-box strong{color:var(--amber);font-weight:500;}
+
+/* ===== STEPS ===== */
+.step-block{
+  margin-bottom:32px;
+  border:1px solid var(--border2);
+  overflow:hidden;
+  background:var(--bg2);
+}
+.step-header{
+  display:flex;align-items:flex-start;gap:0;
+  background:var(--bg3);
+  cursor:pointer;
+  user-select:none;
+}
+.step-num-box{
+  background:var(--amber);
+  color:#000;
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;font-weight:600;
+  padding:20px 16px;
+  min-width:56px;text-align:center;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;align-self:stretch;
+}
+.step-title-box{
+  padding:18px 20px;flex:1;
+}
+.step-title{
+  font-family:'Noto Sans SC',sans-serif;
+  font-size:15px;font-weight:500;color:#fff;
+  margin-bottom:3px;
+}
+.step-subtitle{
+  font-family:'Noto Sans SC',sans-serif;
+  font-size:12px;color:var(--text3);font-weight:300;
+}
+.step-toggle{
+  padding:18px 20px;color:var(--text3);
+  font-size:18px;align-self:center;transition:transform .3s;
+  flex-shrink:0;
+}
+.step-toggle.open{transform:rotate(45deg);color:var(--amber);}
+
+.step-body{
+  padding:28px 28px 24px;
+  border-top:1px solid var(--border2);
+  display:none;
+}
+.step-body.visible{display:block;}
+
+/* ===== INSTRUCTION LIST ===== */
+.inst-list{list-style:none;margin-bottom:20px;}
+.inst-list li{
+  display:flex;gap:14px;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+  font-family:'Noto Sans SC',sans-serif;font-weight:300;
+  font-size:14px;color:var(--text2);line-height:1.7;
+  align-items:flex-start;
+}
+.inst-list li:last-child{border-bottom:none;}
+.inst-n{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:var(--amber);min-width:22px;margin-top:2px;
+  flex-shrink:0;font-weight:600;
+}
+.inst-list li strong{color:var(--text);font-style:normal;}
+.inst-list li em{color:var(--amber);font-style:normal;font-family:'JetBrains Mono',monospace;font-size:13px;}
+
+/* ===== CODE BLOCK ===== */
+.code-block{
+  background:var(--code-bg);
+  border:1px solid rgba(255,255,255,0.08);
+  border-left:3px solid var(--amber);
+  padding:16px 20px;margin:16px 0;
+  overflow-x:auto;
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;color:#a8d8ea;
+  line-height:1.6;
+  position:relative;
+}
+.code-block .comment{color:#4a5568;}
+.code-block .string{color:var(--amber2);}
+.code-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:2px;color:var(--text3);
+  margin-bottom:6px;display:block;
+}
+.copy-btn{
+  position:absolute;top:10px;right:10px;
+  background:rgba(245,166,35,0.1);
+  border:1px solid rgba(245,166,35,0.2);
+  color:var(--amber);
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  padding:4px 10px;cursor:pointer;letter-spacing:1px;
+  transition:all .2s;
+}
+.copy-btn:hover{background:rgba(245,166,35,0.2);}
+
+/* ===== TIP / WARNING / IMPORTANT ===== */
+.tip-box{
+  padding:16px 20px;margin:16px 0;
+  font-family:'Noto Sans SC',sans-serif;font-weight:300;
+  font-size:13px;line-height:1.7;
+  display:flex;gap:12px;align-items:flex-start;
+}
+.tip-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.tip-box.tip{background:rgba(74,222,128,0.05);border:1px solid rgba(74,222,128,0.15);color:var(--text2);}
+.tip-box.warning{background:rgba(251,191,36,0.05);border:1px solid rgba(251,191,36,0.15);color:var(--text2);}
+.tip-box.danger{background:rgba(248,113,113,0.05);border:1px solid rgba(248,113,113,0.15);color:var(--text2);}
+.tip-box.info{background:rgba(96,165,250,0.05);border:1px solid rgba(96,165,250,0.15);color:var(--text2);}
+.tip-box strong{font-weight:500;}
+.tip-box.tip strong{color:var(--green);}
+.tip-box.warning strong{color:var(--amber);}
+.tip-box.danger strong{color:var(--red);}
+.tip-box.info strong{color:var(--blue);}
+
+/* ===== URL LINK ===== */
+.url-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+  color:var(--blue);
+  border-bottom:1px dotted rgba(96,165,250,0.4);
+  cursor:pointer;
+}
+
+/* ===== CHECKLIST ===== */
+.checklist{list-style:none;margin:12px 0;}
+.checklist li{
+  display:flex;gap:10px;align-items:flex-start;
+  padding:6px 0;
+  font-family:'Noto Sans SC',sans-serif;font-weight:300;
+  font-size:14px;color:var(--text2);
+}
+.checklist li::before{
+  content:'☐';color:var(--text3);flex-shrink:0;
+  font-size:14px;margin-top:1px;
+}
+
+/* ===== TABLE ===== */
+.data-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px;}
+.data-table th{
+  background:var(--bg4);
+  padding:10px 14px;text-align:left;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:2px;color:var(--amber);
+  border-bottom:1px solid var(--border);
+}
+.data-table td{
+  padding:10px 14px;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+  font-family:'Noto Sans SC',sans-serif;font-weight:300;
+  color:var(--text2);vertical-align:top;
+}
+.data-table tr:hover td{background:rgba(255,255,255,0.01);}
+.badge-free{color:var(--green);font-family:'JetBrains Mono',monospace;font-size:11px;}
+.badge-paid{color:var(--amber);font-family:'JetBrains Mono',monospace;font-size:11px;}
+
+/* ===== RESULT BOX ===== */
+.result-box{
+  background:rgba(74,222,128,0.04);
+  border:1px solid rgba(74,222,128,0.15);
+  padding:16px 20px;margin-top:20px;
+  font-family:'Noto Sans SC',sans-serif;font-weight:300;
+  font-size:13px;color:var(--text2);
+}
+.result-box strong{color:var(--green);font-weight:500;display:block;margin-bottom:4px;}
+
+/* ===== PLATFORM CARD ===== */
+.platform-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:14px;margin:20px 0;
+}
+.platform-card{
+  background:var(--bg3);border:1px solid var(--border2);
+  padding:20px;transition:all .2s;
+}
+.platform-card:hover{border-color:var(--border);}
+.pc-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.pc-emoji{font-size:22px;}
+.pc-name{font-family:'Noto Sans SC',sans-serif;font-size:14px;font-weight:500;color:#fff;}
+.pc-region{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);}
+.pc-desc{font-family:'Noto Sans SC',sans-serif;font-weight:300;font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;}
+.pc-steps{font-family:'Noto Sans SC',sans-serif;font-weight:300;font-size:12px;color:var(--text3);line-height:1.7;}
+.pc-steps b{color:var(--amber);font-weight:500;}
+
+/* ===== FLOW CHART ===== */
+.flow-wrap{overflow-x:auto;padding:20px 0;}
+.flow{
+  display:flex;align-items:center;gap:0;
+  min-width:max-content;padding:0 10px;
+}
+.flow-node{
+  background:var(--bg4);border:1px solid var(--border2);
+  padding:12px 18px;text-align:center;
+  font-family:'Noto Sans SC',sans-serif;
+  font-size:13px;color:var(--text);min-width:100px;
+}
+.flow-node.primary{
+  background:rgba(245,166,35,0.1);
+  border-color:rgba(245,166,35,0.3);
+  color:var(--amber);font-weight:500;
+}
+.flow-node.success{
+  background:rgba(74,222,128,0.08);
+  border-color:rgba(74,222,128,0.2);
+  color:var(--green);
+}
+.flow-arrow{
+  color:var(--text3);font-size:18px;
+  padding:0 4px;flex-shrink:0;
+}
+
+/* ===== WEEK PLAN ===== */
+.week-block{
+  background:var(--bg2);border:1px solid var(--border2);
+  margin-bottom:16px;overflow:hidden;
+}
+.week-header{
+  display:flex;gap:0;align-items:stretch;
+  border-bottom:1px solid var(--border2);
+}
+.week-badge{
+  background:var(--amber);color:#000;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:600;
+  padding:14px 16px;letter-spacing:1px;
+  display:flex;align-items:center;justify-content:center;
+  writing-mode:horizontal-tb;min-width:90px;
+  text-align:center;
+}
+.week-info{padding:14px 20px;}
+.week-name{
+  font-family:'Noto Sans SC',sans-serif;
+  font-size:15px;font-weight:500;color:#fff;margin-bottom:4px;
+}
+.week-desc{
+  font-family:'Noto Sans SC',sans-serif;font-weight:300;
+  font-size:12px;color:var(--text3);
+}
+.week-body{padding:20px 24px;}
+.day-row{
+  display:flex;gap:14px;
+  padding:8px 0;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+  font-family:'Noto Sans SC',sans-serif;font-weight:300;
+  font-size:13px;color:var(--text2);
+}
+.day-row:last-child{border-bottom:none;}
+.day-label{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:var(--amber);min-width:40px;
+  margin-top:2px;flex-shrink:0;
+}
+.day-task{flex:1;line-height:1.6;}
+
+/* ===== SECTION BREAK ===== */
+.section-break{
+  text-align:center;padding:48px 24px 0;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:3px;color:var(--text3);
+}
+
+/* ===== FINAL CTA ===== */
+.final{
+  max-width:900px;margin:0 auto;
+  padding:80px 24px;text-align:center;
+}
+.final h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,5vw,52px);
+  font-weight:900;color:#fff;margin-bottom:20px;
+}
+.final h2 em{color:var(--amber);font-style:italic;}
+.final p{
+  font-family:'Noto Sans SC',sans-serif;font-weight:300;
+  font-size:15px;color:var(--text2);
+  max-width:560px;margin:0 auto 40px;line-height:1.8;
+}
+.final-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:12px;margin-bottom:40px;
+}
+.final-item{
+  background:var(--bg2);border:1px solid var(--border2);
+  padding:20px;text-align:left;
+}
+.fi-icon{font-size:24px;margin-bottom:10px;}
+.fi-title{font-family:'Noto Sans SC',sans-serif;font-size:13px;font-weight:500;color:var(--amber);margin-bottom:6px;}
+.fi-desc{font-family:'Noto Sans SC',sans-serif;font-weight:300;font-size:12px;color:var(--text3);line-height:1.6;}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:640px){
+  .cover-stats{padding:24px;gap:28px;}
+  .stat-num{font-size:32px;}
+  .toc-grid{grid-template-columns:1fr;}
+  .step-body{padding:20px 16px;}
+  .platform-grid{grid-template-columns:1fr;}
+  .flow{flex-direction:column;}
+  .flow-arrow{transform:rotate(90deg);}
+}
+
+/* ===== ANCHOR ===== */
+.anchor-target{
+  display:block;
+  height:30px;
+  margin-top:-30px;
+  pointer-events:none;
+}
+
+/* ===== INLINE HIGHLIGHT ===== */
+.hl{color:var(--amber);}
+.hl-green{color:var(--green);}
+.hl-blue{color:var(--blue);}
+.mono{font-family:'JetBrains Mono',monospace;font-size:0.9em;}
+
+/* ===== SUB SECTION ===== */
+.subsection{margin:32px 0;}
+.subsection-title{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:700;color:#fff;
+  margin-bottom:16px;
+  display:flex;align-items:center;gap:12px;
+}
+.subsection-title::after{
+  content:'';flex:1;height:1px;
+  background:var(--border2);
+}
+
+/* progress dots */
+.progress-dots{
+  display:flex;gap:6px;justify-content:center;
+  padding:20px 0 0;
+}
+.progress-dots span{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--border2);
+}
+.progress-dots span.done{background:var(--amber);}
+</style>
+</head>
+<body>
+
+<!-- ===== COVER ===== -->
+<div class="cover">
+  <div class="cover-tag">完整操作手册 · COMPLETE GUIDE · 2025</div>
+  <h1>全球一键传播<br><em>系统</em>搭建手册</h1>
+  <p class="cover-sub">从零开始，一步一步，搭建属于你自己的全球内容传播基础设施。不再依赖任何平台算法，无成本自动触达全球数亿用户。</p>
+  <div class="cover-stats">
+    <div class="stat-item"><span class="stat-num">10</span><span class="stat-label">大章节</span></div>
+    <div class="stat-item"><span class="stat-num">80+</span><span class="stat-label">详细步骤</span></div>
+    <div class="stat-item"><span class="stat-num">200+</span><span class="stat-label">覆盖平台</span></div>
+    <div class="stat-item"><span class="stat-num">$18</span><span class="stat-label">月均成本</span></div>
+    <div class="stat-item"><span class="stat-num">4周</span><span class="stat-label">完整搭建</span></div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+    SCROLL TO BEGIN
+  </div>
+</div>
+
+<!-- ===== TABLE OF CONTENTS ===== -->
+<div class="toc-section">
+  <div class="toc-title">📋 完整目录</div>
+  <div class="toc-subtitle">点击任意章节直接跳转 · 建议按顺序阅读</div>
+  <div class="toc-grid">
+    <a href="#prep" class="toc-item">
+      <span class="toc-num">00</span>
+      <div class="toc-info"><div class="toc-name">开始之前：准备工作全清单</div><div class="toc-desc">账号清单 · 软件工具 · 预算规划</div></div>
+    </a>
+    <a href="#ch1" class="toc-item">
+      <span class="toc-num">01</span>
+      <div class="toc-info"><div class="toc-name">私有内容基础设施</div><div class="toc-desc">域名 · Cloudflare · 服务器 · Ghost · 邮件系统</div></div>
+    </a>
+    <a href="#ch2" class="toc-item">
+      <span class="toc-num">02</span>
+      <div class="toc-info"><div class="toc-name">RSS全球聚合网络</div><div class="toc-desc">Google News · Feedly · Flipboard · WebSub</div></div>
+    </a>
+    <a href="#ch3" class="toc-item">
+      <span class="toc-num">03</span>
+      <div class="toc-info"><div class="toc-name">n8n自动化总控台</div><div class="toc-desc">安装 · Telegram · Twitter · LinkedIn · AI改写</div></div>
+    </a>
+    <a href="#ch4" class="toc-item">
+      <span class="toc-num">04</span>
+      <div class="toc-info"><div class="toc-name">音乐·音频·播客分发</div><div class="toc-desc">DistroKid · Spotify for Podcasters · 150+平台</div></div>
+    </a>
+    <a href="#ch5" class="toc-item">
+      <span class="toc-num">05</span>
+      <div class="toc-info"><div class="toc-name">去中心化传播网络</div><div class="toc-desc">Nostr · Fediverse · IPFS · Odysee区块链</div></div>
+    </a>
+    <a href="#ch6" class="toc-item">
+      <span class="toc-num">06</span>
+      <div class="toc-info"><div class="toc-name">搜索引擎全球覆盖</div><div class="toc-desc">Google/百度提交 · IndexNow · AI多语言翻译</div></div>
+    </a>
+    <a href="#ch7" class="toc-item">
+      <span class="toc-num">07</span>
+      <div class="toc-info"><div class="toc-name">AI内容矩阵引擎</div><div class="toc-desc">视频剪辑 · AI配音 · 10种格式自动衍生</div></div>
+    </a>
+    <a href="#ch8" class="toc-item">
+      <span class="toc-num">08</span>
+      <div class="toc-info"><div class="toc-name">社群裂变与Web3</div><div class="toc-desc">WhatsApp · 邮件裂变 · Mirror.xyz · Substack</div></div>
+    </a>
+    <a href="#ch9" class="toc-item">
+      <span class="toc-num">09</span>
+      <div class="toc-info"><div class="toc-name">你想不到的传播渠道</div><div class="toc-desc">HN · VK · Quora · 今日头条 · 小众高效渠道</div></div>
+    </a>
+    <a href="#ch10" class="toc-item">
+      <span class="toc-num">10</span>
+      <div class="toc-info"><div class="toc-name">四周落地行动计划</div><div class="toc-desc">每天具体做什么 · 28天完整时间表</div></div>
+    </a>
+  </div>
+
+  <div class="tip-box info" style="margin-top:32px;">
+    <span class="tip-icon">💡</span>
+    <div><strong>阅读建议：</strong>第1章和第3章是核心，优先搭建完成。第2、6章设置一次，终生有效。第4、5章根据你的内容类型选择性配置。第10章给出了完整的28天执行时间表，建议收藏后按日执行。所有步骤均有<strong>点击展开</strong>的详细说明，适合小白一步步跟着操作。</div>
+  </div>
+</div>
+
+<!-- ===== CHAPTER 0: PREP ===== -->
+<div class="chapter-divider"></div>
+<div id="prep" class="anchor-target"></div>
+<div class="chapter-header">
+  <div class="ch-meta">
+    <span class="ch-num">CHAPTER 00</span>
+    <span class="ch-tag tag-must">必读</span>
+  </div>
+  <h2 class="ch-title">开始之前：<br>准备工作全清单</h2>
+  <p class="ch-desc">在动手之前，先了解你需要准备什么。不要跳过这一章，这里是整个系统的地基。</p>
+</div>
+
+<div class="chapter">
+
+  <div class="overview-box">
+    <strong>整体逻辑：</strong>你即将搭建的是一套"传播基础设施"，不是在某个App上注册账号发内容。就像建房子需要打地基，我们先把服务器、域名、自动化引擎准备好，之后所有内容发布都在这套基础设施上跑，全自动，无人值守。
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">你需要准备的账号</div>
+    <ul class="checklist">
+      <li>一个 <strong class="hl">Gmail邮箱</strong>（用于注册大多数海外服务）</li>
+      <li>一张 <strong class="hl">可以海外支付的信用卡或借记卡</strong>（VISA/MasterCard，招行、建行均支持，或开通支付宝国际版）</li>
+      <li>一个 <strong class="hl">GitHub账号</strong>（免费，github.com 注册）</li>
+      <li>一个 <strong class="hl">Cloudflare账号</strong>（免费，cloudflare.com 注册）</li>
+      <li>一个 <strong class="hl">AWS账号</strong>（亚马逊云，用于免费邮件发送）</li>
+    </ul>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">你需要的软件工具</div>
+    <table class="data-table">
+      <tr><th>工具名称</th><th>用途</th><th>下载地址</th><th>费用</th></tr>
+      <tr><td><strong>Termius</strong> 或 <strong>PuTTY</strong></td><td>SSH连接服务器（Windows/Mac均可）</td><td>termius.com</td><td class="badge-free">免费</td></tr>
+      <tr><td><strong>VS Code</strong></td><td>编辑配置文件</td><td>code.visualstudio.com</td><td class="badge-free">免费</td></tr>
+      <tr><td><strong>Bitwarden</strong></td><td>密码管理器（强烈推荐，要管理大量账号密码）</td><td>bitwarden.com</td><td class="badge-free">免费</td></tr>
+      <tr><td><strong>Notion</strong> 或记事本</td><td>记录所有账号密码、API密钥、服务器IP</td><td>notion.so</td><td class="badge-free">免费</td></tr>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">预算规划（月费）</div>
+    <table class="data-table">
+      <tr><th>项目</th><th>推荐选择</th><th>月费用</th><th>备注</th></tr>
+      <tr><td>服务器</td><td>Hetzner CX21</td><td class="badge-paid">约$5</td><td>运行所有核心服务</td></tr>
+      <tr><td>域名</td><td>Namecheap .com域名</td><td class="badge-paid">约$1</td><td>一次性年费约$10</td></tr>
+      <tr><td>CDN/防护</td><td>Cloudflare免费层</td><td class="badge-free">$0</td><td>永久免费</td></tr>
+      <tr><td>邮件发送</td><td>Amazon SES</td><td class="badge-free">$0</td><td>每月6.2万封免费</td></tr>
+      <tr><td>自动化引擎</td><td>n8n自托管</td><td class="badge-free">$0</td><td>跑在上面那台服务器上</td></tr>
+      <tr><td>AI改写内容</td><td>Claude API</td><td class="badge-paid">约$5-10</td><td>按量计费，初期很少</td></tr>
+      <tr><td>音乐分发</td><td>DistroKid（可选）</td><td class="badge-paid">约$2.5</td><td>有音乐内容才需要</td></tr>
+      <tr><td colspan="2"><strong>合计</strong></td><td class="badge-paid"><strong>约$13-18/月</strong></td><td>约100元人民币</td></tr>
+    </table>
+  </div>
+
+  <div class="tip-box warning">
+    <span class="tip-icon">⚠️</span>
+    <div><strong>关于梯子（VPN）：</strong>本手册部分操作需要访问Google、GitHub、Hetzner等国际网站。请确保你有稳定的科学上网工具。推荐使用电脑操作，手机操作会比较麻烦。</div>
+  </div>
+
+  <div class="tip-box tip">
+    <span class="tip-icon">✅</span>
+    <div><strong>小白建议：</strong>每完成一个步骤，立刻把账号、密码、API密钥记在Notion笔记里。这套系统需要管理几十个账号，如果不记录，后面一定会搞混。</div>
+  </div>
+
+</div>
+
+<!-- ===== CHAPTER 1 ===== -->
+<div class="chapter-divider"></div>
+<div id="ch1" class="anchor-target"></div>
+<div class="chapter-header">
+  <div class="ch-meta">
+    <span class="ch-num">CHAPTER 01</span>
+    <span class="ch-tag tag-must">最重要</span>
+    <span class="ch-tag tag-free">基础免费</span>
+  </div>
+  <h2 class="ch-title">私有内容基础设施：<br>你自己的"广播电台"</h2>
+  <p class="ch-desc">这是整个系统的核心。拥有自己的服务器、域名和内容管理系统，任何平台都无法封你、限制你、删除你的内容。</p>
+</div>
+
+<div class="chapter">
+
+  <div class="overview-box">
+    <strong>你将建立什么：</strong>一台属于你的服务器（在德国，受欧盟法律保护），上面运行你的网站（Ghost CMS），自动生成RSS订阅源，自动向订阅者发送邮件。这就是你的"传播总部"，所有其他平台都从这里获取内容。
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">01</div>
+      <div class="step-title-box">
+        <div class="step-title">购买域名（你的专属地址）</div>
+        <div class="step-subtitle">在 Namecheap 注册你的域名，约$8.88/年</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>什么是域名？</strong>就像你家的门牌号，比如 yourname.com。你需要买一个，才能让别人找到你的网站。推荐选 .com 后缀，国际通用。</div>
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>打开浏览器，访问 <em>https://www.namecheap.com</em>（需要梯子）</div></li>
+        <li><span class="inst-n">②</span><div>点击右上角 <strong>Sign Up</strong>，填写邮箱和密码，完成注册并验证邮箱</div></li>
+        <li><span class="inst-n">③</span><div>在首页搜索框输入你想要的域名（例如 <em>yourname.com</em> 或 <em>mybrand.com</em>）</div></li>
+        <li><span class="inst-n">④</span><div>如果显示 <strong style="color:var(--green);">Available</strong>（绿色），点击购物车图标加入购物车</div></li>
+        <li><span class="inst-n">⑤</span><div>点击右上角购物车 → <strong>View Cart</strong> → 关闭不需要的附加服务（WhoisGuard默认免费可以留着）</div></li>
+        <li><span class="inst-n">⑥</span><div>点击 <strong>Confirm Order</strong>，选择信用卡支付（或PayPal），完成付款</div></li>
+        <li><span class="inst-n">⑦</span><div>付款完成后，进入 <strong>Dashboard → Domain List</strong>，看到你的域名即成功</div></li>
+      </ol>
+      <div class="tip-box tip">
+        <span class="tip-icon">✅</span>
+        <div><strong>域名取名建议：</strong>简短、好记、最好是你的名字或品牌名。避免用数字和连字符。比如 liwei.com、bestcontent.com 之类。</div>
+      </div>
+      <div class="result-box"><strong>✅ 完成标志：</strong>你在Namecheap的Dashboard里看到你的域名，状态显示 Active。</div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">02</div>
+      <div class="step-title-box">
+        <div class="step-title">配置 Cloudflare（免费CDN+DNS+防护）</div>
+        <div class="step-subtitle">把域名托管到Cloudflare，获得免费全球加速和防护</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>什么是Cloudflare？</strong>全球最大CDN服务商，免费提供全球加速、防DDoS攻击、DNS管理。把你的域名放到Cloudflare，访问速度更快，也更安全。</div>
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://www.cloudflare.com</em>，点击 <strong>Sign Up</strong> 注册账号（用邮箱即可）</div></li>
+        <li><span class="inst-n">②</span><div>登录后点击 <strong>Add a Site</strong>（添加网站），输入你刚购买的域名，点击 <strong>Add Site</strong></div></li>
+        <li><span class="inst-n">③</span><div>选择免费计划（<strong>Free Plan</strong>），点击 <strong>Continue</strong></div></li>
+        <li><span class="inst-n">④</span><div>Cloudflare会扫描你现有的DNS记录，直接点击 <strong>Continue</strong></div></li>
+        <li><span class="inst-n">⑤</span><div>页面会显示两个 <strong>Nameserver（域名服务器）</strong>，类似：<em>anna.ns.cloudflare.com</em> 和 <em>bob.ns.cloudflare.com</em>，<strong>复制这两个地址</strong></div></li>
+        <li><span class="inst-n">⑥</span><div>回到 Namecheap → <strong>Domain List</strong> → 点击你的域名 → 找到 <strong>Nameservers</strong> → 选择 <strong>Custom DNS</strong></div></li>
+        <li><span class="inst-n">⑦</span><div>把Cloudflare给你的两个Nameserver地址粘贴进去，点击保存（绿色对勾图标）</div></li>
+        <li><span class="inst-n">⑧</span><div>回到Cloudflare，点击 <strong>Done, check nameservers</strong>，等待5-30分钟生效</div></li>
+        <li><span class="inst-n">⑨</span><div>生效后Cloudflare会发邮件通知你，此时你的域名状态变为 <strong style="color:var(--green);">Active</strong></div></li>
+      </ol>
+      <div class="result-box"><strong>✅ 完成标志：</strong>Cloudflare控制台中你的域名状态显示绿色 Active。</div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">03</div>
+      <div class="step-title-box">
+        <div class="step-title">购买服务器（你的计算主机）</div>
+        <div class="step-subtitle">在 Hetzner 购买VPS，€3.29/月，性价比全球最高</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>什么是VPS服务器？</strong>就是一台24小时开机、在互联网上运行的电脑，但不是你的物理电脑，而是在数据中心里租用的。你的网站、自动化程序都跑在上面。Hetzner是德国公司，价格最便宜，服务最稳定。</div>
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://www.hetzner.com</em>，点击 <strong>Cloud</strong> → <strong>Sign up</strong> 注册账号</div></li>
+        <li><span class="inst-n">②</span><div>注册时需要验证信用卡（会扣$1预授权，之后退还），填入信用卡信息完成验证</div></li>
+        <li><span class="inst-n">③</span><div>登录后进入 <strong>Cloud Console</strong> → 点击 <strong>New Project</strong> → 命名为 "myblog" 之类</div></li>
+        <li><span class="inst-n">④</span><div>点击项目 → 点击右上角 <strong>Add Server</strong></div></li>
+        <li><span class="inst-n">⑤</span><div><strong>选择配置：</strong>
+          <ul style="margin:8px 0 0 16px;list-style:disc;font-size:13px;color:var(--text2);">
+            <li>Location（地区）：选 <em>Falkenstein</em>（德国，较快）或 <em>Singapore</em>（亚洲，适合中文用户）</li>
+            <li>Image（系统）：选 <em>Ubuntu 22.04 LTS</em></li>
+            <li>Type（规格）：选 <em>CX21</em>（2核4G，$5.83/月）足够用</li>
+          </ul>
+        </div></li>
+        <li><span class="inst-n">⑥</span><div><strong>SSH Keys（重要）：</strong>如果你不懂SSH密钥，先跳过这步，直接用密码登录。Hetzner会发邮件给你服务器的root密码</div></li>
+        <li><span class="inst-n">⑦</span><div>点击 <strong>Create &amp; Buy Now</strong>，等待2分钟服务器创建完成</div></li>
+        <li><span class="inst-n">⑧</span><div>创建完成后，在服务器列表看到你的服务器，记下它的 <strong>IP地址</strong>（类似 123.45.67.89）</div></li>
+      </ol>
+      <div class="tip-box warning">
+        <span class="tip-icon">⚠️</span>
+        <div><strong>立刻记录：</strong>把服务器IP地址记在你的Notion笔记中。这个IP是后面所有操作的基础，非常重要。</div>
+      </div>
+      <div class="result-box"><strong>✅ 完成标志：</strong>Hetzner控制台中服务器状态显示绿色 Running，你有了一个IP地址。</div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">04</div>
+      <div class="step-title-box">
+        <div class="step-title">连接服务器（第一次登录）</div>
+        <div class="step-subtitle">用SSH工具连接到你的服务器，开始安装软件</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>SSH是什么？</strong>就是远程控制服务器的工具，就像用遥控器控制你在德国的那台电脑。你在自己的电脑上打命令，服务器执行。</div>
+      </div>
+      <div class="subsection-title" style="font-size:16px;">Windows 用户：</div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>下载安装 <em>https://termius.com</em>（免费版够用），或直接用Windows自带的 <strong>PowerShell</strong></div></li>
+        <li><span class="inst-n">②</span><div>打开PowerShell，输入：<em>ssh root@你的服务器IP</em>，按回车</div></li>
+        <li><span class="inst-n">③</span><div>提示 <em>"Are you sure you want to continue connecting"</em>，输入 <em>yes</em> 回车</div></li>
+        <li><span class="inst-n">④</span><div>输入Hetzner发给你邮件里的密码，回车（输入时看不到字符，这是正常的）</div></li>
+        <li><span class="inst-n">⑤</span><div>成功后会看到提示符变成 <em>root@localhost:~#</em>，说明你已登录服务器</div></li>
+      </ol>
+      <div class="subsection-title" style="font-size:16px;">Mac 用户：</div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>打开 <strong>终端（Terminal）</strong>，在应用程序→实用工具中找到</div></li>
+        <li><span class="inst-n">②</span><div>输入命令：<em>ssh root@你的服务器IP</em>，后续步骤和Windows一样</div></li>
+      </ol>
+      <span class="code-label">// 登录后第一件事，更新系统</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+apt update && apt upgrade -y
+      </div>
+      <div class="tip-box tip">
+        <span class="tip-icon">✅</span>
+        <div><strong>看到大量滚动文字是正常的</strong>，等待进度结束，出现 <em>root@</em> 提示符即完成更新。这个过程需要2-5分钟。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">05</div>
+      <div class="step-title-box">
+        <div class="step-title">安装 Docker（所有软件的运行环境）</div>
+        <div class="step-subtitle">Docker让你一行命令安装任何软件，不用手动配置</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>Docker是什么？</strong>把软件打包成"集装箱"，一行命令就能运行。后面你安装的Ghost、n8n、Listmonk都用Docker运行，非常方便。</div>
+      </div>
+      <span class="code-label">// 一键安装Docker（在服务器SSH窗口输入）</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+curl -fsSL https://get.docker.com | sh
+      </div>
+      <span class="code-label">// 安装Docker Compose（管理多个容器）</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+apt install docker-compose-plugin -y
+      </div>
+      <span class="code-label">// 验证安装成功</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+docker --version
+docker compose version
+      </div>
+      <div class="result-box"><strong>✅ 完成标志：</strong>两条命令都显示版本号（如 Docker version 24.0.x），说明安装成功。</div>
+    </div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">06</div>
+      <div class="step-title-box">
+        <div class="step-title">部署 Ghost CMS（你的内容管理系统）</div>
+        <div class="step-subtitle">Ghost是专业博客平台，自动生成RSS，内置邮件订阅</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>Ghost是什么？</strong>比WordPress更现代的内容发布平台，专为内容创作者设计。发布文章，自动生成RSS订阅源，自动向订阅者发邮件。</div>
+      </div>
+      <span class="code-label">// 第1步：创建Ghost目录</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+mkdir -p /opt/ghost && cd /opt/ghost
+      </div>
+      <span class="code-label">// 第2步：创建配置文件（复制以下全部内容粘贴执行）</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+cat > docker-compose.yml << 'EOF'
+version: '3'
+services:
+  ghost:
+    image: ghost:latest
+    restart: always
+    ports:
+      - "2368:2368"
+    environment:
+      url: https://你的域名.com
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: ghost
+      database__connection__password: ghostpassword123
+      database__connection__database: ghost
+    volumes:
+      - ghost-data:/var/lib/ghost/content
+    depends_on:
+      - db
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword123
+      MYSQL_DATABASE: ghost
+      MYSQL_USER: ghost
+      MYSQL_PASSWORD: ghostpassword123
+    volumes:
+      - db-data:/var/lib/mysql
+volumes:
+  ghost-data:
+  db-data:
+EOF
+      </div>
+      <div class="tip-box warning">
+        <span class="tip-icon">⚠️</span>
+        <div><strong>重要：</strong>把上面 <em>你的域名.com</em> 替换成你真实的域名。密码可以改成更复杂的字符串，记在Notion里。</div>
+      </div>
+      <span class="code-label">// 第3步：启动Ghost</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+docker compose up -d
+      </div>
+      <span class="code-label">// 第4步：等待1分钟后检查是否正常运行</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+docker compose ps
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">⑤</span><div>回到Cloudflare控制台 → 你的域名 → <strong>DNS</strong> → <strong>Add Record</strong></div></li>
+        <li><span class="inst-n">⑥</span><div>类型选 <strong>A</strong>，Name填 <strong>@</strong>，IPv4 address填你的服务器IP，Proxy status开启（橙色云朵），点保存</div></li>
+        <li><span class="inst-n">⑦</span><div>再添加一条：类型 <strong>A</strong>，Name填 <strong>www</strong>，IPv4填同一IP，保存</div></li>
+        <li><span class="inst-n">⑧</span><div>等待5-10分钟DNS生效后，访问 <em>http://你的域名.com:2368</em>，看到Ghost欢迎页即成功</div></li>
+        <li><span class="inst-n">⑨</span><div>访问 <em>http://你的域名.com:2368/ghost</em> 进行初始化设置：填网站名、管理员邮箱、密码</div></li>
+      </ol>
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>配置HTTPS（安全锁标志）：</strong>Cloudflare已经自动帮你处理HTTPS，在Cloudflare → SSL/TLS → 选择 Full 模式即可。</div>
+      </div>
+      <div class="result-box"><strong>✅ 完成标志：</strong>能访问你的域名看到Ghost网站，能进入 /ghost 管理后台，RSS地址 yourdomain.com/rss 能正常打开。</div>
+    </div>
+  </div>
+
+  <!-- STEP 7: Listmonk -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">07</div>
+      <div class="step-title-box">
+        <div class="step-title">部署 Listmonk（邮件列表系统）</div>
+        <div class="step-subtitle">开源自托管邮件营销，配合AWS SES每月62000封免费</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>Listmonk是什么？</strong>你自己的邮件营销系统，类似Mailchimp但完全免费。订阅者用邮件关注你，每次你发新内容，系统自动发邮件通知他们。</div>
+      </div>
+      <span class="code-label">// 在服务器上创建Listmonk目录</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+mkdir -p /opt/listmonk && cd /opt/listmonk
+      </div>
+      <span class="code-label">// 下载官方配置文件</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+curl -Lo docker-compose.yml https://raw.githubusercontent.com/knadh/listmonk/master/docker-compose.yml
+curl -Lo config.toml.example https://raw.githubusercontent.com/knadh/listmonk/master/config.toml.example
+cp config.toml.example config.toml
+      </div>
+      <span class="code-label">// 启动Listmonk（第一次运行会创建数据库）</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+docker compose up -d
+# 等待30秒后初始化数据库
+docker compose run --rm app ./listmonk --install
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">④</span><div>在Cloudflare DNS添加子域名：类型 <strong>A</strong>，Name填 <strong>mail</strong>，IP填你的服务器IP</div></li>
+        <li><span class="inst-n">⑤</span><div>访问 <em>http://mail.你的域名.com:9000</em>，用默认账号 <em>admin/listmonk</em> 登录</div></li>
+        <li><span class="inst-n">⑥</span><div>进入 <strong>Settings → SMTP</strong>，填入你的邮件发送配置（下一步配置Amazon SES后回来填）</div></li>
+      </ol>
+      <div class="result-box"><strong>✅ 完成标志：</strong>能访问Listmonk管理后台，看到控制面板界面。</div>
+    </div>
+  </div>
+
+  <!-- STEP 8: Amazon SES -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">08</div>
+      <div class="step-title-box">
+        <div class="step-title">配置 Amazon SES（每月62000封免费邮件）</div>
+        <div class="step-subtitle">亚马逊邮件发送服务，送达率最高，每月免费额度超足</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://aws.amazon.com</em>，点击 <strong>Create an AWS Account</strong>，完成注册（需要信用卡验证，但不会扣费）</div></li>
+        <li><span class="inst-n">②</span><div>登录AWS控制台，在顶部搜索框输入 <em>SES</em>，点击进入 <strong>Amazon Simple Email Service</strong></div></li>
+        <li><span class="inst-n">③</span><div>左侧菜单点击 <strong>Verified identities</strong> → <strong>Create identity</strong></div></li>
+        <li><span class="inst-n">④</span><div>选择 <strong>Domain</strong>，输入你的域名，点击 <strong>Create identity</strong></div></li>
+        <li><span class="inst-n">⑤</span><div>AWS会给你一些DNS记录，把这些记录添加到Cloudflare的DNS里（CNAME和TXT记录）</div></li>
+        <li><span class="inst-n">⑥</span><div>等待几分钟后，域名状态变为 <strong style="color:var(--green);">Verified</strong></div></li>
+        <li><span class="inst-n">⑦</span><div>左侧点击 <strong>SMTP Settings</strong> → <strong>Create SMTP credentials</strong>，生成用户名和密码</div></li>
+        <li><span class="inst-n">⑧</span><div><strong>立刻保存</strong>这个SMTP用户名和密码（只显示一次！），记在Notion里</div></li>
+        <li><span class="inst-n">⑨</span><div>回到Listmonk → Settings → SMTP填写：
+          <ul style="margin:8px 0 0 16px;list-style:disc;font-size:13px;color:var(--text2);">
+            <li>Host: <em>email-smtp.us-east-1.amazonaws.com</em>（根据你的区域不同）</li>
+            <li>Port: <em>587</em></li>
+            <li>Username: 刚才生成的SMTP用户名</li>
+            <li>Password: 刚才生成的SMTP密码</li>
+          </ul>
+        </div></li>
+        <li><span class="inst-n">⑩</span><div>点击 <strong>Save &amp; Test</strong>，发送测试邮件验证配置正确</div></li>
+      </ol>
+      <div class="tip-box warning">
+        <span class="tip-icon">⚠️</span>
+        <div><strong>沙盒限制：</strong>新注册的AWS SES账号在"沙盒模式"，只能给已验证的邮件地址发邮件。需要提交申请解除限制（在SES页面找到 "Request production access"），说明你是做内容传播，通常1-2天内批准。</div>
+      </div>
+      <div class="result-box"><strong>✅ 完成标志：</strong>测试邮件发送成功，收件箱收到测试邮件。</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== CHAPTER 2: RSS ===== -->
+<div class="chapter-divider"></div>
+<div id="ch2" class="anchor-target"></div>
+<div class="chapter-header">
+  <div class="ch-meta">
+    <span class="ch-num">CHAPTER 02</span>
+    <span class="ch-tag tag-free">全免费</span>
+    <span class="ch-tag tag-auto">被动获客</span>
+  </div>
+  <h2 class="ch-title">RSS 全球聚合网络：<br>让全世界主动来抓你的内容</h2>
+  <p class="ch-desc">RSS是互联网最古老的内容分发协议。全球数千个聚合器主动抓取RSS内容，你只需提交一次，内容自动被全球分发，永久有效。</p>
+</div>
+
+<div class="chapter">
+
+  <div class="overview-box">
+    <strong>你的RSS地址是：</strong><em>https://你的域名.com/rss</em><br>
+    Ghost自动生成。每次你发布新文章，RSS会自动更新。所有聚合器看到更新后，会主动同步你的内容。这是完全被动的流量来源，设置一次，终生有效。
+  </div>
+
+  <!-- RSS Step 1 -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">01</div>
+      <div class="step-title-box">
+        <div class="step-title">提交到 Google News（覆盖全球数亿用户）</div>
+        <div class="step-subtitle">Google新闻每天被数亿人使用，进入即享巨大流量</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://publishercenter.google.com</em>（需要Google账号登录）</div></li>
+        <li><span class="inst-n">②</span><div>点击 <strong>Add publication</strong>，填写你的网站名称、网站URL</div></li>
+        <li><span class="inst-n">③</span><div>在内容设置中，添加你的RSS地址：<em>https://你的域名.com/rss</em></div></li>
+        <li><span class="inst-n">④</span><div>选择内容语言和地区</div></li>
+        <li><span class="inst-n">⑤</span><div>完成身份验证（Google会要求你在网站添加一个meta标签，在Ghost后台 → Code injection → 添加）</div></li>
+        <li><span class="inst-n">⑥</span><div>提交审核，Google通常3-7天内审核完成</div></li>
+      </ol>
+      <div class="tip-box tip">
+        <span class="tip-icon">✅</span>
+        <div><strong>审核要求：</strong>内容需要是原创的新闻/资讯类内容，有固定更新频率，版式清晰。不要发垃圾内容，Google审核比较严格。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RSS Step 2 -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">02</div>
+      <div class="step-title-box">
+        <div class="step-title">提交到 Feedly（全球最大RSS阅读器，3000万用户）</div>
+        <div class="step-subtitle">提交后进入Feedly的AI推荐系统，自动推荐给相关兴趣读者</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://feedly.com</em>，注册账号</div></li>
+        <li><span class="inst-n">②</span><div>在搜索框中直接输入你的RSS地址，Feedly会自动识别并显示你的Feed</div></li>
+        <li><span class="inst-n">③</span><div>点击 <strong>Follow</strong> 关注自己的Feed，这样你能看到读者看到的效果</div></li>
+        <li><span class="inst-n">④</span><div>访问 <em>https://feedspot.com</em>，注册后提交你的博客进入分类列表（可以进入各垂直领域Top博客排行）</div></li>
+      </ol>
+      <div class="result-box"><strong>✅ 完成：</strong>在Feedly搜索你的域名或RSS地址，能看到你的Feed订阅页面。</div>
+    </div>
+  </div>
+
+  <!-- RSS Step 3 -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">03</div>
+      <div class="step-title-box">
+        <div class="step-title">提交到 Flipboard（1.45亿用户的视觉内容平台）</div>
+        <div class="step-subtitle">免费创建你的"杂志"，内容按兴趣自动推荐给用户</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://flipboard.com</em>，点击右上角 <strong>Sign up</strong> 注册</div></li>
+        <li><span class="inst-n">②</span><div>注册后，点击你的头像 → <strong>Create Magazine</strong>（创建杂志）</div></li>
+        <li><span class="inst-n">③</span><div>填写杂志名称（你的品牌名）、描述、选择分类主题</div></li>
+        <li><span class="inst-n">④</span><div>点击 <strong>Profile Settings</strong> → 找到 <strong>RSS</strong> 选项，输入你的RSS地址</div></li>
+        <li><span class="inst-n">⑤</span><div>保存后，你的RSS内容会自动同步到Flipboard杂志</div></li>
+        <li><span class="inst-n">⑥</span><div>在 <em>https://about.flipboard.com/publisher-tools/</em> 申请Publisher工具，获得更多推广资源</div></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- RSS Step 4: WebSub -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">04</div>
+      <div class="step-title-box">
+        <div class="step-title">配置 WebSub（发布即实时推送，无需等待抓取）</div>
+        <div class="step-subtitle">W3C标准协议，新内容0秒同步至所有订阅聚合器</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>WebSub原理：</strong>普通RSS聚合器每隔1小时来"轮询"一次你的RSS看有没有新内容。WebSub让你发布新内容时主动"推送"通知给聚合器，实时同步。</div>
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>Ghost已内置WebSub支持。访问 Ghost管理后台 → <strong>Settings → General</strong></div></li>
+        <li><span class="inst-n">②</span><div>找到 <strong>Subscription Settings</strong>，Hub URL填入：<em>https://pubsubhubbub.appspot.com/</em></div></li>
+        <li><span class="inst-n">③</span><div>访问 <em>https://pubsubhubbub.appspot.com/subscribe</em>，在 Topic URL 填入你的RSS地址，点击 Subscribe</div></li>
+        <li><span class="inst-n">④</span><div>访问 <em>https://superfeedr.com</em> 注册（免费层），添加你的RSS，这是业界最知名的WebSub Hub</div></li>
+      </ol>
+
+      <div class="subsection-title" style="font-size:16px;">批量提交RSS到全球聚合器清单：</div>
+      <table class="data-table">
+        <tr><th>平台</th><th>提交地址</th><th>覆盖范围</th></tr>
+        <tr><td>Inoreader</td><td>inoreader.com（注册后搜索你的RSS）</td><td>专业读者，付费用户为主</td></tr>
+        <tr><td>NewsBlur</td><td>newsblur.com</td><td>英语圈RSS爱好者</td></tr>
+        <tr><td>Feedbin</td><td>feedbin.com</td><td>高端付费用户</td></tr>
+        <tr><td>Blogtrottr</td><td>blogtrottr.com</td><td>把RSS变成邮件推送给用户</td></tr>
+        <tr><td>Alltop</td><td>alltop.com/submit</td><td>垂直领域内容聚合目录</td></tr>
+        <tr><td>Feedspot</td><td>feedspot.com/submit-blog</td><td>各类Top博客排行榜</td></tr>
+        <tr><td>Paper.li</td><td>paper.li（创建RSS驱动的"报纸"）</td><td>社交分享型</td></tr>
+        <tr><td>Netvibes</td><td>netvibes.com</td><td>企业用户为主</td></tr>
+        <tr><td>Scoop.it</td><td>scoop.it</td><td>内容营销人群</td></tr>
+        <tr><td>百度RSS</td><td>zhanzhang.baidu.com（百度站长平台）</td><td>中文搜索流量</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== CHAPTER 3: n8n ===== -->
+<div class="chapter-divider"></div>
+<div id="ch3" class="anchor-target"></div>
+<div class="chapter-header">
+  <div class="ch-meta">
+    <span class="ch-num">CHAPTER 03</span>
+    <span class="ch-tag tag-auto">自动化核心</span>
+    <span class="ch-tag tag-free">开源免费</span>
+  </div>
+  <h2 class="ch-title">n8n 自动化总控台：<br>发布一次，200+渠道同时触达</h2>
+  <p class="ch-desc">n8n是这套系统的"神经中枢"。你发布一篇内容，n8n自动把它推送到Twitter、Telegram、YouTube、微博、LinkedIn等所有平台，完全无需人工干预。</p>
+</div>
+
+<div class="chapter">
+  <div class="overview-box">
+    <strong>n8n的工作原理：</strong>当你的Ghost网站发布新内容时（触发器），n8n自动执行一系列操作（动作）：调用Twitter API发推、发Telegram频道消息、调用AI改写内容再发LinkedIn、生成邮件内容发给订阅者……所有这些在几秒钟内同时完成。
+  </div>
+
+  <!-- n8n install -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">01</div>
+      <div class="step-title-box">
+        <div class="step-title">在服务器上安装 n8n</div>
+        <div class="step-subtitle">开源自托管，无使用费，支持500+平台集成</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <span class="code-label">// 创建n8n目录和配置文件</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+mkdir -p /opt/n8n && cd /opt/n8n
+
+cat > docker-compose.yml << 'EOF'
+version: '3'
+services:
+  n8n:
+    image: n8nio/n8n
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=你设置的密码
+      - N8N_HOST=n8n.你的域名.com
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://n8n.你的域名.com/
+      - GENERIC_TIMEZONE=Asia/Shanghai
+    volumes:
+      - n8n_data:/home/node/.n8n
+volumes:
+  n8n_data:
+EOF
+
+docker compose up -d
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">②</span><div>在Cloudflare添加DNS：类型 <strong>A</strong>，Name填 <strong>n8n</strong>，IP填服务器IP</div></li>
+        <li><span class="inst-n">③</span><div>等待5分钟后访问 <em>https://n8n.你的域名.com:5678</em>，用上面设置的账号密码登录</div></li>
+        <li><span class="inst-n">④</span><div>登录后看到n8n的工作流界面，说明安装成功</div></li>
+      </ol>
+      <div class="result-box"><strong>✅ 完成标志：</strong>能看到n8n的白色工作流画布界面。</div>
+    </div>
+  </div>
+
+  <!-- Workflow 1: RSS to Telegram -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">02</div>
+      <div class="step-title-box">
+        <div class="step-title">工作流一：RSS自动发布到Telegram频道</div>
+        <div class="step-subtitle">最简单的第一个工作流，先把这个跑通，建立信心</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="subsection-title" style="font-size:16px;">第1步：创建Telegram Bot</div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>在Telegram里搜索 <em>@BotFather</em>，点击 <strong>Start</strong></div></li>
+        <li><span class="inst-n">②</span><div>发送命令 <em>/newbot</em></div></li>
+        <li><span class="inst-n">③</span><div>输入你的Bot名字（例如：MyContentBot）</div></li>
+        <li><span class="inst-n">④</span><div>输入Bot的用户名（必须以bot结尾，例如：mycontentbot）</div></li>
+        <li><span class="inst-n">⑤</span><div>BotFather返回一个 <strong>Token</strong>（类似：123456789:AAFxxxx），记下来</div></li>
+        <li><span class="inst-n">⑥</span><div>创建一个Telegram频道，把你的Bot添加为频道管理员</div></li>
+        <li><span class="inst-n">⑦</span><div>获取频道Chat ID：访问 <em>https://api.telegram.org/bot你的Token/getUpdates</em>，在频道发一条消息，JSON里找 <em>"chat":{"id":</em> 后面的数字就是Chat ID</div></li>
+      </ol>
+
+      <div class="subsection-title" style="font-size:16px;">第2步：在n8n创建工作流</div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>在n8n点击 <strong>New Workflow</strong>（新建工作流）</div></li>
+        <li><span class="inst-n">②</span><div>点击 <strong>+</strong> 添加第一个节点，搜索 <em>RSS Feed Trigger</em>，选中它</div></li>
+        <li><span class="inst-n">③</span><div>在RSS Feed URL填入：<em>https://你的域名.com/rss</em>，轮询间隔设为 <em>15 minutes</em></div></li>
+        <li><span class="inst-n">④</span><div>点击 <strong>+</strong> 添加第二个节点，搜索 <em>Telegram</em>，选 <em>Send Message</em></div></li>
+        <li><span class="inst-n">⑤</span><div>在Telegram节点配置：
+          <ul style="margin:8px 0 0 16px;list-style:disc;font-size:13px;color:var(--text2);">
+            <li>Credential：点击Create，填入你的Bot Token</li>
+            <li>Chat ID：填入你频道的Chat ID</li>
+            <li>Text：填入模板：<em>📢 新内容发布！\n\n标题：{{$json.title}}\n\n{{$json.contentSnippet}}\n\n🔗 阅读全文：{{$json.link}}</em></li>
+          </ul>
+        </div></li>
+        <li><span class="inst-n">⑥</span><div>点击右上角 <strong>Save</strong> 保存，再点击 <strong>Activate</strong> 激活工作流</div></li>
+        <li><span class="inst-n">⑦</span><div>去Ghost发一篇新文章，等15分钟后检查Telegram频道，应该收到推送消息</div></li>
+      </ol>
+      <div class="result-box"><strong>✅ 完成标志：</strong>Telegram频道自动收到带链接的内容推送消息。</div>
+    </div>
+  </div>
+
+  <!-- Workflow 2: Twitter -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">03</div>
+      <div class="step-title-box">
+        <div class="step-title">工作流二：自动发布到 Twitter/X</div>
+        <div class="step-subtitle">获取Twitter API后，新内容自动发推文</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="subsection-title" style="font-size:16px;">第1步：申请Twitter API</div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://developer.twitter.com</em>，用你的Twitter账号登录</div></li>
+        <li><span class="inst-n">②</span><div>点击 <strong>Apply for access</strong> → <strong>Create a Project and App</strong></div></li>
+        <li><span class="inst-n">③</span><div>填写App名称（随意），使用用途（填写：Automated content posting for my website）</div></li>
+        <li><span class="inst-n">④</span><div>审核通过后（通常立即），进入App设置 → <strong>Keys and Tokens</strong></div></li>
+        <li><span class="inst-n">⑤</span><div>记录以下4个值：<strong>API Key、API Secret、Access Token、Access Token Secret</strong></div></li>
+        <li><span class="inst-n">⑥</span><div>在App设置中，确保 <strong>App permissions</strong> 设置为 <strong>Read and Write</strong></div></li>
+      </ol>
+      <div class="subsection-title" style="font-size:16px;">第2步：在n8n添加Twitter节点</div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>打开之前创建的工作流，在Telegram节点后面再加一个节点</div></li>
+        <li><span class="inst-n">②</span><div>搜索 <em>Twitter</em>，选 <em>Tweet</em> 操作</div></li>
+        <li><span class="inst-n">③</span><div>创建Twitter Credential，填入4个API密钥</div></li>
+        <li><span class="inst-n">④</span><div>Text内容填写（Twitter限制280字符）：<em>{{$('RSS Feed Trigger').item.json.title}} {{$('RSS Feed Trigger').item.json.link}} #内容标签</em></div></li>
+        <li><span class="inst-n">⑤</span><div>保存并激活</div></li>
+      </ol>
+      <div class="tip-box warning">
+        <span class="tip-icon">⚠️</span>
+        <div><strong>Twitter免费API限制：</strong>免费层每月只能发500条推文，适合低频发布。如果需要更多，Basic层$100/月。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Workflow 3: AI rewrite -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">04</div>
+      <div class="step-title-box">
+        <div class="step-title">工作流三：AI自动改写内容 + 多平台分发</div>
+        <div class="step-subtitle">接入Claude/GPT API，一篇文章自动生成10种格式内容</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="subsection-title" style="font-size:16px;">获取 Claude API Key</div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://console.anthropic.com</em>，注册账号</div></li>
+        <li><span class="inst-n">②</span><div>进入 <strong>API Keys</strong>，点击 <strong>Create Key</strong>，复制保存API Key</div></li>
+        <li><span class="inst-n">③</span><div>充值$5-10到账户（按使用量计费，很便宜）</div></li>
+      </ol>
+
+      <div class="subsection-title" style="font-size:16px;">在n8n创建AI改写工作流</div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>在n8n工作流的RSS触发器后，添加 <strong>HTTP Request</strong> 节点</div></li>
+        <li><span class="inst-n">②</span><div>配置HTTP Request节点：
+          <ul style="margin:8px 0 0 16px;list-style:disc;font-size:13px;color:var(--text2);">
+            <li>Method: POST</li>
+            <li>URL: <em>https://api.anthropic.com/v1/messages</em></li>
+            <li>Headers: <em>x-api-key: 你的APIKey</em>，<em>anthropic-version: 2023-06-01</em>，<em>content-type: application/json</em></li>
+          </ul>
+        </div></li>
+        <li><span class="inst-n">③</span><div>Body填入JSON（这是AI的指令）：</div></li>
+      </ol>
+      <span class="code-label">// 发给Claude API的请求体（生成Twitter推文）</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+{
+  "model": "claude-opus-4-6",
+  "max_tokens": 500,
+  "messages": [{
+    "role": "user",
+    "content": "请根据以下文章内容，生成一条精彩的Twitter推文，包含相关话题标签，不超过280字符。\n\n文章标题：{{$('RSS Feed Trigger').item.json.title}}\n文章摘要：{{$('RSS Feed Trigger').item.json.contentSnippet}}"
+  }]
+}
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">④</span><div>API返回后，用 <strong>Set</strong> 节点提取AI生成的文字：<em>{{$json.content[0].text}}</em></div></li>
+        <li><span class="inst-n">⑤</span><div>后面接Twitter节点，把AI生成的推文发布</div></li>
+        <li><span class="inst-n">⑥</span><div>类似地，再创建一个AI节点，提示词改为"生成LinkedIn专业长文"，后面接LinkedIn节点</div></li>
+        <li><span class="inst-n">⑦</span><div>再创建一个AI节点，提示词"生成微博140字中文"，后接微博API节点</div></li>
+      </ol>
+      <div class="result-box"><strong>✅ 完成标志：</strong>发布一篇Ghost文章后，Twitter、Telegram、LinkedIn分别自动出现不同格式的内容推送。</div>
+    </div>
+  </div>
+
+  <!-- n8n other platforms -->
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">05</div>
+      <div class="step-title-box">
+        <div class="step-title">连接其他主要平台（汇总操作指南）</div>
+        <div class="step-subtitle">LinkedIn、YouTube、Facebook、微博、Instagram 逐一连接</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="platform-grid">
+        <div class="platform-card">
+          <div class="pc-top"><span class="pc-emoji">💼</span><div><div class="pc-name">LinkedIn</div><div class="pc-region">职业人群 · 全球8亿用户</div></div></div>
+          <div class="pc-desc">最适合发专业长文和见解，互动质量高。</div>
+          <div class="pc-steps"><b>步骤：</b> LinkedIn Developer Portal → 创建App → 申请 r_liteprofile + w_member_social 权限 → 获取Access Token → n8n里搜索LinkedIn节点配置</div>
+        </div>
+        <div class="platform-card">
+          <div class="pc-top"><span class="pc-emoji">📘</span><div><div class="pc-name">Facebook Pages</div><div class="pc-region">30亿月活 · 中老年用户多</div></div></div>
+          <div class="pc-desc">建立Facebook主页后，通过Graph API自动发帖。</div>
+          <div class="pc-steps"><b>步骤：</b> developers.facebook.com → 创建App → 获取Page Access Token（永久有效）→ n8n里搜索Facebook节点 → 填入Token和Page ID</div>
+        </div>
+        <div class="platform-card">
+          <div class="pc-top"><span class="pc-emoji">📸</span><div><div class="pc-name">Instagram</div><div class="pc-region">20亿月活 · 图片/视频为主</div></div></div>
+          <div class="pc-desc">需要通过Facebook Graph API操作，限制较多。</div>
+          <div class="pc-steps"><b>步骤：</b> 先有Instagram专业账号 → 连接到Facebook主页 → 在Graph API申请instagram_content_publish权限 → 用API上传图片+说明文字</div>
+        </div>
+        <div class="platform-card">
+          <div class="pc-top"><span class="pc-emoji">🎥</span><div><div class="pc-name">YouTube</div><div class="pc-region">全球最大视频平台</div></div></div>
+          <div class="pc-desc">视频内容通过YouTube Data API v3自动上传。</div>
+          <div class="pc-steps"><b>步骤：</b> Google Cloud Console → 创建项目 → 启用YouTube Data API v3 → 创建OAuth凭据 → n8n里配置YouTube节点 → 设置自动上传视频</div>
+        </div>
+        <div class="platform-card">
+          <div class="pc-top"><span class="pc-emoji">🇨🇳</span><div><div class="pc-name">微博</div><div class="pc-region">中国社交媒体主流</div></div></div>
+          <div class="pc-desc">通过微博开放平台API自动发帖。</div>
+          <div class="pc-steps"><b>步骤：</b> open.weibo.com → 注册开发者 → 创建应用 → 申请发帖权限 → 在n8n使用HTTP Request节点调用微博API</div>
+        </div>
+        <div class="platform-card">
+          <div class="pc-top"><span class="pc-emoji">🌸</span><div><div class="pc-name">Pinterest</div><div class="pc-region">图片内容，购物用户</div></div></div>
+          <div class="pc-desc">图文内容非常适合Pinterest，有很强的SEO效果。</div>
+          <div class="pc-steps"><b>步骤：</b> developers.pinterest.com → 创建App → 获取Access Token → n8n里搜索Pinterest节点 → 配置Board ID和图片URL自动发Pin</div>
+        </div>
+        <div class="platform-card">
+          <div class="pc-top"><span class="pc-emoji">🟥</span><div><div class="pc-name">Reddit</div><div class="pc-region">英语圈最大论坛</div></div></div>
+          <div class="pc-desc">找到相关subreddit，自动提交链接帖子。</div>
+          <div class="pc-steps"><b>步骤：</b> reddit.com/prefs/apps → 创建脚本应用 → 获取client_id和secret → 用OAuth获取token → n8n里HTTP Request调用Reddit API发帖</div>
+        </div>
+        <div class="platform-card">
+          <div class="pc-top"><span class="pc-emoji">📔</span><div><div class="pc-name">Medium</div><div class="pc-region">英文写作 · 知识付费</div></div></div>
+          <div class="pc-desc">同步发布文章到Medium，扩大英语圈读者。</div>
+          <div class="pc-steps"><b>步骤：</b> medium.com/me/applications → Create Integration Token → n8n里HTTP Request调用Medium API，POST文章到你的profile</div>
+        </div>
+      </div>
+
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>捷径工具：</strong>如果觉得API申请太复杂，可以先用 <strong>Buffer</strong>（buffer.com，免费层支持3个平台）或 <strong>Publer</strong>（publer.io）作为过渡，这些工具有可视化界面，不需要写代码，直接连接账号即可。</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== CHAPTER 4: PODCAST / AUDIO ===== -->
+<div class="chapter-divider"></div>
+<div id="ch4" class="anchor-target"></div>
+<div class="chapter-header">
+  <div class="ch-meta">
+    <span class="ch-num">CHAPTER 04</span>
+    <span class="ch-tag tag-free">大量免费</span>
+  </div>
+  <h2 class="ch-title">音乐·音频·播客：<br>一键分发全球150+平台</h2>
+  <p class="ch-desc">音频和音乐内容有独立的专业分发渠道。上传一次，自动同步到Spotify、Apple Music、Amazon Music、Apple Podcast等全球平台。</p>
+</div>
+
+<div class="chapter">
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">01</div>
+      <div class="step-title-box">
+        <div class="step-title">音乐分发：DistroKid（150+音乐平台一键分发）</div>
+        <div class="step-subtitle">$22.99/年，无限上传歌曲，保留100%版税</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://distrokid.com</em>，点击 <strong>Sign up</strong></div></li>
+        <li><span class="inst-n">②</span><div>选择 <strong>Musician Plus</strong> 计划（$35.99/年，支持多个艺人名称）或基础 $22.99/年</div></li>
+        <li><span class="inst-n">③</span><div>完成注册和支付</div></li>
+        <li><span class="inst-n">④</span><div>点击 <strong>Upload</strong>，上传你的音频文件（需要WAV或MP3高质量格式）</div></li>
+        <li><span class="inst-n">⑤</span><div>填写歌曲信息：艺人名、专辑名、发行日期、版权信息、歌词、流派</div></li>
+        <li><span class="inst-n">⑥</span><div>上传专辑封面（至少3000×3000像素的JPG/PNG）</div></li>
+        <li><span class="inst-n">⑦</span><div>选择发行平台（全选即可，包括：Spotify、Apple Music、Amazon Music、YouTube Music、Deezer、Tidal等150+平台）</div></li>
+        <li><span class="inst-n">⑧</span><div>设置发行日期（建议提前2周，各平台审核需要时间）</div></li>
+        <li><span class="inst-n">⑨</span><div>点击 <strong>Submit</strong> 提交，等待DistroKid审核（通常24小时内）</div></li>
+        <li><span class="inst-n">⑩</span><div>审核通过后，各平台陆续上线，Spotify通常最快（1-5天），Apple Music稍慢（3-7天）</div></li>
+      </ol>
+      <div class="tip-box tip">
+        <span class="tip-icon">✅</span>
+        <div><strong>替代工具：</strong>TuneCore（$9.99/单曲/年，适合单曲）、CD Baby（一次性费用，不收年费）、Amuse（免费基础版，分发到大部分平台）。</div>
+      </div>
+      <div class="result-box"><strong>✅ 完成标志：</strong>在Spotify搜索你的艺人名能找到你的歌曲，能点击播放。</div>
+    </div>
+  </div>
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">02</div>
+      <div class="step-title-box">
+        <div class="step-title">播客分发：Anchor/Spotify for Podcasters（免费，25个目录）</div>
+        <div class="step-subtitle">任何音频内容都可以做成播客，一键提交全球25个播客目录</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>为什么做播客？</strong>你的视频音频、文章都可以改编成播客。Podcast市场增长极快，苹果播客、Spotify播客加起来覆盖数亿用户。而且播客是"后台播放"，用户边开车边听，粘性极强。</div>
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://podcasters.spotify.com</em>（原Anchor，已整合进Spotify），点击 <strong>Start for free</strong></div></li>
+        <li><span class="inst-n">②</span><div>用Spotify账号或邮箱注册</div></li>
+        <li><span class="inst-n">③</span><div>填写播客信息：名称、描述、分类、语言、封面图（建议1400×1400像素）</div></li>
+        <li><span class="inst-n">④</span><div>上传第一集音频（MP3格式，推荐128kbps以上），填写标题、描述</div></li>
+        <li><span class="inst-n">⑤</span><div>发布后，平台会自动生成RSS地址，并提交到Spotify、Apple Podcast等平台</div></li>
+        <li><span class="inst-n">⑥</span><div>主动提交到更多目录：</div></li>
+      </ol>
+      <table class="data-table">
+        <tr><th>播客目录</th><th>提交地址</th><th>用户规模</th></tr>
+        <tr><td>Apple Podcast</td><td>podcastsconnect.apple.com</td><td>最大，数亿用户</td></tr>
+        <tr><td>Google Podcast</td><td>已整合进YouTube Music，自动收录</td><td>安卓用户为主</td></tr>
+        <tr><td>Amazon Music</td><td>music.amazon.com/podcasts/submit</td><td>美国市场重要</td></tr>
+        <tr><td>iHeartRadio</td><td>iheartmedia.com/podcasters</td><td>美国最大广播网络</td></tr>
+        <tr><td>Pocket Casts</td><td>自动从Apple抓取</td><td>付费用户，忠实</td></tr>
+        <tr><td>Castro / Overcast</td><td>自动从Apple抓取</td><td>苹果生态用户</td></tr>
+        <tr><td>小宇宙（中文）</td><td>podcasters.xiaoyuzhou.fm</td><td>中文播客最大平台</td></tr>
+        <tr><td>喜马拉雅</td><td>anchor.ximalaya.com</td><td>中国音频第一</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== CHAPTER 5: DECENTRALIZED ===== -->
+<div class="chapter-divider"></div>
+<div id="ch5" class="anchor-target"></div>
+<div class="chapter-header">
+  <div class="ch-meta">
+    <span class="ch-num">CHAPTER 05</span>
+    <span class="ch-tag tag-advanced">进阶</span>
+    <span class="ch-tag tag-free">抗审查</span>
+  </div>
+  <h2 class="ch-title">去中心化网络：<br>永不被删除，永不被封号</h2>
+  <p class="ch-desc">这是整个系统最激进的部分。去中心化网络没有公司控制，没有算法过滤，没有删号风险。内容一旦发布，永久存在于网络中。</p>
+</div>
+
+<div class="chapter">
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">01</div>
+      <div class="step-title-box">
+        <div class="step-title">Nostr：无账号的去中心化社交（最前沿）</div>
+        <div class="step-subtitle">只有密钥对，全球中继广播，任何人无法审查</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>Nostr原理：</strong>你有一对密钥（公钥=你的身份，私钥=你的密码）。发内容时，内容被广播到全球数百个中继节点（Relay）。任何人都可以运行中继节点，任何公司都无法关停整个网络。</div>
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://snort.social</em> 或 <em>https://iris.to</em>（Nostr网页客户端）</div></li>
+        <li><span class="inst-n">②</span><div>点击 <strong>Create account</strong>，系统自动为你生成密钥对</div></li>
+        <li><span class="inst-n">③</span><div><strong>立刻保存你的私钥（nsec开头的字符串）！</strong>这是你唯一的账号凭证，丢失无法找回</div></li>
+        <li><span class="inst-n">④</span><div>填写个人资料（名称、头像、网站）</div></li>
+        <li><span class="inst-n">⑤</span><div>添加多个中继节点（在Settings → Relays），推荐添加：
+          <ul style="margin:8px 0 0 16px;list-style:disc;font-size:13px;color:var(--text2);">
+            <li>wss://relay.damus.io</li>
+            <li>wss://nos.lol</li>
+            <li>wss://relay.nostr.band</li>
+            <li>wss://nostr.wine</li>
+          </ul>
+        </div></li>
+        <li><span class="inst-n">⑥</span><div>手机安装：iOS用 <em>Damus</em>，Android用 <em>Amethyst</em></div></li>
+        <li><span class="inst-n">⑦</span><div>进阶：在n8n添加HTTP节点，每次发文章时自动向Nostr中继广播（需要了解Nostr协议的JSON格式）</div></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">02</div>
+      <div class="step-title-box">
+        <div class="step-title">Fediverse / Mastodon：去中心化社交媒体</div>
+        <div class="step-subtitle">ActivityPub协议，联邦宇宙800万用户，无算法过滤</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>Mastodon是什么？</strong>像Twitter，但没有公司控制。由数千个独立服务器组成，任何人关注你的账号，内容直接推送给他们，没有任何算法干预。</div>
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://mastodon.social</em> 注册（选择大实例，用户多），或选择其他实例：<em>https://instances.social</em> 找适合你的实例</div></li>
+        <li><span class="inst-n">②</span><div>注册后完善个人资料，填写你的网站链接</div></li>
+        <li><span class="inst-n">③</span><div>在n8n添加自动发布：在工作流里添加HTTP Request节点，调用Mastodon API（<em>mastodon.social/api/v1/statuses</em>），自动发状态</div></li>
+        <li><span class="inst-n">④</span><div>进阶操作：在你的服务器上自托管Mastodon实例（需要4G以上内存，较复杂），获得完全控制权</div></li>
+      </ol>
+      <div class="tip-box tip">
+        <span class="tip-icon">✅</span>
+        <div><strong>RSS自动同步到Mastodon：</strong>使用 <em>https://mastofeed.org</em> 或 IFTTT，把你的RSS自动转发到Mastodon账号，设置一次，永久自动发布。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">03</div>
+      <div class="step-title-box">
+        <div class="step-title">IPFS：让你的内容永久存在，任何人无法删除</div>
+        <div class="step-subtitle">去中心化存储，内容一旦上传，永远可访问</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>IPFS原理：</strong>文件根据内容生成唯一哈希地址（CID）。只要网络上有任何节点存储这个文件，任何人都可以通过CID访问它。没有服务器可以关停，没有公司可以删除。</div>
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://web3.storage</em>，注册账号（免费5GB存储）</div></li>
+        <li><span class="inst-n">②</span><div>创建API Token（用于程序化上传）</div></li>
+        <li><span class="inst-n">③</span><div>上传文件：可以直接在网页拖拽上传，或通过API自动上传</div></li>
+        <li><span class="inst-n">④</span><div>上传后获得CID（类似：<em>bafybeigdyrzt5sfp7udm7...</em>）</div></li>
+        <li><span class="inst-n">⑤</span><div>通过IPFS网关访问：<em>https://ipfs.io/ipfs/你的CID</em></div></li>
+        <li><span class="inst-n">⑥</span><div>也可以用 <em>https://nft.storage</em>（免费，专为永久存储设计）</div></li>
+      </ol>
+      <div class="tip-box tip">
+        <span class="tip-icon">✅</span>
+        <div><strong>在n8n集成：</strong>每次发布新内容，n8n自动调用web3.storage API把内容上传到IPFS，在文章末尾自动附上IPFS永久链接，让内容同时有中心化和去中心化的访问地址。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">04</div>
+      <div class="step-title-box">
+        <div class="step-title">Odysee / LBRY：区块链视频平台（与YouTube同步）</div>
+        <div class="step-subtitle">发视频赚LBC代币，内容存储在区块链，永久不删</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://odysee.com</em>，点击 <strong>Sign In</strong> → <strong>Create account</strong></div></li>
+        <li><span class="inst-n">②</span><div>注册后点击右上角头像 → <strong>Settings</strong> → <strong>Connected Accounts</strong></div></li>
+        <li><span class="inst-n">③</span><div>连接你的YouTube频道（Odysee会自动同步你YouTube上的所有视频到Odysee，无需重新上传！）</div></li>
+        <li><span class="inst-n">④</span><div>设置自动同步：每次YouTube新视频，自动同步到Odysee，赚LBC代币奖励</div></li>
+      </ol>
+      <div class="result-box"><strong>✅ 完成标志：</strong>你的YouTube视频自动出现在Odysee频道，完全不需要额外操作。</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== CHAPTER 6: SEO ===== -->
+<div class="chapter-divider"></div>
+<div id="ch6" class="anchor-target"></div>
+<div class="chapter-header">
+  <div class="ch-meta">
+    <span class="ch-num">CHAPTER 06</span>
+    <span class="ch-tag tag-free">长期复利</span>
+  </div>
+  <h2 class="ch-title">搜索引擎全球覆盖：<br>让全球85亿次搜索找到你</h2>
+  <p class="ch-desc">搜索流量是最高质量的被动流量。配置好之后，一篇文章可以持续带来流量数年，真正的"无成本永久传播"。</p>
+</div>
+
+<div class="chapter">
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">01</div>
+      <div class="step-title-box">
+        <div class="step-title">提交到 Google Search Console（让Google主动收录你的内容）</div>
+        <div class="step-subtitle">免费工具，配置后Google实时索引你发布的每篇内容</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://search.google.com/search-console</em>，用Google账号登录</div></li>
+        <li><span class="inst-n">②</span><div>点击 <strong>Add property</strong>（添加媒体资源），选择 <strong>URL prefix</strong>，输入你的网站地址</div></li>
+        <li><span class="inst-n">③</span><div>选择HTML标签验证方式，复制 meta 标签代码</div></li>
+        <li><span class="inst-n">④</span><div>登录Ghost管理后台 → <strong>Settings → Code injection → Site Header</strong>，粘贴meta标签，保存</div></li>
+        <li><span class="inst-n">⑤</span><div>回到Search Console点击 <strong>Verify</strong>，验证成功</div></li>
+        <li><span class="inst-n">⑥</span><div>在左侧菜单点击 <strong>Sitemaps</strong>，输入你的站点地图地址：<em>https://你的域名.com/sitemap.xml</em>（Ghost自动生成），点击 <strong>Submit</strong></div></li>
+      </ol>
+      <div class="result-box"><strong>✅ 完成标志：</strong>Search Console显示站点地图提交成功，几天后可以在 "Coverage" 看到Google已索引的页面数量。</div>
+    </div>
+  </div>
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">02</div>
+      <div class="step-title-box">
+        <div class="step-title">IndexNow 协议（发布即通知必应/Yandex/360等搜索引擎）</div>
+        <div class="step-subtitle">一行配置，发布新内容同时通知全球多个搜索引擎立即爬取</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://www.indexnow.org/documentation</em> 了解协议</div></li>
+        <li><span class="inst-n">②</span><div>生成一个API Key（随机字符串即可，例如：用 <em>openssl rand -hex 16</em> 命令生成）</div></li>
+        <li><span class="inst-n">③</span><div>在服务器创建验证文件：</div></li>
+      </ol>
+      <span class="code-label">// 在服务器上创建验证文件（把你的API Key替换进去）</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+# 假设你的API Key是 abc123def456
+echo "abc123def456" > /你的网站根目录/abc123def456.txt
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">④</span><div>在n8n工作流中，每次发布新文章时，自动发送IndexNow通知：</div></li>
+      </ol>
+      <span class="code-label">// n8n里的HTTP Request节点，通知IndexNow</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+POST https://api.indexnow.org/indexnow
+
+{
+  "host": "你的域名.com",
+  "key": "你的IndexNow API Key",
+  "urlList": ["{{$('RSS Feed Trigger').item.json.link}}"]
+}
+      </div>
+      <div class="tip-box tip">
+        <span class="tip-icon">✅</span>
+        <div><strong>提交到IndexNow后，</strong>必应（Bing）、Yandex（俄罗斯最大搜索引擎）、360搜索、Naver（韩国）等会立即收到通知并爬取你的新内容。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">03</div>
+      <div class="step-title-box">
+        <div class="step-title">AI多语言自动翻译（覆盖全球80%人口母语）</div>
+        <div class="step-subtitle">用DeepL或Claude API自动翻译20种语言，占领全球搜索</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>为什么要翻译？</strong>全球互联网用户中，中文用户只占约20%，英语约25%，西班牙语13%，阿拉伯语5%……如果你只发中文内容，你放弃了80%的全球受众。AI翻译成本极低（每千字约$0.002），效果已经非常好。</div>
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>注册 <em>https://www.deepl.com/pro-api</em>，获取DeepL API Key（免费层每月50万字符）</div></li>
+        <li><span class="inst-n">②</span><div>在n8n工作流中，每次发布内容后，添加HTTP Request节点调用DeepL API：</div></li>
+      </ol>
+      <span class="code-label">// 调用DeepL翻译成英语</span>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+POST https://api-free.deepl.com/v2/translate
+
+{
+  "text": ["{{$('RSS Feed Trigger').item.json.content}}"],
+  "target_lang": "EN",
+  "auth_key": "你的DeepL API Key"
+}
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">③</span><div>翻译结果发布到对应语言的平台账号（英文账号发英文推、西班牙语账号发西班牙文）</div></li>
+        <li><span class="inst-n">④</span><div>优先翻译的语言：英语（全球通用）、西班牙语（5亿人）、阿拉伯语（4亿人）、印地语（6亿人）、葡萄牙语（2.6亿人）</div></li>
+      </ol>
+      <div class="subsection-title" style="font-size:16px;">提交中文内容到中国搜索引擎：</div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>百度站长平台：<em>ziyuan.baidu.com</em> → 注册 → 验证域名 → 提交Sitemap</div></li>
+        <li><span class="inst-n">②</span><div>搜狗站长平台：<em>zhanzhang.sogou.com</em> → 提交RSS</div></li>
+        <li><span class="inst-n">③</span><div>360搜索站长平台：<em>zhanzhang.so.com</em> → 提交Sitemap</div></li>
+        <li><span class="inst-n">④</span><div>头条搜索：<em>studio.toutiao.com</em> → 通过今日头条创作平台同步内容</div></li>
+      </ol>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== CHAPTER 7: AI CONTENT MATRIX ===== -->
+<div class="chapter-divider"></div>
+<div id="ch7" class="anchor-target"></div>
+<div class="chapter-header">
+  <div class="ch-meta">
+    <span class="ch-num">CHAPTER 07</span>
+    <span class="ch-tag tag-auto">AI驱动</span>
+  </div>
+  <h2 class="ch-title">AI 内容矩阵引擎：<br>一份内容 × 无限格式衍生</h2>
+  <p class="ch-desc">用AI将你的核心内容自动改写成适合每个平台的最佳格式。一篇文章 → 推文线程、短视频脚本、邮件简报、播客摘要、LinkedIn长文……全部自动完成。</p>
+</div>
+
+<div class="chapter">
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">01</div>
+      <div class="step-title-box">
+        <div class="step-title">视频自动剪辑短片：Opus Clip（长视频→短视频）</div>
+        <div class="step-subtitle">AI自动找出视频精彩片段，生成适合TikTok/Reels的短视频</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://www.opus.pro</em>，注册账号（免费试用60分钟视频处理）</div></li>
+        <li><span class="inst-n">②</span><div>点击 <strong>Upload video</strong>，上传你的长视频（或直接粘贴YouTube链接）</div></li>
+        <li><span class="inst-n">③</span><div>选择内容类型（教程、访谈、演讲等），点击 <strong>Get Clips</strong></div></li>
+        <li><span class="inst-n">④</span><div>AI自动分析视频，找出10个最有吸引力的片段，自动加字幕、标题、框选重点</div></li>
+        <li><span class="inst-n">⑤</span><div>下载你满意的片段，发布到TikTok、Instagram Reels、YouTube Shorts</div></li>
+      </ol>
+      <div class="tip-box tip">
+        <span class="tip-icon">✅</span>
+        <div><strong>免费替代品：</strong>CapCut（剪映）也有AI自动剪辑功能，中文界面更友好，且有自动发布到抖音/TikTok的功能。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">02</div>
+      <div class="step-title-box">
+        <div class="step-title">视频自动多语言配音：ElevenLabs AI语音</div>
+        <div class="step-subtitle">克隆你的声音，自动生成英语、西班牙语等10种语言配音版本</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://elevenlabs.io</em>，注册账号（免费层每月10000字符）</div></li>
+        <li><span class="inst-n">②</span><div>点击 <strong>Voice Lab</strong> → <strong>Add a new voice</strong> → <strong>Voice Clone</strong></div></li>
+        <li><span class="inst-n">③</span><div>上传1-2分钟你的声音录音（清晰，无背景噪音），AI学习你的声音特征</div></li>
+        <li><span class="inst-n">④</span><div>在 <strong>Text to Speech</strong> 里，选择你的克隆声音，输入翻译好的文字，生成对应语言的语音</div></li>
+        <li><span class="inst-n">⑤</span><div>下载生成的音频，用视频编辑软件替换原视频的音轨，即可发布不同语言版本</div></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">03</div>
+      <div class="step-title-box">
+        <div class="step-title">在n8n配置完整AI内容生产线（核心工作流）</div>
+        <div class="step-subtitle">完整的一篇文章到10种格式内容的自动化流程</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="flow-wrap">
+        <div class="flow">
+          <div class="flow-node primary">Ghost发布<br>新文章</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">RSS触发<br>n8n工作流</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">AI改写<br>10种格式</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node success">同时分发<br>50+渠道</div>
+        </div>
+      </div>
+      <table class="data-table" style="margin-top:20px;">
+        <tr><th>AI生成的格式</th><th>发往哪里</th><th>n8n里的提示词</th></tr>
+        <tr><td>Twitter推文（280字）</td><td>Twitter/X</td><td>"生成一条吸引人的推文，280字符以内，含2个话题标签"</td></tr>
+        <tr><td>Twitter线程（5-10条连推）</td><td>Twitter/X</td><td>"生成一个5条推文的线程，每条展开一个要点，结尾加行动号召"</td></tr>
+        <tr><td>LinkedIn专业长文</td><td>LinkedIn</td><td>"改写成LinkedIn专业文章，1000字，含行业见解和数据，段落清晰"</td></tr>
+        <tr><td>微博140字中文</td><td>微博</td><td>"改写成140字以内微博，口语化，含话题标签"</td></tr>
+        <tr><td>Instagram图文说明</td><td>Instagram</td><td>"生成Instagram帖子说明，生动，含10个相关话题标签"</td></tr>
+        <tr><td>邮件简报</td><td>Listmonk邮件</td><td>"改写成邮件简报格式，有吸引人的主题行，清晰段落，结尾有CTA"</td></tr>
+        <tr><td>Reddit帖子</td><td>Reddit相关subreddit</td><td>"改写成Reddit标题和帖子内容，客观中立，适合社区讨论"</td></tr>
+        <tr><td>Telegram消息</td><td>Telegram频道</td><td>"生成Telegram频道消息，简洁，含原文链接"</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== CHAPTER 8: COMMUNITY & WEB3 ===== -->
+<div class="chapter-divider"></div>
+<div id="ch8" class="anchor-target"></div>
+<div class="chapter-header">
+  <div class="ch-meta">
+    <span class="ch-num">CHAPTER 08</span>
+    <span class="ch-tag tag-advanced">进阶策略</span>
+  </div>
+  <h2 class="ch-title">社群裂变与 Web3：<br>让受众变成你的传播军团</h2>
+  <p class="ch-desc">最高效的传播是让别人主动帮你传播。通过社群运营、邮件裂变、Web3激励机制，将每个接触到你内容的人变成传播节点。</p>
+</div>
+
+<div class="chapter">
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">01</div>
+      <div class="step-title-box">
+        <div class="step-title">WhatsApp Broadcast + 群组矩阵</div>
+        <div class="step-subtitle">全球最大即时通讯，30亿用户，无算法过滤直达</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>创建WhatsApp频道（Channel）：打开WhatsApp → 点击底部 "Updates"（状态） → 点击 + 号 → 创建频道</div></li>
+        <li><span class="inst-n">②</span><div>填写频道名称和描述，上传头像</div></li>
+        <li><span class="inst-n">③</span><div>分享频道链接，引导现有粉丝关注</div></li>
+        <li><span class="inst-n">④</span><div>每次发布内容时，在WhatsApp频道发布简短摘要+原文链接</div></li>
+        <li><span class="inst-n">⑤</span><div>进阶：申请 <strong>WhatsApp Business API</strong>（<em>business.whatsapp.com</em>），通过Meta Cloud API自动向订阅者发送内容通知（需要审核）</div></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">02</div>
+      <div class="step-title-box">
+        <div class="step-title">邮件裂变增长：SparkLoop推荐系统</div>
+        <div class="step-subtitle">读者邀请朋友订阅，自动获得奖励，快速扩大邮件列表</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>为什么要建邮件列表？</strong>邮件列表是你真正"拥有"的受众。平台可以封号、限流、倒闭，但邮件列表里的5万人永远属于你。顶级内容创作者通常把建邮件列表作为最重要的工作。</div>
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://sparkloop.app</em>，注册账号（免费层支持最多1000订阅者）</div></li>
+        <li><span class="inst-n">②</span><div>连接你的Listmonk邮件系统（通过SparkLoop的API集成）</div></li>
+        <li><span class="inst-n">③</span><div>设置推荐规则：订阅者邀请1人 → 获得独家内容；邀请5人 → 获得专属礼品</div></li>
+        <li><span class="inst-n">④</span><div>在每封邮件底部加入个人专属推荐链接，读者可以复制分享</div></li>
+        <li><span class="inst-n">⑤</span><div>也可以用 <strong>ReferralHero</strong>（referralhero.com）或 <strong>Viral Loops</strong> 实现类似功能</div></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">03</div>
+      <div class="step-title-box">
+        <div class="step-title">Mirror.xyz：Web3写作平台（内容变NFT）</div>
+        <div class="step-subtitle">读者收藏你的文章，自动成为传播者，内容永久上链</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://mirror.xyz</em>，点击 <strong>Connect wallet</strong>（需要MetaMask钱包，或直接用邮箱注册）</div></li>
+        <li><span class="inst-n">②</span><div>如果没有MetaMask：访问 <em>https://metamask.io</em>，安装浏览器插件，创建钱包，<strong>务必保存助记词</strong></div></li>
+        <li><span class="inst-n">③</span><div>连接钱包后填写个人资料，设置你的Mirror主页</div></li>
+        <li><span class="inst-n">④</span><div>发布文章（支持Markdown格式），可设置读者通过支付少量ETH来"Collect"（收藏）你的文章</div></li>
+        <li><span class="inst-n">⑤</span><div>文章自动存储在Arweave区块链（永久存储），获得唯一链上地址</div></li>
+      </ol>
+      <div class="tip-box tip">
+        <span class="tip-icon">✅</span>
+        <div><strong>适合什么内容？</strong>深度文章、独家见解、收费内容。Web3用户群体（加密货币圈）付费意愿强，且有传播意愿，收藏=分享背书。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-block">
+    <div class="step-header" onclick="toggleStep(this)">
+      <div class="step-num-box">04</div>
+      <div class="step-title-box">
+        <div class="step-title">Substack：无需技术，快速建立订阅社区</div>
+        <div class="step-subtitle">边学技术边运营，Substack是最简单的内容订阅平台</div>
+      </div>
+      <div class="step-toggle">+</div>
+    </div>
+    <div class="step-body">
+      <div class="tip-box info">
+        <span class="tip-icon">💡</span>
+        <div><strong>Substack适合谁？</strong>如果你觉得搭建服务器太复杂，先在Substack起步是最好的选择。它有内置的推荐系统（读者可以推荐你给别人），增长速度很快，且Substack网络内互相推荐。</div>
+      </div>
+      <ol class="inst-list">
+        <li><span class="inst-n">①</span><div>访问 <em>https://substack.com</em>，点击 <strong>Start writing</strong></div></li>
+        <li><span class="inst-n">②</span><div>注册账号，填写你的简报名称和描述，选择分类</div></li>
+        <li><span class="inst-n">③</span><div>连接你的Stripe账号（用于收取付费订阅）</div></li>
+        <li><span class="inst-n">④</span><div>发布第一篇内容，在末尾加入"推荐给朋友"的按钮</div></li>
+        <li><span class="inst-n">⑤</span><div>同步到Ghost：在n8n工作流里，每次发Ghost文章，自动同步发布到Substack（通过Substack的API或邮件发送方式）</div></li>
+      </ol>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== CHAPTER 9: ADDITIONAL CHANNELS ===== -->
+<div class="chapter-divider"></div>
+<div id="ch9" class="anchor-target"></div>
+<div class="chapter-header">
+  <div class="ch-meta">
+    <span class="ch-num">CHAPTER 09</span>
+    <span class="ch-tag tag-advanced">你可能没想到</span>
+  </div>
+  <h2 class="ch-title">你想不到的传播渠道：<br>触达被主流平台遗漏的人群</h2>
+  <p class="ch-desc">这些渠道覆盖特殊圈层——技术精英、隐私极客、学术圈、特定文化社区。虽然人数不如主流平台多，但影响力强，传播效率高。</p>
+</div>
+
+<div class="chapter">
+
+  <div class="platform-grid">
+    <div class="platform-card">
+      <div class="pc-top"><span class="pc-emoji">🟠</span><div><div class="pc-name">Hacker News</div><div class="pc-region">全球顶级技术/创业社区</div></div></div>
+      <div class="pc-desc">硅谷创业者、程序员日常必看。一篇登上首页的文章可带来数万访问量。</div>
+      <div class="pc-steps"><b>操作：</b>注册 news.ycombinator.com → 点击 submit → 提交你的文章标题和链接 → 获得社区投票</div>
+    </div>
+    <div class="platform-card">
+      <div class="pc-top"><span class="pc-emoji">🦋</span><div><div class="pc-name">Bluesky</div><div class="pc-region">Twitter创始人创建的去中心化平台</div></div></div>
+      <div class="pc-desc">快速增长，早期用户质量高，使用AT Protocol协议，半去中心化。</div>
+      <div class="pc-steps"><b>操作：</b>bsky.app 注册 → 用RSS自动同步（用Zapier连接）→ n8n里HTTP Request调用Bluesky API自动发帖</div>
+    </div>
+    <div class="platform-card">
+      <div class="pc-top"><span class="pc-emoji">🟣</span><div><div class="pc-name">Threads</div><div class="pc-region">Meta旗下，Instagram社区</div></div></div>
+      <div class="pc-desc">连接Instagram的用户基础，快速增长，已超过2亿月活。</div>
+      <div class="pc-steps"><b>操作：</b>用Instagram账号登录Threads → 内容与Instagram关联 → 通过Meta Graph API自动发帖</div>
+    </div>
+    <div class="platform-card">
+      <div class="pc-top"><span class="pc-emoji">🌐</span><div><div class="pc-name">VKontakte (VK)</div><div class="pc-region">俄语圈第一社交平台</div></div></div>
+      <div class="pc-desc">俄罗斯、乌克兰、白俄罗斯、中亚超过1亿用户，竞争少机会多。</div>
+      <div class="pc-steps"><b>操作：</b>vk.com 注册 → 创建公共页面（Публичная страница）→ 通过VK API自动发帖 → 加入相关群组</div>
+    </div>
+    <div class="platform-card">
+      <div class="pc-top"><span class="pc-emoji">🇧🇷</span><div><div class="pc-name">Kwai / Likee</div><div class="pc-region">巴西、东南亚、中东强势平台</div></div></div>
+      <div class="pc-desc">在TikTok触达不到的市场，Kwai（快手国际版）和Likee是主流短视频平台。</div>
+      <div class="pc-steps"><b>操作：</b>在Kwai注册创作者账号 → 上传视频 → 申请Creator Dashboard</div>
+    </div>
+    <div class="platform-card">
+      <div class="pc-top"><span class="pc-emoji">📚</span><div><div class="pc-name">Quora + 知乎</div><div class="pc-region">问答平台，高质量流量</div></div></div>
+      <div class="pc-desc">回答相关问题，在回答中自然链接到你的内容，长期积累高质量搜索流量。</div>
+      <div class="pc-steps"><b>操作：</b>找到与你内容相关的热门问题 → 写高质量回答 → 在结尾引用你的文章链接</div>
+    </div>
+    <div class="platform-card">
+      <div class="pc-top"><span class="pc-emoji">🎓</span><div><div class="pc-name">ResearchGate / Academia.edu</div><div class="pc-region">学术圈传播</div></div></div>
+      <div class="pc-desc">全球学者、研究人员聚集地，学术类内容传播效果极佳。</div>
+      <div class="pc-steps"><b>操作：</b>researchgate.net 注册 → 上传你的研究报告/深度文章 → 加入相关研究小组</div>
+    </div>
+    <div class="platform-card">
+      <div class="pc-top"><span class="pc-emoji">📰</span><div><div class="pc-name">今日头条 / 百家号</div><div class="pc-region">中国最大信息流，6亿日活</div></div></div>
+      <div class="pc-desc">今日头条算法推荐覆盖中国最广泛人群，适合资讯类内容。</div>
+      <div class="pc-steps"><b>操作：</b>mp.toutiao.com 注册媒体号 → 申请原创标签 → 开通自动同步RSS功能</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== CHAPTER 10: TIMELINE ===== -->
+<div class="chapter-divider"></div>
+<div id="ch10" class="anchor-target"></div>
+<div class="chapter-header">
+  <div class="ch-meta">
+    <span class="ch-num">CHAPTER 10</span>
+    <span class="ch-tag tag-must">行动计划</span>
+  </div>
+  <h2 class="ch-title">四周落地行动计划：<br>每天做什么，清单式操作</h2>
+  <p class="ch-desc">把前面所有章节的内容整合成一个按天拆解的执行计划。不要跳步骤，按顺序来，四周后你将拥有一套完整运行的全球传播基础设施。</p>
+</div>
+
+<div class="chapter">
+
+  <div class="week-block">
+    <div class="week-header">
+      <div class="week-badge">第一周</div>
+      <div class="week-info">
+        <div class="week-name">基础设施搭建：建立你的传播总部</div>
+        <div class="week-desc">目标：网站上线、邮件系统运行、RSS生效</div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="day-row"><span class="day-label">Day 1</span><div class="day-task">购买域名（Namecheap）→ 注册Cloudflare → 修改域名服务器到Cloudflare → 等待生效（用这天时间注册好所有需要的账号：AWS、GitHub、Hetzner）</div></div>
+      <div class="day-row"><span class="day-label">Day 2</span><div class="day-task">购买Hetzner VPS → SSH连接服务器 → 更新系统 → 安装Docker和Docker Compose</div></div>
+      <div class="day-row"><span class="day-label">Day 3</span><div class="day-task">部署Ghost CMS → 配置Cloudflare DNS指向服务器 → 完成Ghost初始化设置 → 验证RSS地址可访问</div></div>
+      <div class="day-row"><span class="day-label">Day 4</span><div class="day-task">部署Listmonk → 配置Amazon SES（注册AWS、验证域名、获取SMTP凭据、填入Listmonk、发测试邮件）</div></div>
+      <div class="day-row"><span class="day-label">Day 5</span><div class="day-task">提交Google Search Console → 提交Sitemap → 提交百度/搜狗/360站长平台 → 配置WebSub（Superfeedr）</div></div>
+      <div class="day-row"><span class="day-label">Day 6</span><div class="day-task">提交RSS到聚合器：Feedly、Flipboard、Inoreader、Feedspot、Alltop，记录每个提交的进度</div></div>
+      <div class="day-row"><span class="day-label">Day 7</span><div class="day-task">发布第一篇Ghost文章（测试），验证RSS更新、WebSub推送正常，检查整周所有配置是否正确运行</div></div>
+    </div>
+  </div>
+
+  <div class="week-block">
+    <div class="week-header">
+      <div class="week-badge">第二周</div>
+      <div class="week-info">
+        <div class="week-name">自动化引擎搭建：让内容自动分发到主流平台</div>
+        <div class="week-desc">目标：n8n运行、Telegram/Twitter/LinkedIn自动发布</div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="day-row"><span class="day-label">Day 8</span><div class="day-task">在服务器部署n8n → 配置Cloudflare DNS子域名（n8n.你的域名.com）→ 成功登录n8n管理界面</div></div>
+      <div class="day-row"><span class="day-label">Day 9</span><div class="day-task">创建Telegram Bot（BotFather）→ 建立Telegram频道 → 在n8n创建第一个工作流（RSS→Telegram）→ 测试成功</div></div>
+      <div class="day-row"><span class="day-label">Day 10</span><div class="day-task">申请Twitter API → 获取4个密钥 → 在n8n添加Twitter节点 → 测试自动发推文</div></div>
+      <div class="day-row"><span class="day-label">Day 11</span><div class="day-task">申请LinkedIn API → 配置LinkedIn节点 → 测试自动发LinkedIn帖子；同时申请Facebook Page API</div></div>
+      <div class="day-row"><span class="day-label">Day 12</span><div class="day-task">配置Facebook自动发帖 → 注册微博开发者账号（申请API，可能需要等待审核）→ 注册Instagram专业账号</div></div>
+      <div class="day-row"><span class="day-label">Day 13</span><div class="day-task">获取Claude API Key → 在n8n测试调用Claude API → 测试AI改写推文功能 → 优化提示词</div></div>
+      <div class="day-row"><span class="day-label">Day 14</span><div class="day-task">整合完整工作流（RSS→AI改写→同时推送所有已配置平台）→ 发测试文章验证整条流水线</div></div>
+    </div>
+  </div>
+
+  <div class="week-block">
+    <div class="week-header">
+      <div class="week-badge">第三周</div>
+      <div class="week-info">
+        <div class="week-name">内容矩阵扩展：覆盖更多渠道，接入AI内容生产线</div>
+        <div class="week-desc">目标：播客上线、多语言内容自动发布、视频渠道配置</div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="day-row"><span class="day-label">Day 15</span><div class="day-task">注册Spotify for Podcasters → 配置播客信息 → 上传第一集音频 → 主动提交到Apple Podcast、Amazon Music</div></div>
+      <div class="day-row"><span class="day-label">Day 16</span><div class="day-task">注册DeepL API → 在n8n添加翻译节点 → 测试自动将内容翻译成英文 → 配置英文内容发布到英文账号</div></div>
+      <div class="day-row"><span class="day-label">Day 17</span><div class="day-task">配置Google YouTube Data API → 在n8n测试YouTube自动上传（如有视频内容）→ 注册Pinterest账号并配置自动发Pin</div></div>
+      <div class="day-row"><span class="day-label">Day 18</span><div class="day-task">注册Odysee账号 → 连接YouTube频道 → 开启自动同步 → 注册Reddit账号，在相关subreddit发第一篇内容</div></div>
+      <div class="day-row"><span class="day-label">Day 19</span><div class="day-task">注册Mastodon账号 → 配置RSS自动同步到Mastodon → 注册Nostr账号 → 保存私钥</div></div>
+      <div class="day-row"><span class="day-label">Day 20</span><div class="day-task">注册web3.storage → 在n8n添加IPFS上传节点 → 测试文章内容自动存档到IPFS → 获取永久链接</div></div>
+      <div class="day-row"><span class="day-label">Day 21</span><div class="day-task">全面测试：发布一篇完整内容，检查所有渠道是否正常同步。修复任何问题。记录整个系统的工作状态。</div></div>
+    </div>
+  </div>
+
+  <div class="week-block">
+    <div class="week-header">
+      <div class="week-badge">第四周</div>
+      <div class="week-info">
+        <div class="week-name">深化扩展：中国市场、社群裂变、数据监控</div>
+        <div class="week-desc">目标：中文平台全覆盖、邮件列表增长机制、运营监控面板</div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="day-row"><span class="day-label">Day 22</span><div class="day-task">注册今日头条媒体号（mp.toutiao.com）→ 注册百家号 → 申请微信公众号 → 提交认证资料</div></div>
+      <div class="day-row"><span class="day-label">Day 23</span><div class="day-task">注册小红书账号（创作者身份）→ 注册知乎（开通知乎专栏）→ 注册哔哩哔哩（UP主身份）→ 配置内容同步计划</div></div>
+      <div class="day-row"><span class="day-label">Day 24</span><div class="day-task">配置Listmonk邮件欢迎序列（新订阅者自动收到欢迎邮件）→ 配置Ghost订阅表单 → 测试订阅流程</div></div>
+      <div class="day-row"><span class="day-label">Day 25</span><div class="day-task">注册Substack → 配置内容同步 → 注册Mirror.xyz → 发布第一篇Web3文章（内容永久上链）</div></div>
+      <div class="day-row"><span class="day-label">Day 26</span><div class="day-task">注册Bluesky → 配置自动发布 → 注册Hacker News → 分享你的第一篇技术/创业类内容</div></div>
+      <div class="day-row"><span class="day-label">Day 27</span><div class="day-task">在n8n创建数据统计工作流：收集各平台互动数据（转发量、点击量），发送每日摘要邮件给自己</div></div>
+      <div class="day-row"><span class="day-label">Day 28</span><div class="day-task">全系统压力测试：发布一篇正式内容，观察每个渠道的传播表现，识别最有效的渠道，制定未来内容优化策略</div></div>
+    </div>
+  </div>
+
+  <div class="tip-box warning">
+    <span class="tip-icon">⚠️</span>
+    <div><strong>重要原则：质量永远优先于数量。</strong>一篇真正有价值的内容，能比十篇平庸内容带来更多传播。工具和渠道只是放大器，内容本身的质量决定了传播的上限。搭好系统后，80%的精力应该花在创作好内容上，20%花在维护系统。</div>
+  </div>
+
+</div>
+
+<!-- ===== FINAL SUMMARY ===== -->
+<div class="chapter-divider"></div>
+
+<div class="final">
+  <h2>你已拥有<br><em>属于自己的广播电台</em></h2>
+  <p>从今天起，你不是平台的访客，而是互联网基础设施的主人。每一篇内容，都在同一秒钟，穿透所有协议，触达全球每一个角落。</p>
+
+  <div class="final-grid">
+    <div class="final-item">
+      <div class="fi-icon">🏗️</div>
+      <div class="fi-title">私有基础设施</div>
+      <div class="fi-desc">Ghost + Listmonk + Cloudflare，你的内容根据地，任何人夺不走</div>
+    </div>
+    <div class="final-item">
+      <div class="fi-icon">📡</div>
+      <div class="fi-title">RSS聚合网络</div>
+      <div class="fi-desc">全球数千聚合器主动抓取，设置一次，永久被动获取流量</div>
+    </div>
+    <div class="final-item">
+      <div class="fi-icon">⚡</div>
+      <div class="fi-title">n8n自动化引擎</div>
+      <div class="fi-desc">发布一次内容，50+平台同时触达，全程无人干预</div>
+    </div>
+    <div class="final-item">
+      <div class="fi-icon">🤖</div>
+      <div class="fi-title">AI内容矩阵</div>
+      <div class="fi-desc">一份内容自动衍生10种格式，覆盖20种语言市场</div>
+    </div>
+    <div class="final-item">
+      <div class="fi-icon">🔓</div>
+      <div class="fi-title">去中心化备份</div>
+      <div class="fi-desc">IPFS永久存档，Nostr广播，任何审查都无法触及</div>
+    </div>
+    <div class="final-item">
+      <div class="fi-icon">📧</div>
+      <div class="fi-title">私域邮件列表</div>
+      <div class="fi-desc">真正属于你的受众，不依赖任何平台，永久有效</div>
+    </div>
+  </div>
+
+  <div style="border:1px solid var(--border);padding:28px;text-align:left;max-width:600px;margin:0 auto;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--amber);letter-spacing:2px;margin-bottom:12px;">// 系统完成后的运作状态</div>
+    <div style="font-family:'Lora',serif;font-size:14px;color:var(--text2);line-height:1.9;">
+      你坐在电脑前，打开Ghost，写完一篇文章，点击<strong style="color:#fff;">发布</strong>。<br><br>
+      在接下来的60秒内，n8n自动将这篇文章推送到你的Telegram频道（直达订阅者），AI改写成推文发到Twitter，改写成专业文章发到LinkedIn，翻译成英文发到英文账号，上传到IPFS永久存档，广播到Nostr全球中继节点，通知Google/必应实时索引，触发WebSub实时同步全球聚合器，发邮件给你的订阅者列表……<br><br>
+      而你，已经在构思下一篇内容了。
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;padding:40px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:2px;border-top:1px solid var(--border2);">
+  GLOBAL BROADCAST SYSTEM · COMPLETE GUIDE · 2025<br>
+  <span style="color:var(--amber);">START TODAY. BUILD YOUR INFRASTRUCTURE.</span>
+</div>
+
+<!-- ===== TOC PAGE (after cover) ===== -->
+<div class="toc-section" style="display:none;" id="toc-floater">
+</div>
+
+<script>
+// Toggle step expand/collapse
+function toggleStep(header){
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.step-toggle');
+  const isOpen = body.classList.contains('visible');
+  body.classList.toggle('visible', !isOpen);
+  toggle.classList.toggle('open', !isOpen);
+}
+
+// Copy code
+function copyCode(btn){
+  const block = btn.parentElement;
+  const text = block.innerText.replace('COPY\n','').replace('COPY','').trim();
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent = 'COPIED!';
+    setTimeout(()=>{ btn.textContent = 'COPY'; }, 2000);
+  });
+}
+
+// Open all steps on load for readability (optional: open first of each section)
+document.addEventListener('DOMContentLoaded', ()=>{
+  // Steps auto-reveal on scroll
+  const steps = document.querySelectorAll('.step-block');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.style.opacity='1';
+        e.target.style.transform='translateY(0)';
+      }
+    });
+  }, {threshold:0.05});
+  steps.forEach(s=>{
+    s.style.opacity='0';
+    s.style.transform='translateY(16px)';
+    s.style.transition='opacity .4s ease, transform .4s ease';
+    io.observe(s);
+  });
+
+  const cards = document.querySelectorAll('.platform-card,.week-block,.final-item,.overview-box');
+  const io2 = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.style.opacity='1';
+        e.target.style.transform='translateY(0)';
+      }
+    });
+  },{threshold:0.05});
+  cards.forEach(c=>{
+    c.style.opacity='0';
+    c.style.transform='translateY(20px)';
+    c.style.transition='opacity .5s ease, transform .5s ease';
+    io2.observe(c);
+  });
+
+  // Expand first step in each chapter automatically
+  document.querySelectorAll('.step-block:first-of-type .step-header').forEach(h=>{
+    // don't auto-open, let user explore
+  });
+});
+</script>
+</body>
+</html>

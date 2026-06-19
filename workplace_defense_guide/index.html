@@ -1,0 +1,3125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>职场防御战略手册 · 保护自己 · 反制欺压</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg-primary: #0a0c10;
+    --bg-secondary: #0f1117;
+    --bg-card: #13161e;
+    --bg-card-hover: #1a1e2a;
+    --bg-glass: rgba(19, 22, 30, 0.85);
+    --accent-red: #e63946;
+    --accent-red-dim: rgba(230, 57, 70, 0.15);
+    --accent-amber: #f4a261;
+    --accent-amber-dim: rgba(244, 162, 97, 0.12);
+    --accent-gold: #e9c46a;
+    --accent-gold-dim: rgba(233, 196, 106, 0.1);
+    --accent-cyan: #2ec4b6;
+    --accent-cyan-dim: rgba(46, 196, 182, 0.1);
+    --accent-blue: #4361ee;
+    --accent-blue-dim: rgba(67, 97, 238, 0.12);
+    --text-primary: #e8eaf0;
+    --text-secondary: #8b92a8;
+    --text-muted: #4a5068;
+    --border: rgba(255,255,255,0.06);
+    --border-accent: rgba(230, 57, 70, 0.3);
+    --shadow-lg: 0 20px 60px rgba(0,0,0,0.5);
+    --shadow-glow-red: 0 0 30px rgba(230, 57, 70, 0.2);
+    --shadow-glow-amber: 0 0 30px rgba(244, 162, 97, 0.15);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-xs: 4px;
+    --font-serif: 'Noto Serif SC', serif;
+    --font-sans: 'Noto Sans SC', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── Scrollbar ─── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg-primary); }
+  ::-webkit-scrollbar-thumb { background: var(--accent-red); border-radius: 10px; }
+
+  /* ─── Background texture ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(230,57,70,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 60% at 80% 90%, rgba(67,97,238,0.04) 0%, transparent 60%),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 60px,
+        rgba(255,255,255,0.008) 60px,
+        rgba(255,255,255,0.008) 61px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── HERO HEADER ─── */
+  .hero {
+    position: relative;
+    padding: 80px 20px 60px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(230,57,70,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-red);
+    border: 1px solid var(--accent-red);
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+    animation: fadeInDown 0.6s ease both;
+  }
+
+  .hero-label::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent-red);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  .hero h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 6vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    animation: fadeInUp 0.7s ease 0.1s both;
+  }
+
+  .hero h1 .line-red { color: var(--accent-red); }
+  .hero h1 .line-gold { color: var(--accent-gold); }
+
+  .hero-subtitle {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    color: var(--text-secondary);
+    max-width: 620px;
+    margin: 0 auto 36px;
+    animation: fadeInUp 0.7s ease 0.2s both;
+    line-height: 1.8;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.7s ease 0.3s both;
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat-num {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--accent-amber);
+    display: block;
+  }
+
+  .hero-stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ─── WARNING BANNER ─── */
+  .warning-banner {
+    margin: 0 16px 40px;
+    background: linear-gradient(135deg, rgba(230,57,70,0.08) 0%, rgba(244,162,97,0.06) 100%);
+    border: 1px solid rgba(230,57,70,0.25);
+    border-left: 4px solid var(--accent-red);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.7s ease 0.4s both;
+  }
+
+  .warning-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 2px;
+  }
+
+  .warning-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .warning-text strong {
+    color: var(--accent-red);
+    font-weight: 600;
+  }
+
+  /* ─── NAV TABS ─── */
+  .nav-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,12,16,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+  }
+
+  .nav-tabs {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 12px 0;
+  }
+
+  .nav-tabs::-webkit-scrollbar { display: none; }
+
+  .nav-tab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 100px;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-tab:hover {
+    color: var(--text-primary);
+    background: rgba(255,255,255,0.05);
+    border-color: var(--border);
+  }
+
+  .nav-tab.active {
+    color: var(--accent-red);
+    background: var(--accent-red-dim);
+    border-color: rgba(230,57,70,0.3);
+  }
+
+  .nav-tab .tab-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    opacity: 0.6;
+  }
+
+  /* ─── MAIN CONTAINER ─── */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 16px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── SECTION ─── */
+  .section {
+    display: none;
+    animation: sectionFadeIn 0.4s ease both;
+  }
+
+  .section.active {
+    display: block;
+  }
+
+  @keyframes sectionFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .section-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: var(--accent-red);
+  }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-amber);
+    margin-bottom: 10px;
+  }
+
+  .section-tag::before {
+    content: '//';
+    color: var(--text-muted);
+  }
+
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  .section-title em {
+    font-style: normal;
+    color: var(--accent-red);
+  }
+
+  .section-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    max-width: 680px;
+    line-height: 1.75;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: transparent;
+    transition: background 0.25s;
+  }
+
+  .card:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(255,255,255,0.1);
+    transform: translateY(-1px);
+  }
+
+  .card:hover::before {
+    background: linear-gradient(90deg, var(--accent-red), var(--accent-amber));
+  }
+
+  .card-red { border-left: 3px solid var(--accent-red); }
+  .card-amber { border-left: 3px solid var(--accent-amber); }
+  .card-gold { border-left: 3px solid var(--accent-gold); }
+  .card-cyan { border-left: 3px solid var(--accent-cyan); }
+  .card-blue { border-left: 3px solid var(--accent-blue); }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .icon-red { background: var(--accent-red-dim); }
+  .icon-amber { background: var(--accent-amber-dim); }
+  .icon-gold { background: var(--accent-gold-dim); }
+  .icon-cyan { background: var(--accent-cyan-dim); }
+  .icon-blue { background: var(--accent-blue-dim); }
+
+  .card-title {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.4;
+    margin-bottom: 3px;
+  }
+
+  .card-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    letter-spacing: 0.05em;
+  }
+
+  .card-body {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  .card-body p {
+    margin-bottom: 10px;
+  }
+
+  .card-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ─── GRID LAYOUTS ─── */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  /* ─── STEP LIST ─── */
+  .step-list {
+    list-style: none;
+    counter-reset: steps;
+  }
+
+  .step-item {
+    counter-increment: steps;
+    display: flex;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .step-item:last-child {
+    border-bottom: none;
+  }
+
+  .step-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent-red);
+    background: var(--accent-red-dim);
+    border: 1px solid rgba(230,57,70,0.2);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-weight: 600;
+  }
+
+  .step-content {}
+
+  .step-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .step-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+  }
+
+  /* ─── CALLOUT BOXES ─── */
+  .callout {
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .callout-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .callout-text {}
+
+  .callout-text strong {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .callout-danger {
+    background: rgba(230,57,70,0.08);
+    border: 1px solid rgba(230,57,70,0.2);
+    border-left: 3px solid var(--accent-red);
+    color: #c9a7ab;
+  }
+
+  .callout-danger strong { color: var(--accent-red); }
+
+  .callout-warning {
+    background: rgba(244,162,97,0.07);
+    border: 1px solid rgba(244,162,97,0.2);
+    border-left: 3px solid var(--accent-amber);
+    color: #c0a888;
+  }
+
+  .callout-warning strong { color: var(--accent-amber); }
+
+  .callout-info {
+    background: rgba(46,196,182,0.07);
+    border: 1px solid rgba(46,196,182,0.2);
+    border-left: 3px solid var(--accent-cyan);
+    color: #89b5b3;
+  }
+
+  .callout-info strong { color: var(--accent-cyan); }
+
+  .callout-success {
+    background: rgba(233,196,106,0.07);
+    border: 1px solid rgba(233,196,106,0.2);
+    border-left: 3px solid var(--accent-gold);
+    color: #b8a87a;
+  }
+
+  .callout-success strong { color: var(--accent-gold); }
+
+  /* ─── BADGE ─── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+  }
+
+  .badge-red { background: var(--accent-red-dim); color: var(--accent-red); border: 1px solid rgba(230,57,70,0.25); }
+  .badge-amber { background: var(--accent-amber-dim); color: var(--accent-amber); border: 1px solid rgba(244,162,97,0.25); }
+  .badge-gold { background: var(--accent-gold-dim); color: var(--accent-gold); border: 1px solid rgba(233,196,106,0.25); }
+  .badge-cyan { background: var(--accent-cyan-dim); color: var(--accent-cyan); border: 1px solid rgba(46,196,182,0.25); }
+  .badge-blue { background: var(--accent-blue-dim); color: var(--accent-blue); border: 1px solid rgba(67,97,238,0.25); }
+
+  /* ─── TABLE ─── */
+  .table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 20px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  thead tr {
+    background: rgba(230,57,70,0.08);
+    border-bottom: 1px solid rgba(230,57,70,0.2);
+  }
+
+  thead th {
+    text-align: left;
+    padding: 12px 16px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-amber);
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+  tbody td {
+    padding: 12px 16px;
+    color: var(--text-secondary);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  tbody td:first-child {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  /* ─── TEMPLATE BOX ─── */
+  .template-box {
+    background: rgba(10,12,16,0.8);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    margin-bottom: 14px;
+    position: relative;
+    font-size: 0.85rem;
+    line-height: 1.85;
+    color: var(--text-secondary);
+  }
+
+  .template-label {
+    position: absolute;
+    top: -10px;
+    left: 14px;
+    background: var(--bg-card);
+    padding: 1px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+  }
+
+  .template-label.tl-red { color: var(--accent-red); border-color: rgba(230,57,70,0.3); }
+  .template-label.tl-amber { color: var(--accent-amber); border-color: rgba(244,162,97,0.3); }
+  .template-label.tl-cyan { color: var(--accent-cyan); border-color: rgba(46,196,182,0.3); }
+
+  .template-box mark {
+    background: rgba(244,162,97,0.15);
+    color: var(--accent-amber);
+    border-radius: 3px;
+    padding: 1px 4px;
+    font-style: italic;
+  }
+
+  .template-box em {
+    color: var(--accent-cyan);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  /* ─── RISK METER ─── */
+  .risk-bar-wrap {
+    margin: 8px 0 4px;
+  }
+
+  .risk-bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+  }
+
+  .risk-bar-header span:last-child {
+    font-family: var(--font-mono);
+    color: var(--accent-red);
+  }
+
+  .risk-bar {
+    height: 6px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .risk-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--accent-amber), var(--accent-red));
+    transition: width 1s ease;
+  }
+
+  /* ─── ACCORDION ─── */
+  .accordion {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .accordion-header {
+    padding: 16px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--bg-card);
+    transition: background 0.2s;
+    user-select: none;
+  }
+
+  .accordion-header:hover {
+    background: var(--bg-card-hover);
+  }
+
+  .accordion-title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .accordion-arrow {
+    color: var(--text-muted);
+    transition: transform 0.25s ease;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .accordion.open .accordion-arrow {
+    transform: rotate(180deg);
+  }
+
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    background: rgba(10,12,16,0.5);
+  }
+
+  .accordion.open .accordion-body {
+    max-height: 2000px;
+    padding: 20px;
+  }
+
+  .accordion-body-inner {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  /* ─── CHECKLIST ─── */
+  .checklist {
+    list-style: none;
+  }
+
+  .checklist li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+
+  .checklist-dot {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--accent-red);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .checklist-dot.checked {
+    background: var(--accent-red);
+    border-color: var(--accent-red);
+  }
+
+  .checklist-dot.checked::after {
+    content: '✓';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  /* ─── BLOCKQUOTE ─── */
+  blockquote {
+    border-left: 3px solid var(--accent-gold);
+    padding: 12px 18px;
+    background: var(--accent-gold-dim);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin: 16px 0;
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    line-height: 1.75;
+  }
+
+  blockquote strong {
+    font-style: normal;
+    color: var(--accent-gold);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+  }
+
+  /* ─── TIMELINE ─── */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent-red), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 28px;
+  }
+
+  .timeline-item:last-child { padding-bottom: 0; }
+
+  .timeline-dot {
+    position: absolute;
+    left: -24px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-red);
+    background: var(--bg-primary);
+    box-shadow: 0 0 8px rgba(230,57,70,0.4);
+  }
+
+  .timeline-phase {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--accent-red);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .timeline-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .timeline-desc {
+    font-size: 0.83rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+  }
+
+  /* ─── SPECIAL HIGHLIGHT ─── */
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(230,57,70,0.06) 0%, rgba(244,162,97,0.04) 100%);
+    border: 1px solid rgba(230,57,70,0.2);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .highlight-box::after {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(230,57,70,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .highlight-box-title {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent-red);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .highlight-box-body {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  /* ─── TAG ROW ─── */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── PROGRESS INDICATOR ─── */
+  .progress-stages {
+    display: flex;
+    gap: 0;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .progress-stages::-webkit-scrollbar { display: none; }
+
+  .progress-stage {
+    flex: 1;
+    min-width: 80px;
+    text-align: center;
+    position: relative;
+    padding: 12px 6px 10px;
+  }
+
+  .progress-stage:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 30px;
+    background: var(--border);
+  }
+
+  .ps-num {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent-red);
+  }
+
+  .ps-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    border-top: 1px solid var(--border);
+    letter-spacing: 0.05em;
+  }
+
+  footer span {
+    color: var(--accent-red);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .hero { padding: 60px 16px 40px; }
+    .hero-stats { gap: 20px; }
+    .hero-stat-num { font-size: 1.5rem; }
+    .card { padding: 18px; }
+    .accordion.open .accordion-body { padding: 14px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .nav-tab { font-size: 0.72rem; padding: 6px 12px; }
+    .progress-stages { gap: 0; }
+  }
+
+  @media (min-width: 768px) {
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* ─── UTILITY ─── */
+  .mt-8 { margin-top: 8px; }
+  .mt-12 { margin-top: 12px; }
+  .mt-16 { margin-top: 16px; }
+  .mt-24 { margin-top: 24px; }
+  .mt-32 { margin-top: 32px; }
+  .mb-8 { margin-bottom: 8px; }
+  .mb-16 { margin-bottom: 16px; }
+  .mb-24 { margin-bottom: 24px; }
+  .mb-32 { margin-bottom: 32px; }
+  .text-red { color: var(--accent-red); }
+  .text-amber { color: var(--accent-amber); }
+  .text-gold { color: var(--accent-gold); }
+  .text-cyan { color: var(--accent-cyan); }
+  .text-muted { color: var(--text-muted); }
+  .bold { font-weight: 700; }
+  .mono { font-family: var(--font-mono); }
+
+  /* ─── CODE INLINE ─── */
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.83em;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--accent-cyan);
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 28px 0;
+  }
+
+  .divider-text {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .divider-text::before,
+  .divider-text::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ─── NUMBERED LIST ─── */
+  .num-list {
+    list-style: none;
+    counter-reset: numlist;
+  }
+
+  .num-list li {
+    counter-increment: numlist;
+    padding: 10px 0 10px 36px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+  }
+
+  .num-list li:last-child { border-bottom: none; }
+
+  .num-list li::before {
+    content: counter(numlist, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent-red);
+    font-weight: 600;
+  }
+
+  .num-list li strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* ─── ICON GRID (mini cards) ─── */
+  .mini-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .mini-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 12px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .mini-card:hover {
+    border-color: var(--accent-red);
+    background: var(--accent-red-dim);
+  }
+
+  .mini-card-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .mini-card-label {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* ─── RED BOX IMPORTANT ─── */
+  .red-box {
+    background: rgba(230,57,70,0.06);
+    border: 1.5px solid rgba(230,57,70,0.25);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    margin: 16px 0;
+  }
+
+  .red-box-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-red);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .red-box-body {
+    font-size: 0.875rem;
+    color: #c9a7ab;
+    line-height: 1.8;
+  }
+
+  /* ─── PRIORITY INDICATOR ─── */
+  .priority-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+
+  .priority-label {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  /* ─── TWO-COL DETAIL ─── */
+  .detail-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  @media (max-width: 500px) {
+    .detail-row { grid-template-columns: 1fr; }
+  }
+
+  .detail-row:last-child { border-bottom: none; }
+
+  .detail-key {
+    padding: 10px 12px 10px 0;
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .detail-val {
+    padding: 10px 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  /* ─── EMPHASIS QUOTE ─── */
+  .emphasis-quote {
+    text-align: center;
+    padding: 40px 20px;
+    font-family: var(--font-serif);
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    color: var(--text-secondary);
+    font-style: italic;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  .emphasis-quote::before {
+    content: '"';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 4rem;
+    color: rgba(230,57,70,0.1);
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+
+  .emphasis-quote em {
+    font-style: normal;
+    color: var(--accent-gold);
+  }
+
+  /* ─── NARROW PILL INFO ─── */
+  .info-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-right: 6px;
+    margin-bottom: 4px;
+  }
+
+  .ip-red { background: var(--accent-red-dim); color: var(--accent-red); border: 1px solid rgba(230,57,70,0.2); }
+  .ip-amber { background: var(--accent-amber-dim); color: var(--accent-amber); border: 1px solid rgba(244,162,97,0.2); }
+  .ip-cyan { background: var(--accent-cyan-dim); color: var(--accent-cyan); border: 1px solid rgba(46,196,182,0.2); }
+  .ip-gold { background: var(--accent-gold-dim); color: var(--accent-gold); border: 1px solid rgba(233,196,106,0.2); }
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<section class="hero">
+  <div class="hero-label">职场防御作战手册 · 机密文档</div>
+  <h1>
+    <span class="line-red">保护自己·收集证据</span><br>
+    <span class="line-gold">合法反制·一击制胜</span>
+  </h1>
+  <p class="hero-subtitle">
+    专为金融机构内网环境下遭受管理层恶意打压的员工设计，
+    提供全面、可执行的防御与反制路径——<strong style="color:var(--accent-amber)">让你无需耗费大量精力，却能将主动权始终握在自己手中。</strong>
+  </p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-num">8</span>
+      <span class="hero-stat-label">核心战略模块</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">30+</span>
+      <span class="hero-stat-label">可执行操作</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">10+</span>
+      <span class="hero-stat-label">话术模板</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">0</span>
+      <span class="hero-stat-label">额外精力消耗</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ WARNING ═══════════════════════════ -->
+<div class="warning-banner">
+  <div class="warning-icon">⚠️</div>
+  <div class="warning-text">
+    <strong>核心判断：你正在经历的是有组织的职场霸凌</strong>
+    该领导的行为高度符合"职场PUA"与"选择性打压"模式——故意设置无解循环任务、言语贬低、孤立、半夜骚扰、绩效威胁。这不是你的问题，这是<strong>对方的问题和风险</strong>。你的目标是：用最小成本建立最强防御，并在适当时机一击致命。
+  </div>
+</div>
+
+<!-- ═══════════════════════════ NAV ═══════════════════════════ -->
+<div class="nav-wrapper">
+  <div class="nav-tabs" id="navTabs">
+    <button class="nav-tab active" onclick="showSection('s0', this)"><span class="tab-num">00</span> 形势评估</button>
+    <button class="nav-tab" onclick="showSection('s1', this)"><span class="tab-num">01</span> 心理防护</button>
+    <button class="nav-tab" onclick="showSection('s2', this)"><span class="tab-num">02</span> 证据收集</button>
+    <button class="nav-tab" onclick="showSection('s3', this)"><span class="tab-num">03</span> 工作执行</button>
+    <button class="nav-tab" onclick="showSection('s4', this)"><span class="tab-num">04</span> 话术武器库</button>
+    <button class="nav-tab" onclick="showSection('s5', this)"><span class="tab-num">05</span> 举报路径</button>
+    <button class="nav-tab" onclick="showSection('s6', this)"><span class="tab-num">06</span> 法律武器</button>
+    <button class="nav-tab" onclick="showSection('s7', this)"><span class="tab-num">07</span> 终极一击</button>
+    <button class="nav-tab" onclick="showSection('s8', this)"><span class="tab-num">08</span> 日常清单</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ MAIN ═══════════════════════════ -->
+<div class="container">
+
+<!-- ══════════ 00 形势评估 ══════════ -->
+<div id="s0" class="section active">
+  <div class="section-header">
+    <div class="section-tag">SITUATION ASSESSMENT</div>
+    <h2 class="section-title">形势评估 · 认清<em>敌我</em>格局</h2>
+    <p class="section-desc">在行动之前，先用冷静的眼光评估当前局势，判断威胁等级，理清你的优势与劣势，制定总体方针。</p>
+  </div>
+
+  <!-- 威胁等级 -->
+  <div class="card card-red">
+    <div class="card-header">
+      <div class="card-icon icon-red">🎯</div>
+      <div>
+        <div class="card-title">威胁等级评估</div>
+        <div class="card-subtitle">THREAT LEVEL ANALYSIS</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="risk-bar-wrap">
+        <div class="risk-bar-header"><span>绩效被打压风险</span><span>85%</span></div>
+        <div class="risk-bar"><div class="risk-bar-fill" style="width:85%"></div></div>
+      </div>
+      <div class="risk-bar-wrap">
+        <div class="risk-bar-header"><span>被恶意辞退风险</span><span>55%</span></div>
+        <div class="risk-bar"><div class="risk-bar-fill" style="width:55%"></div></div>
+      </div>
+      <div class="risk-bar-wrap">
+        <div class="risk-bar-header"><span>持续PUA/骚扰风险</span><span>90%</span></div>
+        <div class="risk-bar"><div class="risk-bar-fill" style="width:90%"></div></div>
+      </div>
+      <div class="risk-bar-wrap">
+        <div class="risk-bar-header"><span>问题被组织处理的概率</span><span>70%</span></div>
+        <div class="risk-bar"><div class="risk-bar-fill" style="width:70%; background:linear-gradient(90deg, var(--accent-cyan), var(--accent-gold))"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 你的优势 vs 对方弱点 -->
+  <div class="grid-2">
+    <div class="card card-cyan">
+      <div class="card-header">
+        <div class="card-icon icon-cyan">🛡️</div>
+        <div>
+          <div class="card-title">你的核心优势</div>
+          <div class="card-subtitle">YOUR ASSETS</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="num-list">
+          <li><strong>十余年工龄</strong>，属于"老员工"，劳动法保护更强，随意辞退成本极高</li>
+          <li><strong>工作记录完整</strong>，在该岗位工作多年，熟悉业务，很难被说"能力不足"</li>
+          <li><strong>旁观者众多</strong>，内部有同事目睹过不公待遇，是潜在证人</li>
+          <li><strong>邮件系统留痕</strong>，任何通过内网邮件发来的任务指令都是天然证据</li>
+          <li><strong>你够克制</strong>，你没有反击、没有失态，这本身就是道德优势</li>
+          <li><strong>对方快退休</strong>，其权力有时限，组织对其容忍度在降低</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-amber">
+      <div class="card-header">
+        <div class="card-icon icon-amber">💀</div>
+        <div>
+          <div class="card-title">对方的致命弱点</div>
+          <div class="card-subtitle">ENEMY VULNERABILITIES</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="num-list">
+          <li><strong>言行极不专业</strong>，口出市井词汇、语法错误频出，白纸黑字极具杀伤力</li>
+          <li><strong>行为具有法律风险</strong>，半夜骚扰、当面无视打招呼、循环整人，构成职场骚扰</li>
+          <li><strong>跨越职权范围</strong>，比你高三级却直接指派任务并反复否定，程序上有问题</li>
+          <li><strong>破坏跨部门协作</strong>，这是金融机构内部合规的重大隐患，管理层敏感</li>
+          <li><strong>快退休者的通病</strong>，组织更不愿为即将离职者承担麻烦</li>
+          <li><strong>有多个受害者</strong>，若非只针对你，证据链更容易形成集体投诉</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 五大行为定性 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-red">⚖️</div>
+      <div>
+        <div class="card-title">对方行为的法律与合规定性</div>
+        <div class="card-subtitle">LEGAL CHARACTERIZATION</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>行为类型</th>
+              <th>具体表现</th>
+              <th>性质定性</th>
+              <th>危险等级</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>循环式无解任务</td>
+              <td>反复修改要求、整到半夜、写完否定再改再否定</td>
+              <td>工作骚扰 / 职场霸凌</td>
+              <td><span class="badge badge-red">极高</span></td>
+            </tr>
+            <tr>
+              <td>精神打压</td>
+              <td>当街无视、态度恶劣、贬低话语</td>
+              <td>职场PUA / 人格侮辱</td>
+              <td><span class="badge badge-red">极高</span></td>
+            </tr>
+            <tr>
+              <td>毒性教唆</td>
+              <td>教下属推诿、用诡辩话术</td>
+              <td>管理失职 / 腐蚀团队</td>
+              <td><span class="badge badge-amber">高</span></td>
+            </tr>
+            <tr>
+              <td>破坏协同</td>
+              <td>对跨部门协作设壁垒、零和思维</td>
+              <td>合规风险 / 内控漏洞</td>
+              <td><span class="badge badge-amber">高</span></td>
+            </tr>
+            <tr>
+              <td>懒政推诿</td>
+              <td>甩锅系统、以拖代管、不解决根本问题</td>
+              <td>管理失职 / 渎职</td>
+              <td><span class="badge badge-gold">中高</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 总体方针 -->
+  <div class="highlight-box">
+    <div class="highlight-box-title">🔱 总体方针：低成本稳守 + 系统性蓄力 + 时机致命一击</div>
+    <div class="highlight-box-body">
+      <p>你的核心策略分三层：<strong style="color:var(--accent-amber)">第一层是日常防守</strong>——以最少精力完成工作任务，避免给对方任何攻击把柄；<strong style="color:var(--accent-amber)">第二层是持续蓄证</strong>——不动声色地将所有不当行为记录成铁证；<strong style="color:var(--accent-amber)">第三层是择机出击</strong>——当证据积累足够或遭受新的重大不公时，启动正式投诉机制，一次性将问题上升到组织和法律层面，彻底解决。</p>
+      <p class="mt-12">记住：<strong style="color:var(--text-primary)">你不是在和她争口舌之快，你是在建立一个让她无法抵赖的系统性证据链。</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 01 心理防护 ══════════ -->
+<div id="s1" class="section">
+  <div class="section-header">
+    <div class="section-tag">PSYCHOLOGICAL DEFENSE</div>
+    <h2 class="section-title">心理防护 · 拒绝被<em>PUA</em></h2>
+    <p class="section-desc">PUA的核心机制是让受害者自我怀疑、情绪内耗，主动防护心理边界是你最重要的战场。</p>
+  </div>
+
+  <div class="callout callout-danger">
+    <div class="callout-icon">🧠</div>
+    <div class="callout-text">
+      <strong>理解PUA的运作机制</strong>
+      职场PUA的目标是通过持续的否定、无解循环、情感操控，让你对自己的工作能力和价值产生怀疑，从而陷入自我指责、效率降低、更容易服从的状态。识破这个机制，是最重要的第一步。
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-cyan">
+      <div class="card-header">
+        <div class="card-icon icon-cyan">🔒</div>
+        <div>
+          <div class="card-title">认知重构：换个框架看问题</div>
+          <div class="card-subtitle">COGNITIVE REFRAMING</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="num-list">
+          <li>她说你写的不行 = <strong>她自己也不知道要什么</strong>，这是她的管理失职，不是你的能力问题</li>
+          <li>她骂你 = 她的<strong>情绪失控</strong>，情绪失控的人是在向你展示她的弱点</li>
+          <li>她让你写到半夜 = 这是<strong>可记录的骚扰行为</strong>，每一次都是她的罪证</li>
+          <li>她当街无视你 = 这是<strong>职场孤立行为</strong>，是骚扰，不是你不够好</li>
+          <li>她说你能力不行 = 没有客观标准的主观评价，<strong>不具备合规效力</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <div class="card-header">
+        <div class="card-icon icon-gold">🧘</div>
+        <div>
+          <div class="card-title">情绪隔离技术</div>
+          <div class="card-subtitle">EMOTIONAL FIREWALL</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="num-list">
+          <li><strong>旁观者视角</strong>：每次互动时，脑中想"我正在观察一个行为失当的管理者"，像记录员，不像受害者</li>
+          <li><strong>3秒延迟回应</strong>：被骂时先沉默3秒，这3秒既是记录时间，也是情绪缓冲</li>
+          <li><strong>任务完成即胜利</strong>：把"写好一份回应"重新定义为今天的胜利，而不是"得到她的认可"</li>
+          <li><strong>下班即切断</strong>：一旦离开办公区，该话题在你脑中不存在，用固定时间段处理</li>
+          <li><strong>记录即释放</strong>：把愤怒写进证据日志，用文字代替情绪消耗</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-amber">💡</div>
+      <div>
+        <div class="card-title">心理边界的七条铁律</div>
+        <div class="card-subtitle">7 PSYCHOLOGICAL BOUNDARIES</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ol class="step-list">
+        <li class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">她的不满意不等于你的错误</div>
+            <div class="step-desc">她无法定义你的工作好坏，只有客观标准和制度规范才能定义。只要你按照规范写，你就没有错。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">你有权要求明确的书面指令</div>
+            <div class="step-desc">每次她给你反馈说"不行"，你有权要求她给出具体的书面标准。这是专业权利，不是挑衅。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">超出正常工作时间的任务你有权设置边界</div>
+            <div class="step-desc">半夜的任务催促属于不当管理，你可以回复"已收悉，将在明日工作时间内处理"，无需连夜完成。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">你的自我价值不依赖于她的评价</div>
+            <div class="step-desc">十几年工龄、熟悉业务的你，价值是内在的，不是她可以定义的。把外部评价和内部自我认知分开。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">愤怒是信号，不是行动指令</div>
+            <div class="step-desc">当你感到愤怒时，这是提醒你记录和留证的信号，而不是要求你立刻反击或内耗的指令。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-title">寻找同盟者，不要孤立自处</div>
+            <div class="step-desc">找1-2位信任的同事私下倾诉，了解她是否也有类似行为针对他人。这既是心理支持，也是证人培育。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">7</div>
+          <div class="step-content">
+            <div class="step-title">必要时寻求专业支持</div>
+            <div class="step-desc">如情绪持续影响睡眠和生活，可寻找心理咨询（EAP企业员工援助计划，若单位有提供）或外部咨询，这不是软弱，是智慧。</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="emphasis-quote">
+    她每次的否定和刁难，<em>不是在评价你</em>，<br>是在为自己的档案里添加一条条不当管理记录。
+  </div>
+</div>
+
+<!-- ══════════ 02 证据收集 ══════════ -->
+<div id="s2" class="section">
+  <div class="section-header">
+    <div class="section-tag">EVIDENCE COLLECTION</div>
+    <h2 class="section-title">证据收集体系 · 内网环境下的<em>铁证构建</em></h2>
+    <p class="section-desc">内网无法截图复制，不等于无法取证。证据收集的关键在于建立系统性的记录习惯，而非依赖技术手段。</p>
+  </div>
+
+  <div class="callout callout-warning">
+    <div class="callout-icon">📋</div>
+    <div class="callout-text">
+      <strong>内网环境核心原则</strong>
+      单位内网禁止截图、拍照、复制等，但你依然可以通过<strong>纸质记录、邮件留存申请、正式会议纪要、流程系统日志、书面确认函</strong>等完全合规的方式建立完整证据体系。不要做任何违反单位规定的事，你收集的证据必须完全合规才有效力。
+    </div>
+  </div>
+
+  <!-- 核心证据类型 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-red">📁</div>
+      <div>
+        <div class="card-title">五类核心证据类型及收集方法</div>
+        <div class="card-subtitle">EVIDENCE TYPES & METHODS</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="accordion" id="acc1">
+        <div class="accordion-header" onclick="toggleAccordion('acc1')">
+          <div class="accordion-title">📧 类型一：邮件与系统工单（最强证据）</div>
+          <div class="accordion-arrow">▼</div>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-body-inner">
+            <p><strong style="color:var(--accent-amber)">为何是最强证据：</strong>系统时间戳、发件人、内容均无法篡改，是任何仲裁和调查中最具法律效力的书面证据。</p>
+            <ul class="num-list mt-12">
+              <li><strong>关键操作：确保所有任务指令通过邮件或系统工单形式发出</strong>。每次被当面口头布置任务后，立即发一封确认邮件：<em>"根据今日【时间】面谈，确认您布置的任务要求如下：……，请确认"</em>。这样口头指令就被你转化成了书面证据。</li>
+              <li><strong>打印存档</strong>：单位内网邮件允许打印，将重要邮件打印后，注明日期、签上自己姓名存入个人文件夹。打印件是合规的纸质证据。</li>
+              <li><strong>邮件链保留</strong>：每次回复任务时，在邮件末尾附上历次修改版本对比，方便日后证明"循环修改"的事实。</li>
+              <li><strong>发送确认函</strong>：每次被否定后，发邮件："您在【时间】反馈以上内容不符合要求，请问具体的标准要求是什么？是否可以书面确认修改方向？"——这既是专业操作，也是取证。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion" id="acc2">
+        <div class="accordion-header" onclick="toggleAccordion('acc2')">
+          <div class="accordion-title">📓 类型二：工作日志本（手写同步记录）</div>
+          <div class="accordion-arrow">▼</div>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-body-inner">
+            <p><strong style="color:var(--accent-amber)">使用一本专用笔记本</strong>，每天随身携带，建立规范化记录格式。</p>
+            <div class="template-box mt-12">
+              <span class="template-label tl-amber">每日记录模板</span>
+              <p><strong>日期：</strong>2024年X月X日（周X）<br>
+              <strong>时间：</strong>14:30<br>
+              <strong>情景：</strong>【某领导姓/职级缩写】当面要求修改催收回应意见<br>
+              <strong>具体指令：</strong>原话记录（尽量逐字）："你这写的什么东西……"<br>
+              <strong>我的回应：</strong>已按要求修改，版本V2<br>
+              <strong>对方后续反应：</strong>仍表示不满，要求再改，理由含糊<br>
+              <strong>时长：</strong>该轮交互共耗时X小时，持续至X时<br>
+              <strong>情绪异常行为：</strong>声音激动/当众批评/使用不雅词汇</p>
+            </div>
+            <ul class="num-list mt-12">
+              <li>每次记录后在底部写上<strong>当日日期和自己姓名</strong>，形成可验证时间序列</li>
+              <li>若有同事在场，在备注中记录<strong>见证人姓名/工号</strong>（不需要对方签名，你只需要记录）</li>
+              <li>日志本不要放在工位上，<strong>随身携带或锁在私人物品柜</strong></li>
+              <li>每周末用文字拍照备份（拍到私人手机）——注意：是在工作场所外对纸质记录的个人留存，合规</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion" id="acc3">
+        <div class="accordion-header" onclick="toggleAccordion('acc3')">
+          <div class="accordion-title">📊 类型三：任务版本对比档案（循环折磨的铁证）</div>
+          <div class="accordion-arrow">▼</div>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-body-inner">
+            <p><strong style="color:var(--accent-amber)">目的：</strong>证明"无解循环"模式——你多次按要求修改，对方仍无客观标准地否定，这直接证明管理骚扰。</p>
+            <ul class="num-list mt-12">
+              <li><strong>操作：</strong>每次提交一版回应意见时，都通过邮件发送，并在邮件标题注明版本号：<em>"催收回应意见 V1 / V2 / V3……（针对XX投诉）"</em></li>
+              <li>在邮件正文中注明<strong>本版本相对上版本的修改依据</strong>："依据X月X日您的口头反馈，本版本做了以下修改：……"</li>
+              <li>当循环次数超过3次，在最新版邮件中加一句：<em>"本意见已历经X次修订，若仍不符合要求，请提供书面标准，以便提高效率。"</em></li>
+              <li>将所有版本邮件打印，按顺序装订——日后这就是一本清晰的<strong>"无解循环骚扰证据册"</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion" id="acc4">
+        <div class="accordion-header" onclick="toggleAccordion('acc4')">
+          <div class="accordion-title">🕐 类型四：异常工作时间记录（半夜骚扰证据）</div>
+          <div class="accordion-arrow">▼</div>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-body-inner">
+            <p><strong style="color:var(--accent-amber)">这类证据极具杀伤力</strong>，直接对应《劳动合同法》中关于过度加班和管理骚扰的相关条款。</p>
+            <ul class="num-list mt-12">
+              <li><strong>门禁系统记录</strong>：在大型金融机构，进出门禁有刷卡记录，这是第三方客观记录。可向人力资源部门申请自己的门禁出入记录，这是你的权利。记录若显示你多次深夜加班，是有力佐证。</li>
+              <li><strong>内网系统登录日志</strong>：与IT或系统管理员（或通过HR）申请自己账号的<strong>系统登录时间记录</strong>，这是完全合规的申请。</li>
+              <li><strong>邮件时间戳</strong>：对方半夜发给你的邮件或消息，时间戳清晰显示超出正常工作时间，这是骚扰的直接证据，打印保存。</li>
+              <li><strong>日志本记录</strong>：每次加班至深夜，在日志上记录<strong>开始时间、结束时间、任务来源（谁要求的）</strong>。</li>
+              <li>若有OA（办公自动化系统）工单记录，检查工单创建和要求修改的时间戳，异常时间会直接显示。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion" id="acc5">
+        <div class="accordion-header" onclick="toggleAccordion('acc5')">
+          <div class="accordion-title">👥 类型五：见证人与第三方证明</div>
+          <div class="accordion-arrow">▼</div>
+        </div>
+        <div class="accordion-body">
+          <div class="accordion-body-inner">
+            <p><strong style="color:var(--accent-amber)">证人证言是投诉中非常重要的补充证据。</strong></p>
+            <ul class="num-list mt-12">
+              <li>私下与信任的同事交谈，了解是否有其他人也受到过类似对待——<strong>共同受害者</strong>的集体投诉比个人投诉力度大得多</li>
+              <li>在被当众批评或骚扰时，记录当时在场的<strong>同事工号或名字</strong>（只需在日志中记录，不需要对方签名或知情）</li>
+              <li>请有过类似经历的同事私下写一份<strong>陈述备忘录</strong>（非正式，保存在个人处），日后可作证人</li>
+              <li>与跨部门客服处置部门的对接同事保持良好关系，他们目睹了协作中的阻碍，也是潜在证人</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 证据保存 -->
+  <div class="card card-amber">
+    <div class="card-header">
+      <div class="card-icon icon-amber">🗄️</div>
+      <div>
+        <div class="card-title">证据存储与管理方案</div>
+        <div class="card-subtitle">EVIDENCE STORAGE SYSTEM</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="grid-2">
+        <div>
+          <p class="bold text-amber mb-8">📦 物理存储（首选）</p>
+          <ul class="num-list">
+            <li>购买一个<strong>带锁的文件夹</strong>，放在家中，专门存放打印证据</li>
+            <li>文件按<strong>"时间顺序"</strong>排列，每份文件注明类型和日期</li>
+            <li>工作日志本存储于<strong>家中或随身包内</strong>，不存放在工作场所</li>
+            <li>重要邮件<strong>定期打印</strong>，每2-4周一次带回家存档</li>
+          </ul>
+        </div>
+        <div>
+          <p class="bold text-cyan mb-8">📱 个人设备备份（合规部分）</p>
+          <ul class="num-list">
+            <li>打印的纸质文件可以在家中用手机拍照备份——这是对<strong>个人物品</strong>的备份，完全合规</li>
+            <li>日志本的书面记录同理，在家中补充录入个人手机备忘录或云端文档</li>
+            <li>注意：只对你自己的记录和打印文件做这一操作，不对单位电脑内容做任何违规操作</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="red-box">
+    <div class="red-box-title">⛔ 证据收集的绝对禁区</div>
+    <div class="red-box-body">
+      不得对单位内网系统截图；不得私自录音（须了解所在地法律，部分地区未经对方同意的单方录音证据效力有限，且可能违反公司规定）；不得拷贝单位文件到个人设备；不得使用个人手机拍摄屏幕内容。<strong>任何违规取证行为一旦被发现，将使你处于极为被动的位置，让对方转守为攻。</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 03 工作执行 ══════════ -->
+<div id="s3" class="section">
+  <div class="section-header">
+    <div class="section-tag">WORK EXECUTION SHIELD</div>
+    <h2 class="section-title">工作执行护盾 · 让她<em>无懈可击</em></h2>
+    <p class="section-desc">你处理的每一份回应意见，都应该是无懈可击的标准品——不是为了得到她的认可，而是让她的否定在旁人眼中显得无理取闹。</p>
+  </div>
+
+  <div class="callout callout-info">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-text">
+      <strong>核心逻辑转变</strong>
+      不要把"让她满意"作为目标。你的目标是：<strong>按照客观专业标准写出一份合格的文档，然后用邮件留痕证明你已经尽到职责。</strong>她满不满意是她的问题，是否合规是可以客观评判的。
+    </div>
+  </div>
+
+  <!-- SOP流程 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-red">⚙️</div>
+      <div>
+        <div class="card-title">回应意见标准操作流程（SOP）</div>
+        <div class="card-subtitle">STANDARD OPERATING PROCEDURE</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ol class="step-list">
+        <li class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">收到任务：立即发邮件确认任务范围</div>
+            <div class="step-desc">收到任何形式（口头/系统/邮件）的跨部门回应请求后，立刻发一封邮件给任务来源方（客服处置部门 + 抄送直属上司），确认：投诉编号、涉及的催收业务范围、需要回应的核心问题点、预计完成时间。这一步将任务范围锁定，防止后期"要求越来越多"。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">起草回应：使用固定模板框架</div>
+            <div class="step-desc">建立一个自己的标准化回应框架（参见下方"话术武器库"）。每次按框架填充内容，减少思考成本，同时保持格式一致——格式一致使任何"写的不行"的说法都显得缺乏标准。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">提交：通过邮件提交，同时抄送给更多人</div>
+            <div class="step-desc">通过邮件提交，并<strong>抄送你的直属上司</strong>（你自己的那一级领导）。这一步极为重要：一旦有人看着，对方的刁难会面临旁观者压力；同时你的工作成果有了更多见证者。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">被否定时：要求书面具体反馈</div>
+            <div class="step-desc">被口头否定后，立即通过邮件回复："感谢您的反馈，为确保下一版本符合要求，<strong>请将具体修改意见以书面形式发给我</strong>，我会尽快完成修订。"——这句话让她必须把否定意见落实到文字上，而文字化的反馈是最难造假的证据。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">循环反复时：触发"升级机制"</div>
+            <div class="step-desc">当同一份文件被反复否定超过3次且无具体书面标准时，在邮件中礼貌地触发升级："该回应意见已修订X次，因各方需求较为复杂，<strong>建议安排一次多方参与的协调会议</strong>，由相关方共同确认回应口径，以提高效率。请协调会议时间。"——这会把问题暴露在更多人眼中。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-title">超时任务：礼貌设置时间边界</div>
+            <div class="step-desc">如果傍晚下班后才收到紧急催改任务，回复："已收到您的反馈，因已过工作时间，<strong>我将于明日上午X点前提交修订版本</strong>，如有紧急情况请与部门负责人确认优先级。"不要连夜工作，这是对工作时间边界的合理主张，也是对骚扰模式的被动阻断。</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- 回应意见写作标准 -->
+  <div class="card card-gold">
+    <div class="card-header">
+      <div class="card-icon icon-gold">✍️</div>
+      <div>
+        <div class="card-title">回应意见的专业写作标准</div>
+        <div class="card-subtitle">PROFESSIONAL WRITING STANDARDS</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p>一份合格的催收管理部门跨部门回应意见，应包含以下四个要素，无论字数多少，这四点到位即为合格：</p>
+      <div class="grid-2 mt-16">
+        <div class="callout callout-info" style="margin:0">
+          <div class="callout-icon">1️⃣</div>
+          <div class="callout-text">
+            <strong>事实确认</strong>
+            确认该投诉所涉及的催收业务是否在本部门管辖范围内，以及涉及的时间段、账号或相关信息
+          </div>
+        </div>
+        <div class="callout callout-info" style="margin:0">
+          <div class="callout-icon">2️⃣</div>
+          <div class="callout-text">
+            <strong>情况说明</strong>
+            对投诉涉及的具体催收行为或政策进行客观说明，引用现行制度规定作为依据
+          </div>
+        </div>
+        <div class="callout callout-info" style="margin:0">
+          <div class="callout-icon">3️⃣</div>
+          <div class="callout-text">
+            <strong>处置意见</strong>
+            明确本部门的处理建议或处置权限范围，超出权限范围的事项明确指出需由哪个层级决策
+          </div>
+        </div>
+        <div class="callout callout-info" style="margin:0">
+          <div class="callout-icon">4️⃣</div>
+          <div class="callout-text">
+            <strong>时限/责任</strong>
+            明确后续跟进时限或责任方，保持处置闭环
+          </div>
+        </div>
+      </div>
+      <blockquote class="mt-16">
+        <strong>关键认知</strong>
+        这四点写到位，就是一份合格的专业回应。任何声称"不行"的反馈，如果不能指出这四点中哪点出了问题，就是无效否定。
+      </blockquote>
+    </div>
+  </div>
+
+  <!-- 防被找茬策略 -->
+  <div class="card card-red">
+    <div class="card-header">
+      <div class="card-icon icon-red">🛡️</div>
+      <div>
+        <div class="card-title">防绩效攻击的八项工作习惯</div>
+        <div class="card-subtitle">PERFORMANCE ATTACK PREVENTION</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="checklist" id="checklistPerf">
+        <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>每项工作任务均有书面记录</strong>（邮件或系统工单），避免"你没做/做晚了"的无据指控</span></li>
+        <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>严格遵守承诺的交付时间</strong>，交付前1小时发邮件预告"即将提交"，避免被说"拖延"</span></li>
+        <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>每月整理一次工作成果清单</strong>，记录完成的投诉回应件数、质量反馈（客观的，如客服部门的确认回执），形成自我绩效档案</span></li>
+        <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>与直属上司保持工作同步</strong>，每周或双周简短汇报本部门跨部门协作情况——让你的直属上司了解你的工作量和困难，是防御绩效打压的重要防线</span></li>
+        <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>主动向客服处置部门要确认函</strong>，每次完成一个案件的回应后，请对方发邮件确认已收到并正常处理——这是对你工作质量的第三方证明</span></li>
+        <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>建立自己的参照制度标准库</strong>，每次写回应时引用具体制度条款编号——制度依据在，就无法被说"写错了"</span></li>
+        <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>所有口头会议及时发邮件纪要</strong>，会后30分钟内发出"今日会议纪要，如有遗漏请告知"——这是最专业也最有效的留证方式</span></li>
+        <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>定期向HR提交工作自我评价</strong>（如单位有此机制），记录工作完成情况，让绩效评价有客观对照基础</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 04 话术武器库 ══════════ -->
+<div id="s4" class="section">
+  <div class="section-header">
+    <div class="section-tag">VERBAL ARSENAL</div>
+    <h2 class="section-title">话术武器库 · <em>标准化</em>应对每一种刁难</h2>
+    <p class="section-desc">预设话术的意义在于：当面对攻击时你不需要思考，只需要调用预设程序，既专业又不失体面，同时完成留证。</p>
+  </div>
+
+  <div class="callout callout-warning">
+    <div class="callout-icon">🎭</div>
+    <div class="callout-text">
+      <strong>话术使用核心原则</strong>
+      所有话术遵循：<strong>简短、中性、专业、可落实为文字</strong>。不争辩对错，不显示情绪，只陈述事实和请求明确指令。这种风格让她无法抓住你情绪失控的把柄，同时让旁观者看清谁在无理取闹。
+    </div>
+  </div>
+
+  <!-- 情景1：被口头否定 -->
+  <div class="card card-amber mb-16">
+    <div class="card-header">
+      <div class="card-icon icon-amber">🗣️</div>
+      <div>
+        <div class="card-title">情景一：当面被否定，说"这不行"</div>
+        <div class="card-subtitle">SCENARIO: VERBAL REJECTION</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="template-box">
+        <span class="template-label tl-amber">黄金话术 A（最常用）</span>
+        "好的，我理解您认为这版本有待改进。<em>请问主要需要调整哪些方面？我来整理一下，发邮件确认后立即修改。</em>"
+      </div>
+      <div class="template-box">
+        <span class="template-label tl-amber">黄金话术 B（被骂后）</span>
+        "我希望我们能够高效推进这项工作。<em>如果您能将修改方向以书面形式发给我，我可以确保准确理解并快速完成，避免来回反复。</em>"
+      </div>
+      <div class="template-box">
+        <span class="template-label tl-cyan">紧接跟进：会后邮件</span>
+        "根据今日【时间】的面谈，您提出以下修改意见：<mark>（写你理解的内容，哪怕只有一句话）</mark>。如有理解有误，请回复告知，我将以此为基础完成修订。" <em>（抄送直属上司）</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- 情景2：循环修改 -->
+  <div class="card card-red mb-16">
+    <div class="card-header">
+      <div class="card-icon icon-red">🔄</div>
+      <div>
+        <div class="card-title">情景二：反复修改却无具体标准</div>
+        <div class="card-subtitle">SCENARIO: ENDLESS REVISION LOOP</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="template-box">
+        <span class="template-label tl-red">话术（第3次修改时使用）</span>
+        "这份回应意见已经是第<em>【X】</em>版。为了确保最终版本符合各方要求，<em>我建议我们约定一个统一的书面标准，或者安排一次简短的多方对齐会议</em>，这样可以更高效地完成处置，也避免客户等待时间过长。您看是否可行？"
+      </div>
+      <div class="template-box">
+        <span class="template-label tl-red">话术（被否定但无法给出任何理由时）</span>
+        "我想确认一下，当前这版本的具体问题是什么？是事实描述不准确、逻辑不清晰、还是某个表述需要修改？<em>请指出具体位置，我马上修改。</em>如果各方对回应口径有不同理解，我建议通过邮件明确一致意见。"
+      </div>
+    </div>
+  </div>
+
+  <!-- 情景3：态度极差/辱骂 -->
+  <div class="card card-gold mb-16">
+    <div class="card-header">
+      <div class="card-icon icon-gold">🤐</div>
+      <div>
+        <div class="card-title">情景三：对方态度极差、使用不当语言</div>
+        <div class="card-subtitle">SCENARIO: HOSTILE / ABUSIVE BEHAVIOR</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="template-box">
+        <span class="template-label tl-amber">当场应对</span>
+        <em>（保持沉默2-3秒，语气平静）</em>"我希望我们能在一个相互尊重的氛围下讨论工作。<em>我会认真对待您的反馈，请告诉我具体的修改方向。</em>"
+      </div>
+      <div class="template-box">
+        <span class="template-label tl-amber">如果对方继续失控</span>
+        "我理解现在任务比较紧急，<em>我先去整理一下修改方案，有任何具体问题请发邮件给我，我会第一时间处理。</em>" <em>（礼貌离开，立刻去记录日志）</em>
+      </div>
+      <div class="template-box">
+        <span class="template-label tl-cyan">事后邮件（最重要）</span>
+        "根据今日【时间】的沟通，我理解您对该回应意见有较高要求。我将按照工作规程认真完成。如对工作安排有任何指示，欢迎邮件告知，以便保存记录、高效执行。" <em>（抄送直属上司）</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- 情景4：当街无视 -->
+  <div class="card card-cyan mb-16">
+    <div class="card-header">
+      <div class="card-icon icon-cyan">👁️</div>
+      <div>
+        <div class="card-title">情景四：路上打招呼被无视 / 冷处理</div>
+        <div class="card-subtitle">SCENARIO: DELIBERATE EXCLUSION</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="template-box">
+        <span class="template-label tl-cyan">处理方式</span>
+        打招呼时不管对方是否回应，<em>始终保持正常问候</em>。这样做的目的有三：①让旁观者看到是对方有问题；②你的行为无可指摘；③日志中记录"在X地打招呼，对方未回应"，此类记录积累后是孤立骚扰的证据。
+      </div>
+      <blockquote>
+        <strong>重要认知</strong>
+        对方无视你，是在向所有目睹者展示她自己的失态，而不是在伤害你。你越平静，对比越强烈，对你越有利。
+      </blockquote>
+    </div>
+  </div>
+
+  <!-- 情景5：超时任务 -->
+  <div class="card card-blue mb-16">
+    <div class="card-header">
+      <div class="card-icon icon-blue">🕒</div>
+      <div>
+        <div class="card-title">情景五：下班后/深夜被催任务</div>
+        <div class="card-subtitle">SCENARIO: AFTER-HOURS DEMANDS</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="template-box">
+        <span class="template-label tl-cyan">标准回复（通过OA/邮件回复）</span>
+        "您好，已收到您的反馈。<em>该任务我将于明日【上午X时/下午X时】前处理完毕并提交。</em>如该任务有紧急程度的变化，请通过正式流程告知，我会按优先级处理。"
+      </div>
+      <div class="template-box">
+        <span class="template-label tl-cyan">如对方坚持今晚要</span>
+        "了解了。如确认为紧急任务，<em>请在系统中标注紧急级别并说明原因</em>，我会按公司加班程序处理，并相应记录加班时间。"
+      </div>
+      <div class="callout callout-danger" style="margin-top:12px">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-text">
+          <strong>关键认知</strong>
+          在大型金融机构，正常的紧急任务有正式的紧急升级通道和加班审批流程。没有走正式流程、只是口头或非正式催促的半夜任务，你有权要求走流程后再处理，这是对双方的保护。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 情景6：被威胁绩效 -->
+  <div class="card card-red">
+    <div class="card-header">
+      <div class="card-icon icon-red">📉</div>
+      <div>
+        <div class="card-title">情景六：被隐晦威胁绩效或暗示"能力不行"</div>
+        <div class="card-subtitle">SCENARIO: PERFORMANCE THREATS</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="template-box">
+        <span class="template-label tl-red">当场应对</span>
+        "我一直在认真完成每一项任务，也在持续改进工作方法。<em>如果有具体的工作质量问题，请您明确指出，我愿意认真改进。</em>如果涉及绩效评价，我也希望通过正式渠道了解评价标准，以便对照提升。"
+      </div>
+      <div class="template-box">
+        <span class="template-label tl-red">会后邮件</span>
+        "您在今日谈话中提到了工作能力和绩效方面的问题。<em>我希望通过正式渠道了解具体的考核标准和当前表现评价</em>，请问是否可以安排与HR的正式绩效谈话？我希望清晰了解改进方向。"
+      </div>
+      <div class="callout callout-success" style="margin-top:12px">
+        <div class="callout-icon">💡</div>
+        <div class="callout-text">
+          <strong>为什么这样说有效</strong>
+          当你主动要求走正式绩效流程，两件事会发生：①她必须拿出客观标准来，而她拿不出；②这个主动要求会被HR记录，一旦日后被打低绩效，你已经提前证明了你曾积极寻求改进，这对仲裁极为有利。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 05 举报路径 ══════════ -->
+<div id="s5" class="section">
+  <div class="section-header">
+    <div class="section-tag">REPORTING CHANNELS</div>
+    <h2 class="section-title">举报路径 · 善用<em>组织内部</em>力量</h2>
+    <p class="section-desc">大型金融机构有完善的内部合规与员工关系处理机制，正确使用这些渠道，是最高效的问题解决路径。</p>
+  </div>
+
+  <div class="callout callout-warning">
+    <div class="callout-icon">📌</div>
+    <div class="callout-text">
+      <strong>使用渠道的前提条件</strong>
+      在正式启动任何举报/投诉前，确保你已经有<strong>至少3-6个月</strong>的系统性记录：包括时间线完整的日志、版本迭代的邮件记录、异常工作时间的证明。证据不足的投诉不仅无法成功，还可能让对方提前警觉并采取反制措施。
+    </div>
+  </div>
+
+  <!-- 渠道优先级 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-red">🗺️</div>
+      <div>
+        <div class="card-title">五级举报渠道——按优先级使用</div>
+        <div class="card-subtitle">5-TIER REPORTING SYSTEM</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">优先级 01 · 日常蓄力阶段</div>
+          <div class="timeline-title">直属上司（你的那一级领导）</div>
+          <div class="timeline-desc">
+            在举报之前，先与直属上司建立良好的工作同步习惯。通过定期汇报让他了解跨部门协作的困难。不要直接投诉，而是"汇报工作进展中的客观困难"：<em>"在催收回应意见的处理上，近期遇到了反复修改、难以对齐标准的情况，影响了处置效率，您是否有建议的处理方式？"</em>这样做的目的是让你的直属上司提前有印象，日后你升级投诉时他不会感到突兀，还可能成为你的支持者。
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">优先级 02 · 证据积累2-3个月后</div>
+          <div class="timeline-title">人力资源部门（HR）/ 员工关系专员</div>
+          <div class="timeline-desc">
+            以"寻求沟通渠道建议"为切入点与HR接触，而非直接投诉。可以说：<em>"我在工作中遇到了一些跨部门协作的困难，想了解一下公司有没有关于员工反馈工作中遇到的管理问题的正式渠道。"</em><br><br>
+            <strong style="color:var(--accent-amber)">大型金融机构HR的专属渠道：</strong>
+            员工关系投诉信箱（通常匿名）、EAP员工援助计划（用于心理压力和职场冲突）、绩效申诉机制（当绩效评价不公平时）、职场骚扰/霸凌投诉通道。
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">优先级 03 · 有具体事件时</div>
+          <div class="timeline-title">合规部门 / 内控部门</div>
+          <div class="timeline-desc">
+            金融机构对内部合规问题极为敏感。该领导的行为涉及<strong>破坏跨部门协作、阻碍投诉处置流程</strong>，这是金融机构内控的重大漏洞，会直接影响监管合规评级。<br><br>
+            向合规部门反映的切入角度：<em>"催收管理部门与客服处置部门在投诉处置协作上存在系统性障碍，导致投诉处置效率低下，我想了解是否有相关内部控制评估机制可以反映这一问题。"</em><br><br>
+            合规部门的调查不会针对个人，而是针对流程——这让对方更难反击，也更难被视为个人恩怨。
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">优先级 04 · 重大事件发生时</div>
+          <div class="timeline-title">工会 / 职工代表大会</div>
+          <div class="timeline-desc">
+            大型国有或股份制金融机构均设有工会。工会有权为员工提供：劳动争议调解、不公正待遇申诉代理、劳动权益保护介入。<br><br>
+            联系工会时，重点描述：<strong>工作时间骚扰（半夜催改）、人格尊严受损（被骂、被当众羞辱）、绩效威胁（暗示要打低分或辞退）</strong>。这三点都是工会有权也有责任介入的事项。
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-phase">优先级 05 · 终极武器</div>
+          <div class="timeline-title">高层领导 / 董事会审计委员会 / 匿名合规热线</div>
+          <div class="timeline-desc">
+            许多大型金融机构设有<strong>廉洁举报热线、董事会审计委员会邮箱</strong>或直接面向高管层的员工投诉通道。这是终极武器，一旦使用，通常会触发正式调查，具有较强威慑力。<br><br>
+            <strong style="color:var(--accent-red)">使用前提：</strong>证据充分且系统，涉及可量化的合规风险（如影响投诉处置、违反劳动法、破坏内部控制等），而非单纯的人际矛盾描述。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 投诉信撰写 -->
+  <div class="card card-amber">
+    <div class="card-header">
+      <div class="card-icon icon-amber">📄</div>
+      <div>
+        <div class="card-title">正式投诉信写作框架</div>
+        <div class="card-subtitle">FORMAL COMPLAINT STRUCTURE</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="template-box">
+        <span class="template-label tl-amber">投诉信结构模板</span>
+        <p><strong>【标题】</strong>关于催收管理部门内部管理问题的反映</p>
+        <p class="mt-12"><strong>【第一段：身份及概述】</strong><br>
+        本人在催收管理部门工作，工龄X年，主要负责跨部门投诉回应协调工作。近期遭遇持续性的管理不当行为，影响了工作效率及本人身心健康，特通过正式渠道反映。</p>
+        <p class="mt-12"><strong>【第二段：具体事实陈述（只用事实，不用情绪词汇）】</strong><br>
+        <mark>（按时间顺序列出）</mark>：2024年X月X日，收到某领导（级别说明）口头指令要求修改催收回应意见，同日完成修改并通过邮件提交（附件X）；同日被口头告知不满意，要求再次修改，但无书面具体修改标准；截至同月X日，该意见共历经X次修订……（后续类似事实）</p>
+        <p class="mt-12"><strong>【第三段：客观影响描述】</strong><br>
+        上述情况导致：投诉处置周期延长（客观数据）；本人多次被要求在正常工作时间外继续工作（附门禁/系统记录）；正常的打招呼行为遭到刻意忽视（时间地点描述）……</p>
+        <p class="mt-12"><strong>【第四段：诉求】</strong><br>
+        请求：①启动正式调查，核实上述事实；②为本人工作提供明确的书面标准和合理的处置流程；③保护本人不因此次反映而遭受任何形式的打击报复。</p>
+        <p class="mt-12"><strong>【附件清单】</strong><br>
+        附件1：邮件往来记录（X份，共X版本）<br>
+        附件2：工作日志记录（时间段：XX至XX）<br>
+        附件3：门禁/系统登录时间记录</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 防打击报复 -->
+  <div class="red-box">
+    <div class="red-box-title">🛡️ 防打击报复：投诉后的关键保护措施</div>
+    <div class="red-box-body">
+      <p>正式投诉后，必须警惕打击报复行为，并对其进行预先防范：</p>
+      <ul class="num-list mt-12">
+        <li><strong>在投诉信中明确写入"请保护本人免受打击报复"</strong>的诉求，这将使日后任何针对你的负面行动（调岗、降薪、差评绩效）都变得极为敏感，HR必须谨慎处理</li>
+        <li>在向HR或合规部门反映后，持续记录其后的异常待遇变化，这是打击报复的证据</li>
+        <li>了解公司的"吹哨人保护政策"（Whistleblower Protection）——大型金融机构通常有此政策，是重要的法律保护工具</li>
+        <li>对投诉后的任何新的负面对待，立即通过邮件向HR告知："在本人反映工作问题后，出现了以下情况……，请关注是否存在打击报复"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 06 法律武器 ══════════ -->
+<div id="s6" class="section">
+  <div class="section-header">
+    <div class="section-tag">LEGAL ARSENAL</div>
+    <h2 class="section-title">法律武器 · <em>劳动法</em>是你的护城河</h2>
+    <p class="section-desc">中国劳动法为劳动者提供了系统性的保护机制，了解你的法律权利，是最根本的底气来源。</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-red">
+      <div class="card-header">
+        <div class="card-icon icon-red">⚖️</div>
+        <div>
+          <div class="card-title">对方行为触犯的法律条款</div>
+          <div class="card-subtitle">LEGAL VIOLATIONS</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr><th>行为</th><th>对应法律依据</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>强迫超时加班</td>
+                <td>《劳动法》第41条：延长工作时间每日不超过3小时，每月不超过36小时；须经协商</td>
+              </tr>
+              <tr>
+                <td>恶意绩效打压</td>
+                <td>《劳动合同法》第26条：以欺诈、胁迫手段订立合同无效；绩效须基于客观标准</td>
+              </tr>
+              <tr>
+                <td>无故辞退</td>
+                <td>《劳动合同法》第40-41条：解除合同须有法定事由；十年以上工龄劳动者保护更强</td>
+              </tr>
+              <tr>
+                <td>职场骚扰/霸凌</td>
+                <td>《民法典》第1010条：用人单位对骚扰行为有采取措施的义务</td>
+              </tr>
+              <tr>
+                <td>人格尊严受损</td>
+                <td>《民法典》第990条：自然人享有人格权，任何组织或个人不得侵害</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <div class="card-header">
+        <div class="card-icon icon-gold">🏛️</div>
+        <div>
+          <div class="card-title">劳动者核心权利清单</div>
+          <div class="card-subtitle">WORKER'S RIGHTS</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="num-list">
+          <li><strong>拒绝违法加班权</strong>：超过法定工作时间的任务，你有权拒绝或要求加班费</li>
+          <li><strong>知情权</strong>：你有权知道绩效考核的具体标准和评分依据</li>
+          <li><strong>申诉权</strong>：对任何绩效评价有权提出异议，要求正式解释</li>
+          <li><strong>人格尊严权</strong>：任何人对你的侮辱、贬低言行均构成侵权</li>
+          <li><strong>劳动仲裁权</strong>：劳动争议可申请劳动仲裁，成本低且有效</li>
+          <li><strong>不被打击报复权</strong>：合法投诉后遭受打击报复，可单独主张权利</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 法律升级路径 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-amber">📈</div>
+      <div>
+        <div class="card-title">法律升级路径（内部→外部）</div>
+        <div class="card-subtitle">ESCALATION LADDER</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="progress-stages">
+        <div class="progress-stage">
+          <div class="ps-num">①</div>
+          <div class="ps-label">内部HR<br>投诉</div>
+        </div>
+        <div class="progress-stage">
+          <div class="ps-num">②</div>
+          <div class="ps-label">工会<br>调解</div>
+        </div>
+        <div class="progress-stage">
+          <div class="ps-num">③</div>
+          <div class="ps-label">劳动局<br>投诉</div>
+        </div>
+        <div class="progress-stage">
+          <div class="ps-num">④</div>
+          <div class="ps-label">劳动<br>仲裁</div>
+        </div>
+        <div class="progress-stage">
+          <div class="ps-num">⑤</div>
+          <div class="ps-label">劳动<br>诉讼</div>
+        </div>
+      </div>
+      <ul class="num-list">
+        <li><strong>劳动局投诉（第三级）</strong>：可向当地人力资源和社会保障局投诉，针对违法加班、未足额支付加班费等。劳动局有权对企业进行检查，具有较强威慑力，且该投诉<strong>不需要聘请律师</strong>。</li>
+        <li><strong>劳动仲裁（第四级）</strong>：针对劳动合同争议、不公正解雇、绩效报复等，可向当地劳动仲裁委员会申请，免费提交申请，仲裁期间双方须在仲裁庭陈述。仲裁结果对企业具有法律约束力。</li>
+        <li><strong>银行业监督管理机构（特殊渠道）</strong>：金融机构受银保监会或地方金融监管局监管，若其内部投诉处置机制存在系统性障碍（你的情况正好涉及此问题），可向监管机构反映，这是大型金融机构最敏感的渠道之一。</li>
+        <li><strong>劳动诉讼（最终武器）</strong>：有充分证据时，可通过法院提起民事诉讼，主张名誉权损害赔偿、加班费赔偿等。此时应聘请专业劳动法律师。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 十年以上工龄保护 -->
+  <div class="highlight-box">
+    <div class="highlight-box-title">⭐ 你的关键法律护盾：十年以上工龄特殊保护</div>
+    <div class="highlight-box-body">
+      <p>根据《劳动合同法》第14条，<strong>在同一用人单位连续工作满十年的劳动者</strong>，可以要求订立无固定期限劳动合同，且解除此类合同的条件极为严格——用人单位不能以"能力不行"等主观理由解除，必须有明确、可证明的法定理由。</p>
+      <p class="mt-12">这意味着：<strong style="color:var(--accent-amber)">对方要找茬辞退你的难度极高，法律成本极大。</strong>你可以明确知道自己的底气来源——她想辞退你，会让机构付出巨大的法律和经济代价，这是她对你下手的最大障碍。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ 07 终极一击 ══════════ -->
+<div id="s7" class="section">
+  <div class="section-header">
+    <div class="section-tag">FINAL STRIKE STRATEGY</div>
+    <h2 class="section-title">终极一击 · 如何<em>合法彻底</em>解决问题</h2>
+    <p class="section-desc">当证据积累到位，时机成熟，这里是让对方无法翻身的完整作战路径。</p>
+  </div>
+
+  <div class="callout callout-danger">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-text">
+      <strong>出手时机判断</strong>
+      不要过早出手。以下任一条件触发后，才是启动终极投诉的最佳时机：①遭受绩效打压（被评低分且无客观标准）；②被威胁调岗或辞退；③证据积累达到3-6个月完整记录；④有新的重大不当事件发生。
+    </div>
+  </div>
+
+  <!-- 作战路径 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-red">⚔️</div>
+      <div>
+        <div class="card-title">终极一击六步作战路径</div>
+        <div class="card-subtitle">6-STEP FINAL STRIKE PLAN</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ol class="step-list">
+        <li class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">【准备阶段】整理证据包</div>
+            <div class="step-desc">将所有收集的证据系统整理成一份完整的"证据包"：时间线文档（按日期列出所有事件）、邮件打印件（按版本排序）、工作日志摘要（提炼关键事实）、异常工作时间记录（附门禁/系统日志申请副本）。这份证据包既是你的武器，也是在最不利情况下的自我保护工具。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">【法律咨询】先咨询劳动法律师（一次性，低成本）</div>
+            <div class="step-desc">在正式投诉前，用你整理的证据包向一位专业劳动法律师做一次付费咨询（通常1-2小时，几百元）。律师会评估证据强度、建议最佳投诉渠道、告知你的权利边界。这一步是高性价比的专业输入，避免因策略失误前功尽弃。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">【内部核弹】同时触发合规+HR+工会三通道</div>
+            <div class="step-desc">在同一时间，向三个渠道分别提交正式书面投诉（正式的、有签名的、有附件的书面投诉，而不是口头）。三通道同时触发意味着机构无法将问题压在某一个部门内部处理，必须启动正式调查。关键：<strong style="color:var(--accent-amber)">同时抄送更高层领导信箱</strong>（部门总经理或更高），让问题无法被中层压制。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">【机构痛点】用合规语言描述问题，触发机构最敏感神经</div>
+            <div class="step-desc">在投诉信中，不要只描述"她对我不好"，而是使用合规语言：<em>"由于催收管理部门在投诉协作处置上的内控流程存在系统性障碍，导致客户投诉处置效率低下，可能面临监管风险……"</em>大型金融机构对任何"监管风险"描述都极为敏感，这会让问题从"人际矛盾"上升为"机构管理问题"，处理优先级大幅提升。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">【必要时外部升级】向劳动局和监管机构投诉</div>
+            <div class="step-desc">若内部处理不公或遭受打击报复，立即向当地劳动局投诉（针对违法加班）、向地方银保监局反映（针对金融机构内部合规管理问题）。这两个外部渠道对任何大型金融机构的威慑力都是极高的，机构通常会在外部压力下快速处理内部问题。</div>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-title">【谈判筹码】为自己争取最优结果</div>
+            <div class="step-desc">当机构开始认真处理时，你的诉求可以包括：消除骚扰（调整对方对你的直接权力）、绩效纠正（恢复公正评价）、补偿（若有违法加班等情况，要求书面道歉或补偿）。<strong style="color:var(--accent-amber)">不要因为对方快退休就放弃这步——在她退休前把问题定案，将形成有记录的处分决定，这是对你最好的交代。</strong></div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- 对方快退休的特殊策略 -->
+  <div class="card card-amber">
+    <div class="card-header">
+      <div class="card-icon icon-amber">⏳</div>
+      <div>
+        <div class="card-title">针对"快退休者"的特殊策略考量</div>
+        <div class="card-subtitle">NEAR-RETIREMENT STRATEGY</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="grid-2">
+        <div>
+          <p class="bold text-amber mb-8">为什么不能等她退休了事？</p>
+          <ul class="num-list">
+            <li>她退休前最有可能做的最后一件"坏事"就是：给你打一个差绩效或留下负面记录，这个记录会留在你的档案里影响你之后的晋升</li>
+            <li>退休前的人反而更为所欲为，因为她知道自己已经没有什么可失去的了</li>
+            <li>不处理此事，对她的行为没有任何约束或后果，她可能会继续加大力度</li>
+          </ul>
+        </div>
+        <div>
+          <p class="bold text-gold mb-8">针对快退休者的策略优化</p>
+          <ul class="num-list">
+            <li><strong>机构对快退休者的容忍度已经极低</strong>，投诉处理时间成本短，机构更愿意以小代价解决</li>
+            <li>以<strong>"希望在她正式退休前通过正式渠道妥善处理，避免遗留问题"</strong>为措辞，可降低机构处理阻力</li>
+            <li>核心目标：让<strong>她的退休档案中留有处分记录</strong>，而不是让她带着战绩全身而退</li>
+            <li>若问题在退休前未获处理，及时保存所有证据，退休后仍可通过劳动仲裁追究</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="emphasis-quote">
+    你不是在复仇，你是在<em>为每一位将在她之后受苦的同事</em><br>
+    关上这扇门。这是你最高贵的出发点。
+  </div>
+</div>
+
+<!-- ══════════ 08 日常清单 ══════════ -->
+<div id="s8" class="section">
+  <div class="section-header">
+    <div class="section-tag">DAILY ACTION CHECKLIST</div>
+    <h2 class="section-title">日常行动清单 · 不费脑的<em>自动化防御</em></h2>
+    <p class="section-desc">将所有防御动作固化为日常习惯，让系统替你保护自己，你只需按流程执行，无需每次都重新思考。</p>
+  </div>
+
+  <div class="grid-2">
+    <!-- 每日清单 -->
+    <div class="card card-cyan">
+      <div class="card-header">
+        <div class="card-icon icon-cyan">📅</div>
+        <div>
+          <div class="card-title">每日必做（5分钟）</div>
+          <div class="card-subtitle">DAILY ROUTINE</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="checklist" id="clDaily">
+          <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>晨间：</strong>检查邮件，对任何涉及该领导的指令，在日志中简记时间和内容</span></li>
+          <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>任务收到时：</strong>立即发确认邮件，明确任务范围，抄送直属上司</span></li>
+          <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>被否定时：</strong>立即发要求书面具体反馈的邮件（用预设模板，30秒内完成）</span></li>
+          <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>下班前：</strong>用3分钟在日志本记录当日涉及该领导的关键互动</span></li>
+          <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>收到超时任务时：</strong>用预设话术回复，不超过30秒</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 每周清单 -->
+    <div class="card card-gold">
+      <div class="card-header">
+        <div class="card-icon icon-gold">📆</div>
+        <div>
+          <div class="card-title">每周必做（30分钟）</div>
+          <div class="card-subtitle">WEEKLY ROUTINE</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="checklist" id="clWeekly">
+          <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>周五：</strong>整理本周完成的工作成果（件数、版本、提交记录），存入个人工作档案</span></li>
+          <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>周五：</strong>打印本周涉及该领导的关键邮件，带回家存档</span></li>
+          <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>周末：</strong>对日志本本周内容拍照，备份到个人手机（在家进行）</span></li>
+          <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>每两周：</strong>向直属上司做一次简短工作汇报，自然带出跨部门协作困难</span></li>
+          <li><div class="checklist-dot" onclick="toggleCheck(this)"></div><span><strong>每月：</strong>整理月度工作成果总结，自存备用</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 快速话术卡片 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-amber">📋</div>
+      <div>
+        <div class="card-title">随身话术速查卡（打印后贴在内页）</div>
+        <div class="card-subtitle">QUICK REFERENCE CARD</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="mini-grid">
+        <div class="mini-card">
+          <span class="mini-card-icon">🔴</span>
+          <div class="mini-card-label">被否定→要书面反馈</div>
+        </div>
+        <div class="mini-card">
+          <span class="mini-card-icon">🟠</span>
+          <div class="mini-card-label">循环改→建议多方会议</div>
+        </div>
+        <div class="mini-card">
+          <span class="mini-card-icon">🟡</span>
+          <div class="mini-card-label">被骂→礼貌离场+记录</div>
+        </div>
+        <div class="mini-card">
+          <span class="mini-card-icon">🟢</span>
+          <div class="mini-card-label">超时任务→明日回复</div>
+        </div>
+        <div class="mini-card">
+          <span class="mini-card-icon">🔵</span>
+          <div class="mini-card-label">威胁绩效→申请书面标准</div>
+        </div>
+        <div class="mini-card">
+          <span class="mini-card-icon">🟣</span>
+          <div class="mini-card-label">任务来→立即发确认邮件</div>
+        </div>
+        <div class="mini-card">
+          <span class="mini-card-icon">⚪</span>
+          <div class="mini-card-label">被无视→继续问候+记录</div>
+        </div>
+        <div class="mini-card">
+          <span class="mini-card-icon">⚫</span>
+          <div class="mini-card-label">会议结束→30分内发纪要</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 心理应急包 -->
+  <div class="card card-red">
+    <div class="card-header">
+      <div class="card-icon icon-red">🆘</div>
+      <div>
+        <div class="card-title">心理应急预案（当你感到情绪崩溃时）</div>
+        <div class="card-subtitle">EMERGENCY MENTAL HEALTH PROTOCOL</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="num-list">
+        <li><strong>立即操作：</strong>离开现场，去洗手间或楼梯间，做5次缓慢深呼吸（吸4秒、屏4秒、呼6秒）</li>
+        <li><strong>1分钟内：</strong>在手机备忘录简记发生了什么（哪怕一句话），这是情绪的出口，也是证据记录</li>
+        <li><strong>5分钟内：</strong>联系一位信任的同事或朋友，发送一条消息说"我今天遇到了一些事，等下告诉你"——有人知道，心理负担减半</li>
+        <li><strong>当天晚上：</strong>用日志本详细记录事件，把愤怒转化为文字，这是最健康的排解方式</li>
+        <li><strong>如持续影响睡眠超过2周：</strong>寻求心理咨询，这不是软弱，是必要的自我维护</li>
+      </ul>
+      <blockquote class="mt-16">
+        <strong>最重要的认知</strong>
+        今天你受到的每一次欺压，都在对方的档案里添加了一条记录。你越克制、越专业、越有记录，你越强大。她看起来在打你，实际上她在积累你手里的筹码。
+      </blockquote>
+    </div>
+  </div>
+
+  <!-- 总结 -->
+  <div class="highlight-box" style="border-color:rgba(233,196,106,0.3);background:linear-gradient(135deg,rgba(233,196,106,0.05),rgba(244,162,97,0.03))">
+    <div class="highlight-box-title" style="color:var(--accent-gold)">🏆 最终提醒：你已经是赢家</div>
+    <div class="highlight-box-body">
+      <p>你有十几年工龄、有完整的工作记录、有足够多的旁观者、有强大的劳动法保护——你拥有的底牌比你意识到的要多得多。</p>
+      <p class="mt-12">她能拿走的，只有你的情绪。只要你不让她拿走，她就什么都拿不走。</p>
+      <p class="mt-12"><strong style="color:var(--accent-gold)">稳住，记录，等待时机，一击致命。</strong></p>
+    </div>
+  </div>
+
+  <!-- ─── 补充：完整邮件模板库 ─── -->
+  <div class="divider-text">邮件模板完整库 · EMAIL TEMPLATE LIBRARY</div>
+
+  <div class="card card-cyan">
+    <div class="card-header">
+      <div class="card-icon icon-cyan">📧</div>
+      <div>
+        <div class="card-title">15个可直接复用的标准邮件模板</div>
+        <div class="card-subtitle">READY-TO-USE EMAIL TEMPLATES</div>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <p class="bold text-amber mb-8" style="font-size:0.85rem">▍模板 T-01：收到任务后的确认邮件</p>
+      <div class="template-box" style="margin-bottom:20px">
+        <span class="template-label tl-cyan">T-01 · 任务确认</span>
+        <p><strong>主题：</strong>催收回应意见任务确认——<mark>投诉编号/案件名称</mark></p>
+        <br>
+        <p>您好，</p>
+        <p>已收到贵部门关于<em>【客户投诉编号XXX】</em>的协助处理请求。</p>
+        <p>根据我理解，本次需要我方出具意见的核心问题为：<mark>（简述核心问题点）</mark>。</p>
+        <p>我方将于<em>【预计完成时间】</em>前提交书面回应意见。</p>
+        <p>如以上理解有误，请及时告知，以免造成工作方向偏差。</p>
+        <br>
+        <p>谢谢。</p>
+      </div>
+
+      <p class="bold text-amber mb-8" style="font-size:0.85rem">▍模板 T-02：提交回应意见的标准邮件</p>
+      <div class="template-box" style="margin-bottom:20px">
+        <span class="template-label tl-cyan">T-02 · 提交文件</span>
+        <p><strong>主题：</strong>【V1】催收回应意见——<mark>投诉编号</mark></p>
+        <br>
+        <p>您好，</p>
+        <p>现就<em>【投诉编号】</em>涉及催收管理部门相关事项，出具如下回应意见：</p>
+        <p><mark>（正文内容）</mark></p>
+        <p>以上意见为初步书面回复，如需补充或调整，<em>请以书面形式告知具体修改方向</em>，以便快速定稿。</p>
+        <br>
+        <p>谢谢。</p>
+        <p><em>（抄送：直属上司）</em></p>
+      </div>
+
+      <p class="bold text-amber mb-8" style="font-size:0.85rem">▍模板 T-03：被否定后要求书面具体反馈</p>
+      <div class="template-box" style="margin-bottom:20px">
+        <span class="template-label tl-red">T-03 · 要求书面反馈</span>
+        <p><strong>主题：</strong>【回复】关于<mark>投诉编号</mark>回应意见修改方向确认</p>
+        <br>
+        <p>您好，</p>
+        <p>感谢您今日<em>【时间】</em>对以上意见的反馈。</p>
+        <p>为确保修订方向准确、提高处理效率，<em>请您将具体修改意见以书面形式回复至此邮件</em>，以便我按照明确要求完成修订。</p>
+        <p>我会在收到书面反馈后<em>【X小时/X个工作日】</em>内完成修订并提交。</p>
+        <br>
+        <p>谢谢。</p>
+        <p><em>（抄送：直属上司）</em></p>
+      </div>
+
+      <p class="bold text-amber mb-8" style="font-size:0.85rem">▍模板 T-04：提交修订版本（附修改说明）</p>
+      <div class="template-box" style="margin-bottom:20px">
+        <span class="template-label tl-cyan">T-04 · 修订版提交</span>
+        <p><strong>主题：</strong>【V2】催收回应意见——<mark>投诉编号</mark>（含修改说明）</p>
+        <br>
+        <p>您好，</p>
+        <p>现提交修订版本（V2）。本次修订依据<em>【时间】</em>您的反馈，做出以下调整：</p>
+        <p>① <mark>修改点1描述</mark></p>
+        <p>② <mark>修改点2描述</mark></p>
+        <p>修订后正文如下：</p>
+        <p><mark>（正文内容）</mark></p>
+        <p>如仍有需要调整之处，烦请书面告知。</p>
+        <p><em>（抄送：直属上司）</em></p>
+      </div>
+
+      <p class="bold text-amber mb-8" style="font-size:0.85rem">▍模板 T-05：循环修改超过3次——建议多方会议</p>
+      <div class="template-box" style="margin-bottom:20px">
+        <span class="template-label tl-red">T-05 · 升级协调</span>
+        <p><strong>主题：</strong>关于<mark>投诉编号</mark>处置意见对齐——建议召开协调会</p>
+        <br>
+        <p>您好，</p>
+        <p>该案件的回应意见目前已完成<em>【X】</em>次修订（版本V1至V<em>X</em>），但各方在具体表述和口径上仍存在差异，导致处置效率受到影响，同时也延长了客户等待时间。</p>
+        <p>为尽快推进案件最终处置，<em>建议由催收管理部门、客服处置部门及相关负责人</em>，安排一次简短的多方协调会议，现场确认最终回应口径，避免继续往复修改。</p>
+        <p>建议时间：<mark>（提供2-3个可选时间段）</mark>。请确认是否可行。</p>
+        <br>
+        <p>谢谢。</p>
+        <p><em>（抄送：直属上司、对方负责人）</em></p>
+      </div>
+
+      <p class="bold text-amber mb-8" style="font-size:0.85rem">▍模板 T-06：超时任务回复</p>
+      <div class="template-box" style="margin-bottom:20px">
+        <span class="template-label tl-amber">T-06 · 时间边界</span>
+        <p><strong>主题：</strong>Re: <mark>原邮件主题</mark></p>
+        <br>
+        <p>您好，</p>
+        <p>已收到您的修改请求。</p>
+        <p>因当前已过正常工作时间，本次修订我将于明日<em>【上午X时/下午X时】</em>前完成并提交。</p>
+        <p>如该任务存在特殊紧急程度，请通过正式流程标注优先级，我会相应安排处理顺序。</p>
+        <br>
+        <p>谢谢。</p>
+      </div>
+
+      <p class="bold text-amber mb-8" style="font-size:0.85rem">▍模板 T-07：会后纪要（面谈/当面指令）</p>
+      <div class="template-box" style="margin-bottom:20px">
+        <span class="template-label tl-amber">T-07 · 会议纪要</span>
+        <p><strong>主题：</strong>今日沟通纪要——<mark>日期+事项</mark></p>
+        <br>
+        <p>您好，</p>
+        <p>就今日<em>【时间】</em>关于<mark>（事项名称）</mark>的沟通，整理纪要如下，如有遗漏或理解有误，请及时告知：</p>
+        <p>一、任务背景：<mark>（简述）</mark></p>
+        <p>二、您提出的要求/反馈：<mark>（尽量还原原话要点）</mark></p>
+        <p>三、后续行动：我将于<em>【时间】</em>前完成<mark>（任务）</mark>。</p>
+        <br>
+        <p>谢谢。</p>
+        <p><em>（抄送：直属上司）</em></p>
+      </div>
+
+      <p class="bold text-amber mb-8" style="font-size:0.85rem">▍模板 T-08：申请门禁/系统出入记录</p>
+      <div class="template-box" style="margin-bottom:20px">
+        <span class="template-label tl-cyan">T-08 · 证据申请</span>
+        <p><strong>主题：</strong>申请本人门禁出入时间记录</p>
+        <br>
+        <p>人事行政部门负责人您好，</p>
+        <p>因工作需要，我需要查询本人在<em>【时间段】</em>期间的门禁出入时间记录，用于梳理工作安排。请问该记录如何申请查阅？</p>
+        <p>如有需要，我可提供工号和相关身份证明。</p>
+        <br>
+        <p>谢谢。</p>
+      </div>
+
+      <p class="bold text-amber mb-8" style="font-size:0.85rem">▍模板 T-09：绩效评价异议申请</p>
+      <div class="template-box" style="margin-bottom:20px">
+        <span class="template-label tl-red">T-09 · 绩效申诉</span>
+        <p><strong>主题：</strong>关于本人<mark>（季度/年度）</mark>绩效评价的异议申请</p>
+        <br>
+        <p>HR部门负责人您好，</p>
+        <p>我于<em>【日期】</em>收到<mark>（季度/年度）</mark>绩效评价结果为<mark>（评级）</mark>，与我在该考核期内的实际工作完成情况存在较大差异。</p>
+        <p>根据公司绩效管理制度，我申请：</p>
+        <p>① 了解本次绩效评价所依据的具体客观指标和评分标准；</p>
+        <p>② 就评价结果提出正式异议，并希望通过正式渠道进行申诉。</p>
+        <p>我在此期间的主要工作完成情况如下（附工作记录）：<mark>（简要列举）</mark>。</p>
+        <p>请告知正式申诉流程及时间节点。</p>
+        <br>
+        <p>谢谢。</p>
+      </div>
+
+      <p class="bold text-amber mb-8" style="font-size:0.85rem">▍模板 T-10：向HR反映管理问题（第一次接触）</p>
+      <div class="template-box" style="margin-bottom:20px">
+        <span class="template-label tl-red">T-10 · HR首次反映</span>
+        <p><strong>主题：</strong>就工作中遇到的管理困难寻求HR沟通渠道建议</p>
+        <br>
+        <p>HR负责人您好，</p>
+        <p>我是<mark>（部门+工号）</mark>，工龄<mark>X</mark>年。近期在跨部门协作中遇到了一些持续性的工作困难，影响了正常工作效率，同时对本人的工作状态造成了一定压力。</p>
+        <p>我希望通过正式渠道了解：公司是否有员工反映管理问题的机制，例如员工关系投诉渠道或员工援助计划（EAP）？</p>
+        <p>如有方便，希望安排一次保密的一对一沟通。</p>
+        <br>
+        <p>谢谢。</p>
+      </div>
+
+      <p class="bold text-amber mb-8" style="font-size:0.85rem">▍模板 T-11：请求对方提供书面标准（配合最终留证）</p>
+      <div class="template-box" style="margin-bottom:20px">
+        <span class="template-label tl-amber">T-11 · 书面标准请求</span>
+        <p><strong>主题：</strong>请求提供催收跨部门回应意见的书面审核标准</p>
+        <br>
+        <p>您好，</p>
+        <p>为保证催收管理部门在处理跨部门投诉协作时，能持续产出符合要求的回应意见，请问是否可以提供一份书面的质量标准或审核要点，供参照执行？</p>
+        <p>书面标准有助于规范双方协作，减少来回反复的沟通成本，也有利于案件高效结案，服务客户。</p>
+        <p>如有现成文档，烦请发送；若暂无，是否可以约时间共同梳理一份标准？</p>
+        <br>
+        <p>谢谢。</p>
+        <p><em>（抄送：直属上司）</em></p>
+      </div>
+
+      <p class="bold text-amber mb-8" style="font-size:0.85rem">▍模板 T-12：对打击报复行为的书面告知</p>
+      <div class="template-box" style="margin-bottom:20px">
+        <span class="template-label tl-red">T-12 · 打击报复告知</span>
+        <p><strong>主题：</strong>关于反映问题后出现异常情况的告知</p>
+        <br>
+        <p>HR负责人您好，</p>
+        <p>本人于<em>【日期】</em>就工作中遇到的管理问题向贵部门进行了正式反映。</p>
+        <p>在此之后，我于<em>【日期】</em>发现出现以下异常情况：<mark>（具体描述：被调整工作内容/绩效被提前预告降级/被额外增加不合理任务等）</mark>。</p>
+        <p>根据公司员工保护政策，<em>员工通过正式渠道反映问题后，不应遭受任何形式的打击报复。</em></p>
+        <p>特此书面告知，请贵部门关注并核实上述情况。我保留就此主张相关权利的权利。</p>
+        <br>
+        <p>谢谢。</p>
+      </div>
+
+      <p class="bold text-amber mb-8" style="font-size:0.85rem">▍模板 T-13：向合规部门反映内控问题</p>
+      <div class="template-box" style="margin-bottom:20px">
+        <span class="template-label tl-red">T-13 · 合规投诉</span>
+        <p><strong>主题：</strong>关于投诉处置跨部门协作内控问题的反映</p>
+        <br>
+        <p>合规部门负责人您好，</p>
+        <p>本人负责催收管理部门与客服处置部门之间的投诉协作。近期观察到，该协作流程存在以下系统性问题，可能对客户投诉处置质量和监管合规评级产生影响：</p>
+        <p>① 跨部门回应意见存在反复推诿情况，无法按时完成投诉闭环；</p>
+        <p>② 审核方缺乏书面标准，导致处置意见的质量评价缺乏客观依据；</p>
+        <p>③ 正常的跨部门协作受到人为因素的阻碍，影响处置效率。</p>
+        <p>上述问题不仅影响内部运营效率，在监管机构就投诉处置质量进行检查时，也可能存在被质询的风险。</p>
+        <p>建议合规部门考虑纳入内控评估，并建立相关改进机制。我可以提供更详细的情况说明。</p>
+        <br>
+        <p>谢谢。</p>
+      </div>
+
+      <p class="bold text-amber mb-8" style="font-size:0.85rem">▍模板 T-14：向工会寻求支持</p>
+      <div class="template-box" style="margin-bottom:20px">
+        <span class="template-label tl-amber">T-14 · 工会求助</span>
+        <p><strong>主题：</strong>关于劳动权益问题寻求工会支持</p>
+        <br>
+        <p>工会负责人您好，</p>
+        <p>本人为<mark>（部门）</mark>员工，工龄<mark>X</mark>年。在工作中遭受了持续性的管理不当和工作时间骚扰，包括：</p>
+        <p>① 多次被要求在下班后及深夜处理工作任务（时间记录可提供）；</p>
+        <p>② 遭受持续性的言语贬低和精神打压；</p>
+        <p>③ 面临绩效被恶意评定的威胁。</p>
+        <p>上述情况已对本人工作和身心健康造成影响。恳请工会给予支持和指导，协助通过正式渠道处理上述问题。</p>
+        <p>我已整理了相关记录材料，可供查阅。</p>
+        <br>
+        <p>谢谢。</p>
+      </div>
+
+      <p class="bold text-amber mb-8" style="font-size:0.85rem">▍模板 T-15：正式书面投诉（终极版本）</p>
+      <div class="template-box" style="margin-bottom:0">
+        <span class="template-label tl-red">T-15 · 正式投诉</span>
+        <p><strong>主题：</strong>【正式投诉】关于管理骚扰及职场霸凌问题的书面举报</p>
+        <br>
+        <p>人力资源部门 / 合规部门 / 审计委员会 负责人您好，</p>
+        <p>本人就工作中遭受的持续性管理骚扰行为，特提出正式书面投诉。</p>
+        <p><strong>一、涉及人员：</strong><mark>（描述对方职级，不一定要全名，可称"某部门中层管理人员"）</mark></p>
+        <p><strong>二、主要投诉事项：</strong></p>
+        <p>（一）循环式无解任务骚扰：<mark>（时间段+次数+证据说明）</mark></p>
+        <p>（二）超工作时间骚扰：<mark>（时间记录说明）</mark></p>
+        <p>（三）言语侮辱与精神打压：<mark>（典型事件描述，不带情绪的事实陈述）</mark></p>
+        <p>（四）职场孤立行为：<mark>（具体事实）</mark></p>
+        <p>（五）绩效威胁：<mark>（若有，描述时间和语境）</mark></p>
+        <p><strong>三、附件材料：</strong>邮件记录打印件X份；工作日志摘要；门禁/系统时间记录</p>
+        <p><strong>四、诉求：</strong></p>
+        <p>① 启动正式调查；</p>
+        <p>② 制止骚扰行为，恢复正常工作环境；</p>
+        <p>③ 确保本人不因此投诉遭受任何打击报复；</p>
+        <p>④ 对相关责任人给予正式处理。</p>
+        <br>
+        <p>本人郑重声明以上内容真实，如需进一步沟通，随时可以配合。</p>
+        <p>投诉人：<mark>（姓名/工号）</mark></p>
+        <p>日期：<mark>（日期）</mark></p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── 补充：工作日志规范详解 ─── -->
+  <div class="divider-text" style="margin-top:28px">证据收集深化 · EVIDENCE DEEP DIVE</div>
+
+  <div class="card card-gold">
+    <div class="card-header">
+      <div class="card-icon icon-gold">📓</div>
+      <div>
+        <div class="card-title">工作日志的法律效力与规范要求</div>
+        <div class="card-subtitle">JOURNAL LEGAL STANDARDS</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p>一本合规的工作日志在劳动仲裁和法律诉讼中具有重要证据价值，前提是满足以下要求：</p>
+      <div class="grid-2 mt-16">
+        <div>
+          <p class="bold text-gold mb-8">✅ 使得日志具备证据效力的要素</p>
+          <ul class="num-list">
+            <li><strong>时间连续性：</strong>每天或每次事件后即时记录，而非事后补记——事后补记在仲裁中会被质疑</li>
+            <li><strong>内容客观性：</strong>只记录事实（时间、地点、人物、发生了什么、说了什么），不记录情绪评价（"她很坏"这类语言无证据效力）</li>
+            <li><strong>逐字记录关键话语：</strong>对方的原话、不当语言、具体指令，尽量逐字记录，加引号</li>
+            <li><strong>见证人信息：</strong>记录当时在场的人（名字/工号），即使对方不知道被记录</li>
+            <li><strong>物理完整性：</strong>使用有页码的固定本，不得撕页，记录不得涂改（如有错误，划一条横线后在旁注明）</li>
+          </ul>
+        </div>
+        <div>
+          <p class="bold text-amber mb-8">📋 每条日志记录的标准要素</p>
+          <div class="template-box" style="font-size:0.8rem;line-height:2">
+            <span class="template-label tl-amber">标准记录格式</span>
+            <p>【日期】<em>年月日（星期X）</em></p>
+            <p>【时间】<em>具体时间</em></p>
+            <p>【地点】<em>具体地点（办公室/走廊/会议室等）</em></p>
+            <p>【当事人】<em>对方职级缩写（无需全名）</em></p>
+            <p>【在场人员】<em>如有其他同事在场</em></p>
+            <p>【事件描述】<em>客观事实，含原话引用</em></p>
+            <p>【任务状态】<em>当前任务进展（第X版，已提交/未提交）</em></p>
+            <p>【后续行动】<em>我的应对措施</em></p>
+            <p>【备注】<em>本次事件的特殊性/规律性</em></p>
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-success mt-16">
+        <div class="callout-icon">⚖️</div>
+        <div class="callout-text">
+          <strong>劳动仲裁中日志的使用方式</strong>
+          在劳动仲裁中，劳动者提供的工作日志是"单方记录"，需要与其他证据（邮件、系统记录）相互印证。单独的日志效力有限，但作为辅助证据，它能大幅增强整体证据链的可信度。同时，日志显示了你长期遭受不公对待的事实，这对认定"被迫辞职"或主张"精神损害"赔偿极有帮助。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 补充：常见陷阱与反制 -->
+  <div class="card card-red">
+    <div class="card-header">
+      <div class="card-icon icon-red">⚠️</div>
+      <div>
+        <div class="card-title">九大常见陷阱及对应反制策略</div>
+        <div class="card-subtitle">9 COMMON TRAPS & COUNTER-STRATEGIES</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>陷阱名称</th>
+              <th>对方操作方式</th>
+              <th>你的反制策略</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><strong>无标准循环否定</strong></td>
+              <td>每次改完都说不行，但拒绝给出具体标准</td>
+              <td>每次被否定后立即邮件要求书面具体反馈；循环超3次触发多方协调会建议</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><strong>口头指令不落实</strong></td>
+              <td>当面交代任务，口头修改意见，但不留书面记录</td>
+              <td>每次面谈后立即发会后纪要邮件（T-07），将口头内容转化为书面记录</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><strong>拉人作证倒打一耙</strong></td>
+              <td>把你之前的失误（或编造的失误）告诉其他人，孤立你</td>
+              <td>提前与同事建立信任关系；在工作中保持专业记录，让客观事实说话；一旦发现被误导，直接向直属上司澄清</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><strong>越级施压</strong></td>
+              <td>直接绕过你的直属上司给你任务或批评</td>
+              <td>每次越级任务，执行同时抄送自己直属上司；必要时直接告知直属上司"收到了越级指令，请求确认处理优先级"</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><strong>绩效骚扰</strong></td>
+              <td>暗示绩效要打差，或在绩效期间突然增加不合理任务</td>
+              <td>绩效期前主动向HR申请了解考核标准；保持月度工作成果记录；一旦被打低，立即启动绩效申诉（T-09）</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td><strong>诱导情绪失控</strong></td>
+              <td>使用侮辱性语言、当众贬低，激怒你让你爆发</td>
+              <td>准备"3秒缓冲"技巧；使用预设平静话术；在公开场合任何情绪失控都是她的目的，克制是你的武器</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td><strong>信息封锁</strong></td>
+              <td>故意不通知重要会议、不给你提供必要信息</td>
+              <td>通过邮件主动询问："请问下次讨论该案件的时间，以便我配合提供材料"；记录每一次被故意排除在外的事件</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td><strong>调岗威胁</strong></td>
+              <td>暗示或明示要把你调到边缘岗位、换部门</td>
+              <td>单方面调岗须符合法定条件，你有权拒绝不合理调岗；立即咨询HR了解调岗规定；如涉及薪资降低，属违法，可主张权利</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td><strong>以辞职威胁</strong></td>
+              <td>暗示"你这样干不如走"，试图让你主动离职</td>
+              <td>绝不主动辞职——主动辞职将丧失全部劳动法保护和补偿；被逼到无法忍受时，选择"被迫辞职"并主张赔偿，而非主动辞职</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 补充：金融机构特有的举报机制 -->
+  <div class="card card-blue">
+    <div class="card-header">
+      <div class="card-icon icon-blue">🏦</div>
+      <div>
+        <div class="card-title">金融机构特有的举报与合规保护机制</div>
+        <div class="card-subtitle">FINANCIAL INSTITUTION SPECIFIC CHANNELS</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p>大型金融机构（银行、保险、证券等）由于受到严格的金融监管，拥有比一般企业更为完善的内部合规机制，了解并善用这些机制是你的独特优势：</p>
+      <div class="grid-2 mt-16">
+        <div>
+          <p class="bold text-blue mb-8" style="color:var(--accent-blue)">🔍 内部合规举报渠道</p>
+          <ul class="num-list">
+            <li><strong>合规热线/举报邮箱：</strong>多数大型金融机构设有匿名合规举报渠道，受到法律保护，举报人身份保密。向此渠道反映"投诉处置流程中的内控漏洞"，可触发专项调查</li>
+            <li><strong>内部审计部门：</strong>定期进行业务流程审计，投诉处置效率低下是审计关注点。可主动向内审提供情况说明</li>
+            <li><strong>廉洁合规部：</strong>负责管理人员的职业操守，管理骚扰和滥权行为在其职责范围内</li>
+            <li><strong>员工申诉委员会：</strong>部分大型机构设有独立的申诉机构，专门处理员工与管理层之间的争议</li>
+          </ul>
+        </div>
+        <div>
+          <p class="bold text-amber mb-8">🏛️ 外部监管渠道（终极压力）</p>
+          <ul class="num-list">
+            <li><strong>国家金融监督管理总局（原银保监会）：</strong>可通过其官方投诉渠道反映金融机构内部管理问题（特别是影响投诉处置质量的），这对任何金融机构而言是最高级别的外部压力</li>
+            <li><strong>地方金融监管局：</strong>各省市的地方金融监管机构，受理相关投诉</li>
+            <li><strong>中国人民银行：</strong>部分问题可向央行相关部门反映</li>
+            <li><strong>12315/12378：</strong>金融消费者保护热线，虽然主要针对消费者，但也可作为渠道反映相关情况</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout callout-danger mt-16">
+        <div class="callout-icon">⚡</div>
+        <div class="callout-text">
+          <strong>金融机构对合规问题的极端敏感性</strong>
+          一旦问题被定性为"影响投诉处置质量"或"内控管理缺陷"，金融机构高管层会立即介入——因为这直接关系到监管评级、检查通过率和经营许可。这是你手里最有杀伤力的合规杠杆，比单纯的人际投诉强大得多。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 自我保护总结表 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-amber">📊</div>
+      <div>
+        <div class="card-title">三阶段战略总结</div>
+        <div class="card-subtitle">3-PHASE STRATEGY SUMMARY</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>阶段</th>
+              <th>时间</th>
+              <th>核心目标</th>
+              <th>关键行动</th>
+              <th>成功标志</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge badge-amber">第一阶段</span><br>稳守期</td>
+              <td>第1-3个月</td>
+              <td>建立防御体系，保护自己，积累证据</td>
+              <td>设置邮件习惯；启用工作日志；与直属上司建立工作同步；设置超时任务边界</td>
+              <td>证据体系已建立；情绪稳定；工作按时交付；暂无新的重大被打压事件</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-red">第二阶段</span><br>蓄力期</td>
+              <td>第3-6个月</td>
+              <td>证据积累到投诉所需厚度；接触渠道</td>
+              <td>向HR进行第一次非正式接触；申请门禁记录；与工会初步接触；整理证据包；咨询劳动法律师</td>
+              <td>有3-6个月完整记录；已与HR、工会至少有一次接触；证据包已整理完毕</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-gold">第三阶段</span><br>出击期</td>
+              <td>时机成熟时</td>
+              <td>通过正式渠道一击致命，彻底解决问题</td>
+              <td>触发合规+HR+工会三通道投诉；同时抄送高层；必要时外部升级；主张权利</td>
+              <td>对方受到正式处分记录；骚扰行为被制止；绩效评价恢复公正；获得书面道歉或补偿</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div><!-- end container -->
+
+<footer>
+  职场防御战略手册 · 合法维权 · 保护自己 · <span>共 8 个战略模块</span> · 请妥善保管本文档
+</footer>
+
+<script>
+  // ─── Tab Navigation ───
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ─── Accordion ───
+  function toggleAccordion(id) {
+    const acc = document.getElementById(id);
+    const isOpen = acc.classList.contains('open');
+    // Close all in same card
+    acc.closest('.card-body').querySelectorAll('.accordion').forEach(a => a.classList.remove('open'));
+    if (!isOpen) acc.classList.add('open');
+  }
+
+  // ─── Checklist Toggle ───
+  function toggleCheck(dot) {
+    dot.classList.toggle('checked');
+  }
+
+  // ─── Risk bar animation on load ───
+  document.addEventListener('DOMContentLoaded', () => {
+    const fills = document.querySelectorAll('.risk-bar-fill');
+    fills.forEach(f => {
+      const target = f.style.width;
+      f.style.width = '0';
+      setTimeout(() => { f.style.width = target; }, 400);
+    });
+  });
+
+  // ─── Auto-scroll nav tab into view ───
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+  });
+</script>
+
+</body>
+</html>

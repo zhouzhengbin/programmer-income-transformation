@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全自动网络商业闭环 · 终极地图</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050810;
+  --bg2: #080d18;
+  --bg3: #0c1225;
+  --panel: #0f1830;
+  --border: #1a2845;
+  --border2: #243560;
+  --green: #00ffa3;
+  --blue: #00b4ff;
+  --amber: #ffb700;
+  --red: #ff3a6e;
+  --purple: #b44cff;
+  --cyan: #00e5ff;
+  --text: #c8d8f0;
+  --text2: #6a8ab0;
+  --text3: #3a5070;
+  --mono: 'Share Tech Mono', monospace;
+  --head: 'Rajdhani', 'Noto Sans SC', sans-serif;
+  --body: 'Noto Sans SC', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* ─── TOP BAR ─── */
+#topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 52px;
+  background: rgba(5,8,16,0.96);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 24px;
+  backdrop-filter: blur(12px);
+}
+#topbar .logo {
+  font-family: var(--mono);
+  color: var(--green);
+  font-size: 13px;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+#topbar .logo span { color: var(--text2); }
+.topbar-tags {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  flex: 1;
+}
+.tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: 1px;
+}
+.tag-g { background: rgba(0,255,163,0.08); color: var(--green); border: 1px solid rgba(0,255,163,0.2); }
+.tag-b { background: rgba(0,180,255,0.08); color: var(--blue); border: 1px solid rgba(0,180,255,0.2); }
+.tag-a { background: rgba(255,183,0,0.08); color: var(--amber); border: 1px solid rgba(255,183,0,0.2); }
+
+/* ─── LAYOUT ─── */
+#layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+  padding-top: 52px;
+}
+
+/* ─── SIDEBAR ─── */
+#sidebar {
+  position: sticky; top: 52px;
+  height: calc(100vh - 52px);
+  overflow-y: auto;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  padding: 20px 0;
+}
+.sidebar-section {
+  padding: 6px 0;
+}
+.sidebar-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 2px;
+  padding: 4px 20px 8px;
+  text-transform: uppercase;
+}
+.sidebar-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 20px;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: all .2s;
+  color: var(--text2);
+  font-size: 13px;
+  text-decoration: none;
+}
+.sidebar-item:hover, .sidebar-item.active {
+  color: var(--text);
+  background: rgba(255,255,255,0.03);
+}
+.sidebar-item.active { border-left-color: var(--green); color: var(--green); }
+.sidebar-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.c-g { background: var(--green); }
+.c-b { background: var(--blue); }
+.c-a { background: var(--amber); }
+.c-r { background: var(--red); }
+.c-p { background: var(--purple); }
+.c-c { background: var(--cyan); }
+
+/* ─── MAIN ─── */
+#main {
+  padding: 40px 48px;
+  max-width: 1200px;
+}
+
+/* ─── HERO ─── */
+#hero {
+  margin-bottom: 60px;
+  padding: 48px;
+  background: linear-gradient(135deg, var(--bg3) 0%, #0a1535 100%);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+#hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 20%, rgba(0,180,255,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 80%, rgba(0,255,163,0.04) 0%, transparent 60%);
+}
+.hero-eyebrow {
+  font-family: var(--mono);
+  color: var(--green);
+  font-size: 11px;
+  letter-spacing: 4px;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-eyebrow::after {
+  content: '';
+  flex: 1; max-width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--green), transparent);
+}
+.hero-title {
+  font-family: var(--head);
+  font-size: 48px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+.hero-title span { color: var(--green); }
+.hero-sub {
+  color: var(--text2);
+  font-size: 15px;
+  max-width: 600px;
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+.hero-stats {
+  display: flex; gap: 32px; flex-wrap: wrap;
+}
+.hero-stat {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.stat-num {
+  font-family: var(--mono);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--amber);
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--text2);
+  letter-spacing: 1px;
+}
+
+/* ─── SECTION ─── */
+.section {
+  margin-bottom: 72px;
+  scroll-margin-top: 72px;
+}
+.section-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.section-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 1px;
+}
+.section-icon {
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: var(--head);
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+.section-title span { font-weight: 300; color: var(--text2); font-size: 16px; margin-left: 8px; }
+
+/* ─── OVERVIEW CARD ─── */
+.overview-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: start;
+}
+.overview-desc { color: var(--text); line-height: 1.9; font-size: 14px; }
+.overview-meta {
+  display: flex; flex-direction: column; gap: 12px;
+  min-width: 200px;
+}
+.meta-row {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.meta-key {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 1px;
+}
+.meta-val {
+  font-size: 13px;
+  color: var(--text);
+}
+
+/* ─── DIFFICULTY STARS ─── */
+.stars { color: var(--amber); font-size: 14px; letter-spacing: 2px; }
+
+/* ─── PIPELINE ─── */
+.pipeline-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text2);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.pipeline-title::before {
+  content: '//';
+  color: var(--text3);
+}
+
+.pipeline {
+  display: flex; flex-direction: column; gap: 0;
+  margin-bottom: 32px;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  position: relative;
+}
+.step:not(:last-child) .step-line { display: block; }
+.step-line {
+  display: none;
+  position: absolute;
+  left: 23px; top: 40px;
+  width: 1px;
+  height: calc(100% - 8px);
+  background: linear-gradient(180deg, var(--border2) 0%, var(--border) 100%);
+}
+
+.step-num-col {
+  display: flex; flex-direction: column; align-items: center;
+  padding-top: 8px;
+  position: relative;
+  z-index: 1;
+}
+.step-circle {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: bold;
+  flex-shrink: 0;
+  border: 1.5px solid;
+}
+
+.step-body {
+  padding: 4px 0 28px 20px;
+}
+.step-heading {
+  font-family: var(--head);
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.step-desc {
+  color: var(--text2);
+  font-size: 13px;
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+.step-tools {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 8px;
+}
+.tool-chip {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 3px;
+  white-space: nowrap;
+  border: 1px solid;
+}
+
+.step-detail {
+  background: rgba(0,0,0,0.3);
+  border-left: 2px solid var(--border2);
+  border-radius: 0 4px 4px 0;
+  padding: 12px 16px;
+  font-size: 12.5px;
+  color: var(--text2);
+  line-height: 1.8;
+}
+.step-detail code {
+  font-family: var(--mono);
+  color: var(--green);
+  background: rgba(0,255,163,0.05);
+  padding: 1px 5px;
+  border-radius: 2px;
+  font-size: 11px;
+}
+
+/* Color variants */
+.c-green .step-circle { background: rgba(0,255,163,0.1); border-color: var(--green); color: var(--green); }
+.c-green .step-line { background: linear-gradient(180deg, rgba(0,255,163,0.3), var(--border)); }
+.c-blue .step-circle { background: rgba(0,180,255,0.1); border-color: var(--blue); color: var(--blue); }
+.c-blue .step-line { background: linear-gradient(180deg, rgba(0,180,255,0.3), var(--border)); }
+.c-amber .step-circle { background: rgba(255,183,0,0.1); border-color: var(--amber); color: var(--amber); }
+.c-amber .step-line { background: linear-gradient(180deg, rgba(255,183,0,0.3), var(--border)); }
+.c-red .step-circle { background: rgba(255,58,110,0.1); border-color: var(--red); color: var(--red); }
+.c-purple .step-circle { background: rgba(180,76,255,0.1); border-color: var(--purple); color: var(--purple); }
+.c-cyan .step-circle { background: rgba(0,229,255,0.1); border-color: var(--cyan); color: var(--cyan); }
+
+.tool-g { background: rgba(0,255,163,0.06); border-color: rgba(0,255,163,0.25); color: var(--green); }
+.tool-b { background: rgba(0,180,255,0.06); border-color: rgba(0,180,255,0.25); color: var(--blue); }
+.tool-a { background: rgba(255,183,0,0.06); border-color: rgba(255,183,0,0.25); color: var(--amber); }
+.tool-r { background: rgba(255,58,110,0.06); border-color: rgba(255,58,110,0.25); color: var(--red); }
+.tool-p { background: rgba(180,76,255,0.06); border-color: rgba(180,76,255,0.25); color: var(--purple); }
+.tool-c { background: rgba(0,229,255,0.06); border-color: rgba(0,229,255,0.25); color: var(--cyan); }
+.tool-w { background: rgba(200,216,240,0.06); border-color: rgba(200,216,240,0.2); color: var(--text); }
+
+/* ─── TECH GRID ─── */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.tech-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 18px 20px;
+}
+.tech-card-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px;
+}
+.tech-icon {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+.tech-name {
+  font-family: var(--head);
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+}
+.tech-desc {
+  font-size: 12.5px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+/* ─── INCOME BOX ─── */
+.income-box {
+  background: linear-gradient(135deg, rgba(255,183,0,0.04), rgba(255,183,0,0.01));
+  border: 1px solid rgba(255,183,0,0.2);
+  border-radius: 4px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+.income-item { display: flex; flex-direction: column; gap: 6px; }
+.income-label { font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: 1px; }
+.income-val {
+  font-family: var(--head);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--amber);
+}
+.income-note { font-size: 12px; color: var(--text2); }
+
+/* ─── WARN BOX ─── */
+.warn-box {
+  background: rgba(255,58,110,0.04);
+  border: 1px solid rgba(255,58,110,0.2);
+  border-radius: 4px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  font-size: 13px;
+  color: var(--text2);
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.warn-box::before { content: '⚠'; color: var(--red); flex-shrink: 0; }
+
+/* ─── NOTE BOX ─── */
+.note-box {
+  background: rgba(0,180,255,0.04);
+  border: 1px solid rgba(0,180,255,0.15);
+  border-radius: 4px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  font-size: 13px;
+  color: var(--text2);
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.note-box::before { content: '💡'; flex-shrink: 0; }
+
+/* ─── DIVIDER ─── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+  margin: 32px 0;
+}
+
+/* ─── TABLE ─── */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+  font-size: 13px;
+}
+.data-table th {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--text3);
+  text-transform: uppercase;
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+}
+.data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text2);
+  vertical-align: top;
+}
+.data-table td:first-child { color: var(--text); font-weight: 500; }
+.data-table tr:hover td { background: rgba(255,255,255,0.015); }
+
+/* ─── BADGE ─── */
+.badge {
+  display: inline-flex; align-items: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: 1px;
+  margin-right: 4px;
+}
+.badge-g { background: rgba(0,255,163,0.1); color: var(--green); }
+.badge-b { background: rgba(0,180,255,0.1); color: var(--blue); }
+.badge-a { background: rgba(255,183,0,0.1); color: var(--amber); }
+.badge-r { background: rgba(255,58,110,0.1); color: var(--red); }
+
+/* ─── SUMMARY TABLE ─── */
+#summary {
+  margin-bottom: 60px;
+  scroll-margin-top: 72px;
+}
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+.summary-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 22px;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: border-color .2s;
+  cursor: pointer;
+}
+.summary-card:hover { border-color: var(--border2); }
+.summary-card-top {
+  display: flex; align-items: center; gap: 12px;
+}
+.summary-card-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.summary-card-title {
+  font-family: var(--head);
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+.summary-card-sub { font-size: 12px; color: var(--text2); }
+.summary-card-stats {
+  display: flex; gap: 16px;
+}
+.sc-stat { display: flex; flex-direction: column; gap: 3px; }
+.sc-num { font-family: var(--mono); font-size: 15px; }
+.sc-lbl { font-size: 11px; color: var(--text3); }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  background: var(--bg2);
+}
+.footer-note { font-size: 12px; color: var(--text3); line-height: 1.8; }
+.footer-mono { font-family: var(--mono); font-size: 11px; color: var(--text3); line-height: 2; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.pulse { animation: pulse 2s ease-in-out infinite; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.slide-in { animation: slideIn .5s ease forwards; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  #layout { grid-template-columns: 1fr; }
+  #sidebar { display: none; }
+  #main { padding: 24px 20px; }
+  .hero-title { font-size: 32px; }
+  .overview-card { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div id="topbar">
+  <div class="logo">AUTO_INCOME<span>.MAP</span> <span style="color:var(--text3)">v2.0</span></div>
+  <div class="topbar-tags">
+    <span class="tag tag-g">全链路自动化</span>
+    <span class="tag tag-b">16G显存可跑</span>
+    <span class="tag tag-a">程序员视角</span>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div id="layout">
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-label">导览</div>
+    <a class="sidebar-item" href="#summary"><span class="sidebar-dot" style="background:var(--text2)"></span>总览对比表</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">内容变现</div>
+    <a class="sidebar-item" href="#path1"><span class="sidebar-dot c-g"></span>短视频矩阵</a>
+    <a class="sidebar-item" href="#path2"><span class="sidebar-dot c-g"></span>SEO内容农场</a>
+    <a class="sidebar-item" href="#path3"><span class="sidebar-dot c-b"></span>AI绘图·印品变现</a>
+    <a class="sidebar-item" href="#path4"><span class="sidebar-dot c-b"></span>知识付费·数字课程</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">电商套利</div>
+    <a class="sidebar-item" href="#path5"><span class="sidebar-dot c-amber"></span>跨境电商自动化</a>
+    <a class="sidebar-item" href="#path6"><span class="sidebar-dot c-amber"></span>国内信息差套利</a>
+    <a class="sidebar-item" href="#path7"><span class="sidebar-dot c-a"></span>联盟营销自动化</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">技术变现</div>
+    <a class="sidebar-item" href="#path8"><span class="sidebar-dot c-p"></span>AI微SaaS工具</a>
+    <a class="sidebar-item" href="#path9"><span class="sidebar-dot c-c"></span>私域自动化流量</a>
+    <a class="sidebar-item" href="#path10"><span class="sidebar-dot c-r"></span>量化套利</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main id="main">
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">AUTOMATED INCOME PATHS · 全自动收入路径图</div>
+  <div class="hero-title">启动一次<br><span>等钱进账</span></div>
+  <div class="hero-sub">
+    你已用 DeepSeek + CLIP + EdgeTTS + MoviePy + wxauto 构建了第一条全自动视频流水线。<br>
+    这份地图将你的能力范式扩展到 <strong style="color:#fff">10 条</strong> 完整自动化商业闭环，每条都覆盖从<strong style="color:#fff">「触发」到「收款」</strong>的每一步自动化实现方案。
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="stat-num">10</span><span class="stat-label">条自动化路径</span></div>
+    <div class="hero-stat"><span class="stat-num">87+</span><span class="stat-label">具体工具/包</span></div>
+    <div class="hero-stat"><span class="stat-num">16G</span><span class="stat-label">集成显卡可跑</span></div>
+    <div class="hero-stat"><span class="stat-num">0</span><span class="stat-label">人工干预目标</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SUMMARY -->
+<!-- ═══════════════════════════════════════════ -->
+<section id="summary">
+  <div class="section-header">
+    <span class="section-num">// 00</span>
+    <div class="section-icon" style="background:rgba(200,216,240,0.08)">📊</div>
+    <div>
+      <div class="section-title">总览对比 <span>10条路径一览</span></div>
+    </div>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>#</th><th>路径名称</th><th>启动成本</th><th>自动化难度</th>
+        <th>月收入天花板</th><th>起效周期</th><th>核心技术</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="badge badge-g">01</span></td>
+        <td><a href="#path1" style="color:var(--green);text-decoration:none">短视频矩阵</a></td>
+        <td>¥0~500/月API费</td>
+        <td><span class="stars">★★★☆☆</span></td>
+        <td style="color:var(--amber);font-family:var(--mono)">¥3k~50k+</td>
+        <td>2~4周</td>
+        <td>LLM·TTS·FFmpeg·RPA</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-g">02</span></td>
+        <td><a href="#path2" style="color:var(--green);text-decoration:none">SEO内容农场</a></td>
+        <td>¥200~800/月</td>
+        <td><span class="stars">★★☆☆☆</span></td>
+        <td style="color:var(--amber);font-family:var(--mono)">¥5k~80k</td>
+        <td>3~6个月</td>
+        <td>LLM·爬虫·WordPress API</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-b">03</span></td>
+        <td><a href="#path3" style="color:var(--blue);text-decoration:none">AI绘图·印品</a></td>
+        <td>¥0(SD本地)</td>
+        <td><span class="stars">★★☆☆☆</span></td>
+        <td style="color:var(--amber);font-family:var(--mono)">¥2k~20k</td>
+        <td>1~3个月</td>
+        <td>Stable Diffusion·Selenium</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-b">04</span></td>
+        <td><a href="#path4" style="color:var(--blue);text-decoration:none">知识付费</a></td>
+        <td>¥0~300/月</td>
+        <td><span class="stars">★★★☆☆</span></td>
+        <td style="color:var(--amber);font-family:var(--mono)">¥10k~∞</td>
+        <td>1~3个月</td>
+        <td>LLM·TTS·PPT自动化</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-a">05</span></td>
+        <td><a href="#path5" style="color:var(--amber);text-decoration:none">跨境电商</a></td>
+        <td>¥3k~1万备货</td>
+        <td><span class="stars">★★★★☆</span></td>
+        <td style="color:var(--amber);font-family:var(--mono)">¥2w~20w</td>
+        <td>2~5个月</td>
+        <td>Scrapy·RPA·API对接</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-a">06</span></td>
+        <td><a href="#path6" style="color:var(--amber);text-decoration:none">信息差套利</a></td>
+        <td>¥500~2000</td>
+        <td><span class="stars">★★★☆☆</span></td>
+        <td style="color:var(--amber);font-family:var(--mono)">¥3k~15k</td>
+        <td>1~2周</td>
+        <td>爬虫·价格监控·RPA</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-a">07</span></td>
+        <td><a href="#path7" style="color:var(--amber);text-decoration:none">联盟营销</a></td>
+        <td>¥0~300/月</td>
+        <td><span class="stars">★★★☆☆</span></td>
+        <td style="color:var(--amber);font-family:var(--mono)">¥5k~30k</td>
+        <td>2~4个月</td>
+        <td>LLM·SEO·追踪链接</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-r">08</span></td>
+        <td><a href="#path8" style="color:var(--purple);text-decoration:none">AI微SaaS</a></td>
+        <td>¥500~2000</td>
+        <td><span class="stars">★★★★☆</span></td>
+        <td style="color:var(--amber);font-family:var(--mono)">¥1w~∞</td>
+        <td>1~3个月</td>
+        <td>FastAPI·Stripe·LLM API</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-r">09</span></td>
+        <td><a href="#path9" style="color:var(--cyan);text-decoration:none">私域自动化</a></td>
+        <td>¥0~500/月</td>
+        <td><span class="stars">★★★☆☆</span></td>
+        <td style="color:var(--amber);font-family:var(--mono)">¥5k~50k</td>
+        <td>1~2个月</td>
+        <td>wxauto·RPA·LLM客服</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-r">10</span></td>
+        <td><a href="#path10" style="color:var(--red);text-decoration:none">量化套利</a></td>
+        <td>¥5000+本金</td>
+        <td><span class="stars">★★★★★</span></td>
+        <td style="color:var(--amber);font-family:var(--mono)">不设上限</td>
+        <td>策略成熟后</td>
+        <td>CCXT·backtrader·websocket</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PATH 1: 短视频矩阵 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="path1">
+  <div class="section-header">
+    <span class="section-num">// 01</span>
+    <div class="section-icon" style="background:rgba(0,255,163,0.08)">🎬</div>
+    <div>
+      <div class="section-title">短视频矩阵全自动化 <span>你已跑通的路径的完整商业升级版</span></div>
+    </div>
+  </div>
+
+  <div class="overview-card">
+    <div class="overview-desc">
+      你的 <code style="font-family:var(--mono);color:var(--green);background:rgba(0,255,163,0.07);padding:1px 6px;border-radius:2px">儿童动画片解说V3.py</code> 已经跑通了核心环节。商业闭环升级方向是：<strong style="color:#fff">多账号矩阵 × 多平台同步发布 × 广告分成 + 橱窗带货 + 私信自动成交</strong>。
+      一台电脑同时跑 10~30 个账号，每账号每天发 1~3 条，实现批量流量覆盖。变现来自：平台广告分成（抖音中视频计划/B站激励）、商品橱窗佣金、私信引导付费课程/社群。
+    </div>
+    <div class="overview-meta">
+      <div class="meta-row"><span class="meta-key">月收入范围</span><span class="meta-val" style="color:var(--amber)">¥3,000 ~ 50,000+</span></div>
+      <div class="meta-row"><span class="meta-key">自动化程度</span><span class="meta-val"><span class="stars">★★★★★</span></span></div>
+      <div class="meta-row"><span class="meta-key">起效周期</span><span class="meta-val">2~4 周</span></div>
+      <div class="meta-row"><span class="meta-key">启动成本</span><span class="meta-val">¥0~500/月 API费</span></div>
+      <div class="meta-row"><span class="meta-key">人工介入</span><span class="meta-val">初始配置后 <1小时/周</span></div>
+    </div>
+  </div>
+
+  <div class="pipeline-title">全链路自动化流程</div>
+
+  <div class="pipeline">
+
+    <div class="step c-green">
+      <div class="step-num-col"><div class="step-circle">01</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🔍 选题自动挖掘 · 热榜监控</div>
+        <div class="step-desc">定时爬取抖音/微博/今日头条热榜、知乎热榜、Google Trends，用 LLM 自动分析哪些话题与你的垂类匹配且流量潜力高，生成待创作选题队列，写入 SQLite 任务数据库。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">Scrapy / requests</span>
+          <span class="tool-chip tool-b">抖音/微博爬虫</span>
+          <span class="tool-chip tool-a">pytrends（Google Trends API）</span>
+          <span class="tool-chip tool-g">DeepSeek / GPT-4o 评分</span>
+          <span class="tool-chip tool-w">APScheduler 定时触发</span>
+          <span class="tool-chip tool-w">SQLite 任务队列</span>
+        </div>
+        <div class="step-detail">
+          <strong>具体实现：</strong>每天 6:00/12:00/18:00 定时触发 APScheduler 任务，用 <code>requests+BeautifulSoup</code> 爬抖音热榜（需 cookie），<code>pytrends</code> 拉 Google Trends，结果用 LLM 打分（"该话题与儿童教育/旅游/美食 相关性 0~10 分"），≥7分入库待处理。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-green">
+      <div class="step-num-col"><div class="step-circle">02</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">✍️ AI 脚本批量生产</div>
+        <div class="step-desc">从任务库取出选题，调用 DeepSeek/GPT-4o，根据垂类预设的 Prompt 模板（悬念钩子+核心内容+CTA）批量生成解说脚本 JSON，支持多风格（科普/情感/资讯），自动校验字数和结构。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">DeepSeek-chat API</span>
+          <span class="tool-chip tool-b">LangChain PromptTemplate</span>
+          <span class="tool-chip tool-w">Pydantic 结构化校验</span>
+          <span class="tool-chip tool-w">asyncio 并发批量调用</span>
+        </div>
+        <div class="step-detail">
+          用 <code>asyncio.gather()</code> 并发请求10个选题的脚本，全部用 Pydantic model 校验（必须含 hook/narrations数组/cta），不合格自动重试一次，耗时约 30~60秒生产10条脚本。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-green">
+      <div class="step-num-col"><div class="step-circle">03</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🎙️ TTS 配音合成</div>
+        <div class="step-desc">你已用 edge-tts。升级方向：用 Fish Audio / CosyVoice 实现克隆专属声线（你自己读 30 句话即可训练），让所有账号声音各不相同，规避平台去重风控。配音结果自动切分对应片段时间戳。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">edge-tts（免费·稳定）</span>
+          <span class="tool-chip tool-b">Fish Audio API（声线克隆）</span>
+          <span class="tool-chip tool-p">CosyVoice（本地·16G可跑）</span>
+          <span class="tool-chip tool-a">faster-whisper（时间戳对齐）</span>
+        </div>
+        <div class="step-detail">
+          CosyVoice 在 16G 集成显卡可用 <code>device="cpu"</code> 运行，但较慢。Fish Audio API 配音最自然，按字符计费约 ¥0.01/千字。为多账号差异化，每个账号绑定不同声线 ID。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-green">
+      <div class="step-num-col"><div class="step-circle">04</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🎞️ 素材自动获取 + 视觉匹配</div>
+        <div class="step-desc">你已用 yt-dlp + CLIP 匹配。升级：同时接入 Pexels API / Pixabay API（免版权视频），对每段解说词用 CLIP 从候选素材中挑最匹配帧，彻底规避版权风险。搭建本地素材库，重复跑不重复下载。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">yt-dlp（带cookie下载）</span>
+          <span class="tool-chip tool-b">Pexels API（免版权）</span>
+          <span class="tool-chip tool-b">Pixabay API（免版权）</span>
+          <span class="tool-chip tool-p">CLIP（视觉语义匹配）</span>
+          <span class="tool-chip tool-w">SQLite 本地素材缓存库</span>
+        </div>
+        <div class="step-detail">
+          Pexels 免费 API 每月200次/分钟。用 <code>CLIP embeddings</code> 预先向量化本地素材库，每次新脚本到来做向量相似度检索（<code>cosine_similarity</code>），比实时下载快 10 倍，且永不重复素材。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-green">
+      <div class="step-num-col"><div class="step-circle">05</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🎬 自动剪辑合成 + 字幕渲染</div>
+        <div class="step-desc">你已用 MoviePy。升级：用 FFmpeg 直接命令行合成（速度提升5~10倍），字幕用 ass/srt 格式由 faster-whisper 生成时间戳后 FFmpeg 硬编码烧录，支持弹幕式卡拉OK字幕，BGM 自动混音，转场特效自动插入。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">FFmpeg CLI（核心·最快）</span>
+          <span class="tool-chip tool-b">MoviePy（你已会）</span>
+          <span class="tool-chip tool-a">faster-whisper（字幕时间戳）</span>
+          <span class="tool-chip tool-w">subprocess 调度 FFmpeg</span>
+          <span class="tool-chip tool-w">ffmpeg-python 封装库</span>
+        </div>
+        <div class="step-detail">
+          FFmpeg 一行合成示例：<code>ffmpeg -i video.mp4 -i audio.mp3 -vf "ass=sub.ass" -c:v libx264 -preset fast out.mp4</code>。用 <code>subprocess.run()</code> 调用，比 MoviePy 快 5 倍以上，且无内存泄漏风险。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-green">
+      <div class="step-num-col"><div class="step-circle">06</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">📱 多平台自动发布</div>
+        <div class="step-desc">这是商业化最关键一环。多账号同时自动向抖音、B站、视频号、小红书、快手发布。每个平台各有策略：抖音/快手重点推算法，B站重点投稿分区，小红书重点图文封面，视频号重点私域导流。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-r">抖音开放平台 API（官方）</span>
+          <span class="tool-chip tool-b">B站上传 API（biliup-rs）</span>
+          <span class="tool-chip tool-g">Selenium RPA（视频号/小红书）</span>
+          <span class="tool-chip tool-a">wxauto（视频号/微信）</span>
+          <span class="tool-chip tool-p">DrissionPage（比Selenium更稳）</span>
+          <span class="tool-chip tool-w">账号池管理（多账号轮换）</span>
+        </div>
+        <div class="step-detail">
+          <strong>抖音</strong>：用官方「创作者开放平台 API」授权上传（合规）。<strong>B站</strong>：<code>biliup-rs</code> 是专门的B站投稿工具，支持 cookie 登录。<strong>小红书/视频号</strong>：用 <code>DrissionPage</code>（比 Selenium 更稳定，基于 CDP 协议）模拟操作。每账号设置随机发布时间差（±30分钟），模拟人工操作节奏。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-green">
+      <div class="step-num-col"><div class="step-circle">07</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">💬 评论区自动运营 + 互动</div>
+        <div class="step-desc">发布后，自动监控每条视频的评论，对高赞评论自动点赞，对关键问题自动用 LLM 生成回复并发送，置顶引导性评论（如"点击主页有完整系列"）。这直接影响平台算法推荐权重。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">抖音/B站 API 拉取评论</span>
+          <span class="tool-chip tool-b">DeepSeek 生成回复文本</span>
+          <span class="tool-chip tool-p">DrissionPage RPA 发评论</span>
+          <span class="tool-chip tool-w">APScheduler 定时轮询</span>
+        </div>
+        <div class="step-detail">
+          评论回复策略：对含"怎么"/"推荐"/"在哪"等关键词的评论，LLM 生成专属回复 + 引导钩子，每账号每天回复上限 20 条，模拟人工节奏，触发算法二次推荐。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-green">
+      <div class="step-num-col"><div class="step-circle">08</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">💰 变现自动触发</div>
+        <div class="step-desc">当视频播放量超过阈值（如1万），自动触发变现链路：更新橱窗商品（爬取高佣品），推送私信引导进群，开通付费直播预告等。广告分成和橱窗佣金自动记账到日报表。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-a">淘宝联盟/京东联盟 API（佣金商品）</span>
+          <span class="tool-chip tool-g">抖音橱窗 API（商品管理）</span>
+          <span class="tool-chip tool-b">企业微信 API（自动私信）</span>
+          <span class="tool-chip tool-w">pandas + openpyxl（收入日报）</span>
+        </div>
+        <div class="step-detail">
+          淘宝联盟 API 可拉取高佣金商品列表，自动匹配垂类（如育儿类视频匹配母婴商品），一键将 CPS 链接插入视频评论/简介。日报自动发送至微信提醒你收款金额。
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="income-box">
+    <div class="income-item"><span class="income-label">单账号月收</span><span class="income-val">¥300~3,000</span><span class="income-note">广告+橱窗佣金</span></div>
+    <div class="income-item"><span class="income-label">10账号矩阵</span><span class="income-val">¥3k~30k</span><span class="income-note">线性叠加</span></div>
+    <div class="income-item"><span class="income-label">电脑并发上限</span><span class="income-val">20~30账号</span><span class="income-note">16G内存限制</span></div>
+    <div class="income-item"><span class="income-label">每日人工时间</span><span class="income-val">&lt;30分钟</span><span class="income-note">仅看数据报表</span></div>
+  </div>
+
+  <div class="note-box">16G 集成显卡说明：CLIP 和 Whisper 均可在 CPU 模式（<code>device="cpu"</code>）运行，只是慢3~5倍。如果用 int8 量化（<code>compute_type="int8"</code>），Whisper Small 在纯CPU上每分钟音频约需40秒处理。多账号并发时，视频合成用 FFmpeg 的 CPU 多线程（<code>-threads 8</code>），完全不需要GPU。</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PATH 2: SEO内容农场 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="path2">
+  <div class="section-header">
+    <span class="section-num">// 02</span>
+    <div class="section-icon" style="background:rgba(0,255,163,0.08)">📝</div>
+    <div>
+      <div class="section-title">SEO 内容农场 <span>AI批量写文 → 被动广告收入</span></div>
+    </div>
+  </div>
+
+  <div class="overview-card">
+    <div class="overview-desc">
+      建立多个垂类博客网站（WordPress），AI 自动分析关键词竞争度，批量生成文章，自动发布，接入 Google AdSense / 国内广告联盟（百度联盟/腾讯广告）实现流量变现。核心是<strong style="color:#fff">「关键词套利」</strong>：找到搜索量大但竞争弱的长尾词，批量覆盖，流量持续进来不需要维护。
+    </div>
+    <div class="overview-meta">
+      <div class="meta-row"><span class="meta-key">月收入范围</span><span class="meta-val" style="color:var(--amber)">¥5,000 ~ 80,000</span></div>
+      <div class="meta-row"><span class="meta-key">起效周期</span><span class="meta-val">3~6 个月（SEO 爬坡期）</span></div>
+      <div class="meta-row"><span class="meta-key">启动成本</span><span class="meta-val">¥200~800/月（域名+主机+API）</span></div>
+      <div class="meta-row"><span class="meta-key">特点</span><span class="meta-val">飞轮效应·越积累越稳定</span></div>
+    </div>
+  </div>
+
+  <div class="pipeline-title">全链路自动化流程</div>
+  <div class="pipeline">
+
+    <div class="step c-blue">
+      <div class="step-num-col"><div class="step-circle">01</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🔑 关键词批量挖掘 + 竞争度分析</div>
+        <div class="step-desc">用 pytrends 爬 Google Trends，用 keyword-everywhere API 或 ahrefs API 获取搜索量，筛选 "月搜索量 500~5000 + DR值低于40" 的长尾词（这是最容易上首页的甜蜜区间），批量存入关键词任务库。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">pytrends（Google Trends）</span>
+          <span class="tool-chip tool-b">SerpApi（Google搜索结果分析）</span>
+          <span class="tool-chip tool-a">Ahrefs API / SEMrush API</span>
+          <span class="tool-chip tool-w">Keyword Everywhere API（低价）</span>
+          <span class="tool-chip tool-w">pandas 关键词评分筛选</span>
+        </div>
+        <div class="step-detail">
+          免费方案：<code>pytrends</code> + <code>requests</code> 爬 "people also ask" 区域获取大量相关词。SerpApi 每月100次免费，够入门测试。筛选逻辑：搜索量/竞争分数 > 50 为优质词。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-blue">
+      <div class="step-num-col"><div class="step-circle">02</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">📰 AI 批量文章生产</div>
+        <div class="step-desc">针对每个关键词，LLM 按 SEO 优化格式（H1/H2标题、关键词密度1~2%、1500~3000字）生成文章，自动插入内链（链接到同站其他文章）、配图 Alt 标签、Meta Description，输出标准 HTML 格式。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">GPT-4o / Claude 3.5（英文站）</span>
+          <span class="tool-chip tool-g">DeepSeek（中文站·最省钱）</span>
+          <span class="tool-chip tool-b">LangChain（Prompt 链管理）</span>
+          <span class="tool-chip tool-w">Jinja2（HTML模板渲染）</span>
+          <span class="tool-chip tool-a">AI 配图：Stable Diffusion / DALL·E 3</span>
+        </div>
+        <div class="step-detail">
+          生产流程：①大纲生成（LLM）→ ②逐段扩写（LLM）→ ③SEO 检查（关键词密度，用 <code>re.findall</code> 统计）→ ④AI配图（Pixabay API取免版权图或 SD 本地生图）→ ⑤HTML拼接。单篇成本约 ¥0.1~0.3。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-blue">
+      <div class="step-num-col"><div class="step-circle">03</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🚀 WordPress 自动发布</div>
+        <div class="step-desc">WordPress 有完整 REST API，直接用 Python requests 调用，无需任何 RPA 模拟浏览器。自动设置文章分类、标签、SEO插件（Yoast/RankMath）的 Meta，设置定时发布（每天均匀发布2~5篇，模拟人工节奏）。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">WordPress REST API（官方）</span>
+          <span class="tool-chip tool-b">python-wordpress-xmlrpc</span>
+          <span class="tool-chip tool-w">requests + Basic Auth / JWT</span>
+          <span class="tool-chip tool-a">Yoast SEO API（自动设置Meta）</span>
+        </div>
+        <div class="step-detail">
+          <code>POST /wp-json/wp/v2/posts</code> 一行 API 调用即可发布，传入 title/content/status/categories/tags。每篇文章自动设置 <code>status: "future"</code> + <code>date</code>，实现定时发布，避免短时间集中发布被 Google 降权。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-blue">
+      <div class="step-num-col"><div class="step-circle">04</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🔗 外链自动建设（反链）</div>
+        <div class="step-desc">SEO 排名最关键因素之一是外链。自动在相关论坛（Reddit/Quora/知乎/贴吧）发布带链接的回答，自动在 Medium / 简书等平台同步发布摘要版并回链原站，用 RPA 自动操作。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-p">PRAW（Reddit Python API）</span>
+          <span class="tool-chip tool-b">知乎/贴吧 Selenium RPA</span>
+          <span class="tool-chip tool-g">Medium API（官方）</span>
+          <span class="tool-chip tool-w">DrissionPage（模拟真实操作）</span>
+        </div>
+        <div class="step-detail">
+          知乎/贴吧回答：用 LLM 针对问题生成高质量回答，结尾自然带上"详细内容见xxx"链接。Reddit 用 <code>PRAW</code> 库，注意每天发布数量 ≤5 条避免被封。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-blue">
+      <div class="step-num-col"><div class="step-circle">05</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">📊 流量 + 广告收益监控</div>
+        <div class="step-desc">自动每天拉取 Google Analytics / 百度统计数据，Google AdSense / 百度联盟收益数据，生成 Excel 日报并推送微信。发现某篇文章流量突然上涨，自动触发同话题关键词的扩展创作任务。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">Google Analytics Data API</span>
+          <span class="tool-chip tool-b">Google AdSense API</span>
+          <span class="tool-chip tool-w">pandas + openpyxl 报表</span>
+          <span class="tool-chip tool-a">wxauto 推送微信日报</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="income-box">
+    <div class="income-item"><span class="income-label">英文站(AdSense)</span><span class="income-val">$0.03~0.15/PV</span><span class="income-note">千次展示$2~10</span></div>
+    <div class="income-item"><span class="income-label">单站日均流量目标</span><span class="income-val">500~5000UV</span><span class="income-note">3~6个月后</span></div>
+    <div class="income-item"><span class="income-label">3站矩阵月收</span><span class="income-val">¥5k~30k</span><span class="income-note">叠加效应</span></div>
+    <div class="income-item"><span class="income-label">每篇文章成本</span><span class="income-val">¥0.1~0.5</span><span class="income-note">LLM API费</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PATH 3: AI绘图·印品 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="path3">
+  <div class="section-header">
+    <span class="section-num">// 03</span>
+    <div class="section-icon" style="background:rgba(0,180,255,0.08)">🎨</div>
+    <div>
+      <div class="section-title">AI绘图 · Print-on-Demand <span>批量出图 → 被动实物销售</span></div>
+    </div>
+  </div>
+
+  <div class="overview-card">
+    <div class="overview-desc">
+      用 Stable Diffusion（本地运行，16G 集成显卡完全够）批量生成 T恤/马克杯/手机壳/帆布包 设计图，自动上传到 Printful/Printify（按单生产·无需备货·自动发货），挂在 Etsy/亚马逊/独立站上销售。每卖出一件你拿差价，完全不用管库存和发货。
+    </div>
+    <div class="overview-meta">
+      <div class="meta-row"><span class="meta-key">月收入范围</span><span class="meta-val" style="color:var(--amber)">¥2,000 ~ 20,000</span></div>
+      <div class="meta-row"><span class="meta-key">启动成本</span><span class="meta-val">¥0（SD本地·无需GPU）</span></div>
+      <div class="meta-row"><span class="meta-key">核心优势</span><span class="meta-val">无库存·无发货·被动收入</span></div>
+      <div class="meta-row"><span class="meta-key">竞争门槛</span><span class="meta-val">设计独特性（AI批量生成解决）</span></div>
+    </div>
+  </div>
+
+  <div class="pipeline-title">全链路自动化流程</div>
+  <div class="pipeline">
+
+    <div class="step c-blue">
+      <div class="step-num-col"><div class="step-circle">01</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">📈 爆款设计风格分析</div>
+        <div class="step-desc">爬取 Etsy 热销 T恤设计标签（月销量前1000），用 LLM 分析设计风格规律，总结出当前爆款的关键词组合（如"cottagecore botanical vintage"），自动生成 SD 的 Prompt 列表。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-b">Etsy API / Scrapy 爬取热销</span>
+          <span class="tool-chip tool-g">DeepSeek 分析关键词规律</span>
+          <span class="tool-chip tool-w">pandas 统计 tag 频率</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-blue">
+      <div class="step-num-col"><div class="step-circle">02</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🖼️ Stable Diffusion 批量生图</div>
+        <div class="step-desc">Stable Diffusion WebUI 有完整的 REST API，可用 Python 远程调用。设定好专门的 T恤设计 Checkpoint（如 Deliberate/DreamShaper），配合 ControlNet 控制构图，批量生成透明背景 PNG 设计图（必须用 img2img 去背景）。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-p">Stable Diffusion WebUI API</span>
+          <span class="tool-chip tool-p">ComfyUI（更精准的工作流）</span>
+          <span class="tool-chip tool-b">rembg（自动抠图去背景）</span>
+          <span class="tool-chip tool-w">requests 批量调用 SD API</span>
+        </div>
+        <div class="step-detail">
+          SD 在 16G 集成显卡（如 Intel Iris Xe / AMD 核显）上用 CPU 模式可跑 SDXL-Turbo，4步出图，约 30~60秒/张。或用云端 API（Replicate/RunDiffusion），按次计费约 $0.002~0.01/张，更快。<code>rembg</code> 自动抠图，输出透明 PNG。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-blue">
+      <div class="step-num-col"><div class="step-circle">03</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🛍️ Printful/Printify 自动上架</div>
+        <div class="step-desc">Printful 和 Printify 都有完整 REST API。自动将设计图上传，选择产品（T恤/马克杯/手机壳），设置价格（进货价+利润），生成模拟图（mockup），然后自动在 Etsy 上创建商品清单。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">Printful API（REST）</span>
+          <span class="tool-chip tool-b">Printify API（REST）</span>
+          <span class="tool-chip tool-a">Etsy API（商品管理）</span>
+          <span class="tool-chip tool-w">requests + multipart 上传图片</span>
+        </div>
+        <div class="step-detail">
+          Printful API 流程：① <code>POST /mockup-generator/create-task</code> 生成产品模拟图 → ② 下载模拟图 → ③ <code>POST /store/products</code> 创建商品 → ④ Etsy API 自动填写标题/描述（LLM生成SEO优化文案）/Tags。全程 API，不需要浏览器。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-blue">
+      <div class="step-num-col"><div class="step-circle">04</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">💰 订单自动处理 + 收款</div>
+        <div class="step-desc">顾客下单后，Etsy 自动通知 Printful，Printful 自动生产发货，你收差价。整个链路买家下单到发货全程 0 人工介入。Stripe / PayPal 自动收款，定期自动结算到银行卡。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-a">Etsy + Printful 自动集成（官方支持）</span>
+          <span class="tool-chip tool-g">Stripe Webhook 收款通知</span>
+          <span class="tool-chip tool-w">PayPal API 结算追踪</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="income-box">
+    <div class="income-item"><span class="income-label">每件T恤利润</span><span class="income-val">$5~15</span><span class="income-note">进货约$12·卖$20~27</span></div>
+    <div class="income-item"><span class="income-label">SKU上架数量</span><span class="income-val">500~2000件</span><span class="income-note">AI批量可达</span></div>
+    <div class="income-item"><span class="income-label">转化率目标</span><span class="income-val">0.5~2%</span><span class="income-note">Etsy流量转化</span></div>
+    <div class="income-item"><span class="income-label">月收预期</span><span class="income-val">¥2k~20k</span><span class="income-note">SKU越多越稳</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PATH 4: 知识付费 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="path4">
+  <div class="section-header">
+    <span class="section-num">// 04</span>
+    <div class="section-icon" style="background:rgba(0,180,255,0.08)">🎓</div>
+    <div>
+      <div class="section-title">知识付费 · 数字课程自动化 <span>AI制课 → 自动销售交付</span></div>
+    </div>
+  </div>
+
+  <div class="overview-card">
+    <div class="overview-desc">
+      AI 全自动制作视频课程/电子书/Notion模板/Prompt包，部署到自动化销售漏斗（落地页+自动邮件序列+支付+交付）。买家付款后自动获得产品链接，全程 0 人工。核心是找到有<strong style="color:#fff">真实需求的细分知识点</strong>（如「用 Python 自动化副业的100个脚本」），一次制作永久卖。
+    </div>
+    <div class="overview-meta">
+      <div class="meta-row"><span class="meta-key">月收入范围</span><span class="meta-val" style="color:var(--amber)">¥10,000 ~ 无上限</span></div>
+      <div class="meta-row"><span class="meta-key">利润率</span><span class="meta-val">90%+（数字产品无成本）</span></div>
+      <div class="meta-row"><span class="meta-key">最佳变现品类</span><span class="meta-val">AI工具教程/副业攻略/模板</span></div>
+    </div>
+  </div>
+
+  <div class="pipeline-title">全链路自动化流程</div>
+  <div class="pipeline">
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">01</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">📋 课程大纲 AI 生成</div>
+        <div class="step-desc">给 LLM 一个课程方向，自动生成章节大纲→每章内容→PPT 文字稿→配套练习题，输出完整的结构化 JSON 课程内容。然后自动用 python-pptx 生成每节课的 PPT，或用 reportlab 生成电子书 PDF。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">DeepSeek / GPT-4o（内容生成）</span>
+          <span class="tool-chip tool-b">python-pptx（PPT自动生成）</span>
+          <span class="tool-chip tool-a">reportlab / weasyprint（PDF生成）</span>
+          <span class="tool-chip tool-p">Notion API（Notion模板交付）</span>
+        </div>
+        <div class="step-detail">
+          <code>python-pptx</code> 可以完全代码控制 PPT 每张幻灯片的文字/图片/布局，生成几十张高质量 PPT 只需 30 秒。配合 LLM 内容，1小时可生产一门完整课程的 PPT 素材。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">02</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🎙️ AI 配音 + 视频录制</div>
+        <div class="step-desc">用 edge-tts / Fish Audio 给每张 PPT 配音（你已会），然后用 FFmpeg 把 PPT 截图序列（python-pptx 导出图片）+ 配音合成视频课，自动添加字幕。整门课视频全程 0 人出镜，0 人录制。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">edge-tts / Fish Audio（配音）</span>
+          <span class="tool-chip tool-b">python-pptx → PIL（导出幻灯片图）</span>
+          <span class="tool-chip tool-a">FFmpeg（图片序列→视频）</span>
+          <span class="tool-chip tool-w">faster-whisper（自动生成字幕）</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">03</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">💳 自动化销售漏斗</div>
+        <div class="step-desc">用 Gumroad / 爱发电 / 小报童 托管数字产品（自动处理支付、交付、发票）。或自建：FastAPI + Stripe + 邮件发送自动交付。付款后 webhook 触发，自动发送含下载链接的邮件，全程 0 干预。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-a">Gumroad（最简单·一键上架）</span>
+          <span class="tool-chip tool-g">爱发电 / 小报童（国内最佳）</span>
+          <span class="tool-chip tool-b">Stripe API（自建收款）</span>
+          <span class="tool-chip tool-p">SendGrid API（自动发邮件交付）</span>
+          <span class="tool-chip tool-w">FastAPI（自建销售后端）</span>
+        </div>
+        <div class="step-detail">
+          Gumroad 是最省事方案：上传文件，设定价格，得到销售链接，付款后自动发送下载链接。Gumroad 抽佣 10%。爱发电/小报童适合国内，微信/支付宝收款，自动交付内容。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">04</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">📣 自动引流 + 分销裂变</div>
+        <div class="step-desc">通过短视频矩阵（路径01）给课程引流，在视频简介/评论区自动插入课程链接。开设分销计划（Gumroad 内置联盟功能），让买过的人帮你推广再赚 30%，形成自动裂变增长。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">Gumroad 联盟营销系统（内置）</span>
+          <span class="tool-chip tool-a">抖音视频号短链接自动插入</span>
+          <span class="tool-chip tool-b">邮件自动序列（SendGrid）</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="income-box">
+    <div class="income-item"><span class="income-label">产品定价</span><span class="income-val">¥49~499</span><span class="income-note">电子书~系列课</span></div>
+    <div class="income-item"><span class="income-label">月销量目标</span><span class="income-val">50~500份</span><span class="income-note">纯自动化引流</span></div>
+    <div class="income-item"><span class="income-label">月收预期</span><span class="income-val">¥5k~50k</span><span class="income-note">规模化后</span></div>
+    <div class="income-item"><span class="income-label">利润率</span><span class="income-val">85~95%</span><span class="income-note">数字产品无边际成本</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PATH 5: 跨境电商 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="path5">
+  <div class="section-header">
+    <span class="section-num">// 05</span>
+    <div class="section-icon" style="background:rgba(255,183,0,0.08)">📦</div>
+    <div>
+      <div class="section-title">跨境电商全自动化 <span>选品→上架→客服→发货 0人工</span></div>
+    </div>
+  </div>
+
+  <div class="overview-card">
+    <div class="overview-desc">
+      通过 1688/速卖通 API 自动选品，在亚马逊/eBay/独立站（Shopify）自动上架，AI 自动写产品描述和关键词，订单自动同步到供应商系统（一件代发），AI 客服自动回复，自动处理退换货。选品是核心，AI 帮你做竞争分析和趋势预判。
+    </div>
+    <div class="overview-meta">
+      <div class="meta-row"><span class="meta-key">月收入范围</span><span class="meta-val" style="color:var(--amber)">¥20,000 ~ 200,000</span></div>
+      <div class="meta-row"><span class="meta-key">启动成本</span><span class="meta-val">¥3k~1万（首批库存）</span></div>
+      <div class="meta-row"><span class="meta-key">关键技能</span><span class="meta-val">选品能力 + API 对接</span></div>
+    </div>
+  </div>
+
+  <div class="pipeline-title">全链路自动化流程</div>
+  <div class="pipeline">
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">01</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🔍 AI 自动选品分析</div>
+        <div class="step-desc">爬取亚马逊 Best Sellers 榜单，分析评论数增速（快速上升的新品=蓝海机会），计算利润空间（亚马逊售价 - 1688采购价 - FBA费用 - 广告费），利润率&gt;30%且月销量&gt;500件的品自动进入待选库。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">Scrapy 爬取亚马逊排行</span>
+          <span class="tool-chip tool-b">Jungle Scout API（选品神器）</span>
+          <span class="tool-chip tool-a">1688 API / Scrapy 采购价</span>
+          <span class="tool-chip tool-w">pandas 利润率计算筛选</span>
+          <span class="tool-chip tool-p">DeepSeek 评估市场前景</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">02</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">📝 AI 自动创建 Listing</div>
+        <div class="step-desc">给 LLM 产品图片+基本参数，自动生成亚马逊 Listing 的标题（含关键词）、5条 Bullet Points、产品描述、A+ 页面文案、后台关键词，直接调用亚马逊 SP-API 上架，不需要手动填写任何东西。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">Amazon SP-API（官方·Listing管理）</span>
+          <span class="tool-chip tool-b">Shopify Admin API（独立站）</span>
+          <span class="tool-chip tool-a">GPT-4V（图片理解生成文案）</span>
+          <span class="tool-chip tool-w">Helium10 关键词反查</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">03</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🤖 AI 客服自动回复</div>
+        <div class="step-desc">亚马逊/Shopify 的买家消息通过 API 自动拉取，喂给 LLM（配上产品资料作为 Context），生成专业英文回复，自动发送。处理常见问题（物流查询/退换货/使用问题）准确率 90%+，剩余复杂问题推送邮件提醒人工介入。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">Amazon Messaging API</span>
+          <span class="tool-chip tool-b">Shopify Inbox API</span>
+          <span class="tool-chip tool-a">GPT-4o（客服回复生成）</span>
+          <span class="tool-chip tool-w">LangChain RAG（产品文档检索）</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">04</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">📦 订单自动同步发货</div>
+        <div class="step-desc">亚马逊新订单 Webhook → 自动调用 1688/速卖通 供应商 API 下单（一件代发）→ 获取快递单号 → 自动同步到亚马逊/Shopify 标记发货。全程 0 人介入，订单处理延迟 &lt;5 分钟。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">Amazon SP-API Orders</span>
+          <span class="tool-chip tool-b">1688 API（供应商下单）</span>
+          <span class="tool-chip tool-a">ERP系统：马帮/旺销王 API</span>
+          <span class="tool-chip tool-w">Webhook + FastAPI 监听</span>
+        </div>
+        <div class="step-detail">
+          也可以用 <code>n8n</code>（开源自动化工具，类似 Zapier）连接亚马逊和供应商 API，无需写代码，可视化配置订单流转逻辑。n8n 可本地部署在你的电脑上。
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="income-box">
+    <div class="income-item"><span class="income-label">目标SKU数量</span><span class="income-val">50~200个</span><span class="income-note">AI批量上架</span></div>
+    <div class="income-item"><span class="income-label">单品月利润</span><span class="income-val">¥500~5000</span><span class="income-note">取决于销量</span></div>
+    <div class="income-item"><span class="income-label">月利润目标</span><span class="income-val">¥2w~20w</span><span class="income-note">规模化后</span></div>
+    <div class="income-item"><span class="income-label">人工介入</span><span class="income-val">&lt;2小时/天</span><span class="income-note">看数据+复杂客服</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PATH 6: 信息差套利 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="path6">
+  <div class="section-header">
+    <span class="section-num">// 06</span>
+    <div class="section-icon" style="background:rgba(255,183,0,0.08)">💹</div>
+    <div>
+      <div class="section-title">国内信息差套利 <span>价格监控 → 自动搬运 → 差价收益</span></div>
+    </div>
+  </div>
+
+  <div class="overview-card">
+    <div class="overview-desc">
+      核心逻辑：同一件商品在不同平台的价格存在差异，你的程序自动发现并利用这个差价。包括：闲鱼低价品 → 自动上架淘宝/京东卖高价；限量款预售机器人抢购 → 二手市场高价出手；某平台特价券自动薅；游戏账号/道具跨平台价差。
+    </div>
+    <div class="overview-meta">
+      <div class="meta-row"><span class="meta-key">月收入范围</span><span class="meta-val" style="color:var(--amber)">¥3,000 ~ 15,000</span></div>
+      <div class="meta-row"><span class="meta-key">起效周期</span><span class="meta-val">1~2 周见效</span></div>
+      <div class="meta-row"><span class="meta-key">风险提示</span><span class="meta-val">平台政策变化风险</span></div>
+    </div>
+  </div>
+
+  <div class="pipeline-title">全链路自动化流程</div>
+  <div class="pipeline">
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">01</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">📡 多平台价格实时监控</div>
+        <div class="step-desc">Scrapy 爬虫同时爬取闲鱼、转转、拼多多、京东、天猫等平台同一商品的价格。设定价差阈值（如：差价&gt;30%），触发报警并进入自动采购流程。每10分钟刷新一次价格数据。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">Scrapy + Selenium（动态页面）</span>
+          <span class="tool-chip tool-b">DrissionPage（比Selenium稳）</span>
+          <span class="tool-chip tool-a">Redis（价格数据缓存·高速比对）</span>
+          <span class="tool-chip tool-w">APScheduler 每10分钟触发</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">02</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🤖 自动采购（RPA）</div>
+        <div class="step-desc">发现价差后，RPA 自动在低价平台下单购买（DrissionPage 模拟人工操作：搜索→加购→结算→支付）。使用多个账号轮换，每个账号设置不同的购买频率，避免被风控识别。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-p">DrissionPage（核心RPA引擎）</span>
+          <span class="tool-chip tool-g">wxauto（支付宝/微信支付RPA）</span>
+          <span class="tool-chip tool-b">账号池管理（多账号轮换）</span>
+          <span class="tool-chip tool-w">随机延迟模拟（random.uniform）</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">03</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">📋 自动上架高价平台</div>
+        <div class="step-desc">收到货后（或一件代发情况下确认发货后），AI 自动在高价平台生成商品标题/描述（比采购平台描述更吸引人），自动上架，自动设置比市场略低但仍有利润的价格，吸引快速成交。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">闲鱼 API / RPA 上架</span>
+          <span class="tool-chip tool-b">淘宝开放平台 API</span>
+          <span class="tool-chip tool-a">DeepSeek 生成吸引人的文案</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="warn-box">此路径需严格遵守各平台的服务协议，避免使用违规手段。建议先做小规模测试，验证价差是否稳定后再加大规模。限量抢购类需特别注意平台政策。</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PATH 7: 联盟营销 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="path7">
+  <div class="section-header">
+    <span class="section-num">// 07</span>
+    <div class="section-icon" style="background:rgba(255,183,0,0.08)">🔗</div>
+    <div>
+      <div class="section-title">联盟营销全自动化 <span>内容引流 → 追踪链接 → CPS佣金</span></div>
+    </div>
+  </div>
+
+  <div class="overview-card">
+    <div class="overview-desc">
+      注册淘宝联盟/京东联盟/亚马逊Associates，获取产品的 CPS 追踪链接（有人点链接买东西你拿佣金）。AI 批量生产测评内容（文章/视频/推文），嵌入你的追踪链接，通过 SEO 和社交媒体引流，每笔成交自动入账 2~15% 佣金，无需备货，无需客服。
+    </div>
+    <div class="overview-meta">
+      <div class="meta-row"><span class="meta-key">月收入范围</span><span class="meta-val" style="color:var(--amber)">¥5,000 ~ 30,000</span></div>
+      <div class="meta-row"><span class="meta-key">最佳品类</span><span class="meta-val">数码/美妆/母婴/健身器材</span></div>
+      <div class="meta-row"><span class="meta-key">优势</span><span class="meta-val">0备货·0客服·纯被动收益</span></div>
+    </div>
+  </div>
+
+  <div class="pipeline-title">全链路自动化流程</div>
+  <div class="pipeline">
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">01</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🎯 高佣商品自动筛选</div>
+        <div class="step-desc">每天调用淘宝联盟/京东联盟 API，自动抓取佣金率 &gt;10% + 月销量 &gt;1000件 + 好评率 &gt;95% 的商品，生成今日推广候选库。同时用 LLM 判断哪些商品更适合内容创作（有故事/有痛点/有对比点）。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-a">淘宝联盟 API（官方·免费）</span>
+          <span class="tool-chip tool-g">京东联盟 API</span>
+          <span class="tool-chip tool-b">DeepSeek 商品潜力评分</span>
+          <span class="tool-chip tool-w">pandas 多维度筛选</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">02</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">📝 AI 测评内容批量生产</div>
+        <div class="step-desc">抓取商品评论（爬虫），喂给 LLM，生成"用户真实使用感受"风格的测评文章/视频脚本，同时生成小红书风格种草文案、抖音短视频脚本，每种内容自动嵌入追踪链接。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">Scrapy 爬商品评论</span>
+          <span class="tool-chip tool-b">DeepSeek 生成测评文案</span>
+          <span class="tool-chip tool-a">淘宝联盟 API 获取追踪链接</span>
+          <span class="tool-chip tool-w">短链接生成（bit.ly API）</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">03</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🚀 多渠道自动分发</div>
+        <div class="step-desc">文章自动发 WordPress 博客（SEO引流），视频自动发抖音/B站（路径01的技术），小红书图文自动发布（RPA），微信公众号自动推送（微信公众号 API），微信群自动分享（wxauto）。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">WordPress API（博客）</span>
+          <span class="tool-chip tool-b">抖音/B站 API（视频）</span>
+          <span class="tool-chip tool-a">DrissionPage（小红书RPA）</span>
+          <span class="tool-chip tool-p">微信公众号 API</span>
+          <span class="tool-chip tool-w">wxauto（微信群分享）</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">04</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">💰 佣金自动追踪 + 日报</div>
+        <div class="step-desc">每天定时调用联盟 API 拉取点击量、转化量、佣金数据，自动生成各渠道效果对比报表，发现哪个品/哪个渠道 ROI 最高，自动加大该方向的内容生产配额。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-a">淘宝联盟数据 API</span>
+          <span class="tool-chip tool-w">pandas + matplotlib 数据报表</span>
+          <span class="tool-chip tool-g">wxauto 推送微信日报</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="income-box">
+    <div class="income-item"><span class="income-label">平均佣金率</span><span class="income-val">5~15%</span><span class="income-note">淘宝/京东联盟</span></div>
+    <div class="income-item"><span class="income-label">日均引导GMV目标</span><span class="income-val">¥5k~10k</span><span class="income-note">稳定流量后</span></div>
+    <div class="income-item"><span class="income-label">月佣金收入</span><span class="income-val">¥5k~30k</span><span class="income-note">无需备货</span></div>
+    <div class="income-item"><span class="income-label">人工介入</span><span class="income-val">0~30分钟/天</span><span class="income-note">看日报即可</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PATH 8: AI微SaaS -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="path8">
+  <div class="section-header">
+    <span class="section-num">// 08</span>
+    <div class="section-icon" style="background:rgba(180,76,255,0.08)">⚡</div>
+    <div>
+      <div class="section-title">AI 微 SaaS 工具 <span>包装你的自动化能力 → 按月订阅收费</span></div>
+    </div>
+  </div>
+
+  <div class="overview-card">
+    <div class="overview-desc">
+      你的自动化能力本身就是产品。把你的某个自动化能力（如：自动生成儿童解说视频）包装成一个 SaaS 工具，配上简洁的 Web 界面，让不会编程的人花钱订阅使用。即使只收 ¥99/月，1000个付费用户就是 ¥10w/月。核心是找到<strong style="color:#fff">有迫切需求但不会编程的目标用户</strong>。
+    </div>
+    <div class="overview-meta">
+      <div class="meta-row"><span class="meta-key">月收入范围</span><span class="meta-val" style="color:var(--amber)">¥10,000 ~ 无上限</span></div>
+      <div class="meta-row"><span class="meta-key">启动成本</span><span class="meta-val">¥500~2000（服务器+支付）</span></div>
+      <div class="meta-row"><span class="meta-key">最佳品类</span><span class="meta-val">视频/文案/图片自动生成工具</span></div>
+    </div>
+  </div>
+
+  <div class="pipeline-title">全链路自动化流程</div>
+  <div class="pipeline">
+
+    <div class="step c-purple">
+      <div class="step-num-col"><div class="step-circle">01</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🏗️ 后端 API 服务化</div>
+        <div class="step-desc">把你的 Python 自动化脚本包装成 FastAPI 服务。用户提交一个任务（如：视频主题），系统把任务放入 Celery 队列异步处理，处理完自动通知用户下载。整个核心工作原理和你现在的代码完全一样，只是加了个 Web 外壳。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-p">FastAPI（REST后端·Python）</span>
+          <span class="tool-chip tool-b">Celery + Redis（异步任务队列）</span>
+          <span class="tool-chip tool-g">SQLAlchemy（用户数据库）</span>
+          <span class="tool-chip tool-w">Docker 容器化部署</span>
+          <span class="tool-chip tool-a">Nginx 反向代理</span>
+        </div>
+        <div class="step-detail">
+          你的 <code>build_masterpiece(topic)</code> 函数，只需加一层 <code>@app.post("/create-video")</code> 装饰器，配合 Celery 异步任务（避免超时），就变成了可以让千人使用的 API。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-purple">
+      <div class="step-num-col"><div class="step-circle">02</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">💻 前端用户界面</div>
+        <div class="step-desc">用 Streamlit（Python，1天搭建完毕）或 React/Vue（更专业），做一个极简 Web 界面：输入主题 → 点击生成 → 进度条 → 下载视频。不需要复杂 UI，只要功能好用就会有人付费。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-p">Streamlit（最快·纯Python·1天上线）</span>
+          <span class="tool-chip tool-b">Gradio（AI工具界面专用）</span>
+          <span class="tool-chip tool-g">React + Ant Design（更专业）</span>
+          <span class="tool-chip tool-w">Vercel（前端免费托管）</span>
+        </div>
+        <div class="step-detail">
+          Streamlit 是程序员做 SaaS MVP 的最快方式：<code>pip install streamlit</code>，写 30 行 Python，就有一个可以上线的 Web 应用，支持文件上传/下载、进度条、表单等。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-purple">
+      <div class="step-num-col"><div class="step-circle">03</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">💳 自动订阅收费系统</div>
+        <div class="step-desc">接入 Stripe（国际）或虎皮椒/码支付（国内）实现订阅制收费。用户付款 → Webhook 触发 → 自动开通会员 → 分配 API 调用额度。用完额度自动提示续费，过期自动停用，全程 0 人工。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">Stripe API（订阅制·国际）</span>
+          <span class="tool-chip tool-a">虎皮椒 / 码支付（国内微信支付宝）</span>
+          <span class="tool-chip tool-b">JWT Token（用量认证）</span>
+          <span class="tool-chip tool-w">Redis 计数（API调用次数限制）</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-purple">
+      <div class="step-num-col"><div class="step-circle">04</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">📣 自动化获客</div>
+        <div class="step-desc">通过你的短视频矩阵（路径01）展示工具生成的成果视频，评论区置顶工具链接。在 ProductHunt（英文）或 V2EX/少数派（中文）发布，自动化社交媒体推广。SEO 优化工具官网吸引搜索流量。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">ProductHunt（免费发布·国际曝光）</span>
+          <span class="tool-chip tool-b">V2EX / 少数派（国内曝光）</span>
+          <span class="tool-chip tool-a">短视频矩阵引流（复用路径01）</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="income-box">
+    <div class="income-item"><span class="income-label">定价策略</span><span class="income-val">¥39~299/月</span><span class="income-note">基础/专业/团队套餐</span></div>
+    <div class="income-item"><span class="income-label">100付费用户</span><span class="income-val">¥5k~15k/月</span><span class="income-note">MRR目标</span></div>
+    <div class="income-item"><span class="income-label">1000付费用户</span><span class="income-val">¥5w~15w/月</span><span class="income-note">规模化后</span></div>
+    <div class="income-item"><span class="income-label">服务器成本</span><span class="income-val">¥500~5000/月</span><span class="income-note">阿里云/腾讯云</span></div>
+  </div>
+
+  <div class="note-box">你的视频生成脚本（儿童解说）本身就是一个 SaaS 产品的完美核心。目标用户：儿童教育内容创作者、自媒体人、教培机构——他们有需求但不会编程，愿意为自动化能力付费。</div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PATH 9: 私域自动化 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="path9">
+  <div class="section-header">
+    <span class="section-num">// 09</span>
+    <div class="section-icon" style="background:rgba(0,229,255,0.08)">📲</div>
+    <div>
+      <div class="section-title">私域流量自动化 <span>自动养鱼 → 自动成交 → 自动复购</span></div>
+    </div>
+  </div>
+
+  <div class="overview-card">
+    <div class="overview-desc">
+      微信生态是中国最强私域流量池。构建自动化系统：视频/SEO/公众号引流 → 自动加好友 → 自动打标签分层 → LLM 智能客服自动回复 → 定期自动推送针对性内容 → 自动成交（付款链接/小程序）→ 自动跟进复购。你已在用 wxauto，这是把它完全产品化。
+    </div>
+    <div class="overview-meta">
+      <div class="meta-row"><span class="meta-key">月收入范围</span><span class="meta-val" style="color:var(--amber)">¥5,000 ~ 50,000+</span></div>
+      <div class="meta-row"><span class="meta-key">技术核心</span><span class="meta-val">wxauto + LLM + 销售漏斗</span></div>
+      <div class="meta-row"><span class="meta-key">你的起点</span><span class="meta-val">已有 wxauto 基础（直接扩展）</span></div>
+    </div>
+  </div>
+
+  <div class="pipeline-title">全链路自动化流程</div>
+  <div class="pipeline">
+
+    <div class="step c-cyan">
+      <div class="step-num-col"><div class="step-circle">01</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🎣 自动引流 + 被动加粉</div>
+        <div class="step-desc">所有内容渠道（视频/SEO/公众号）统一引导至一个微信号/企业微信。企业微信有官方 API 可自动处理好友申请，自动发送欢迎语 + 引导话术，自动给用户打标签（来源渠道/兴趣标签）。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">企业微信 API（官方·合规）</span>
+          <span class="tool-chip tool-c">wxauto（个人微信·非官方）</span>
+          <span class="tool-chip tool-b">WxPusher（消息推送）</span>
+          <span class="tool-chip tool-w">SQLite 用户画像数据库</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-cyan">
+      <div class="step-num-col"><div class="step-circle">02</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🤖 LLM 智能客服 24小时</div>
+        <div class="step-desc">用 wxauto 监听所有私信，接收到新消息 → 查询该用户标签/历史对话（存 SQLite）→ 构建带上下文的 Prompt → 调用 DeepSeek/GPT → 生成个性化回复 → wxauto 自动发送。成交意向高的用户自动发送付款链接。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-c">wxauto（监听+发送消息）</span>
+          <span class="tool-chip tool-g">DeepSeek（生成回复·最省钱）</span>
+          <span class="tool-chip tool-b">LangChain 对话记忆管理</span>
+          <span class="tool-chip tool-w">SQLite 存储对话历史</span>
+          <span class="tool-chip tool-a">关键词检测（成交意向识别）</span>
+        </div>
+        <div class="step-detail">
+          意图识别：检测到消息含"多少钱"/"怎么买"/"有没有"等关键词，自动发送产品介绍+付款链接。检测到"不好""退款"等，转人工处理（推送手机提醒）。其他一般询问 LLM 自动回复。
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-cyan">
+      <div class="step-num-col"><div class="step-circle">03</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">📅 自动化内容推送（朋友圈+群发）</div>
+        <div class="step-desc">每天定时：用 LLM 根据用户标签生成差异化推送内容（如：给"育儿焦虑"标签用户推送教育内容，给"副业"标签用户推送赚钱内容），wxauto 自动发朋友圈/群发/群推送，保持用户活跃度。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-c">wxauto（发朋友圈/群发）</span>
+          <span class="tool-chip tool-g">DeepSeek（内容生成）</span>
+          <span class="tool-chip tool-w">APScheduler（定时推送）</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-cyan">
+      <div class="step-num-col"><div class="step-circle">04</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">💰 自动成交 + 复购追踪</div>
+        <div class="step-desc">付款链接（爱发电/小报童/Gumroad）发出后，监控支付状态，付款成功 → 自动发商品/加群/发课程链接。30天后自动推送相关产品促进复购，60天未购买再次发优惠券，形成完整的成交漏斗。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-a">爱发电 Webhook（收款通知）</span>
+          <span class="tool-chip tool-c">wxauto（自动发货·发链接）</span>
+          <span class="tool-chip tool-w">SQLite 记录用户购买状态</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="income-box">
+    <div class="income-item"><span class="income-label">微信好友目标</span><span class="income-val">500~5000人</span><span class="income-note">精准用户池</span></div>
+    <div class="income-item"><span class="income-label">转化率</span><span class="income-val">2~8%</span><span class="income-note">精准用户购买率</span></div>
+    <div class="income-item"><span class="income-label">月收预期</span><span class="income-val">¥5k~50k</span><span class="income-note">取决于用户质量</span></div>
+    <div class="income-item"><span class="income-label">人工介入</span><span class="income-val">&lt;1小时/天</span><span class="income-note">处理复杂咨询</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- PATH 10: 量化套利 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="path10">
+  <div class="section-header">
+    <span class="section-num">// 10</span>
+    <div class="section-icon" style="background:rgba(255,58,110,0.08)">📈</div>
+    <div>
+      <div class="section-title">量化套利 · 自动交易 <span>策略 → 自动执行 → 24小时盈利</span></div>
+    </div>
+  </div>
+
+  <div class="overview-card">
+    <div class="overview-desc">
+      编程人员最具优势的方向之一。包括：加密货币跨交易所价差套利（同一币在不同交易所价格不同）、网格交易（震荡市自动低买高卖）、期现套利（期货和现货价差），以及 A股量化策略（通过券商 API 自动执行）。策略本身需要花时间验证，但一旦验证有效，执行完全自动化，24小时不停盈利。
+    </div>
+    <div class="overview-meta">
+      <div class="meta-row"><span class="meta-key">收益范围</span><span class="meta-val" style="color:var(--amber)">月化 3~30%（高风险）</span></div>
+      <div class="meta-row"><span class="meta-key">启动门槛</span><span class="meta-val">¥5000+ 本金</span></div>
+      <div class="meta-row"><span class="meta-key">风险等级</span><span class="meta-val" style="color:var(--red)">高风险·可能亏损</span></div>
+      <div class="meta-row"><span class="meta-key">核心技能</span><span class="meta-val">回测·统计·策略验证</span></div>
+    </div>
+  </div>
+
+  <div class="warn-box">量化交易存在本金亏损风险。以下只介绍技术实现，非投资建议。务必先用模拟盘验证至少3个月，回测不等于实盘，请量力而行。</div>
+
+  <div class="pipeline-title">全链路自动化流程</div>
+  <div class="pipeline">
+
+    <div class="step c-red">
+      <div class="step-num-col"><div class="step-circle">01</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">📊 历史数据获取 + 策略回测</div>
+        <div class="step-desc">用 ccxt 拉取加密货币历史 K线数据，或用 akshare/tushare 拉取 A股历史数据，用 backtrader / zipline 做策略回测，验证 Sharpe Ratio、最大回撤、胜率等关键指标，筛选出实盘可用的策略。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-r">ccxt（加密货币统一API·200+交易所）</span>
+          <span class="tool-chip tool-b">akshare / tushare（A股数据）</span>
+          <span class="tool-chip tool-g">backtrader（策略回测框架）</span>
+          <span class="tool-chip tool-a">vnpy（国内量化框架·全功能）</span>
+          <span class="tool-chip tool-w">pandas / numpy（数据分析）</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-red">
+      <div class="step-num-col"><div class="step-circle">02</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">⚡ 实盘自动交易执行</div>
+        <div class="step-desc">策略验证后，用 ccxt 接入交易所 API 实盘执行，WebSocket 实时监听价格，满足条件立即自动下单，毫秒级执行。A股用东方财富/同花顺 API 或 通达信量化接口自动下单。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-r">ccxt（执行交易·统一接口）</span>
+          <span class="tool-chip tool-b">websocket-client（实时行情）</span>
+          <span class="tool-chip tool-g">vnpy（A股期货量化框架）</span>
+          <span class="tool-chip tool-a">easytrader（A股券商接口）</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-red">
+      <div class="step-num-col"><div class="step-circle">03</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">🛡️ 风险控制 + 监控预警</div>
+        <div class="step-desc">自动监控：账户浮亏超过 X% 自动暂停策略并通知；单笔亏损超过止损线自动平仓；网络断线自动重连；策略异常自动推送手机告警（wxpusher/钉钉机器人）。风控是最关键的自动化。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-r">自定义止损模块（必须自写）</span>
+          <span class="tool-chip tool-g">wxpusher / 钉钉 Webhook（告警）</span>
+          <span class="tool-chip tool-b">Grafana + InfluxDB（可视化监控）</span>
+          <span class="tool-chip tool-w">APScheduler（定时健康检查）</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="income-box">
+    <div class="income-item"><span class="income-label">网格策略（震荡市）</span><span class="income-val">月化3~8%</span><span class="income-note">低风险·稳定</span></div>
+    <div class="income-item"><span class="income-label">跨所套利</span><span class="income-val">年化10~30%</span><span class="income-note">需要双账户资金</span></div>
+    <div class="income-item"><span class="income-label">技术要求</span><span class="income-val">回测验证3月+</span><span class="income-note">不可跳过</span></div>
+    <div class="income-item"><span class="income-label">人工介入</span><span class="income-val">每天看报告</span><span class="income-note">风控告警时介入</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 技术基础设施 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="infra">
+  <div class="section-header">
+    <span class="section-num">// 11</span>
+    <div class="section-icon" style="background:rgba(200,216,240,0.06)">🏗️</div>
+    <div>
+      <div class="section-title">底层技术基础设施 <span>支撑所有路径的共用能力层</span></div>
+    </div>
+  </div>
+
+  <div class="tech-grid">
+
+    <div class="tech-card">
+      <div class="tech-card-header">
+        <div class="tech-icon" style="background:rgba(0,255,163,0.1)">⏰</div>
+        <div class="tech-name">任务调度系统</div>
+      </div>
+      <div class="tech-desc">
+        <strong style="color:var(--green)">APScheduler</strong>：Python 内嵌定时任务，最简单。<br>
+        <strong style="color:var(--green)">Celery + Redis</strong>：分布式任务队列，支持并发、重试、优先级，适合 SaaS 场景。<br>
+        <strong style="color:var(--amber)">n8n</strong>：可视化工作流工具，可本地部署，连接各种 API 无需写代码。
+      </div>
+    </div>
+
+    <div class="tech-card">
+      <div class="tech-card-header">
+        <div class="tech-icon" style="background:rgba(0,180,255,0.1)">🕷️</div>
+        <div class="tech-name">数据采集层</div>
+      </div>
+      <div class="tech-desc">
+        <strong style="color:var(--blue)">Scrapy</strong>：高性能爬虫框架，并发爬取。<br>
+        <strong style="color:var(--blue)">DrissionPage</strong>：比 Selenium 更快更稳，处理 JS 渲染页面，16G 内存轻松跑。<br>
+        <strong style="color:var(--cyan)">Playwright</strong>：微软出品，支持 async，截图/交互自动化首选。
+      </div>
+    </div>
+
+    <div class="tech-card">
+      <div class="tech-card-header">
+        <div class="tech-icon" style="background:rgba(255,183,0,0.1)">🧠</div>
+        <div class="tech-name">LLM 调用层</div>
+      </div>
+      <div class="tech-desc">
+        <strong style="color:var(--amber)">DeepSeek API</strong>：中文最强，价格最低（¥1/百万tokens）。<br>
+        <strong style="color:var(--amber)">LangChain</strong>：管理 Prompt、记忆、RAG 检索，减少重复代码。<br>
+        <strong style="color:var(--amber)">Ollama</strong>：本地运行小模型（Qwen2.5-7B），完全免费，16G可跑。
+      </div>
+    </div>
+
+    <div class="tech-card">
+      <div class="tech-card-header">
+        <div class="tech-icon" style="background:rgba(180,76,255,0.1)">🔌</div>
+        <div class="tech-name">RPA 自动化层</div>
+      </div>
+      <div class="tech-desc">
+        <strong style="color:var(--purple)">wxauto</strong>：你已在用，控制微信 PC 版（你已掌握）。<br>
+        <strong style="color:var(--purple)">DrissionPage</strong>：浏览器自动化，比 Selenium 稳定 10 倍。<br>
+        <strong style="color:var(--purple)">pywinauto</strong>：Windows 程序自动化，控制任意桌面 App。
+      </div>
+    </div>
+
+    <div class="tech-card">
+      <div class="tech-card-header">
+        <div class="tech-icon" style="background:rgba(0,229,255,0.1)">💾</div>
+        <div class="tech-name">数据存储层</div>
+      </div>
+      <div class="tech-desc">
+        <strong style="color:var(--cyan)">SQLite</strong>：零配置，单文件，任务队列/用户数据首选。<br>
+        <strong style="color:var(--cyan)">Redis</strong>：内存数据库，缓存价格/队列/计数器，速度极快。<br>
+        <strong style="color:var(--cyan)">ChromaDB</strong>：向量数据库，存 CLIP/LLM 的 Embeddings，语义检索。
+      </div>
+    </div>
+
+    <div class="tech-card">
+      <div class="tech-card-header">
+        <div class="tech-icon" style="background:rgba(255,58,110,0.1)">📡</div>
+        <div class="tech-name">通知 + 监控层</div>
+      </div>
+      <div class="tech-desc">
+        <strong style="color:var(--red)">wxauto / wxpusher</strong>：收益/报警直接发微信（你已会）。<br>
+        <strong style="color:var(--red)">钉钉/飞书 Webhook</strong>：企业级告警，推送到群机器人。<br>
+        <strong style="color:var(--red)">Grafana</strong>：可视化监控所有路径的收益和任务状态。
+      </div>
+    </div>
+
+  </div>
+
+  <div class="pipeline-title">16G 集成显卡 · 本地 AI 能力清单</div>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>AI能力</th><th>推荐方案</th><th>16G显存能否本地跑</th><th>替代方案（API）</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>文本生成</td><td>Ollama + Qwen2.5-7B</td><td><span class="badge badge-g">✓ 完全可以</span></td><td>DeepSeek API ¥1/百万tok</td></tr>
+      <tr><td>语音合成TTS</td><td>edge-tts（你已用）</td><td><span class="badge badge-g">✓ 纯CPU</span></td><td>Fish Audio API</td></tr>
+      <tr><td>语音识别ASR</td><td>faster-whisper small</td><td><span class="badge badge-g">✓ CPU int8</span></td><td>讯飞 ASR API</td></tr>
+      <tr><td>图像理解</td><td>CLIP（你已用）</td><td><span class="badge badge-g">✓ CPU模式</span></td><td>GPT-4V API</td></tr>
+      <tr><td>图像生成</td><td>SD SDXL-Turbo（CPU慢）</td><td><span class="badge badge-a">△ 慢但可用</span></td><td>Replicate API $0.01/张</td></tr>
+      <tr><td>声音克隆</td><td>CosyVoice（CPU模式）</td><td><span class="badge badge-a">△ 较慢</span></td><td>Fish Audio API</td></tr>
+      <tr><td>视频理解</td><td>不推荐本地</td><td><span class="badge badge-r">✗ 显存不足</span></td><td>Gemini Vision API</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 实施路线图 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section" id="roadmap">
+  <div class="section-header">
+    <span class="section-num">// 12</span>
+    <div class="section-icon" style="background:rgba(0,255,163,0.08)">🗺️</div>
+    <div>
+      <div class="section-title">建议实施路线图 <span>从你当前基础出发的最优顺序</span></div>
+    </div>
+  </div>
+
+  <div class="pipeline">
+    <div class="step c-green">
+      <div class="step-num-col"><div class="step-circle">W1</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">第1周 · 升级现有短视频流水线</div>
+        <div class="step-desc">基于你的 V3 脚本：① 接入 Pexels API 替代 yt-dlp（规避版权）② 把 MoviePy 换成 FFmpeg 直接命令行（提速5倍）③ 对接抖音/B站官方 API 实现自动发布 ④ 设置 APScheduler 实现定时批量生产。预计完成后：10个账号每天自动发布，每月广告分成可见。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">已有基础直接升级</span>
+          <span class="tool-chip tool-a">新增：FFmpeg直调·Pexels API·发布API</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">W3</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">第3周 · 开启联盟营销叠加收入</div>
+        <div class="step-desc">注册淘宝联盟，爬取高佣商品，在每条视频评论区/简介自动插入追踪链接。与视频内容强相关的商品（如儿童教育视频配套书单/课程），转化率高。本周可见第一笔佣金收入。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-a">淘宝联盟 API + 评论自动回复</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-blue">
+      <div class="step-num-col"><div class="step-circle">M2</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">第2个月 · 私域 LLM 客服系统上线</div>
+        <div class="step-desc">基于 wxauto（你已掌握），扩展为完整私域客服系统：LLM 自动回复 + 用户分层 + 自动推送。配合视频矩阵引流，开始销售数字课程/知识付费产品（路径04），叠加复购收入。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-c">wxauto 扩展 + DeepSeek 客服</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-purple">
+      <div class="step-num-col"><div class="step-circle">M3</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">第3个月 · AI微SaaS MVP上线</div>
+        <div class="step-desc">将你的视频生成流水线用 Streamlit + FastAPI 包装为 SaaS 工具，接入虎皮椒支付，开始小规模内测。目标：首月 50 个付费用户（¥99/月），验证商业模式后扩大推广。这是收入天花板最高的路径。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-p">Streamlit MVP + 虎皮椒支付</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step c-amber">
+      <div class="step-num-col"><div class="step-circle">M4</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-heading">第4~6个月 · SEO内容农场 + 跨境布局</div>
+        <div class="step-desc">SEO 需要时间积累，第4个月开始建站是最晚的节点。同时评估是否进入跨境电商（亚马逊），这两个路径是最持久的被动收入来源，越早启动，复利效果越强。</div>
+        <div class="step-tools">
+          <span class="tool-chip tool-g">WordPress + AI内容 + 亚马逊 SP-API</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="note-box">
+    <strong>核心原则：先把一条路径跑通并产生收入，再复制扩展。</strong> 你的 V3 脚本已经是最好的起点——短视频矩阵（路径01）是你熟悉的领域，先把它做到月入1万+，这个过程中积累的技术（LLM+TTS+FFmpeg+RPA）可以直接复用到路径04（知识付费）和路径08（微SaaS），形成技术资产叠加效应。
+  </div>
+</section>
+
+</main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-note">
+      本文档基于程序员视角，覆盖10条可完全自动化的互联网商业路径。每条路径都可在16G集成显卡 + 普通家用电脑上实现，不需要专业GPU服务器。所有技术均为公开成熟方案，可直接用 pip/npm 安装。<br><br>
+      建议从你已熟悉的短视频矩阵出发，逐步向外扩展，技术积累会带来复利效应。
+    </div>
+    <div class="footer-mono">
+      CLIP + Whisper + DeepSeek + EdgeTTS + FFmpeg + wxauto<br>
+      APScheduler + Celery + Redis + FastAPI + Stripe<br>
+      Scrapy + DrissionPage + Selenium + Playwright<br>
+      Stable Diffusion + Printful + WordPress API
+    </div>
+  </div>
+  <div>
+    <div class="footer-mono" style="color:var(--text3)">
+      # 16G集成显卡 · 本地可跑方案<br>
+      ollama run qwen2.5:7b<br>
+      faster-whisper compute_type="int8"<br>
+      stable-diffusion --device cpu<br>
+      clip-vit-base-patch32 device="cpu"<br><br>
+      # 低成本 API 方案<br>
+      deepseek-chat: ¥1/百万 tokens<br>
+      fish-audio-tts: ¥0.01/千字<br>
+      pexels-api: 200req/min 免费<br>
+      replicate-sd: $0.002/张
+    </div>
+  </div>
+</footer>
+
+<script>
+// Sidebar active state on scroll
+const sections = document.querySelectorAll('.section, #summary');
+const sidebarItems = document.querySelectorAll('.sidebar-item');
+
+function updateActive() {
+  let current = '';
+  sections.forEach(s => {
+    const rect = s.getBoundingClientRect();
+    if (rect.top <= 120) current = s.id;
+  });
+  sidebarItems.forEach(item => {
+    item.classList.remove('active');
+    if (item.getAttribute('href') === '#' + current) {
+      item.classList.add('active');
+    }
+  });
+}
+
+window.addEventListener('scroll', updateActive, { passive: true });
+
+// Smooth scrolling
+sidebarItems.forEach(item => {
+  item.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(item.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// Step line height animation on load
+document.querySelectorAll('.step').forEach(step => {
+  const line = step.querySelector('.step-line');
+  if (line) line.style.display = 'block';
+});
+</script>
+
+</body>
+</html>
