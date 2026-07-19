@@ -1,0 +1,3186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>商业洞察2026 · 打通信息壁垒</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-pale: #F5E6B2;
+    --ink: #0A0A0F;
+    --ink-2: #12121A;
+    --ink-3: #1C1C28;
+    --ink-4: #242438;
+    --smoke: #8A8AA0;
+    --pearl: #E8E8F0;
+    --white: #F8F8FC;
+    --red-accent: #D94F3A;
+    --teal: #2ABFBF;
+    --teal-dark: #1A8A8A;
+    --font-display: 'Playfair Display', 'Noto Serif SC', serif;
+    --font-serif: 'Noto Serif SC', serif;
+    --font-sans: 'Noto Sans SC', sans-serif;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--ink);
+    color: var(--white);
+    font-family: var(--font-serif);
+    overflow-x: hidden;
+    line-height: 1.8;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--ink-2); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ─── GLOBAL ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes pulse-gold {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.4); }
+    50%       { box-shadow: 0 0 0 12px rgba(201,168,76,0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-10px); }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes draw-line {
+    from { width: 0; }
+    to   { width: 100%; }
+  }
+  @keyframes count-up {
+    from { opacity: 0; transform: scale(0.5); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes scan {
+    0%   { transform: translateY(-100%); opacity: 0.6; }
+    100% { transform: translateY(600%); opacity: 0; }
+  }
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.3; }
+    50%       { opacity: 0.7; }
+  }
+  @keyframes border-dance {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* ─── UTILITY ─── */
+  .gold { color: var(--gold); }
+  .teal { color: var(--teal); }
+  .red  { color: var(--red-accent); }
+  .smoke { color: var(--smoke); }
+
+  .section-label {
+    font-family: var(--font-sans);
+    font-size: clamp(10px, 2.5vw, 13px);
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    height: 1px;
+    width: 40px;
+    background: var(--gold);
+    display: inline-block;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin: 2rem 0;
+  }
+
+  .divider-center {
+    margin-left: auto;
+    margin-right: auto;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(80px, 12vw, 140px) clamp(20px, 6vw, 80px) clamp(60px, 8vw, 100px);
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 50%, rgba(201,168,76,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 80%, rgba(42,191,191,0.05) 0%, transparent 50%),
+      linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%);
+    z-index: 0;
+  }
+
+  .hero-grid-lines {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+  }
+
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-orb-1 {
+    width: clamp(200px, 50vw, 500px);
+    height: clamp(200px, 50vw, 500px);
+    background: rgba(201,168,76,0.08);
+    top: -10%;
+    right: -10%;
+    animation: float 8s ease-in-out infinite;
+  }
+  .hero-orb-2 {
+    width: clamp(150px, 40vw, 400px);
+    height: clamp(150px, 40vw, 400px);
+    background: rgba(42,191,191,0.06);
+    bottom: 10%;
+    left: 5%;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-sans);
+    font-size: clamp(11px, 3vw, 14px);
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+    animation-delay: 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 30px;
+    height: 2px;
+    background: var(--gold);
+    display: inline-block;
+  }
+
+  .hero-title {
+    font-family: var(--font-serif);
+    font-size: clamp(36px, 8vw, 88px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+    animation-delay: 0.4s;
+  }
+
+  .hero-title .line-1 { display: block; }
+  .hero-title .line-2 {
+    display: block;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 40%, var(--gold) 80%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeUp 0.8s ease forwards, shimmer 4s linear infinite;
+    animation-delay: 0.4s, 1.5s;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(16px, 3.5vw, 22px);
+    color: var(--smoke);
+    line-height: 1.9;
+    max-width: 680px;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+    animation-delay: 0.6s;
+    font-weight: 300;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: clamp(20px, 5vw, 60px);
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+    animation-delay: 0.8s;
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .hero-stat-num {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 6vw, 52px);
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-family: var(--font-sans);
+    font-size: clamp(11px, 2.5vw, 13px);
+    color: var(--smoke);
+    letter-spacing: 0.1em;
+  }
+
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
+    animation-delay: 1.5s;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(180deg, var(--gold), transparent);
+    animation: scan 2s ease infinite;
+  }
+  .scroll-text {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--smoke);
+    text-transform: uppercase;
+  }
+
+  /* ─── SECTIONS WRAPPER ─── */
+  .section {
+    padding: clamp(60px, 10vw, 120px) clamp(20px, 6vw, 80px);
+    position: relative;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(26px, 5.5vw, 56px);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-desc {
+    font-size: clamp(15px, 3vw, 19px);
+    color: var(--smoke);
+    line-height: 1.9;
+    max-width: 760px;
+    font-weight: 300;
+  }
+
+  /* ─── SECTION 1: 核心命题 ─── */
+  #core {
+    background: var(--ink-2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #core::before {
+    content: '商';
+    position: absolute;
+    font-size: clamp(200px, 40vw, 500px);
+    font-weight: 900;
+    font-family: var(--font-serif);
+    color: rgba(201,168,76,0.03);
+    top: 50%;
+    right: -5%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .core-intro {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 4rem;
+  }
+
+  .big-quote {
+    font-family: var(--font-serif);
+    font-size: clamp(20px, 4.5vw, 38px);
+    font-weight: 500;
+    line-height: 1.7;
+    color: var(--white);
+    border-left: 3px solid var(--gold);
+    padding-left: clamp(20px, 4vw, 40px);
+    margin: 3rem 0;
+    position: relative;
+  }
+  .big-quote em {
+    font-style: normal;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .three-pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(16px, 3vw, 28px);
+    margin-top: 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .pillar-card {
+    background: linear-gradient(135deg, var(--ink-3), var(--ink-4));
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 16px;
+    padding: clamp(24px, 4vw, 40px);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .pillar-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(201,168,76,0.4);
+  }
+  .pillar-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  }
+
+  .pillar-num {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 8vw, 80px);
+    font-weight: 900;
+    color: rgba(201,168,76,0.12);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .pillar-title {
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 3.5vw, 24px);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+  .pillar-title .accent { color: var(--gold); }
+  .pillar-body {
+    font-size: clamp(14px, 2.8vw, 16px);
+    color: var(--smoke);
+    line-height: 1.8;
+  }
+
+  /* ─── SECTION 2: 信息壁垒的四维根源 ─── */
+  #barriers {
+    background: var(--ink);
+  }
+
+  .barrier-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(16px, 3vw, 24px);
+    margin-top: 3rem;
+  }
+
+  .barrier-item {
+    position: relative;
+    padding: clamp(28px, 4vw, 44px);
+    background: var(--ink-2);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .barrier-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.3), transparent 50%, rgba(42,191,191,0.2));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .barrier-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .bi-1 .barrier-icon { background: rgba(201,168,76,0.15); }
+  .bi-2 .barrier-icon { background: rgba(42,191,191,0.15); }
+  .bi-3 .barrier-icon { background: rgba(217,79,58,0.15); }
+  .bi-4 .barrier-icon { background: rgba(147,112,219,0.15); }
+
+  .barrier-tag {
+    font-family: var(--font-sans);
+    font-size: clamp(9px, 2vw, 11px);
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+  .bi-1 .barrier-tag { color: var(--gold); background: rgba(201,168,76,0.1); }
+  .bi-2 .barrier-tag { color: var(--teal); background: rgba(42,191,191,0.1); }
+  .bi-3 .barrier-tag { color: var(--red-accent); background: rgba(217,79,58,0.1); }
+  .bi-4 .barrier-tag { color: #9370DB; background: rgba(147,112,219,0.1); }
+
+  .barrier-title {
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 3.5vw, 24px);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--white);
+  }
+
+  .barrier-body {
+    font-size: clamp(13px, 2.5vw, 15px);
+    color: var(--smoke);
+    line-height: 1.85;
+  }
+
+  .barrier-examples {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .barrier-ex {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: clamp(12px, 2.5vw, 14px);
+    color: var(--pearl);
+  }
+  .barrier-ex::before {
+    content: '→';
+    color: var(--gold);
+    flex-shrink: 0;
+    font-size: 14px;
+    margin-top: 2px;
+  }
+
+  /* ─── SECTION 3: 需求发现技术矩阵 ─── */
+  #discovery {
+    background: var(--ink-2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .discovery-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse 70% 50% at 70% 30%, rgba(42,191,191,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .tech-matrix {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(20px, 3vw, 32px);
+    position: relative;
+    z-index: 1;
+  }
+
+  .tech-row {
+    display: grid;
+    grid-template-columns: clamp(120px, 25%, 200px) 1fr;
+    gap: 0;
+    background: var(--ink-3);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: border-color 0.3s;
+  }
+  .tech-row:hover { border-color: rgba(201,168,76,0.25); }
+
+  .tech-row-label {
+    padding: clamp(20px, 3vw, 32px);
+    background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.03));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-right: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .tech-label-icon { font-size: clamp(24px, 4vw, 36px); margin-bottom: 8px; }
+  .tech-label-text {
+    font-family: var(--font-sans);
+    font-size: clamp(12px, 2.5vw, 15px);
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1.3;
+  }
+
+  .tech-row-content {
+    padding: clamp(20px, 3vw, 32px);
+  }
+
+  .tech-row-title {
+    font-family: var(--font-serif);
+    font-size: clamp(16px, 3vw, 20px);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+
+  .tech-row-body {
+    font-size: clamp(13px, 2.5vw, 15px);
+    color: var(--smoke);
+    line-height: 1.85;
+    margin-bottom: 1rem;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tech-tag {
+    font-family: var(--font-sans);
+    font-size: clamp(10px, 2vw, 12px);
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 6px;
+    background: rgba(42,191,191,0.1);
+    color: var(--teal);
+    border: 1px solid rgba(42,191,191,0.2);
+  }
+
+  @media (max-width: 500px) {
+    .tech-row {
+      grid-template-columns: 1fr;
+    }
+    .tech-row-label {
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: 12px;
+      text-align: left;
+      border-right: none;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+      padding: 16px clamp(20px, 3vw, 32px);
+    }
+    .tech-label-icon { font-size: 22px; margin-bottom: 0; }
+  }
+
+  /* ─── SECTION 4: 2026核心技术趋势 ─── */
+  #trends {
+    background: var(--ink);
+  }
+
+  .trends-intro {
+    margin-bottom: 3rem;
+  }
+
+  .trend-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(16px, 3vw, 24px);
+  }
+
+  .trend-card {
+    background: var(--ink-2);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s;
+  }
+  .trend-card:hover { transform: translateY(-6px); }
+
+  .trend-card-top {
+    padding: clamp(28px, 4vw, 40px) clamp(24px, 4vw, 36px) clamp(20px, 3vw, 28px);
+    position: relative;
+  }
+
+  .tc-gold .trend-card-top::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .tc-teal .trend-card-top::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--teal), transparent);
+  }
+  .tc-red .trend-card-top::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--red-accent), transparent);
+  }
+  .tc-purple .trend-card-top::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #9370DB, transparent);
+  }
+
+  .trend-number {
+    font-family: var(--font-display);
+    font-size: clamp(50px, 8vw, 80px);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .tc-gold .trend-number { color: rgba(201,168,76,0.15); }
+  .tc-teal .trend-number { color: rgba(42,191,191,0.15); }
+  .tc-red  .trend-number { color: rgba(217,79,58,0.15); }
+  .tc-purple .trend-number { color: rgba(147,112,219,0.15); }
+
+  .trend-title {
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 3.5vw, 24px);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .tc-gold .trend-title  { color: var(--gold); }
+  .tc-teal .trend-title  { color: var(--teal); }
+  .tc-red  .trend-title  { color: var(--red-accent); }
+  .tc-purple .trend-title { color: #9370DB; }
+
+  .trend-sub {
+    font-size: clamp(13px, 2.5vw, 15px);
+    color: var(--smoke);
+    font-weight: 300;
+  }
+
+  .trend-card-body {
+    padding: clamp(20px, 3vw, 28px) clamp(24px, 4vw, 36px) clamp(28px, 4vw, 40px);
+  }
+
+  .trend-body-text {
+    font-size: clamp(13px, 2.5vw, 15px);
+    color: var(--smoke);
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .trend-points {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .trend-point {
+    display: flex;
+    gap: 10px;
+    font-size: clamp(13px, 2.5vw, 15px);
+    color: var(--pearl);
+    line-height: 1.6;
+  }
+  .trend-point-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+  .tc-gold .trend-point-dot  { background: var(--gold); }
+  .tc-teal .trend-point-dot  { background: var(--teal); }
+  .tc-red  .trend-point-dot  { background: var(--red-accent); }
+  .tc-purple .trend-point-dot { background: #9370DB; }
+
+  /* ─── SECTION 5: 精准匹配方法论 ─── */
+  #matching {
+    background: var(--ink-2);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .match-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse 60% 60% at 15% 60%, rgba(201,168,76,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .match-framework {
+    position: relative;
+    z-index: 1;
+    margin-top: 3rem;
+  }
+
+  .match-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .match-flow::before {
+    content: '';
+    position: absolute;
+    left: clamp(28px, 5vw, 40px);
+    top: 20px;
+    bottom: 20px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--gold), var(--teal), var(--gold));
+    opacity: 0.3;
+  }
+
+  .match-step {
+    display: grid;
+    grid-template-columns: clamp(60px, 10vw, 80px) 1fr;
+    gap: clamp(16px, 3vw, 28px);
+    padding: clamp(20px, 3vw, 32px) 0;
+    align-items: flex-start;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .match-step:last-child { border-bottom: none; }
+
+  .match-step-num {
+    width: clamp(48px, 8vw, 64px);
+    height: clamp(48px, 8vw, 64px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: clamp(18px, 3vw, 24px);
+    font-weight: 700;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .ms-1 .match-step-num { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+  .ms-2 .match-step-num { background: rgba(42,191,191,0.15); color: var(--teal); border: 1px solid rgba(42,191,191,0.3); }
+  .ms-3 .match-step-num { background: rgba(217,79,58,0.15); color: var(--red-accent); border: 1px solid rgba(217,79,58,0.3); }
+  .ms-4 .match-step-num { background: rgba(147,112,219,0.15); color: #9370DB; border: 1px solid rgba(147,112,219,0.3); }
+  .ms-5 .match-step-num { background: rgba(201,168,76,0.15); color: var(--gold-light); border: 1px solid rgba(201,168,76,0.3); }
+  .ms-6 .match-step-num { background: rgba(42,191,191,0.15); color: var(--teal); border: 1px solid rgba(42,191,191,0.3); }
+
+  .match-step-content {}
+
+  .match-step-title {
+    font-family: var(--font-serif);
+    font-size: clamp(17px, 3.5vw, 22px);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.6rem;
+  }
+  .match-step-body {
+    font-size: clamp(13px, 2.5vw, 15px);
+    color: var(--smoke);
+    line-height: 1.85;
+  }
+
+  .match-step-sub {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .match-sub-item {
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: clamp(12px, 2.3vw, 13px);
+    color: var(--pearl);
+    border: 1px solid rgba(255,255,255,0.05);
+    line-height: 1.5;
+  }
+  .match-sub-item strong {
+    display: block;
+    color: var(--gold);
+    font-size: clamp(11px, 2vw, 12px);
+    letter-spacing: 0.05em;
+    font-family: var(--font-sans);
+    margin-bottom: 4px;
+  }
+
+  /* ─── SECTION 6: 五大战略通道 ─── */
+  #strategy {
+    background: var(--ink);
+  }
+
+  .strategy-channels {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 3vw, 28px);
+    margin-top: 3rem;
+  }
+
+  .channel-item {
+    display: grid;
+    grid-template-columns: clamp(200px, 25%, 280px) 1fr;
+    background: var(--ink-2);
+    border-radius: 20px;
+    overflow: hidden;
+    min-height: 160px;
+    transition: transform 0.3s;
+  }
+  .channel-item:hover { transform: translateX(6px); }
+
+  .channel-left {
+    padding: clamp(24px, 4vw, 36px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ch-1 .channel-left { background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.04)); }
+  .ch-2 .channel-left { background: linear-gradient(135deg, rgba(42,191,191,0.12), rgba(42,191,191,0.04)); }
+  .ch-3 .channel-left { background: linear-gradient(135deg, rgba(217,79,58,0.12), rgba(217,79,58,0.04)); }
+  .ch-4 .channel-left { background: linear-gradient(135deg, rgba(147,112,219,0.12), rgba(147,112,219,0.04)); }
+  .ch-5 .channel-left { background: linear-gradient(135deg, rgba(255,165,0,0.12), rgba(255,165,0,0.04)); }
+
+  .channel-emoji { font-size: clamp(28px, 5vw, 42px); margin-bottom: 10px; }
+  .channel-name {
+    font-family: var(--font-serif);
+    font-size: clamp(16px, 3vw, 20px);
+    font-weight: 700;
+  }
+  .ch-1 .channel-name { color: var(--gold); }
+  .ch-2 .channel-name { color: var(--teal); }
+  .ch-3 .channel-name { color: var(--red-accent); }
+  .ch-4 .channel-name { color: #9370DB; }
+  .ch-5 .channel-name { color: #FFA500; }
+
+  .channel-right {
+    padding: clamp(24px, 4vw, 36px);
+    border-left: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .channel-desc {
+    font-size: clamp(13px, 2.5vw, 15px);
+    color: var(--smoke);
+    line-height: 1.9;
+    margin-bottom: 1.2rem;
+  }
+
+  .channel-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .channel-bullet {
+    font-size: clamp(12px, 2.3vw, 14px);
+    color: var(--pearl);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.6;
+  }
+  .channel-bullet::before {
+    content: '◆';
+    font-size: 8px;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .ch-1 .channel-bullet::before { color: var(--gold); }
+  .ch-2 .channel-bullet::before { color: var(--teal); }
+  .ch-3 .channel-bullet::before { color: var(--red-accent); }
+  .ch-4 .channel-bullet::before { color: #9370DB; }
+  .ch-5 .channel-bullet::before { color: #FFA500; }
+
+  @media (max-width: 600px) {
+    .channel-item {
+      grid-template-columns: 1fr;
+    }
+    .channel-left {
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+    }
+    .channel-emoji { margin-bottom: 0; }
+    .channel-right {
+      border-left: none;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+  }
+
+  /* ─── SECTION 7: AI时代的信息连接革命 ─── */
+  #ai-revolution {
+    background: var(--ink-2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 50% at 80% 20%, rgba(42,191,191,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .ai-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(16px, 3vw, 24px);
+    margin-top: 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 560px) {
+    .ai-grid { grid-template-columns: 1fr; }
+  }
+
+  .ai-card {
+    background: var(--ink-3);
+    border-radius: 16px;
+    padding: clamp(24px, 4vw, 36px);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.04);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .ai-card:hover {
+    border-color: rgba(42,191,191,0.25);
+    transform: translateY(-4px);
+  }
+
+  .ai-card-wide {
+    grid-column: span 2;
+  }
+  @media (max-width: 560px) {
+    .ai-card-wide { grid-column: span 1; }
+  }
+
+  .ai-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.2rem;
+  }
+  .ai-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    background: rgba(42,191,191,0.12);
+    flex-shrink: 0;
+  }
+  .ai-card-name {
+    font-family: var(--font-serif);
+    font-size: clamp(15px, 3vw, 19px);
+    font-weight: 700;
+    color: var(--teal);
+  }
+  .ai-card-body {
+    font-size: clamp(13px, 2.5vw, 15px);
+    color: var(--smoke);
+    line-height: 1.9;
+  }
+
+  .ai-capability-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 1rem;
+  }
+  .ai-cap-item {
+    display: flex;
+    gap: 12px;
+    font-size: clamp(13px, 2.5vw, 14px);
+    color: var(--pearl);
+    line-height: 1.6;
+    padding: 10px 14px;
+    background: rgba(42,191,191,0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(42,191,191,0.08);
+  }
+  .ai-cap-icon { flex-shrink: 0; font-size: 16px; }
+
+  /* ─── SECTION 8: 行动框架 ─── */
+  #action {
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .action-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(201,168,76,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .action-phases {
+    position: relative;
+    z-index: 1;
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 3vw, 24px);
+  }
+
+  @media (max-width: 700px) {
+    .action-phases { grid-template-columns: 1fr; }
+  }
+
+  .phase-card {
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .phase-top {
+    padding: clamp(24px, 4vw, 36px) clamp(20px, 4vw, 32px) clamp(20px, 3vw, 28px);
+    position: relative;
+  }
+
+  .phase-1 .phase-top { background: linear-gradient(135deg, rgba(201,168,76,0.18), rgba(201,168,76,0.06)); }
+  .phase-2 .phase-top { background: linear-gradient(135deg, rgba(42,191,191,0.18), rgba(42,191,191,0.06)); }
+  .phase-3 .phase-top { background: linear-gradient(135deg, rgba(147,112,219,0.18), rgba(147,112,219,0.06)); }
+
+  .phase-label {
+    font-family: var(--font-sans);
+    font-size: clamp(9px, 2vw, 11px);
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .phase-1 .phase-label { color: var(--gold); }
+  .phase-2 .phase-label { color: var(--teal); }
+  .phase-3 .phase-label { color: #9370DB; }
+
+  .phase-title {
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 3.5vw, 26px);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .phase-body {
+    padding: clamp(20px, 3vw, 28px) clamp(20px, 4vw, 32px);
+    background: var(--ink-2);
+  }
+
+  .phase-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .phase-item {
+    font-size: clamp(13px, 2.5vw, 15px);
+    color: var(--smoke);
+    line-height: 1.7;
+    padding-left: 16px;
+    position: relative;
+  }
+  .phase-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+  }
+  .phase-1 .phase-item::before { background: var(--gold); }
+  .phase-2 .phase-item::before { background: var(--teal); }
+  .phase-3 .phase-item::before { background: #9370DB; }
+
+  /* ─── SECTION 9: 核心洞察提炼 ─── */
+  #insights {
+    background: var(--ink-2);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .insight-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 50% at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .insights-wall {
+    position: relative;
+    z-index: 1;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(24px, 4vw, 40px);
+  }
+
+  .insight-row {
+    display: flex;
+    gap: clamp(16px, 3vw, 32px);
+    align-items: flex-start;
+    padding-bottom: clamp(24px, 4vw, 40px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .insight-row:last-child { border-bottom: none; }
+
+  .insight-num {
+    font-family: var(--font-display);
+    font-size: clamp(60px, 10vw, 100px);
+    font-weight: 900;
+    color: rgba(201,168,76,0.08);
+    line-height: 0.9;
+    flex-shrink: 0;
+    width: clamp(70px, 12vw, 120px);
+    text-align: right;
+  }
+
+  .insight-content { flex: 1; }
+
+  .insight-title {
+    font-family: var(--font-serif);
+    font-size: clamp(20px, 4vw, 32px);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+  .insight-title .hl { color: var(--gold); }
+
+  .insight-body {
+    font-size: clamp(14px, 2.8vw, 17px);
+    color: var(--smoke);
+    line-height: 1.9;
+    font-weight: 300;
+  }
+
+  /* ─── SECTION 10: 商业方程式 ─── */
+  #formula {
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .formula-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 100% 60% at 50% 50%, rgba(201,168,76,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .formula-display {
+    position: relative;
+    z-index: 1;
+    margin: 3rem 0;
+    text-align: center;
+  }
+
+  .formula-eq {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 4vw, 32px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.6;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(10px, 2vw, 20px);
+    padding: clamp(32px, 5vw, 60px);
+    background: var(--ink-2);
+    border-radius: 24px;
+    border: 1px solid rgba(201,168,76,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .formula-eq::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.03), transparent 50%, rgba(42,191,191,0.03));
+    pointer-events: none;
+  }
+
+  .f-term {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .f-term-value {
+    font-size: clamp(16px, 3.5vw, 26px);
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 10px;
+  }
+  .f-gold { background: rgba(201,168,76,0.15); color: var(--gold); }
+  .f-teal { background: rgba(42,191,191,0.15); color: var(--teal); }
+  .f-red  { background: rgba(217,79,58,0.15); color: var(--red-accent); }
+
+  .f-term-label {
+    font-family: var(--font-sans);
+    font-size: clamp(9px, 1.8vw, 11px);
+    color: var(--smoke);
+    letter-spacing: 0.1em;
+    text-align: center;
+    max-width: 100px;
+    line-height: 1.3;
+  }
+
+  .f-op {
+    font-size: clamp(22px, 4vw, 36px);
+    color: var(--smoke);
+    font-weight: 300;
+    align-self: flex-start;
+    margin-top: 8px;
+  }
+
+  .formula-note {
+    text-align: center;
+    font-size: clamp(14px, 2.8vw, 17px);
+    color: var(--smoke);
+    line-height: 1.9;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── SECTION 11: 具体工具与平台 ─── */
+  #tools {
+    background: var(--ink-2);
+  }
+
+  .tools-categories {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(32px, 5vw, 48px);
+  }
+
+  .tool-category {}
+
+  .tool-cat-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .tool-cat-icon { font-size: clamp(24px, 4vw, 32px); }
+
+  .tool-cat-title {
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 3.5vw, 24px);
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .tool-cat-count {
+    font-family: var(--font-sans);
+    font-size: clamp(10px, 2vw, 12px);
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: rgba(201,168,76,0.1);
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .tools-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: clamp(12px, 2vw, 16px);
+  }
+
+  .tool-chip {
+    background: var(--ink-3);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: clamp(14px, 2.5vw, 20px);
+    transition: border-color 0.3s, background 0.3s;
+    cursor: default;
+  }
+  .tool-chip:hover {
+    border-color: rgba(201,168,76,0.25);
+    background: var(--ink-4);
+  }
+
+  .tool-chip-name {
+    font-family: var(--font-sans);
+    font-size: clamp(13px, 2.5vw, 15px);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .tool-chip-desc {
+    font-size: clamp(11px, 2vw, 12px);
+    color: var(--smoke);
+    line-height: 1.5;
+  }
+
+  /* ─── SECTION 12: 风险与陷阱 ─── */
+  #risks {
+    background: var(--ink);
+    position: relative;
+  }
+
+  .risk-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(16px, 3vw, 24px);
+    margin-top: 3rem;
+  }
+
+  .risk-card {
+    background: var(--ink-2);
+    border-radius: 16px;
+    padding: clamp(24px, 4vw, 36px);
+    border: 1px solid rgba(217,79,58,0.08);
+    transition: border-color 0.3s;
+  }
+  .risk-card:hover { border-color: rgba(217,79,58,0.25); }
+
+  .risk-icon-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.2rem;
+  }
+
+  .risk-icon {
+    font-size: clamp(24px, 4vw, 32px);
+  }
+
+  .risk-title {
+    font-family: var(--font-serif);
+    font-size: clamp(16px, 3vw, 20px);
+    font-weight: 700;
+    color: var(--red-accent);
+  }
+
+  .risk-body {
+    font-size: clamp(13px, 2.5vw, 15px);
+    color: var(--smoke);
+    line-height: 1.85;
+    margin-bottom: 1rem;
+  }
+
+  .risk-solution {
+    background: rgba(42,191,191,0.06);
+    border: 1px solid rgba(42,191,191,0.12);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: clamp(12px, 2.3vw, 14px);
+    color: var(--teal);
+    line-height: 1.6;
+  }
+  .risk-solution::before {
+    content: '✓ 应对策略：';
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+    font-family: var(--font-sans);
+  }
+
+  /* ─── SECTION 13: 结语 ─── */
+  #outro {
+    background: var(--ink-2);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: clamp(80px, 14vw, 160px) clamp(20px, 6vw, 80px);
+  }
+
+  .outro-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .outro-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .outro-title {
+    font-family: var(--font-serif);
+    font-size: clamp(32px, 7vw, 72px);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+  }
+
+  .outro-body {
+    font-size: clamp(16px, 3.5vw, 22px);
+    color: var(--smoke);
+    line-height: 1.9;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .outro-meta {
+    font-family: var(--font-sans);
+    font-size: clamp(11px, 2vw, 13px);
+    color: rgba(138,138,160,0.5);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* ─── PROGRESS BAR ─── */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--teal));
+    z-index: 9999;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* ─── NAV DOTS ─── */
+  #nav-dots {
+    position: fixed;
+    right: clamp(10px, 3vw, 24px);
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 100;
+  }
+
+  .nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.2);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .nav-dot.active {
+    background: var(--gold);
+    transform: scale(1.5);
+  }
+
+  @media (max-width: 600px) {
+    #nav-dots { display: none; }
+  }
+
+  /* ─── FLOATING HEADER ─── */
+  #floating-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    padding: 14px clamp(20px, 5vw, 60px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+    transform: translateY(-100%);
+    transition: transform 0.4s ease;
+  }
+  #floating-header.visible { transform: translateY(0); }
+
+  .fh-logo {
+    font-family: var(--font-serif);
+    font-size: clamp(13px, 2.5vw, 16px);
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  .fh-date {
+    font-family: var(--font-sans);
+    font-size: clamp(10px, 2vw, 12px);
+    color: var(--smoke);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* ─── SCAN LINE EFFECT ─── */
+  .scan-container {
+    position: relative;
+    overflow: hidden;
+  }
+  .scan-container::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(180deg, rgba(42,191,191,0.03) 0%, transparent 100%);
+    pointer-events: none;
+    animation: scan 4s ease infinite;
+  }
+
+  /* ─── HIGHLIGHT BOX ─── */
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(201,168,76,0.06), rgba(201,168,76,0.02));
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 16px;
+    padding: clamp(24px, 4vw, 40px);
+    margin: 2rem 0;
+    position: relative;
+  }
+  .highlight-box::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 60px;
+    font-family: var(--font-display);
+    color: var(--gold);
+    opacity: 0.3;
+    line-height: 1;
+  }
+  .highlight-box-text {
+    font-size: clamp(16px, 3.5vw, 21px);
+    color: var(--white);
+    line-height: 1.8;
+    font-weight: 400;
+    font-family: var(--font-serif);
+  }
+
+  /* ─── DATA TABLE ─── */
+  .data-table-wrap {
+    overflow-x: auto;
+    margin-top: 2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: clamp(12px, 2.5vw, 15px);
+  }
+
+  .data-table th {
+    background: rgba(201,168,76,0.08);
+    color: var(--gold);
+    font-family: var(--font-sans);
+    font-size: clamp(10px, 2vw, 12px);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 14px 20px;
+    text-align: left;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    white-space: nowrap;
+  }
+
+  .data-table td {
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--smoke);
+    vertical-align: top;
+    line-height: 1.7;
+  }
+
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .dt-strong { color: var(--white); font-weight: 600; }
+  .dt-gold { color: var(--gold); font-weight: 600; }
+  .dt-teal { color: var(--teal); font-weight: 600; }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: clamp(9px, 1.8vw, 11px);
+    font-weight: 700;
+    font-family: var(--font-sans);
+    white-space: nowrap;
+  }
+  .badge-high { background: rgba(217,79,58,0.12); color: var(--red-accent); }
+  .badge-mid  { background: rgba(201,168,76,0.12); color: var(--gold); }
+  .badge-low  { background: rgba(42,191,191,0.12); color: var(--teal); }
+
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- FLOATING HEADER -->
+<div id="floating-header">
+  <div class="fh-logo">商业洞察 · 2026</div>
+  <div class="fh-date">May 2026</div>
+</div>
+
+<!-- NAV DOTS -->
+<nav id="nav-dots">
+  <div class="nav-dot active" data-section="hero"></div>
+  <div class="nav-dot" data-section="core"></div>
+  <div class="nav-dot" data-section="barriers"></div>
+  <div class="nav-dot" data-section="discovery"></div>
+  <div class="nav-dot" data-section="trends"></div>
+  <div class="nav-dot" data-section="matching"></div>
+  <div class="nav-dot" data-section="strategy"></div>
+  <div class="nav-dot" data-section="ai-revolution"></div>
+  <div class="nav-dot" data-section="action"></div>
+  <div class="nav-dot" data-section="insights"></div>
+  <div class="nav-dot" data-section="formula"></div>
+  <div class="nav-dot" data-section="tools"></div>
+  <div class="nav-dot" data-section="risks"></div>
+  <div class="nav-dot" data-section="outro"></div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">商业思维 · 高纬视角 · 2026</div>
+    <h1 class="hero-title">
+      <span class="line-1">打通信息壁垒</span>
+      <span class="line-2">重构需求连接</span>
+    </h1>
+    <p class="hero-subtitle">
+      商业的本质是连接——连接存在的供给与潜在的需求。
+      当技术已使"解决方案"无处不在，真正的竞争已转移至
+      <strong style="color:var(--white)">信息的发现、匹配与触达</strong> 这一核心战场。
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">60%</span>
+        <span class="hero-stat-label">市场需求未被有效触达</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">3层</span>
+        <span class="hero-stat-label">核心信息壁垒类型</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">∞</span>
+        <span class="hero-stat-label">AI时代的连接可能性</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <span class="scroll-text">向下探索</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ─── SECTION 1: 核心命题 ─── -->
+<section id="core" class="section">
+  <div class="section-inner">
+    <div class="core-intro reveal">
+      <div class="section-label">核心命题</div>
+      <h2 class="section-title">
+        商业价值的真正来源<br>
+        <span style="color:var(--gold)">从不是"有"，而是"知道"</span>
+      </h2>
+      <p class="section-desc">
+        你说的这个洞察极其深刻——当今世界，绝大多数问题已经有了解决方案。市场上充斥着产品与服务，但用户要么不知道它们的存在，要么因为认知门槛而无法使用，要么根本没有在正确的时间获得正确的推荐。这就是当代商业最核心的机会所在。
+      </p>
+    </div>
+
+    <div class="big-quote reveal">
+      商业竞争的终极战场已经不是"谁的产品更好"，而是<em>谁能更精准、更及时地在正确的人产生需求的瞬间出现在他面前</em>，并让他以最低摩擦完成连接。
+    </div>
+
+    <div class="three-pillars reveal">
+      <div class="pillar-card">
+        <div class="pillar-num">01</div>
+        <div class="pillar-title"><span class="accent">需求侧</span>的隐性问题</div>
+        <div class="pillar-body">
+          大量需求存在于用户的无意识层：他们感到不满，但没有清晰地描述出需求，甚至不知道市场上已有解决方案。这是"沉默的大多数"，也是最大的蓝海。
+        </div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-num">02</div>
+        <div class="pillar-title"><span class="accent">供给侧</span>的触达失败</div>
+        <div class="pillar-body">
+          技术已有，产品已有，方案已有，但宣传策略、渠道选择、内容形式与目标用户形成了错位。供给方努力发声，却在错误的地方对错误的人说话。
+        </div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-num">03</div>
+        <div class="pillar-title"><span class="accent">连接层</span>的效率低下</div>
+        <div class="pillar-body">
+          即使需求明确、供给存在，中间的匹配机制也可能低效——搜索算法偏向、平台流量垄断、信任机制缺失，都在阻碍需求与供给的最优连接。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 2: 信息壁垒的四维根源 ─── -->
+<section id="barriers" class="section">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">根源分析</div>
+      <h2 class="section-title">信息壁垒的<span style="color:var(--gold)">四维根源</span></h2>
+      <p class="section-desc">
+        要精准打通信息壁垒，首先必须清楚地识别壁垒来自哪里。它们不是单一的，而是由四个维度的结构性原因共同造成的。
+      </p>
+    </div>
+
+    <div class="barrier-grid">
+      <div class="barrier-item bi-1 reveal reveal-delay-1">
+        <div class="barrier-icon">🧠</div>
+        <div class="barrier-tag">认知壁垒</div>
+        <div class="barrier-title">用户根本不知道这个解决方案存在</div>
+        <div class="barrier-body">
+          这是最根本的壁垒。用户长期习惯于"忍受问题"，因为从未接触过某个解决方案的信息。不是他们不想要，而是他们的认知边界之内没有这个选项。
+        </div>
+        <div class="barrier-examples">
+          <div class="barrier-ex">中老年人不知道有专门的慢病管理APP</div>
+          <div class="barrier-ex">小企业主不知道有AI自动化财务报表工具</div>
+          <div class="barrier-ex">农村家庭不知道有网上问诊的正规平台</div>
+          <div class="barrier-ex">手艺人不知道平台可以零门槛开店接单</div>
+        </div>
+      </div>
+
+      <div class="barrier-item bi-2 reveal reveal-delay-2">
+        <div class="barrier-icon">⚙️</div>
+        <div class="barrier-tag">技术门槛壁垒</div>
+        <div class="barrier-title">知道存在，但用不了、不会用</div>
+        <div class="barrier-body">
+          方案明明存在，但操作复杂性、注册流程、设备要求、语言障碍等构成了"最后一公里"的阻碍。哪怕门槛只高出一点点，大量潜在用户就会流失。
+        </div>
+        <div class="barrier-examples">
+          <div class="barrier-ex">老人无法完成复杂的APP注册实名认证</div>
+          <div class="barrier-ex">境外工具需要科学上网才能使用</div>
+          <div class="barrier-ex">专业软件界面复杂劝退非专业用户</div>
+          <div class="barrier-ex">AI工具需要"会写提示词"才能发挥价值</div>
+        </div>
+      </div>
+
+      <div class="barrier-item bi-3 reveal reveal-delay-3">
+        <div class="barrier-icon">📡</div>
+        <div class="barrier-tag">渠道错位壁垒</div>
+        <div class="barrier-title">宣传在错误的地方对错误的人说话</div>
+        <div class="barrier-body">
+          供给方的推广渠道与目标用户的信息消费场景严重错位。在微博推广适合抖音用户的产品，在B站推广适合微信群老年人的服务，效果必然极差。
+        </div>
+        <div class="barrier-examples">
+          <div class="barrier-ex">农村用户的信息主要来自熟人口碑和村播</div>
+          <div class="barrier-ex">银发群体的信息主要在家庭微信群流通</div>
+          <div class="barrier-ex">Z世代更信任KOC而非官方广告</div>
+          <div class="barrier-ex">B端决策者依赖行业展会和垂直媒体</div>
+        </div>
+      </div>
+
+      <div class="barrier-item bi-4 reveal reveal-delay-4">
+        <div class="barrier-icon">🔒</div>
+        <div class="barrier-tag">信任壁垒</div>
+        <div class="barrier-title">即便看到了，也不敢用、不愿用</div>
+        <div class="barrier-body">
+          在信息爆炸与诈骗泛滥的时代，用户对陌生方案的默认态度是怀疑而非信任。没有社会背书、没有真实评价、没有熟人推荐，再好的方案也难以被采纳。
+        </div>
+        <div class="barrier-examples">
+          <div class="barrier-ex">新平台无历史评价，用户不敢尝试</div>
+          <div class="barrier-ex">医疗健康类需要专业权威背书才信服</div>
+          <div class="barrier-ex">金融类产品需要极强的合规信号</div>
+          <div class="barrier-ex">第一次付费前需要低风险试用路径</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 3: 需求发现技术矩阵 ─── -->
+<section id="discovery" class="section scan-container">
+  <div class="discovery-bg"></div>
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">需求发现</div>
+      <h2 class="section-title">多元高效的<span style="color:var(--teal)">需求发现技术矩阵</span></h2>
+      <p class="section-desc">
+        在2026年，我们已经拥有前所未有丰富的技术手段来发现人们的真实需求。关键是组合运用，形成立体的需求感知网络。
+      </p>
+    </div>
+
+    <div class="tech-matrix reveal">
+
+      <div class="tech-row reveal reveal-delay-1">
+        <div class="tech-row-label">
+          <div class="tech-label-icon">🔍</div>
+          <div class="tech-label-text">搜索意图挖掘</div>
+        </div>
+        <div class="tech-row-content">
+          <div class="tech-row-title">搜索行为是最直接的需求表达</div>
+          <div class="tech-row-body">
+            用户在搜索框里输入的内容，是他们最诚实的需求表达——没有社交压力，没有信息过滤，直接反映真实痛点。通过分析搜索词、长尾词、"相关搜索"、搜索量趋势，可以精准绘制需求图谱。2026年，AI辅助的搜索意图分析已能够区分"信息型、导航型、交易型、比较型"四类意图，并预测转化可能性。
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">百度指数</span>
+            <span class="tech-tag">Google Trends</span>
+            <span class="tech-tag">关键词规划工具</span>
+            <span class="tech-tag">SEMrush</span>
+            <span class="tech-tag">意图分类AI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-row reveal reveal-delay-2">
+        <div class="tech-row-label">
+          <div class="tech-label-icon">💬</div>
+          <div class="tech-label-text">社交舆情监听</div>
+        </div>
+        <div class="tech-row-content">
+          <div class="tech-row-title">用户在抱怨什么，就是在呼唤什么</div>
+          <div class="tech-row-body">
+            小红书的"求推荐"、微博的吐槽、微信群的讨论、知乎的"有没有XXX"提问——这些都是需求的原始矿石。NLP情感分析与实体抽取技术可以从海量非结构化文本中自动提取需求模式，识别高频痛点，发现市场空白。
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">社媒监听工具</span>
+            <span class="tech-tag">NLP情感分析</span>
+            <span class="tech-tag">话题聚类</span>
+            <span class="tech-tag">舆情预警</span>
+            <span class="tech-tag">用户声音挖掘</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-row reveal reveal-delay-3">
+        <div class="tech-row-label">
+          <div class="tech-label-icon">🤖</div>
+          <div class="tech-label-text">AI对话挖掘</div>
+        </div>
+        <div class="tech-row-content">
+          <div class="tech-row-title">AI客服/助手是最庞大的需求数据库</div>
+          <div class="tech-row-body">
+            2026年，数以亿计的用户每天与AI对话助手交互。这些对话数据是前所未有的真实需求金矿——用户会对AI说出他们不敢对人说的问题。分析对话日志中的高频话题、未被满足的问题类型、放弃对话的节点，可以发现大量未被服务的需求。
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">对话日志分析</span>
+            <span class="tech-tag">意图分类</span>
+            <span class="tech-tag">未满足需求识别</span>
+            <span class="tech-tag">对话流程优化</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-row reveal reveal-delay-4">
+        <div class="tech-row-label">
+          <div class="tech-label-icon">📊</div>
+          <div class="tech-label-text">行为数据分析</div>
+        </div>
+        <div class="tech-row-content">
+          <div class="tech-row-title">用户做了什么，比他们说了什么更真实</div>
+          <div class="tech-row-body">
+            页面停留时间、滚动深度、点击热力图、购物车放弃率、反复查看的内容——这些隐性行为数据能揭示用户真正感兴趣但又有顾虑的需求。结合漏斗分析，可以精准定位需求-行动之间的断点。
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">用户行为分析</span>
+            <span class="tech-tag">热力图</span>
+            <span class="tech-tag">漏斗分析</span>
+            <span class="tech-tag">A/B测试</span>
+            <span class="tech-tag">路径分析</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-row reveal reveal-delay-5">
+        <div class="tech-row-label">
+          <div class="tech-label-icon">🌐</div>
+          <div class="tech-label-text">跨平台信号融合</div>
+        </div>
+        <div class="tech-row-content">
+          <div class="tech-row-title">一个人的需求被分散在多个平台上</div>
+          <div class="tech-row-body">
+            同一个用户在淘宝搜索、在小红书种草、在微信询问朋友、在百度查评测，这些分散信号的融合才能还原完整的需求链路。数据中台与CDP（客户数据平台）技术，加上隐私合规框架，使得跨平台需求拼图成为可能。
+          </div>
+          <div class="tech-tags">
+            <span class="tech-tag">CDP客户数据平台</span>
+            <span class="tech-tag">数据中台</span>
+            <span class="tech-tag">用户画像融合</span>
+            <span class="tech-tag">隐私计算</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 4: 2026核心技术趋势 ─── -->
+<section id="trends" class="section">
+  <div class="section-inner">
+    <div class="trends-intro reveal">
+      <div class="section-label">2026年趋势</div>
+      <h2 class="section-title">改变信息连接规则的<span style="color:var(--gold)">四大技术浪潮</span></h2>
+      <p class="section-desc">
+        2026年，四项技术正在根本性地改写信息发现与需求匹配的游戏规则。理解它们，就是理解接下来5年的商业机会。
+      </p>
+    </div>
+
+    <div class="trend-cards">
+
+      <div class="trend-card tc-gold reveal reveal-delay-1">
+        <div class="trend-card-top">
+          <div class="trend-number">01</div>
+          <div class="trend-title">多模态AI理解</div>
+          <div class="trend-sub">看图识需求、听音辨意图</div>
+        </div>
+        <div class="trend-card-body">
+          <div class="trend-body-text">
+            文字、图片、语音、视频——AI已经能够同时理解这四种模态的信息。用户拍一张产品照片就能找到同款，说一段话就能触发精准推荐，上传截图就能理解需求背景。这使得需求表达的门槛降至接近于零。
+          </div>
+          <div class="trend-points">
+            <div class="trend-point">
+              <div class="trend-point-dot"></div>
+              <span>用户无需精确描述需求，AI能从模糊输入中提取意图</span>
+            </div>
+            <div class="trend-point">
+              <div class="trend-point-dot"></div>
+              <span>语音和图像成为新的搜索入口，覆盖文字能力弱的群体</span>
+            </div>
+            <div class="trend-point">
+              <div class="trend-point-dot"></div>
+              <span>场景化需求捕捉：在购物时、做饭时、出行时实时识别需求</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trend-card tc-teal reveal reveal-delay-2">
+        <div class="trend-card-top">
+          <div class="trend-number">02</div>
+          <div class="trend-title">智能体与主动推送</div>
+          <div class="trend-sub">从"被动等搜索"到"主动送上门"</div>
+        </div>
+        <div class="trend-card-body">
+          <div class="trend-body-text">
+            2026年AI Agent（智能体）技术成熟，使得信息系统可以主动感知用户上下文并在最合适的时机推送最合适的信息。这彻底颠覆了传统的"等用户来搜"模式。
+          </div>
+          <div class="trend-points">
+            <div class="trend-point">
+              <div class="trend-point-dot"></div>
+              <span>个人AI助手主动发现用户潜在需求并提前准备方案</span>
+            </div>
+            <div class="trend-point">
+              <div class="trend-point-dot"></div>
+              <span>基于日历、位置、行为的场景触发推荐</span>
+            </div>
+            <div class="trend-point">
+              <div class="trend-point-dot"></div>
+              <span>智能体代理用户完成信息筛选，只呈现高度相关内容</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trend-card tc-red reveal reveal-delay-3">
+        <div class="trend-card-top">
+          <div class="trend-number">03</div>
+          <div class="trend-title">知识图谱与语义搜索</div>
+          <div class="trend-sub">理解"意思"而非匹配"词语"</div>
+        </div>
+        <div class="trend-card-body">
+          <div class="trend-body-text">
+            传统关键词搜索要求用户精确使用正确词汇，而语义搜索可以理解用户的真实意图。配合知识图谱，能够理解需求的上下游关联——用户想要A，系统能推断他同时需要B和C。
+          </div>
+          <div class="trend-points">
+            <div class="trend-point">
+              <div class="trend-point-dot"></div>
+              <span>消除"说不清楚"导致的信息匹配失败</span>
+            </div>
+            <div class="trend-point">
+              <div class="trend-point-dot"></div>
+              <span>发现用户未曾明确表达的关联需求</span>
+            </div>
+            <div class="trend-point">
+              <div class="trend-point-dot"></div>
+              <span>跨领域需求联结，打破信息孤岛</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trend-card tc-purple reveal reveal-delay-4">
+        <div class="trend-card-top">
+          <div class="trend-number">04</div>
+          <div class="trend-title">实时个性化推荐</div>
+          <div class="trend-sub">千人千面，毫秒级动态调整</div>
+        </div>
+        <div class="trend-card-body">
+          <div class="trend-body-text">
+            现代推荐系统已能够在毫秒级别内综合用户的历史行为、实时情境、当前意图进行超个性化匹配。2026年，大模型融合推荐进一步提升了理解深度，使得"猜你喜欢"升级为"懂你所需"。
+          </div>
+          <div class="trend-points">
+            <div class="trend-point">
+              <div class="trend-point-dot"></div>
+              <span>情境感知：同一用户在不同时间、地点有不同需求</span>
+            </div>
+            <div class="trend-point">
+              <div class="trend-point-dot"></div>
+              <span>需求预测：在用户意识到需求之前提前布局</span>
+            </div>
+            <div class="trend-point">
+              <div class="trend-point-dot"></div>
+              <span>反馈闭环：每次互动都在优化下一次推荐</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 5: 精准匹配方法论 ─── -->
+<section id="matching" class="section">
+  <div class="match-bg"></div>
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">匹配方法论</div>
+      <h2 class="section-title">精准需求匹配的<span style="color:var(--teal)">六步模型</span></h2>
+      <p class="section-desc">
+        从发现需求到成功连接，中间有一条完整的价值链。每一步都有可能成为壁垒，也每一步都是优化机会。
+      </p>
+    </div>
+
+    <div class="match-framework reveal">
+      <div class="match-flow">
+
+        <div class="match-step ms-1">
+          <div class="match-step-num">1</div>
+          <div class="match-step-content">
+            <div class="match-step-title">需求信号捕捉 · 建立感知天线</div>
+            <div class="match-step-body">
+              在用户需求产生的第一时间感知到信号。这需要多渠道、多模态的监听网络——搜索行为、社交表达、消费轨迹、位置数据、时间规律，都是需求信号的载体。关键是建立"实时感知能力"而非事后分析。
+            </div>
+            <div class="match-step-sub">
+              <div class="match-sub-item">
+                <strong>主动搜索信号</strong>
+                用户主动发起的搜索、提问、浏览行为
+              </div>
+              <div class="match-sub-item">
+                <strong>被动行为信号</strong>
+                停留时间、重复访问、分享、收藏等被动行为
+              </div>
+              <div class="match-sub-item">
+                <strong>情景触发信号</strong>
+                特定时间、地点、事件触发的潜在需求
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-step ms-2">
+          <div class="match-step-num">2</div>
+          <div class="match-step-content">
+            <div class="match-step-title">需求解码 · 区分表面需求与深层动机</div>
+            <div class="match-step-body">
+              用户说想要A，实际上需要的是B。用户说"想减肥"，深层需求是"被异性吸引"或"提升自信"或"改善健康指标"，不同的深层动机对应截然不同的解决方案。需求解码就是要穿透表面标签，理解真实动机。
+            </div>
+            <div class="match-step-sub">
+              <div class="match-sub-item">
+                <strong>Jobs-to-be-Done框架</strong>
+                用户"雇佣"产品完成什么任务？
+              </div>
+              <div class="match-sub-item">
+                <strong>动机层级分析</strong>
+                功能需求→情感需求→社会需求
+              </div>
+              <div class="match-sub-item">
+                <strong>痛点-痒点-爽点</strong>
+                区分紧迫程度与愉悦感来源
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-step ms-3">
+          <div class="match-step-num">3</div>
+          <div class="match-step-content">
+            <div class="match-step-title">用户画像 · 构建精准的人物模型</div>
+            <div class="match-step-body">
+              有了需求信号和解码，还需要知道这个需求属于什么样的人。不同背景的人对同一需求的解决方案期待完全不同。精准画像需要融合人口属性、行为特征、价值观、消费能力、信息获取习惯等多维度数据。
+            </div>
+            <div class="match-step-sub">
+              <div class="match-sub-item">
+                <strong>行为画像</strong>
+                基于真实行为数据，而非问卷填写
+              </div>
+              <div class="match-sub-item">
+                <strong>动态更新</strong>
+                画像随时间和情境实时更新
+              </div>
+              <div class="match-sub-item">
+                <strong>细分群体</strong>
+                同一大需求下的不同亚群体识别
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-step ms-4">
+          <div class="match-step-num">4</div>
+          <div class="match-step-content">
+            <div class="match-step-title">供给映射 · 建立解决方案知识库</div>
+            <div class="match-step-body">
+              在需求端建立感知的同时，供给端也需要做好结构化整理。现有产品和服务的功能、适用人群、使用场景、价格档次、门槛高低都需要被系统化地标注，才能实现精准匹配而非粗放推送。
+            </div>
+            <div class="match-step-sub">
+              <div class="match-sub-item">
+                <strong>供给结构化</strong>
+                对所有解决方案进行多维度标注
+              </div>
+              <div class="match-sub-item">
+                <strong>能力边界</strong>
+                明确每个方案的适用范围和限制
+              </div>
+              <div class="match-sub-item">
+                <strong>实时更新</strong>
+                供给端变化能被快速感知和更新
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-step ms-5">
+          <div class="match-step-num">5</div>
+          <div class="match-step-content">
+            <div class="match-step-title">智能匹配 · 在正确时机以正确方式呈现</div>
+            <div class="match-step-body">
+              匹配不只是找到对应的供给，还要选择最合适的呈现时机、渠道、形式和语言。同样的产品推荐，在用户刚产生需求的30分钟内推送与24小时后推送，转化率可以相差10倍。个性化的内容形式（视频/图文/语音/互动）也极大影响接受程度。
+            </div>
+            <div class="match-step-sub">
+              <div class="match-sub-item">
+                <strong>时机优化</strong>
+                需求最热时介入，降低决策阻力
+              </div>
+              <div class="match-sub-item">
+                <strong>渠道选择</strong>
+                在用户习惯的平台上触达
+              </div>
+              <div class="match-sub-item">
+                <strong>形式适配</strong>
+                内容形式与用户场景高度匹配
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-step ms-6">
+          <div class="match-step-num">6</div>
+          <div class="match-step-content">
+            <div class="match-step-title">信任建立 · 消除采纳摩擦</div>
+            <div class="match-step-body">
+              即使匹配完美，用户仍可能因为信任问题放弃行动。这一步需要在推荐的同时植入信任锚点——真实用户评价、权威认证、低风险试用机制、同伴效应展示。信任不是附加环节，而是转化的最后一道护城河。
+            </div>
+            <div class="match-step-sub">
+              <div class="match-sub-item">
+                <strong>社会证明</strong>
+                真实用户评价和使用案例
+              </div>
+              <div class="match-sub-item">
+                <strong>零门槛试用</strong>
+                免费体验、退款保障降低风险
+              </div>
+              <div class="match-sub-item">
+                <strong>同伴效应</strong>
+                展示与用户相似的人的选择
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 6: 五大战略通道 ─── -->
+<section id="strategy" class="section">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">战略通道</div>
+      <h2 class="section-title">打通信息壁垒的<span style="color:var(--gold)">五大战略通道</span></h2>
+      <p class="section-desc">
+        具体落地层面，有五条核心战略通道可以系统性地打破信息壁垒，实现需求与供给的高效对接。
+      </p>
+    </div>
+
+    <div class="strategy-channels reveal">
+
+      <div class="channel-item ch-1">
+        <div class="channel-left">
+          <div class="channel-emoji">🔭</div>
+          <div class="channel-name">深度垂直化<br>社区运营</div>
+        </div>
+        <div class="channel-right">
+          <div class="channel-desc">
+            在目标用户真正聚集的垂直社区中建立高价值存在。不是在所有平台发广告，而是在特定人群真正信赖的圈子里建立信任。垂直社区的信息传播效率和信任系数远高于泛流量平台。
+          </div>
+          <div class="channel-bullets">
+            <div class="channel-bullet">针对银发群体：深耕老年微信群、银发直播间、社区活动中心</div>
+            <div class="channel-bullet">针对创业者：在创业论坛、孵化器、行业协会内建立影响力</div>
+            <div class="channel-bullet">针对Z世代：在小红书、B站、Discord等兴趣社区做深度内容种草</div>
+            <div class="channel-bullet">核心策略：成为社区中的"有用之人"而非广告投放者</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="channel-item ch-2">
+        <div class="channel-left">
+          <div class="channel-emoji">🤝</div>
+          <div class="channel-name">熟人网络<br>与口碑裂变</div>
+        </div>
+        <div class="channel-right">
+          <div class="channel-desc">
+            在中国，熟人推荐是突破信任壁垒最高效的手段，转化率通常是陌生广告的5-15倍。设计让满意用户有动力、有工具去分享的机制，是最低成本打通信息壁垒的方式。
+          </div>
+          <div class="channel-bullets">
+            <div class="channel-bullet">设计可分享的"成果展示"而非单纯的"邀请码"</div>
+            <div class="channel-bullet">KOC（关键普通消费者）比KOL更具信任转化价值</div>
+            <div class="channel-bullet">制造"话题钩子"让用户在自然对话中提及产品</div>
+            <div class="channel-bullet">企业微信+私域运营：将公域流量沉淀为可复用的关系资产</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="channel-item ch-3">
+        <div class="channel-left">
+          <div class="channel-emoji">🎯</div>
+          <div class="channel-name">场景化<br>内容营销</div>
+        </div>
+        <div class="channel-right">
+          <div class="channel-desc">
+            内容的核心不是宣传产品，而是在用户正在经历某个场景、产生某个需求的时刻，出现一个"原来还可以这样"的信息。场景化内容的本质是提前布局需求触发点。
+          </div>
+          <div class="channel-bullets">
+            <div class="channel-bullet">SEO+内容矩阵：在用户搜索每一个相关问题时都能找到你</div>
+            <div class="channel-bullet">"问题-解决方案"型内容：从痛点出发而非从产品出发</div>
+            <div class="channel-bullet">短视频"情景剧"展示：让用户在具体场景中产生"这就是我"的代入感</div>
+            <div class="channel-bullet">知识科普降低认知门槛：让不知道的人先知道这件事的可能性</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="channel-item ch-4">
+        <div class="channel-left">
+          <div class="channel-emoji">🧩</div>
+          <div class="channel-name">技术降门槛<br>极简化设计</div>
+        </div>
+        <div class="channel-right">
+          <div class="channel-desc">
+            许多潜在用户知道解决方案存在，但被使用门槛挡在了门外。技术降门槛不是功能简化，而是通过AI辅助、语音交互、一键操作等手段，让"不懂技术的人"也能零摩擦享用最先进的方案。
+          </div>
+          <div class="channel-bullets">
+            <div class="channel-bullet">AI引导式操作：替代手册教程，实时帮助用户完成下一步</div>
+            <div class="channel-bullet">语音/图片输入：为文字表达能力弱的用户提供替代入口</div>
+            <div class="channel-bullet">一键代办：将多步骤流程压缩为单次确认操作</div>
+            <div class="channel-bullet">渐进式功能释放：只在需要时展示复杂功能，降低认知负担</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="channel-item ch-5">
+        <div class="channel-left">
+          <div class="channel-emoji">🔗</div>
+          <div class="channel-name">生态位<br>跨界连接</div>
+        </div>
+        <div class="channel-right">
+          <div class="channel-desc">
+            与目标用户在"需求产生前"就已接触的平台和场景建立合作——在医院等候室推健康APP，在租房平台推家政服务，在孕婴店推育儿课程。需求链条上的上游节点是最高效的流量入口。
+          </div>
+          <div class="channel-bullets">
+            <div class="channel-bullet">需求链路分析：用户在产生目标需求之前，必然先有哪些行为？</div>
+            <div class="channel-bullet">场景嵌入合作：与目标场景的"守门人"建立资源互换关系</div>
+            <div class="channel-bullet">数据合规联合：与互补平台进行隐私友好的用户洞察协作</div>
+            <div class="channel-bullet">API/插件生态：让解决方案出现在用户已在使用的工具中</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 7: AI时代的信息连接革命 ─── -->
+<section id="ai-revolution" class="section">
+  <div class="ai-bg"></div>
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">AI革命</div>
+      <h2 class="section-title">2026年AI正在<span style="color:var(--teal)">重写信息连接的规则</span></h2>
+      <p class="section-desc">
+        人工智能在2026年已不是加速器，而是已成为信息发现与需求匹配的基础设施。以下是当前最关键的AI能力维度。
+      </p>
+    </div>
+
+    <div class="ai-grid reveal">
+
+      <div class="ai-card ai-card-wide">
+        <div class="ai-card-header">
+          <div class="ai-icon">🌊</div>
+          <div class="ai-card-name">AI Agent（智能体）：从被动响应到主动服务</div>
+        </div>
+        <div class="ai-card-body">
+          2026年最具颠覆性的不是更强的大语言模型，而是AI Agent技术的成熟。智能体能够主动感知用户状态、代理执行任务、持续学习偏好，这意味着信息系统第一次真正实现了"主动找人"而非"等人来找"。个人AI助手、企业AI员工、智能推荐引擎正在从三个维度重构信息流动路径。
+        </div>
+        <div class="ai-capability-list">
+          <div class="ai-cap-item">
+            <div class="ai-cap-icon">🎯</div>
+            <span><strong style="color:var(--teal)">主动需求预测：</strong>基于用户日程、行为轨迹、生活事件，提前识别潜在需求并主动介入，而非等待用户主动搜索</span>
+          </div>
+          <div class="ai-cap-item">
+            <div class="ai-cap-icon">🔄</div>
+            <span><strong style="color:var(--teal)">持续学习适应：</strong>每一次用户互动都在优化智能体对该用户偏好和需求的理解，匹配精度随时间不断提升</span>
+          </div>
+          <div class="ai-cap-item">
+            <div class="ai-cap-icon">🤖</div>
+            <span><strong style="color:var(--teal)">跨系统协作：</strong>多个专业智能体协作，打通不同平台和系统的数据孤岛，为用户提供整合式的解决方案</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-card">
+        <div class="ai-card-header">
+          <div class="ai-icon">💬</div>
+          <div class="ai-card-name">对话式发现界面</div>
+        </div>
+        <div class="ai-card-body">
+          搜索框正在被对话框取代。用户可以用自然语言描述模糊需求，AI通过多轮对话澄清意图，最终精准推荐解决方案。这让"不会搜索"的人也能获得优质的信息服务，大幅扩大了可触达的用户边界。
+        </div>
+        <div class="ai-capability-list">
+          <div class="ai-cap-item">
+            <div class="ai-cap-icon">🗣️</div>
+            <span>用口语表达替代精准关键词，降低搜索门槛90%</span>
+          </div>
+          <div class="ai-cap-item">
+            <div class="ai-cap-icon">🔍</div>
+            <span>多轮澄清让模糊需求逐步清晰，避免错误匹配</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-card">
+        <div class="ai-card-header">
+          <div class="ai-icon">🎨</div>
+          <div class="ai-card-name">个性化内容生成</div>
+        </div>
+        <div class="ai-card-body">
+          同一个产品信息，AI可以为不同用户自动生成最适合其理解背景和偏好的内容形式——为老年人生成简单直白的语音说明，为专业人士生成数据详尽的技术文档，为年轻人生成有趣的短视频脚本。
+        </div>
+        <div class="ai-capability-list">
+          <div class="ai-cap-item">
+            <div class="ai-cap-icon">📱</div>
+            <span>1个方案×1000种呈现方式，适配每一类用户认知习惯</span>
+          </div>
+          <div class="ai-cap-item">
+            <div class="ai-cap-icon">🌍</div>
+            <span>跨语言、跨文化的自动适配，消除语言壁垒</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-card">
+        <div class="ai-card-header">
+          <div class="ai-icon">📡</div>
+          <div class="ai-card-name">实时市场情报监测</div>
+        </div>
+        <div class="ai-card-body">
+          AI系统可以7×24小时监测全网的需求信号变化，在新需求涌现的早期阶段（而非成为热门之后）就识别到机会。这将信息差的时间优势从"几个月"压缩到"几天甚至几小时"。
+        </div>
+        <div class="ai-capability-list">
+          <div class="ai-cap-item">
+            <div class="ai-cap-icon">⚡</div>
+            <span>新兴需求趋势的早期预警，领先市场反应周期</span>
+          </div>
+          <div class="ai-cap-item">
+            <div class="ai-cap-icon">📊</div>
+            <span>竞争对手动态的实时追踪与市场缺口识别</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="highlight-box reveal" style="margin-top:3rem">
+      <div class="highlight-box-text">
+        AI时代最重要的商业能力不再是"拥有更好的产品"，而是<strong style="color:var(--gold)">拥有更强的信息感知与连接能力</strong>——谁能最早发现需求、谁能最精准匹配供给、谁能最低摩擦完成转化，谁就赢得了商业竞争的制高点。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 8: 行动框架 ─── -->
+<section id="action" class="section">
+  <div class="action-bg"></div>
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">行动框架</div>
+      <h2 class="section-title">从理论到落地的<span style="color:var(--gold)">三阶段行动路径</span></h2>
+      <p class="section-desc">
+        高维视角最终要转化为可执行的行动。以下是一个实用的三阶段框架，从基础能力建设到系统化运营，再到智能化升级。
+      </p>
+    </div>
+
+    <div class="action-phases reveal">
+
+      <div class="phase-card phase-1">
+        <div class="phase-top">
+          <div class="phase-label">Phase 01 · 0-3个月</div>
+          <div class="phase-title">建立感知<br>基础设施</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-items">
+            <div class="phase-item">完成目标用户群体的深度需求调研，包括访谈、问卷与行为观察</div>
+            <div class="phase-item">建立多渠道需求信号监测体系：搜索、社媒、客服、竞品</div>
+            <div class="phase-item">搭建基础用户数据收集与分析能力，明确关键指标体系</div>
+            <div class="phase-item">识别核心信息壁垒类型，针对性制定优先破除策略</div>
+            <div class="phase-item">选择1-2个目标垂直渠道，做深度试点而非广撒网</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-2">
+        <div class="phase-top">
+          <div class="phase-label">Phase 02 · 3-12个月</div>
+          <div class="phase-title">构建匹配<br>飞轮</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-items">
+            <div class="phase-item">建立内容矩阵，覆盖需求链路上的所有关键信息触点</div>
+            <div class="phase-item">开发或接入AI辅助的个性化推荐系统，提升匹配精度</div>
+            <div class="phase-item">建立用户反馈闭环，持续优化匹配质量</div>
+            <div class="phase-item">培育种子用户社区，建立口碑传播机制</div>
+            <div class="phase-item">技术降门槛改造：优化最关键的使用体验断点</div>
+            <div class="phase-item">建立供给端结构化知识库，支撑精准匹配</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-card phase-3">
+        <div class="phase-top">
+          <div class="phase-label">Phase 03 · 12个月+</div>
+          <div class="phase-title">智能化<br>规模扩张</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-items">
+            <div class="phase-item">引入AI Agent技术，实现主动式需求发现与触达</div>
+            <div class="phase-item">多渠道数据融合，构建360°用户需求画像</div>
+            <div class="phase-item">建立预测性需求洞察能力，提前布局未来6-12个月的需求趋势</div>
+            <div class="phase-item">开放平台化：让第三方供给方接入，形成需求-供给生态</div>
+            <div class="phase-item">量化信息壁垒打通效率，建立持续优化的数据指标体系</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="data-table-wrap reveal" style="margin-top:3rem">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>壁垒类型</th>
+            <th>核心策略</th>
+            <th>关键技术</th>
+            <th>见效周期</th>
+            <th>优先级</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="dt-strong">认知壁垒</td>
+            <td>内容营销+SEO+社区种草</td>
+            <td>内容AI生成、语义SEO</td>
+            <td>3-6个月</td>
+            <td><span class="badge badge-high">高</span></td>
+          </tr>
+          <tr>
+            <td class="dt-strong">技术门槛壁垒</td>
+            <td>AI辅助操作+极简化设计+语音入口</td>
+            <td>对话AI、语音识别、UX优化</td>
+            <td>1-3个月</td>
+            <td><span class="badge badge-high">高</span></td>
+          </tr>
+          <tr>
+            <td class="dt-strong">渠道错位壁垒</td>
+            <td>垂直渠道深耕+用户在哪就去哪</td>
+            <td>渠道分析、受众定位</td>
+            <td>2-4个月</td>
+            <td><span class="badge badge-mid">中高</span></td>
+          </tr>
+          <tr>
+            <td class="dt-strong">信任壁垒</td>
+            <td>社会证明+低风险试用+透明化</td>
+            <td>评价系统、保障机制</td>
+            <td>6-12个月</td>
+            <td><span class="badge badge-mid">中</span></td>
+          </tr>
+          <tr>
+            <td class="dt-strong">时机错位</td>
+            <td>需求预测+主动推送+场景触发</td>
+            <td>AI Agent、预测模型</td>
+            <td>6-18个月</td>
+            <td><span class="badge badge-low">战略级</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 9: 核心洞察 ─── -->
+<section id="insights" class="section">
+  <div class="insight-bg"></div>
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">核心洞察</div>
+      <h2 class="section-title">九条深度洞察</h2>
+      <p class="section-desc">
+        从高维视角提炼出的九条核心判断，这些洞察将帮助你在复杂的信息环境中找到清晰的行动方向。
+      </p>
+    </div>
+
+    <div class="insights-wall reveal">
+
+      <div class="insight-row">
+        <div class="insight-num">01</div>
+        <div class="insight-content">
+          <div class="insight-title">需求不是<span class="hl">被创造的</span>，而是被发现的</div>
+          <div class="insight-body">绝大多数成功的商业模式并非创造了全新需求，而是发现了一个早已存在却未被服务的需求。Uber没有创造出行需求，微信没有创造社交需求，拼多多没有创造价格敏感需求——他们只是在正确的时间，用正确的方式，连接了已经存在的需求与供给。</div>
+        </div>
+      </div>
+
+      <div class="insight-row">
+        <div class="insight-num">02</div>
+        <div class="insight-content">
+          <div class="insight-title"><span class="hl">信息不对称</span>才是真正的护城河</div>
+          <div class="insight-body">在技术越来越容易复制的时代，谁先知道用户在哪、想要什么、何时准备购买，谁就拥有了真正难以被复制的竞争优势。字节跳动的核心竞争力不是短视频技术，而是比任何人都更准确地知道每一个用户下一秒想看什么。</div>
+        </div>
+      </div>
+
+      <div class="insight-row">
+        <div class="insight-num">03</div>
+        <div class="insight-content">
+          <div class="insight-title">触达成本趋近于零，<span class="hl">注意力</span>成为稀缺资源</div>
+          <div class="insight-body">2026年，信息推送的边际成本已接近于零，但人的注意力总量是固定的。竞争的本质已从"能不能触达用户"转变为"能不能在用户有限的注意力中占据一席之地"。高相关性、高价值的内容远比高频次的打扰更有效。</div>
+        </div>
+      </div>
+
+      <div class="insight-row">
+        <div class="insight-num">04</div>
+        <div class="insight-content">
+          <div class="insight-title">最好的推荐是<span class="hl">不像推荐</span>的推荐</div>
+          <div class="insight-body">当用户感知到"这是广告/推荐"时，防御机制即刻启动，信任大幅下降。最有效的信息传递发生在用户认为自己在"自然地发现"某个解决方案的时候。熟人推荐、内容种草、搜索结果都比赤裸裸的广告更有效，因为它们不像推荐。</div>
+        </div>
+      </div>
+
+      <div class="insight-row">
+        <div class="insight-num">05</div>
+        <div class="insight-content">
+          <div class="insight-title"><span class="hl">长尾需求</span>的总和远超主流需求</div>
+          <div class="insight-body">互联网经济的底层逻辑是"长尾理论"——成千上万个小众、垂直、特殊的需求加总起来，体量远超几个大众热门需求。能够高效服务长尾需求的平台（如淘宝、YouTube）往往能建立更宽广的护城河，因为长尾用户的替代选择极少。</div>
+        </div>
+      </div>
+
+      <div class="insight-row">
+        <div class="insight-num">06</div>
+        <div class="insight-content">
+          <div class="insight-title">时机敏感性：<span class="hl">30分钟内</span>的黄金窗口</div>
+          <div class="insight-body">研究表明，用户在产生需求后的30分钟内是决策最活跃、信息接受度最高的黄金窗口。在这个窗口内触达的信息，转化率往往是24小时后的数倍乃至十倍。因此，需求信号的实时监测与快速响应能力，是高价值的基础设施。</div>
+        </div>
+      </div>
+
+      <div class="insight-row">
+        <div class="insight-num">07</div>
+        <div class="insight-content">
+          <div class="insight-title">解决<span class="hl">"用不了"</span>比解决"不知道"更紧迫</div>
+          <div class="insight-body">认知壁垒固然重要，但技术门槛壁垒往往是更直接的转化杀手——用户已经知道了，也想用，但在注册、使用、支付的某个环节流失了。消除每一个操作摩擦点，往往能带来比扩大推广范围更高的ROI。</div>
+        </div>
+      </div>
+
+      <div class="insight-row">
+        <div class="insight-num">08</div>
+        <div class="insight-content">
+          <div class="insight-title">数据飞轮：<span class="hl">用户越多，匹配越准</span></div>
+          <div class="insight-body">信息匹配系统具有显著的规模优势——更多的用户产生更多的数据，更多的数据优化更精准的匹配，更精准的匹配带来更好的用户体验，更好的体验吸引更多用户。这个正向飞轮一旦启动，会形成强大的竞争壁垒，先发优势至关重要。</div>
+        </div>
+      </div>
+
+      <div class="insight-row">
+        <div class="insight-num">09</div>
+        <div class="insight-content">
+          <div class="insight-title">2026年的终极竞争：<span class="hl">谁拥有用户需求的第一手数据</span></div>
+          <div class="insight-body">在AI技术普及化的时代，算法能力趋于均等，数据才是真正的竞争壁垒。谁直接接触用户产生需求的场景、谁积累了最真实的用户意图数据、谁能最快将这些数据转化为产品和服务的改进，谁就在接下来的10年商业竞争中占据主动。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 10: 商业方程式 ─── -->
+<section id="formula" class="section">
+  <div class="formula-bg"></div>
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">商业方程式</div>
+      <h2 class="section-title">信息连接的<span style="color:var(--gold)">价值方程式</span></h2>
+      <p class="section-desc">
+        将上述所有逻辑提炼为一个简洁的商业价值方程，帮助理解每个变量如何影响最终的商业结果。
+      </p>
+    </div>
+
+    <div class="formula-display reveal">
+      <div class="formula-eq">
+        <div class="f-term">
+          <div class="f-term-value f-gold">商业价值</div>
+          <div class="f-term-label">最终创造的市场价值</div>
+        </div>
+        <div class="f-op">=</div>
+        <div class="f-term">
+          <div class="f-term-value f-teal">需求捕捉率</div>
+          <div class="f-term-label">发现真实需求的能力</div>
+        </div>
+        <div class="f-op">×</div>
+        <div class="f-term">
+          <div class="f-term-value f-teal">匹配精准度</div>
+          <div class="f-term-label">供需连接的准确程度</div>
+        </div>
+        <div class="f-op">×</div>
+        <div class="f-term">
+          <div class="f-term-value f-red">触达及时性</div>
+          <div class="f-term-label">在黄金时窗内触达</div>
+        </div>
+        <div class="f-op">×</div>
+        <div class="f-term">
+          <div class="f-term-value f-gold">信任转化率</div>
+          <div class="f-term-label">从接触到行动的转化</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-note reveal">
+      <p style="margin-bottom:1rem">
+        这个方程告诉我们：任何一个变量趋近于零，最终价值就趋近于零。但任何一个变量的倍数提升，都会带来整体价值的倍数增长。因此，找到你当前最薄弱的环节进行集中突破，往往比在所有维度上平均用力更有效。
+      </p>
+      <p>
+        在大多数企业中，<strong style="color:var(--gold)">需求捕捉率</strong>（发现真实需求的广度和深度）往往是最大的短板——不是产品不好，不是渠道太少，而是根本不知道用户真正需要什么，以及谁真正是你的用户。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 11: 具体工具与平台 ─── -->
+<section id="tools" class="section">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">工具生态</div>
+      <h2 class="section-title">2026年关键<span style="color:var(--teal)">工具与平台图谱</span></h2>
+      <p class="section-desc">
+        理论需要工具落地。以下是2026年在需求发现、信息分析、精准触达等核心环节最值得关注的工具与平台。
+      </p>
+    </div>
+
+    <div class="tools-categories reveal">
+
+      <div class="tool-category">
+        <div class="tool-cat-header">
+          <div class="tool-cat-icon">🔎</div>
+          <div class="tool-cat-title">需求信号挖掘工具</div>
+          <div class="tool-cat-count">8个</div>
+        </div>
+        <div class="tools-list">
+          <div class="tool-chip">
+            <div class="tool-chip-name">百度指数</div>
+            <div class="tool-chip-desc">中文搜索需求趋势分析，覆盖全网用户搜索行为</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Google Trends</div>
+            <div class="tool-chip-desc">全球搜索热度对比，适合出海业务的需求发现</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">5118大数据</div>
+            <div class="tool-chip-desc">中文长尾关键词挖掘与需求图谱构建工具</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">微信指数</div>
+            <div class="tool-chip-desc">微信生态内的话题热度与传播分析</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">抖音热点宝</div>
+            <div class="tool-chip-desc">抖音内容趋势与受众需求的实时分析工具</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">小红书灵犀</div>
+            <div class="tool-chip-desc">小红书平台的内容数据与用户洞察分析</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">SimilarWeb</div>
+            <div class="tool-chip-desc">网站流量来源与用户行为的竞品对比分析</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">SparkToro</div>
+            <div class="tool-chip-desc">目标受众信息消费习惯与聚集渠道的精准洞察</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-category">
+        <div class="tool-cat-header">
+          <div class="tool-cat-icon">📊</div>
+          <div class="tool-cat-title">用户行为分析平台</div>
+          <div class="tool-cat-count">6个</div>
+        </div>
+        <div class="tools-list">
+          <div class="tool-chip">
+            <div class="tool-chip-name">神策数据</div>
+            <div class="tool-chip-desc">国内领先的用户行为分析与精准运营平台</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Mixpanel</div>
+            <div class="tool-chip-desc">产品用户行为分析，漏斗与留存深度挖掘</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Hotjar</div>
+            <div class="tool-chip-desc">热力图、录屏回放与用户反馈的一体化工具</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">GrowingIO</div>
+            <div class="tool-chip-desc">无埋点行为分析与用户旅程可视化平台</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Amplitude</div>
+            <div class="tool-chip-desc">产品增长分析，以数据驱动产品决策</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">PostHog</div>
+            <div class="tool-chip-desc">开源的全栈产品分析工具，支持私有化部署</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-category">
+        <div class="tool-cat-header">
+          <div class="tool-cat-icon">🤖</div>
+          <div class="tool-cat-title">AI驱动的需求发现与匹配工具</div>
+          <div class="tool-cat-count">6个</div>
+        </div>
+        <div class="tools-list">
+          <div class="tool-chip">
+            <div class="tool-chip-name">Claude / GPT-4o</div>
+            <div class="tool-chip-desc">深度分析用户反馈、挖掘需求模式、生成洞察报告</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Perplexity AI</div>
+            <div class="tool-chip-desc">实时搜索与信息整合，快速理解市场动态</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Coze/Dify</div>
+            <div class="tool-chip-desc">自定义AI工作流，搭建需求监测和自动化响应智能体</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Brandwatch</div>
+            <div class="tool-chip-desc">AI增强的社交媒体监听与消费者洞察分析</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Mention</div>
+            <div class="tool-chip-desc">跨平台品牌与话题舆情的实时监测工具</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Sprinklr</div>
+            <div class="tool-chip-desc">企业级客户体验与需求数据的统一管理平台</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-category">
+        <div class="tool-cat-header">
+          <div class="tool-cat-icon">📣</div>
+          <div class="tool-cat-title">精准触达与个性化推送工具</div>
+          <div class="tool-cat-count">6个</div>
+        </div>
+        <div class="tools-list">
+          <div class="tool-chip">
+            <div class="tool-chip-name">企业微信+微信SCRM</div>
+            <div class="tool-chip-desc">私域流量精细化运营与个性化触达的核心工具</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Braze</div>
+            <div class="tool-chip-desc">跨渠道实时个性化推送与用户生命周期管理</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Klaviyo</div>
+            <div class="tool-chip-desc">电商场景的个性化邮件与短信营销自动化</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">巨量引擎DMP</div>
+            <div class="tool-chip-desc">基于抖音生态的精准人群定向与投放优化</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">腾讯广告</div>
+            <div class="tool-chip-desc">微信/QQ生态的精准受众定向广告投放体系</div>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-name">Insider</div>
+            <div class="tool-chip-desc">AI驱动的全渠道个性化体验与增长自动化平台</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 12: 风险与陷阱 ─── -->
+<section id="risks" class="section">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">风险警示</div>
+      <h2 class="section-title">需要警惕的<span style="color:var(--red-accent)">六大认知陷阱</span></h2>
+      <p class="section-desc">
+        在信息连接这条路上，有几个高频的认知误区往往导致方向性的失误。提前识别，提前避开。
+      </p>
+    </div>
+
+    <div class="risk-grid reveal">
+
+      <div class="risk-card">
+        <div class="risk-icon-row">
+          <div class="risk-icon">🎭</div>
+          <div class="risk-title">把"数据量大"误认为"洞察深"</div>
+        </div>
+        <div class="risk-body">
+          拥有海量数据并不等于理解用户需求。大量未经清洗、缺乏语境的数据反而会制造噪音，让团队在错误的方向上越走越远。数据的质量和框架远比数量重要。
+        </div>
+        <div class="risk-solution">
+          先建立清晰的问题框架和分析假设，再有针对性地收集和分析数据，而不是先囤积数据再想怎么用。
+        </div>
+      </div>
+
+      <div class="risk-card">
+        <div class="risk-icon-row">
+          <div class="risk-icon">🪞</div>
+          <div class="risk-title">把"自己的需求"误认为"用户的需求"</div>
+        </div>
+        <div class="risk-body">
+          创业者和产品经理最常见的陷阱——用自己的视角、自己的使用习惯、自己的认知框架来定义目标用户的需求。这种"自我投射"往往会导致产品开发出来没有人用。
+        </div>
+        <div class="risk-solution">
+          强制建立"走出去"的习惯：每周与真实目标用户交谈，观察真实使用行为，让用户的声音压过内部讨论。
+        </div>
+      </div>
+
+      <div class="risk-card">
+        <div class="risk-icon-row">
+          <div class="risk-icon">🌊</div>
+          <div class="risk-title">把"流量大"误认为"需求匹配好"</div>
+        </div>
+        <div class="risk-body">
+          高流量但低转化往往意味着需求匹配失败——把产品推给了很多根本没有该需求的人。无效流量是资源的最大浪费，也会扭曲数据判断，误导产品迭代方向。
+        </div>
+        <div class="risk-solution">
+          以"意向流量质量"而非"流量总量"作为核心指标。宁可100个高度匹配的潜在用户，也不要10000个泛泛而来的访客。
+        </div>
+      </div>
+
+      <div class="risk-card">
+        <div class="risk-icon-row">
+          <div class="risk-icon">🏃</div>
+          <div class="risk-title">忽视"需求时效性"的急剧衰减</div>
+        </div>
+        <div class="risk-body">
+          很多企业在发现用户需求信号后，以"稳妥"为由拖延响应，等到产品准备好了，需求热度已大幅降温甚至消失。在快速迭代的市场中，慢一步就可能错过整个窗口期。
+        </div>
+        <div class="risk-solution">
+          建立MVP（最小可行产品）思维：在需求高峰期以不完美但可用的方案入场，先占位再打磨，而不是等完美产品错过时机。
+        </div>
+      </div>
+
+      <div class="risk-card">
+        <div class="risk-icon-row">
+          <div class="risk-icon">🔒</div>
+          <div class="risk-title">过度数据收集触碰隐私红线</div>
+        </div>
+        <div class="risk-body">
+          在追求数据精准度的过程中，很多企业在无意识中越过了用户隐私的边界。2026年全球隐私法规日趋严格，过度数据收集不仅面临合规风险，更会严重损害用户信任，得不偿失。
+        </div>
+        <div class="risk-solution">
+          遵循"最小必要数据"原则，建立以隐私为设计基础的数据架构，同时探索隐私计算、联邦学习等隐私友好的数据分析技术。
+        </div>
+      </div>
+
+      <div class="risk-card">
+        <div class="risk-icon-row">
+          <div class="risk-icon">🤖</div>
+          <div class="risk-title">过度依赖算法忽视人性的复杂</div>
+        </div>
+        <div class="risk-body">
+          算法推荐再精准，也有它的盲区——人的需求受情感、情境、随机性的影响，不是纯粹逻辑可以预测的。过度相信数据和算法，会让企业失去对用户情感连接和品牌体验的敏感度。
+        </div>
+        <div class="risk-solution">
+          将数据分析与定性研究结合：算法发现"什么"，用户访谈解释"为什么"。保持对人性复杂性的敬畏，不要让算法完全替代人的判断。
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── OUTRO ─── -->
+<section id="outro">
+  <div class="outro-bg"></div>
+  <div class="outro-content reveal">
+    <div class="section-label" style="justify-content:center">结语 · 2026年5月</div>
+    <h2 class="outro-title">连接，是商业<br>最伟大的艺术</h2>
+    <p class="outro-body">
+      你所感知到的这个核心问题——如何发现大量被遮蔽的需求，如何精准匹配——本身就是一个价值数万亿的商业命题。<br><br>
+      技术已不是稀缺的，方案也已不是稀缺的；真正稀缺的，是把两者精准连接的<strong style="color:var(--gold)">洞察力、执行力与系统思维</strong>。<br><br>
+      这个时代给了我们前所未有的工具和数据，也给了那些真正理解人、理解需求、懂得连接的人，前所未有的商业机会。
+    </p>
+    <div class="divider divider-center" style="width:80px;height:1px;margin:2rem auto"></div>
+    <div class="outro-meta">
+      商业洞察报告 · 高纬视角 · 2026年5月 · 与时俱进版
+    </div>
+  </div>
+</section>
+
+<script>
+  // ─── PROGRESS BAR ───
+  const progressBar = document.getElementById('progress-bar');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+  }
+
+  // ─── FLOATING HEADER ───
+  const floatingHeader = document.getElementById('floating-header');
+  function updateHeader() {
+    if (window.scrollY > 80) {
+      floatingHeader.classList.add('visible');
+    } else {
+      floatingHeader.classList.remove('visible');
+    }
+  }
+
+  // ─── SCROLL REVEAL ───
+  const revealElements = document.querySelectorAll('.reveal');
+  function checkReveal() {
+    const windowHeight = window.innerHeight;
+    revealElements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < windowHeight * 0.88) {
+        el.classList.add('visible');
+      }
+    });
+  }
+
+  // ─── NAV DOTS ───
+  const sections = document.querySelectorAll('section[id]');
+  const navDots = document.querySelectorAll('.nav-dot');
+
+  function updateNavDots() {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      if (window.scrollY >= sectionTop - window.innerHeight / 2) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navDots.forEach(dot => {
+      dot.classList.remove('active');
+      if (dot.getAttribute('data-section') === current) {
+        dot.classList.add('active');
+      }
+    });
+  }
+
+  navDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const targetId = dot.getAttribute('data-section');
+      const target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ─── SCROLL HANDLER ───
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateProgress();
+        updateHeader();
+        checkReveal();
+        updateNavDots();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // ─── INIT ───
+  window.addEventListener('load', () => {
+    checkReveal();
+    updateNavDots();
+  });
+
+  // ─── HERO PARALLAX ───
+  const heroOrbs = document.querySelectorAll('.hero-orb');
+  window.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    heroOrbs.forEach((orb, i) => {
+      const factor = (i + 1) * 0.5;
+      orb.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+    });
+  });
+
+  // ─── SMOOTH HOVER CARDS ───
+  document.querySelectorAll('.pillar-card, .trend-card, .barrier-item, .ai-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
+      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
+      card.style.transform = `perspective(800px) rotateY(${x}deg) rotateX(${-y}deg) translateZ(4px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform 0.5s ease';
+    });
+    card.addEventListener('mouseenter', () => {
+      card.style.transition = 'transform 0.1s ease';
+    });
+  });
+
+  // ─── COUNT UP ANIMATION FOR HERO STATS ───
+  function animateValue(el, start, end, duration, suffix) {
+    let startTime = null;
+    const step = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(start + (end - start) * eased);
+      el.textContent = current + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+</script>
+</body>
+</html>

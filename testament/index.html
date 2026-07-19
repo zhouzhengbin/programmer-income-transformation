@@ -1,0 +1,2334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>父亲的遗嘱 — 写给我最爱的孩子们</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F5E6B8;
+    --dark-bg: #0A0B12;
+    --dark-surface: #111220;
+    --dark-card: #161827;
+    --dark-border: rgba(201, 168, 76, 0.25);
+    --dark-border-soft: rgba(201, 168, 76, 0.12);
+    --text-primary: #F0E8D5;
+    --text-secondary: #B8A88A;
+    --text-muted: #7A6E5C;
+    --accent-red: #C94C4C;
+    --accent-teal: #4CA89A;
+    --accent-blue: #4C7EC9;
+    --accent-purple: #8C6DC9;
+    --nav-h: 64px;
+    --content-max: 860px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.9;
+    overflow-x: hidden;
+  }
+
+  /* ===== CANVAS STARS ===== */
+  #star-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.45;
+  }
+
+  /* ===== NAVIGATION ===== */
+  #nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    background: rgba(10, 11, 18, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--dark-border-soft);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 1000;
+  }
+
+  #nav-logo {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.05rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  #nav-logo span {
+    color: var(--text-secondary);
+    font-weight: 300;
+    margin-left: 0.5em;
+    font-size: 0.85em;
+  }
+
+  #menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 6px;
+    background: none;
+    border: none;
+  }
+
+  #menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--gold);
+    transition: all 0.3s;
+  }
+
+  #nav-links {
+    display: flex;
+    gap: 1.8rem;
+    list-style: none;
+  }
+
+  #nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+
+  #nav-links a:hover {
+    color: var(--gold-light);
+  }
+
+  /* ===== PROGRESS BAR ===== */
+  #progress-bar {
+    position: fixed;
+    top: var(--nav-h);
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+    z-index: 999;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* ===== SIDEBAR TOC ===== */
+  #toc-sidebar {
+    position: fixed;
+    left: 0; top: var(--nav-h);
+    width: 240px;
+    height: calc(100vh - var(--nav-h));
+    overflow-y: auto;
+    padding: 2rem 1.2rem 2rem 1.5rem;
+    border-right: 1px solid var(--dark-border-soft);
+    background: rgba(10, 11, 18, 0.7);
+    z-index: 900;
+  }
+
+  #toc-sidebar::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  #toc-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  #toc-sidebar::-webkit-scrollbar-thumb {
+    background: var(--dark-border);
+    border-radius: 3px;
+  }
+
+  .toc-heading {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--dark-border-soft);
+  }
+
+  .toc-item {
+    display: block;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.76rem;
+    padding: 0.35rem 0.6rem;
+    border-left: 2px solid transparent;
+    margin-bottom: 0.15rem;
+    transition: all 0.2s;
+    line-height: 1.5;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .toc-item:hover,
+  .toc-item.active {
+    color: var(--gold-light);
+    border-left-color: var(--gold);
+    background: rgba(201, 168, 76, 0.07);
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  #main {
+    margin-left: 240px;
+    padding-top: var(--nav-h);
+    position: relative;
+    z-index: 1;
+  }
+
+  .content-wrapper {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  /* ===== HERO COVER ===== */
+  #cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+  }
+
+  .cover-ornament {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 2.5rem;
+  }
+
+  .cover-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+  }
+
+  .cover-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 900;
+    color: var(--text-primary);
+    line-height: 1.25;
+    margin-bottom: 1rem;
+    letter-spacing: 0.06em;
+  }
+
+  .cover-subtitle {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-weight: 300;
+    color: var(--gold-light);
+    letter-spacing: 0.12em;
+    margin-bottom: 3rem;
+  }
+
+  .cover-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    max-width: 480px;
+    margin: 0 auto 3rem;
+    line-height: 2;
+    font-weight: 300;
+  }
+
+  .cover-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 auto 3rem;
+    width: 280px;
+  }
+
+  .cover-divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--dark-border));
+  }
+
+  .cover-divider-diamond {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  .cover-children {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  .cover-child-tag {
+    background: rgba(201, 168, 76, 0.1);
+    border: 1px solid var(--dark-border);
+    padding: 0.6rem 1.4rem;
+    border-radius: 40px;
+    font-size: 0.88rem;
+    color: var(--gold-light);
+    letter-spacing: 0.05em;
+  }
+
+  .scroll-hint {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    animation: pulse 2.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* ===== SECTIONS ===== */
+  .section {
+    padding: 5rem 0;
+    border-bottom: 1px solid var(--dark-border-soft);
+  }
+
+  .section:last-child {
+    border-bottom: none;
+  }
+
+  /* ===== CHAPTER HEADER ===== */
+  .chapter-header {
+    margin-bottom: 3rem;
+  }
+
+  .chapter-num {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .chapter-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+    margin-bottom: 0.8rem;
+    position: relative;
+    padding-left: 1.2rem;
+  }
+
+  .chapter-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.15em;
+    width: 3px;
+    height: 1.1em;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+
+  .chapter-intro {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.9;
+    font-style: italic;
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 300;
+  }
+
+  /* ===== PROSE ===== */
+  .prose h3 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--dark-border-soft);
+  }
+
+  .prose h4 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 2rem 0 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .prose h4::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  .prose p {
+    color: var(--text-secondary);
+    margin-bottom: 1.4rem;
+    font-size: 0.97rem;
+    text-indent: 2em;
+  }
+
+  .prose p.no-indent {
+    text-indent: 0;
+  }
+
+  .prose strong {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .prose em {
+    color: var(--gold-light);
+    font-style: normal;
+  }
+
+  /* ===== QUOTE BLOCK ===== */
+  .quote-block {
+    border-left: 3px solid var(--gold);
+    padding: 1.2rem 1.5rem;
+    margin: 2rem 0;
+    background: rgba(201, 168, 76, 0.05);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quote-block p {
+    color: var(--gold-pale);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.05rem;
+    font-weight: 300;
+    font-style: italic;
+    margin: 0;
+    text-indent: 0;
+  }
+
+  .quote-block cite {
+    display: block;
+    margin-top: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: normal;
+  }
+
+  /* ===== HIGHLIGHT BOX ===== */
+  .highlight-box {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 12px;
+    padding: 1.8rem 2rem;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .highlight-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+  }
+
+  .highlight-box .box-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .highlight-box .box-title .icon {
+    font-size: 1.2rem;
+  }
+
+  .highlight-box p {
+    text-indent: 0;
+    color: var(--text-secondary);
+    margin-bottom: 0.8rem;
+    font-size: 0.93rem;
+  }
+
+  .highlight-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ===== CARD GRID ===== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+    margin: 2rem 0;
+  }
+
+  .info-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border-soft);
+    border-radius: 12px;
+    padding: 1.4rem 1.5rem;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+
+  .info-card:hover {
+    border-color: var(--dark-border);
+    transform: translateY(-2px);
+  }
+
+  .info-card .card-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .info-card .card-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .info-card .card-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+
+  .info-card .card-desc {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ===== VALUE GAP TABLE ===== */
+  .gap-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 0.88rem;
+  }
+
+  .gap-table th {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    background: rgba(201, 168, 76, 0.12);
+    color: var(--gold-light);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--dark-border);
+  }
+
+  .gap-table td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--dark-border-soft);
+    color: var(--text-secondary);
+    vertical-align: top;
+    line-height: 1.65;
+  }
+
+  .gap-table tr:hover td {
+    background: rgba(201, 168, 76, 0.03);
+  }
+
+  .gap-table td:first-child {
+    color: var(--text-primary);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .gap-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  .badge-gold {
+    background: rgba(201, 168, 76, 0.15);
+    color: var(--gold-light);
+    border: 1px solid var(--dark-border);
+  }
+
+  .badge-teal {
+    background: rgba(76, 168, 154, 0.12);
+    color: #6FD4C5;
+    border: 1px solid rgba(76, 168, 154, 0.3);
+  }
+
+  .badge-blue {
+    background: rgba(76, 126, 201, 0.12);
+    color: #7AABEF;
+    border: 1px solid rgba(76, 126, 201, 0.3);
+  }
+
+  /* ===== NUMBERED LIST ===== */
+  .num-list {
+    counter-reset: numlist;
+    list-style: none;
+    margin: 1.5rem 0;
+    padding: 0;
+  }
+
+  .num-list li {
+    counter-increment: numlist;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+  }
+
+  .num-list li::before {
+    content: counter(numlist, decimal-leading-zero);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.75rem;
+    color: var(--gold);
+    font-weight: 600;
+    flex-shrink: 0;
+    padding-top: 0.2em;
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== BULLET LIST ===== */
+  .bullet-list {
+    list-style: none;
+    margin: 1.2rem 0;
+    padding: 0;
+  }
+
+  .bullet-list li {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 0.9rem;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    align-items: flex-start;
+  }
+
+  .bullet-list li::before {
+    content: '◆';
+    font-size: 0.5rem;
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 0.55em;
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 2rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, var(--gold) 0%, transparent 100%);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 2rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 0.35em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+  }
+
+  .timeline-item .time-tag {
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+  }
+
+  .timeline-item .time-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.98rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-item .time-desc {
+    font-size: 0.86rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  /* ===== STAT ROW ===== */
+  .stat-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+  }
+
+  .stat-item {
+    flex: 1;
+    min-width: 130px;
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border-soft);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    text-align: center;
+  }
+
+  .stat-item .stat-val {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    display: block;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.03em;
+  }
+
+  .stat-item .stat-label {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== FORMULA BLOCK ===== */
+  .formula {
+    background: rgba(201, 168, 76, 0.07);
+    border: 1px solid var(--dark-border);
+    border-radius: 10px;
+    padding: 1.4rem 1.8rem;
+    margin: 1.8rem 0;
+    text-align: center;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.15rem;
+    color: var(--gold-light);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  .formula .formula-note {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 0.6rem;
+    display: block;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+  }
+
+  /* ===== LETTER BLOCK ===== */
+  .letter-block {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 16px;
+    padding: 2.5rem 2.8rem;
+    margin: 2rem 0;
+    position: relative;
+  }
+
+  .letter-block::before {
+    content: '❝';
+    position: absolute;
+    top: -0.8rem;
+    left: 2rem;
+    font-size: 3rem;
+    color: var(--gold);
+    opacity: 0.3;
+    font-family: serif;
+    line-height: 1;
+  }
+
+  .letter-block p {
+    text-indent: 2em;
+    color: var(--text-primary);
+    font-size: 0.97rem;
+    line-height: 2.1;
+    margin-bottom: 1.2rem;
+  }
+
+  .letter-block p:last-child {
+    margin-bottom: 0;
+  }
+
+  .letter-signature {
+    margin-top: 2rem;
+    text-align: right;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.9rem;
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  /* ===== DIVIDER ===== */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 3rem 0 2.5rem;
+  }
+
+  .section-divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--dark-border-soft);
+  }
+
+  .section-divider-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  /* ===== WARNING / IMPORTANT ===== */
+  .important-box {
+    border: 1px solid rgba(201, 76, 76, 0.35);
+    background: rgba(201, 76, 76, 0.06);
+    border-radius: 10px;
+    padding: 1.4rem 1.6rem;
+    margin: 1.8rem 0;
+  }
+
+  .important-box .imp-title {
+    color: #E07070;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.1em;
+  }
+
+  .important-box p {
+    text-indent: 0;
+    color: #C49090;
+    font-size: 0.88rem;
+    margin-bottom: 0;
+  }
+
+  /* ===== CHAPTER END ORNAMENT ===== */
+  .chapter-end {
+    text-align: center;
+    padding: 2rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+  }
+
+  .chapter-end .ornament-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .chapter-end .ornament-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.4;
+  }
+
+  .chapter-end .ornament-line {
+    width: 40px;
+    height: 1px;
+    background: var(--dark-border);
+  }
+
+  /* ===== FOOTER ===== */
+  #footer {
+    padding: 4rem 0;
+    text-align: center;
+    border-top: 1px solid var(--dark-border-soft);
+    margin-top: 2rem;
+  }
+
+  #footer .footer-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+
+  #footer .footer-sub {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ===== MOBILE OVERLAY TOC ===== */
+  #toc-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 800;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1100px) {
+    #toc-sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    #toc-sidebar.open {
+      transform: translateX(0);
+    }
+
+    #toc-overlay.visible {
+      display: block;
+    }
+
+    #main {
+      margin-left: 0;
+    }
+
+    #menu-toggle {
+      display: flex;
+    }
+
+    #nav-links {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .content-wrapper {
+      padding: 0 1.2rem;
+    }
+
+    .card-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .gap-table {
+      font-size: 0.8rem;
+    }
+
+    .gap-table th,
+    .gap-table td {
+      padding: 0.7rem 0.7rem;
+    }
+
+    .stat-row {
+      gap: 0.8rem;
+    }
+
+    .letter-block {
+      padding: 1.8rem 1.5rem;
+    }
+
+    .cover-children {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cover-title {
+      font-size: 2rem;
+    }
+
+    #nav {
+      padding: 0 1rem;
+    }
+  }
+
+  /* ===== ANIMATIONS ===== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .highlight-box,
+  .quote-block,
+  .letter-block,
+  .info-card {
+    transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.25s, box-shadow 0.25s;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="star-canvas"></canvas>
+<div id="progress-bar"></div>
+
+<!-- NAVIGATION -->
+<nav id="nav">
+  <div id="nav-logo">父亲的遗嘱 <span>给孩子们的人生智慧</span></div>
+  <button id="menu-toggle" aria-label="菜单">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="nav-links">
+    <li><a href="#cover">封面</a></li>
+    <li><a href="#preface">前言</a></li>
+    <li><a href="#ch1">认识世界</a></li>
+    <li><a href="#ch3">财富本质</a></li>
+    <li><a href="#ch4">价值差</a></li>
+    <li><a href="#ch7">投资经济</a></li>
+    <li><a href="#ch10">人生建议</a></li>
+  </ul>
+</nav>
+
+<!-- TOC SIDEBAR -->
+<div id="toc-overlay"></div>
+<aside id="toc-sidebar">
+  <div class="toc-heading">目 录</div>
+  <a class="toc-item" href="#cover">🌟 封面</a>
+  <a class="toc-item" href="#preface">📜 前言：父亲的心</a>
+  <a class="toc-item" href="#ch1">第一章 认识世界的真相</a>
+  <a class="toc-item" href="#ch2">第二章 打破精神枷锁</a>
+  <a class="toc-item" href="#ch3">第三章 财富的本质</a>
+  <a class="toc-item" href="#ch4">第四章 价值差的秘密</a>
+  <a class="toc-item" href="#ch5">第五章 用他人资源赚钱</a>
+  <a class="toc-item" href="#ch6">第六章 趋势与时机</a>
+  <a class="toc-item" href="#ch7">第七章 经济学与投资</a>
+  <a class="toc-item" href="#ch8">第八章 人性的洞察</a>
+  <a class="toc-item" href="#ch9">第九章 技术与语言</a>
+  <a class="toc-item" href="#ch10">第十章 人生实战建议</a>
+  <a class="toc-item" href="#epilogue">💌 后记：父亲想说的话</a>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main id="main">
+
+  <!-- COVER -->
+  <section id="cover" class="content-wrapper">
+    <div class="cover-ornament"></div>
+    <div class="cover-label">献给我最珍贵的礼物</div>
+    <h1 class="cover-title">父亲的遗嘱</h1>
+    <p class="cover-subtitle">给孩子们的人生智慧与财富真相</p>
+    <div class="cover-divider">
+      <div class="cover-divider-line"></div>
+      <div class="cover-divider-diamond"></div>
+      <div class="cover-divider-line"></div>
+    </div>
+    <p class="cover-desc">
+      孩子们，如果有一天你们展开这份文字，<br>
+      那是因为我想把我所知道的一切，<br>
+      全部留给你们——<br>
+      不是财产，而是比财产更重要的东西：<br><strong>看见世界的眼睛。</strong>
+    </p>
+    <div class="cover-children">
+      <div class="cover-child-tag">🌸 大宝 · 七岁的你</div>
+      <div class="cover-child-tag">🌺 小宝 · 四岁的你</div>
+    </div>
+    <p class="scroll-hint">向下翻阅 ↓</p>
+  </section>
+
+  <!-- PREFACE -->
+  <section id="preface" class="section">
+    <div class="content-wrapper">
+      <div class="chapter-header fade-in">
+        <span class="chapter-num">序 言</span>
+        <h2 class="chapter-title">父亲的心</h2>
+        <p class="chapter-intro">在你们还不能完全理解这些文字的年纪，父亲已经把最重要的话写下来了。</p>
+      </div>
+
+      <div class="letter-block fade-in">
+        <p>我最爱的孩子们，大宝和小宝：</p>
+        <p>如果你们现在正在读这封信，或许你们已经长大了，或许正处于某个人生的关口。不管是什么时候，请先停下来，泡一杯热茶，坐下来，慢慢读完这些文字。</p>
+        <p>父亲不是一个非常成功的人。我这一生，大多数时间都在拼命工作，努力维持家庭的温饱，有时候觉得力不从心。但正因为如此，我才比任何人都更迫切地想告诉你们：这个世界有一套规则，大多数人一生都不知道，而懂得这套规则的人，才能真正自由。</p>
+        <p>我最大的心愿不是你们赚多少钱，而是你们从今天起就知道：<strong>钱是可以被创造的，自由是可以被选择的，规则是可以被看穿的。</strong>你们不应该重复父母辛苦打工、拼命省钱、却始终挣脱不了的那种生活方式。</p>
+        <p>这份文字，是我留给你们最重要的遗产。比任何物质财富都珍贵一千倍。请把它当作你们一生中最重要的指南来对待。</p>
+        <div class="letter-signature">爱你们的父亲，永远</div>
+      </div>
+
+      <div class="section-divider">
+        <div class="section-divider-line"></div>
+        <div class="section-divider-text">开始阅读</div>
+        <div class="section-divider-line"></div>
+      </div>
+
+      <div class="highlight-box fade-in">
+        <div class="box-title"><span class="icon">📌</span>如何使用这份遗嘱</div>
+        <p>这份文字不是用来一次性读完的。建议在你们人生的不同阶段，回来重读相关章节。每次重读，你们都会有新的理解。</p>
+        <p>十几岁时，重点读第一、二章，建立正确的世界观；二十岁时，重点读第三、四、五章，学会赚钱的方式；三十岁时，重点读第七、八章，懂得投资与人性；一生之中，第十章的建议将始终有效。</p>
+      </div>
+
+      <div class="chapter-end">
+        <div class="ornament-row">
+          <div class="ornament-line"></div>
+          <div class="ornament-dot"></div>
+          <div class="ornament-line"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 1: 认识世界 -->
+  <section id="ch1" class="section">
+    <div class="content-wrapper">
+      <div class="chapter-header fade-in">
+        <span class="chapter-num">第 一 章</span>
+        <h2 class="chapter-title">认识这个世界的真相</h2>
+        <p class="chapter-intro">在一个充满幻象的世界里，看清真相，是一切财富与自由的起点。</p>
+      </div>
+
+      <div class="prose">
+        <h3>1.1 这个世界是如何运作的</h3>
+        <p>孩子们，你们从小被教导：好好读书，考上好大学，找一份稳定的工作，努力上班，攒钱养家。这套逻辑没有错，但它只是通往<em>普通生活</em>的路，不是通往<em>自由生活</em>的路。</p>
+        <p>真正的世界是这样运作的：<strong>少数人制定规则，多数人遵守规则。</strong>制定规则的人拥有财富和权力，遵守规则的人用时间换取工资。这不是说规则是坏的，而是说你需要清楚地看见这个结构，然后做出自己的选择。</p>
+        <p>整个社会的经济系统，本质上是一套<strong>价值交换网络</strong>。你拥有某种价值——技能、知识、资产、关系、创意、时间——别人想要这种价值，你们就发生交换。工资是最低级的交换形式，因为它把你最不可再生的资源——时间——以最低的价格出售了。</p>
+
+        <div class="quote-block">
+          <p>穷人出售时间，中产阶级出售技能，富人出售系统。最顶层的人出售的是规则本身。</p>
+          <cite>— 父亲的理解，来自多年的观察与思考</cite>
+        </div>
+
+        <h3>1.2 世界的五个底层结构</h3>
+        <p>你们需要在很年轻的时候就明白，世界有五个底层结构支撑着一切：</p>
+
+        <div class="card-grid fade-in">
+          <div class="info-card">
+            <span class="card-icon">⚡</span>
+            <div class="card-label">第一结构</div>
+            <div class="card-title">能量与资源的稀缺性</div>
+            <div class="card-desc">所有财富都来自于某种稀缺资源的控制。土地、石油、技术、数据、注意力——每个时代的稀缺资源不同，但控制稀缺的人总是最富有的。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🔄</span>
+            <div class="card-label">第二结构</div>
+            <div class="card-title">信息的不对称性</div>
+            <div class="card-desc">几乎所有的交易利润，都来自于信息差。买方不知道的东西，卖方知道。这就是为什么信息永远有价值，获取信息的能力永远是财富的来源。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🌀</span>
+            <div class="card-label">第三结构</div>
+            <div class="card-title">复利的复利效应</div>
+            <div class="card-desc">财富、知识、人脉、声誉——一切都在复利增长。越早开始积累，就越能享受复利带来的指数级回报。时间是最公平也最不公平的资产。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🤝</span>
+            <div class="card-label">第四结构</div>
+            <div class="card-title">信任与声誉的价值</div>
+            <div class="card-desc">在任何人类社会，信任都是最稀缺的资产之一。一个被信任的人可以调动远超自身能力的资源。声誉一旦建立，就像杠杆，放大你所有的行动。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">📐</span>
+            <div class="card-label">第五结构</div>
+            <div class="card-title">规则与系统的力量</div>
+            <div class="card-desc">理解并善用规则的人能轻松获得收益，不理解规则的人则被规则剥削。税法、商法、金融制度——学会在规则内合理博弈，是富人的必修课。</div>
+          </div>
+        </div>
+
+        <h3>1.3 你们需要建立的三种眼光</h3>
+        <p>父亲最希望你们拥有的，不是某种具体的技能，而是三种看世界的眼光：</p>
+
+        <ol class="num-list">
+          <li><strong>全局视角：</strong>永远把自己所在的领域，放到更大的经济和社会背景中去看。一个行业的变化，往往是宏观经济、技术趋势、政策变化共同作用的结果。看得越全，机会就越多。</li>
+          <li><strong>时间视角：</strong>任何事情都要同时看短期、中期和长期。短期的痛苦可能是长期的投资；短期的收益可能是长期的陷阱。训练自己用十年、二十年的维度来做决策。</li>
+          <li><strong>系统视角：</strong>不要只看单个事件，要看系统。任何结果都是系统运行的产物。当你看懂了系统，你就能预测结果，甚至影响结果。</li>
+        </ol>
+
+        <h3>1.4 关于学习的真相</h3>
+        <p>你们的老师会告诉你们，读书是最重要的。这没有错，但不完整。真正重要的不是读书，而是<em>学会学习，持续学习，学以致用</em>。</p>
+        <p>这个世界变化太快。父亲那个时代学到的技能，已经有一半被淘汰了。未来你们会面对更剧烈的变化。唯一能保护你们的，是超强的学习能力和适应能力。</p>
+
+        <div class="highlight-box fade-in">
+          <div class="box-title"><span class="icon">💡</span>学习的最高境界</div>
+          <p><strong>学以致用 → 用以验证 → 验证以迭代。</strong>真正的学习是一个不断实践和反馈的循环，而不是把知识存入脑子里就完事了。</p>
+          <p>你们要学的课程包括但不限于：经济学（理解规律）、历史（理解周期）、心理学（理解人性）、技术（理解工具）、语言（打破边界）、投资（让钱生钱）。这些远比大多数学校教的课程更重要。</p>
+        </div>
+
+        <h3>1.5 历史是最好的老师</h3>
+        <p>父亲强烈建议你们从小就对历史保持浓厚的兴趣。不是为了考试，而是因为历史是人类行为的最大数据库。</p>
+        <p>每一次大的财富转移，背后都有历史规律可循。工业革命的时候，掌握机器生产技术的人崛起了；电力时代，控制能源和电力基础设施的人崛起了；互联网时代，控制信息流量和平台的人崛起了。<strong>历史从不重复，但它会押韵。</strong>理解了过去每一次技术革命如何重新分配财富，你们就能更准确地判断下一次浪潮将把财富推向哪里。</p>
+        <p>同样，历史上每一次大规模的经济危机，也都遵循相似的逻辑：过度信用扩张→资产泡沫→流动性危机→去杠杆→经济收缩→新的基础建立。当你们理解了这个循环，就不会在危机中慌乱，也不会在繁荣中失去理智。</p>
+
+        <div class="quote-block">
+          <p>懂得历史的人，不一定能预测未来，但一定能在变化来临时比别人更从容。因为他们知道，人类总会渡过难关，生活总会继续，机会总会再来。</p>
+          <cite>— 父亲对历史学习的理解</cite>
+        </div>
+
+        <h3>1.6 认识你们所处的中国与世界的关系</h3>
+        <p>你们生在中国，这既是巨大的机遇，也是需要认真理解的背景。中国是世界上最大的单一市场之一，有着14亿消费者和全球最完整的制造业供应链。同时，中国也在以惊人的速度走向世界舞台的中央。</p>
+        <p>对你们来说，这意味着：中国市场的机会足够大，无需仅仅局限于国内；中国的制造能力和互联网生态，是面向全球市场的巨大优势；中文+英文的双语能力，是连接中国资源与全球市场的关键桥梁；理解中国的政策走向，是把握国内商业机会最重要的能力之一。</p>
+        <p>父亲的建议：<em>扎根中国，放眼全球</em>。不要做一个只知道国内的井底之蛙，也不要做一个完全脱离本土的无根漂泊者。把中国的资源优势与全球的市场机会结合起来，是这个时代最聪明的人正在做的事情。</p>
+
+        <div class="stat-row fade-in">
+          <div class="stat-item">
+            <span class="stat-val">14亿</span>
+            <span class="stat-label">中国消费人口</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val">80亿</span>
+            <span class="stat-label">全球潜在市场</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val">40%</span>
+            <span class="stat-label">全球制造业份额</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val">∞</span>
+            <span class="stat-label">双语人才的机会</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter-end">
+        <div class="ornament-row">
+          <div class="ornament-line"></div>
+          <div class="ornament-dot"></div>
+          <div class="ornament-line"></div>
+        </div>
+        <span>第一章完</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 2: 打破枷锁 -->
+  <section id="ch2" class="section">
+    <div class="content-wrapper">
+      <div class="chapter-header fade-in">
+        <span class="chapter-num">第 二 章</span>
+        <h2 class="chapter-title">打破精神枷锁</h2>
+        <p class="chapter-intro">枷锁不是别人戴在你们身上的，而是你们自己在成长中戴上去的。打碎它，需要勇气，但更需要清醒的认知。</p>
+      </div>
+
+      <div class="prose">
+        <h3>2.1 什么是精神枷锁</h3>
+        <p>精神枷锁，是那些限制你们思考和行动的隐形信念。它们通常是这样的：</p>
+
+        <ul class="bullet-list fade-in">
+          <li>"我们家就是普通人，做好本分就行了。"</li>
+          <li>"赚大钱是有背景的人才能做到的，我没有关系。"</li>
+          <li>"创业太危险了，还是打工安稳。"</li>
+          <li>"投资会亏钱，不如把钱存银行。"</li>
+          <li>"我没读过顶尖大学，所以机会不属于我。"</li>
+          <li>"反正努力也改变不了命运，随便过就行了。"</li>
+          <li>"别人家的孩子那么优秀，我根本比不上。"</li>
+        </ul>
+
+        <p>这些想法，听起来非常"正常"，甚至很多长辈都是这样告诉你们的。但它们是你们一生中最危险的东西。因为<strong>你们的信念决定你们的行动，你们的行动决定你们的结果</strong>。一个一开始就觉得自己不可能成功的人，永远不会真正全力去尝试。</p>
+
+        <h3>2.2 枷锁的来源</h3>
+        <p>这些枷锁是怎么来的？主要有四个来源：</p>
+
+        <div class="timeline fade-in">
+          <div class="timeline-item">
+            <div class="time-tag">来源一</div>
+            <div class="time-title">家庭传承的贫穷思维</div>
+            <div class="time-desc">每个家庭都有自己的"金钱剧本"。父母的财富观、恐惧感和限制性信念，会通过日常对话和行为传递给孩子。父亲和母亲出身普通，我们的父母也如此，这种思维模式一代代传下来，形成了"贫穷文化"。请从你们这一代开始，改写这个剧本。</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-tag">来源二</div>
+            <div class="time-title">教育系统的规训</div>
+            <div class="time-desc">学校教育的核心功能之一，是培养合格的雇员，而不是培养创造者和老板。服从指令、按时完成、不要质疑——这些课堂规则，会悄悄地变成你们对整个世界的态度。要在接受教育的同时，保持对教育本身的批判性思考。</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-tag">来源三</div>
+            <div class="time-title">社会的集体催眠</div>
+            <div class="time-desc">媒体、广告、周围的人群，都在不断地强化某种"标准人生"：好学历→好工作→买房→结婚→生孩子→退休。不是说这条路不好，而是你们要有意识地问自己：这是我真正想要的，还是别人让我觉得我应该要的？</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-tag">来源四</div>
+            <div class="time-title">失败带来的自我限制</div>
+            <div class="time-desc">每一次失败，都会在内心留下印记："我不行"、"我做不到"。人类大脑有一种保护机制，会让我们回避可能再次失败的情境。但这种保护会让你们失去尝试的勇气。真正的强者不是不失败，而是把失败变成数据，继续前进。</div>
+          </div>
+        </div>
+
+        <h3>2.3 如何打破枷锁</h3>
+        <p>打破枷锁不是一夜之间的事，而是一个持续的、有意识的过程。父亲给你们提供一个可操作的框架：</p>
+
+        <ol class="num-list fade-in">
+          <li><strong>觉察：</strong>当你心里有一个声音说"这不可能"、"这不适合我"时，停下来，把这个声音写下来。觉察是改变的第一步。问自己：这个信念是真的吗？它是我亲眼验证的，还是别人告诉我的？</li>
+          <li><strong>质疑：</strong>找出与这个信念相矛盾的证据。世界上有没有和你出身相似，却取得了不同结果的人？当然有。那就说明出身不是命运，信念才是。</li>
+          <li><strong>替换：</strong>用新的信念替代旧的。不是盲目乐观，而是基于证据的信念升级。把"我们家没有背景"换成"我会一步步建立自己的资源网络"。</li>
+          <li><strong>行动验证：</strong>用实际行动来验证新信念。哪怕是很小的行动，也能积累新的经验和信心。信念的强化需要成功经验的喂养。</li>
+          <li><strong>接触圈子：</strong>你们身边的人极大地影响你们的信念边界。要主动、刻意地接触那些有更大格局、更强行动力的人。他们的思维方式会潜移默化地升级你们的认知。</li>
+        </ol>
+
+        <div class="quote-block">
+          <p>你们不是被命运选择的人，你们是选择自己命运的人。这两者的区别，在于你们是否敢于承担选择的责任。</p>
+          <cite>— 父亲写于深夜，想到你们脸上的</cite>
+        </div>
+
+        <h3>2.4 关于"稳定"的幻觉</h3>
+        <p>很多人追求"稳定"，这背后隐藏着对不确定性的恐惧。父亲想让你们明白一件事：</p>
+
+        <div class="highlight-box fade-in">
+          <div class="box-title"><span class="icon">⚠️</span>所谓稳定，往往是最大的不稳定</div>
+          <p>一份"稳定"的工作，意味着你把所有的收入来源集中在一个地方，一旦公司倒闭、被裁员、行业衰退，你的全部收入就归零了。这才是真正的风险。</p>
+          <p>真正的稳定，来自于你拥有多元的能力、多元的收入来源、多元的人脉网络，以及一套能在任何环境下创造价值的思维系统。这种稳定，任何人都夺不走。</p>
+        </div>
+      </div>
+
+      <div class="chapter-end">
+        <div class="ornament-row">
+          <div class="ornament-line"></div>
+          <div class="ornament-dot"></div>
+          <div class="ornament-line"></div>
+        </div>
+        <span>第二章完</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 3: 财富本质 -->
+  <section id="ch3" class="section">
+    <div class="content-wrapper">
+      <div class="chapter-header fade-in">
+        <span class="chapter-num">第 三 章</span>
+        <h2 class="chapter-title">财富的本质与创造</h2>
+        <p class="chapter-intro">财富不是从天上掉下来的，也不是靠运气撞出来的。它是按照特定规律运行的系统产物。理解这个规律，是你们最重要的课程之一。</p>
+      </div>
+
+      <div class="prose">
+        <h3>3.1 财富是什么</h3>
+        <p>大多数人认为财富就是钱。这是错误的。<strong>钱只是财富的一种计量符号</strong>，是财富的液态形式。真正的财富是：</p>
+
+        <div class="card-grid fade-in">
+          <div class="info-card">
+            <span class="card-icon">🧠</span>
+            <div class="card-label">第一类财富</div>
+            <div class="card-title">认知资本</div>
+            <div class="card-desc">你所掌握的知识、技能、信息处理能力。这是所有财富的基础，也是唯一不会贬值的财富。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🕸️</span>
+            <div class="card-label">第二类财富</div>
+            <div class="card-title">关系资本</div>
+            <div class="card-desc">你的人脉网络、信任关系、社会资本。关系是杠杆，让你能调动超过自身能力的资源。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">⏳</span>
+            <div class="card-label">第三类财富</div>
+            <div class="card-title">时间资本</div>
+            <div class="card-desc">能让你拥有自由时间的系统。真正的富人，是那些时间不再被钱所绑架的人。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">💰</span>
+            <div class="card-label">第四类财富</div>
+            <div class="card-title">金融资本</div>
+            <div class="card-desc">货币、股票、房产、企业股权等可以产生被动收入的金融资产。这是大多数人理解的"财富"。</div>
+          </div>
+        </div>
+
+        <p>四类财富之间，可以相互转化。认知资本可以转化为金融资本；关系资本可以转化为商业机会；时间资本是最终目标，是其他所有财富创造的结果。父亲希望你们始终记得：<em>最终追求的不是数字的大小，而是真正自由的生活</em>。</p>
+
+        <h3>3.2 财富创造的三条路径</h3>
+
+        <div class="highlight-box fade-in">
+          <div class="box-title"><span class="icon">🗺️</span>三条财富之路</div>
+          <p><strong>第一条路：打工（时间换钱）</strong> — 这是大多数人的路。用时间换取工资，上限由市场决定。能提高收入，但很难实现财富自由。</p>
+          <p><strong>第二条路：创业（系统换钱）</strong> — 建立一个能持续产生价值的系统，雇佣其他人的时间，形成杠杆效应。这条路更难，但潜力更大。</p>
+          <p><strong>第三条路：投资（钱换钱）</strong> — 让现有的资产为你工作，产生被动收入。这是富人维持和扩大财富的主要方式。</p>
+        </div>
+
+        <p>父亲的建议不是让你们放弃工作，而是让你们在工作的同时，逐步建立第二条和第三条路。即使一开始很小，只要持续下去，复利效应会让你们大吃一惊。</p>
+
+        <h3>3.3 收入的种类</h3>
+        <p>理解收入的种类，是财务自由的第一课：</p>
+
+        <table class="gap-table fade-in">
+          <thead>
+            <tr>
+              <th>收入类型</th>
+              <th>定义</th>
+              <th>例子</th>
+              <th>评价</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>主动收入</td>
+              <td>你工作，你才有钱</td>
+              <td>工资、出售劳动</td>
+              <td><span class="gap-badge badge-gold">基础，但上限低</span></td>
+            </tr>
+            <tr>
+              <td>被动收入</td>
+              <td>资产为你工作赚钱</td>
+              <td>房租、股息、版权费</td>
+              <td><span class="gap-badge badge-teal">目标！建立系统</span></td>
+            </tr>
+            <tr>
+              <td>组合收入</td>
+              <td>多个收入来源叠加</td>
+              <td>工资+投资+副业</td>
+              <td><span class="gap-badge badge-blue">稳健，抗风险强</span></td>
+            </tr>
+            <tr>
+              <td>杠杆收入</td>
+              <td>借助他人/系统放大</td>
+              <td>企业分红、平台分成</td>
+              <td><span class="gap-badge badge-teal">最高效的财富形式</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>3.4 复利：最强大的力量</h3>
+        <p>爱因斯坦曾说，复利是世界第八大奇迹。父亲希望你们从很小的时候就开始理解这个概念。</p>
+
+        <div class="formula fade-in">
+          终值 = 本金 × (1 + 年化收益率) <sup>投资年数</sup>
+          <span class="formula-note">1万元，每年8%收益，30年后变成 10.06 万元。40年后变成 21.72 万元。时间才是最大的本金。</span>
+        </div>
+
+        <p>复利不仅适用于金钱，它同样适用于知识、技能、声誉和人脉。每一天积累一点点，看起来微不足道，但拉长时间维度，就是翻天覆地的变化。父亲最希望你们明白的一件事是：<strong>尽早开始，哪怕很小</strong>。</strong></p>
+
+        <div class="stat-row fade-in">
+          <div class="stat-item">
+            <span class="stat-val">1万</span>
+            <span class="stat-label">起始金额（元）</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val">10万</span>
+            <span class="stat-label">30年后（8%/年）</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val">100万</span>
+            <span class="stat-label">50年后（8%/年）</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val">10年</span>
+            <span class="stat-label">早开始的优势</span>
+          </div>
+        </div>
+
+        <h3>3.5 关于赚大钱的本质</h3>
+        <p>很多人一生都没有搞清楚赚大钱的本质。父亲把最核心的逻辑告诉你们：</p>
+        <p><strong>赚大钱 = 找到一个足够大的市场 + 提供别人愿意付高价的价值 + 可以规模化复制的商业模式。</strong></p>
+        <p>注意三个关键词：<em>大市场</em>（不要在小池子里卷）、<em>高价值</em>（价值越独特，定价越高）、<em>可复制</em>（一次创造，反复销售）。</p>
+        <p>在互联网时代，"可复制"这一点被放大到了极致：一本书、一个课程、一个软件产品、一个优质内容——可以卖给无数人，边际成本趋近于零。这是过去工业时代不存在的财富机会。你们这一代人，生在了最好的时代。</p>
+      </div>
+
+      <div class="chapter-end">
+        <div class="ornament-row">
+          <div class="ornament-line"></div>
+          <div class="ornament-dot"></div>
+          <div class="ornament-line"></div>
+        </div>
+        <span>第三章完</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 4: 价值差 -->
+  <section id="ch4" class="section">
+    <div class="content-wrapper">
+      <div class="chapter-header fade-in">
+        <span class="chapter-num">第 四 章</span>
+        <h2 class="chapter-title">价值差的秘密——财富的真正来源</h2>
+        <p class="chapter-intro">所有的财富机会，本质上都是某种"差"的存在。看见差，利用差，就是赚钱的核心逻辑。</p>
+      </div>
+
+      <div class="prose">
+        <h3>4.1 什么是价值差</h3>
+        <p>价值差，是指同一种东西在不同的时间、地点、人群、信息层面之间存在的价值差异。正是这种差异，构成了一切商业机会的基础。</p>
+
+        <div class="quote-block">
+          <p>商人的本质，是信息和资源的搬运工。他们把东西从价值低的地方搬到价值高的地方，赚取中间的差价。</p>
+          <cite>— 商业最简单的底层逻辑</cite>
+        </div>
+
+        <p>父亲给你们整理了七种最重要的价值差，每一种都是过去、现在、未来都持续存在的财富机会：</p>
+
+        <h3>4.2 七种核心价值差</h3>
+
+        <table class="gap-table fade-in">
+          <thead>
+            <tr>
+              <th>价值差类型</th>
+              <th>本质</th>
+              <th>如何利用</th>
+              <th>典型案例</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>🔵 信息差</td>
+              <td>你知道别人不知道的</td>
+              <td>信息套利、咨询服务、内容产品</td>
+              <td>早期买入比特币的人；知道某区域将拆迁提前购房的人</td>
+            </tr>
+            <tr>
+              <td>🟡 认知差</td>
+              <td>你理解别人不理解的</td>
+              <td>在别人恐慌时买入，在别人贪婪时卖出</td>
+              <td>巴菲特在金融危机时抄底；早期认知到移动互联网价值的投资者</td>
+            </tr>
+            <tr>
+              <td>🟢 技术差</td>
+              <td>你能做别人不能做的</td>
+              <td>稀缺技能变现、技术外包、SaaS产品</td>
+              <td>程序员用代码解决传统行业痛点；自动化取代人工带来的效率红利</td>
+            </tr>
+            <tr>
+              <td>🔴 资源差</td>
+              <td>你拥有别人没有的资源</td>
+              <td>资源整合、平台撮合、渠道代理</td>
+              <td>拥有工厂渠道帮品牌做代工；拥有政府关系做工程资质</td>
+            </tr>
+            <tr>
+              <td>🟠 时间差</td>
+              <td>你比别人更早看到趋势</td>
+              <td>提前布局新兴行业、早期投资</td>
+              <td>电商兴起前的互联网创业者；AI崛起前的算法人才储备</td>
+            </tr>
+            <tr>
+              <td>🟣 空间差</td>
+              <td>不同地域的价格或供需差异</td>
+              <td>跨境贸易、地域套利、进出口</td>
+              <td>把中国商品卖给东南亚；把中国技术输出到非洲市场</td>
+            </tr>
+            <tr>
+              <td>⚪ 结构差</td>
+              <td>不同组织形式带来的成本差</td>
+              <td>灵活用工、外包、共享经济</td>
+              <td>Uber用司机的车赚打车钱；Airbnb用房主的房赚住宿钱</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>4.3 如何发现身边的价值差</h3>
+        <p>价值差无处不在，关键是培养发现它们的眼光。父亲给你们一套简单的扫描框架：</p>
+
+        <ol class="num-list fade-in">
+          <li><strong>注意价格的地区差异：</strong>同样的东西，在A城市和B城市价格为什么不同？这个差异里有没有可以利用的机会？</li>
+          <li><strong>关注信息的不对称：</strong>你是否比某个群体知道更多？你所在的行业里，有什么外行人完全不懂的知识？这些知识可以被打包出售吗？</li>
+          <li><strong>观察供需的不匹配：</strong>某类产品或服务，是否在某些地方过剩，在另一些地方短缺？你能做这个连接者吗？</li>
+          <li><strong>寻找效率的浪费：</strong>某个行业里，有没有用旧方式做的事情，可以用新技术、新方法大幅提升效率？提升效率本身就是价值创造。</li>
+          <li><strong>发现认知的盲区：</strong>大多数人对某件事的判断是否存在根本性的误解？如果你能纠正这个误解，或者在别人纠正之前提前布局，就是认知差套利。</li>
+        </ol>
+
+        <h3>4.4 价值差的消失与更新</h3>
+        <p>父亲要警告你们一件事：<em>价值差不会永远存在</em>。当越来越多的人看见同一个差，这个差就会被填平，机会就消失了。这就是为什么<strong>持续学习、持续寻找新的差</strong>是如此重要。</p>
+
+        <div class="highlight-box fade-in">
+          <div class="box-title"><span class="icon">🔄</span>价值差的生命周期</div>
+          <p><strong>第一阶段（极少人知道）：</strong>利润最高，风险也高，但先知者赚最多的钱。例如2010年的比特币，2000年的互联网域名。</p>
+          <p><strong>第二阶段（少部分人知道）：</strong>利润仍然可观，竞争刚开始。这是大多数成功商人进入的时机。</p>
+          <p><strong>第三阶段（大众都知道）：</strong>竞争激烈，利润下降，但风险也降低了。这时候拼的是执行力和规模。</p>
+          <p><strong>第四阶段（泡沫与崩溃）：</strong>价值差基本消失，只有最高效的少数人能存活，其余人亏损退出。</p>
+        </div>
+
+        <p>你们要学会的，是在第一阶段和第二阶段进入，在第三阶段充分获利，在第四阶段及时退出。这需要极强的趋势判断力，也正是下一章要讲的内容。</p>
+      </div>
+
+      <div class="chapter-end">
+        <div class="ornament-row">
+          <div class="ornament-line"></div>
+          <div class="ornament-dot"></div>
+          <div class="ornament-line"></div>
+        </div>
+        <span>第四章完</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 5: 用他人资源 -->
+  <section id="ch5" class="section">
+    <div class="content-wrapper">
+      <div class="chapter-header fade-in">
+        <span class="chapter-num">第 五 章</span>
+        <h2 class="chapter-title">用他人的资源赚钱——杠杆的艺术</h2>
+        <p class="chapter-intro">穷人用自己的力量搬石头，富人找到支点，用杠杆撬动别人帮他们搬。这不是欺骗，而是更高效的价值协同。</p>
+      </div>
+
+      <div class="prose">
+        <h3>5.1 杠杆思维</h3>
+        <p>杠杆的核心思想：<strong>你不需要拥有资源，只需要控制或调动资源。</strong></p>
+        <p>世界上最富有的人，没有一个是仅凭自己一人之力积累财富的。他们都是调动了大量他人资源——别人的时间、别人的钱、别人的技术、别人的渠道——来为自己的目标服务。</p>
+
+        <div class="card-grid fade-in">
+          <div class="info-card">
+            <span class="card-icon">💼</span>
+            <div class="card-label">杠杆类型一</div>
+            <div class="card-title">他人的时间（人力杠杆）</div>
+            <div class="card-desc">雇佣员工，外包任务，建立团队。你的时间是固定的，但你可以通过管理他人的时间来放大产出。老板之所以比员工赚得多，本质就在这里。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🏦</span>
+            <div class="card-label">杠杆类型二</div>
+            <div class="card-title">他人的钱（金融杠杆）</div>
+            <div class="card-desc">银行贷款、风险投资、债券融资、众筹。用别人的钱做生意，收益是自己的，本金是别人的。关键是要确保回报高于借贷成本。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">📡</span>
+            <div class="card-label">杠杆类型三</div>
+            <div class="card-title">他人的渠道（平台杠杆）</div>
+            <div class="card-desc">借助已有平台（淘宝、抖音、亚马逊）触达用户，而不是从零建立流量。站在巨人的肩膀上，是最聪明的起步方式。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🌐</span>
+            <div class="card-label">杠杆类型四</div>
+            <div class="card-title">他人的信任（声誉杠杆）</div>
+            <div class="card-desc">有了好的声誉，别人愿意主动把机会、资源、人脉介绍给你。最成功的人往往不是最聪明的，而是最值得信任的。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🤖</span>
+            <div class="card-label">杠杆类型五</div>
+            <div class="card-title">技术与代码（算法杠杆）</div>
+            <div class="card-desc">一段好的代码可以为数百万人服务。互联网和AI是人类历史上最强大的杠杆工具。学会使用技术，等于拥有了一个不需要睡眠的员工。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">📚</span>
+            <div class="card-label">杠杆类型六</div>
+            <div class="card-title">知识与内容（媒体杠杆）</div>
+            <div class="card-desc">一本书、一个视频、一篇文章，可以同时被成千上万人阅读，为你传递价值。内容是最低成本的杠杆，创造一次，反复收益。</div>
+          </div>
+        </div>
+
+        <h3>5.2 如何开始使用杠杆</h3>
+        <p>父亲知道你们刚开始什么都没有，这很正常。杠杆是可以从零开始建立的。以下是一个从小到大的路径：</p>
+
+        <div class="timeline fade-in">
+          <div class="timeline-item">
+            <div class="time-tag">第一步（0~3年）</div>
+            <div class="time-title">建立可被杠杆的核心技能</div>
+            <div class="time-desc">先成为某个领域里最好的10%。这是一切杠杆的基础。没有核心能力，调动再多资源也是空谈。专注一个领域，深耕三年。</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-tag">第二步（3~5年）</div>
+            <div class="time-title">开始最小化杠杆实验</div>
+            <div class="time-desc">用你的技能做出第一个可复制的产品或服务。开始建立自己的流量、用户、口碑。哪怕只有100个用户，也是一个真实的杠杆支点。</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-tag">第三步（5~10年）</div>
+            <div class="time-title">引入外部资源放大规模</div>
+            <div class="time-desc">当你的系统被验证可以运转，开始引入外部资源：雇人、融资、合作。把你的时间从执行者解放出来，专注于方向和资源整合。</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-tag">第四步（10年后）</div>
+            <div class="time-title">系统自运转，财富自由</div>
+            <div class="time-desc">你建立的系统能够在你不参与或少参与的情况下持续运转产生价值。这时候你才真正实现了时间自由，这也是财富自由的真正含义。</div>
+          </div>
+        </div>
+
+        <h3>5.3 用好别人的钱——融资的逻辑</h3>
+        <p>很多人把借钱看作耻辱，这是贫穷思维的典型表现。<strong>富人把借钱看作工具，而不是负担。</strong></p>
+        <p>关键在于：借来的钱，要用来产生超过借钱成本的回报。如果你借钱年息10%，但能用这笔钱做出年回报30%的生意，你就赚了20%。这是聪明的资本运作，而不是负债。</p>
+
+        <div class="important-box fade-in">
+          <div class="imp-title">⚠️ 父亲的警告</div>
+          <p>借钱用于消费（买奢侈品、买超出能力的房子），是财务毁灭之路。借钱用于投资（扩大有盈利能力的业务），是财富创造之路。这两者之间的区别，决定了无数家庭的命运。</p>
+        </div>
+      </div>
+
+      <div class="chapter-end">
+        <div class="ornament-row">
+          <div class="ornament-line"></div>
+          <div class="ornament-dot"></div>
+          <div class="ornament-line"></div>
+        </div>
+        <span>第五章完</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 6: 趋势与时机 -->
+  <section id="ch6" class="section">
+    <div class="content-wrapper">
+      <div class="chapter-header fade-in">
+        <span class="chapter-num">第 六 章</span>
+        <h2 class="chapter-title">趋势与时机——顺势而为的智慧</h2>
+        <p class="chapter-intro">游泳顺流而行，和逆流而行，同样的力气，结果天差地别。学会看趋势，是让努力事半功倍的关键。</p>
+      </div>
+
+      <div class="prose">
+        <h3>6.1 为什么趋势比努力更重要</h3>
+        <p>这不是说努力不重要。而是说：<em>同样的努力，在顺势时能带来十倍的结果，在逆势时可能颗粒无收</em>。</p>
+        <p>历史上每一次技术革命、经济周期的转变，都会让一批人迅速崛起——不是因为他们比别人更聪明或更努力，而是因为他们站对了浪头。互联网的浪，把早期电商创业者送上了天。移动互联网的浪，把应用开发者和平台运营者捧上了新高度。AI的浪，正在创造新一代的财富。</p>
+
+        <h3>6.2 如何判断一个趋势</h3>
+        <p>父亲给你们一个判断趋势的五步模型：</p>
+
+        <ol class="num-list fade-in">
+          <li><strong>技术驱动：</strong>是否有一项新技术，正在从"极客玩具"变成"大众工具"？这种技术渗透率的跃升，是财富机会的最重要信号。（蒸汽机、电力、互联网、智能手机、人工智能——每一次都是如此）</li>
+          <li><strong>政策支持：</strong>政府在鼓励什么行业？有没有大规模的政策补贴、税收优惠、基础设施投资？政策是最强的顺风。</li>
+          <li><strong>人口结构：</strong>哪一批人正在成为消费主力？他们有什么独特的需求？（例如：老龄化带来的医疗健康需求；Z世代带来的内容娱乐消费变化）</li>
+          <li><strong>资本流向：</strong>最聪明的钱在流向哪里？风险投资的热门赛道，往往是三到五年后的主流市场。</li>
+          <li><strong>社会心理：</strong>整个社会的关注点、焦虑和渴望在哪里？满足社会焦虑的产品和服务，永远有市场。（教育、健康、安全感、社交认同……）</li>
+        </ol>
+
+        <h3>6.3 你们这一代将面对的最大趋势</h3>
+
+        <div class="card-grid fade-in">
+          <div class="info-card">
+            <span class="card-icon">🤖</span>
+            <div class="card-label">趋势一</div>
+            <div class="card-title">人工智能的全面渗透</div>
+            <div class="card-desc">AI不只是一个工具，它将重塑所有行业。未来能利用AI放大自身价值的人，和不会使用AI的人之间，将存在巨大的财富鸿沟。学会驾驭AI，是你们这代人最重要的技能之一。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🌏</span>
+            <div class="card-label">趋势二</div>
+            <div class="card-title">全球化2.0与东南亚崛起</div>
+            <div class="card-desc">东南亚、非洲、中东等新兴市场正在快速成长。对于掌握中文和英文的中国人来说，连接中国供应链和海外市场，是巨大的商业机会。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">♻️</span>
+            <div class="card-label">趋势三</div>
+            <div class="card-title">绿色能源与可持续发展</div>
+            <div class="card-desc">全球对清洁能源的需求将在未来几十年指数增长。新能源汽车、储能、太阳能、碳交易——这个赛道会诞生下一批巨富。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🧬</span>
+            <div class="card-label">趋势四</div>
+            <div class="card-title">生命科学与健康经济</div>
+            <div class="card-desc">随着人口老龄化，健康、长寿、医疗技术将成为最大的消费市场之一。基因技术、精准医疗、心理健康服务都是值得关注的方向。</div>
+          </div>
+        </div>
+
+        <h3>6.4 关于时机的判断</h3>
+        <p>知道趋势还不够，时机同样重要。进入太早，你会成为"先烈"；进入太晚，红利已经被瓜分完毕。</p>
+        <p>父亲的经验：<strong>当一件事情开始从专业媒体进入大众媒体报道时，往往是黄金进入期。</strong>此时行业已被验证，但尚未被大众追捧到泡沫阶段。</p>
+
+        <div class="quote-block">
+          <p>最好的时机是十年前，其次是现在。不要等待所谓"完美的时机"，因为它从不存在。你永远不会有足够的信息、足够的钱、足够的准备——开始行动，才是最好的准备。</p>
+          <cite>— 关于行动的真相</cite>
+        </div>
+      </div>
+
+      <div class="chapter-end">
+        <div class="ornament-row">
+          <div class="ornament-line"></div>
+          <div class="ornament-dot"></div>
+          <div class="ornament-line"></div>
+        </div>
+        <span>第六章完</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 7: 经济学与投资 -->
+  <section id="ch7" class="section">
+    <div class="content-wrapper">
+      <div class="chapter-header fade-in">
+        <span class="chapter-num">第 七 章</span>
+        <h2 class="chapter-title">经济学与投资智慧</h2>
+        <p class="chapter-intro">让钱为你工作，而不是你为钱工作。这是所有财富自由者共同掌握的秘密。</p>
+      </div>
+
+      <div class="prose">
+        <h3>7.1 你们必须懂的经济学常识</h3>
+        <p>父亲不要求你们成为经济学家，但以下这些概念，是任何人都应该具备的经济认知，能让你们在做人生重大决策时不被蒙蔽：</p>
+
+        <div class="highlight-box fade-in">
+          <div class="box-title"><span class="icon">📊</span>十个核心经济学概念</div>
+          <p><strong>① 通货膨胀：</strong>钱会随时间贬值。今天的100元，二十年后购买力可能只剩50元。把所有钱放银行是在缓慢地失去财富，必须让钱的增值速度跑赢通胀。</p>
+          <p><strong>② 机会成本：</strong>每一个选择都意味着放弃其他选项的潜在收益。花时间做一件事，就是放弃了这段时间本可以做的最好那件事的价值。</p>
+          <p><strong>③ 供需定律：</strong>物以稀为贵。理解供给和需求，就能理解大多数价格变动的逻辑。</p>
+          <p><strong>④ 边际效用递减：</strong>同一种东西，你拥有越多，多一个带来的满足感就越小。金钱也是如此——更多的钱带来的幸福感增量在递减，而自由时间的价值却在增加。</p>
+          <p><strong>⑤ 经济周期：</strong>经济有繁荣和萧条的周期。历史上从未发生过永远的繁荣，也从未发生过永远的萧条。懂得周期，就能在别人恐慌时买入，在别人贪婪时卖出。</p>
+        </div>
+
+        <h3>7.2 投资的基本原则</h3>
+        <p>父亲把最重要的投资原则整理给你们，这些原则是无数人用真金白银和岁月验证过的：</p>
+
+        <ol class="num-list fade-in">
+          <li><strong>永远不要投入你输不起的钱。</strong>投资有风险，用来生活的钱不能投资。只用你能承受全部损失的闲置资金来投资，这是生存原则。</li>
+          <li><strong>分散投资，不要把鸡蛋放在一个篮子里。</strong>没有任何一种资产是永远安全的。股票、债券、房产、外币、贵金属——分散配置，降低系统性风险。</li>
+          <li><strong>投资你理解的东西。</strong>巴菲特一生不碰他不理解的科技股，这让他在互联网泡沫中毫发无损。不理解的东西，就是赌博，不是投资。</li>
+          <li><strong>长期持有，抵抗短期波动。</strong>市场短期是投票机，长期是称重机。优质资产长期持有，是普通人实现财富增值最简单可靠的方式。</li>
+          <li><strong>永远保持充足的现金流。</strong>现金是你在危机时的子弹。很多企业不是因为亏损倒闭，而是因为现金断流。个人财务同理，留足6~12个月的生活费作为应急储备。</li>
+          <li><strong>不要追求暴富，要追求持续。</strong>承诺快速高回报的东西，99%是骗局。慢慢变富，才是真正的财富积累之道。</li>
+        </ol>
+
+        <h3>7.3 资产配置的基础框架</h3>
+        <p>当你们有了一定的积蓄，如何分配这些钱？父亲给你们一个简单的框架参考：</p>
+
+        <table class="gap-table fade-in">
+          <thead>
+            <tr>
+              <th>资产类别</th>
+              <th>建议比例</th>
+              <th>主要作用</th>
+              <th>注意事项</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>现金/货币基金</td>
+              <td>10~20%</td>
+              <td>应急备用，保证流动性</td>
+              <td>不要超过20%，否则长期损失购买力</td>
+            </tr>
+            <tr>
+              <td>股票/股权</td>
+              <td>30~50%</td>
+              <td>长期增值，跑赢通胀</td>
+              <td>优选指数基金，降低选股风险</td>
+            </tr>
+            <tr>
+              <td>固定收益（债券等）</td>
+              <td>15~25%</td>
+              <td>稳定收益，对冲波动</td>
+              <td>年龄越大，比例可以越高</td>
+            </tr>
+            <tr>
+              <td>实物资产（房产等）</td>
+              <td>20~30%</td>
+              <td>抗通胀，产生租金收入</td>
+              <td>注意地段和流动性，不要过度贷款</td>
+            </tr>
+            <tr>
+              <td>另类投资（黄金/商品）</td>
+              <td>5~10%</td>
+              <td>避险，对冲极端风险</td>
+              <td>不要超配，作为保险而非主力</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>7.4 关于股票投资</h3>
+        <p>如果你们只学一种投资方式，父亲推荐<em>定期定额投资低成本指数基金</em>。原因是：</p>
+        <ul class="bullet-list fade-in">
+          <li>不需要选股，不需要择时，降低了人为错误的影响。</li>
+          <li>分散了风险，买了整个市场的成长，而不是押注于某一家公司。</li>
+          <li>历史数据证明，长达20年以上的持有，极少出现亏损。</li>
+          <li>定期投入摊平成本，在市场低迷时反而能买到更多份额。</li>
+        </ul>
+        <p>当然，随着认知的提升，你们可以学习更复杂的投资策略。但指数基金是最好的起点，也是很多顶级投资者最终回归的终点。</p>
+
+        <div class="formula fade-in">
+          财富自由的门槛 = 年支出 × 25
+          <span class="formula-note">即：如果你每年花费10万元，那么拥有250万元可投资资产、年化回报4%，即可不工作也能维持生活。这是著名的"4%法则"。</span>
+        </div>
+      </div>
+
+      <div class="chapter-end">
+        <div class="ornament-row">
+          <div class="ornament-line"></div>
+          <div class="ornament-dot"></div>
+          <div class="ornament-line"></div>
+        </div>
+        <span>第七章完</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 8: 人性洞察 -->
+  <section id="ch8" class="section">
+    <div class="content-wrapper">
+      <div class="chapter-header fade-in">
+        <span class="chapter-num">第 八 章</span>
+        <h2 class="chapter-title">人性的深层洞察</h2>
+        <p class="chapter-intro">所有的商业，本质上都是人与人之间的价值交换。懂人性，才能真正懂商业。</p>
+      </div>
+
+      <div class="prose">
+        <h3>8.1 人类行为的底层驱动力</h3>
+        <p>无论时代如何变化，人类的基本动机几乎没有改变。理解这些动机，就能预测人的行为，设计出真正有吸引力的产品、服务和关系。</p>
+
+        <div class="card-grid fade-in">
+          <div class="info-card">
+            <span class="card-icon">🔒</span>
+            <div class="card-label">驱动力一</div>
+            <div class="card-title">安全感的渴望</div>
+            <div class="card-desc">人类最基本的需求。保险、储蓄、锁门、备份——一切减少不确定性的行为，都源于对安全感的渴望。满足安全感，永远有市场。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🌟</span>
+            <div class="card-label">驱动力二</div>
+            <div class="card-title">被认可与被尊重</div>
+            <div class="card-desc">奢侈品、高档餐厅、豪车、名校教育——很大程度上卖的是社会地位和被认可感，而非功能本身。这个需求的市场永远不会饱和。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">❤️</span>
+            <div class="card-label">驱动力三</div>
+            <div class="card-title">爱与归属感</div>
+            <div class="card-desc">人类是社会性动物，天生需要连接。社交媒体、婚恋平台、社群、团队文化——本质上都在满足人类对爱与归属的渴望。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🎯</span>
+            <div class="card-label">驱动力四</div>
+            <div class="card-title">控制感与自主权</div>
+            <div class="card-desc">人讨厌被强迫，喜欢"自己做的选择"。给人选择感，是最高级的销售技巧。让顾客觉得是他们在主动选择你，而不是你在强推他们。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🚀</span>
+            <div class="card-label">驱动力五</div>
+            <div class="card-title">成长与意义感</div>
+            <div class="card-desc">当基本需求被满足后，人渴望成长和意义。课程、培训、书籍、冥想、志愿服务——这类满足精神成长的市场正在爆炸式增长。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">😌</span>
+            <div class="card-label">驱动力六</div>
+            <div class="card-title">减少痛苦与烦恼</div>
+            <div class="card-desc">人逃避痛苦的动力，往往比追求快乐更强烈。帮人解决问题（省钱、省时、省力、减痛苦），比帮人锦上添花，往往更容易成功。</div>
+          </div>
+        </div>
+
+        <h3>8.2 影响力的六大原则</h3>
+        <p>无论是做生意、谈判、管理团队，还是建立关系，理解影响力的原则都至关重要：</p>
+
+        <ol class="num-list fade-in">
+          <li><strong>互惠原则：</strong>给予会引发回报的本能。先给出价值，建立关系，再谈商业。不要一上来就索取。这是为什么最成功的销售员总是先提供免费价值。</li>
+          <li><strong>社会认同：</strong>人会参考他人的行为。"万人好评"、"XX明星也在用"——这些都是利用社会认同来降低决策风险的策略。让你的产品有社会认同背书，能大幅提高转化。</li>
+          <li><strong>稀缺性：</strong>越难得的东西，越想要。"限时限量"、"仅剩3件"——这是真实的心理机制，不是骗术（当然不要制造虚假稀缺）。</li>
+          <li><strong>权威性：</strong>人会信任专家。建立自己的专业形象，成为某个领域的权威，是提升影响力最持久的方式。</li>
+          <li><strong>一致性：</strong>人希望自己的言行一致。先让对方做一个小承诺，他就更可能做出更大的承诺。这就是为什么好的销售要让你先"是"，再"是"，再"是"。</li>
+          <li><strong>好感：</strong>人更愿意向自己喜欢的人购买。真诚、幽默、外表整洁、共同话题——建立好感不是讨好，而是真实地展示你身上的优点。</li>
+        </ol>
+
+        <h3>8.3 识别人性中的阴暗面</h3>
+        <p>了解人性，不只是为了利用，更是为了保护自己。父亲要告诉你们，有些人会利用这些人性弱点来操控和欺骗。</p>
+
+        <div class="important-box fade-in">
+          <div class="imp-title">⚠️ 警惕以下模式——这通常是骗局或陷阱</div>
+          <p>承诺异常高回报（"月赚10万毫无风险"）；制造极度紧迫感（"现在不报名就没机会了"）；利用你对权威的服从（"某某专家推荐"）；用感情绑架你的决策（"都是兄弟，还不信我？"）；让你越陷越深无法退出（"都投了这么多了，再加一点就回本了"）。</p>
+        </div>
+
+        <h3>8.4 如何建立长久的关系</h3>
+        <p>无论是商业伙伴、客户还是朋友，长久关系的基础永远是：<strong>你给对方带来的价值，超过了你从对方那里得到的价值</strong>。这不是无私奉献，而是长远来看最聪明的策略。</p>
+        <p>父亲的人生经验：交朋友，先想着能为对方做什么，而不是对方能给你带来什么。这种思维，会让你的人脉越来越高质量，机会越来越多。</p>
+      </div>
+
+      <div class="chapter-end">
+        <div class="ornament-row">
+          <div class="ornament-line"></div>
+          <div class="ornament-dot"></div>
+          <div class="ornament-line"></div>
+        </div>
+        <span>第八章完</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 9: 技术与语言 -->
+  <section id="ch9" class="section">
+    <div class="content-wrapper">
+      <div class="chapter-header fade-in">
+        <span class="chapter-num">第 九 章</span>
+        <h2 class="chapter-title">技术与语言——打开更大世界的钥匙</h2>
+        <p class="chapter-intro">技术是力量的倍增器，语言是世界的边界。掌握了它们，你们能到达的地方，将远超父亲所能想象的范围。</p>
+      </div>
+
+      <div class="prose">
+        <h3>9.1 为什么你们必须懂技术</h3>
+        <p>我们正处于一场不亚于工业革命的技术变革之中。人工智能、物联网、区块链、生物技术——这些技术正在重塑每一个行业。</p>
+        <p>父亲不要求你们成为程序员，但你们需要懂得<em>如何使用技术</em>，懂得<em>技术的逻辑和边界</em>，以及<em>如何让技术为你服务</em>。不懂技术的人，在未来会处于巨大的劣势，就像一百年前不识字的人一样。</p>
+
+        <div class="highlight-box fade-in">
+          <div class="box-title"><span class="icon">💻</span>你们这代人必须掌握的技术能力</div>
+          <p><strong>① 基础数字素养：</strong>理解数据、会用数据分析工具、能读懂基本的图表和统计结论。数据是未来所有决策的基础。</p>
+          <p><strong>② AI工具的使用：</strong>ChatGPT、Claude等AI工具，是新时代的"超级助手"。学会用AI做研究、写作、编程、创意——能放大你10倍的生产力。</p>
+          <p><strong>③ 基础编程思维：</strong>不一定要写代码，但要理解程序化思维：分解问题、设计流程、发现规律、自动化重复工作。这种思维在任何领域都有价值。</p>
+          <p><strong>④ 网络与内容创作：</strong>理解互联网的传播逻辑，会制作和传播内容，会建立个人品牌和流量池。在数字时代，影响力就是资产。</p>
+        </div>
+
+        <h3>9.2 语言——思维的边界</h3>
+        <p>哲学家维特根斯坦说过："我的语言的界限，就是我的世界的界限。"这句话是真的。你掌握几种语言，你就拥有几个视角来看待这个世界。</p>
+
+        <p>父亲对你们的期望：</p>
+        <ul class="bullet-list fade-in">
+          <li><strong>中文（普通话）：</strong>你们的母语，14亿人的市场，全球最大的中文内容生态。你们天生占有这个优势，要把它用好。</li>
+          <li><strong>英文：</strong>全球商业语言，科技前沿的默认语言，获取世界顶级信息的钥匙。英文不好，你们就等于被挡在全球90%的信息资源之外。这是父亲最希望你们从小就认真学习的技能。</li>
+          <li><strong>第三种语言（可选）：</strong>西班牙语（5亿人说）、阿拉伯语（4亿人）、日语（日本市场）——根据你们的兴趣和目标来选择。每多一种语言，就多一个维度的商业和文化机会。</li>
+          <li><strong>编程语言：</strong>Python是目前最适合入门、最通用的编程语言。学会Python，能自动化大量重复工作，也能进入数据科学和AI领域的大门。</li>
+        </ul>
+
+        <h3>9.3 AI时代的生存法则</h3>
+        <p>父亲写这份文字的时代，人工智能正在以惊人的速度改变一切。以下是父亲对AI时代的判断：</p>
+
+        <div class="card-grid fade-in">
+          <div class="info-card">
+            <span class="card-icon">🔮</span>
+            <div class="card-label">AI时代原则一</div>
+            <div class="card-title">人机协作，而非人机对抗</div>
+            <div class="card-desc">AI不会取代所有人，但会取代那些不懂得使用AI的人。学会把AI当作搭档，让它处理你不擅长的、重复的部分，你专注于需要创造力和判断力的部分。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🎨</span>
+            <div class="card-label">AI时代原则二</div>
+            <div class="card-title">创造力与判断力是护城河</div>
+            <div class="card-desc">AI能模仿，但难以真正创造。跨领域的洞察、情感的表达、道德的判断、人与人之间的真实连接——这些是未来最难被替代的能力。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🌀</span>
+            <div class="card-label">AI时代原则三</div>
+            <div class="card-title">持续学习是唯一出路</div>
+            <div class="card-desc">AI时代，知识的更新速度将远超以往任何时代。一个停止学习的人，会在几年内彻底落伍。把"终身学习"内化为生活习惯，而不是偶尔的行动。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter-end">
+        <div class="ornament-row">
+          <div class="ornament-line"></div>
+          <div class="ornament-dot"></div>
+          <div class="ornament-line"></div>
+        </div>
+        <span>第九章完</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 10: 人生实战建议 -->
+  <section id="ch10" class="section">
+    <div class="content-wrapper">
+      <div class="chapter-header fade-in">
+        <span class="chapter-num">第 十 章</span>
+        <h2 class="chapter-title">人生实战建议——可以马上开始做的事</h2>
+        <p class="chapter-intro">理论是地图，行动才是旅途。父亲把所有道理浓缩成你们可以立刻开始实践的具体建议。</p>
+      </div>
+
+      <div class="prose">
+        <h3>10.1 十岁之前应该做的事</h3>
+
+        <div class="timeline fade-in">
+          <div class="timeline-item">
+            <div class="time-tag">习惯</div>
+            <div class="time-title">养成每天阅读的习惯</div>
+            <div class="time-desc">不只是教科书，要读各种书：科学、历史、传记、商业故事。书是人类智慧的压缩包，每本好书都是一位导师。每天阅读30分钟，坚持十年，认知将远超同龄人。</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-tag">技能</div>
+            <div class="time-title">认真学英语，当作第二母语</div>
+            <div class="time-desc">把英文当作娱乐工具来用：看英文动画、玩英文游戏、看英文电影。当语言变成娱乐，学习就不再是负担。越早开始，成本越低，回报越高。</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-tag">习惯</div>
+            <div class="time-title">学会记账和管理零花钱</div>
+            <div class="time-desc">哪怕只有10元零花钱，也要学会分配：一部分储蓄，一部分投资（买本书），一部分消费。财商从小事开始培养，长大后才不会因为钱的问题慌乱。</div>
+          </div>
+          <div class="timeline-item">
+            <div class="time-tag">精神</div>
+            <div class="time-title">保持好奇心，什么都要问"为什么"</div>
+            <div class="time-desc">孩子天生的好奇心，是成年后创造力的种子。不要让应试教育扼杀了你的好奇心。任何事情都可以多问一个"为什么"——这是所有创新和发现的起点。</div>
+          </div>
+        </div>
+
+        <h3>10.2 十八岁时应该做的决策</h3>
+
+        <div class="highlight-box fade-in">
+          <div class="box-title"><span class="icon">🎓</span>关于大学和专业的选择</div>
+          <p>读大学是有价值的，但选什么专业，比去哪所学校更重要。选择一个你真正有兴趣、且市场需求大、未来趋势向好的方向。不要只看当下热门，要看五到十年后的趋势。</p>
+          <p>父亲建议：如果可以，选择交叉学科方向（比如"技术+商业"，"生物+数据"，"法律+金融"）。复合型人才往往比单一专才更有不可替代性，也更能找到独特的价值差。</p>
+          <p>最重要的是：大学四年，一定要实习，一定要创业实验（哪怕很小），一定要建立你的第一批真实人脉，一定要开始你的第一笔投资。这些比成绩更重要。</p>
+        </div>
+
+        <h3>10.3 二十岁代应该建立的系统</h3>
+
+        <ol class="num-list fade-in">
+          <li><strong>建立个人品牌：</strong>在你擅长的领域开始输出内容——写文章、做视频、开播客。哪怕一开始没有人看，坚持三年，你会建立起独特的个人品牌。个人品牌是你最稳固的资产之一。</li>
+          <li><strong>建立第一个被动收入：</strong>哪怕每月只有100元，也要开始。一个网络课程、一篇付费文章、一个小工具的授权费——在你睡觉的时候为你赚钱，是你财务独立的第一步。</li>
+          <li><strong>建立你的人脉核心圈：</strong>寻找比你优秀的人，向他们学习。真诚地帮助他们，而不是只想着从他们身上得到什么。好的人脉，靠给予，而非索取。</li>
+          <li><strong>开始第一次创业实验：</strong>不需要辞职，利用业余时间。做一个小产品、提供一种服务、解决一个你发现的真实问题。失败了也没关系，学到的东西无价。</li>
+          <li><strong>开始定投指数基金：</strong>每月拿出收入的10~20%，坚持定投。不要等到有钱了再开始，从第一份工资就开始。时间才是你最大的优势。</li>
+        </ol>
+
+        <h3>10.4 永远遵循的人生原则</h3>
+
+        <div class="card-grid fade-in">
+          <div class="info-card">
+            <span class="card-icon">⚡</span>
+            <div class="card-label">原则一</div>
+            <div class="card-title">行动胜于一切</div>
+            <div class="card-desc">世界上最遥远的距离，不是南极到北极，而是"知道"和"做到"之间的距离。不完美的行动，永远胜过完美的计划。先动起来，在行动中迭代。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🧭</span>
+            <div class="card-label">原则二</div>
+            <div class="card-title">诚信是最大的资产</div>
+            <div class="card-desc">在任何短期利益的诱惑面前，守住诚信。一个不诚信的人，也许能赚到第一桶金，但绝对建不起可持续的事业。信任一旦失去，极难恢复。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🌱</span>
+            <div class="card-label">原则三</div>
+            <div class="card-title">照顾好自己的身体</div>
+            <div class="card-desc">健康是所有财富的基础。没有健康，一切都是零。规律作息、保持运动、管理压力、定期体检。父亲的前车之鉴：不要等到生病了才知道健康的可贵。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🎭</span>
+            <div class="card-label">原则四</div>
+            <div class="card-title">选择你的配偶要慎重</div>
+            <div class="card-desc">一个伴侣，要么让你飞得更高，要么让你困在原地。选择一个和你有共同价值观、愿意共同成长、在困难时不会拖后腿的人。这个决定影响你一生的质量。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">🔥</span>
+            <div class="card-label">原则五</div>
+            <div class="card-title">学会享受过程，而非只看结果</div>
+            <div class="card-desc">赚到钱不等于幸福。如果你在赚钱的路上已经累垮了，那钱又有什么意义？选择一条你热爱的路，过程本身就是奖励。</div>
+          </div>
+          <div class="info-card">
+            <span class="card-icon">💞</span>
+            <div class="card-label">原则六</div>
+            <div class="card-title">善待家人，回报社会</div>
+            <div class="card-desc">当你有能力了，不要忘记你的母亲，不要忘记那些帮助过你的人，不要忘记比你更需要帮助的人。财富的意义，在于让更多人的生活变好。</div>
+          </div>
+        </div>
+
+        <h3>10.5 父亲送给你们的座右铭</h3>
+        <div class="quote-block fade-in">
+          <p>看清世界，而不愤世；懂得人性，而不玩弄人性；利用规律，而不破坏规则；追求财富，而不被财富奴役。用你的智慧和努力，过一个你自己设计的人生。</p>
+          <cite>— 父亲，写于最想陪伴你们的夜晚</cite>
+        </div>
+      </div>
+
+      <div class="chapter-end">
+        <div class="ornament-row">
+          <div class="ornament-line"></div>
+          <div class="ornament-dot"></div>
+          <div class="ornament-line"></div>
+        </div>
+        <span>第十章完</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- EPILOGUE -->
+  <section id="epilogue" class="section">
+    <div class="content-wrapper">
+      <div class="chapter-header fade-in">
+        <span class="chapter-num">后 记</span>
+        <h2 class="chapter-title">父亲最后想说的话</h2>
+        <p class="chapter-intro">无论你们读到这里时是多大，我都希望你们知道……</p>
+      </div>
+
+      <div class="letter-block fade-in">
+        <p>大宝，小宝，此刻你们或许已经长大了，或许经历了很多父亲未曾见证的事情。父亲不知道你们现在站在哪里，是顺风顺水，还是正处于困境之中。但无论是哪种情况，我都希望你们记得：</p>
+        <p><strong>你们并不孤单。</strong>父亲虽然不在了，但我写下的这些文字，是我对这个世界数十年观察和思考的结晶，它永远在你们身边。每当你们迷失方向的时候，回来读一读，也许能找到一些指引。</p>
+        <p>我最大的遗憾，可能是没有陪伴你们更久。但我最大的希望，是你们能用你们的一生，证明一件事：<em>出身不是命运，认知才是命运</em>。一个来自普通家庭的孩子，只要她愿意看清世界的真相，愿意打破自己的精神枷锁，愿意勇敢地行动，就完全可以创造属于自己的精彩人生。</p>
+        <p>我没能给你们留下万贯家财，但我把我所知道的最宝贵的东西——看世界的眼光、赚钱的逻辑、做人的原则——全部写在了这里。如果你们能认真领会其中的十分之一，并付诸实践，父亲就已经给你们留下了最丰厚的遗产。</p>
+        <p>照顾好你们的妈妈。她一个人把你们拉扯大，吃了很多苦。当你们有能力了，让她过上轻松的生活，是你们对她最好的报答，也是对父亲最好的告慰。</p>
+        <p>最后，不管你们走到哪里，不管取得了什么成就，请记住：你们是父亲这一生最骄傲、最深爱的礼物。父亲爱你们，超过这世间一切。</p>
+        <div class="letter-signature">你们永远的父亲<br>谨以此文，献给我的两个宝贝</div>
+      </div>
+
+      <div class="section-divider">
+        <div class="section-divider-line"></div>
+        <div class="section-divider-text">全文完</div>
+        <div class="section-divider-line"></div>
+      </div>
+
+      <div class="highlight-box fade-in">
+        <div class="box-title"><span class="icon">📖</span>推荐你们一生必读的书</div>
+        <p><strong>关于财富思维：</strong>《穷爸爸富爸爸》（罗伯特·清崎）、《纳瓦尔宝典》（纳瓦尔·拉维坎特）、《巴菲特致股东信》</p>
+        <p><strong>关于经济与投资：</strong>《聪明的投资者》（本杰明·格雷厄姆）、《漫步华尔街》（伯顿·墨基尔）、《经济学原理》（曼昆）</p>
+        <p><strong>关于人性与心理：</strong>《影响力》（罗伯特·西奥迪尼）、《思考，快与慢》（丹尼尔·卡尼曼）、《人性的弱点》（戴尔·卡内基）</p>
+        <p><strong>关于人生智慧：</strong>《沉思录》（马可·奥勒留）、《道德经》（老子）、《论语》（孔子）——这三本书，读透任何一本，都足够受益终身。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer" class="content-wrapper">
+    <div class="footer-title">💛 父亲的遗嘱 · 永不褪色</div>
+    <p class="footer-sub">这份文字，是一位父亲对孩子最深的爱。<br>愿你们每一次阅读，都能感受到那份穿越时间的温暖与力量。<br>好好生活，勇敢追梦，做自己人生的主人。</p>
+  </footer>
+
+</main>
+
+<script>
+(function() {
+  // STAR CANVAS
+  const canvas = document.getElementById('star-canvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  let W, H;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function createStars() {
+    stars = [];
+    const count = Math.floor((W * H) / 6000);
+    for (let i = 0; i < count; i++) {
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 1.2 + 0.2,
+        a: Math.random(),
+        speed: Math.random() * 0.004 + 0.001,
+        phase: Math.random() * Math.PI * 2
+      });
+    }
+  }
+
+  function drawStars(t) {
+    ctx.clearRect(0, 0, W, H);
+    stars.forEach(function(s) {
+      const alpha = (Math.sin(t * s.speed + s.phase) + 1) / 2 * 0.7 + 0.1;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(201, 168, 76, ' + (alpha * s.a) + ')';
+      ctx.fill();
+    });
+  }
+
+  let animT = 0;
+  function tick() {
+    animT += 16;
+    drawStars(animT);
+    requestAnimationFrame(tick);
+  }
+
+  resize();
+  createStars();
+  tick();
+  window.addEventListener('resize', function() { resize(); createStars(); });
+
+  // PROGRESS BAR
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.scrollY;
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (scrollTop / docH * 100) + '%';
+  });
+
+  // TOC ACTIVE STATE
+  const tocItems = document.querySelectorAll('.toc-item');
+  const sections = document.querySelectorAll('section[id], footer[id]');
+
+  function updateTOC() {
+    let current = '';
+    const scrollY = window.scrollY + 120;
+    sections.forEach(function(sec) {
+      if (sec.offsetTop <= scrollY) {
+        current = '#' + sec.id;
+      }
+    });
+    tocItems.forEach(function(item) {
+      item.classList.toggle('active', item.getAttribute('href') === current);
+    });
+  }
+
+  window.addEventListener('scroll', updateTOC);
+  updateTOC();
+
+  // FADE IN OBSERVER
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  fadeEls.forEach(function(el) { observer.observe(el); });
+
+  // MOBILE MENU
+  const menuToggle = document.getElementById('menu-toggle');
+  const tocSidebar = document.getElementById('toc-sidebar');
+  const tocOverlay = document.getElementById('toc-overlay');
+
+  function openMenu() {
+    tocSidebar.classList.add('open');
+    tocOverlay.classList.add('visible');
+  }
+
+  function closeMenu() {
+    tocSidebar.classList.remove('open');
+    tocOverlay.classList.remove('visible');
+  }
+
+  menuToggle.addEventListener('click', function() {
+    tocSidebar.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  tocOverlay.addEventListener('click', closeMenu);
+
+  tocItems.forEach(function(item) {
+    item.addEventListener('click', function() {
+      if (window.innerWidth <= 1100) closeMenu();
+    });
+  });
+
+  // MENU TOGGLE ANIMATION
+  menuToggle.addEventListener('click', function() {
+    const spans = menuToggle.querySelectorAll('span');
+    const isOpen = tocSidebar.classList.contains('open');
+    if (isOpen) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+    } else {
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '';
+      spans[2].style.transform = '';
+    }
+  });
+
+  // SMOOTH SCROLL FOR ALL ANCHOR LINKS
+  document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 64;
+        window.scrollTo({ top: target.offsetTop - navH, behavior: 'smooth' });
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>

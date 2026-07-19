@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【周正斌商业】· 商业大脑终极渲染引擎 V6.0</title>
+
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=ZCOOL+XiaoWei&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           01. 全局顶级变量 (全部可通过 UI 动态重写)
+           ========================================================================== */
+        :root {
+            --c-bg: #050812;           
+            --c-gold: #FACC6B;         
+            --c-teal: #00E5FF;         
+            --c-coral: #FF6B6B;        
+            --c-blue: #4DABF7;         
+            --c-purple: #B197FC;       
+            --c-text: #F8F9FA;         
+            
+            --mask-op: 0.65;           
+            --bass-scale: 1;           
+            --shadow-deep: rgba(5, 12, 25, 0.95);
+
+            /* 高级排版自定义坐标 */
+            --pos-logo-t: 22px;
+            --pos-logo-r: 20px;
+            --pos-title-t: 85px;
+            --pos-chart-bg: rgba(255,255,255,0.05); /* 矢量图遮罩默认色 */
+            --pos-sub-b: 65px; /* 字幕离底部距离 */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%; height: 100%; overflow: hidden;
+            background: #020408; display: flex; align-items: center; justify-content: center;
+            font-family: 'Noto Serif SC', 'ZCOOL XiaoWei', serif; -webkit-font-smoothing: antialiased;
+        }
+
+        /* ==========================================================================
+           02. 9:16 满屏防挤压物理舞台 
+           ========================================================================== */
+        #stage {
+            position: relative; overflow: hidden; background: var(--c-bg);
+            width: 100vw; height: calc(100vw * 16 / 9);
+            max-height: 100dvh; max-width: calc(100dvh * 9 / 16);
+            flex-shrink: 0; box-shadow: 0 0 50px rgba(0, 229, 255, 0.15);
+        }
+        #stage.is-rendering .console { display: none !important; }
+
+        /* H5 全屏动态粒子/视觉层 */
+        #fx-canvas { position: absolute; inset: 0; z-index: 1; opacity: 0.85; pointer-events: none; mix-blend-mode: screen; }
+
+        /* ==========================================================================
+           03. 智能视频底层 
+           ========================================================================== */
+        #media-layer { position: absolute; inset: 0; z-index: 0; }
+        .media-container { position: absolute; inset: 0; opacity: 0; visibility: hidden; z-index: 1; }
+        .media-container.active { opacity: 1; visibility: visible; z-index: 2; }
+        
+        .local-media {
+            position: absolute; inset: 0; width: 100%; height: 100%; 
+            object-fit: cover; object-position: center; opacity: 0; 
+            transform: scale(calc(1.02 + (var(--bass-scale) - 1) * 0.08));
+            transition: opacity 0.8s ease-in-out, transform 0.1s linear;
+        }
+        .local-media.show { opacity: 1; }
+
+        #cinematic-veil {
+            position: absolute; inset: 0; z-index: 3; pointer-events: none;
+            background: linear-gradient(to bottom, rgba(5,10,20,0.85) 0%, rgba(5,10,20,0.2) 30%, rgba(5,10,20,0.1) 50%, rgba(5,10,20,0.95) 100%);
+            opacity: var(--mask-op); transition: opacity 0.3s;
+        }
+
+        /* 动态定制 Logo */
+        .cyber-watermark {
+            position: absolute; top: var(--pos-logo-t); right: var(--pos-logo-r); z-index: 99; 
+            font-size: 15px; font-weight: 900; letter-spacing: 2px;
+            color: var(--c-gold); background: rgba(5, 10, 20, 0.5);
+            padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(250, 204, 107, 0.4);
+            text-shadow: 0 2px 8px var(--shadow-deep), 0 0 15px var(--c-gold);
+            backdrop-filter: blur(8px); transition: all 0.3s ease;
+        }
+        /* Logo 动画预设 */
+        .cyber-watermark.anim-float { animation: float 3s ease-in-out infinite; }
+        .cyber-watermark.anim-breathe { animation: breathe 2s infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes breathe { 0%, 100% { box-shadow: 0 0 10px var(--c-gold); } 50% { box-shadow: 0 0 25px var(--c-gold), 0 0 10px #FFF; } }
+
+        /* ==========================================================================
+           04. 3D 浮雕与排版系统 (楚河汉界，防重叠)
+           ========================================================================== */
+        #scenes { position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column;}
+        
+        .scene {
+            position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center;
+            padding: var(--pos-title-t) 24px calc(var(--pos-sub-b) + 90px); 
+            justify-content: flex-start; opacity: 0; pointer-events: none;
+        }
+        .scene.active { opacity: 1; pointer-events: auto; }
+
+        .s-tag {
+            font-size: 15px; font-weight: 900; letter-spacing: 3px; color: var(--c-teal); margin-bottom: 12px; opacity: 0;
+            text-shadow: 0 2px 5px var(--shadow-deep), 0 0 15px var(--c-teal); border-bottom: 2px solid var(--c-teal); padding-bottom: 4px;
+        }
+        
+        .s-title {
+            font-size: 36px; font-weight: 900; text-align: center; line-height: 1.35;
+            color: var(--c-text); letter-spacing: 2px; margin-bottom: 15px; opacity: 0;
+            text-shadow: 0 3px 10px var(--shadow-deep), 0 0 15px rgba(255,255,255,0.3);
+        }
+        .s-title .hl { color: var(--c-gold); font-size: 42px; display: inline-block; text-shadow: 0 4px 15px var(--shadow-deep), 0 0 30px var(--c-gold); }
+        .s-title .hl-teal { color: var(--c-teal); text-shadow: 0 4px 15px var(--shadow-deep), 0 0 30px var(--c-teal); }
+        .s-title .hl-coral { color: var(--c-coral); text-shadow: 0 4px 15px var(--shadow-deep), 0 0 30px var(--c-coral); }
+
+        /* 图表容器底色由 --pos-chart-bg 控制 */
+        .chart-box { 
+            width: 100%; height: 250px; position: relative; opacity: 0; margin-top: auto; 
+            background: var(--pos-chart-bg); border-radius: 16px; backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 15px 35px var(--shadow-deep);
+        }
+
+        .glass-panel {
+            width: 100%; background: var(--pos-chart-bg); border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(12px); border-radius: 16px; padding: 20px; opacity: 0; 
+            margin-top: auto; box-shadow: 0 15px 35px var(--shadow-deep);
+        }
+
+        /* 纯CSS高级矩阵与列表组件 */
+        .grid-matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; height: 100%; }
+        .matrix-cell { background: rgba(0,0,0,0.5); border: 1px solid var(--c-teal); border-radius: 10px; padding: 12px; text-align: center; display: flex; flex-direction: column; justify-content: center; box-shadow: inset 0 0 20px rgba(0,229,255,0.15), 0 5px 15px rgba(0,0,0,0.5);}
+        .matrix-cell.dim { border-color: var(--c-coral); box-shadow: inset 0 0 20px rgba(255,107,107,0.15), 0 5px 15px rgba(0,0,0,0.5);}
+        .mc-title { font-size: 18px; font-weight: 900; color: var(--c-teal); margin-bottom: 6px; text-shadow: 0 2px 5px var(--shadow-deep);}
+        .mc-desc { font-size: 13px; color: #EEE; font-weight: bold; line-height: 1.4; }
+
+        .time-line { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+        .tl-item { display: flex; align-items: center; gap: 12px; }
+        .tl-time { font-size: 18px; font-weight: 900; color: var(--c-gold); min-width: 60px; text-shadow: 0 2px 8px var(--shadow-deep); }
+        .tl-content { flex: 1; font-size: 15px; font-weight: bold; color: #FFF; background: linear-gradient(90deg, rgba(250,204,107,0.25), transparent); padding: 8px 12px; border-left: 4px solid var(--c-gold); border-radius: 6px; text-shadow: 0 2px 5px var(--shadow-deep);}
+
+        .laws-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; }
+        .law-item { background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(0,0,0,0.4)); border: 1px solid rgba(0,229,255,0.2); border-radius: 6px; padding: 8px 4px; text-align: center; color: #FFF; font-size: 12px; font-weight: 900; box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; line-height: 1.2;}
+
+        /* ==========================================================================
+           05. 顶级KTV字幕系统 (绝对安全区)
+           ========================================================================== */
+        #sub-layer {
+            position: absolute; bottom: var(--pos-sub-b); left: 0; right: 0; z-index: 50;
+            display: flex; justify-content: center; padding: 0 20px; pointer-events: none;
+        }
+        #sub-box { text-align: center; width: 100%; opacity: 0; transform: translateY(15px); transition: all 0.3s; }
+        #sub-box.on { opacity: 1; transform: translateY(0); }
+        .sc { 
+            font-size: 22px; font-weight: 900; color: #FFF; line-height: 1.5;
+            display: inline-block; opacity: 0; transform: translateY(6px); letter-spacing: 2px;
+            text-shadow: 0 2px 6px rgba(5,10,20,0.95), 0 0 15px rgba(0,229,255,0.6); transition: 0.12s;
+        }
+        .sc.in { opacity: 1; transform: translateY(0); }
+        .sc.lit { color: var(--c-gold); text-shadow: 0 0 30px var(--c-gold), 0 3px 8px var(--shadow-deep); transform: scale(1.08); }
+
+        /* ==========================================================================
+           06. 精致扁平化底部播控台 (包含前进后退)
+           ========================================================================== */
+        .console {
+            position: absolute; bottom: 0; left: 0; width: 100%; z-index: 100;
+            padding: 0 0 8px; background: linear-gradient(to top, rgba(2,4,8,0.98), transparent);
+        }
+        .tl-bar { width: 100%; height: 3px; display: flex; margin-bottom: 8px; background: rgba(255,255,255,0.1); }
+        .tl-seg { flex: 1; height: 100%; position: relative; border-right: 1px solid rgba(0,0,0,0.9); }
+        .tl-fill { position: absolute; left:0; top:0; height: 100%; width: 0%; background: linear-gradient(90deg, var(--c-teal), var(--c-gold)); box-shadow: 0 0 10px var(--c-gold); }
+        
+        .ctrl-row { display: flex; justify-content: space-between; align-items: center; padding: 0 12px; }
+        
+        .btn-group { display: flex; gap: 6px; }
+        .btn {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(0,229,255,0.3); color: var(--c-text);
+            height: 28px; padding: 0 12px; border-radius: 14px; font-size: 12px; font-weight: bold;
+            cursor: pointer; backdrop-filter: blur(5px); transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 4px;
+        }
+        .btn:hover { background: rgba(0,229,255,0.15); border-color: var(--c-teal); color: var(--c-teal); }
+        .btn:active { transform: scale(0.92); }
+        .btn.primary { background: linear-gradient(135deg, var(--c-teal), #0088FF); color: #000; border: none; box-shadow: 0 0 15px rgba(0,229,255,0.4); font-weight: 900;}
+
+        /* ==========================================================================
+           07. 全能配置控制台 Modal (分类折叠，避免视觉疲劳)
+           ========================================================================== */
+        .modal { position: absolute; inset: 0; background: rgba(2,4,8,0.95); backdrop-filter: blur(15px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 10px; }
+        .modal.on { display: flex; }
+        .m-panel { width: 100%; max-height: 95vh; background: #0A111C; border: 1px solid rgba(0,229,255,0.4); border-radius: 12px; padding: 20px 15px; overflow-y: auto; color: #FFF; box-shadow: 0 25px 60px rgba(0,0,0,0.95); }
+        .m-title { font-size: 18px; font-weight: 900; color: var(--c-gold); text-align: center; margin-bottom: 20px; letter-spacing: 1px; }
+
+        .cfg-grp { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+        .cfg-head { font-size: 13px; font-weight: 900; color: var(--c-teal); margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px;}
+        
+        .file-box { background: rgba(0,0,0,0.4); padding: 10px; border-radius: 6px; border: 1px dashed rgba(255,255,255,0.15); margin-bottom:8px;}
+        .file-box input[type="file"] { font-size: 12px; color: var(--c-text); width: 100%; }
+        .status-badge { display: inline-block; margin-top: 8px; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; background: rgba(255,255,255,0.1); color: #CCC; }
+        .status-badge.ok { background: rgba(0,229,255,0.15); color: var(--c-teal); border: 1px solid rgba(0,229,255,0.3); }
+
+        .bgm-controls { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+        .bgm-select { flex: 1; min-width: 120px; background: rgba(0,0,0,0.6); border: 1px solid var(--c-teal); color: #FFF; padding: 6px; border-radius: 4px; font-size:12px; font-weight: bold; }
+        .btn-small { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #FFF; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn-small:hover { background: rgba(255,255,255,0.2); }
+        .btn-small.active { background: rgba(250,204,107,0.2); border-color: var(--c-gold); color: var(--c-gold); }
+
+        .fx-select, .color-picker { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid var(--c-purple); color: #FFF; padding: 8px; border-radius: 4px; font-weight: bold; font-size: 12px; margin-bottom: 8px;}
+
+        .ctrl-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; font-size: 12px; font-weight: bold; color: #CCC; }
+        input[type="range"] { flex: 1; margin: 0 10px; accent-color: var(--c-teal); height:4px;}
+        input[type="text"] { background: rgba(0,0,0,0.5); border:1px solid #555; color:#FFF; padding:4px 8px; border-radius:4px; font-size:12px; width:80px;}
+
+        /* 分镜替换区域小巧化 */
+        .scene-row { display: flex; flex-direction: column; gap: 6px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .scene-row-top { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: bold; }
+        .btn-replace { background: rgba(255,107,107,0.15); border: 1px solid var(--c-coral); color: var(--c-coral); border-radius: 4px; padding: 4px 8px; font-size: 11px; cursor: pointer; transition: 0.2s; font-weight:bold;}
+
+        .render-ring { width: 60px; height: 60px; border: 4px solid rgba(0,229,255,0.1); border-top-color: var(--c-teal); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div id="stage">
+    <canvas id="fx-canvas"></canvas>
+    
+    <div id="media-layer"></div>
+    <div id="cinematic-veil"></div>
+    
+    <div class="cyber-watermark" id="watermark-el">【周正斌商业】</div>
+
+    <div id="scenes">
+        <div class="scene" id="s0" data-dur="9" data-pex="asian business thinking OR confused office" data-sub="为什么95%的人拼命工作，却永远赚不到大钱？因为你的认知系统从根上就错了！">
+            <div class="s-tag">核心痛点 · 认知系统</div>
+            <h1 class="s-title">三大<br><span class="hl-coral">认知谬误</span></h1>
+            <div class="chart-box" id="chart-problem"></div>
+        </div>
+
+        <div class="scene" id="s1" data-dur="10" data-pex="asian successful entrepreneur strategy" data-sub="所有赚钱的逻辑，最终都会收敛到商业的三大本质。第一：人性洞察。">
+            <div class="s-tag">底层逻辑 · 商业三大本质</div>
+            <h1 class="s-title">赚钱逻辑<br><span class="hl">最终收敛于此</span></h1>
+            <div class="chart-box" id="chart-pillars"></div>
+        </div>
+
+        <div class="scene" id="s2" data-dur="11" data-pex="asian executive working office" data-sub="每天睁开眼先问自己：这事该我做吗？这就是顶级大佬的‘精力分配矩阵’！">
+            <div class="s-tag">精力管理 · 分配法则</div>
+            <h1 class="s-title">黄金4小时<br><span class="hl-teal">精力分配矩阵</span></h1>
+            <div class="glass-panel" style="padding:12px;">
+                <div class="grid-matrix">
+                    <div class="matrix-cell"><div class="mc-title">亲自深做</div><div class="mc-desc">找方向 搞人脉</div></div>
+                    <div class="matrix-cell dim"><div class="mc-title" style="color:var(--c-blue);">外包做</div><div class="mc-desc">低于500元时薪</div></div>
+                    <div class="matrix-cell dim"><div class="mc-title" style="color:var(--c-purple);">机器做</div><div class="mc-desc">发邮件 做监控</div></div>
+                    <div class="matrix-cell dim"><div class="mc-title" style="color:var(--c-coral);">直接扔</div><div class="mc-desc">饭局 完美主义</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scene" id="s3" data-dur="10" data-pex="asian startup success finance" data-sub="穷人靠出卖劳动，而老板，全靠这五大杠杆！第一，人力杠杆...">
+            <div class="s-tag">财富杠杆 · 富人的秘密</div>
+            <h1 class="s-title">穷人靠劳动<br><span class="hl">老板靠五大杠杆</span></h1>
+            <div class="chart-box" id="chart-leverage"></div>
+        </div>
+
+        <div class="scene" id="s4" data-dur="12" data-pex="asian consumer shopping online luxury" data-sub="到底什么能让人乖乖掏钱？答案就藏在这七大人性密码里！第一是恐惧...">
+            <div class="s-tag">人性规律 · 七大密码</div>
+            <h1 class="s-title">人为什么花钱<br><span class="hl-teal">情绪驱动力</span></h1>
+            <div class="chart-box" id="chart-human"></div>
+        </div>
+
+        <div class="scene" id="s5" data-dur="10" data-pex="asian business meeting handshake" data-sub="从零到大佬，这六步执行路径请死死记住！第一步，找痛点。第二步先卖出去...">
+            <div class="s-tag">执行路径 · 破局前三步</div>
+            <h1 class="s-title">先卖出去<br><span class="hl">再做产品</span></h1>
+            <div class="chart-box" id="chart-roadmap1"></div>
+        </div>
+
+        <div class="scene" id="s6" data-dur="10" data-pex="asian investors success platform" data-sub="第四步系统化，把经验变成标准流程。第五步叠加杠杆。最后成为做局者！">
+            <div class="s-tag">跃迁路径 · 成为做局者</div>
+            <h1 class="s-title">系统化运转<br><span class="hl-teal">真正的降维打击</span></h1>
+            <div class="chart-box" id="chart-roadmap2"></div>
+        </div>
+        
+        <div class="scene" id="s7" data-dur="11" data-pex="asian successful luxury city day" data-sub="大佬的一天是怎么过的？早晨6点起床绝对不看手机...">
+            <div class="s-tag">时间框架 · 大佬的一天</div>
+            <h1 class="s-title">顶级效率<br><span class="hl">抛弃打工者思维</span></h1>
+            <div class="glass-panel">
+                <div class="time-line">
+                    <div class="tl-item"><div class="tl-time">早 06:00</div><div class="tl-content" style="border-color:var(--c-teal);">写下3件事，直接进入深度工作</div></div>
+                    <div class="tl-item"><div class="tl-time">午 14:00</div><div class="tl-content" style="border-color:var(--c-blue);">推进管理，搞定关键谈判</div></div>
+                    <div class="tl-item"><div class="tl-time">晚 20:00</div><div class="tl-content" style="border-color:var(--c-purple);">三分钟复盘，只学立刻能用的知识</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scene" id="s8" data-dur="11" data-pex="asian rich success skyline night" data-sub="最后，刻在骨子里的十二条铁律！一：需求永远优先；二：时间绝不贱卖...">
+            <div class="s-tag">核心信念 · 商业铁律</div>
+            <h1 class="s-title" style="font-size:34px;">重塑财富人生<br><span class="hl" style="font-size:42px;">十二条铁律</span></h1>
+            <div class="glass-panel" style="padding:10px;">
+                <div class="laws-grid">
+                    <div class="law-item">需求优先</div>
+                    <div class="law-item">时间绝不贱卖</div>
+                    <div class="law-item">关系最高回报</div>
+                    <div class="law-item">现金流大过利润</div>
+                    <div class="law-item">顺应趋势</div>
+                    <div class="law-item" style="color:var(--c-gold)">聚焦是最强武器</div>
+                    <div class="law-item" style="color:var(--c-teal)">系统胜意志力</div>
+                    <div class="law-item">定价决定客群</div>
+                    <div class="law-item">信息差就是钱</div>
+                    <div class="law-item">快速小失败</div>
+                    <div class="law-item">不让自己成瓶颈</div>
+                    <div class="law-item" style="color:var(--c-coral)">信任是一切基础</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sub-layer"><div id="sub-box"><span id="sub-txt"></span></div></div>
+
+    <div class="console">
+        <div class="tl-bar" id="ui-tl"></div>
+        <div class="ctrl-row">
+            <div class="btn-group">
+                <button class="btn" id="btn-prev" title="上一幕">⏮</button>
+                <button class="btn" id="btn-play">▶ 播放</button>
+                <button class="btn" id="btn-next" title="下一幕">⏭</button>
+                <button class="btn primary" id="btn-render">⏺ 渲染</button>
+            </div>
+            <div style="color:#FFF; font-family:'Oswald',sans-serif; font-size:13px; font-weight:bold; letter-spacing:1px;" id="ui-time">00:00/00:00</div>
+            <button class="btn" id="btn-cfg">⚙ 配置</button>
+        </div>
+    </div>
+</div>
+
+<audio id="sys-bgm" loop crossorigin="anonymous"></audio>
+<video id="cap-vid" muted playsinline style="position:fixed; top:-9999px; opacity:0; pointer-events:none;"></video>
+<canvas id="cap-cvs" style="display:none;"></canvas>
+
+<div class="modal" id="modal-cfg">
+    <div class="m-panel">
+        <div class="m-title">⚙️ 终极配置中控台 V6.0</div>
+        
+        <div class="cfg-grp">
+            <div class="cfg-head">🎙️ 1. 语音匹配与智能音色美化</div>
+            <div class="file-box"><input type="file" id="inp-audio" webkitdirectory directory multiple>
+                <div class="status-badge" id="stat-audio">状态：使用默认时长</div>
+            </div>
+            <select class="fx-select" id="sel-voice-fx">
+                <option value="normal">🎙️ 原声高保真 (直出)</option>
+                <option value="studio">🎧 顶级播音室 (增清晰/压底噪)</option>
+                <option value="radio">📻 磁性电台 (增低频/温暖男声)</option>
+                <option value="concert">🏟️ 演说家 (微空间混响/增强气场)</option>
+            </select>
+            <div class="ctrl-item"><span>主语音量: <span id="val-vox-vol">100%</span></span><input type="range" id="rg-vox-vol" min="0" max="1.5" step="0.05" value="1.0"></div>
+        </div>
+
+        <div class="cfg-grp">
+            <div class="cfg-head">🖼️ 2. 底层视频/图片打乱接力池</div>
+            <div class="file-box"><input type="file" id="inp-media" webkitdirectory directory multiple>
+                <div class="status-badge" id="stat-media">当前：调用 Pexels 高清库兜底</div>
+            </div>
+        </div>
+
+        <div class="cfg-grp">
+            <div class="cfg-head">🎵 3. BGM 文件夹多轨淡入淡出</div>
+            <div class="file-box">
+                <input type="file" id="inp-bgm" webkitdirectory directory multiple accept="audio/*">
+                <div class="status-badge" id="stat-bgm">状态：未上传 BGM 库</div>
+            </div>
+            <div class="bgm-controls">
+                <select class="bgm-select" id="sel-bgm-list"><option value="">-- 随机选择或人工挑选 --</option></select>
+                <button class="btn-small" id="btn-bgm-play">▶ 试听</button>
+                <button class="btn-small" id="btn-bgm-stop">⏹ 停止</button>
+                <button class="btn-small active" id="btn-bgm-rand">🔀 随机切歌</button>
+            </div>
+            <div class="ctrl-item" style="margin-top:8px;"><span>背景音乐音量: <span id="val-bgm-vol">15%</span></span><input type="range" id="rg-bgm-vol" min="0" max="1" step="0.01" value="0.15"></div>
+        </div>
+
+        <div class="cfg-grp">
+            <div class="cfg-head">🎨 4. 高级视觉与动态 H5 粒子</div>
+            <select class="fx-select" id="sel-h5-fx" style="border-color:var(--c-teal);">
+                <option value="tech">🌌 科技星轨连线 (推荐)</option>
+                <option value="code">💻 商业代码雨</option>
+                <option value="heart">💖 幻彩漂浮爱心</option>
+                <option value="none">❌ 无背景特效</option>
+            </select>
+            
+            <div class="ctrl-item" style="margin-top:8px;">
+                <span>矢量图遮罩底色 (默认半透):</span>
+                <input type="color" id="col-chart-bg" value="#ffffff" style="width:24px;height:24px;border:none;background:none;cursor:pointer;">
+            </div>
+            <div class="ctrl-item"><span>遮罩面板透明度: <span id="val-cbg-op">5%</span></span><input type="range" id="rg-cbg-op" min="0" max="1" step="0.01" value="0.05"></div>
+            <div class="ctrl-item"><span>底层暗角透明度 (0%为纯透明): <span id="val-mask">65%</span></span><input type="range" id="rg-mask" min="0" max="1" step="0.05" value="0.65"></div>
+        </div>
+
+        <div class="cfg-grp">
+            <div class="cfg-head">📐 5. 全局排版坐标精调与 Logo 定制</div>
+            <div class="ctrl-item"><span>右上角Logo文字: </span><input type="text" id="inp-logo-txt" value="【周正斌商业】"></div>
+            <select class="fx-select" id="sel-logo-anim" style="margin-bottom:8px; border-color:var(--c-gold);">
+                <option value="none">静止 Logo</option>
+                <option value="anim-float">🎈 悬浮动画</option>
+                <option value="anim-breathe">✨ 发光呼吸动画</option>
+            </select>
+            
+            <div class="ctrl-item"><span>Logo 距顶部 ( px ):</span><input type="range" id="rg-pos-lt" min="0" max="100" value="22"></div>
+            <div class="ctrl-item"><span>Logo 距右侧 ( px ):</span><input type="range" id="rg-pos-lr" min="0" max="100" value="20"></div>
+            <div class="ctrl-item"><span>大标题距顶部 ( px ):</span><input type="range" id="rg-pos-tt" min="20" max="200" value="85"></div>
+            <div class="ctrl-item"><span>字幕距底部界限 ( px ):</span><input type="range" id="rg-pos-sb" min="20" max="200" value="65"></div>
+        </div>
+
+        <div class="cfg-grp">
+            <div class="cfg-head">✂️ 6. 场景局部素材独立替换</div>
+            <div id="scene-list"></div>
+        </div>
+        <button class="btn primary" style="width:100%; height:40px; font-size:14px; margin-top:5px;" id="btn-save">✅ 应用配置并重启引擎</button>
+    </div>
+</div>
+
+<div class="modal" id="modal-render">
+    <div style="text-align:center;">
+        <div class="render-ring"></div>
+        <div style="color:var(--c-teal); font-weight:900; font-size:18px; margin-bottom:10px; text-shadow:0 0 15px rgba(0,229,255,0.6);" id="r-log">启动 WASM 硬件渲染...</div>
+        <div style="width:200px; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; margin:0 auto; overflow:hidden;">
+            <div id="r-bar" style="width:0%; height:100%; background:linear-gradient(90deg, var(--c-teal), var(--c-gold)); transition:0.2s;"></div>
+        </div>
+        <p style="color:#BBB; font-size:11px; margin-top:15px; font-weight:bold;">⚠️ 请务必选择【Chrome标签页】<br><span style="color:var(--c-gold);">且勾选【分享标签页中的音频】</span></p>
+    </div>
+</div>
+<input type="file" id="inp-replace" multiple style="display:none;" accept="video/*, image/*">
+
+<script>
+/**
+ * 模块1：H5 全屏动态视觉系统 (支持代码雨/科技星轨/彩色心)
+ */
+const FXCanvas = {
+    cvs: document.getElementById('fx-canvas'), ctx: null, 
+    mode: 'tech', nodes: [], w: 0, h: 0, raf: null,
+    
+    init() {
+        this.ctx = this.cvs.getContext('2d'); window.addEventListener('resize', ()=>this.resize()); this.resize();
+        this.resetNodes(); this.animate();
+    },
+    resize() { this.w = this.cvs.width = window.innerWidth; this.h = this.cvs.height = window.innerHeight; },
+    setMode(m) { this.mode = m; this.ctx.clearRect(0,0,this.w,this.h); this.resetNodes(); },
+    resetNodes() {
+        this.nodes = [];
+        if(this.mode === 'tech') { for(let i=0; i<35; i++) this.nodes.push({x: Math.random()*this.w, y: Math.random()*this.h, vx: (Math.random()-0.5)*1, vy: (Math.random()-0.5)*1, r: Math.random()*2+1}); }
+        else if(this.mode === 'heart') { for(let i=0; i<30; i++) this.nodes.push({x: Math.random()*this.w, y: Math.random()*this.h, s: Math.random()*1.5+0.5, vy: -(Math.random()*1+0.5), c: ['#FF6B6B','#FACC6B','#B197FC'][Math.floor(Math.random()*3)]}); }
+        else if(this.mode === 'code') { const cols = Math.floor(this.w/15); for(let i=0; i<cols; i++) this.nodes.push({x: i*15, y: Math.random()*this.h, s: Math.random()*2+2}); }
+    },
+    drawHeart(x, y, s, c) {
+        this.ctx.save(); this.ctx.translate(x,y); this.ctx.scale(s,s); this.ctx.beginPath(); this.ctx.fillStyle=c;
+        this.ctx.moveTo(0,0); this.ctx.bezierCurveTo(-5,-7.5, -7.5,-2.5, 0,5); this.ctx.bezierCurveTo(7.5,-2.5, 5,-7.5, 0,0); this.ctx.fill(); this.ctx.restore();
+    },
+    animate() {
+        this.raf = requestAnimationFrame(() => this.animate()); 
+        if(this.mode === 'none') { this.ctx.clearRect(0,0,this.w,this.h); return; }
+        
+        if(this.mode === 'code') {
+            this.ctx.fillStyle = 'rgba(2,4,8,0.1)'; this.ctx.fillRect(0,0,this.w,this.h);
+            this.ctx.fillStyle = '#00E5FF'; this.ctx.font = '12px monospace';
+            for(let i=0; i<this.nodes.length; i++) {
+                let p = this.nodes[i]; const txt = String.fromCharCode(0x30A0 + Math.random()*96);
+                this.ctx.fillText(txt, p.x, p.y); p.y += p.s; if(p.y > this.h && Math.random() > 0.95) p.y = 0;
+            }
+        } else {
+            this.ctx.clearRect(0,0,this.w,this.h);
+            for(let i=0; i<this.nodes.length; i++) {
+                let p = this.nodes[i];
+                if(this.mode === 'tech') {
+                    p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>this.w) p.vx*=-1; if(p.y<0||p.y>this.h) p.vy*=-1;
+                    this.ctx.beginPath(); this.ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); this.ctx.fillStyle = 'rgba(0, 229, 255, 0.4)'; this.ctx.fill();
+                    for(let j=i+1; j<this.nodes.length; j++) {
+                        let p2 = this.nodes[j], dist = Math.hypot(p.x-p2.x, p.y-p2.y);
+                        if(dist < 120) { this.ctx.beginPath(); this.ctx.moveTo(p.x, p.y); this.ctx.lineTo(p2.x, p2.y); this.ctx.strokeStyle = `rgba(250, 204, 107, ${0.2 - dist/600})`; this.ctx.lineWidth = 1; this.ctx.stroke(); }
+                    }
+                } else if (this.mode === 'heart') {
+                    p.y += p.vy; if(p.y < -20) { p.y = this.h+20; p.x = Math.random()*this.w; }
+                    this.drawHeart(p.x, p.y, p.s, p.c);
+                }
+            }
+        }
+    }
+};
+
+/**
+ * 模块2：Web Audio API 语音音色美化
+ */
+const VoiceFX = {
+    ctx: null, mainGain: null, compressor: null, filterLow: null, filterHigh: null, convolver: null,
+    init() {
+        if (this.ctx) return; const AudioContext = window.AudioContext || window.webkitAudioContext; this.ctx = new AudioContext();
+        this.mainGain = this.ctx.createGain(); this.mainGain.gain.value = 1.0;
+        this.compressor = this.ctx.createDynamicsCompressor(); this.compressor.threshold.value = -15; this.compressor.ratio.value = 4;
+        this.filterLow = this.ctx.createBiquadFilter(); this.filterLow.type = 'lowshelf'; this.filterLow.frequency.value = 150;
+        this.filterHigh = this.ctx.createBiquadFilter(); this.filterHigh.type = 'highshelf'; this.filterHigh.frequency.value = 3500;
+        this.convolver = this.ctx.createConvolver(); this.convolver.buffer = this.createReverb(1.2, 1.5);
+        this.filterLow.connect(this.filterHigh); this.filterHigh.connect(this.compressor); this.compressor.connect(this.mainGain); this.mainGain.connect(this.ctx.destination);
+    },
+    createReverb(dur, dec) {
+        if(!this.ctx) return null; const rate = this.ctx.sampleRate; const len = rate * dur; const imp = this.ctx.createBuffer(2, len, rate);
+        const l = imp.getChannelData(0), r = imp.getChannelData(1);
+        for(let i=0; i<len; i++) { const n = (Math.random()*2-1)*Math.pow(1-i/len, dec); l[i] = n; r[i] = n; } return imp;
+    },
+    bind(el) { if(!this.ctx) this.init(); if(el._fxBound) return; const src = this.ctx.createMediaElementSource(el); src.connect(this.filterLow); el._fxBound = true; },
+    setMode(m) {
+        if(!this.ctx) return; this.compressor.disconnect(); this.convolver.disconnect(); this.filterHigh.connect(this.compressor);
+        if(m==='studio'){ this.filterLow.gain.value=3.5; this.filterHigh.gain.value=3; this.compressor.connect(this.mainGain); }
+        else if(m==='radio'){ this.filterLow.gain.value=8; this.filterHigh.gain.value=-2; this.compressor.ratio.value=6; this.compressor.connect(this.mainGain); }
+        else if(m==='concert'){ this.filterLow.gain.value=1; this.filterHigh.gain.value=2; this.compressor.connect(this.mainGain); this.compressor.connect(this.convolver); this.convolver.connect(this.mainGain); }
+        else { this.filterLow.gain.value=0; this.filterHigh.gain.value=0; this.compressor.connect(this.mainGain); }
+    },
+    setVol(v) { if(this.mainGain) this.mainGain.gain.value = v; }
+};
+
+/**
+ * 模块3：BGM 多轨文件夹管理
+ */
+const BGMManager = {
+    el: document.getElementById('sys-bgm'), list: [], idx: -1, targetVol: 0.15,
+    load(files) {
+        this.list = []; Array.from(files).filter(f=>f.type.startsWith('audio/')).forEach(f=>this.list.push({name:f.name, url:URL.createObjectURL(f)}));
+        this.updateUI(); if(this.list.length) this.playRand();
+    },
+    updateUI() {
+        const sel = document.getElementById('sel-bgm-list'), stat = document.getElementById('stat-bgm'); sel.innerHTML = '';
+        if(!this.list.length){ sel.innerHTML='<option value="">--未检测到音乐--</option>'; stat.className='status-badge'; stat.innerText='状态：未上传 BGM 库'; return; }
+        this.list.forEach((t,i) => { const opt = document.createElement('option'); opt.value=i; opt.innerText=t.name; sel.appendChild(opt); });
+        stat.className='status-badge ok'; stat.innerText=`✅ 载入 ${this.list.length} 首，支持随机接力`;
+    },
+    async fadeOut() { if(this.el.paused||this.el.volume<=0) return; return new Promise(r=>gsap.to(this.el, {volume:0, duration:1, ease:"power1.inOut", onComplete:()=>{this.el.pause();r();}})); },
+    async fadeIn() { this.el.volume=0; await this.el.play().catch(()=>{}); return new Promise(r=>gsap.to(this.el, {volume:this.targetVol, duration:1.5, ease:"power1.inOut", onComplete:r})); },
+    async playTrack(i) { if(i<0||i>=this.list.length) return; this.idx=i; document.getElementById('sel-bgm-list').value=i; await this.fadeOut(); this.el.src=this.list[i].url; await this.fadeIn(); },
+    async playRand() { if(!this.list.length) return; let nx = Math.floor(Math.random()*this.list.length); if(this.list.length>1&&nx===this.idx) nx=(nx+1)%this.list.length; this.playTrack(nx); },
+    setVol(v) { this.targetVol=v; if(!this.el.paused) { gsap.killTweensOf(this.el); this.el.volume=v; } },
+    stop() { this.fadeOut(); }
+};
+
+/**
+ * 模块4：字幕排版
+ */
+const SubSys = {
+    box: null, txt: null, tm: null, ktm: null,
+    init() { this.box = document.getElementById('sub-box'); this.txt = document.getElementById('sub-txt'); },
+    show(text) {
+        if(!this.box) this.init(); clearTimeout(this.tm); clearInterval(this.ktm); this.box.classList.remove('on'); this.txt.innerHTML = ''; if(!text) return;
+        const chars = [...text];
+        this.tm = setTimeout(() => {
+            chars.forEach(c => { const sp = document.createElement('span'); sp.className = 'sc'; sp.textContent = c===' '?'\u00A0':c; this.txt.appendChild(sp); });
+            this.box.classList.add('on'); const spans = this.txt.querySelectorAll('.sc'); spans.forEach((sp, i) => setTimeout(() => sp.classList.add('in'), i * 40));
+            let ki = 0; const stepMs = Math.max(65, (chars.length * 60) / chars.length);
+            this.ktm = setInterval(() => { if(ki>0&&spans[ki-1]) spans[ki-1].classList.remove('lit'); if(ki<spans.length) { spans[ki].classList.add('lit'); ki++; } else clearInterval(this.ktm); }, stepMs);
+        }, 100);
+    }
+};
+
+/**
+ * 模块5：2.5D ECharts 矢量动画数据注入
+ */
+const EC = {}; const ECOptions = {};
+function initCharts() {
+    const dpr = Math.max(window.devicePixelRatio||2, 2); const co = { backgroundColor: 'transparent' };
+    const ax = { color: '#FFF', fontWeight: '900', fontSize: 13, textShadowColor: '#000', textShadowBlur: 6 };
+    const labelStyle = {color:'#FFF', fontWeight:'900', fontSize:13, textShadowColor:'rgba(0,0,0,0.8)', textShadowBlur:6};
+
+    // 【1. 认知枷锁】
+    ECOptions.p0 = {...co, radar:{ indicator:[{name:'学更多知识',max:100},{name:'死磕搞技术',max:100},{name:'等完全准备好',max:100}], radius:70, splitLine:{lineStyle:{color:'rgba(255,107,107,0.3)', width:2}}, splitArea:{areaStyle:{color:'transparent'}}, axisName:{color:'#FF6B6B', fontWeight:'900', fontSize:14, textShadowColor:'#000', textShadowBlur:4}}, series:[{type:'radar', data:[{value:[90,95,85], itemStyle:{color:'#FF6B6B'}, lineStyle:{width:4, shadowColor:'#FF6B6B', shadowBlur:15}, areaStyle:{color:'rgba(255,107,107,0.5)'}}]}]};
+    
+    // 【2. 商业本质】
+    ECOptions.p1 = {...co, series:[{type:'pie', radius:['30%','80%'], roseType:'area', itemStyle:{borderRadius:10, borderColor:'transparent', shadowColor:'rgba(0,0,0,0.8)', shadowBlur:15, shadowOffsetX:5}, label:labelStyle, data:[{value:45, name:'人性洞察', itemStyle:{color:new echarts.graphic.LinearGradient(0,0,1,1,[{offset:0,color:'#FF6B6B'},{offset:1,color:'#FF9A76'}])}},{value:35, name:'趋势感知', itemStyle:{color:new echarts.graphic.LinearGradient(0,0,1,1,[{offset:0,color:'#00E5FF'},{offset:1,color:'#4DABF7'}])}},{value:20, name:'资源整合', itemStyle:{color:new echarts.graphic.LinearGradient(0,0,1,1,[{offset:0,color:'#FACC6B'},{offset:1,color:'#F39C12'}])}}]}]};
+    
+    // 【3. 五大杠杆】
+    ECOptions.p3 = {...co, grid:{top:30, bottom:25}, xAxis:{type:'category', data:['人力','资本','技术','媒体','网络'], axisLabel:ax}, yAxis:{type:'value', show:false}, series:[{type:'line', smooth:true, areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(250,204,107,0.6)'},{offset:1,color:'transparent'}])}, lineStyle:{color:'#FACC6B', width:5, shadowColor:'#FACC6B', shadowBlur:15}, itemStyle:{color:'#FACC6B', shadowColor:'#FFF', shadowBlur:10}, symbolSize:8, data:[10, 30, 60, 120, 250]}]};
+    
+    // 【4. 七大人性密码】
+    ECOptions.p4 = {...co, series:[{type:'funnel', left:'10%', width:'80%', gap:4, label:labelStyle, itemStyle:{borderColor:'transparent', shadowColor:'rgba(0,0,0,0.6)', shadowBlur:12, shadowOffsetY:4}, data:[{value:100, name:'恐惧', itemStyle:{color:'#FF6B6B'}},{value:85, name:'虚荣', itemStyle:{color:'#B197FC'}},{value:70, name:'懒惰', itemStyle:{color:'#4DABF7'}}, {value:55, name:'贪婪', itemStyle:{color:'#00E5FF'}}, {value:40, name:'归属感', itemStyle:{color:'#FACC6B'}}, {value:25, name:'安全感', itemStyle:{color:'#72D9A0'}}, {value:10, name:'欲望', itemStyle:{color:'#FF9A76'}}]}]};
+    
+    // 【5. 破局前三步】
+    ECOptions.p5 = {...co, grid:{top:20, bottom:20, left:20, right:30}, xAxis:{type:'value', show:false}, yAxis:{type:'category', data:['找痛点','先卖出去再做','90天单点突破'], axisLabel:{...ax, inside:true, color:'#FFF', z:10}}, series:[{type:'bar', data:[30, 60, 100], itemStyle:{color: new echarts.graphic.LinearGradient(0,0,1,0,[{offset:0, color:'#FF6B6B'},{offset:1, color:'#FACC6B'}]), borderRadius:[0,8,8,0], shadowColor:'rgba(0,0,0,0.6)', shadowBlur:15, shadowOffsetY:4}, label:{show:true, position:'right', formatter:'{c}%', color:'#FACC6B', fontWeight:'900', textShadowColor:'#000', textShadowBlur:4}}]};
+    
+    // 【6. 跃迁后三步】
+    ECOptions.p6 = {...co, grid:{top:20, bottom:20, left:20, right:30}, xAxis:{type:'value', show:false}, yAxis:{type:'category', data:['系统化','叠加杠杆','成为做局者'], axisLabel:{...ax, inside:true, color:'#FFF', z:10}}, series:[{type:'bar', data:[40, 75, 100], itemStyle:{color: new echarts.graphic.LinearGradient(0,0,1,0,[{offset:0, color:'#00E5FF'},{offset:1, color:'#B197FC'}]), borderRadius:[0,8,8,0], shadowColor:'rgba(0,0,0,0.6)', shadowBlur:15, shadowOffsetY:4}, label:{show:true, position:'right', formatter:'{c}%', color:'#00E5FF', fontWeight:'900', textShadowColor:'#000', textShadowBlur:4}}]};
+
+    if(document.getElementById('chart-problem')) EC.p0 = echarts.init(document.getElementById('chart-problem'), null, {renderer:'canvas', devicePixelRatio: dpr});
+    if(document.getElementById('chart-pillars')) EC.p1 = echarts.init(document.getElementById('chart-pillars'), null, {renderer:'canvas', devicePixelRatio: dpr});
+    if(document.getElementById('chart-leverage')) EC.p3 = echarts.init(document.getElementById('chart-leverage'), null, {renderer:'canvas', devicePixelRatio: dpr});
+    if(document.getElementById('chart-human')) EC.p4 = echarts.init(document.getElementById('chart-human'), null, {renderer:'canvas', devicePixelRatio: dpr});
+    if(document.getElementById('chart-roadmap1')) EC.p5 = echarts.init(document.getElementById('chart-roadmap1'), null, {renderer:'canvas', devicePixelRatio: dpr});
+    if(document.getElementById('chart-roadmap2')) EC.p6 = echarts.init(document.getElementById('chart-roadmap2'), null, {renderer:'canvas', devicePixelRatio: dpr});
+}
+
+/**
+ * 模块6：NLE 核心渲染管线调度
+ */
+const Director = {
+    cfg: [], domScenes: [], mcList: [], audios: [], 
+    idx: 0, time: 0, playing: false, lastTs: 0, raf: null,
+    localPool: [], PX_API: 'qYGNNSaLbjs2l0KQOnNcssDchhl3hgrJCVFXT2tINCEkBoYhYKR7sHHg',
+
+    async getMediaInfo(file) {
+        return new Promise(res => {
+            const url = URL.createObjectURL(file);
+            if(file.type.startsWith('image/')) { res({type:'image', url, name:file.name, duration:5}); return; }
+            const v = document.createElement('video'); v.preload = 'metadata';
+            const tm = setTimeout(() => res({type:'video', url, name:file.name, duration:5}), 5000);
+            v.onloadedmetadata = () => { clearTimeout(tm); res({type:'video', url, name:file.name, duration: v.duration||5}); };
+            v.onerror = () => { clearTimeout(tm); res({type:'video', url, name:file.name, duration:5}); }; v.src = url;
+        });
+    },
+    async processBatchFiles(files) {
+        const results = [];
+        for (let i = 0; i < files.length; i += 5) {
+            const batch = files.slice(i, i + 5); results.push(...(await Promise.all(batch.map(f => this.getMediaInfo(f)))));
+        } return results;
+    },
+
+    async fetchPexels(query, targetDur) {
+        try {
+            const res = await fetch(`https://api.pexels.com/videos/search?query=${encodeURIComponent(query)}&per_page=15&orientation=portrait&size=medium`, {headers:{Authorization:this.PX_API}});
+            const j = await res.json(); const list = []; let acc = 0; let i = 0;
+            if(j.videos && j.videos.length > 0) {
+                while(acc < targetDur) {
+                    const v = j.videos[i % j.videos.length]; const link = (v.video_files.find(f=>f.quality==='hd')||v.video_files[0])?.link;
+                    if(link) { const dur = v.duration || 10; const useDur = Math.min(dur, targetDur - acc); list.push({type:'video', url:link, name:`Px_${v.id}`, duration:dur, startTime:acc, endTime:acc+useDur, playDur:useDur}); acc += useDur; }
+                    i++; if(i > 50) break;
+                }
+            } return list.length ? list : null;
+        } catch(e) { return null; }
+    },
+
+    async assignMedia(sceneIdx, specificPool = null) {
+        const c = this.cfg[sceneIdx]; let pool = specificPool ? specificPool : this.localPool; let finalMedia = [];
+        if (pool.length > 0) {
+            pool.sort(()=>Math.random()-0.5); let acc = 0; let i = 0;
+            while(acc < c.dur && pool.length > 0) {
+                const m = pool[i % pool.length]; const useDur = Math.min(m.duration, c.dur - acc);
+                finalMedia.push({...m, startTime: acc, endTime: acc+useDur, playDur: useDur}); acc += useDur; i++; if(i > 30) break;
+            }
+        } else {
+            finalMedia = await this.fetchPexels(this.domScenes[sceneIdx].getAttribute('data-pex') || 'asian business', c.dur);
+        }
+        if(!finalMedia || finalMedia.length === 0) finalMedia = [{type:'video', url:'https://assets.mixkit.co/videos/preview/mixkit-happy-asian-family-enjoying-time-together-at-home-42472-large.mp4', name:'FB', duration:c.dur, startTime:0, endTime:c.dur, playDur:c.dur}];
+        c.mediaList = finalMedia; c.curIdx = -1;
+        this.renderMC(this.mcList[sceneIdx], finalMedia); this.updateMixerUI();
+    },
+
+    renderMC(mc, list) {
+        mc.innerHTML = '';
+        list.forEach((m, i) => {
+            const el = document.createElement(m.type==='video'?'video':'img'); el.className = 'local-media'; el.src = m.url; el.style.zIndex = i;
+            if(m.type==='video') { el.muted = true; el.playsInline = true; el.loop = false; el.crossOrigin = 'anonymous'; } mc.appendChild(el);
+        });
+    },
+
+    async boot() {
+        FXCanvas.init(); // 开启背景特效
+        const els = document.querySelectorAll('.scene'); const mLayer = document.getElementById('media-layer');
+        for(let i=0; i<els.length; i++) {
+            this.domScenes.push(els[i]); this.cfg.push({id:i, dur:parseFloat(els[i].getAttribute('data-dur')) || 9, mediaList:[], curIdx:-1});
+            const mc = document.createElement('div'); mc.className = 'media-container'; mLayer.appendChild(mc); this.mcList.push(mc); this.audios.push(null);
+        }
+        document.getElementById('r-log').innerText = "智能调度全网高端商业素材..."; document.getElementById('modal-render').classList.add('on');
+        for(let i=0; i<this.cfg.length; i++) { await this.assignMedia(i); document.getElementById('r-bar').style.width = `${((i+1)/this.cfg.length)*100}%`; }
+        document.getElementById('modal-render').classList.remove('on');
+        SubSys.init(); initCharts(); this.bindUI(); this.updateMixerUI(); this.switchScene(0);
+    },
+
+    // 绑定坐标参数与颜色定制
+    hexToRgb(hex) { const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16); return `${r},${g},${b}`; },
+    
+    bindUI() {
+        document.getElementById('btn-play').addEventListener('click', ()=>this.toggle());
+        document.getElementById('btn-prev').addEventListener('click', ()=> { if(this.idx > 0) this.switchScene(this.idx - 1); });
+        document.getElementById('btn-next').addEventListener('click', ()=> { if(this.idx < this.cfg.length - 1) this.switchScene(this.idx + 1); });
+        document.getElementById('btn-render').addEventListener('click', ()=>Pipeline.start());
+        document.getElementById('btn-cfg').addEventListener('click', ()=> { this.pause(); document.getElementById('modal-cfg').classList.add('on'); });
+        document.getElementById('btn-save').addEventListener('click', ()=> { document.getElementById('modal-cfg').classList.remove('on'); this.buildTimeline(); this.switchScene(this.idx); });
+
+        // 视觉深度控制
+        document.getElementById('rg-mask').addEventListener('input', e => { document.documentElement.style.setProperty('--mask-op', e.target.value); document.getElementById('val-mask').innerText = Math.round(e.target.value*100)+'%'; });
+        document.getElementById('sel-h5-fx').addEventListener('change', e => FXCanvas.setMode(e.target.value));
+        const bgSync = () => { const hex=document.getElementById('col-chart-bg').value, op=document.getElementById('rg-cbg-op').value; document.documentElement.style.setProperty('--pos-chart-bg', `rgba(${this.hexToRgb(hex)},${op})`); document.getElementById('val-cbg-op').innerText=Math.round(op*100)+'%';};
+        document.getElementById('col-chart-bg').addEventListener('input', bgSync); document.getElementById('rg-cbg-op').addEventListener('input', bgSync);
+        
+        // 排版坐标定制
+        document.getElementById('inp-logo-txt').addEventListener('input', e => document.getElementById('watermark-el').innerText = e.target.value);
+        document.getElementById('sel-logo-anim').addEventListener('change', e => { const el = document.getElementById('watermark-el'); el.className = 'cyber-watermark'; if(e.target.value!=='none') el.classList.add(e.target.value); });
+        document.getElementById('rg-pos-lt').addEventListener('input', e => document.documentElement.style.setProperty('--pos-logo-t', e.target.value+'px'));
+        document.getElementById('rg-pos-lr').addEventListener('input', e => document.documentElement.style.setProperty('--pos-logo-r', e.target.value+'px'));
+        document.getElementById('rg-pos-tt').addEventListener('input', e => document.documentElement.style.setProperty('--pos-title-t', e.target.value+'px'));
+        document.getElementById('rg-pos-sb').addEventListener('input', e => document.documentElement.style.setProperty('--pos-sub-b', e.target.value+'px'));
+
+        // BGM 与 语音
+        document.getElementById('inp-bgm').addEventListener('change', e => BGMManager.load(e.target.files));
+        document.getElementById('btn-bgm-play').addEventListener('click', ()=>BGMManager.playTrack(document.getElementById('sel-bgm-list').value));
+        document.getElementById('btn-bgm-stop').addEventListener('click', ()=>BGMManager.stop());
+        document.getElementById('btn-bgm-rand').addEventListener('click', ()=>BGMManager.playRand());
+        document.getElementById('rg-bgm-vol').addEventListener('input', e => { BGMManager.setVol(e.target.value); document.getElementById('val-bgm-vol').innerText = Math.round(e.target.value*100)+'%'; });
+        document.getElementById('sel-voice-fx').addEventListener('change', e => VoiceFX.setMode(e.target.value));
+        document.getElementById('rg-vox-vol').addEventListener('input', e => { VoiceFX.setVol(e.target.value); document.getElementById('val-vox-vol').innerText = Math.round(e.target.value*100)+'%'; });
+
+        document.getElementById('inp-audio').addEventListener('change', async e => {
+            const files = Array.from(e.target.files).filter(f=>f.type.startsWith('audio/')).sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true})); if(!files.length) return;
+            const stat = document.getElementById('stat-audio'); stat.innerText = '⏳ 测算时长并挂载 Web Audio...';
+            VoiceFX.init(); VoiceFX.setMode(document.getElementById('sel-voice-fx').value); const ps = [];
+            for(let i=0; i<this.cfg.length && i<files.length; i++) {
+                const a = new Audio(); a.src = URL.createObjectURL(files[i]); a.crossOrigin = 'anonymous'; this.audios[i] = a;
+                ps.push(new Promise(r => { a.onloadedmetadata = () => { this.cfg[i].dur = Math.max(3, a.duration+0.5); VoiceFX.bind(a); r(); }; a.onerror = r; }));
+            }
+            await Promise.all(ps); stat.className = 'status-badge ok'; stat.innerText = `✅ 挂载 ${Math.min(files.length, this.cfg.length)} 段高保真音频`;
+            for(let i=0; i<this.cfg.length; i++) await this.assignMedia(i);
+        });
+
+        document.getElementById('inp-media').addEventListener('change', async e => {
+            const files = Array.from(e.target.files).filter(f=>f.type.startsWith('video/')||f.type.startsWith('image/')); if(!files.length) return;
+            const stat = document.getElementById('stat-media'); stat.innerText = '⏳ 极速异步测算防重素材...';
+            this.localPool = await this.processBatchFiles(files);
+            for(let i=0; i<this.cfg.length; i++) await this.assignMedia(i);
+            stat.className = 'status-badge ok'; stat.innerText = `✅ 接力挂载 ${this.localPool.length} 个素材`;
+        });
+
+        const repInp = document.getElementById('inp-replace');
+        repInp.addEventListener('change', async e => {
+            if(this.replaceIdx < 0 || !e.target.files.length) return;
+            await this.assignMedia(this.replaceIdx, await this.processBatchFiles(Array.from(e.target.files)));
+            alert(`分镜_${this.replaceIdx+1} 素材替换成功！`); repInp.value = '';
+        });
+    },
+
+    updateMixerUI() {
+        const list = document.getElementById('scene-list'); list.innerHTML = '';
+        this.cfg.forEach((c, i) => {
+            const div = document.createElement('div'); div.className = 'scene-row';
+            div.innerHTML = `<div class="scene-row-top"><span style="color:var(--c-gold);">分镜_${String(i+1).padStart(2,'0')} [${c.dur.toFixed(1)}s]</span><button class="btn-replace" data-idx="${i}">专属替换</button></div><div style="font-size:10px; color:#888;">底层接力: ${c.mediaList.map(m=>`${m.type==='video'?'🎬':'🖼'} ${m.name.slice(0,8)} (${m.playDur.toFixed(1)}s)`).join(' + ')}</div>`;
+            list.appendChild(div);
+        });
+        list.querySelectorAll('.btn-replace').forEach(btn => btn.addEventListener('click', e => { this.replaceIdx = parseInt(e.target.getAttribute('data-idx')); document.getElementById('inp-replace').click(); }));
+        this.buildTimeline();
+    },
+
+    buildTimeline() {
+        const tl = document.getElementById('ui-tl'); tl.innerHTML = ''; const total = this.cfg.reduce((a,b)=>a+b.dur, 0);
+        this.cfg.forEach((c, i) => { const seg = document.createElement('div'); seg.className = 'tl-seg'; seg.style.flex = `0 0 ${(c.dur/total)*100}%`; seg.innerHTML = `<div class="tl-fill" id="f-${i}"></div>`; tl.appendChild(seg); });
+    },
+
+    switchScene(idx) {
+        const el = this.domScenes[idx]; SubSys.show(el ? el.getAttribute('data-sub') : '');
+        this.domScenes.forEach(s => s.classList.remove('active'));
+        this.mcList.forEach((mc, i) => { if(i !== idx) { mc.classList.remove('active'); mc.querySelectorAll('video').forEach(v=>{v.pause(); v.currentTime=0;}); mc.querySelectorAll('.local-media').forEach(m=>m.classList.remove('show')); }});
+        this.audios.forEach(a => { if(a) { a.pause(); a.currentTime=0; }});
+        this.idx = idx; this.time = 0; const curMc = this.mcList[idx];
+        if(curMc) { curMc.classList.add('active'); curMc.querySelectorAll('.local-media').forEach(m=>m.classList.remove('show')); this.cfg[idx].curIdx = -1; }
+        
+        if(el) {
+            void el.offsetWidth; el.classList.add('active');
+            gsap.fromTo(el.querySelector('.s-tag'), {opacity:0, y:-25}, {opacity:1, y:0, duration:0.7, ease:'back.out(1.5)'});
+            gsap.fromTo(el.querySelector('.s-title'), {opacity:0, scale:0.8, filter:'blur(10px)'}, {opacity:1, scale:1, filter:'blur(0)', duration:0.9, delay:0.15, ease:'power3.out'});
+            const cb = el.querySelector('.chart-box, .glass-panel'); if(cb) gsap.fromTo(cb, {opacity:0, y:40}, {opacity:1, y:0, duration:0.8, delay:0.4, ease:'power2.out'});
+            
+            setTimeout(()=>{ const cKey = 'p'+idx; if(EC[cKey] && ECOptions[cKey]) { EC[cKey].clear(); EC[cKey].setOption(ECOptions[cKey], true); EC[cKey].resize(); } }, 500);
+        }
+        if(this.playing && this.audios[idx]) { VoiceFX.init(); if(VoiceFX.ctx.state === 'suspended') VoiceFX.ctx.resume(); this.audios[idx].play().catch(()=>{}); }
+        if(typeof confetti==='function' && idx === this.cfg.length - 1) confetti({particleCount:60, spread:100, origin:{y:0.6}, colors:['#FACC6B','#00E5FF', '#FF6B6B'], zIndex:99});
+        this.updateHud();
+    },
+
+    tick(ts) {
+        if(!this.playing) return; if(!this.lastTs) this.lastTs = ts; const dt = (ts - this.lastTs)/1000; this.lastTs = ts; this.time += dt;
+        const c = this.cfg[this.idx];
+        if(c) {
+            let aIdx = 0;
+            if(c.mediaList && c.mediaList.length) { for(let j=0; j<c.mediaList.length; j++) { const m = c.mediaList[j]; if(this.time >= m.startTime && this.time < m.endTime) { aIdx = j; break; } if(j === c.mediaList.length - 1) aIdx = j; } }
+            if(c.curIdx !== aIdx && c.mediaList && c.mediaList.length) {
+                const els = this.mcList[this.idx].querySelectorAll('.local-media');
+                if(c.curIdx !== -1 && els[c.curIdx]) els[c.curIdx].classList.remove('show');
+                if(els[aIdx]) { els[aIdx].classList.add('show'); if(els[aIdx].tagName === 'VIDEO' && this.playing) { els[aIdx].currentTime=0; els[aIdx].play().catch(()=>{}); } } c.curIdx = aIdx;
+            }
+            if(this.time >= c.dur) { if(this.idx < this.cfg.length - 1) this.switchScene(this.idx + 1); else { this.pause(); this.time = c.dur; if(window.isRec) Pipeline.stop(); } }
+        }
+        this.updateHud(); this.raf = requestAnimationFrame(t => this.tick(t));
+    },
+
+    updateHud() {
+        const total = this.cfg.reduce((a,b)=>a+b.dur, 0); let cur = this.cfg.slice(0, this.idx).reduce((a,b)=>a+b.dur, 0) + this.time; cur = Math.min(cur, total);
+        const f = s => `${Math.floor(s/60).toString().padStart(2,'0')}:${Math.floor(s%60).toString().padStart(2,'0')}`; document.getElementById('ui-time').innerText = `${f(cur)}/${f(total)}`;
+        this.cfg.forEach((c, i) => { const fill = document.getElementById(`f-${i}`); if(!fill) return; fill.style.width = i < this.idx ? '100%' : (i === this.idx ? `${(this.time/c.dur)*100}%` : '0%'); });
+    },
+
+    play() {
+        this.playing = true; this.lastTs = performance.now(); const total = this.cfg.reduce((a,b)=>a+b.dur, 0); const cur = this.cfg.slice(0, this.idx).reduce((a,b)=>a+b.dur, 0) + this.time;
+        if(cur >= total) this.switchScene(0);
+        if(VoiceFX.ctx && VoiceFX.ctx.state === 'suspended') VoiceFX.ctx.resume();
+        if(BGMManager.list.length > 0 && BGMManager.el.paused) { if(BGMManager.idx === -1) BGMManager.playRand(); else BGMManager.fadeIn(); } else if (BGMManager.el.src && BGMManager.el.paused) BGMManager.fadeIn();
+        const cc = this.mcList[this.idx]; if(cc) { const c = this.cfg[this.idx]; const vids = cc.querySelectorAll('video'); if(c.curIdx >= 0 && vids[c.curIdx]) vids[c.curIdx].play().catch(()=>{}); }
+        if(this.audios[this.idx]) this.audios[this.idx].play().catch(()=>{});
+        document.getElementById('btn-play').innerText = '⏸ 暂停'; this.raf = requestAnimationFrame(t => this.tick(t));
+    },
+
+    pause() {
+        this.playing = false; this.lastTs = 0; if(this.raf) cancelAnimationFrame(this.raf); BGMManager.stop();
+        this.mcList.forEach(mc => mc.querySelectorAll('video').forEach(v=>v.pause())); this.audios.forEach(a => { if(a) a.pause(); });
+        document.getElementById('btn-play').innerText = '▶ 播放'; this.updateHud();
+    },
+    toggle() { this.playing ? this.pause() : this.play(); }
+};
+
+/**
+ * 模块7：FFmpeg 无损物理满屏导出
+ */
+const Pipeline = {
+    rec: null, chunks: [], stream: null, ffg: FFmpeg.createFFmpeg({log:false}),
+    async start() {
+        if(window.isRec) return this.stop();
+        try {
+            alert('🎥 请务必选择【Chrome标签页】并勾选左下角的【分享标签页中的音频】！');
+            this.stream = await navigator.mediaDevices.getDisplayMedia({video:{displaySurface:'browser', frameRate:30}, audio:{echoCancellation:false, noiseSuppression:false, autoGainControl:false}, preferCurrentTab:true});
+            const hv = document.getElementById('cap-vid'); hv.srcObject = this.stream; await hv.play();
+            const cvs = document.getElementById('cap-cvs'); const ctx = cvs.getContext('2d', {willReadFrequently:true, alpha:false});
+            ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high'; cvs.width = 1080; cvs.height = 1920; 
+            document.getElementById('stage').classList.add('is-rendering'); window.isRec = true;
+            document.getElementById('btn-render').innerText = '⏹ 停止'; document.getElementById('btn-render').style.background = 'var(--c-coral)';
+            const stg = document.getElementById('stage');
+            const draw = () => {
+                if(!window.isRec) return;
+                try {
+                    const rect = stg.getBoundingClientRect(), vw = hv.videoWidth, vh = hv.videoHeight;
+                    if(vw > 0 && vh > 0) {
+                        const sX = vw / window.innerWidth, sY = vh / window.innerHeight;
+                        const cX = rect.left * sX, cY = rect.top * sY, cW = rect.width * sX, cH = rect.height * sY;
+                        let cropW = cW, cropH = cH; const tR = 9/16, cR = cW/cH;
+                        if(cR > tR) cropW = cH * tR; else if(cR < tR) cropH = cW / tR;
+                        const fX = cX + (cW - cropW)/2, fY = cY + (cH - cropH)/2;
+                        ctx.fillStyle = '#020408'; ctx.fillRect(0,0,1080,1920); ctx.drawImage(hv, fX, fY, cropW, cropH, 0, 0, 1080, 1920);
+                    }
+                } catch(e) {} requestAnimationFrame(draw);
+            };
+            setTimeout(() => {
+                requestAnimationFrame(draw); const ms = new MediaStream([...cvs.captureStream(30).getVideoTracks(), ...this.stream.getAudioTracks()]);
+                const mime = MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9' : 'video/webm';
+                this.rec = new MediaRecorder(ms, {mimeType:mime, videoBitsPerSecond:25000000, audioBitsPerSecond:320000});
+                this.chunks = []; this.rec.ondataavailable = e => { if(e.data.size>0) this.chunks.push(e.data); };
+                this.rec.onstop = async () => this.done(); this.rec.start(); Director.switchScene(0); Director.play();
+            }, 800);
+        } catch(e) { alert('获取录制权限失败！'); this.reset(); }
+    },
+    stop() { if(this.rec && this.rec.state!=='inactive') this.rec.stop(); Director.pause(); },
+    reset() { window.isRec = false; document.getElementById('stage').classList.remove('is-rendering'); document.getElementById('btn-render').innerText = '⏺ 渲染'; document.getElementById('btn-render').style.background = 'transparent'; if(this.stream) this.stream.getTracks().forEach(t=>t.stop()); },
+    async done() { this.reset(); await this.transcode(new Blob(this.chunks, {type:'video/webm'})); },
+    async transcode(blob) {
+        const mod = document.getElementById('modal-render'), log = document.getElementById('r-log'), bar = document.getElementById('r-bar'); mod.classList.add('on');
+        try {
+            const rUrl = URL.createObjectURL(blob); const a0 = document.createElement('a'); a0.href = rUrl; a0.download = `Backup_ZHOU_OS_${Date.now()}.webm`; document.body.appendChild(a0); a0.click(); document.body.removeChild(a0);
+            log.innerText = '启动 FFmpeg WASM 核心转码 MP4...'; if(!this.ffg.isLoaded()) await this.ffg.load();
+            this.ffg.FS('writeFile', 'in.webm', await FFmpeg.fetchFile(blob));
+            this.ffg.setProgress(({ratio}) => { const p = Math.floor(ratio*100); bar.style.width = p+'%'; log.innerText = `抖音级超清 H.264 封装中... ${p}%`; });
+            await this.ffg.run('-i', 'in.webm', '-c:v', 'libx264', '-preset', 'fast', '-crf', '16', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '320k', 'out.mp4');
+            const d = this.ffg.FS('readFile', 'out.mp4'); const u = URL.createObjectURL(new Blob([d.buffer], {type:'video/mp4'}));
+            const a = document.createElement('a'); a.href = u; a.download = `Final_ZHOU_OS_${Date.now()}.mp4`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u);
+            this.ffg.FS('unlink', 'in.webm'); this.ffg.FS('unlink', 'out.mp4'); mod.classList.remove('on');
+        } catch(e) { log.innerText = '内存受限，请使用已自动下载的备份视频发布！'; setTimeout(()=>mod.classList.remove('on'), 3500); }
+    }
+};
+
+window.Director = Director; window.Pipeline = Pipeline;
+document.addEventListener('DOMContentLoaded', () => Director.boot());
+</script>
+</body>
+</html>

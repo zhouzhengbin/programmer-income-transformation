@@ -1,0 +1,1409 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>5月30日珠海长隆全家攻略</title>
+  <meta name="description" content="佛山千灯湖出发，入住珠海长隆横琴湾酒店，海洋王国 + 长隆秀 + 水世界两天一晚亲子攻略。">
+  <style>
+    :root {
+      --ink: #10202b;
+      --muted: #5e6b73;
+      --paper: #f7f6f0;
+      --panel: #ffffff;
+      --line: rgba(16, 32, 43, .13);
+      --blue: #086d9f;
+      --cyan: #12a7bd;
+      --green: #2f8f69;
+      --coral: #dc5e4b;
+      --gold: #d4942a;
+      --violet: #6c5aa8;
+      --shadow: 0 20px 50px rgba(16, 32, 43, .12);
+      --radius: 8px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(247, 246, 240, .96), rgba(247, 246, 240, 1) 520px),
+        radial-gradient(circle at 10% 0%, rgba(18, 167, 189, .16), transparent 32%),
+        radial-gradient(circle at 92% 14%, rgba(220, 94, 75, .12), transparent 30%),
+        var(--paper);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.65;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        linear-gradient(180deg, rgba(7, 25, 35, .2), rgba(7, 25, 35, .72)),
+        url("https://www.chimelong.com/d/file/p/2025/07-15/20f3a4d1f9afd9dfa83ba90d2b981c88.png") center / cover no-repeat;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 32vh;
+      background: linear-gradient(180deg, transparent, rgba(247, 246, 240, .98));
+      z-index: -1;
+    }
+
+    .hero__inner {
+      width: min(var(--max), calc(100% - 36px));
+      margin: 0 auto;
+      padding: 96px 0 72px;
+      color: #fff;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      padding: 7px 11px;
+      border: 1px solid rgba(255, 255, 255, .34);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, .18);
+      backdrop-filter: blur(14px);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 900px;
+      margin-top: 18px;
+      font-size: clamp(42px, 8vw, 88px);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .hero__lead {
+      max-width: 760px;
+      margin-top: 20px;
+      color: rgba(255, 255, 255, .9);
+      font-size: clamp(17px, 2.2vw, 22px);
+      line-height: 1.7;
+    }
+
+    .hero__facts {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .fact {
+      min-height: 112px;
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, .24);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .13);
+      backdrop-filter: blur(16px);
+    }
+
+    .fact b {
+      display: block;
+      font-size: 22px;
+      line-height: 1.15;
+    }
+
+    .fact span {
+      display: block;
+      margin-top: 10px;
+      color: rgba(255, 255, 255, .82);
+      font-size: 13px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      border-bottom: 1px solid var(--line);
+      background: rgba(247, 246, 240, .88);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      width: min(var(--max), calc(100% - 24px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 10px 0;
+    }
+
+    .nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav a {
+      flex: 0 0 auto;
+      padding: 9px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .nav a:hover,
+    .nav a:focus {
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+    }
+
+    main {
+      width: min(var(--max), calc(100% - 24px));
+      margin: 0 auto;
+      padding: 36px 0 80px;
+    }
+
+    section {
+      scroll-margin-top: 76px;
+      margin-top: 42px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(25px, 4vw, 42px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid.cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card,
+    .route,
+    .notice,
+    .source-card,
+    .time-card,
+    .check-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 28px rgba(16, 32, 43, .06);
+    }
+
+    .card {
+      padding: 20px;
+    }
+
+    .card h3,
+    .route h3,
+    .check-card h3 {
+      font-size: 18px;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .card p,
+    .route p,
+    .check-card p,
+    li {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .key {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .big-card {
+      min-height: 310px;
+      padding: 24px;
+      color: #fff;
+      background:
+        linear-gradient(180deg, rgba(4, 34, 48, .1), rgba(4, 34, 48, .86)),
+        url("https://cdn.chimelong.com/assets/images/list0.50d65c2.jpg") center / cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .big-card h2 {
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.08;
+    }
+
+    .big-card p {
+      max-width: 620px;
+      margin-top: 12px;
+      color: rgba(255, 255, 255, .88);
+      font-size: 15px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .pill,
+    .tag,
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      border-radius: 999px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .pill {
+      gap: 8px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .tag {
+      padding: 4px 8px;
+      color: #fff;
+      font-size: 12px;
+    }
+
+    .tag.blue { background: var(--blue); }
+    .tag.cyan { background: var(--cyan); }
+    .tag.green { background: var(--green); }
+    .tag.coral { background: var(--coral); }
+    .tag.gold { background: var(--gold); }
+    .tag.violet { background: var(--violet); }
+
+    .badge {
+      padding: 5px 9px;
+      background: rgba(8, 109, 159, .11);
+      color: var(--blue);
+      font-size: 12px;
+    }
+
+    .metric {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 18px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #eef7f6;
+      color: var(--cyan);
+      font-weight: 900;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 12px;
+    }
+
+    .time-card {
+      display: grid;
+      grid-template-columns: 128px 1fr;
+      overflow: hidden;
+    }
+
+    .time-card .time {
+      padding: 18px 16px;
+      color: #fff;
+      background: var(--ink);
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .time-card .body {
+      padding: 18px;
+    }
+
+    .time-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .time-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .time-card .chips,
+    .route .chips,
+    .check-card .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .route {
+      overflow: hidden;
+    }
+
+    .route__top {
+      min-height: 150px;
+      padding: 18px;
+      color: #fff;
+      background: linear-gradient(135deg, rgba(8, 109, 159, .92), rgba(18, 167, 189, .78));
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+    }
+
+    .route:nth-child(2) .route__top {
+      background: linear-gradient(135deg, rgba(47, 143, 105, .95), rgba(212, 148, 42, .72));
+    }
+
+    .route:nth-child(3) .route__top {
+      background: linear-gradient(135deg, rgba(220, 94, 75, .96), rgba(108, 90, 168, .78));
+    }
+
+    .route__body {
+      padding: 18px;
+    }
+
+    .route ol,
+    .route ul,
+    .card ul,
+    .check-card ul,
+    .source-card ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .route li + li,
+    .card li + li,
+    .check-card li + li,
+    .source-card li + li {
+      margin-top: 7px;
+    }
+
+    .notice {
+      padding: 18px;
+      border-left: 5px solid var(--coral);
+      background: #fff8f4;
+    }
+
+    .notice h3 {
+      margin-bottom: 8px;
+    }
+
+    .notice p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 14px;
+    }
+
+    button,
+    .filter-btn {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 10px 13px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .filter-btn.is-active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .check-card {
+      padding: 16px;
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .check-card[data-hide="true"] {
+      display: none;
+    }
+
+    .check-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 12px;
+    }
+
+    .height {
+      margin-top: 9px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .show-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 10px 28px rgba(16, 32, 43, .06);
+    }
+
+    .show-table th,
+    .show-table td {
+      padding: 13px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    .show-table th {
+      color: #fff;
+      background: var(--ink);
+      font-weight: 900;
+    }
+
+    .show-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .map {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .map-card {
+      min-height: 230px;
+      padding: 18px;
+      border-radius: var(--radius);
+      color: #fff;
+      background:
+        linear-gradient(180deg, rgba(8, 35, 48, .12), rgba(8, 35, 48, .86)),
+        url("https://www.chimelong.com/d/file/p/2025/07-15/70e1f08e16d15e25555d3aa784cc1787.png") center / cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      box-shadow: var(--shadow);
+    }
+
+    .map-card:nth-child(2) {
+      background:
+        linear-gradient(180deg, rgba(8, 35, 48, .08), rgba(8, 35, 48, .86)),
+        url("https://cdn.chimelong.com/assets/images/list0.50d65c2.jpg") center / cover no-repeat;
+    }
+
+    .map-card p {
+      color: rgba(255, 255, 255, .86);
+      font-size: 14px;
+    }
+
+    .source-card {
+      padding: 18px;
+    }
+
+    .source-card a {
+      color: var(--blue);
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .footer {
+      margin-top: 48px;
+      padding: 28px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--line);
+    }
+
+    .print-bar {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 40;
+      display: flex;
+      gap: 8px;
+    }
+
+    .print-bar button {
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 960px) {
+      .hero__facts,
+      .grid.cols-4,
+      .grid.cols-3,
+      .check-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .key,
+      .grid.cols-2,
+      .map {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 8px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        min-height: 86vh;
+      }
+
+      .hero__inner {
+        width: min(100% - 24px, var(--max));
+        padding: 74px 0 56px;
+      }
+
+      .hero__facts,
+      .grid.cols-4,
+      .grid.cols-3,
+      .grid.cols-2,
+      .check-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .time-card {
+        grid-template-columns: 1fr;
+      }
+
+      .time-card .time {
+        font-size: 18px;
+      }
+
+      .show-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .print-bar {
+        left: 12px;
+        right: 12px;
+      }
+
+      .print-bar button {
+        width: 100%;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .topbar,
+      .print-bar {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        color: #000;
+        background: #fff;
+      }
+
+      .hero__inner {
+        color: #000;
+        padding: 24px 0;
+      }
+
+      .hero__lead,
+      .fact span {
+        color: #333;
+      }
+
+      .hero__facts {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .fact,
+      .big-card,
+      .map-card {
+        color: #000;
+        background: #fff;
+        border: 1px solid #ccc;
+        box-shadow: none;
+      }
+
+      section {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" id="top">
+    <div class="hero__inner">
+      <div class="eyebrow">2026年5月30日 周六 · 佛山千灯湖自驾 · 横琴湾酒店</div>
+      <h1>珠海长隆两天一晚全家攻略</h1>
+      <p class="hero__lead">3位大人、2个六岁半大孩子、1个三岁半小娃。目标是海洋王国尽量不漏项、长隆秀不卡点、老人和小娃不被拖累，大孩子也能把刺激项目玩到爽。</p>
+      <div class="hero__facts">
+        <div class="fact">
+          <b>05:30</b>
+          <span>千灯湖出发，目标 07:45-08:10 到酒店办手续</span>
+        </div>
+        <div class="fact">
+          <b>09:00</b>
+          <span>按酒店早享权益推算的稳妥入园目标，现场确认能否更早</span>
+        </div>
+        <div class="fact">
+          <b>17:00</b>
+          <span>长隆秀开演，剧院 16:00 开园，建议 15:35 离开海洋王国</span>
+        </div>
+        <div class="fact">
+          <b>20:00</b>
+          <span>海洋幻彩烟花秀，首日晚间收尾关键节点</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="topbar">
+    <nav class="nav" aria-label="页面导航">
+      <a href="#overview">总览</a>
+      <a href="#day1">5月30日</a>
+      <a href="#groups">分组路线</a>
+      <a href="#shows">演出时间</a>
+      <a href="#checklist">项目清单</a>
+      <a href="#hotel">酒店水世界</a>
+      <a href="#rain">雨天人多</a>
+      <a href="#day2">第二天</a>
+      <a href="#packing">行李</a>
+      <a href="#sources">信息源</a>
+    </nav>
+  </div>
+
+  <main>
+    <section id="overview">
+      <div class="key">
+        <div class="big-card">
+          <span class="tag cyan">核心策略</span>
+          <h2>先抢室外热门，再把室内动物馆和剧场铺满。</h2>
+          <p>周六带老人小孩，最容易翻车的是“全家一起排一个刺激项目”。这次拆成 A/B 组：爸爸带两个大孩子冲项目，妈妈带小娃和老人走温和动物线，固定在鲸鲨馆、剧场、巡游、餐点重新集合。</p>
+        </div>
+        <div class="stack">
+          <div class="card metric">
+            <div class="icon">A</div>
+            <div>
+              <strong>刺激组</strong>
+              <span>爸爸 + 两个 1.2m 以上孩子；第一目标冰山/企鹅/超级激流，鹦鹉过山车看身高和胆量。</span>
+            </div>
+          </div>
+          <div class="card metric">
+            <div class="icon">B</div>
+            <div>
+              <strong>舒适组</strong>
+              <span>妈妈 + 三岁半小娃 + 70岁老人；优先海豚、白鲸、企鹅、鲸鲨、室内休息和巡游。</span>
+            </div>
+          </div>
+          <div class="card metric">
+            <div class="icon">C</div>
+            <div>
+              <strong>集合点</strong>
+              <span>鲸鲨馆、剧场入口、海洋大街、酒店大堂。不要约在“某个项目出口”。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid cols-4" style="margin-top:14px">
+        <div class="card">
+          <span class="tag blue">营业</span>
+          <h3>海洋王国</h3>
+          <p>官网 5月营业时间为 10:00-20:00；酒店住房套票可提前至少1小时入园，具体项目以当日公告为准。</p>
+        </div>
+        <div class="card">
+          <span class="tag coral">长隆秀</span>
+          <h3>别按 17:30 排</h3>
+          <p>5月30日官方当前为 17:00 开演；5月14日起剧院开园时间调整为 16:00。</p>
+        </div>
+        <div class="card">
+          <span class="tag green">天气</span>
+          <h3>热 + 可能下雨</h3>
+          <p>和风天气 30天预报显示 5月30日珠海约 28-24°C，未来30天有较多雨日，按阵雨方案准备。</p>
+        </div>
+        <div class="card">
+          <span class="tag gold">酒店</span>
+          <h3>先办手续</h3>
+          <p>横琴湾酒店入住 15:00；可寄存行李，住客停车免费但要到前台或礼宾部授权。</p>
+        </div>
+      </div>
+
+      <div class="notice" style="margin-top:14px">
+        <h3>5月30日最重要的确认</h3>
+        <p>到酒店第一件事问清楚：你们这张住房套票当天早享入园具体几点、指定开放哪些项目、长隆秀是否需要提前换票/绑定身份证、第二天是否仍可多次入园。官网写的是“提前至少1小时”，不是固定 8:00；若现场确认 8:00 能入园，就直接把 09:00-10:00 的项目整体提前。</p>
+      </div>
+    </section>
+
+    <section id="day1">
+      <div class="section-head">
+        <h2>5月30日主时间线</h2>
+        <p>这是“稳妥版”。如果早享入园真能 8:00，9点前先完成鲸鲨馆 + 一个低排队项目，再进入下面 9点后的节奏。</p>
+      </div>
+
+      <div class="timeline">
+        <article class="time-card">
+          <div class="time">05:00<br>05:30</div>
+          <div class="body">
+            <h3>起床、装车、从千灯湖出发</h3>
+            <p>导航目的地设为“珠海长隆横琴湾酒店”。周六清早通常比晚高峰稳，但带小孩要按 2小时10分-2小时40分预留。车上早餐以不洒、不油、低糖为主。</p>
+            <div class="chips"><span class="badge">证件放随身包</span><span class="badge">泳衣另装一袋</span><span class="badge">小娃可继续睡</span></div>
+          </div>
+        </article>
+
+        <article class="time-card">
+          <div class="time">07:45<br>08:30</div>
+          <div class="body">
+            <h3>酒店停车、办票务、寄存行李</h3>
+            <p>爸爸负责前台/礼宾：停车授权、票务/身份证核验、早享入园时间、长隆秀入场规则。妈妈带小娃和老人去洗手间、补水、防晒，避免全家在柜台前等。</p>
+            <div class="chips"><span class="badge">问清早享几点</span><span class="badge">问清多次入园</span><span class="badge">问清水世界权益</span></div>
+          </div>
+        </article>
+
+        <article class="time-card">
+          <div class="time">08:30<br>09:00</div>
+          <div class="body">
+            <h3>去海洋王国早享通道</h3>
+            <p>如果现场说 9点早享，8:40 左右到入口最舒服；如果现场说 8点已可入，立刻进园，不在酒店久停。老人和小娃不要追赶，进园后先定集合点。</p>
+            <div class="chips"><span class="badge">酒店住客早享</span><span class="badge">不要硬等全员同速</span></div>
+          </div>
+        </article>
+
+        <article class="time-card">
+          <div class="time">09:00<br>10:15</div>
+          <div class="body">
+            <h3>A/B 分开启动</h3>
+            <p>A组先冲室外热门：企鹅过山车、冰山过山车、超级激流或鹦鹉过山车按身高和开放情况取舍。B组先进鲸鲨馆/海豚湾/白鲸馆这类室内和动物观赏，不把老人小娃带进刺激项目长队。</p>
+            <div class="chips"><span class="badge">A组抢热门</span><span class="badge">B组降体力消耗</span><span class="badge">10:20前集合</span></div>
+          </div>
+        </article>
+
+        <article class="time-card">
+          <div class="time">10:20<br>11:45</div>
+          <div class="body">
+            <h3>全家鲸鲨馆 + 白鲸剧场</h3>
+            <p>鲸鲨馆是全家共同高价值项目，适合拍照和休息。11:00 白鲸剧场是当天最顺的第一场大剧场，建议至少提前 20分钟入场。</p>
+            <div class="chips"><span class="badge">鲸鲨馆必做</span><span class="badge">11:00白鲸</span><span class="badge">老人坐着恢复</span></div>
+          </div>
+        </article>
+
+        <article class="time-card">
+          <div class="time">11:50<br>13:20</div>
+          <div class="body">
+            <h3>错峰午餐 + 海狮剧场</h3>
+            <p>不建议拖到 12:30 以后再吃。可在海象山/极地区域就近吃简餐，13:00 看海狮剧场。小娃如果困，妈妈和老人可放弃海狮，找室内冷气区或推车午睡。</p>
+            <div class="chips"><span class="badge">11:50先吃</span><span class="badge">13:00海狮</span><span class="badge">小娃午睡优先</span></div>
+          </div>
+        </article>
+
+        <article class="time-card">
+          <div class="time">13:30<br>15:20</div>
+          <div class="body">
+            <h3>补项目 + 15:00 海洋大巡游</h3>
+            <p>A组补冰山/超级激流/丛林过山车，B组补企鹅馆、北极熊馆、海豚岛、触摸池。14:30前后开始往巡游线移动，15:00 看海洋大巡游。</p>
+            <div class="chips"><span class="badge">14:00白鲸备选</span><span class="badge">14:30海狮备选</span><span class="badge">15:00巡游</span></div>
+          </div>
+        </article>
+
+        <article class="time-card">
+          <div class="time">15:25<br>16:45</div>
+          <div class="body">
+            <h3>长隆秀分流：离园、回酒店、进剧院</h3>
+            <p>看长隆秀的人 15:35 前离开海洋王国，回酒店取水、上洗手间，16:00 后进长隆剧院。若小娃不看秀，妈妈带小娃回酒店办入住/休息/水世界；看秀组由爸爸带两个大孩子和老人入场。</p>
+            <div class="chips"><span class="badge">16:00剧院开园</span><span class="badge">17:00开演</span><span class="badge">小娃可酒店休整</span></div>
+          </div>
+        </article>
+
+        <article class="time-card">
+          <div class="time">17:00<br>18:30</div>
+          <div class="body">
+            <h3>长隆秀 / 酒店恢复</h3>
+            <p>方案一：全家看秀，最完整；小娃怕声响就带耳罩。方案二：爸爸 + 两个大孩子 + 老人看秀，妈妈 + 小娃回酒店休息，18:30 在酒店大堂或水世界门口汇合。</p>
+            <div class="chips"><span class="badge">票已买建议看</span><span class="badge">耳罩有用</span><span class="badge">不硬撑小娃</span></div>
+          </div>
+        </article>
+
+        <article class="time-card">
+          <div class="time">18:40<br>20:15</div>
+          <div class="body">
+            <h3>回海洋王国夜场，烟花收尾</h3>
+            <p>若套票确认可多次入园，看秀后回海洋王国：19:10 夜光大巡游，20:00 海洋幻彩烟花秀。若孩子已经累，放弃夜光巡游，只为烟花进园或直接酒店水世界。</p>
+            <div class="chips"><span class="badge">19:10夜光巡游</span><span class="badge">20:00烟花</span><span class="badge">孩子累就酒店线</span></div>
+          </div>
+        </article>
+
+        <article class="time-card">
+          <div class="time">20:20<br>21:30</div>
+          <div class="body">
+            <h3>回酒店洗澡、夜宵、早睡</h3>
+            <p>这天不要再安排复杂活动。第二天要补漏，晚上尽量 22:00 前睡。泳衣和第二天入园包提前分好，避免早上全家翻箱。</p>
+            <div class="chips"><span class="badge">低刺激收尾</span><span class="badge">第二天补漏</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="groups">
+      <div class="section-head">
+        <h2>A/B 分组路线</h2>
+        <p>每组都不是“陪跑”。A组得到速度和刺激，B组得到舒适和观赏，集合点把全家体验重新拼起来。</p>
+      </div>
+
+      <div class="grid cols-3">
+        <article class="route">
+          <div class="route__top">
+            <span class="tag blue">A组</span>
+            <h3>爸爸 + 两个大孩子</h3>
+          </div>
+          <div class="route__body">
+            <ol>
+              <li>入园先量身高，不踮脚，按现场安全员标准。</li>
+              <li>优先企鹅过山车、冰山过山车、超级激流、丛林过山车。</li>
+              <li>鹦鹉过山车若孩子低于 1.32m 或明显害怕，就不当必做。</li>
+              <li>每玩 2个室外项目补一次水，避免午后暴晒崩盘。</li>
+            </ol>
+            <div class="chips"><span class="badge">刺激项目</span><span class="badge">排队机动</span><span class="badge">不拖全家</span></div>
+          </div>
+        </article>
+
+        <article class="route">
+          <div class="route__top">
+            <span class="tag green">B组</span>
+            <h3>妈妈 + 小娃 + 老人</h3>
+          </div>
+          <div class="route__body">
+            <ol>
+              <li>首选鲸鲨馆、白鲸馆、企鹅馆、北极熊馆、海豚岛。</li>
+              <li>三岁半小娃不要强塞过山车，项目以旋转类/互动类/观赏类为主。</li>
+              <li>剧场优先坐边侧靠出口位置，方便临时离场和上洗手间。</li>
+              <li>中午 12:30-14:00 是小娃体力低谷，安排午睡或室内动物馆。</li>
+            </ol>
+            <div class="chips"><span class="badge">室内优先</span><span class="badge">少排长队</span><span class="badge">老人舒适</span></div>
+          </div>
+        </article>
+
+        <article class="route">
+          <div class="route__top">
+            <span class="tag coral">看秀分流</span>
+            <h3>长隆秀的两套打法</h3>
+          </div>
+          <div class="route__body">
+            <ol>
+              <li>全家看秀：最省沟通，建议给小娃带耳罩和小零食。</li>
+              <li>小娃不看：爸爸带大孩子和老人看秀，妈妈带小娃酒店入住休息。</li>
+              <li>18:30 在酒店大堂或水世界入口汇合，再决定夜场还是水世界。</li>
+              <li>不要让看秀组出来后再去找房间，先约固定点。</li>
+            </ol>
+            <div class="chips"><span class="badge">老人坐着看更轻松</span><span class="badge">小娃可撤退</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="shows">
+      <div class="section-head">
+        <h2>5月30日演出表</h2>
+        <p>以下为5月24日查询到的官网公开时间，实际以园区当天公告和长隆旅游 APP 为准。建议到园后截当天演出表。</p>
+      </div>
+
+      <table class="show-table">
+        <thead>
+          <tr>
+            <th>演出</th>
+            <th>时间</th>
+            <th>攻略取舍</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>白鲸剧场</td>
+            <td>11:00 / 14:00 / 17:45</td>
+            <td>11:00 最适合全家第一场；17:45 与长隆秀冲突。</td>
+          </tr>
+          <tr>
+            <td>海豚剧场</td>
+            <td>12:00 / 15:30 / 17:00</td>
+            <td>若不看长隆秀可看 15:30；看秀当天不强求。</td>
+          </tr>
+          <tr>
+            <td>海狮剧场</td>
+            <td>13:00 / 14:30 / 16:00 / 18:00</td>
+            <td>13:00 或 14:30 二选一；16:00 后与长隆秀动线冲突。</td>
+          </tr>
+          <tr>
+            <td>5D城堡影院</td>
+            <td>11:30-14:00 每30分钟；15:00-19:00 每60分钟</td>
+            <td>下雨或大排队时插入；小娃怕动感座椅就坐普通区或跳过。</td>
+          </tr>
+          <tr>
+            <td>长隆海洋大巡游</td>
+            <td>15:00</td>
+            <td>首日必看，之后立刻准备去长隆秀。</td>
+          </tr>
+          <tr>
+            <td>水上飞人大汇演</td>
+            <td>16:00</td>
+            <td>看长隆秀则放弃；不看秀组可补。</td>
+          </tr>
+          <tr>
+            <td>海洋夜光大巡游</td>
+            <td>19:10</td>
+            <td>看完长隆秀后体力够再回园。</td>
+          </tr>
+          <tr>
+            <td>海洋幻彩烟花秀</td>
+            <td>20:00</td>
+            <td>首日晚间最值得保留；孩子累就酒店休息，不硬撑。</td>
+          </tr>
+          <tr>
+            <td>长隆秀</td>
+            <td>剧院 16:00 开园，17:00 开演</td>
+            <td>15:35 前从海洋王国撤出，别卡最后 20分钟。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="checklist">
+      <div class="section-head">
+        <h2>项目清单</h2>
+        <p>按家庭角色筛选。三岁半小娃接近 1m 时，所有机动项目都必须以现场测量和安全员判断为准。</p>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="项目筛选">
+        <button class="filter-btn is-active" data-filter="all" type="button">全部</button>
+        <button class="filter-btn" data-filter="a" type="button">A组刺激</button>
+        <button class="filter-btn" data-filter="b" type="button">B组温和</button>
+        <button class="filter-btn" data-filter="indoor" type="button">室内雨天</button>
+        <button class="filter-btn" data-filter="show" type="button">演出巡游</button>
+      </div>
+
+      <div class="check-grid">
+        <article class="check-card" data-type="a">
+          <div>
+            <div class="check-title"><h3>鹦鹉过山车</h3><span class="tag blue">A</span></div>
+            <p>海洋王国最刺激之一。两个大孩子若低于 1.32m，不建议当作必玩；胆量不足直接换冰山/企鹅。</p>
+          </div>
+          <div class="height">官网提示：1.32m以下儿童不推荐乘坐，1.0-1.32m需成人陪同。</div>
+        </article>
+
+        <article class="check-card" data-type="a">
+          <div>
+            <div class="check-title"><h3>冰山过山车</h3><span class="tag blue">A</span></div>
+            <p>大孩子主力项目，刺激但比鹦鹉更适合作为第一波目标。会湿，雨衣有用。</p>
+          </div>
+          <div class="height">官网提示：1.0m以下不可，1.0-1.2m需成人陪同，1.2m以下不建议。</div>
+        </article>
+
+        <article class="check-card" data-type="a">
+          <div>
+            <div class="check-title"><h3>超级激流</h3><span class="tag blue">A</span></div>
+            <p>适合下午补刺激，湿身概率高。老人小娃不排长队，在附近动物线等。</p>
+          </div>
+          <div class="height">公开信息提示：1.0m以下不可，1.0-1.2m需成人陪同，1.3m以下不建议。</div>
+        </article>
+
+        <article class="check-card" data-type="a">
+          <div>
+            <div class="check-title"><h3>企鹅过山车</h3><span class="tag blue">A</span></div>
+            <p>更适合 1.2m 左右孩子热身。大孩子先玩它，能判断今天胆量。</p>
+          </div>
+          <div class="height">官网提示：1.0m以下不可，1.0-1.2m儿童须成人陪同；4岁以下不建议。</div>
+        </article>
+
+        <article class="check-card" data-type="a b">
+          <div>
+            <div class="check-title"><h3>丛林过山车</h3><span class="tag cyan">亲子</span></div>
+            <p>家庭型过山车，A组可补；B组只在小娃身高、年龄和胆量都合适时考虑。</p>
+          </div>
+          <div class="height">现场测量为准；1.0m上下儿童不要硬试。</div>
+        </article>
+
+        <article class="check-card" data-type="a b">
+          <div>
+            <div class="check-title"><h3>旋转水战 / 海豚转转车</h3><span class="tag cyan">亲子</span></div>
+            <p>三岁半小娃如果现场允许，是她能参与感较强的项目；排队长就放弃。</p>
+          </div>
+          <div class="height">常见限制在 1.0-1.2m需成人陪同范围，最终看现场。</div>
+        </article>
+
+        <article class="check-card" data-type="b indoor">
+          <div>
+            <div class="check-title"><h3>鲸鲨馆</h3><span class="tag green">必看</span></div>
+            <p>全家共同高价值项目，冷气、震撼、适合老人和小娃。建议首日上午就完成。</p>
+          </div>
+          <div class="height">雨天、暴晒、午睡前后都适合插入。</div>
+        </article>
+
+        <article class="check-card" data-type="b indoor">
+          <div>
+            <div class="check-title"><h3>白鲸馆 / 白鲸剧场</h3><span class="tag green">必看</span></div>
+            <p>剧场是老人恢复体力的黄金点。优先 11:00 场，避开长隆秀冲突。</p>
+          </div>
+          <div class="height">提前 20-30 分钟进场更稳。</div>
+        </article>
+
+        <article class="check-card" data-type="b indoor">
+          <div>
+            <div class="check-title"><h3>企鹅馆 / 北极熊馆</h3><span class="tag green">温和</span></div>
+            <p>室内动物线，适合午后热的时候走。小娃会喜欢，老人也轻松。</p>
+          </div>
+          <div class="height">适合 B组等 A组项目结束。</div>
+        </article>
+
+        <article class="check-card" data-type="b">
+          <div>
+            <div class="check-title"><h3>海豚岛 / 中华白海豚</h3><span class="tag green">温和</span></div>
+            <p>入园早段、傍晚都适合，作为小娃的情绪回血项目。</p>
+          </div>
+          <div class="height">不需要和刺激项目挤同一条队伍。</div>
+        </article>
+
+        <article class="check-card" data-type="show">
+          <div>
+            <div class="check-title"><h3>海洋大巡游</h3><span class="tag gold">15:00</span></div>
+            <p>首日必看。看完立刻离园去长隆秀，不要临时再插一个项目。</p>
+          </div>
+          <div class="height">提前 15分钟站位即可，不必过早暴晒。</div>
+        </article>
+
+        <article class="check-card" data-type="show">
+          <div>
+            <div class="check-title"><h3>烟花秀</h3><span class="tag gold">20:00</span></div>
+            <p>看秀后回园的最大理由。若全家累了，保酒店休息，第二天补动物馆。</p>
+          </div>
+          <div class="height">注意小娃怕响，带耳罩或提前站远一点。</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="hotel">
+      <div class="section-head">
+        <h2>酒店与水世界</h2>
+        <p>横琴湾酒店本身也是“第二个乐园”。它不应该挤掉海洋王国，但很适合作为小娃和老人撤退点。</p>
+      </div>
+
+      <div class="map">
+        <div class="map-card">
+          <span class="tag coral">横琴湾酒店</span>
+          <h3>15:00 入住，先寄存行李</h3>
+          <p>早到不能保证拿房，但可办理票务、寄存和停车授权。下午看秀分流时，让不看秀的人回酒店拿房休息。</p>
+        </div>
+        <div class="map-card">
+          <span class="tag cyan">水世界</span>
+          <h3>周六室内 09:30-21:30</h3>
+          <p>5月30日是周六，官网当前显示室内 09:30-21:30，室外 10:30-21:30，海豚之窗 08:00-21:30。</p>
+        </div>
+      </div>
+
+      <div class="grid cols-3" style="margin-top:14px">
+        <div class="card">
+          <h3>什么时候玩水世界</h3>
+          <p>最佳是长隆秀期间小娃撤退，或首日晚饭后不回海洋王国时。第二天中午退房后也可短玩，但要问清退房日权益。</p>
+        </div>
+        <div class="card">
+          <h3>谁最适合</h3>
+          <p>三岁半小娃、妈妈、老人最适合。大孩子如果白天项目还没玩够，水世界放在晚上做情绪奖励。</p>
+        </div>
+        <div class="card">
+          <h3>必须带</h3>
+          <p>泳衣、手机防水袋、拖鞋、儿童浴巾、备用干衣、塑料袋。小娃玩水后容易困，后面不要再安排硬行程。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="rain">
+      <div class="section-head">
+        <h2>雨天与人多预案</h2>
+        <p>珠海5月底又热又潮，阵雨概率不低。真正的核心不是避雨，而是把室内项目放到天气最差、体力最低的时候。</p>
+      </div>
+
+      <div class="grid cols-3">
+        <div class="card">
+          <span class="tag green">下雨</span>
+          <h3>立刻切室内线</h3>
+          <ul>
+            <li>鲸鲨馆、白鲸馆、企鹅馆、北极熊馆。</li>
+            <li>5D城堡影院、白鲸/海豚/海狮剧场。</li>
+            <li>雨停后再补室外机动，不在雨中硬排。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag coral">人多</span>
+          <h3>只保 6 个核心</h3>
+          <ul>
+            <li>鲸鲨馆。</li>
+            <li>白鲸剧场。</li>
+            <li>企鹅馆/北极熊馆。</li>
+            <li>一个大孩子过山车。</li>
+            <li>15:00 巡游。</li>
+            <li>长隆秀或 20:00 烟花。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag gold">孩子累</span>
+          <h3>先保第二天</h3>
+          <ul>
+            <li>小娃哭闹超过 10分钟，直接酒店恢复。</li>
+            <li>老人步速变慢，停止跨区追项目。</li>
+            <li>晚间烟花可远看，不必站最前。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="day2">
+      <div class="section-head">
+        <h2>第二天补漏路线</h2>
+        <p>第二天的价值是补漏和轻松，不是把第一天没完成的焦虑搬过来。若套票支持多次入园，早上继续用酒店住客早享。</p>
+      </div>
+
+      <div class="timeline">
+        <article class="time-card">
+          <div class="time">07:30<br>08:45</div>
+          <div class="body">
+            <h3>起床早餐、退房准备</h3>
+            <p>大件行李收好寄存，随身只带入园包。退房时间官网寄存页显示 11:00，建议入住时以酒店前台确认为准。</p>
+            <div class="chips"><span class="badge">房卡/证件随身</span><span class="badge">行李寄存</span></div>
+          </div>
+        </article>
+
+        <article class="time-card">
+          <div class="time">09:00<br>11:30</div>
+          <div class="body">
+            <h3>补第一天漏掉的动物馆和项目</h3>
+            <p>A组补没玩到的过山车；B组补海豚岛、触摸池、海鸟世界、海象岛。全家可再刷鲸鲨馆或 5D影院。</p>
+            <div class="chips"><span class="badge">按缺口补</span><span class="badge">不重复排长队</span></div>
+          </div>
+        </article>
+
+        <article class="time-card">
+          <div class="time">11:30<br>13:00</div>
+          <div class="body">
+            <h3>午餐后撤退或水世界</h3>
+            <p>如果返程不急，可午餐后回酒店水世界短玩；如果孩子疲劳，直接取车回佛山，别把第二天拖成夜归。</p>
+            <div class="chips"><span class="badge">水世界短玩</span><span class="badge">或直接返程</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="packing">
+      <div class="section-head">
+        <h2>行李与分工</h2>
+        <p>把“爸爸票务包、妈妈小娃包、车上备用包、泳衣包”分开，现场会顺很多。</p>
+      </div>
+
+      <div class="grid cols-4">
+        <div class="card">
+          <h3>证件票务</h3>
+          <ul>
+            <li>全部身份证/儿童证件。</li>
+            <li>酒店订单、套票二维码。</li>
+            <li>长隆秀票务信息。</li>
+            <li>车牌号用于停车授权。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>小娃包</h3>
+          <ul>
+            <li>薄外套、备用衣裤。</li>
+            <li>湿巾、纸巾、小零食。</li>
+            <li>轻便推车或腰凳。</li>
+            <li>耳罩或降噪耳机。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>天气包</h3>
+          <ul>
+            <li>轻薄雨衣，不建议只带伞。</li>
+            <li>防晒帽、防晒霜。</li>
+            <li>小风扇、补水杯。</li>
+            <li>防水袋和密封袋。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>水世界包</h3>
+          <ul>
+            <li>泳衣、泳镜、拖鞋。</li>
+            <li>浴巾、干衣、塑料袋。</li>
+            <li>儿童洗浴用品。</li>
+            <li>手机防水袋。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <div class="section-head">
+        <h2>官方信息源</h2>
+        <p>本页信息按 2026年5月24日查询整理。长隆项目、演出和天气都可能临时调整，5月29日晚上和5月30日到园后再复核一次。</p>
+      </div>
+
+      <div class="grid cols-2">
+        <div class="source-card">
+          <h3>长隆官方</h3>
+          <ul>
+            <li><a href="https://www.chimelong.com/zh/hours/" target="_blank" rel="noreferrer">乐园马戏营业时间</a>：海洋王国 5月 10:00-20:00；水世界、长隆剧院时间。</li>
+            <li><a href="https://www.chimelong.com/zh/chimelongtheatre/news/3106.html" target="_blank" rel="noreferrer">长隆剧院开园时间调整公告</a>：5月14日起 16:00 开园，17:00 开演。</li>
+            <li><a href="https://www.chimelong.com/zh/oceankingdom/perform/" target="_blank" rel="noreferrer">海洋王国园内表演</a>：白鲸、海豚、海狮、巡游、烟花等时间。</li>
+            <li><a href="https://www.chimelong.com/zh/hengqinbayhotel/privilege/" target="_blank" rel="noreferrer">横琴湾酒店尊享特权</a>：多次入园、早享入园、穿梭巴、水世界权益说明。</li>
+            <li><a href="https://www.chimelong.com/zh/deposit/" target="_blank" rel="noreferrer">酒店寄存服务与入住时间</a>：横琴湾酒店 15:00 入住、行李寄存、停车授权。</li>
+            <li><a href="https://www.chimelong.com/zh/hengqinbayhotel/water/" target="_blank" rel="noreferrer">横琴湾水世界</a>：5月7日-6月30日分区营业时间。</li>
+          </ul>
+        </div>
+
+        <div class="source-card">
+          <h3>天气与项目限制</h3>
+          <ul>
+            <li><a href="https://www.qweather.com/weather30d/zhuhai-101280701.html" target="_blank" rel="noreferrer">和风天气珠海30天预报</a>：5月30日约 28-24°C，未来30天多雨日。</li>
+            <li><a href="https://www.chimelong.com/zh/oceankingdom/exhibition/2312.html" target="_blank" rel="noreferrer">企鹅过山车官方页</a>：身高和年龄安全提示。</li>
+            <li><a href="https://www.chimelong.com/zh/oceankingdom/exhibition/2330.html" target="_blank" rel="noreferrer">冰山过山车官方页</a>：身高和陪同要求。</li>
+            <li><a href="https://www.chimelong.com/zh/oceankingdom/exhibition/2311.html" target="_blank" rel="noreferrer">鹦鹉过山车官方页</a>：1.32m以下儿童不推荐，儿童陪同要求。</li>
+            <li><a href="https://www.chimelong.com/zh/oceankingdom/exhibition/" target="_blank" rel="noreferrer">海洋王国展区总览</a>：动物馆、剧场、机动项目分布。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>建议5月29日晚再打开长隆旅游 APP 核对：海洋王国当天营业时间、早享项目、长隆秀入场、园内表演、天气预警。若任何信息与本页不同，以官方当天公告和现场工作人员为准。</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="print-bar">
+    <button type="button" onclick="window.print()">打印 / 保存 PDF</button>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll(".filter-btn");
+    const cards = document.querySelectorAll(".check-card");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+        buttons.forEach((item) => item.classList.remove("is-active"));
+        button.classList.add("is-active");
+
+        cards.forEach((card) => {
+          const types = card.dataset.type.split(" ");
+          card.dataset.hide = filter !== "all" && !types.includes(filter);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

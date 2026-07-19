@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRAIN OS 明亮可视化动画课</title>
+<style>
+:root {
+  --paper: #fbfdff;
+  --surface: #ffffff;
+  --soft: #f1f6ff;
+  --soft-2: #f8fbf3;
+  --ink: #172033;
+  --muted: #65728a;
+  --line: #d9e3f2;
+  --blue: #2864ff;
+  --teal: #00a6a6;
+  --green: #27a86b;
+  --gold: #f2ae00;
+  --coral: #ff6b5a;
+  --violet: #725cff;
+  --rose: #e45f9b;
+  --shadow: 0 18px 45px rgba(42, 67, 115, 0.12);
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    linear-gradient(90deg, rgba(40,100,255,0.04) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(39,168,107,0.04) 1px, transparent 1px),
+    var(--paper);
+  background-size: 32px 32px;
+  font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+  line-height: 1.65;
+}
+
+button, input { font: inherit; }
+
+button {
+  border: 0;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) auto minmax(160px, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding: 12px 28px;
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: white;
+  background: conic-gradient(from 110deg, var(--blue), var(--teal), var(--green), var(--gold), var(--coral), var(--violet), var(--blue));
+  box-shadow: 0 8px 20px rgba(40, 100, 255, 0.22);
+}
+
+.brand small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: 0 6px 18px rgba(42, 67, 115, 0.08);
+}
+
+.icon-btn svg { width: 19px; height: 19px; }
+
+.icon-btn.primary {
+  width: 48px;
+  height: 48px;
+  color: white;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--blue), var(--teal));
+}
+
+.icon-btn.active {
+  color: white;
+  border-color: transparent;
+  background: var(--ink);
+}
+
+.scene-count {
+  justify-self: end;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.rail {
+  width: 100%;
+  height: 8px;
+  background: #eaf1fb;
+}
+
+.rail-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--teal), var(--green), var(--gold), var(--coral));
+  transition: width 0.35s ease;
+}
+
+.course-shell {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 26px 22px 80px;
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(420px, 1.12fr) minmax(360px, 0.88fr);
+  gap: 22px;
+  align-items: stretch;
+  min-height: calc(100vh - 104px);
+}
+
+.visual-stage, .lesson-panel, .chapter-card, .protocol-card, .quiz-lab {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow);
+}
+
+.visual-stage {
+  position: relative;
+  overflow: hidden;
+  min-height: 560px;
+}
+
+.visual-head {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 11px;
+  border: 1px solid rgba(40, 100, 255, 0.18);
+  border-radius: 999px;
+  color: #24436f;
+  background: rgba(255, 255, 255, 0.82);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.pill-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+
+#sceneCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 560px;
+}
+
+.caption {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 18px;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 14px 30px rgba(42, 67, 115, 0.12);
+  backdrop-filter: blur(12px);
+}
+
+.caption b {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: white;
+  background: var(--coral);
+}
+
+.caption p {
+  margin: 0;
+  color: #283a58;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.lesson-panel {
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  min-width: 0;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin-bottom: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: #2b4a7a;
+  background: #eaf2ff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.lesson-title {
+  margin: 0;
+  font-size: 36px;
+  line-height: 1.16;
+  letter-spacing: 0;
+}
+
+.hook {
+  margin: 16px 0 0;
+  color: #34455f;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.spotlight {
+  margin: 20px 0 18px;
+  padding: 16px 18px;
+  border-left: 5px solid var(--gold);
+  background: #fff8df;
+  border-radius: var(--radius);
+}
+
+.spotlight span {
+  display: block;
+  color: #8a6200;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.spotlight strong {
+  display: block;
+  margin-top: 3px;
+  color: #3d3320;
+  font-size: 17px;
+}
+
+.step-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step-list li {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #ffffff;
+  color: #506079;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.step-list li.active {
+  transform: translateX(4px);
+  border-color: rgba(40, 100, 255, 0.45);
+  background: #f4f8ff;
+  color: var(--ink);
+}
+
+.step-no {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: white;
+  background: var(--blue);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.analogy {
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.analogy h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.analogy p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 6px;
+  margin: 24px 0 0;
+}
+
+.marker {
+  height: 10px;
+  border-radius: 999px;
+  background: #e6edf7;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.marker.active {
+  transform: translateY(-2px);
+  background: var(--blue);
+}
+
+.section-band {
+  margin-top: 34px;
+  padding: 34px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.75);
+  box-shadow: var(--shadow);
+}
+
+.section-band h2 {
+  margin: 0 0 10px;
+  font-size: 28px;
+  line-height: 1.25;
+}
+
+.section-band > p {
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.chapter-card {
+  padding: 18px;
+}
+
+.chapter-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+
+.tag {
+  display: inline-grid;
+  place-items: center;
+  min-width: 34px;
+  height: 26px;
+  padding: 0 8px;
+  border-radius: 999px;
+  color: white;
+  background: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.chapter-card p {
+  margin: 0 0 12px;
+  color: #4e5f78;
+}
+
+.four-map {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.map-cell {
+  min-height: 112px;
+  padding: 10px;
+  border-radius: var(--radius);
+  background: #f5f8fd;
+  border: 1px solid #e4ecf8;
+}
+
+.map-cell b {
+  display: block;
+  margin-bottom: 6px;
+  color: #24436f;
+  font-size: 12px;
+}
+
+.map-cell span {
+  display: block;
+  color: #637088;
+  font-size: 13px;
+}
+
+.protocol-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.protocol-card {
+  padding: 16px;
+  min-height: 220px;
+}
+
+.protocol-card b {
+  display: block;
+  color: var(--blue);
+  font-size: 14px;
+}
+
+.protocol-card h3 {
+  margin: 8px 0;
+  font-size: 18px;
+}
+
+.protocol-card ul {
+  margin: 0;
+  padding-left: 19px;
+  color: #53647c;
+  font-size: 14px;
+}
+
+.sensory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.sensory-item {
+  padding: 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.sensory-item strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.sensory-item p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.design-loop {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  align-items: stretch;
+}
+
+.design-step {
+  position: relative;
+  min-height: 168px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.design-step::after {
+  content: "";
+  position: absolute;
+  top: 28px;
+  right: -11px;
+  width: 20px;
+  height: 20px;
+  border-top: 3px solid rgba(40,100,255,0.28);
+  border-right: 3px solid rgba(40,100,255,0.28);
+  transform: rotate(45deg);
+  background: var(--surface);
+}
+
+.design-step:last-child::after { display: none; }
+
+.design-step b {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  color: white;
+  background: var(--blue);
+}
+
+.design-step strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.design-step p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.storyboard {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.story-card {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.story-card h3 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.3;
+}
+
+.story-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.story-meta span {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #edf4ff;
+  color: #31507d;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.story-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.quiz-lab {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 18px;
+  padding: 22px;
+}
+
+.quiz-buttons {
+  display: grid;
+  gap: 10px;
+}
+
+.choice {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  color: #30415f;
+  text-align: left;
+}
+
+.choice.selected {
+  border-color: var(--blue);
+  background: #eef5ff;
+}
+
+.result-bars {
+  display: grid;
+  gap: 9px;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 86px 1fr 40px;
+  align-items: center;
+  gap: 10px;
+  color: #4d5d73;
+  font-size: 13px;
+}
+
+.bar-track {
+  height: 10px;
+  border-radius: 999px;
+  background: #e7eef8;
+  overflow: hidden;
+}
+
+.bar-val {
+  width: 20%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--blue), var(--teal));
+  transition: width 0.35s ease;
+}
+
+.footer-note {
+  max-width: 900px;
+  margin: 24px auto 0;
+  color: var(--muted);
+  text-align: center;
+  font-size: 13px;
+}
+
+@media (max-width: 980px) {
+  .topbar {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    padding: 10px 14px;
+  }
+
+  .scene-count { justify-self: center; }
+
+  .stage, .chapter-grid, .quiz-lab {
+    grid-template-columns: 1fr;
+  }
+
+  .visual-stage, #sceneCanvas { min-height: 470px; }
+
+  .lesson-title { font-size: 30px; }
+
+  .four-map, .protocol-grid, .sensory-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .design-loop, .storyboard {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .design-step::after { display: none; }
+}
+
+@media (max-width: 620px) {
+  .course-shell { padding: 16px 12px 54px; }
+  .visual-stage, #sceneCanvas { min-height: 390px; }
+  .lesson-panel, .section-band { padding: 18px; }
+  .four-map, .protocol-grid, .sensory-grid, .design-loop, .storyboard { grid-template-columns: 1fr; }
+  .caption { grid-template-columns: 1fr; }
+  .controls { flex-wrap: wrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark" aria-hidden="true">B</div>
+    <div>BRAIN OS 明亮动画课<small>从神经机制到注意力主权</small></div>
+  </div>
+  <div class="controls" aria-label="课程控制">
+    <button class="icon-btn" id="prevBtn" title="上一幕" aria-label="上一幕">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M19 20 9 12l10-8v16Z"/><path d="M5 19V5"/></svg>
+    </button>
+    <button class="icon-btn primary" id="playBtn" title="播放" aria-label="播放">
+      <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+    <button class="icon-btn" id="nextBtn" title="下一幕" aria-label="下一幕">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="m5 4 10 8-10 8V4Z"/><path d="M19 5v14"/></svg>
+    </button>
+    <button class="icon-btn" id="voiceBtn" title="旁白" aria-label="旁白">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+    </button>
+    <button class="icon-btn" id="musicBtn" title="背景音" aria-label="背景音">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    </button>
+    <button class="icon-btn" id="touchBtn" title="触觉提示" aria-label="触觉提示">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 13V7a2 2 0 0 1 4 0v5"/><path d="M12 12V6a2 2 0 1 1 4 0v7"/><path d="M16 13V8a2 2 0 1 1 4 0v7c0 4-3 6-7 6h-1c-3 0-5-2-6-5l-1-4a2 2 0 0 1 4-1l1 3"/></svg>
+    </button>
+  </div>
+  <div class="scene-count" id="sceneCount">第 1 / 12 幕</div>
+</header>
+<div class="rail"><div class="rail-fill" id="railFill"></div></div>
+
+<main class="course-shell">
+  <section class="stage" aria-label="可播放动画课">
+    <div class="visual-stage">
+      <div class="visual-head">
+        <div class="pill"><span class="pill-dot" id="modeDot"></span><span id="modeLabel">系统总览</span></div>
+        <div class="pill" id="tempoLabel">节奏：建立兴趣</div>
+      </div>
+      <canvas id="sceneCanvas"></canvas>
+      <div class="caption">
+        <b id="captionNo">1</b>
+        <p id="captionText"></p>
+      </div>
+    </div>
+
+    <article class="lesson-panel">
+      <span class="kicker" id="kicker">第一层：先看见系统</span>
+      <h1 class="lesson-title" id="lessonTitle"></h1>
+      <p class="hook" id="hook"></p>
+      <div class="spotlight">
+        <span>关键时刻教学</span>
+        <strong id="keyMoment"></strong>
+      </div>
+      <ul class="step-list" id="stepList"></ul>
+      <div class="analogy">
+        <h3>通俗类比</h3>
+        <p id="analogyText"></p>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </article>
+  </section>
+
+  <section class="section-band" aria-label="全景知识地图">
+    <h2>全景知识地图：把原 H5 的重点重新融会贯通</h2>
+    <p>每个模块都按“神经机制、被利用方式、自救方法、正向变现”四格展开。学习者先被动画吸引，再用这张图补足深度。</p>
+    <div class="chapter-grid" id="chapterGrid"></div>
+  </section>
+
+  <section class="section-band" aria-label="多感官教学设计">
+    <h2>多感官教学：让抽象概念变成身体能懂的东西</h2>
+    <p>这套课不只靠文字解释，而是把视觉、动作、声音、节奏和轻触反馈绑定到关键概念上。</p>
+    <div class="sensory-grid">
+      <div class="sensory-item"><strong>视觉</strong><p>用流动箭头表示“刺激进入大脑”，用颜色区分奖励、威胁、理性、恢复，让学习者不用先背术语。</p></div>
+      <div class="sensory-item"><strong>动作</strong><p>每一幕都有“输入、放大、劫持、重定向”的运动轨迹，把机制做成可观察的动作。</p></div>
+      <div class="sensory-item"><strong>语音</strong><p>旁白用“先故事、后机制、再行动”的顺序讲，减少认知负荷，让注意力跟得上。</p></div>
+      <div class="sensory-item"><strong>音乐与触觉</strong><p>背景音保持低刺激，关键节点有短促提示，帮助大脑把“这一刻很重要”编码进记忆。</p></div>
+    </div>
+  </section>
+
+  <section class="section-band" aria-label="多巴胺友好课程设计">
+    <h2>课程节奏设计：用多巴胺激发兴趣，但不制造成瘾</h2>
+    <p>好的教学不是一直给强刺激，而是用“好奇缺口、小胜利、即时反馈、间隔恢复”让学习者愿意继续，同时保留思考空间。</p>
+    <div class="design-loop">
+      <div class="design-step"><b>1</b><strong>新奇开场</strong><p>先用一句反常识结论打破旧认知：你不是懒，是系统输入被设计错了。</p></div>
+      <div class="design-step"><b>2</b><strong>悬念缺口</strong><p>提出一个未完成问题：为什么越刷越空，越空越想刷？</p></div>
+      <div class="design-step"><b>3</b><strong>动作可视化</strong><p>把刺激、期待、行动、反馈画成运动路径，让学习者看见因果。</p></div>
+      <div class="design-step"><b>4</b><strong>小胜利</strong><p>每幕给一个马上能做的动作，让大脑获得“我能控制”的反馈。</p></div>
+      <div class="design-step"><b>5</b><strong>身份锚定</strong><p>把自控从痛苦戒断改写为“经营注意力资产”的身份叙事。</p></div>
+      <div class="design-step"><b>6</b><strong>间隔恢复</strong><p>高信息之后给低刺激复盘，防止课程本身变成另一种信息过载。</p></div>
+    </div>
+  </section>
+
+  <section class="section-band" aria-label="逐幕分镜脚本">
+    <h2>逐幕分镜脚本：每一幕都服务一个关键理解</h2>
+    <p>学习者不需要一次吞下全部概念，而是按“看见系统、识别劫持、建立防御、转化价值”的顺序逐步吸收。</p>
+    <div class="storyboard" id="storyboardGrid"></div>
+  </section>
+
+  <section class="section-band" aria-label="30天行动协议">
+    <h2>30 天注意力重启协议</h2>
+    <p>真正的自控不靠咬牙，而靠环境、摩擦、替代、反馈和身份逐层接管。</p>
+    <div class="protocol-grid">
+      <div class="protocol-card"><b>第 1-3 天</b><h3>物理清零</h3><ul><li>移走高刺激入口</li><li>关闭非必要通知</li><li>建立手机停放点</li><li>记录真实使用时长</li></ul></div>
+      <div class="protocol-card"><b>第 4-7 天</b><h3>神经降噪</h3><ul><li>早晨不碰短刺激</li><li>固定睡眠窗口</li><li>每天 20 分钟运动</li><li>用低刺激替代空闲刷屏</li></ul></div>
+      <div class="protocol-card"><b>第 8-14 天</b><h3>系统构建</h3><ul><li>工作区与娱乐区分离</li><li>给坏行为增加步骤</li><li>给好行为减少步骤</li><li>建立每日复盘表</li></ul></div>
+      <div class="protocol-card"><b>第 15-21 天</b><h3>心流优化</h3><ul><li>90 分钟深度块</li><li>任务前写出第一个动作</li><li>用音乐做进入仪式</li><li>中断后做 3 分钟回收</li></ul></div>
+      <div class="protocol-card"><b>第 22-30 天</b><h3>飞轮固化</h3><ul><li>把身份写成一句话</li><li>设置公开承诺</li><li>把成果可视化</li><li>把注意力换成收入资产</li></ul></div>
+    </div>
+  </section>
+
+  <section class="section-band" aria-label="类型诊断">
+    <h2>学习者类型诊断</h2>
+    <p>用几道快速题把学习者带入课程，让他知道自己不是“意志力差”，而是某条回路正在被过度激活。</p>
+    <div class="quiz-lab">
+      <div>
+        <h3 id="quizTitle">当你想开始工作时，最容易发生什么？</h3>
+        <div class="quiz-buttons" id="quizChoices"></div>
+      </div>
+      <div>
+        <h3 id="resultTitle">当前画像：等待选择</h3>
+        <p id="resultDesc">选择一个最像你的选项，右侧会生成注意力画像。</p>
+        <div class="result-bars" id="resultBars"></div>
+      </div>
+    </div>
+  </section>
+
+  <p class="footer-note">说明：这是一份教育型可视化课件，不替代医学、心理治疗或成瘾治疗建议。涉及严重成瘾、焦虑、抑郁或睡眠障碍时，应寻求专业帮助。</p>
+</main>
+
+<script>
+const scenes = [
+  {
+    mode: "系统总览", tempo: "建立兴趣", color: "#2864ff", kicker: "第一层：先看见系统",
+    title: "你的大脑不是一个人，而是一套操作系统",
+    hook: "很多人以为自己是靠意志力做选择，其实大多数行为先由神经回路预处理，再由意识补写理由。",
+    key: "把“我怎么又这样”改成“是哪条回路被什么输入激活了”。",
+    caption: "输入进来，回路启动，行为输出，结果再反向训练下一次反应。",
+    analogy: "像一家公司：前额叶是 CEO，边缘系统是安保和销售，多巴胺是奖金制度，默认网络是创意部。公司失控时，通常不是 CEO 不存在，而是报警声太大、奖金太刺激、会议太碎。",
+    steps: ["外界刺激先变成感官输入：声音、画面、气味、文字、社交反馈。", "大脑快速判断它代表奖励、威胁、机会还是无关信息。", "多巴胺、皮质醇、血糖、睡眠状态会改变判断质量。", "行为发生后，大脑用结果继续训练下一次反应。", "所以改变行为的核心，是改输入、改摩擦、改奖励、改反馈。"]
+  },
+  {
+    mode: "大脑模块", tempo: "建立地图", color: "#00a6a6", kicker: "第二层：模块化理解",
+    title: "六个核心模块：谁在开车，谁在踩刹车",
+    hook: "大脑不是一块均匀的肉，而是多套并行算法：生存、奖励、计划、记忆、社交和创意在同时争夺控制权。",
+    key: "学习时先问：这件事主要激活了哪个模块？",
+    caption: "边缘系统抢速度，前额叶管长期，奖励回路给动力，默认网络负责联想。",
+    analogy: "像驾驶舱：雷达发现危险，油门追奖励，刹车做克制，导航看长期路线，黑匣子保存经验。",
+    steps: ["边缘系统：恐惧、欲望、愤怒、依恋，反应速度快于清醒思考。", "奖励回路：不是给快乐，而是给“想要”和“再来一次”的驱动力。", "前额叶：计划、权衡、克制、道德判断，但容易被疲劳和情绪削弱。", "默认模式网络：走神、想象、自我叙事，也是创意和复盘的来源。", "海马体与记忆系统：把情境、情绪和结果绑定成可调用经验。", "社交脑：持续扫描地位、认可、拒绝和归属。"]
+  },
+  {
+    mode: "多巴胺回路", tempo: "制造 aha", color: "#ff6b5a", kicker: "第三层：奖励机制",
+    title: "多巴胺不是快乐，它是“想要”的发动机",
+    hook: "最容易上瘾的东西，往往不是最让人满足的东西，而是最会制造期待、不确定和下一次机会的东西。",
+    key: "渴望峰值通常出现在获得之前，而不是获得之后。",
+    caption: "提示出现，期待升高，行动自动化，奖励落差决定下次是否更想要。",
+    analogy: "像手机上的进度条和红包雨：真正抓住你的不是已经拿到的奖励，而是“下一下可能更好”的预测。",
+    steps: ["线索出现：通知、封面、气味、暧昧信号、价格倒计时。", "大脑预测奖励：可能有好东西，于是动力被提前点燃。", "行动自动化：手已经滑动、点击、购买，意识才开始解释。", "奖励比较：实际结果高于预期会强化，低于预期会产生空虚。", "耐受形成：刺激越密，日常生活越显得无聊，阈值被抬高。", "修复方向：降低超常刺激密度，保护早晨基线，把奖励绑定到长期目标。"]
+  },
+  {
+    mode: "三重塑造", tempo: "解释差异", color: "#725cff", kicker: "第四层：为什么每个人不同",
+    title: "同一个刺激，对不同人不是同一种刺激",
+    hook: "有人刷短视频停不下来，有人一紧张就购物，有人靠社交认可续命。差异来自三层塑造。",
+    key: "不是所有人都需要同一种自控方案，要按塑造层找入口。",
+    caption: "进化给底层偏好，早期经历塑造敏感点，当下环境每天重新训练。",
+    analogy: "像软件：进化是出厂固件，成长经历是默认设置，现代环境是每天推送的更新包。",
+    steps: ["进化层：高热量、新奇、性吸引、地位、损失、危险信号天然优先。", "成型层：依恋、贫困、被比较、创伤、奖励方式会塑造成年反应。", "环境层：手机、算法、同伴、工作制度、睡眠和饮食每天都在重写权重。", "文化层：成功叙事、消费叙事和身份标签会塑造你追求什么。", "干预层：越底层越要靠环境设计，越高层越能用认知重构和身份改变。"]
+  },
+  {
+    mode: "大脑算子", tempo: "给出工具", color: "#27a86b", kicker: "第五层：可操作语言",
+    title: "算子：能改变大脑输出的输入函数",
+    hook: "如果把大脑看作系统，算子就是那些能激活、抑制、放大或重定向回路的按钮。",
+    key: "不要只说“我要自律”，要说“我要换掉触发算子，降低强化算子，增加恢复算子”。",
+    caption: "短视频、比较、碎片任务是消耗算子；运动、睡眠、深度块、公开承诺是建设算子。",
+    analogy: "像调音台：不是骂音乐难听，而是把噪音推子拉低，把主旋律推子拉高。",
+    steps: ["触发算子：图标、红点、声音、地点、某个人、某个时间段。", "强化算子：随机奖励、进度条、点赞、排名、限时、稀缺。", "抑制算子：距离、密码、屏蔽、延迟、旁观者、承诺成本。", "替代算子：运动、创作、社交、学习、冥想、可见成果。", "恢复算子：睡眠、阳光、低刺激休息、散步、呼吸、营养。", "变现算子：把注意力导向信任、价值、复利资产，而不是纯消耗。"]
+  },
+  {
+    mode: "注意力经济", tempo: "识别攻击", color: "#e45f9b", kicker: "第六层：看懂外部战场",
+    title: "注意力经济：你的眼球、时间和情绪被打包出售",
+    hook: "平台不是单纯给你内容，而是在优化停留、互动、回访和情绪波动。",
+    key: "最危险的设计，是移除停止点，让你不知道什么时候该停。",
+    caption: "无限滚动、通知、社交数字、自动播放、争议内容共同构成进入漏斗。",
+    analogy: "像商场把出口藏起来、把糖放在每个拐角、把人群掌声接到你的耳机里。",
+    steps: ["无限滚动：移除自然结束点，让“再看一个”无限续杯。", "通知红点：触发错失恐惧，把检查变成入口。", "社交数字：把地位量化成分数，持续制造比较。", "自动播放：把继续变成默认，把停止变成需要主动决策。", "情绪放大：愤怒、恐惧、猎奇更容易得到互动，于是更常被推荐。", "防御原则：恢复停止点、减少入口、把默认选项改成离开。"]
+  },
+  {
+    mode: "技术反制", tempo: "夺回主动", color: "#2864ff", kicker: "第七层：用技术保护大脑",
+    title: "技术可以控制你，也可以替你守门",
+    hook: "问题不是技术本身，而是你是被动接收输入，还是主动设计输入环境。",
+    key: "把手机从诱惑源改造成仪表盘，把 AI 从玩具改造成前额叶外骨骼。",
+    caption: "测量真实行为，屏蔽高风险入口，用 AI 承接低阶处理，把认知资源留给判断。",
+    analogy: "像给办公室装门禁、仪表盘和助理：不是老板更努力，而是系统更聪明。",
+    steps: ["测量：屏幕时间、HRV、睡眠、专注块、真实产出，先看见再管理。", "阻断：应用限额、DNS 过滤、专注模式、设备分区、物理定时锁。", "外包：AI 处理整理、摘要、排程、草稿、检索，释放工作记忆。", "声音：白噪声、棕噪声、轻节拍用于遮蔽干扰，不追求刺激。", "知识图谱：把碎片信息变成可复用资产，减少重复搜索。", "反馈：每天只看少数关键指标，避免量化本身变成新成瘾。"]
+  },
+  {
+    mode: "赚钱矩阵", tempo: "正向转化", color: "#f2ae00", kicker: "第八层：把机制变成价值",
+    title: "注意力不是被榨干，也可以被转化成资产",
+    hook: "理解大脑算法可以用来操纵，也可以用来降低摩擦、建立信任、帮助别人完成重要目标。",
+    key: "健康的商业公式：注意力 → 信任 → 价值 → 交换 → 长期关系。",
+    caption: "不要只追停留时长，要设计真实成果、清晰反馈和可持续关系。",
+    analogy: "像开餐厅：香味能吸引人进门，但真正让人复购的是营养、口味、卫生和信任。",
+    steps: ["产品设计：用进度、反馈、社群和小胜利帮助用户坚持。", "营销表达：先说清痛点损失，再给出可信路径，避免恐吓式操控。", "内容资产：用持续输出建立权威，让信任降低交易成本。", "服务设计：把复杂任务拆成第一步，让用户更容易行动。", "伦理边界：不利用脆弱人群，不制造假稀缺，不把成瘾当成成功。", "复利方向：课程、工具、咨询、社区、自动化系统都可以围绕注意力质量创造收入。"]
+  },
+  {
+    mode: "七层防御", tempo: "建立安全感", color: "#00a6a6", kicker: "第九层：系统性自控",
+    title: "自控不是一层墙，而是七层防御体系",
+    hook: "靠意志力硬扛，是把最累的前额叶放到最前线。更好的方法是让底层环境先替你挡掉大部分诱惑。",
+    key: "越靠底层的防御，越省意志力；越靠身份层的防御，越能长期维持。",
+    caption: "物理层挡入口，摩擦层增成本，替代层给出口，身份层给方向。",
+    analogy: "像城市防洪：不是等水进客厅再舀，而是在河道、堤坝、排水、预警上同时设计。",
+    steps: ["物理层：看不见、够不着、拿不到，诱惑自动下降。", "摩擦层：增加坏行为步骤，减少好行为步骤。", "替代层：给同等情绪需求更健康的出口。", "生理层：睡眠、运动、营养决定前额叶有没有电。", "社交层：同伴、承诺、榜样改变默认行为。", "身份层：我不是在戒手机，我是在经营注意力资产。", "反馈层：用可视化记录让进步被看见。"]
+  },
+  {
+    mode: "研究证据", tempo: "建立可信度", color: "#725cff", kicker: "第十层：科学支撑",
+    title: "几个稳固研究结论，足够改变你的策略",
+    hook: "不需要把神经科学变成玄学。抓住少数高确定性原则，就能设计更可靠的课程和行动。",
+    key: "证据的价值不在于吓人，而在于告诉你该在哪里下手。",
+    caption: "奖励预测误差解释上瘾，认知负荷解释疲劳，实施意图解释为什么预案有效。",
+    analogy: "像看天气预报：你不需要懂所有气象模型，但你要知道什么时候带伞、什么时候不要出海。",
+    steps: ["奖励预测误差：预期和结果的落差，会训练下一次渴望。", "间歇强化：不确定奖励比固定奖励更容易维持行为。", "认知负荷：工作记忆容量有限，碎片任务会挤占深度思考。", "注意力残留：频繁切换后，一部分心智仍留在上一件事。", "实施意图：提前写出“如果 X 发生，我就做 Y”，能减少现场决策。", "睡眠与运动：它们不是鸡汤，而是恢复控制系统的底层条件。"]
+  },
+  {
+    mode: "30天协议", tempo: "进入行动", color: "#27a86b", kicker: "第十一层：从知道到做到",
+    title: "30 天重启：先降噪，再重建，再固化",
+    hook: "学习者最需要的不是再听一个概念，而是在最脆弱的时刻知道下一步做什么。",
+    key: "行动协议必须小到能开始，明确到能执行，可视化到能反馈。",
+    caption: "前三天清入口，第一周降刺激，第二周搭系统，第三周训练心流，最后固化身份。",
+    analogy: "像康复训练：先减少伤害动作，再恢复基础力量，最后回到真实赛场。",
+    steps: ["第 1-3 天：物理清零，移除高刺激入口。", "第 4-7 天：神经降噪，稳定睡眠、运动和早晨基线。", "第 8-14 天：系统构建，设置摩擦、替代和反馈。", "第 15-21 天：心流优化，训练深度工作块和中断回收。", "第 22-30 天：飞轮固化，把成果、身份和收入资产连接起来。"]
+  },
+  {
+    mode: "诊断整合", tempo: "形成闭环", color: "#ff6b5a", kicker: "第十二层：个性化落地",
+    title: "最后一步：找到你的主导回路",
+    hook: "同一套课程，冲动型、焦虑型、社交型、创意型、疲劳型的入口不同。诊断让学习者觉得“这说的是我”。",
+    key: "先识别主导回路，再给对应的环境改造和行动脚本。",
+    caption: "把抽象知识变成个人画像，学习者才会从旁观者变成行动者。",
+    analogy: "像配眼镜：不是每个人都戴同一副，而是先验光，再配镜，再复查。",
+    steps: ["冲动型：先挡入口，再训练延迟。", "焦虑型：先降威胁，再建立安全反馈。", "社交型：先处理比较，再重建真实关系。", "创意型：保留走神空间，但给输出边界。", "疲劳型：先修复睡眠和能量，再谈自律。", "整合型：把注意力质量变成学习、创作、产品和收入的复利。"]
+  }
+];
+
+const chapters = [
+  ["01", "大脑模块", "把大脑拆成可理解的子系统：边缘系统、奖励回路、前额叶、默认网络、记忆系统、社交脑。", ["不同模块有不同速度和目标。", "短刺激绕过长期判断。", "给前额叶留能量与时间。", "课程、工具、咨询都要适配模块。"]],
+  ["02", "多巴胺回路", "多巴胺重点不是快乐，而是期待、搜索、想要、行动和学习。", ["线索触发预测，预测推动行动。", "随机奖励和高密度刺激抬高阈值。", "减少超常刺激，保护低刺激快乐。", "用小胜利和进度帮助用户坚持。"]],
+  ["03", "三重塑造", "进化、个人经历、现代环境共同决定你的敏感点。", ["底层偏好普遍存在。", "平台和消费场景放大弱点。", "按个人敏感点设计干预。", "产品要尊重差异，不做单一药方。"]],
+  ["04", "大脑算子", "算子是能改变神经输出的输入函数，包括触发、强化、抑制、替代、恢复。", ["行为不是孤立发生。", "红点、倒计时、排名都可被设计。", "用摩擦和替代重写路径。", "把算子用于学习、健康和生产力。"]],
+  ["05", "注意力经济", "平台争夺眼球、时间、情绪和回访，常用无限滚动、通知、社交数字、自动播放。", ["注意力会被默认选项劫持。", "移除停止点会延长停留。", "恢复停止点和进入成本。", "做商业时追长期信任而非上瘾。"]],
+  ["06", "技术反制", "用测量、屏蔽、AI、知识图谱、声音和自动化保护前额叶资源。", ["无法测量就难以管理。", "设备也可能成为诱惑入口。", "让技术做门禁和助理。", "开发防分心、复盘、自动化工具。"]],
+  ["07", "赚钱矩阵", "注意力可以转化为信任，信任转化为价值，价值再形成收入。", ["人会为明确结果和可信路径付费。", "恐惧营销容易越界。", "以成果和伦理为边界。", "课程、SaaS、社群、咨询都可落地。"]],
+  ["08", "七层防御", "物理、摩擦、替代、生理、社交、身份、反馈七层一起工作。", ["意志力最容易疲劳。", "只靠提醒通常无效。", "先做环境，再做认知。", "把防御体系包装成服务或训练营。"]],
+  ["09", "研究证据", "奖励预测误差、间歇强化、认知负荷、注意力残留、实施意图、睡眠运动是关键支撑。", ["机制有可重复的方向。", "伪科学会夸大单一技巧。", "用稳固原则做小实验。", "用证据提高内容可信度。"]],
+  ["10", "行动协议", "30 天分为清零、降噪、构建、心流、固化五阶段。", ["行为改变需要时间和反馈。", "突然全改容易失败。", "每阶段只抓少数动作。", "可做成打卡课、陪跑和工具模板。"]]
+];
+
+const quizProfiles = [
+  { label: "先刷一下，等有感觉再开始", type: "冲动奖励型", desc: "你的主要入口是即时奖励。先做物理隔离和摩擦设计，再用小胜利替代高刺激。", scores: [82, 38, 48, 64, 42] },
+  { label: "脑子很乱，担心做错或做不完", type: "焦虑威胁型", desc: "你的威胁系统比较敏感。先把任务缩到第一步，再用安全反馈降低启动阻力。", scores: [46, 54, 62, 78, 50] },
+  { label: "总想看看别人消息和评价", type: "社交比较型", desc: "你的社交脑被持续激活。减少社交数字入口，把比较改成真实协作和公开承诺。", scores: [52, 58, 44, 70, 86] },
+  { label: "灵感很多，但很难收束输出", type: "创意发散型", desc: "你的默认网络活跃。保留发散时间，但给每次发散设置产物和截止线。", scores: [60, 46, 90, 56, 58] },
+  { label: "知道该做，但身体像没电", type: "能量亏空型", desc: "你的控制系统可能不是不努力，而是能量不足。优先修睡眠、运动、饮食和任务负荷。", scores: [42, 36, 52, 84, 40] }
+];
+
+const canvas = document.getElementById("sceneCanvas");
+const ctx = canvas.getContext("2d");
+const lessonTitle = document.getElementById("lessonTitle");
+const hook = document.getElementById("hook");
+const keyMoment = document.getElementById("keyMoment");
+const stepList = document.getElementById("stepList");
+const analogyText = document.getElementById("analogyText");
+const captionText = document.getElementById("captionText");
+const captionNo = document.getElementById("captionNo");
+const kicker = document.getElementById("kicker");
+const modeLabel = document.getElementById("modeLabel");
+const tempoLabel = document.getElementById("tempoLabel");
+const modeDot = document.getElementById("modeDot");
+const sceneCount = document.getElementById("sceneCount");
+const railFill = document.getElementById("railFill");
+const timeline = document.getElementById("timeline");
+const playBtn = document.getElementById("playBtn");
+const playIcon = document.getElementById("playIcon");
+const voiceBtn = document.getElementById("voiceBtn");
+const musicBtn = document.getElementById("musicBtn");
+const touchBtn = document.getElementById("touchBtn");
+
+let current = 0;
+let playing = false;
+let voiceOn = false;
+let musicOn = false;
+let touchOn = false;
+let lastSwitch = performance.now();
+let audioCtx = null;
+let ambientGain = null;
+let utterance = null;
+
+function resizeCanvas() {
+  const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = Math.max(600, Math.floor(rect.width * dpr));
+  canvas.height = Math.max(420, Math.floor(rect.height * dpr));
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+function setScene(i, speak = true) {
+  current = (i + scenes.length) % scenes.length;
+  const s = scenes[current];
+  lastSwitch = performance.now();
+  lessonTitle.textContent = s.title;
+  hook.textContent = s.hook;
+  keyMoment.textContent = s.key;
+  analogyText.textContent = s.analogy;
+  captionText.textContent = s.caption;
+  captionNo.textContent = current + 1;
+  kicker.textContent = s.kicker;
+  modeLabel.textContent = s.mode;
+  tempoLabel.textContent = "节奏：" + s.tempo;
+  modeDot.style.background = s.color;
+  sceneCount.textContent = `第 ${current + 1} / ${scenes.length} 幕`;
+  railFill.style.width = `${(current / (scenes.length - 1)) * 100}%`;
+  stepList.innerHTML = s.steps.map((x, idx) => `<li><span class="step-no">${idx + 1}</span><span>${x}</span></li>`).join("");
+  timeline.innerHTML = scenes.map((_, idx) => `<span class="marker ${idx === current ? "active" : ""}"></span>`).join("");
+  if (touchOn && navigator.vibrate) navigator.vibrate([24, 26, 24]);
+  if (voiceOn && speak) speakScene();
+}
+
+function activeStep() {
+  const s = scenes[current];
+  const elapsed = (performance.now() - lastSwitch) / 1000;
+  return Math.min(s.steps.length - 1, Math.floor(elapsed / 3.2) % s.steps.length);
+}
+
+function updateActiveStep() {
+  const idx = activeStep();
+  [...stepList.children].forEach((li, i) => li.classList.toggle("active", i === idx));
+}
+
+function speakScene() {
+  if (!("speechSynthesis" in window)) return;
+  window.speechSynthesis.cancel();
+  const s = scenes[current];
+  utterance = new SpeechSynthesisUtterance(`${s.title}。${s.hook} 关键点：${s.key} ${s.steps.join("。")}`);
+  utterance.lang = "zh-CN";
+  utterance.rate = 0.92;
+  utterance.pitch = 1.02;
+  window.speechSynthesis.speak(utterance);
+}
+
+function toggleMusic() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    ambientGain = audioCtx.createGain();
+    ambientGain.gain.value = 0.025;
+    ambientGain.connect(audioCtx.destination);
+    const base = audioCtx.createOscillator();
+    const shimmer = audioCtx.createOscillator();
+    base.type = "sine";
+    shimmer.type = "triangle";
+    base.frequency.value = 196;
+    shimmer.frequency.value = 392;
+    base.connect(ambientGain);
+    shimmer.connect(ambientGain);
+    base.start();
+    shimmer.start();
+    setInterval(() => {
+      if (!musicOn || !audioCtx) return;
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type = "sine";
+      o.frequency.value = [523, 587, 659, 784][current % 4];
+      g.gain.value = 0.001;
+      o.connect(g);
+      g.connect(audioCtx.destination);
+      const t = audioCtx.currentTime;
+      g.gain.exponentialRampToValueAtTime(0.035, t + 0.03);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.42);
+      o.start(t);
+      o.stop(t + 0.45);
+    }, 4400);
+  }
+  musicOn = !musicOn;
+  musicBtn.classList.toggle("active", musicOn);
+  ambientGain.gain.value = musicOn ? 0.025 : 0.0001;
+}
+
+function drawRoundedRect(x, y, w, h, r, fill, stroke) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1.5; ctx.stroke(); }
+}
+
+function arrow(x1, y1, x2, y2, color, width = 3) {
+  const a = Math.atan2(y2 - y1, x2 - x1);
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.stroke();
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - 12 * Math.cos(a - 0.45), y2 - 12 * Math.sin(a - 0.45));
+  ctx.lineTo(x2 - 12 * Math.cos(a + 0.45), y2 - 12 * Math.sin(a + 0.45));
+  ctx.closePath();
+  ctx.fill();
+}
+
+function label(text, x, y, color = "#172033", size = 15, align = "center") {
+  ctx.fillStyle = color;
+  ctx.font = `700 ${size}px Microsoft YaHei, sans-serif`;
+  ctx.textAlign = align;
+  ctx.textBaseline = "middle";
+  ctx.fillText(text, x, y);
+}
+
+function drawBackground(w, h) {
+  ctx.clearRect(0, 0, w, h);
+  const grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, "#ffffff");
+  grad.addColorStop(0.45, "#f2f8ff");
+  grad.addColorStop(1, "#fff9ec");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+  ctx.strokeStyle = "rgba(40,100,255,0.07)";
+  ctx.lineWidth = 1;
+  for (let x = 0; x < w; x += 42) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+  }
+  for (let y = 0; y < h; y += 42) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+  }
+}
+
+function drawSystem(w, h, t, s) {
+  const cx = w * 0.5, cy = h * 0.48;
+  const radius = Math.min(w, h) * 0.22;
+  ctx.lineWidth = 10;
+  ctx.strokeStyle = "rgba(40,100,255,0.14)";
+  ctx.beginPath(); ctx.arc(cx, cy, radius, 0, Math.PI * 2); ctx.stroke();
+  ctx.strokeStyle = s.color;
+  ctx.beginPath(); ctx.arc(cx, cy, radius, -Math.PI / 2, -Math.PI / 2 + (Math.sin(t) * 0.25 + 0.72) * Math.PI * 2); ctx.stroke();
+  label("BRAIN OS", cx, cy - 4, "#172033", 25);
+  label("输入 → 回路 → 行为 → 反馈", cx, cy + 30, "#65728a", 15);
+  const inputs = [["通知", 70, 120, "#ff6b5a"], ["画面", 95, h - 140, "#725cff"], ["声音", w - 90, 125, "#00a6a6"], ["社交", w - 95, h - 135, "#f2ae00"]];
+  inputs.forEach(([txt, x, y, c], idx) => {
+    drawRoundedRect(x - 40, y - 22, 80, 44, 8, "#fff", c);
+    label(txt, x, y, c, 15);
+    const px = cx + Math.cos(t + idx) * radius * 0.38;
+    const py = cy + Math.sin(t + idx) * radius * 0.38;
+    arrow(x + (x < cx ? 48 : -48), y, px, py, c, 2.4);
+  });
+}
+
+function drawBrainMap(w, h, t, s) {
+  const cx = w * 0.5, cy = h * 0.49, r = Math.min(w, h) * 0.28;
+  const nodes = [
+    ["边缘系统", -1.9, "#ff6b5a"], ["奖励回路", -0.75, "#f2ae00"], ["前额叶", 0.15, "#2864ff"],
+    ["默认网络", 1.15, "#725cff"], ["记忆", 2.25, "#27a86b"], ["社交脑", 3.05, "#e45f9b"]
+  ];
+  ctx.strokeStyle = "rgba(40,100,255,0.16)";
+  ctx.lineWidth = 2;
+  nodes.forEach((a, i) => nodes.forEach((b, j) => {
+    if (j <= i) return;
+    const x1 = cx + Math.cos(a[1]) * r, y1 = cy + Math.sin(a[1]) * r;
+    const x2 = cx + Math.cos(b[1]) * r, y2 = cy + Math.sin(b[1]) * r;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  }));
+  drawRoundedRect(cx - 90, cy - 42, 180, 84, 16, "#ffffff", "#d9e3f2");
+  label("意识只是仪表盘", cx, cy - 8, "#172033", 18);
+  label("不是全部驾驶员", cx, cy + 20, "#65728a", 14);
+  nodes.forEach((n, i) => {
+    const pulse = 1 + 0.08 * Math.sin(t * 2 + i);
+    const x = cx + Math.cos(n[1]) * r, y = cy + Math.sin(n[1]) * r;
+    ctx.fillStyle = n[2];
+    ctx.beginPath(); ctx.arc(x, y, 28 * pulse, 0, Math.PI * 2); ctx.fill();
+    label(n[0], x, y, "#fff", 13);
+  });
+}
+
+function drawDopamine(w, h, t, s) {
+  const y = h * 0.5;
+  const xs = [w * 0.12, w * 0.29, w * 0.47, w * 0.65, w * 0.83];
+  const items = [["线索", "#e45f9b"], ["期待", "#f2ae00"], ["行动", "#2864ff"], ["奖励", "#27a86b"], ["学习", "#ff6b5a"]];
+  items.forEach((it, i) => {
+    drawRoundedRect(xs[i] - 48, y - 42, 96, 84, 14, "#fff", it[1]);
+    label(it[0], xs[i], y - 8, it[1], 18);
+    label(["看到", "想要", "伸手", "落差", "更会"][i], xs[i], y + 22, "#65728a", 13);
+    if (i < items.length - 1) arrow(xs[i] + 55, y, xs[i + 1] - 58, y, it[1], 3);
+  });
+  const waveY = y - 120;
+  ctx.strokeStyle = s.color;
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  for (let x = w * 0.12; x <= w * 0.83; x += 8) {
+    const p = (x - w * 0.12) / (w * 0.71);
+    const amp = Math.exp(-Math.pow(p - 0.32, 2) / 0.015) * 82 + Math.exp(-Math.pow(p - 0.72, 2) / 0.028) * 35;
+    const yy = waveY - amp + Math.sin(t * 4 + x * 0.02) * 3;
+    if (x === w * 0.12) ctx.moveTo(x, yy); else ctx.lineTo(x, yy);
+  }
+  ctx.stroke();
+  label("渴望峰值常在获得之前", w * 0.5, waveY - 96, "#8a3a2e", 16);
+}
+
+function drawLayers(w, h, t, s) {
+  const x = w * 0.18, y = h * 0.28, ww = w * 0.64, hh = 86;
+  const layers = [["进化基底", "高热量 · 新奇 · 地位 · 损失厌恶", "#ff6b5a"], ["个人成型", "依恋 · 贫困 · 创伤 · 奖励历史", "#725cff"], ["当下环境", "算法 · 同伴 · 睡眠 · 文化叙事", "#27a86b"]];
+  layers.forEach((l, i) => {
+    const yy = y + i * 112 + Math.sin(t + i) * 4;
+    drawRoundedRect(x, yy, ww, hh, 12, "#fff", l[2]);
+    label(l[0], x + 88, yy + 28, l[2], 20, "center");
+    label(l[1], x + ww * 0.58, yy + 46, "#53647c", 15, "center");
+  });
+  arrow(w * 0.5, y + 3 * 112 + 12, w * 0.5, h - 80, s.color, 4);
+  label("同一刺激 → 不同反应", w * 0.5, h - 52, "#172033", 20);
+}
+
+function drawOperators(w, h, t, s) {
+  const labels = [["触发", "#ff6b5a"], ["强化", "#f2ae00"], ["抑制", "#2864ff"], ["替代", "#27a86b"], ["恢复", "#00a6a6"], ["变现", "#725cff"]];
+  const cx = w * 0.5, cy = h * 0.52;
+  drawRoundedRect(cx - 95, cy - 70, 190, 140, 18, "#fff", "#d9e3f2");
+  label("行为输出", cx, cy - 10, "#172033", 24);
+  label("不是靠吼自己", cx, cy + 24, "#65728a", 15);
+  labels.forEach((l, i) => {
+    const a = i / labels.length * Math.PI * 2 + t * 0.12;
+    const x = cx + Math.cos(a) * w * 0.32;
+    const y = cy + Math.sin(a) * h * 0.34;
+    drawRoundedRect(x - 45, y - 24, 90, 48, 8, "#fff", l[1]);
+    label(l[0], x, y, l[1], 16);
+    arrow(x + Math.cos(a + Math.PI) * 50, y + Math.sin(a + Math.PI) * 25, cx + Math.cos(a) * 95, cy + Math.sin(a) * 70, l[1], 2);
+  });
+}
+
+function drawAttentionWar(w, h, t, s) {
+  const cx = w * 0.5, cy = h * 0.5;
+  drawRoundedRect(cx - 75, cy - 130, 150, 260, 24, "#ffffff", "#a9b9d4");
+  drawRoundedRect(cx - 54, cy - 98, 108, 196, 8, "#eef5ff", "#d9e3f2");
+  label("手机入口", cx, cy, "#2864ff", 19);
+  const hooks = [["无限滚动", 100, 120, "#2864ff"], ["红点通知", w - 120, 116, "#ff6b5a"], ["社交数字", 105, h - 125, "#e45f9b"], ["自动播放", w - 118, h - 128, "#f2ae00"], ["情绪内容", cx, 84, "#725cff"]];
+  hooks.forEach((h0, i) => {
+    drawRoundedRect(h0[1] - 48, h0[2] - 22, 96, 44, 8, "#fff", h0[3]);
+    label(h0[0], h0[1], h0[2], h0[3], 13);
+    arrow(h0[1], h0[2] + (h0[2] < cy ? 28 : -28), cx + Math.sin(t + i) * 18, cy + Math.cos(t + i) * 50, h0[3], 2.4);
+  });
+}
+
+function drawTech(w, h, t, s) {
+  const cx = w * 0.5, cy = h * 0.52;
+  ctx.strokeStyle = "#2864ff";
+  ctx.lineWidth = 8;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - 145);
+  ctx.quadraticCurveTo(cx + 130, cy - 110, cx + 120, cy + 30);
+  ctx.quadraticCurveTo(cx + 80, cy + 130, cx, cy + 165);
+  ctx.quadraticCurveTo(cx - 80, cy + 130, cx - 120, cy + 30);
+  ctx.quadraticCurveTo(cx - 130, cy - 110, cx, cy - 145);
+  ctx.stroke();
+  label("主动设计输入", cx, cy - 10, "#172033", 24);
+  label("测量 · 阻断 · 外包 · 反馈", cx, cy + 28, "#65728a", 15);
+  const items = [["测量", "#00a6a6"], ["屏蔽", "#ff6b5a"], ["AI助理", "#725cff"], ["声音", "#f2ae00"], ["知识库", "#27a86b"]];
+  items.forEach((it, i) => {
+    const a = -Math.PI / 2 + i * Math.PI * 2 / items.length + Math.sin(t) * 0.03;
+    const x = cx + Math.cos(a) * w * 0.32, y = cy + Math.sin(a) * h * 0.33;
+    ctx.fillStyle = it[1]; ctx.beginPath(); ctx.arc(x, y, 31, 0, Math.PI * 2); ctx.fill();
+    label(it[0], x, y, "#fff", 13);
+  });
+}
+
+function drawMoney(w, h, t, s) {
+  const x = w * 0.18, y = h * 0.2, ww = w * 0.64;
+  const rows = [["注意力", "#2864ff"], ["信任", "#00a6a6"], ["价值", "#27a86b"], ["交换", "#f2ae00"], ["长期关系", "#ff6b5a"]];
+  rows.forEach((r, i) => {
+    const width = ww - i * 54;
+    const xx = x + i * 27;
+    const yy = y + i * 75;
+    drawRoundedRect(xx, yy, width, 52, 8, "#fff", r[1]);
+    label(r[0], xx + width / 2, yy + 26, r[1], 18);
+    if (i < rows.length - 1) arrow(w * 0.5, yy + 57, w * 0.5, yy + 72, r[1], 2.2);
+  });
+  label("伦理边界：帮助完成真实目标，而不是制造依赖", w * 0.5, h - 72, "#53647c", 16);
+}
+
+function drawDefense(w, h, t, s) {
+  const cx = w * 0.5, base = h * 0.78;
+  const layers = [["物理", "#2864ff"], ["摩擦", "#00a6a6"], ["替代", "#27a86b"], ["生理", "#f2ae00"], ["社交", "#ff6b5a"], ["身份", "#725cff"], ["反馈", "#e45f9b"]];
+  layers.forEach((l, i) => {
+    const width = w * 0.68 - i * 46;
+    const x = cx - width / 2;
+    const y = base - i * 54;
+    drawRoundedRect(x, y, width, 38, 8, "#fff", l[1]);
+    label(l[0], cx, y + 19, l[1], 15);
+  });
+  label("越底层越省意志力", cx, base + 56, "#172033", 20);
+}
+
+function drawResearch(w, h, t, s) {
+  const points = [["预测误差", "#ff6b5a"], ["间歇强化", "#f2ae00"], ["认知负荷", "#2864ff"], ["注意残留", "#725cff"], ["实施意图", "#27a86b"], ["睡眠运动", "#00a6a6"]];
+  const cx = w * 0.5, cy = h * 0.5;
+  label("证据 → 策略", cx, cy, "#172033", 25);
+  points.forEach((p, i) => {
+    const a = i / points.length * Math.PI * 2 + t * 0.1;
+    const x = cx + Math.cos(a) * w * 0.3, y = cy + Math.sin(a) * h * 0.32;
+    ctx.fillStyle = p[1];
+    ctx.beginPath(); ctx.arc(x, y, 34, 0, Math.PI * 2); ctx.fill();
+    label(p[0], x, y, "#fff", 12);
+    ctx.strokeStyle = "rgba(40,100,255,0.18)";
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(x, y); ctx.stroke();
+  });
+}
+
+function drawProtocol(w, h, t, s) {
+  const y = h * 0.52, start = w * 0.12, gap = w * 0.19;
+  const phases = [["1-3", "清零", "#2864ff"], ["4-7", "降噪", "#00a6a6"], ["8-14", "构建", "#27a86b"], ["15-21", "心流", "#f2ae00"], ["22-30", "固化", "#ff6b5a"]];
+  phases.forEach((p, i) => {
+    const x = start + i * gap;
+    ctx.fillStyle = p[2];
+    ctx.beginPath(); ctx.arc(x, y, 34 + Math.sin(t * 2 + i) * 3, 0, Math.PI * 2); ctx.fill();
+    label(p[0], x, y - 6, "#fff", 15);
+    label(p[1], x, y + 15, "#fff", 13);
+    if (i < phases.length - 1) arrow(x + 44, y, x + gap - 46, y, p[2], 3);
+  });
+  label("先降刺激，再建系统，最后变身份", w * 0.5, y - 115, "#172033", 22);
+}
+
+function drawRadar(w, h, t, s) {
+  const labels = ["专注", "执行", "创造", "恢复", "社交"];
+  const vals = [0.74, 0.66, 0.88, 0.58, 0.72];
+  const cx = w * 0.5, cy = h * 0.5, r = Math.min(w, h) * 0.25;
+  ctx.strokeStyle = "#d9e3f2";
+  for (let k = 1; k <= 5; k++) {
+    ctx.beginPath();
+    for (let i = 0; i < labels.length; i++) {
+      const a = i / labels.length * Math.PI * 2 - Math.PI / 2;
+      const x = cx + Math.cos(a) * r * k / 5, y = cy + Math.sin(a) * r * k / 5;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.closePath(); ctx.stroke();
+  }
+  ctx.fillStyle = "rgba(40,100,255,0.2)";
+  ctx.strokeStyle = s.color;
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  for (let i = 0; i < labels.length; i++) {
+    const a = i / labels.length * Math.PI * 2 - Math.PI / 2;
+    const val = vals[i] + Math.sin(t + i) * 0.03;
+    const x = cx + Math.cos(a) * r * val, y = cy + Math.sin(a) * r * val;
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  }
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+  labels.forEach((l, i) => {
+    const a = i / labels.length * Math.PI * 2 - Math.PI / 2;
+    label(l, cx + Math.cos(a) * (r + 38), cy + Math.sin(a) * (r + 34), "#53647c", 14);
+  });
+  label("个人画像", cx, cy, "#172033", 22);
+}
+
+function draw() {
+  const rect = canvas.getBoundingClientRect();
+  const w = rect.width, h = rect.height;
+  const t = performance.now() / 1000;
+  const s = scenes[current];
+  drawBackground(w, h);
+  const fn = [drawSystem, drawBrainMap, drawDopamine, drawLayers, drawOperators, drawAttentionWar, drawTech, drawMoney, drawDefense, drawResearch, drawProtocol, drawRadar][current];
+  fn(w, h, t, s);
+  updateActiveStep();
+  if (playing && performance.now() - lastSwitch > 18500) setScene(current + 1);
+  requestAnimationFrame(draw);
+}
+
+function renderChapters() {
+  document.getElementById("chapterGrid").innerHTML = chapters.map((c) => `
+    <article class="chapter-card">
+      <h3><span class="tag">${c[0]}</span>${c[1]}</h3>
+      <p>${c[2]}</p>
+      <div class="four-map">
+        <div class="map-cell"><b>神经机制</b><span>${c[3][0]}</span></div>
+        <div class="map-cell"><b>被利用方式</b><span>${c[3][1]}</span></div>
+        <div class="map-cell"><b>自救方法</b><span>${c[3][2]}</span></div>
+        <div class="map-cell"><b>正向变现</b><span>${c[3][3]}</span></div>
+      </div>
+    </article>
+  `).join("");
+}
+
+function renderStoryboard() {
+  document.getElementById("storyboardGrid").innerHTML = scenes.map((s, i) => `
+    <article class="story-card">
+      <div class="story-meta"><span>第 ${i + 1} 幕</span><span>${s.mode}</span><span>${s.tempo}</span></div>
+      <h3>${s.title}</h3>
+      <p><strong>兴趣钩子：</strong>${s.hook}</p>
+      <p><strong>关键时刻：</strong>${s.key}</p>
+      <p><strong>画面动作：</strong>${s.caption}</p>
+    </article>
+  `).join("");
+}
+
+function renderQuiz() {
+  const choices = document.getElementById("quizChoices");
+  choices.innerHTML = quizProfiles.map((p, i) => `<button class="choice" data-i="${i}">${p.label}</button>`).join("");
+  document.getElementById("resultBars").innerHTML = ["冲动", "执行", "创造", "恢复", "社交"].map((x) => `
+    <div class="bar-row"><span>${x}</span><div class="bar-track"><div class="bar-val"></div></div><span>--</span></div>
+  `).join("");
+  choices.addEventListener("click", (e) => {
+    const btn = e.target.closest(".choice");
+    if (!btn) return;
+    [...choices.children].forEach(x => x.classList.remove("selected"));
+    btn.classList.add("selected");
+    const p = quizProfiles[Number(btn.dataset.i)];
+    document.getElementById("resultTitle").textContent = "当前画像：" + p.type;
+    document.getElementById("resultDesc").textContent = p.desc;
+    [...document.querySelectorAll(".bar-row")].forEach((row, i) => {
+      row.querySelector(".bar-val").style.width = p.scores[i] + "%";
+      row.lastElementChild.textContent = p.scores[i];
+    });
+    if (touchOn && navigator.vibrate) navigator.vibrate(18);
+  });
+}
+
+document.getElementById("prevBtn").addEventListener("click", () => setScene(current - 1));
+document.getElementById("nextBtn").addEventListener("click", () => setScene(current + 1));
+playBtn.addEventListener("click", () => {
+  playing = !playing;
+  playIcon.innerHTML = playing ? '<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>' : '<path d="M8 5v14l11-7z"/>';
+  if (playing && voiceOn) speakScene();
+});
+voiceBtn.addEventListener("click", () => {
+  voiceOn = !voiceOn;
+  voiceBtn.classList.toggle("active", voiceOn);
+  if (voiceOn) speakScene(); else if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+});
+musicBtn.addEventListener("click", toggleMusic);
+touchBtn.addEventListener("click", () => {
+  touchOn = !touchOn;
+  touchBtn.classList.toggle("active", touchOn);
+  if (touchOn && navigator.vibrate) navigator.vibrate([20, 30, 20]);
+});
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+renderChapters();
+renderStoryboard();
+renderQuiz();
+setScene(0, false);
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>

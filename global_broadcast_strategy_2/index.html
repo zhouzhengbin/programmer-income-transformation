@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全球一键传播系统 · 顶级战略规划</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #020508;
+  --bg2: #040c14;
+  --bg3: #071526;
+  --cyan: #00e5ff;
+  --cyan2: #00bcd4;
+  --gold: #ffd600;
+  --red: #ff1744;
+  --green: #00e676;
+  --purple: #aa00ff;
+  --text: #e0f7fa;
+  --text2: #80deea;
+  --text3: #546e7a;
+  --border: rgba(0,229,255,0.15);
+  --glow: 0 0 20px rgba(0,229,255,0.3);
+  --glow-strong: 0 0 40px rgba(0,229,255,0.5);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans SC', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* GRID BACKGROUND */
+body::before {
+  content:'';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* SCANLINE */
+body::after {
+  content:'';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.05) 2px,
+    rgba(0,0,0,0.05) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(2,5,8,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Orbitron', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 3px;
+  text-shadow: var(--glow);
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text3);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 1px;
+  transition: color .2s;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.nav-links a:hover { color: var(--cyan); text-shadow: var(--glow); }
+
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 40px 80px;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+.hero-orb-1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,229,255,0.08) 0%, transparent 70%);
+  top: -100px; left: 50%;
+  transform: translateX(-50%);
+  animation: pulse 4s ease-in-out infinite;
+}
+.hero-orb-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(170,0,255,0.06) 0%, transparent 70%);
+  bottom: 0; right: -100px;
+  animation: pulse 6s ease-in-out infinite reverse;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: .6; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+}
+.hero-orb-2 { animation: pulse2 6s ease-in-out infinite reverse; }
+@keyframes pulse2 {
+  0%,100% { opacity: .4; transform: scale(1); }
+  50% { opacity: .8; transform: scale(1.15); }
+}
+
+.hero-badge {
+  display: inline-block;
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  padding: 6px 20px;
+  margin-bottom: 32px;
+  text-shadow: var(--glow);
+  box-shadow: var(--glow);
+  animation: blink-border 2s ease-in-out infinite;
+}
+@keyframes blink-border {
+  0%,100% { box-shadow: var(--glow); }
+  50% { box-shadow: var(--glow-strong); }
+}
+
+.hero h1 {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(32px, 6vw, 72px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, #fff 0%, var(--cyan) 40%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(15px, 2vw, 20px);
+  color: var(--text2);
+  max-width: 700px;
+  line-height: 1.8;
+  margin-bottom: 48px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-stat {
+  text-align: center;
+}
+.hero-stat-num {
+  font-family: 'Orbitron', monospace;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--cyan);
+  text-shadow: var(--glow);
+  display: block;
+}
+.hero-stat-label {
+  font-size: 12px;
+  color: var(--text3);
+  letter-spacing: 2px;
+}
+
+/* SECTIONS */
+section {
+  position: relative;
+  z-index: 2;
+  padding: 100px 40px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--cyan);
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::before {
+  content:'';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: var(--cyan);
+  box-shadow: var(--glow);
+}
+
+.section-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(24px, 4vw, 40px);
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #fff;
+}
+
+.section-desc {
+  color: var(--text2);
+  font-size: 15px;
+  line-height: 1.9;
+  max-width: 800px;
+  margin-bottom: 60px;
+}
+
+/* DIVIDER */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  margin: 0;
+  opacity: 0.3;
+}
+
+/* CORE PHILOSOPHY */
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+.philosophy-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .3s, box-shadow .3s;
+}
+.philosophy-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+}
+.philosophy-card:hover {
+  border-color: rgba(0,229,255,0.4);
+  box-shadow: var(--glow);
+}
+
+.philosophy-card-icon {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+.philosophy-card-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+.philosophy-card-text {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.8;
+}
+
+/* ARCHITECTURE DIAGRAM */
+.arch-container {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 40px;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.arch-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--cyan);
+  letter-spacing: 3px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.arch-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.arch-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.arch-node {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 14px 22px;
+  font-size: 13px;
+  text-align: center;
+  position: relative;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text);
+  min-width: 130px;
+  transition: all .3s;
+}
+.arch-node:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: var(--glow);
+}
+
+.arch-node.core {
+  background: linear-gradient(135deg, rgba(0,229,255,0.1), rgba(170,0,255,0.1));
+  border-color: var(--cyan);
+  color: var(--cyan);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 20px 36px;
+  box-shadow: var(--glow);
+}
+
+.arch-node.gold {
+  border-color: rgba(255,214,0,0.4);
+  color: var(--gold);
+}
+.arch-node.green {
+  border-color: rgba(0,230,118,0.4);
+  color: var(--green);
+}
+.arch-node.purple {
+  border-color: rgba(170,0,255,0.4);
+  color: #ce93d8;
+}
+.arch-node.red {
+  border-color: rgba(255,23,68,0.4);
+  color: #ff8a80;
+}
+
+.arch-arrow {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+  color: var(--text3);
+  font-size: 20px;
+}
+
+/* STRATEGY LAYERS */
+.strategy-layer {
+  margin-bottom: 48px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.strategy-layer-header {
+  background: var(--bg3);
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.strategy-layer-num {
+  font-family: 'Orbitron', monospace;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--bg3);
+  -webkit-text-stroke: 1px var(--cyan);
+  min-width: 50px;
+}
+
+.strategy-layer-info {}
+.strategy-layer-name {
+  font-family: 'Orbitron', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.strategy-layer-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+.tag-free { background: rgba(0,230,118,0.15); color: var(--green); border: 1px solid rgba(0,230,118,0.3); }
+.tag-auto { background: rgba(0,229,255,0.15); color: var(--cyan); border: 1px solid rgba(0,229,255,0.3); }
+.tag-decen { background: rgba(170,0,255,0.15); color: #ce93d8; border: 1px solid rgba(170,0,255,0.3); }
+.tag-global { background: rgba(255,214,0,0.15); color: var(--gold); border: 1px solid rgba(255,214,0,0.3); }
+
+.strategy-layer-body {
+  padding: 32px 28px;
+  background: rgba(7,21,38,0.5);
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.tool-card {
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 20px;
+  background: var(--bg2);
+  transition: all .2s;
+}
+.tool-card:hover {
+  border-color: var(--border);
+  transform: translateY(-2px);
+}
+.tool-card-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cyan);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tool-card-name .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  flex-shrink: 0;
+}
+.tool-card-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.tool-card-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.mini-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 2px 8px;
+  background: rgba(0,229,255,0.08);
+  color: var(--text3);
+  border: 1px solid var(--border);
+}
+
+.strategy-note {
+  background: rgba(0,229,255,0.05);
+  border-left: 3px solid var(--cyan);
+  padding: 16px 20px;
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.8;
+  margin-top: 16px;
+}
+.strategy-note strong {
+  color: var(--cyan);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* AUTOMATION PIPELINE */
+.pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  overflow-x: auto;
+  padding: 20px 0 30px;
+  margin-bottom: 40px;
+}
+
+.pipeline-step {
+  flex: 1;
+  min-width: 160px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 24px 20px;
+  position: relative;
+  text-align: center;
+  border-right: none;
+}
+.pipeline-step:last-child { border-right: 1px solid var(--border); }
+
+.pipeline-step::after {
+  content: '▶';
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--cyan);
+  font-size: 16px;
+  z-index: 1;
+  background: var(--bg);
+  padding: 4px 0;
+}
+.pipeline-step:last-child::after { display: none; }
+
+.pipeline-step-num {
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.pipeline-step-icon { font-size: 28px; margin-bottom: 10px; }
+.pipeline-step-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--cyan);
+  margin-bottom: 8px;
+}
+.pipeline-step-tools {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text3);
+  line-height: 1.6;
+}
+
+/* PLATFORM MATRIX */
+.platform-matrix {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.platform-row {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all .2s;
+}
+.platform-row:hover {
+  border-color: rgba(0,229,255,0.3);
+  background: var(--bg3);
+}
+.platform-emoji { font-size: 20px; }
+.platform-info {}
+.platform-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.platform-region {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+}
+
+/* COST TABLE */
+.cost-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 40px;
+}
+.cost-table th {
+  background: var(--bg3);
+  padding: 14px 20px;
+  text-align: left;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  border-bottom: 1px solid var(--border);
+}
+.cost-table td {
+  padding: 14px 20px;
+  font-size: 13px;
+  color: var(--text2);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.cost-table tr:hover td {
+  background: rgba(0,229,255,0.03);
+}
+.cost-free {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--green);
+  font-weight: 700;
+}
+.cost-paid {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--gold);
+}
+
+/* TIMELINE */
+.timeline {
+  position: relative;
+  padding-left: 40px;
+  margin-bottom: 60px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--cyan), transparent);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -36px; top: 18px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+
+.timeline-week {
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  color: var(--cyan);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.timeline-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.timeline-tasks {
+  list-style: none;
+}
+.timeline-tasks li {
+  font-size: 13px;
+  color: var(--text2);
+  padding: 4px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.6;
+}
+.timeline-tasks li::before {
+  content: '→';
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text3);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* PROTOCOLS */
+.protocol-block {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 28px;
+  margin-bottom: 20px;
+}
+.protocol-name {
+  font-family: 'Orbitron', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.protocol-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 2px 10px;
+  border: 1px solid;
+}
+.badge-new { border-color: var(--green); color: var(--green); }
+.badge-core { border-color: var(--cyan); color: var(--cyan); }
+.badge-defi { border-color: #ce93d8; color: #ce93d8; }
+.protocol-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+.protocol-desc {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.8;
+}
+.protocol-desc b {
+  color: var(--cyan);
+  font-weight: 400;
+}
+
+/* FINAL CTA */
+.cta-section {
+  text-align: center;
+  padding: 120px 40px;
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--border);
+}
+
+.cta-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(0,229,255,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(24px, 5vw, 52px);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--cyan), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+}
+
+.cta-desc {
+  font-size: 16px;
+  color: var(--text2);
+  line-height: 1.8;
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+
+.cta-matrix {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.cta-item {
+  border: 1px solid var(--border);
+  padding: 24px;
+  background: var(--bg3);
+  text-align: left;
+}
+.cta-item-icon { font-size: 28px; margin-bottom: 12px; }
+.cta-item-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 13px;
+  color: var(--cyan);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.cta-item-desc {
+  font-size: 12px;
+  color: var(--text3);
+  line-height: 1.7;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 2px; }
+
+/* FLOATING COUNTER */
+.floating-bar {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  background: rgba(4,12,20,0.9);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  padding: 12px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text3);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: var(--glow);
+}
+.floating-bar span { color: var(--cyan); }
+
+/* ANIMATIONS */
+@keyframes fadeInUp {
+  from { opacity:0; transform: translateY(30px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* HIGHLIGHT BOX */
+.highlight-box {
+  background: linear-gradient(135deg, rgba(0,229,255,0.05), rgba(170,0,255,0.05));
+  border: 1px solid rgba(0,229,255,0.2);
+  padding: 28px 32px;
+  margin: 32px 0;
+  font-size: 15px;
+  color: var(--text2);
+  line-height: 1.9;
+}
+.highlight-box b { color: var(--gold); font-weight: 700; }
+
+.warning-box {
+  background: rgba(255,23,68,0.05);
+  border: 1px solid rgba(255,23,68,0.2);
+  border-left: 3px solid var(--red);
+  padding: 16px 20px;
+  font-size: 13px;
+  color: #ff8a80;
+  line-height: 1.7;
+  margin: 16px 0;
+}
+
+/* SUB NAV PILLS */
+.layer-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  color: var(--text3);
+  cursor: pointer;
+  transition: all .2s;
+  letter-spacing: 1px;
+}
+.pill:hover, .pill.active {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: rgba(0,229,255,0.05);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  nav { padding: 12px 20px; }
+  .nav-links { display: none; }
+  section { padding: 60px 20px; }
+  .pipeline { flex-direction: column; }
+  .pipeline-step { border-right: 1px solid var(--border); border-bottom: none; }
+  .pipeline-step:last-child { border-bottom: 1px solid var(--border); }
+  .pipeline-step::after { content: '▼'; right: auto; bottom: -12px; top: auto; left: 50%; transform: translateX(-50%); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">GLOBAL BROADCAST SYS</div>
+  <ul class="nav-links">
+    <li><a href="#philosophy">核心思维</a></li>
+    <li><a href="#architecture">系统架构</a></li>
+    <li><a href="#strategies">七大战略</a></li>
+    <li><a href="#automation">自动化</a></li>
+    <li><a href="#timeline">落地计划</a></li>
+    <li><a href="#protocols">前沿协议</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div class="hero-badge animate-in">LEVEL 10 · 全球传播战略系统 · 2025</div>
+
+  <h1 class="animate-in delay-1">一键触达<br>全球每一个角落</h1>
+
+  <p class="hero-sub animate-in delay-2">
+    不依赖任何平台算法，不投流，不妥协。<br>
+    将你的内容以光速扩散至全球每一个网络节点、每一个人群聚集地、每一种传播协议。
+  </p>
+
+  <div class="hero-stats animate-in delay-3">
+    <div class="hero-stat">
+      <span class="hero-stat-num">200+</span>
+      <span class="hero-stat-label">覆盖平台渠道</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">7</span>
+      <span class="hero-stat-label">核心战略层</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">¥0</span>
+      <span class="hero-stat-label">基础运营成本</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">24H</span>
+      <span class="hero-stat-label">全自动运行</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="section-label">01 · CORE PHILOSOPHY</div>
+  <h2 class="section-title">思维革命：从"发布"到"扩散"</h2>
+  <p class="section-desc">
+    传统思维是"选择平台 → 发内容 → 等算法推"。顶级思维是：构建一套自动化传播基础设施，让内容成为协议、成为信号，自动穿透每一层网络，绑过所有守门人。
+  </p>
+
+  <div class="highlight-box">
+    <b>核心认知：</b> 互联网本质上是一张去中心化的网络。平台只是网络上的节点，而不是网络本身。当你直接拥有"内容协议层"和"分发基础设施"，你就比任何平台都强。你不是在平台上发内容，你是在互联网上广播。
+  </div>
+
+  <div class="philosophy-grid">
+    <div class="philosophy-card">
+      <div class="philosophy-card-icon">🌐</div>
+      <div class="philosophy-card-title">协议 > 平台</div>
+      <div class="philosophy-card-text">RSS/Atom、ActivityPub、Nostr、Email SMTP——这些是互联网级协议，没有任何公司能关掉它们。把内容挂在协议上，比挂在某个App上稳定100倍。</div>
+    </div>
+    <div class="philosophy-card">
+      <div class="philosophy-card-icon">🔁</div>
+      <div class="philosophy-card-title">自动化 > 人工</div>
+      <div class="philosophy-card-text">发一次内容，触发整条自动化流水线，同时推送至200+渠道、订阅者邮件列表、全球聚合器、机器人账号矩阵。无需手动操作。</div>
+    </div>
+    <div class="philosophy-card">
+      <div class="philosophy-card-icon">🕸️</div>
+      <div class="philosophy-card-title">矩阵 > 单点</div>
+      <div class="philosophy-card-text">构建内容矩阵账号：一个内容源，衍生至Twitter/X、YouTube、Telegram、微博、抖音、LinkedIn等数十个账号自动同步，触达不同人群。</div>
+    </div>
+    <div class="philosophy-card">
+      <div class="philosophy-card-icon">📡</div>
+      <div class="philosophy-card-title">聚合 > 分散</div>
+      <div class="philosophy-card-text">全球有数千个内容聚合器（Google News、Apple News、Flipboard、Feedly）主动抓取优质内容。让你的内容成为被动被发现的目标。</div>
+    </div>
+    <div class="philosophy-card">
+      <div class="philosophy-card-icon">🤖</div>
+      <div class="philosophy-card-title">AI代理 > 人力</div>
+      <div class="philosophy-card-text">用AI Agent将同一个核心内容自动重写成短视频脚本、推文线程、长文章、Podcast摘要、邮件简报——一份内容无限衍生。</div>
+    </div>
+    <div class="philosophy-card">
+      <div class="philosophy-card-icon">🔓</div>
+      <div class="philosophy-card-title">拥有受众 > 借用流量</div>
+      <div class="philosophy-card-text">Email列表和自有域名下的订阅者是你真正拥有的受众。平台可以封号，但邮件列表是你的资产，永远不会消失。</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="section-label">02 · SYSTEM ARCHITECTURE</div>
+  <h2 class="section-title">全局系统架构图</h2>
+  <p class="section-desc">一个内容进入系统，经过自动化引擎，同时触达所有传播层。</p>
+
+  <div class="arch-container">
+    <div class="arch-title">// CONTENT BROADCAST ARCHITECTURE · v2.0</div>
+    <div class="arch-flow">
+      <!-- INPUT -->
+      <div class="arch-row">
+        <div class="arch-node gold">📹 视频</div>
+        <div class="arch-node gold">🎵 音频/音乐</div>
+        <div class="arch-node gold">📝 文章/图文</div>
+        <div class="arch-node gold">🎙️ Podcast</div>
+      </div>
+      <div class="arch-arrow">↓ 内容输入层</div>
+
+      <!-- CORE ENGINE -->
+      <div class="arch-row">
+        <div class="arch-node core">⚡ 自动化发布引擎<br><span style="font-size:11px;font-weight:400;color:var(--text3)">n8n / Make.com / Zapier</span></div>
+      </div>
+      <div class="arch-arrow">↓ 分发至所有层</div>
+
+      <!-- DISTRIBUTION LAYERS -->
+      <div class="arch-row">
+        <div class="arch-node cyan">📡 协议层<br><span style="font-size:10px;color:var(--text3)">RSS/ActivityPub/Nostr</span></div>
+        <div class="arch-node green">📧 私域层<br><span style="font-size:10px;color:var(--text3)">Email List</span></div>
+        <div class="arch-node purple">🌍 平台矩阵<br><span style="font-size:10px;color:var(--text3)">200+ Platforms</span></div>
+        <div class="arch-node red">🔍 搜索层<br><span style="font-size:10px;color:var(--text3)">SEO/Google/Bing</span></div>
+      </div>
+      <div class="arch-arrow">↓ 再扩散</div>
+
+      <!-- REACH -->
+      <div class="arch-row">
+        <div class="arch-node" style="min-width:80px;font-size:11px;">全球聚合器</div>
+        <div class="arch-node" style="min-width:80px;font-size:11px;">Fediverse节点</div>
+        <div class="arch-node" style="min-width:80px;font-size:11px;">Podcast目录</div>
+        <div class="arch-node" style="min-width:80px;font-size:11px;">机器人矩阵</div>
+        <div class="arch-node" style="min-width:80px;font-size:11px;">P2P网络</div>
+        <div class="arch-node" style="min-width:80px;font-size:11px;">IPFS节点</div>
+      </div>
+      <div class="arch-arrow">↓ 最终覆盖</div>
+
+      <div class="arch-row">
+        <div class="arch-node" style="background:linear-gradient(135deg,rgba(255,214,0,0.1),rgba(0,230,118,0.1));border-color:var(--gold);color:var(--gold);font-size:18px;padding:20px 60px;font-weight:900;">
+          🌐 全球数十亿网络用户
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STRATEGIES -->
+<section id="strategies">
+  <div class="section-label">03 · SEVEN STRATEGIC LAYERS</div>
+  <h2 class="section-title">七大战略层：全面覆盖所有传播维度</h2>
+  <p class="section-desc">每一层都是独立的传播引擎，叠加起来形成无法被任何单一平台限制的传播网络。</p>
+
+  <!-- LAYER 1 -->
+  <div class="strategy-layer">
+    <div class="strategy-layer-header">
+      <div class="strategy-layer-num">01</div>
+      <div class="strategy-layer-info">
+        <div class="strategy-layer-name">私有内容基础设施 · 你自己的"电视台"</div>
+        <span class="strategy-layer-tag tag-core">核心基础</span>&nbsp;
+        <span class="strategy-layer-tag tag-free">零成本可行</span>
+      </div>
+    </div>
+    <div class="strategy-layer-body">
+      <div class="highlight-box" style="margin-top:0;">
+        <b>核心逻辑：</b> 在发布到任何外部平台之前，先在自己控制的基础设施上托管全部内容。这是整个系统的主干。自有域名网站 + RSS Feed + Email订阅，是你不会被任何人夺走的传播根基。
+      </div>
+      <div class="tool-grid">
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Ghost CMS</div>
+          <div class="tool-card-desc">专为内容创作者设计的自托管CMS。内置邮件简报、会员订阅、RSS生成。写一篇文章，自动推送给订阅者邮件。</div>
+          <div class="tool-card-tags"><span class="mini-tag">自托管</span><span class="mini-tag">RSS内置</span><span class="mini-tag">邮件简报</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>WordPress + 插件矩阵</div>
+          <div class="tool-card-desc">全球最大CMS生态。配合Jetpack、MailPoet、AutoPost等插件，发布即自动分发至社交、邮件、RSS聚合器。</div>
+          <div class="tool-card-tags"><span class="mini-tag">插件生态</span><span class="mini-tag">生态最大</span><span class="mini-tag">免费核心</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Hugo / Eleventy 静态站</div>
+          <div class="tool-card-desc">极速静态网站生成器，部署在Cloudflare Pages或GitHub Pages，完全免费，全球CDN加速，自动生成RSS。</div>
+          <div class="tool-card-tags"><span class="mini-tag">完全免费</span><span class="mini-tag">极速</span><span class="mini-tag">全球CDN</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Listmonk（自托管邮件）</div>
+          <div class="tool-card-desc">开源自托管邮件营销系统。VPS上部署，配合Amazon SES（每月62000封免费），零成本触达数万订阅者。</div>
+          <div class="tool-card-tags"><span class="mini-tag">开源</span><span class="mini-tag">高送达率</span><span class="mini-tag">自有数据</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Podcastpedia + Anchor</div>
+          <div class="tool-card-desc">将任何音频内容包装成Podcast，自动提交至Apple Podcast、Spotify、Google Podcast、Amazon Music等全球主流播客目录。</div>
+          <div class="tool-card-tags"><span class="mini-tag">免费托管</span><span class="mini-tag">全球目录</span><span class="mini-tag">自动提交</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Cloudflare R2 + Stream</div>
+          <div class="tool-card-desc">自托管视频/音频CDN。R2存储前10GB免费，Stream视频流媒体起步超便宜。完全控制内容，无版权算法干预。</div>
+          <div class="tool-card-tags"><span class="mini-tag">全球CDN</span><span class="mini-tag">低成本</span><span class="mini-tag">自托管</span></div>
+        </div>
+      </div>
+      <div class="strategy-note">
+        <strong>// ACTION · 第一步搭建</strong>
+        注册域名（Namecheap约$10/年）→ Cloudflare免费DNS → 部署Ghost/WordPress → 设置RSS → 接入Listmonk邮件系统。三天内完成，零月费可起步。
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 2 -->
+  <div class="strategy-layer">
+    <div class="strategy-layer-header">
+      <div class="strategy-layer-num">02</div>
+      <div class="strategy-layer-info">
+        <div class="strategy-layer-name">RSS/WebSub 全球聚合网络 · 让全世界主动来抓你的内容</div>
+        <span class="strategy-layer-tag tag-auto">全自动</span>&nbsp;
+        <span class="strategy-layer-tag tag-global">全球覆盖</span>
+      </div>
+    </div>
+    <div class="strategy-layer-body">
+      <div class="highlight-box" style="margin-top:0;">
+        <b>核心逻辑：</b> RSS/Atom Feed是互联网上最古老也最有效的内容分发协议。全球数千个新闻聚合器、阅读器、内容平台都在主动抓取RSS。你发布一次，它们自动同步。WebSub协议更是让更新实时推送，无需等待。
+      </div>
+
+      <div class="tool-grid">
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Google News Publisher Center</div>
+          <div class="tool-card-desc">提交你的RSS Feed至Google新闻。审核通过后，内容自动出现在Google News，覆盖全球数亿用户的新闻消费。</div>
+          <div class="tool-card-tags"><span class="mini-tag">审核制</span><span class="mini-tag">数亿用户</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Apple News Format</div>
+          <div class="tool-card-desc">通过RSS+Apple News Format接入苹果新闻生态。北美、英国、澳洲数亿iPhone用户的默认新闻来源。</div>
+          <div class="tool-card-tags"><span class="mini-tag">英语市场</span><span class="mini-tag">高端用户</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Feedly / Inoreader / NewsBlur</div>
+          <div class="tool-card-desc">全球最大RSS阅读器平台，合计数千万付费用户。在Feedly Leo AI推荐系统中被收录，内容自动被推荐给相关兴趣用户。</div>
+          <div class="tool-card-tags"><span class="mini-tag">算法推荐</span><span class="mini-tag">高质量读者</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Flipboard</div>
+          <div class="tool-card-desc">1.45亿用户的内容聚合平台。提交RSS后自动成为"杂志"，内容按话题推荐给对应兴趣用户，完全免费。</div>
+          <div class="tool-card-tags"><span class="mini-tag">免费</span><span class="mini-tag">视觉化</span><span class="mini-tag">全球</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>WebSub / PubSubHubbub</div>
+          <div class="tool-card-desc">W3C标准协议。发布新内容的同一秒，实时推送通知至所有订阅了你Feed的聚合器，无需等待抓取延迟。</div>
+          <div class="tool-card-tags"><span class="mini-tag">实时推送</span><span class="mini-tag">W3C标准</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>IFTTT / FetchRSS</div>
+          <div class="tool-card-desc">将RSS变成触发器，自动把每篇新内容发送到Telegram频道、Discord、Twitter、Facebook Page等40+平台。</div>
+          <div class="tool-card-tags"><span class="mini-tag">自动触发</span><span class="mini-tag">免费层</span></div>
+        </div>
+      </div>
+
+      <div class="strategy-note">
+        <strong>// 全球RSS聚合器提交清单（全免费）</strong>
+        Feedly · Inoreader · NewsBlur · The Old Reader · Feedbin · Blogtrottr · FeedBurner镜像 · AllTop · Alltop.com · Netvibes · Bloglovin · Feedspot（可提交进Top博客排行）· RSSHub聚合 · 百度订阅 · 今日头条RSS抓取
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 3 -->
+  <div class="strategy-layer">
+    <div class="strategy-layer-header">
+      <div class="strategy-layer-num">03</div>
+      <div class="strategy-layer-info">
+        <div class="strategy-layer-name">全平台矩阵自动同步 · 200+渠道一键触发</div>
+        <span class="strategy-layer-tag tag-auto">自动化核心</span>
+      </div>
+    </div>
+    <div class="strategy-layer-body">
+      <div class="highlight-box" style="margin-top:0;">
+        <b>核心逻辑：</b> 用自动化工具将内容同时推送至全球各大平台，覆盖不同地区、不同年龄、不同语言的用户群体。这不是为了"刷平台"，而是占领每个人群的注意力入口。
+      </div>
+
+      <p style="font-size:14px;color:var(--text2);margin-bottom:20px;line-height:1.8;">
+        <strong style="color:var(--cyan);">核心工具：n8n（开源，自托管，免费）</strong>——这是你的"神经中枢"。一个工作流触发，同时向所有连接的平台发布内容。支持500+服务的API集成。
+      </p>
+
+      <div class="platform-matrix">
+        <div class="platform-row"><span class="platform-emoji">🎥</span><div><div class="platform-name">YouTube</div><div class="platform-region">全球最大视频平台</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">📱</span><div><div class="platform-name">TikTok / 抖音</div><div class="platform-region">全球短视频第一</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">📸</span><div><div class="platform-name">Instagram / Threads</div><div class="platform-region">20亿月活</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🐦</span><div><div class="platform-name">X (Twitter)</div><div class="platform-region">英语圈舆论中心</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">💼</span><div><div class="platform-name">LinkedIn</div><div class="platform-region">全球职业人群</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">📘</span><div><div class="platform-name">Facebook + Pages</div><div class="platform-region">30亿月活</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">✈️</span><div><div class="platform-name">Telegram Channel</div><div class="platform-region">无审查广播</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🎵</span><div><div class="platform-name">Spotify / Apple Music</div><div class="platform-region">音频/音乐分发</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🟥</span><div><div class="platform-name">Reddit</div><div class="platform-region">英语圈最大论坛</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🌸</span><div><div class="platform-name">Pinterest</div><div class="platform-region">图片内容传播</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">📔</span><div><div class="platform-name">Medium / Substack</div><div class="platform-region">专业内容订阅</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🎙️</span><div><div class="platform-name">Apple Podcast</div><div class="platform-region">播客第一平台</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🇨🇳</span><div><div class="platform-name">微信公众号</div><div class="platform-region">中国核心</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🇨🇳</span><div><div class="platform-name">微博</div><div class="platform-region">中国社交媒体</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🇨🇳</span><div><div class="platform-name">小红书</div><div class="platform-region">中国图文种草</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🇨🇳</span><div><div class="platform-name">哔哩哔哩</div><div class="platform-region">中国视频/知识</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🇨🇳</span><div><div class="platform-name">知乎</div><div class="platform-region">中文知识问答</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🇷🇺</span><div><div class="platform-name">VKontakte (VK)</div><div class="platform-region">俄语圈最大平台</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🇩🇪</span><div><div class="platform-name">XING</div><div class="platform-region">德语职业网络</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🇯🇵</span><div><div class="platform-name">LINE / Mixi</div><div class="platform-region">日本社交</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🇰🇷</span><div><div class="platform-name">Naver Blog / KakaoTalk</div><div class="platform-region">韩国</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🇮🇳</span><div><div class="platform-name">ShareChat / Moj</div><div class="platform-region">印度本土平台</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">🌍</span><div><div class="platform-name">WhatsApp Channels</div><div class="platform-region">全球最大即时通讯</div></div></div>
+        <div class="platform-row"><span class="platform-emoji">💬</span><div><div class="platform-name">Discord Server</div><div class="platform-region">社区深度运营</div></div></div>
+      </div>
+
+      <div class="tool-grid">
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>n8n（强烈推荐）</div>
+          <div class="tool-card-desc">开源工作流自动化工具。自托管在VPS，完全免费，支持500+平台API。你的"发布总控台"，一个工作流触发全部分发。</div>
+          <div class="tool-card-tags"><span class="mini-tag">开源免费</span><span class="mini-tag">自托管</span><span class="mini-tag">500+集成</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Buffer / Publer</div>
+          <div class="tool-card-desc">专业社交媒体一键发布工具。免费层支持3个平台，付费层支持几十个主流平台同时发布，含排队调度。</div>
+          <div class="tool-card-tags"><span class="mini-tag">免费起步</span><span class="mini-tag">UI友好</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Repurpose.io</div>
+          <div class="tool-card-desc">专为内容跨平台分发设计。上传一个视频，自动分发至YouTube、TikTok、Instagram、Facebook、LinkedIn等9个平台。</div>
+          <div class="tool-card-tags"><span class="mini-tag">视频专精</span><span class="mini-tag">9平台</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>DistroKid / TuneCore</div>
+          <div class="tool-card-desc">音乐专属分发：上传一首歌，自动分发至Spotify、Apple Music、Amazon Music、YouTube Music、Deezer等150+音乐平台。</div>
+          <div class="tool-card-tags"><span class="mini-tag">音乐专用</span><span class="mini-tag">150+平台</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Buzzsprout / RSS.com</div>
+          <div class="tool-card-desc">播客专属分发：上传音频，一键提交至Apple、Spotify、Google、Amazon、iHeart等全球25+播客目录。</div>
+          <div class="tool-card-tags"><span class="mini-tag">播客专用</span><span class="mini-tag">25+目录</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Dlvr.it / Zapier</div>
+          <div class="tool-card-desc">RSS → 社交自动发布。新RSS条目自动发布至Twitter、Facebook、LinkedIn、Pinterest等。免费层每天30条。</div>
+          <div class="tool-card-tags"><span class="mini-tag">RSS触发</span><span class="mini-tag">免费层</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 4 -->
+  <div class="strategy-layer">
+    <div class="strategy-layer-header">
+      <div class="strategy-layer-num">04</div>
+      <div class="strategy-layer-info">
+        <div class="strategy-layer-name">去中心化传播网络 · 永不被审查、永不被删除</div>
+        <span class="strategy-layer-tag tag-decen">去中心化</span>&nbsp;
+        <span class="strategy-layer-tag tag-free">抗审查</span>
+      </div>
+    </div>
+    <div class="strategy-layer-body">
+      <div class="highlight-box" style="margin-top:0;">
+        <b>核心逻辑：</b> 去中心化协议构成互联网的"地下层"——没有公司控制，没有算法过滤，没有封号风险。内容一旦发布，永久存在于网络中，任何人都无法删除。
+      </div>
+
+      <div class="protocol-block">
+        <div class="protocol-name">ActivityPub · Fediverse <span class="protocol-badge badge-core">W3C标准</span></div>
+        <div class="protocol-sub">// 联邦宇宙 · 去中心化社交协议</div>
+        <div class="protocol-desc">
+          Mastodon、Pixelfed、PeerTube、Misskey等平台共用ActivityPub协议，形成"联邦宇宙"（Fediverse）。<b>任何人关注你的账号</b>，内容自动推送，不经任何算法过滤。全球Fediverse目前已有<b>超过800万活跃用户</b>。自托管一个Mastodon实例，你就拥有了自己的"社交媒体服务器"，任何人都无法封号。<br><br>
+          PeerTube是去中心化视频平台，可以联邦化与YouTube竞争的视频内容，完全抗审查。
+        </div>
+      </div>
+
+      <div class="protocol-block">
+        <div class="protocol-name">Nostr Protocol <span class="protocol-badge badge-new">新兴前沿</span></div>
+        <div class="protocol-sub">// 无需服务器的去中心化社交协议</div>
+        <div class="protocol-desc">
+          Nostr（Notes and Other Stuff Transmitted by Relays）是目前最激进的去中心化协议。<b>无账号，无服务器</b>，只有密钥对和中继节点。内容广播至全球数百个中继节点，任何人无法审查，无法删除。<br><br>
+          比特币社区、Web3社区、隐私极客、全球黑客文化圈都活跃于Nostr。用<b>Damus（iOS）、Amethyst（Android）、Nostrdomo（Web）</b>发布内容，自动同步至全球所有Nostr中继。
+        </div>
+      </div>
+
+      <div class="protocol-block">
+        <div class="protocol-name">IPFS · InterPlanetary File System <span class="protocol-badge badge-defi">去中心存储</span></div>
+        <div class="protocol-sub">// 内容寻址存储网络 · 让内容永久存在</div>
+        <div class="protocol-desc">
+          将你的视频、文章、音乐上传至IPFS，获得一个<b>内容哈希地址（CID）</b>。只要网络上有任何节点存储这个内容，它就永远可访问。<br><br>
+          配合<b>Filecoin</b>（去中心化存储激励层）或<b>Web3.Storage（免费5GB）</b>，内容永久不消失。再配合<b>ENS域名</b>（以太坊域名），给你的内容库一个人类可读的地址。<br><br>
+          <b>Odysee / LBRY</b>：基于区块链的视频平台，内容同时存储在IPFS和区块链，完全抗审查。
+        </div>
+      </div>
+
+      <div class="protocol-block">
+        <div class="protocol-name">Matrix Protocol <span class="protocol-badge badge-core">通讯协议</span></div>
+        <div class="protocol-sub">// 去中心化即时通讯 · 自建社群广播</div>
+        <div class="protocol-desc">
+          Matrix是开放的去中心化通讯协议（Element.io基于此构建）。自托管一个Matrix服务器（Synapse），建立公开频道，内容自动同步至所有联邦Matrix服务器上的订阅者。与Telegram频道类似，但完全去中心化，无任何公司控制。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 5 -->
+  <div class="strategy-layer">
+    <div class="strategy-layer-header">
+      <div class="strategy-layer-num">05</div>
+      <div class="strategy-layer-info">
+        <div class="strategy-layer-name">搜索引擎全球霸占 · SEO + 结构化数据</div>
+        <span class="strategy-layer-tag tag-global">被动流量</span>&nbsp;
+        <span class="strategy-layer-tag tag-free">长期复利</span>
+      </div>
+    </div>
+    <div class="strategy-layer-body">
+      <div class="highlight-box" style="margin-top:0;">
+        <b>核心逻辑：</b> 搜索引擎流量是最高质量的被动流量——用户主动搜索，主动找到你的内容。全球每天有85亿次Google搜索。一篇好文章可以持续带来流量数年，这才是真正的"无成本传播复利"。
+      </div>
+
+      <div class="tool-grid">
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>结构化数据 Schema.org</div>
+          <div class="tool-card-desc">在网页中嵌入JSON-LD结构化数据，让Google直接在搜索结果中展示视频卡片、音乐卡片、文章卡片，点击率提升300%。</div>
+          <div class="tool-card-tags"><span class="mini-tag">谷歌富文本</span><span class="mini-tag">免费</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Google Search Console</div>
+          <div class="tool-card-desc">提交网站地图（Sitemap），让Google实时索引你的所有内容。配合IndexNow协议，新内容发布即通知必应和Yandex。</div>
+          <div class="tool-card-tags"><span class="mini-tag">实时索引</span><span class="mini-tag">免费</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>IndexNow协议</div>
+          <div class="tool-card-desc">微软提出的实时索引通知协议。发布新内容，一行代码通知必应、Yandex、Seznam等搜索引擎立即爬取，不再等待。</div>
+          <div class="tool-card-tags"><span class="mini-tag">实时</span><span class="mini-tag">多引擎</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>多语言AI翻译发布</div>
+          <div class="tool-card-desc">用DeepL API或GPT-4自动将每篇内容翻译成西班牙语、阿拉伯语、印地语、葡萄牙语等10种语言，覆盖全球80%人口的母语搜索。</div>
+          <div class="tool-card-tags"><span class="mini-tag">AI翻译</span><span class="mini-tag">全球覆盖</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Baidu / Sogou / 360 提交</div>
+          <div class="tool-card-desc">中文内容专项：向百度站长平台、搜狗、360搜索提交Sitemap，确保中文内容被中国搜索引擎完整索引。</div>
+          <div class="tool-card-tags"><span class="mini-tag">中国市场</span><span class="mini-tag">免费</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>DuckDuckGo / Brave Search</div>
+          <div class="tool-card-desc">隐私搜索引擎，用户群体高端、科技圈、欧美年轻人为主。通过提交Sitemap和良好SEO，也能从这些平台获得高质量流量。</div>
+          <div class="tool-card-tags"><span class="mini-tag">高端用户</span><span class="mini-tag">隐私圈</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 6 -->
+  <div class="strategy-layer">
+    <div class="strategy-layer-header">
+      <div class="strategy-layer-num">06</div>
+      <div class="strategy-layer-info">
+        <div class="strategy-layer-name">AI内容矩阵引擎 · 一份内容 × 无限衍生</div>
+        <span class="strategy-layer-tag tag-auto">AI驱动</span>
+      </div>
+    </div>
+    <div class="strategy-layer-body">
+      <div class="highlight-box" style="margin-top:0;">
+        <b>核心逻辑：</b> 用AI将你的核心内容自动重写、重新格式化，适配每个平台的最佳格式。一个视频 → 自动生成：推文线程、LinkedIn长文、Podcast摘要、Instagram图文、Reddit帖子、邮件简报、多语言翻译版……一份内容，十倍传播。
+      </div>
+
+      <div class="tool-grid">
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>n8n + Claude/GPT-4 API</div>
+          <div class="tool-card-desc">在n8n工作流中调用AI API，自动将内容改写为不同平台格式。发布视频→AI生成推文→自动发Twitter；生成摘要→自动发邮件。</div>
+          <div class="tool-card-tags"><span class="mini-tag">自动化</span><span class="mini-tag">多格式</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Opus Clip / Clippie</div>
+          <div class="tool-card-desc">AI自动将长视频剪辑成10个短视频精彩片段，自动加字幕、加标题，直接输出适合TikTok/Reels/Shorts的格式。</div>
+          <div class="tool-card-tags"><span class="mini-tag">视频AI</span><span class="mini-tag">短视频</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>ElevenLabs + HeyGen</div>
+          <div class="tool-card-desc">AI语音克隆+AI数字人。用你的声音自动生成多语言版本，或生成AI avatar视频，用西班牙语、英语、阿拉伯语同时发布。</div>
+          <div class="tool-card-tags"><span class="mini-tag">多语言</span><span class="mini-tag">AI数字人</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Whisper + 多语言字幕</div>
+          <div class="tool-card-desc">OpenAI Whisper自动转录视频/音频为文字，再用DeepL翻译成20种语言字幕，自动嵌入视频，面向全球非英语市场。</div>
+          <div class="tool-card-tags"><span class="mini-tag">开源免费</span><span class="mini-tag">20语言</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Descript</div>
+          <div class="tool-card-desc">AI视频/播客编辑器。自动转录、自动剪辑、自动生成社交片段，一键导出到YouTube、Podcast、LinkedIn等平台。</div>
+          <div class="tool-card-tags"><span class="mini-tag">视频编辑</span><span class="mini-tag">AI辅助</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Make.com（Integromat）</div>
+          <div class="tool-card-desc">可视化自动化平台，与n8n互补。内置ChatGPT模块，可直接在自动化流程中调用AI改写内容，免费层每月1000次操作。</div>
+          <div class="tool-card-tags"><span class="mini-tag">可视化</span><span class="mini-tag">免费层</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 7 -->
+  <div class="strategy-layer">
+    <div class="strategy-layer-header">
+      <div class="strategy-layer-num">07</div>
+      <div class="strategy-layer-info">
+        <div class="strategy-layer-name">社群裂变 · Web3激励 · 传播飞轮</div>
+        <span class="strategy-layer-tag tag-decen">高级策略</span>
+      </div>
+    </div>
+    <div class="strategy-layer-body">
+      <div class="highlight-box" style="margin-top:0;">
+        <b>核心逻辑：</b> 让别人主动传播你的内容。通过社群激励机制、Web3通证奖励、裂变传播设计，将每一个接触到内容的人变成传播节点，形成传播飞轮。
+      </div>
+
+      <div class="tool-grid">
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Mirror.xyz</div>
+          <div class="tool-card-desc">Web3写作平台。读者可以"Collect"你的文章（类似NFT购买），成为内容的传播者。自动上链，永久存档，粉丝变成股东。</div>
+          <div class="tool-card-tags"><span class="mini-tag">Web3</span><span class="mini-tag">内容NFT</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Sound.xyz / Audius</div>
+          <div class="tool-card-desc">去中心化音乐平台。音乐作品铸造成NFT，粉丝购买=传播。Audius完全免费，已有数百万用户，对标Spotify的Web3版本。</div>
+          <div class="tool-card-tags"><span class="mini-tag">音乐专用</span><span class="mini-tag">Web3</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Telegram Bot矩阵</div>
+          <div class="tool-card-desc">搭建多个Telegram频道+机器人。新内容自动推送至频道，用@vote机器人激励用户转发。跨频道联动，形成内容矩阵。</div>
+          <div class="tool-card-tags"><span class="mini-tag">即时触达</span><span class="mini-tag">免费</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>SparkLoop 推荐裂变</div>
+          <div class="tool-card-desc">邮件简报推荐裂变系统。读者邀请朋友订阅，自动获得奖励。多个知名Newsletter用此法快速增长到百万订阅。</div>
+          <div class="tool-card-tags"><span class="mini-tag">裂变增长</span><span class="mini-tag">邮件专用</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Odysee / LBRY</div>
+          <div class="tool-card-desc">区块链视频平台，每次有人观看你的内容，平台给你LBC代币奖励。同步发布YouTube内容至Odysee，额外获得去中心化观看量。</div>
+          <div class="tool-card-tags"><span class="mini-tag">区块链</span><span class="mini-tag">收益激励</span></div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-name"><span class="dot"></span>Galxe / Zealy 任务激励</div>
+          <div class="tool-card-desc">Web3任务平台。设置"传播任务"：分享你的内容即可获得积分/NFT奖励。吸引Web3社区数十万用户主动传播你的内容。</div>
+          <div class="tool-card-tags"><span class="mini-tag">任务激励</span><span class="mini-tag">Web3社区</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- AUTOMATION PIPELINE -->
+<section id="automation">
+  <div class="section-label">04 · AUTOMATION PIPELINE</div>
+  <h2 class="section-title">全自动发布流水线：发布一次，永久运行</h2>
+  <p class="section-desc">以下是一个完整的自动化工作流，从内容创建到全球发布，全程无需人工干预。</p>
+
+  <div class="pipeline">
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">STEP 01</div>
+      <div class="pipeline-step-icon">📤</div>
+      <div class="pipeline-step-title">内容上传</div>
+      <div class="pipeline-step-tools">上传至<br>Google Drive<br>或自有存储</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">STEP 02</div>
+      <div class="pipeline-step-icon">⚡</div>
+      <div class="pipeline-step-title">触发引擎</div>
+      <div class="pipeline-step-tools">n8n Webhook<br>自动检测<br>新文件</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">STEP 03</div>
+      <div class="pipeline-step-icon">🤖</div>
+      <div class="pipeline-step-title">AI处理</div>
+      <div class="pipeline-step-tools">AI生成多格式<br>多语言版本<br>+摘要+标签</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">STEP 04</div>
+      <div class="pipeline-step-icon">🏠</div>
+      <div class="pipeline-step-title">私有发布</div>
+      <div class="pipeline-step-tools">网站/RSS<br>Email列表<br>WebSub推送</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">STEP 05</div>
+      <div class="pipeline-step-icon">🌍</div>
+      <div class="pipeline-step-title">平台矩阵</div>
+      <div class="pipeline-step-tools">同时发布至<br>50+主流<br>社交平台</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">STEP 06</div>
+      <div class="pipeline-step-icon">🔗</div>
+      <div class="pipeline-step-title">去中心化</div>
+      <div class="pipeline-step-tools">IPFS存档<br>Nostr广播<br>Fediverse同步</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-num">STEP 07</div>
+      <div class="pipeline-step-icon">📊</div>
+      <div class="pipeline-step-title">监控反馈</div>
+      <div class="pipeline-step-tools">统计各渠道<br>数据·优化<br>下次发布</div>
+    </div>
+  </div>
+
+  <div class="tool-grid">
+    <div class="tool-card">
+      <div class="tool-card-name"><span class="dot"></span>n8n 核心工作流</div>
+      <div class="tool-card-desc">开源，VPS自托管（$5/月 Hetzner VPS），无限触发次数，无使用费。社区有现成模板可直接导入使用。</div>
+      <div class="tool-card-tags"><span class="mini-tag">核心推荐</span><span class="mini-tag">完全免费</span></div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-card-name"><span class="dot"></span>Hetzner VPS（德国服务器）</div>
+      <div class="tool-card-desc">全球最佳性价比服务器。CX11型号每月€3.29（约25元），足够运行n8n + Ghost + Listmonk + Mastodon，还有余量。</div>
+      <div class="tool-card-tags"><span class="mini-tag">$3.29/月</span><span class="mini-tag">高性能</span></div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-card-name"><span class="dot"></span>Cloudflare（全套免费层）</div>
+      <div class="tool-card-desc">免费CDN+DNS+DDoS防护+Pages部署+R2存储+Workers无服务器函数。全套免费层已足够支撑中小规模运营。</div>
+      <div class="tool-card-tags"><span class="mini-tag">大量免费额度</span><span class="mini-tag">全球CDN</span></div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-card-name"><span class="dot"></span>GitHub Actions</div>
+      <div class="tool-card-desc">免费CI/CD：每月2000分钟免费执行时间。可定时触发内容处理脚本、Sitemap生成、IndexNow通知等自动化任务。</div>
+      <div class="tool-card-tags"><span class="mini-tag">免费2000分钟</span><span class="mini-tag">定时触发</span></div>
+    </div>
+  </div>
+
+  <!-- COST TABLE -->
+  <h3 style="font-family:'Orbitron',monospace;font-size:18px;color:#fff;margin-bottom:20px;margin-top:40px;">完整系统成本估算</h3>
+  <table class="cost-table">
+    <thead>
+      <tr>
+        <th>组件</th>
+        <th>工具/平台</th>
+        <th>月费用</th>
+        <th>覆盖范围</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>服务器</td>
+        <td>Hetzner CX21</td>
+        <td class="cost-paid">~$5</td>
+        <td>运行n8n + Ghost + Listmonk + Mastodon</td>
+      </tr>
+      <tr>
+        <td>域名</td>
+        <td>Namecheap</td>
+        <td class="cost-paid">~$1</td>
+        <td>你的独立品牌域名</td>
+      </tr>
+      <tr>
+        <td>CDN/DNS</td>
+        <td>Cloudflare</td>
+        <td class="cost-free">¥0</td>
+        <td>全球CDN、DDoS防护</td>
+      </tr>
+      <tr>
+        <td>邮件发送</td>
+        <td>Amazon SES</td>
+        <td class="cost-free">¥0 (6.2万封/月免费)</td>
+        <td>向订阅者发送邮件简报</td>
+      </tr>
+      <tr>
+        <td>自动化引擎</td>
+        <td>n8n（自托管）</td>
+        <td class="cost-free">¥0</td>
+        <td>500+平台自动发布</td>
+      </tr>
+      <tr>
+        <td>视频存储</td>
+        <td>Cloudflare R2</td>
+        <td class="cost-free">¥0 (10GB免费)</td>
+        <td>视频/音频CDN托管</td>
+      </tr>
+      <tr>
+        <td>音乐分发</td>
+        <td>DistroKid</td>
+        <td class="cost-paid">$2.5</td>
+        <td>150+音乐平台（可选）</td>
+      </tr>
+      <tr>
+        <td>RSS聚合</td>
+        <td>各平台提交</td>
+        <td class="cost-free">¥0</td>
+        <td>Google News, Feedly, Flipboard等</td>
+      </tr>
+      <tr>
+        <td>去中心化存储</td>
+        <td>Web3.Storage / IPFS</td>
+        <td class="cost-free">¥0 (5GB免费)</td>
+        <td>永久存档，抗审查</td>
+      </tr>
+      <tr>
+        <td>AI内容处理</td>
+        <td>Claude/GPT-4 API</td>
+        <td class="cost-paid">~$10</td>
+        <td>内容改写、翻译、多格式生成</td>
+      </tr>
+      <tr style="background:rgba(0,229,255,0.05);">
+        <td><strong style="color:#fff;">总计</strong></td>
+        <td></td>
+        <td class="cost-paid" style="font-size:18px;font-weight:900;">~$18.5/月</td>
+        <td style="color:var(--cyan);">覆盖全球200+平台、去中心化网络、搜索引擎、邮件私域</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROTOCOLS -->
+<section id="protocols">
+  <div class="section-label">05 · ADVANCED PROTOCOLS</div>
+  <h2 class="section-title">前沿技术补充：你想不到的传播渠道</h2>
+  <p class="section-desc">以下是大多数人从未听过，但传播效率极高的渠道和协议。</p>
+
+  <div class="protocol-block">
+    <div class="protocol-name">Gemini 协议 <span class="protocol-badge badge-new">极客圈</span></div>
+    <div class="protocol-sub">// 轻量级互联网替代协议</div>
+    <div class="protocol-desc">Gemini是一个轻量级替代HTTP的协议，有大量极客、隐私主义者、开发者用户使用专用浏览器访问Gemini空间。搭建一个Gemini站点，内容同步推送至这个"平行互联网"，触达从不使用主流平台的技术精英群体。</div>
+  </div>
+
+  <div class="protocol-block">
+    <div class="protocol-name">BitTorrent / 磁力链接分发 <span class="protocol-badge badge-new">P2P</span></div>
+    <div class="protocol-sub">// 内容永远无法被删除的分发协议</div>
+    <div class="protocol-desc">将视频、音乐专辑、内容合集打包成种子文件，发布到1337x、The Pirate Bay、RARBG镜像、KickassTorrents等全球P2P网络。内容一旦有足够Seeder，<b>永远无法被删除</b>，任何人都可以下载。全球数亿P2P用户。特别适合音乐专辑、视频合集、电子书等大型内容包的全球免费分发。</div>
+  </div>
+
+  <div class="protocol-block">
+    <div class="protocol-name">电子邮件新闻组 / Usenet <span class="protocol-badge badge-core">传统但有效</span></div>
+    <div class="protocol-sub">// 互联网最古老的讨论系统</div>
+    <div class="protocol-desc">Usenet是1980年代诞生的分布式讨论系统，至今仍有活跃用户群（主要是技术人员、老互联网用户）。在相关新闻组发布你的内容，触达这批从不使用社交媒体的资深用户。</div>
+  </div>
+
+  <div class="protocol-block">
+    <div class="protocol-name">WebMention 协议 <span class="protocol-badge badge-core">IndieWeb</span></div>
+    <div class="protocol-sub">// 网站间的去中心化引用通知</div>
+    <div class="protocol-desc">W3C标准协议。当你的内容被任何支持WebMention的网站引用，你会自动收到通知，对方读者也会看到这个链接。IndieWeb社区数万个网站互相连接，形成去中心化的引用网络。在自有网站启用WebMention，进入这个去中心化内容网络。</div>
+  </div>
+
+  <div class="protocol-block">
+    <div class="protocol-name">AMP / Instant Articles 加速协议 <span class="protocol-badge badge-core">搜索加速</span></div>
+    <div class="protocol-sub">// Google/Facebook加速内容协议</div>
+    <div class="protocol-desc">Google AMP（Accelerated Mobile Pages）让你的内容在Google搜索结果中以即时加载的方式展示，移动端搜索排名提升。Facebook Instant Articles让你的文章在Facebook中以原生速度加载，阅读率提升3倍。WordPress等CMS有免费插件一键启用。</div>
+  </div>
+
+  <div class="protocol-block">
+    <div class="protocol-name">Zeronet / I2P 暗网传播 <span class="protocol-badge badge-defi">抗审查极限</span></div>
+    <div class="protocol-sub">// 完全匿名的内容广播网络</div>
+    <div class="protocol-desc">ZeroNet是基于比特币密钥和BitTorrent协议的去中心化网络，无法关闭，无法审查。I2P是匿名通信网络。在这些网络发布内容的镜像，确保即使在最极端的审查环境下内容仍然可访问。专注于隐私权利、信息自由的受众群体。</div>
+  </div>
+
+  <div class="protocol-block">
+    <div class="protocol-name">RSS + AI摘要推送至全球聚合器 <span class="protocol-badge badge-core">放大器</span></div>
+    <div class="protocol-sub">// 让AI帮你的内容进入各垂直领域聚合器</div>
+    <div class="protocol-desc">全球有数以千计的垂直领域内容聚合网站（科技、金融、健康、旅游……），它们主动抓取RSS。<b>Feedspot</b>（有上万个分类聚合列表）、<b>AllTop</b>、<b>Alltop.cn</b>（中文）、<b>Paper.li</b>、<b>Scoop.it</b>——主动提交你的RSS，进入这些垂直领域聚合，被专业读者发现。</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="section-label">06 · IMPLEMENTATION ROADMAP</div>
+  <h2 class="section-title">四周落地计划：从零到全自动运行</h2>
+  <p class="section-desc">按照优先级排列，最快三周内实现基础自动化运行，第四周进阶扩展。</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-week">// WEEK 01 · 基础设施搭建</div>
+      <div class="timeline-title">建立你的内容根基</div>
+      <ul class="timeline-tasks">
+        <li>注册域名（Namecheap）→ 接入Cloudflare DNS免费层</li>
+        <li>购买Hetzner CX21 VPS（€3.29/月），安装Docker环境</li>
+        <li>部署Ghost CMS（或WordPress），配置RSS Feed</li>
+        <li>配置WebSub/PubSubHubbub，实现RSS实时推送</li>
+        <li>部署Listmonk邮件系统，接入Amazon SES（免费62000封/月）</li>
+        <li>设置Google Search Console，提交Sitemap</li>
+        <li>配置IndexNow，实现发布即通知必应/Yandex</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-week">// WEEK 02 · 自动化引擎</div>
+      <div class="timeline-title">部署n8n + 连接核心平台</div>
+      <ul class="timeline-tasks">
+        <li>同一VPS部署n8n，配置基本工作流</li>
+        <li>连接YouTube API：新内容自动上传视频</li>
+        <li>连接Twitter/X API：自动发推（含媒体）</li>
+        <li>连接Telegram Bot API：新内容自动推送至频道</li>
+        <li>连接Facebook Pages Graph API：自动发帖</li>
+        <li>配置IFTTT/Dlvr.it：RSS → 其他20个平台自动同步</li>
+        <li>提交RSS至 Feedly、Flipboard、Google News、Apple News</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-week">// WEEK 03 · AI内容矩阵</div>
+      <div class="timeline-title">接入AI，实现内容无限衍生</div>
+      <ul class="timeline-tasks">
+        <li>在n8n工作流中接入Claude/GPT-4 API</li>
+        <li>设置：视频/文章 → AI生成推文线程 → 自动发Twitter</li>
+        <li>设置：内容 → AI生成邮件简报 → 自动发Listmonk</li>
+        <li>设置：内容 → DeepL翻译英语 → 自动发英文社交账号矩阵</li>
+        <li>接入Repurpose.io：视频自动分发TikTok/Reels/Shorts</li>
+        <li>注册Podcast频道：音频内容提交Apple/Spotify/Amazon</li>
+        <li>在Mastodon/Fediverse建立账号，RSS自动同步</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-week">// WEEK 04 · 去中心化 + 进阶</div>
+      <div class="timeline-title">扩展至去中心化网络与高级渠道</div>
+      <ul class="timeline-tasks">
+        <li>配置IPFS节点，内容永久存档至Web3.Storage</li>
+        <li>注册Nostr账号（npub密钥），RSS同步至Nostr中继</li>
+        <li>在Odysee注册频道，同步YouTube视频至LBRY区块链</li>
+        <li>注册Mirror.xyz，文章自动镜像至Web3写作平台</li>
+        <li>音乐内容接入DistroKid，分发至150+音乐平台</li>
+        <li>在LinkedIn、VK、Reddit、Pinterest建立账号并接入自动化</li>
+        <li>提交RSS至Feedspot垂直聚合列表，进入20+垂直领域</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    ⚠️ 重要提示：各平台API有速率限制，自动化发布需要遵守各平台的服务条款。建议发布频率控制在每平台每日1-3次，避免被判定为垃圾内容。质量永远优先于数量——一条有价值的内容远胜十条平庸内容的传播效果。
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA FINAL -->
+<div class="cta-section">
+  <div class="cta-glow"></div>
+  <h2 class="cta-title">你拥有的不是账号<br>而是传播基础设施</h2>
+  <p class="cta-desc">
+    从今天开始，你不再是平台的访客。<br>
+    你是自己的广播电台、自己的出版社、自己的发行网络。<br>
+    内容一旦发出，穿透全球每一个协议、每一个节点、每一个人。
+  </p>
+
+  <div class="cta-matrix">
+    <div class="cta-item">
+      <div class="cta-item-icon">🏗️</div>
+      <div class="cta-item-title">第一步</div>
+      <div class="cta-item-desc">搭建自有基础设施：域名 + VPS + Ghost + Listmonk。这是你的传播根据地。</div>
+    </div>
+    <div class="cta-item">
+      <div class="cta-item-icon">⚡</div>
+      <div class="cta-item-title">第二步</div>
+      <div class="cta-item-desc">部署n8n自动化引擎，连接核心平台API。发一次内容，触达50+平台。</div>
+    </div>
+    <div class="cta-item">
+      <div class="cta-item-icon">🤖</div>
+      <div class="cta-item-title">第三步</div>
+      <div class="cta-item-desc">接入AI API，让内容自动衍生10种格式、翻译20种语言，触达不同语言人群。</div>
+    </div>
+    <div class="cta-item">
+      <div class="cta-item-icon">🌐</div>
+      <div class="cta-item-title">第四步</div>
+      <div class="cta-item-desc">进入去中心化层：IPFS、Nostr、Fediverse——脱离一切守门人控制。</div>
+    </div>
+    <div class="cta-item">
+      <div class="cta-item-icon">📡</div>
+      <div class="cta-item-title">持续运营</div>
+      <div class="cta-item-desc">增长邮件订阅列表，这是你最有价值的资产——任何平台都夺不走的受众。</div>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING -->
+<div class="floating-bar">
+  <div>覆盖平台 <span id="platform-count">0</span>+</div>
+  <div>战略层级 <span>7</span></div>
+  <div>月均成本 <span>$18</span></div>
+</div>
+
+<script>
+// Counter animation
+function animateCount(el, target, duration) {
+  let start = 0;
+  const increment = target / (duration / 16);
+  const timer = setInterval(() => {
+    start += increment;
+    el.textContent = Math.floor(start);
+    if (start >= target) { el.textContent = target; clearInterval(timer); }
+  }, 16);
+}
+setTimeout(() => animateCount(document.getElementById('platform-count'), 200, 1500), 500);
+
+// Intersection Observer for animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.tool-card, .platform-row, .protocol-block, .philosophy-card, .timeline-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+
+// Strategy layer hover header
+document.querySelectorAll('.strategy-layer-header').forEach(header => {
+  header.addEventListener('mouseenter', () => {
+    header.style.background = 'rgba(0,229,255,0.03)';
+  });
+  header.addEventListener('mouseleave', () => {
+    header.style.background = '';
+  });
+});
+</script>
+</body>
+</html>

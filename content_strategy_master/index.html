@@ -1,0 +1,3192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>内容自动化矩阵 · 全局战略规划</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&family=Bebas+Neue&display=swap');
+
+  :root {
+    --bg: #070b14;
+    --bg2: #0d1526;
+    --bg3: #111d35;
+    --card: #0f1a2e;
+    --card2: #162035;
+    --border: #1e3058;
+    --border2: #253d6a;
+    --accent: #00d4ff;
+    --accent2: #ff6b35;
+    --accent3: #a855f7;
+    --accent4: #22c55e;
+    --accent5: #f59e0b;
+    --text: #e2eaf6;
+    --text2: #8da6cc;
+    --text3: #4d6a99;
+    --red: #ef4444;
+    --gold: #fbbf24;
+    --teal: #14b8a6;
+    --pink: #ec4899;
+    --font-main: 'Noto Sans SC', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-display: 'Bebas Neue', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  /* ===== GRID BACKGROUND ===== */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 20px;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero-glow2 {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 70%);
+    top: 30%; left: 20%;
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,212,255,0.08);
+    border: 1px solid rgba(0,212,255,0.25);
+    border-radius: 50px;
+    padding: 6px 18px;
+    font-size: 12px;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    letter-spacing: 2px;
+    margin-bottom: 32px;
+    animation: fadeInDown 0.8s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 9vw, 120px);
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 16px;
+    animation: fadeInUp 0.8s 0.2s ease both;
+  }
+
+  .hero h1 span.c1 { color: var(--accent); }
+  .hero h1 span.c2 { color: var(--accent2); }
+  .hero h1 span.c3 { color: var(--accent3); }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--text2);
+    max-width: 700px;
+    margin: 0 auto 40px;
+    animation: fadeInUp 0.8s 0.4s ease both;
+    line-height: 1.8;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s 0.6s ease both;
+    margin-bottom: 48px;
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat .num {
+    font-family: var(--font-display);
+    font-size: 48px;
+    line-height: 1;
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-stat .num.o { color: var(--accent2); }
+  .hero-stat .num.p { color: var(--accent3); }
+  .hero-stat .num.g { color: var(--accent4); }
+
+  .hero-stat .label {
+    font-size: 12px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .nav-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeInUp 0.8s 0.8s ease both;
+  }
+
+  .nav-pill {
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-size: 13px;
+    cursor: pointer;
+    border: 1px solid var(--border2);
+    background: var(--card);
+    color: var(--text2);
+    text-decoration: none;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+
+  .nav-pill:hover, .nav-pill.active {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .nav-pill.o:hover { background: var(--accent2); border-color: var(--accent2); }
+  .nav-pill.p:hover { background: var(--accent3); border-color: var(--accent3); }
+  .nav-pill.g:hover { background: var(--accent4); border-color: var(--accent4); }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== SECTION ===== */
+  .section {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.8;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    letter-spacing: 2px;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+
+  .section-desc {
+    color: var(--text2);
+    font-size: 15px;
+    max-width: 700px;
+    margin-bottom: 48px;
+    line-height: 1.8;
+  }
+
+  .section-divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    margin-bottom: 48px;
+    border-radius: 2px;
+  }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    transition: all 0.25s;
+  }
+
+  .card:hover {
+    border-color: var(--border2);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .card.glow-blue:hover { box-shadow: 0 20px 60px rgba(0,212,255,0.08); }
+  .card.glow-orange:hover { box-shadow: 0 20px 60px rgba(255,107,53,0.08); }
+  .card.glow-purple:hover { box-shadow: 0 20px 60px rgba(168,85,247,0.08); }
+  .card.glow-green:hover { box-shadow: 0 20px 60px rgba(34,197,94,0.08); }
+
+  /* ===== TOP 100 TABLE ===== */
+  .top100-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+
+  .filter-btn {
+    padding: 7px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 12px;
+    font-family: var(--font-main);
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+
+  .content-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .content-table thead th {
+    padding: 12px 16px;
+    text-align: left;
+    color: var(--text3);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  .content-table tbody tr {
+    border-bottom: 1px solid rgba(30,48,88,0.5);
+    transition: background 0.15s;
+  }
+
+  .content-table tbody tr:hover {
+    background: rgba(0,212,255,0.03);
+  }
+
+  .content-table tbody td {
+    padding: 11px 16px;
+    vertical-align: middle;
+  }
+
+  .rank-num {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 700;
+    width: 42px;
+    text-align: center;
+  }
+
+  .rank-1 { color: #fbbf24; }
+  .rank-2 { color: #94a3b8; }
+  .rank-3 { color: #cd7c3d; }
+  .rank-top { color: var(--accent); }
+  .rank-normal { color: var(--text3); }
+
+  .content-name {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .content-sub {
+    color: var(--text3);
+    font-size: 11px;
+    margin-top: 2px;
+  }
+
+  .heat-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .heat-track {
+    flex: 1;
+    height: 4px;
+    background: var(--bg3);
+    border-radius: 2px;
+    overflow: hidden;
+    min-width: 80px;
+  }
+
+  .heat-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+  }
+
+  .heat-text {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+
+  .tag-blue { background: rgba(0,212,255,0.1); color: var(--accent); border: 1px solid rgba(0,212,255,0.2); }
+  .tag-orange { background: rgba(255,107,53,0.1); color: var(--accent2); border: 1px solid rgba(255,107,53,0.2); }
+  .tag-purple { background: rgba(168,85,247,0.1); color: var(--accent3); border: 1px solid rgba(168,85,247,0.2); }
+  .tag-green { background: rgba(34,197,94,0.1); color: var(--accent4); border: 1px solid rgba(34,197,94,0.2); }
+  .tag-gold { background: rgba(251,191,36,0.1); color: var(--gold); border: 1px solid rgba(251,191,36,0.2); }
+  .tag-pink { background: rgba(236,72,153,0.1); color: var(--pink); border: 1px solid rgba(236,72,153,0.2); }
+  .tag-teal { background: rgba(20,184,166,0.1); color: var(--teal); border: 1px solid rgba(20,184,166,0.2); }
+  .tag-red { background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
+
+  .platform-dots {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .pdot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    title: '';
+  }
+
+  .difficulty {
+    display: flex;
+    gap: 3px;
+  }
+
+  .diff-dot {
+    width: 7px; height: 7px;
+    border-radius: 2px;
+    background: var(--bg3);
+  }
+
+  .diff-dot.filled { background: var(--accent4); }
+  .diff-dot.warn { background: var(--accent5); }
+  .diff-dot.hard { background: var(--red); }
+
+  /* ===== GRID LAYOUTS ===== */
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+
+  /* ===== PLATFORM CARDS ===== */
+  .platform-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .platform-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-color, var(--accent)), transparent);
+  }
+
+  .platform-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+  }
+
+  .pcard-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .pcard-icon {
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .pcard-name {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 2px;
+  }
+
+  .pcard-type {
+    font-size: 11px;
+    color: var(--text3);
+  }
+
+  .pcard-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .pstat {
+    text-align: center;
+  }
+
+  .pstat-num {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+  }
+
+  .pstat-label {
+    font-size: 10px;
+    color: var(--text3);
+  }
+
+  .pcard-features {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent), var(--accent3), var(--accent2), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 36px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 6px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 3px rgba(0,212,255,0.2);
+  }
+
+  .tl-time {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+
+  .tl-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .tl-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.7;
+  }
+
+  /* ===== ACCOUNT MATRIX ===== */
+  .account-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+
+  .account-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  }
+
+  .acard-header {
+    padding: 20px 22px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .acard-avatar {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+  }
+
+  .acard-channel {
+    font-weight: 800;
+    font-size: 16px;
+    margin-bottom: 2px;
+  }
+
+  .acard-tagline {
+    font-size: 11px;
+    color: var(--text3);
+    font-style: italic;
+  }
+
+  .acard-body {
+    padding: 18px 22px;
+  }
+
+  .acard-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+
+  .acard-row-label {
+    color: var(--text3);
+    min-width: 60px;
+    flex-shrink: 0;
+    font-size: 11px;
+    padding-top: 2px;
+  }
+
+  .acard-row-val {
+    color: var(--text);
+    flex: 1;
+    line-height: 1.6;
+  }
+
+  .acard-footer {
+    padding: 14px 22px;
+    background: rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .rev-est {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent4);
+  }
+
+  /* ===== RPA FLOW ===== */
+  .rpa-flow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+
+  .rpa-step {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 12px;
+    text-align: center;
+    min-width: 110px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .rpa-step .step-num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .rpa-step .step-icon {
+    font-size: 20px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .rpa-step .step-name {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 12px;
+  }
+
+  .rpa-arrow {
+    color: var(--text3);
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  /* ===== SCHEDULE TABLE ===== */
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: 80px repeat(7, 1fr);
+    gap: 4px;
+    font-size: 11px;
+  }
+
+  .sch-header {
+    padding: 8px 6px;
+    text-align: center;
+    color: var(--text3);
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .sch-time {
+    padding: 10px 6px;
+    color: var(--text3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .sch-cell {
+    border-radius: 6px;
+    padding: 6px 4px;
+    text-align: center;
+    font-size: 10px;
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .sch-empty {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    opacity: 0.4;
+  }
+
+  .sch-low { background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.15); }
+  .sch-med { background: rgba(0,212,255,0.12); border: 1px solid rgba(0,212,255,0.25); }
+  .sch-high { background: rgba(0,212,255,0.22); border: 1px solid rgba(0,212,255,0.4); color: var(--accent); font-weight: 600; }
+  .sch-peak { background: rgba(255,107,53,0.2); border: 1px solid rgba(255,107,53,0.4); color: var(--accent2); font-weight: 700; }
+
+  /* ===== MONEY SECTION ===== */
+  .money-path {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 32px 0;
+  }
+
+  .money-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+
+  .money-card::after {
+    content: attr(data-num);
+    position: absolute;
+    right: 16px;
+    top: 12px;
+    font-family: var(--font-display);
+    font-size: 60px;
+    color: rgba(255,255,255,0.03);
+    pointer-events: none;
+  }
+
+  .money-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-3px);
+  }
+
+  .money-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .money-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .money-desc {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  .money-est {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 6px 12px;
+    background: rgba(34,197,94,0.08);
+    border: 1px solid rgba(34,197,94,0.2);
+    border-radius: 8px;
+    color: var(--accent4);
+    display: inline-block;
+  }
+
+  /* ===== WARNING BOXES ===== */
+  .warn-box {
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .warn-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .warn-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .warn-desc {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .warn-danger { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.2); }
+  .warn-danger .warn-title { color: var(--red); }
+  .warn-danger .warn-desc { color: rgba(239,68,68,0.7); }
+
+  .warn-caution { background: rgba(251,191,36,0.07); border: 1px solid rgba(251,191,36,0.2); }
+  .warn-caution .warn-title { color: var(--gold); }
+  .warn-caution .warn-desc { color: rgba(251,191,36,0.7); }
+
+  .warn-info { background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.18); }
+  .warn-info .warn-title { color: var(--accent); }
+  .warn-info .warn-desc { color: var(--text2); }
+
+  .warn-success { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.18); }
+  .warn-success .warn-title { color: var(--accent4); }
+  .warn-success .warn-desc { color: rgba(34,197,94,0.7); }
+
+  /* ===== CODE BLOCK ===== */
+  .code-block {
+    background: #060d1a;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.8;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+
+  .code-block .cm { color: #4d6a99; }
+  .code-block .ck { color: var(--accent3); }
+  .code-block .cv { color: var(--accent); }
+  .code-block .cs { color: var(--accent4); }
+  .code-block .cn { color: var(--accent2); }
+  .code-block .cc { color: var(--gold); }
+
+  /* ===== PROGRESS SECTION ===== */
+  .progress-steps {
+    counter-reset: steps;
+    list-style: none;
+  }
+
+  .progress-step {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .progress-step::before {
+    counter-increment: steps;
+    content: counter(steps, decimal-leading-zero);
+    font-family: var(--font-display);
+    font-size: 42px;
+    color: rgba(0,212,255,0.15);
+    min-width: 56px;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .step-content {}
+
+  .step-content h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .step-content p {
+    color: var(--text2);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  /* ===== TOPBAR ===== */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(7,11,20,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    transform: translateY(-100%);
+    transition: transform 0.3s;
+  }
+
+  .topbar.visible { transform: translateY(0); }
+
+  .topbar-logo {
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--accent);
+  }
+
+  .topbar-nav {
+    display: flex;
+    gap: 4px;
+  }
+
+  .topbar-btn {
+    padding: 6px 14px;
+    border-radius: 8px;
+    background: transparent;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 12px;
+    font-family: var(--font-main);
+    transition: all 0.2s;
+  }
+
+  .topbar-btn:hover { background: var(--card); color: var(--text); }
+
+  /* ===== CHIPS ===== */
+  .chip-list {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 12px 0;
+  }
+
+  .chip {
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    background: var(--bg3);
+    white-space: nowrap;
+  }
+
+  /* ===== SECTION BG ===== */
+  .section-alt {
+    background: linear-gradient(180deg, transparent 0%, rgba(0,212,255,0.015) 50%, transparent 100%);
+  }
+
+  .section-alt2 {
+    background: linear-gradient(180deg, transparent 0%, rgba(168,85,247,0.015) 50%, transparent 100%);
+  }
+
+  .section-alt3 {
+    background: linear-gradient(180deg, transparent 0%, rgba(34,197,94,0.015) 50%, transparent 100%);
+  }
+
+  /* ===== PROFIT CHART ===== */
+  .profit-bar-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .profit-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .profit-label {
+    font-size: 12px;
+    color: var(--text2);
+    min-width: 130px;
+    flex-shrink: 0;
+  }
+
+  .profit-track {
+    flex: 1;
+    height: 22px;
+    background: var(--bg3);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .profit-fill {
+    height: 100%;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--bg);
+    transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* ===== TABLE WRAPPER ===== */
+  .table-wrapper {
+    overflow-x: auto;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+
+  /* ===== TABS ===== */
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+    overflow-x: auto;
+  }
+
+  .tab-btn {
+    padding: 12px 22px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 13px;
+    font-family: var(--font-main);
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.2s;
+    margin-bottom: -1px;
+  }
+
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .tab-btn:hover { color: var(--text); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--text3);
+    font-size: 13px;
+  }
+
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 36px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 48px; }
+    .hero-stats { gap: 24px; }
+    .hero-stat .num { font-size: 36px; }
+    .content-table thead { display: none; }
+    .content-table tbody td:nth-child(5),
+    .content-table tbody td:nth-child(6) { display: none; }
+    .schedule-grid { grid-template-columns: 60px repeat(4, 1fr); }
+    .schedule-grid .sch-header:nth-child(n+6),
+    .schedule-grid .sch-time ~ .sch-cell:nth-child(n+6) { display: none; }
+    .topbar-nav { display: none; }
+  }
+
+  /* ===== ANIMATE ON SCROLL ===== */
+  .aos {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .aos.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .aos-delay-1 { transition-delay: 0.1s; }
+  .aos-delay-2 { transition-delay: 0.2s; }
+  .aos-delay-3 { transition-delay: 0.3s; }
+  .aos-delay-4 { transition-delay: 0.4s; }
+
+  /* ===== SPECIAL ELEMENTS ===== */
+  .number-big {
+    font-family: var(--font-display);
+    font-size: 80px;
+    color: rgba(0,212,255,0.12);
+    position: absolute;
+    right: 24px;
+    top: 16px;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .inline-tag {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    vertical-align: middle;
+    margin: 0 2px;
+  }
+
+  .emphasis {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .emphasis-o { color: var(--accent2); font-weight: 600; }
+  .emphasis-p { color: var(--accent3); font-weight: 600; }
+  .emphasis-g { color: var(--accent4); font-weight: 600; }
+
+  ul.list-styled {
+    list-style: none;
+    padding: 0;
+  }
+
+  ul.list-styled li {
+    padding: 6px 0 6px 20px;
+    position: relative;
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.7;
+    border-bottom: 1px dashed rgba(30,48,88,0.5);
+  }
+
+  ul.list-styled li:last-child { border-bottom: none; }
+
+  ul.list-styled li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .highlight-block {
+    background: linear-gradient(135deg, rgba(0,212,255,0.06) 0%, rgba(168,85,247,0.06) 100%);
+    border: 1px solid rgba(0,212,255,0.15);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .key-insight {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .key-insight::before {
+    content: '💡';
+    font-size: 20px;
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar" id="topbar">
+  <div class="topbar-logo">MATRIX</div>
+  <div class="topbar-nav">
+    <button class="topbar-btn" onclick="scrollTo('#top100')">TOP 100</button>
+    <button class="topbar-btn" onclick="scrollTo('#platforms')">平台</button>
+    <button class="topbar-btn" onclick="scrollTo('#accounts')">账号</button>
+    <button class="topbar-btn" onclick="scrollTo('#rpa')">RPA</button>
+    <button class="topbar-btn" onclick="scrollTo('#schedule')">时间</button>
+    <button class="topbar-btn" onclick="scrollTo('#money')">变现</button>
+    <button class="topbar-btn" onclick="scrollTo('#warnings')">注意</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-badge">CONTENT AUTOMATION STRATEGY · 2025-2026</div>
+
+  <h1>
+    <span class="c1">CONTENT</span><br>
+    <span class="c2">MATRIX</span>&nbsp;<span class="c3">×</span><br>
+    <span style="color:var(--text)">AUTOMATION</span>
+  </h1>
+
+  <p class="hero-sub">
+    全球内容自动化矩阵战略规划<br>
+    从选题到发布，从账号到变现——全自动流水线系统设计
+  </p>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="num">100</span>
+      <span class="label">热门内容类型</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num o">60+</span>
+      <span class="label">全球发布平台</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num p">12</span>
+      <span class="label">账号频道矩阵</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num g">24h</span>
+      <span class="label">全自动运行</span>
+    </div>
+  </div>
+
+  <div class="nav-pills">
+    <a href="#top100" class="nav-pill">📊 TOP 100 类型</a>
+    <a href="#platforms" class="nav-pill o">🌐 平台矩阵</a>
+    <a href="#accounts" class="nav-pill p">👤 账号规划</a>
+    <a href="#rpa" class="nav-pill">🤖 RPA流程</a>
+    <a href="#schedule" class="nav-pill o">⏰ 发布时间</a>
+    <a href="#money" class="nav-pill g">💰 变现路径</a>
+    <a href="#warnings" class="nav-pill">⚠️ 合规注意</a>
+  </div>
+</section>
+
+<!-- ===== SECTION 0: STRATEGY OVERVIEW ===== -->
+<div style="position:relative;z-index:1;background:linear-gradient(180deg, transparent, rgba(0,212,255,0.02), transparent);">
+<div class="section">
+  <div class="section-label">战略总纲</div>
+  <div class="section-title">核心<span style="color:var(--accent)">方法论</span></div>
+  <div class="section-divider"></div>
+
+  <div class="highlight-block">
+    <div class="key-insight">打动人心的核心不是精美制作，而是人性共鸣</div>
+    <p style="color:var(--text2);font-size:14px;line-height:1.9">
+      你已经洞察到最重要的真相：<span class="emphasis">流量的本质是情绪</span>。恐惧、好奇、共鸣、愤怒、感动——这六种情绪驱动99%的内容传播。你无需做复杂视频，只需<span class="emphasis-o">原创+情绪触发+自动化规模化</span>，即可构建可持续的内容帝国。
+    </p>
+  </div>
+
+  <div class="grid-4 aos">
+    <div class="card glow-blue">
+      <div style="font-size:28px;margin-bottom:12px">🎯</div>
+      <div style="font-weight:700;font-size:15px;margin-bottom:8px">选题第一</div>
+      <div style="color:var(--text2);font-size:12px;line-height:1.7">选题决定80%成败。用热搜、情绪、痛点三角定位每条内容</div>
+    </div>
+    <div class="card glow-orange">
+      <div style="font-size:28px;margin-bottom:12px">⚡</div>
+      <div style="font-weight:700;font-size:15px;margin-bottom:8px">简单可复制</div>
+      <div style="color:var(--text2);font-size:12px;line-height:1.7">单条内容制作不超过15分钟，可批量生产，可模板化执行</div>
+    </div>
+    <div class="card glow-purple">
+      <div style="font-size:28px;margin-bottom:12px">🤖</div>
+      <div style="font-weight:700;font-size:15px;margin-bottom:8px">RPA全自动</div>
+      <div style="color:var(--text2);font-size:12px;line-height:1.7">内容生产→排版→发布→互动→数据监控，全流程无人值守</div>
+    </div>
+    <div class="card glow-green">
+      <div style="font-size:28px;margin-bottom:12px">💎</div>
+      <div style="font-weight:700;font-size:15px;margin-bottom:8px">矩阵变现</div>
+      <div style="color:var(--text2);font-size:12px;line-height:1.7">单账号→多账号→矩阵→品牌，每个阶段对应不同变现方式</div>
+    </div>
+  </div>
+
+  <div style="margin-top:32px" class="grid-2 aos">
+    <div class="card">
+      <div style="font-weight:700;font-size:15px;margin-bottom:16px;color:var(--accent)">✅ 你的核心优势</div>
+      <ul class="list-styled">
+        <li>具备RPA/自动化开发能力，这是绝大多数内容创作者的稀缺短板</li>
+        <li>理解内容本质（人性驱动），不追求华而不实</li>
+        <li>明白合规红线，懂得长期主义经营账号</li>
+        <li>时间管理意识强，追求系统化而非碎片努力</li>
+        <li>具备技术背景，可快速迭代工具链和工作流</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div style="font-weight:700;font-size:15px;margin-bottom:16px;color:var(--accent2)">⚡ 执行核心原则</div>
+      <ul class="list-styled">
+        <li><span class="emphasis">量变引起质变</span>：每天稳定产出20-50条内容，算法自然推流</li>
+        <li><span class="emphasis">垂直深耕优先</span>：先把2-3个账号做起来，再横向扩展</li>
+        <li><span class="emphasis">数据驱动选题</span>：每周分析爆款，不断复制成功模板</li>
+        <li><span class="emphasis">原创为王</span>：即使是二次加工，也需要产生增量价值</li>
+        <li><span class="emphasis">跨平台分发</span>：同一内容适配多平台，降低边际成本</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SECTION 1: TOP 100 ===== -->
+<section id="top100" style="position:relative;z-index:1;">
+<div class="section section-alt">
+  <div class="section-label">内容热度排名</div>
+  <div class="section-title"><span style="color:var(--accent)">TOP 100</span> 爆款内容类型</div>
+  <div class="section-desc">
+    基于全球主要平台（TikTok/YouTube/微信/抖音/Instagram等）2024-2025年流量数据综合排名，结合传播学与人性心理分析。标注适合的平台类型与制作难度。
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="top100-filters" id="cat-filters">
+    <button class="filter-btn active" onclick="filterTable('all',this)">全部</button>
+    <button class="filter-btn" onclick="filterTable('心灵情感',this)">心灵情感</button>
+    <button class="filter-btn" onclick="filterTable('知识教育',this)">知识教育</button>
+    <button class="filter-btn" onclick="filterTable('娱乐搞笑',this)">娱乐搞笑</button>
+    <button class="filter-btn" onclick="filterTable('生活方式',this)">生活方式</button>
+    <button class="filter-btn" onclick="filterTable('商业财经',this)">商业财经</button>
+    <button class="filter-btn" onclick="filterTable('儿童亲子',this)">儿童亲子</button>
+    <button class="filter-btn" onclick="filterTable('健康养生',this)">健康养生</button>
+    <button class="filter-btn" onclick="filterTable('科技数码',this)">科技数码</button>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="content-table" id="top100-table">
+      <thead>
+        <tr>
+          <th style="width:52px">排名</th>
+          <th>内容类型</th>
+          <th>分类</th>
+          <th style="min-width:160px">热度指数</th>
+          <th>适合平台</th>
+          <th>制作难度</th>
+          <th style="min-width:90px">变现潜力</th>
+        </tr>
+      </thead>
+      <tbody id="top100-body">
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 2: PLATFORMS ===== -->
+<section id="platforms" style="position:relative;z-index:1;">
+<div class="section section-alt2">
+  <div class="section-label">平台矩阵</div>
+  <div class="section-title">全球<span style="color:var(--accent3)">发布平台</span>全景图</div>
+  <div class="section-desc">
+    覆盖国内外60+可发布平台，按流量潜力、变现能力、RPA难度综合评分。优先攻克高价值、低竞争的平台蓝海。
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('tab-cn', this)">🇨🇳 国内平台</button>
+    <button class="tab-btn" onclick="switchTab('tab-global', this)">🌐 海外平台</button>
+    <button class="tab-btn" onclick="switchTab('tab-niche', this)">💎 垂类平台</button>
+    <button class="tab-btn" onclick="switchTab('tab-priority', this)">⭐ 优先级矩阵</button>
+  </div>
+
+  <div id="tab-cn" class="tab-content active">
+    <div style="margin-bottom:20px">
+      <div class="warn-info warn-box">
+        <span class="warn-icon">ℹ️</span>
+        <div>
+          <div class="warn-title">国内平台策略</div>
+          <div class="warn-desc">国内平台流量大、变现路径成熟，但合规要求严格。建议先在国内打基础，账号稳定后再横向扩展海外。国内平台优先：抖音 > 微信视频号 > 小红书 > B站 > 快手</div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-3" id="cn-platforms"></div>
+  </div>
+
+  <div id="tab-global" class="tab-content">
+    <div style="margin-bottom:20px">
+      <div class="warn-info warn-box">
+        <span class="warn-icon">🌍</span>
+        <div>
+          <div class="warn-title">海外平台策略</div>
+          <div class="warn-desc">海外平台广告单价远高于国内（特别是美国、英国、澳洲受众），但初期增粉慢。英文内容可用AI翻译本地化，用同一套内容同步国内外账号，边际成本极低。</div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-3" id="global-platforms"></div>
+  </div>
+
+  <div id="tab-niche" class="tab-content">
+    <div style="margin-bottom:20px">
+      <div class="warn-success warn-box">
+        <span class="warn-icon">💡</span>
+        <div>
+          <div class="warn-title">垂类平台的蓝海机遇</div>
+          <div class="warn-desc">垂类平台竞争低、粉丝精准、变现效率高。1万精准粉的价值有时超过100万泛粉。例如财经类账号在雪球/同花顺的导流价值极高。</div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-3" id="niche-platforms"></div>
+  </div>
+
+  <div id="tab-priority" class="tab-content">
+    <div style="font-weight:700;font-size:16px;margin-bottom:20px">平台优先级决策矩阵</div>
+    <div class="table-wrapper">
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>平台</th>
+            <th>流量天花板</th>
+            <th>变现能力</th>
+            <th>RPA友好度</th>
+            <th>合规风险</th>
+            <th>综合评分</th>
+            <th>建议优先级</th>
+          </tr>
+        </thead>
+        <tbody id="priority-table"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 3: ACCOUNTS ===== -->
+<section id="accounts" style="position:relative;z-index:1;">
+<div class="section section-alt">
+  <div class="section-label">账号矩阵规划</div>
+  <div class="section-title">12个<span style="color:var(--accent)">垂直频道</span>全设计</div>
+  <div class="section-desc">
+    每个账号都是一个独立内容品牌，有明确的定位、风格、封面色系、签名话术。账号间可交叉引流，共同构成流量矩阵。
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="grid-3" id="account-cards"></div>
+</div>
+</section>
+
+<!-- ===== SECTION 4: CONTENT TEMPLATES ===== -->
+<section style="position:relative;z-index:1;">
+<div class="section section-alt2">
+  <div class="section-label">内容生产模板</div>
+  <div class="section-title">爆款<span style="color:var(--accent3)">内容结构</span>拆解</div>
+  <div class="section-desc">
+    每种类型的内容都有固定的爆款结构，掌握这些模板后，AI辅助生成+RPA自动发布，每天可稳定产出50+条内容。
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="grid-2">
+    <!-- Template 1 -->
+    <div class="card glow-blue aos">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="background:rgba(0,212,255,0.1);border-radius:10px;padding:10px;font-size:22px">📝</div>
+        <div>
+          <div style="font-weight:700;font-size:15px">图文类爆款模板</div>
+          <div style="color:var(--text3);font-size:11px">适合：小红书、公众号、微博长文</div>
+        </div>
+      </div>
+      <div class="code-block">
+<span class="cm">// 爆款图文结构 Formula</span>
+
+<span class="ck">标题</span>: <span class="cs">[数字]+[痛点/好奇]+[承诺]</span>
+  例: "做到这3点，你的焦虑会消失一半"
+  例: "99%的人不知道的省钱技巧"
+
+<span class="ck">开头</span>: <span class="cs">场景代入（3秒抓住读者）</span>
+  "你有没有这种感觉..."
+  "今天早上我看到一件事..."
+
+<span class="ck">正文</span>: <span class="cs">3-5个结构化观点 + 案例</span>
+  每个观点: 主张 → 故事 → 结论
+
+<span class="ck">结尾</span>: <span class="cs">情感共鸣 + 行动号召</span>
+  "你现在最大的困惑是什么？"
+  "转发给需要的人"
+
+<span class="ck">封面</span>: <span class="cs">大字标题 + 高对比色 + 情绪表情</span>
+      </div>
+    </div>
+
+    <!-- Template 2 -->
+    <div class="card glow-orange aos aos-delay-1">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="background:rgba(255,107,53,0.1);border-radius:10px;padding:10px;font-size:22px">🎬</div>
+        <div>
+          <div style="font-weight:700;font-size:15px">短视频爆款模板</div>
+          <div style="color:var(--text3);font-size:11px">适合：抖音、TikTok、视频号、Reels</div>
+        </div>
+      </div>
+      <div class="code-block">
+<span class="cm">// 短视频黄金结构 (15-60s)</span>
+
+<span class="ck">0-3s</span>: <span class="cs">钩子（Hook）</span>
+  视觉冲击 or 问题抛出 or 反常识结论
+  "你知道吗，每天做这件事会让你变穷"
+
+<span class="ck">3-8s</span>: <span class="cs">承诺（Promise）</span>
+  "看完这个，你今天就能用上"
+
+<span class="ck">8-50s</span>: <span class="cs">内容交付（Delivery）</span>
+  步骤化 / 列举式 / 对比式
+  配合字幕+背景音乐节奏剪辑
+
+<span class="ck">50-60s</span>: <span class="cs">召唤行动（CTA）</span>
+  "点赞收藏，下次找得到"
+  "评论区告诉我你的想法"
+      </div>
+    </div>
+
+    <!-- Template 3 -->
+    <div class="card glow-purple aos">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="background:rgba(168,85,247,0.1);border-radius:10px;padding:10px;font-size:22px">🧵</div>
+        <div>
+          <div style="font-weight:700;font-size:15px">长推文/帖子模板</div>
+          <div style="color:var(--text3);font-size:11px">适合：Twitter/X、知乎、微博</div>
+        </div>
+      </div>
+      <div class="code-block">
+<span class="cm">// 长推文病毒传播结构</span>
+
+<span class="ck">第1条</span>: <span class="cs">震撼开场（必须让人想看下一条）</span>
+  争议观点 / 反常识 / 强共鸣
+
+<span class="ck">第2-8条</span>: <span class="cs">展开论证</span>
+  每条一个核心观点
+  数据+故事+类比交叉使用
+  每条结尾设置悬念
+
+<span class="ck">第9-11条</span>: <span class="cs">实用建议/工具/资源</span>
+  给读者带走的"干货"
+  提升收藏率和转发率
+
+<span class="ck">最后一条</span>: <span class="cs">总结+互动问题</span>
+  "你觉得哪条最有用？"
+  "@一个需要看的朋友"
+      </div>
+    </div>
+
+    <!-- Template 4 -->
+    <div class="card glow-green aos aos-delay-1">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="background:rgba(34,197,94,0.1);border-radius:10px;padding:10px;font-size:22px">🎵</div>
+        <div>
+          <div style="font-weight:700;font-size:15px">情感类爆款模板</div>
+          <div style="color:var(--text3);font-size:11px">适合：所有平台，通用性最强</div>
+        </div>
+      </div>
+      <div class="code-block">
+<span class="cm">// 情感触发公式（最高传播率）</span>
+
+<span class="ck">公式</span>: <span class="cn">场景 × 情绪 × 共鸣 = 转发</span>
+
+<span class="ck">六大情绪触发器</span>:
+  <span class="cc">😭 感动</span>: 亲情/牺牲/成长故事
+  <span class="cc">😡 愤怒</span>: 不公正/社会现象批评
+  <span class="cc">😱 震惊</span>: 反常识/颠覆认知
+  <span class="cc">😊 治愈</span>: 温暖/小确幸/正能量
+  <span class="cc">🤔 好奇</span>: 未知/悬念/揭秘
+  <span class="cc">😂 快乐</span>: 幽默/自嘲/段子
+
+<span class="ck">注意</span>: <span class="cs">每条内容只主攻一种情绪</span>
+  混合情绪会稀释传播力
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 5: RPA ===== -->
+<section id="rpa" style="position:relative;z-index:1;">
+<div class="section section-alt3">
+  <div class="section-label">自动化系统</div>
+  <div class="section-title">RPA<span style="color:var(--accent4)">全流程</span>设计</div>
+  <div class="section-desc">
+    利用你的RPA技术，构建从选题→生产→发布→监控的完整自动化流水线。以下是经过验证的系统架构设计。
+  </div>
+  <div class="section-divider"></div>
+
+  <div style="margin-bottom:36px">
+    <div style="font-weight:700;font-size:16px;margin-bottom:20px;color:var(--accent4)">🔄 全自动流水线主流程</div>
+
+    <div class="rpa-flow">
+      <div class="rpa-step">
+        <span class="step-num">STEP 01</span>
+        <span class="step-icon">📡</span>
+        <span class="step-name">热点采集</span>
+      </div>
+      <div class="rpa-arrow">→</div>
+      <div class="rpa-step">
+        <span class="step-num">STEP 02</span>
+        <span class="step-icon">🧠</span>
+        <span class="step-name">AI生成内容</span>
+      </div>
+      <div class="rpa-arrow">→</div>
+      <div class="rpa-step">
+        <span class="step-num">STEP 03</span>
+        <span class="step-icon">🎨</span>
+        <span class="step-name">模板排版</span>
+      </div>
+      <div class="rpa-arrow">→</div>
+      <div class="rpa-step">
+        <span class="step-num">STEP 04</span>
+        <span class="step-icon">✅</span>
+        <span class="step-name">合规检测</span>
+      </div>
+      <div class="rpa-arrow">→</div>
+      <div class="rpa-step">
+        <span class="step-num">STEP 05</span>
+        <span class="step-icon">📅</span>
+        <span class="step-name">定时入队</span>
+      </div>
+      <div class="rpa-arrow">→</div>
+      <div class="rpa-step">
+        <span class="step-num">STEP 06</span>
+        <span class="step-icon">🚀</span>
+        <span class="step-name">多平台发布</span>
+      </div>
+      <div class="rpa-arrow">→</div>
+      <div class="rpa-step">
+        <span class="step-num">STEP 07</span>
+        <span class="step-icon">📊</span>
+        <span class="step-name">数据监控</span>
+      </div>
+      <div class="rpa-arrow">→</div>
+      <div class="rpa-step">
+        <span class="step-num">STEP 08</span>
+        <span class="step-icon">🔁</span>
+        <span class="step-name">优化迭代</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- STEP 1 Detail -->
+    <div class="card glow-blue aos">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+        <div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-bottom:4px">STEP 01 · STEP 02</div>
+          <div style="font-weight:700;font-size:16px">热点采集 + AI生产</div>
+        </div>
+        <span class="tag tag-blue">全自动</span>
+      </div>
+      <div class="code-block">
+<span class="cm"># 热点采集数据源</span>
+<span class="ck">国内</span>:
+  微博热搜 API / 抖音热榜
+  百度热搜 / 知乎日报 / 今日头条
+  微信指数 / 小红书热门话题
+
+<span class="ck">海外</span>:
+  Google Trends API
+  Twitter/X Trending
+  Reddit Hot Posts
+  YouTube Trending RSS
+
+<span class="cm"># AI生成工具链</span>
+<span class="ck">文字</span>: <span class="cs">Claude API / GPT-4o API</span>
+<span class="ck">图片</span>: <span class="cs">Midjourney API / DALL-E 3</span>
+<span class="ck">语音</span>: <span class="cs">ElevenLabs / Azure TTS</span>
+<span class="ck">视频</span>: <span class="cs">Runway / Pika (简单动画)</span>
+<span class="ck">字幕</span>: <span class="cs">Whisper API (自动识别)</span>
+      </div>
+    </div>
+
+    <!-- STEP 3-4 Detail -->
+    <div class="card glow-orange aos aos-delay-1">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+        <div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--accent2);margin-bottom:4px">STEP 03 · STEP 04</div>
+          <div style="font-weight:700;font-size:16px">自动排版 + 合规过滤</div>
+        </div>
+        <span class="tag tag-orange">关键环节</span>
+      </div>
+      <div class="code-block">
+<span class="cm"># 排版自动化工具</span>
+<span class="ck">图文</span>: <span class="cs">Canva API / Python Pillow</span>
+  模板库: 按账号风格预设10+模板
+  自动填充: 标题/正文/水印/二维码
+
+<span class="ck">短视频</span>: <span class="cs">FFmpeg + 字幕轨叠加</span>
+  背景: 循环视频素材库
+  字幕: 自动时间轴对齐
+  BGM: 版权免费音乐自动匹配
+
+<span class="cm"># 合规自动检测</span>
+<span class="cs">敏感词过滤</span>: 维护敏感词库，自动替换
+<span class="cs">版权检测</span>: 图片/音乐来源标记
+<span class="cs">政治内容</span>: AI二次判断，触发人工复核
+<span class="cs">广告合规</span>: 标注广告字样，符合平台要求
+      </div>
+    </div>
+
+    <!-- STEP 5-6 Detail -->
+    <div class="card glow-purple aos">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+        <div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--accent3);margin-bottom:4px">STEP 05 · STEP 06</div>
+          <div style="font-weight:700;font-size:16px">智能排期 + 多平台发布</div>
+        </div>
+        <span class="tag tag-purple">核心模块</span>
+      </div>
+      <div class="code-block">
+<span class="cm"># 发布队列管理</span>
+<span class="ck">调度器</span>: <span class="cs">APScheduler / Celery + Redis</span>
+  按账号设置独立发布时间窗口
+  模拟人工行为: 随机延迟±15min
+  账号行为冷却: 每天限制发布次数
+
+<span class="cm"># 各平台发布方式</span>
+<span class="ck">抖音</span>: <span class="cs">官方创作者API (需申请)</span>
+<span class="ck">视频号</span>: <span class="cs">RPA模拟 (企业微信助手)</span>
+<span class="ck">小红书</span>: <span class="cs">RPA模拟 + 薯条投放</span>
+<span class="ck">B站</span>: <span class="cs">官方开放平台API</span>
+<span class="ck">微博</span>: <span class="cs">官方API + RPA备用</span>
+<span class="ck">YouTube</span>: <span class="cs">YouTube Data API v3</span>
+<span class="ck">TikTok</span>: <span class="cs">Content Posting API</span>
+<span class="ck">Instagram</span>: <span class="cs">Graph API</span>
+<span class="ck">Twitter/X</span>: <span class="cs">v2 API</span>
+      </div>
+    </div>
+
+    <!-- STEP 7-8 Detail -->
+    <div class="card glow-green aos aos-delay-1">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+        <div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--accent4);margin-bottom:4px">STEP 07 · STEP 08</div>
+          <div style="font-weight:700;font-size:16px">数据监控 + 智能优化</div>
+        </div>
+        <span class="tag tag-green">持续改进</span>
+      </div>
+      <div class="code-block">
+<span class="cm"># 数据采集指标</span>
+<span class="ck">播放/阅读量</span>: <span class="cs">基础曝光数据</span>
+<span class="ck">完播率</span>: <span class="cs">核心质量指标（>60%优秀）</span>
+<span class="ck">互动率</span>: <span class="cs">点赞+评论+分享/播放</span>
+<span class="ck">粉丝增长</span>: <span class="cs">日增粉/净增粉</span>
+<span class="ck">转化率</span>: <span class="cs">外链点击/购买转化</span>
+
+<span class="cm"># 自动优化逻辑</span>
+<span class="cs">爆款识别</span>: 
+  互动率 > 均值3倍 → 立即复制选题
+  完播率 < 30% → 分析原因，停发同类
+
+<span class="cs">发布时间优化</span>:
+  统计各账号最佳时间段
+  每2周自动更新发布策略
+
+<span class="cs">跨平台同步</span>:
+  国内爆款 → 翻译 → 海外发布
+  海外爆款 → 汉化 → 国内测试
+      </div>
+    </div>
+  </div>
+
+  <!-- System Architecture -->
+  <div style="margin-top:40px">
+    <div style="font-weight:700;font-size:16px;margin-bottom:20px">🏗️ 系统架构建议</div>
+    <div class="grid-3">
+      <div class="card aos">
+        <div style="font-size:22px;margin-bottom:10px">🖥️</div>
+        <div style="font-weight:700;margin-bottom:8px">硬件配置</div>
+        <ul class="list-styled">
+          <li>主控服务器：云服务器（阿里云/腾讯云）2核4G起步</li>
+          <li>RPA执行机：Windows物理机或云桌面（用于模拟操作）</li>
+          <li>数据库：MySQL + Redis（队列管理）</li>
+          <li>文件存储：OSS/COS云存储（素材和成品）</li>
+        </ul>
+      </div>
+      <div class="card aos aos-delay-1">
+        <div style="font-size:22px;margin-bottom:10px">⚙️</div>
+        <div style="font-weight:700;margin-bottom:8px">核心工具栈</div>
+        <ul class="list-styled">
+          <li>RPA框架：UiPath / 影刀 / 自研Python Selenium</li>
+          <li>任务调度：Celery + Beat（定时任务）</li>
+          <li>监控面板：Grafana（实时数据可视化）</li>
+          <li>消息通知：企业微信/钉钉 Webhook（异常报警）</li>
+        </ul>
+      </div>
+      <div class="card aos aos-delay-2">
+        <div style="font-size:22px;margin-bottom:10px">🔐</div>
+        <div style="font-weight:700;margin-bottom:8px">账号安全管理</div>
+        <ul class="list-styled">
+          <li>IP代理池：每个账号绑定固定住宅代理IP</li>
+          <li>设备指纹：模拟不同设备UA，降低封号风险</li>
+          <li>行为拟人：随机延迟、模拟浏览、点赞评论穿插</li>
+          <li>账号分组：核心账号和测试账号严格隔离</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 6: SCHEDULE ===== -->
+<section id="schedule" style="position:relative;z-index:1;">
+<div class="section section-alt">
+  <div class="section-label">发布节奏规划</div>
+  <div class="section-title">黄金<span style="color:var(--accent)">发布时间</span>表</div>
+  <div class="section-desc">
+    基于各平台算法规律和用户活跃数据，精确规划每日、每周的发布节奏。不同账号类型有不同的最优发布窗口。
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="grid-2" style="margin-bottom:40px">
+    <div class="card glow-blue">
+      <div style="font-weight:700;font-size:15px;margin-bottom:16px;color:var(--accent)">📱 国内平台黄金时段</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="tl-time">06:30 - 08:00</div>
+          <div class="tl-title">早间通勤 🌅</div>
+          <div class="tl-desc">适合：心灵鸡汤、早安正能量、时事热点。用户处于一天开始的情绪高点，共鸣类内容传播最快。推荐账号：心灵治愈、商业晨读。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-time">11:30 - 13:00</div>
+          <div class="tl-title">午休刷机 🍱</div>
+          <div class="tl-desc">适合：娱乐搞笑、科普知识、美食生活。用户处于放松状态，娱乐化内容完播率最高。推荐账号：冷知识、搞笑日常、美食分享。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-time">17:30 - 19:30</div>
+          <div class="tl-title">下班途中 🚇</div>
+          <div class="tl-desc">适合：职场干货、技能学习、理财投资。用户进入反思总结状态，知识型内容点赞收藏率最高。推荐账号：商业思维、技能提升。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-time">20:30 - 23:00</div>
+          <div class="tl-title">睡前黄金档 🌙</div>
+          <div class="tl-desc">全天最高活跃时段，所有类型内容均适合。特别适合情感类、深度好文、儿童教育（家长陪娃时间）。日均用户时长最长的时间段。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card glow-orange">
+      <div style="font-weight:700;font-size:15px;margin-bottom:16px;color:var(--accent2)">🌍 海外平台黄金时段（UTC+8转换）</div>
+      <div class="timeline">
+        <div class="timeline-item" style="border-left-color:var(--accent2)">
+          <div class="tl-time" style="color:var(--accent2)">00:00 - 03:00 (对应美东 11:00-14:00)</div>
+          <div class="tl-title">美国午休档 🗽</div>
+          <div class="tl-desc">TikTok US、Instagram、YouTube午间推荐流量高峰。英文内容建议在此时间发出。美国用户的互动率远高于其他地区，广告收益也最高。</div>
+        </div>
+        <div class="timeline-item" style="border-left-color:var(--accent2)">
+          <div class="tl-time" style="color:var(--accent2)">15:00 - 17:00 (对应欧洲 08:00-10:00)</div>
+          <div class="tl-title">欧洲早高峰 🏰</div>
+          <div class="tl-desc">欧洲用户早间活跃，适合通勤类内容。英国、德国、法国市场组合，覆盖约2亿潜在受众。YouTube广告单价在欧洲仅次于美国。</div>
+        </div>
+        <div class="timeline-item" style="border-left-color:var(--accent2)">
+          <div class="tl-time" style="color:var(--accent2)">10:00 - 12:00 (对应东南亚当地时间)</div>
+          <div class="tl-title">东南亚市场 🌴</div>
+          <div class="tl-desc">印尼、泰国、越南等市场增长最快。中文+东南亚语内容可覆盖华人华裔群体。TikTok在东南亚渗透率极高，部分地区超过50%。</div>
+        </div>
+        <div class="timeline-item" style="border-left-color:var(--accent2)">
+          <div class="tl-time" style="color:var(--accent2)">全天段注意</div>
+          <div class="tl-title">海外发布频率建议</div>
+          <div class="tl-desc">新账号每天1-2条，稳定后每天3-5条。不要频繁发布，海外平台更重视质量而非数量。每条内容间隔不少于4小时。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weekly Schedule -->
+  <div style="margin-bottom:32px">
+    <div style="font-weight:700;font-size:16px;margin-bottom:20px">📅 每周发布节奏矩阵（热度颜色越深发布越多）</div>
+    <div style="overflow-x:auto;padding-bottom:8px">
+      <div class="schedule-grid" id="schedule-grid"></div>
+    </div>
+    <div style="display:flex;gap:16px;margin-top:16px;flex-wrap:wrap;font-size:12px;color:var(--text3)">
+      <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:rgba(30,48,88,0.4);border-radius:3px;display:inline-block"></span>休息/不发</span>
+      <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:3px;display:inline-block"></span>低频 1条</span>
+      <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:rgba(0,212,255,0.12);border:1px solid rgba(0,212,255,0.25);border-radius:3px;display:inline-block"></span>中频 2-3条</span>
+      <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:rgba(0,212,255,0.22);border:1px solid rgba(0,212,255,0.4);border-radius:3px;display:inline-block"></span>高频 4-5条</span>
+      <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:rgba(255,107,53,0.2);border:1px solid rgba(255,107,53,0.4);border-radius:3px;display:inline-block"></span>爆发 6+条</span>
+    </div>
+  </div>
+
+  <!-- Per-account frequency -->
+  <div class="table-wrapper">
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>账号类型</th>
+          <th>抖音/TikTok</th>
+          <th>小红书/Ins</th>
+          <th>微信视频号</th>
+          <th>B站/YouTube</th>
+          <th>微博/Twitter</th>
+          <th>公众号/Newsletter</th>
+          <th>每日总量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="emphasis">心灵治愈</span></td><td>2-3条</td><td>3-5条</td><td>1-2条</td><td>0-1条</td><td>2-3条</td><td>1条/周</td><td><span class="tag tag-blue">9-14条</span></td></tr>
+        <tr><td><span class="emphasis-o">娱乐搞笑</span></td><td>3-5条</td><td>2-3条</td><td>2-3条</td><td>0-1条</td><td>3-5条</td><td>—</td><td><span class="tag tag-orange">10-17条</span></td></tr>
+        <tr><td><span class="emphasis-p">商业思维</span></td><td>1-2条</td><td>2-3条</td><td>1-2条</td><td>1-2条</td><td>2-3条</td><td>2条/周</td><td><span class="tag tag-purple">7-12条</span></td></tr>
+        <tr><td><span class="emphasis-g">儿童教育</span></td><td>2-3条</td><td>3-4条</td><td>2-3条</td><td>1-2条</td><td>1-2条</td><td>1条/周</td><td><span class="tag tag-green">9-14条</span></td></tr>
+        <tr><td style="color:var(--gold)">健康养生</td><td>2-3条</td><td>3-5条</td><td>1-2条</td><td>0-1条</td><td>1-2条</td><td>1条/周</td><td><span class="tag tag-gold">7-13条</span></td></tr>
+        <tr><td style="color:var(--teal)">科技数码</td><td>1-2条</td><td>1-2条</td><td>1条</td><td>1-2条</td><td>3-5条</td><td>1条/周</td><td><span class="tag tag-teal">7-12条</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 7: MONETIZATION ===== -->
+<section id="money" style="position:relative;z-index:1;">
+<div class="section section-alt2">
+  <div class="section-label">变现路径</div>
+  <div class="section-title">多维<span style="color:var(--accent3)">变现</span>体系设计</div>
+  <div class="section-desc">
+    内容是流量入口，变现才是终极目标。从账号0粉到稳定月入，每个阶段对应最优变现策略，构建可持续的商业闭环。
+  </div>
+  <div class="section-divider"></div>
+
+  <!-- Phase Timeline -->
+  <div style="margin-bottom:40px">
+    <div style="font-weight:700;font-size:16px;margin-bottom:24px">🚀 三阶段变现路径</div>
+    <div class="grid-3">
+      <div class="card" style="border-color:rgba(0,212,255,0.3);position:relative">
+        <div class="number-big">01</div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-bottom:8px">第一阶段 · 0-3个月</div>
+        <div style="font-weight:700;font-size:17px;margin-bottom:12px">基础建设期</div>
+        <ul class="list-styled">
+          <li>重点：稳定更新，积累粉丝，不急于变现</li>
+          <li>开通各平台创作者基金（条件满足即申请）</li>
+          <li>粉丝达1000时开始接小额广告（测试水温）</li>
+          <li>用数据找到2-3个爆款选题方向，重点深耕</li>
+          <li>预期收入：¥0-3000/月（创作者基金为主）</li>
+        </ul>
+        <div style="margin-top:16px">
+          <span class="tag tag-blue">创作者基金</span>
+          <span class="tag tag-blue" style="margin-left:6px">数据积累</span>
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(168,85,247,0.3);position:relative">
+        <div class="number-big" style="color:rgba(168,85,247,0.12)">02</div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--accent3);margin-bottom:8px">第二阶段 · 3-9个月</div>
+        <div style="font-weight:700;font-size:17px;margin-bottom:12px">变现放量期</div>
+        <ul class="list-styled">
+          <li>单账号粉丝1-5万：开始系统性广告变现</li>
+          <li>入驻MCN或自签接广：品牌合作、产品植入</li>
+          <li>开通直播带货（抖音/快手），测试转化率</li>
+          <li>知识付费：小报童/星球/微信社群</li>
+          <li>预期收入：¥5000-30000/月</li>
+        </ul>
+        <div style="margin-top:16px">
+          <span class="tag tag-purple">品牌合作</span>
+          <span class="tag tag-purple" style="margin-left:6px">知识付费</span>
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(34,197,94,0.3);position:relative">
+        <div class="number-big" style="color:rgba(34,197,94,0.12)">03</div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--accent4);margin-bottom:8px">第三阶段 · 9-24个月</div>
+        <div style="font-weight:700;font-size:17px;margin-bottom:12px">矩阵收割期</div>
+        <ul class="list-styled">
+          <li>多账号矩阵成熟：每账号5-50万粉丝</li>
+          <li>建立个人IP品牌，品牌溢价显著提升</li>
+          <li>私域流量沉淀：微信社群+邮件列表</li>
+          <li>自有商品/课程/工具推出，高利润率</li>
+          <li>预期收入：¥50000-500000+/月</li>
+        </ul>
+        <div style="margin-top:16px">
+          <span class="tag tag-green">自有产品</span>
+          <span class="tag tag-green" style="margin-left:6px">私域矩阵</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Monetization Methods -->
+  <div style="font-weight:700;font-size:16px;margin-bottom:20px">💰 15种变现方式详解</div>
+  <div class="money-path" id="money-methods"></div>
+
+  <!-- Revenue Projection -->
+  <div style="margin-top:40px">
+    <div style="font-weight:700;font-size:16px;margin-bottom:20px">📈 收入来源结构预测（成熟期）</div>
+    <div class="profit-bar-chart">
+      <div class="profit-row">
+        <div class="profit-label">品牌广告合作</div>
+        <div class="profit-track">
+          <div class="profit-fill" style="width:35%;background:linear-gradient(90deg,#00d4ff,#0090b3)">35%</div>
+        </div>
+      </div>
+      <div class="profit-row">
+        <div class="profit-label">知识付费/课程</div>
+        <div class="profit-track">
+          <div class="profit-fill" style="width:25%;background:linear-gradient(90deg,#a855f7,#7c3aed)">25%</div>
+        </div>
+      </div>
+      <div class="profit-row">
+        <div class="profit-label">直播/带货佣金</div>
+        <div class="profit-track">
+          <div class="profit-fill" style="width:20%;background:linear-gradient(90deg,#ff6b35,#d9532b)">20%</div>
+        </div>
+      </div>
+      <div class="profit-row">
+        <div class="profit-label">平台创作激励</div>
+        <div class="profit-track">
+          <div class="profit-fill" style="width:10%;background:linear-gradient(90deg,#22c55e,#16a34a)">10%</div>
+        </div>
+      </div>
+      <div class="profit-row">
+        <div class="profit-label">私域付费社群</div>
+        <div class="profit-track">
+          <div class="profit-fill" style="width:6%;background:linear-gradient(90deg,#f59e0b,#d97706)">6%</div>
+        </div>
+      </div>
+      <div class="profit-row">
+        <div class="profit-label">账号/IP孵化出售</div>
+        <div class="profit-track">
+          <div class="profit-fill" style="width:4%;background:linear-gradient(90deg,#ec4899,#be185d)">4%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 8: WARNINGS ===== -->
+<section id="warnings" style="position:relative;z-index:1;">
+<div class="section section-alt3">
+  <div class="section-label">风险与合规</div>
+  <div class="section-title">⚠️ 必须<span style="color:var(--accent4)">重视</span>的红线</div>
+  <div class="section-desc">
+    内容创作是一门长期生意，合规经营是底线。以下是经验总结的高频踩坑点，违规轻则封号，重则法律责任。
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="grid-2" id="warnings-grid"></div>
+
+  <div style="margin-top:36px">
+    <div style="font-weight:700;font-size:16px;margin-bottom:20px">🛡️ 账号安全防护清单</div>
+    <div class="grid-3">
+      <div class="card">
+        <div style="font-size:22px;margin-bottom:10px">🔑</div>
+        <div style="font-weight:700;margin-bottom:10px">账号注册规范</div>
+        <ul class="list-styled">
+          <li>每个账号使用独立手机号、邮箱、设备</li>
+          <li>同一IP下不超过2个账号（建议1个）</li>
+          <li>新账号注册后"养号"7-14天再开始发布</li>
+          <li>企业号 > 个人认证号（信任度更高）</li>
+          <li>绑定真实身份证（做好实名备案）</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div style="font-size:22px;margin-bottom:10px">🤖</div>
+        <div style="font-weight:700;margin-bottom:10px">RPA反检测措施</div>
+        <ul class="list-styled">
+          <li>操作速度拟人化：随机延迟300ms-2000ms</li>
+          <li>每次操作前模拟滑动、浏览行为</li>
+          <li>单账号日发布不超过平台建议上限</li>
+          <li>定期手动登录，保持账号"活跃感"</li>
+          <li>凌晨3-6点禁止任何自动化操作</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div style="font-size:22px;margin-bottom:10px">📋</div>
+        <div style="font-weight:700;margin-bottom:10px">内容合规审查</div>
+        <ul class="list-styled">
+          <li>敏感词库每月更新（关注政策变化）</li>
+          <li>医疗健康类内容必须标注"非专业建议"</li>
+          <li>财经投资类禁止承诺收益或诱导投资</li>
+          <li>儿童内容必须符合未成年保护相关规定</li>
+          <li>转载内容必须获得授权或标注来源</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION 9: QUICK START ===== -->
+<section style="position:relative;z-index:1;">
+<div class="section section-alt">
+  <div class="section-label">立即行动</div>
+  <div class="section-title">30天<span style="color:var(--accent)">启动</span>计划</div>
+  <div class="section-desc">把宏大战略拆解为每天可执行的具体行动。前30天是最关键的，打好基础才能后续加速。</div>
+  <div class="section-divider"></div>
+
+  <ol class="progress-steps">
+    <li class="progress-step aos">
+      <div class="step-content">
+        <h3>第1-3天：定位与调研</h3>
+        <p>选定最开始的2-3个账号方向（建议：心灵治愈 + 商业思维 + 儿童教育）。注册账号，完成资料填写和养号。同时开始研究目标平台的热门内容，记录至少50个爆款选题。设置数据追踪表格。</p>
+      </div>
+    </li>
+    <li class="progress-step aos">
+      <div class="step-content">
+        <h3>第4-7天：工具链搭建</h3>
+        <p>搭建内容生产工具链：AI写作（Claude/GPT）+ 图文排版（Canva模板）+ 素材库（Unsplash/Pixabay）。设计好每个账号的封面模板（统一色系+字体）。配置发布队列系统的基础架构（哪怕先用Excel手动排期）。</p>
+      </div>
+    </li>
+    <li class="progress-step aos">
+      <div class="step-content">
+        <h3>第8-14天：内容批量生产</h3>
+        <p>按模板批量生成第一批50-100条内容，每种类型测试5-10种选题角度。质量不追求完美，关键是快速迭代找到有效选题。开始手动在主要平台（抖音+小红书+微博）发布，每天每平台2-3条。</p>
+      </div>
+    </li>
+    <li class="progress-step aos">
+      <div class="step-content">
+        <h3>第15-21天：数据分析与优化</h3>
+        <p>分析第一批内容数据，找出互动率最高的3-5种选题。将爆款内容分析透彻（为什么火？情绪点在哪？），立即复制选题框架。开始开发第一个RPA脚本（从最简单的一个平台开始，如微博自动发布）。</p>
+      </div>
+    </li>
+    <li class="progress-step aos">
+      <div class="step-content">
+        <h3>第22-30天：自动化上线</h3>
+        <p>第一个RPA发布脚本上线运行，验证稳定性。开始扩展第二个账号方向。制定下个月的内容日历，确保选题储备充足。评估整体流程，识别瓶颈，规划下一阶段的自动化深度。</p>
+      </div>
+    </li>
+  </ol>
+
+  <div class="highlight-block" style="margin-top:20px">
+    <div class="key-insight">最重要的一件事</div>
+    <p style="color:var(--text2);font-size:14px;line-height:1.9">
+      <span class="emphasis">不要在工具和系统上过度投入前期时间。</span> 先用最简单的方式（哪怕手动）验证内容方向是否有效。内容方向验证了，再花时间做自动化，ROI才最高。很多人在自动化系统还没搭完时，就发现选题方向是错的——那所有的工程量都白费了。<span class="emphasis-g">内容第一，自动化第二。</span>
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION: CONTENT SCRIPTS ===== -->
+<section style="position:relative;z-index:1;">
+<div class="section section-alt2">
+  <div class="section-label">内容脚本库</div>
+  <div class="section-title">爆款<span style="color:var(--accent3)">开头&结尾</span>话术100例</div>
+  <div class="section-desc">不知道怎么开头是最大的创作障碍。以下话术模板经过数据验证，直接套用可显著提升完播率。分为国内中文版和海外英文版。</div>
+  <div class="section-divider"></div>
+
+  <div class="grid-2">
+    <div class="card glow-blue">
+      <div style="font-weight:700;font-size:15px;margin-bottom:16px;color:var(--accent)">🎣 爆款开头话术（中文）·前3秒必杀</div>
+      <ul class="list-styled">
+        <li><span class="emphasis">「你知道吗，99%的人都做错了一件事」</span>——反常识触发，好奇心驱动点击</li>
+        <li><span class="emphasis">「我花了3年才明白这个道理，希望你早点看到」</span>——时间成本感，共鸣+珍惜感</li>
+        <li><span class="emphasis">「有一句话我憋了很久，今天必须说出来」</span>——神秘感+真实感，期待感拉满</li>
+        <li><span class="emphasis">「今天这条内容，可能会改变你对XX的看法」</span>——挑战认知，颠覆感强</li>
+        <li><span class="emphasis">「先说结论：XXX（大多数人觉得恰恰相反）」</span>——先抛论点，倒叙结构，抓眼球</li>
+        <li><span class="emphasis">「凌晨3点，有人发消息问我……」</span>——场景代入，真实感，情感连接</li>
+        <li><span class="emphasis">「如果你现在很焦虑，请停下来看完这条」</span>——精准定位受众，紧迫感</li>
+        <li><span class="emphasis">「我的朋友用这个方法，30天涨薪5000」</span>——具体数字，可信度高</li>
+        <li><span class="emphasis">「这是我见过最有深度的一个问题……」</span>——抬高读者，满足自尊心</li>
+        <li><span class="emphasis">「说一个让很多人不舒服的真相」</span>——制造冲突感，引发好奇</li>
+        <li><span class="emphasis">「我做了一个实验，结果让我震惊了」</span>——故事感，亲身经历增可信度</li>
+        <li><span class="emphasis">「这件事没人告诉你，但你必须知道」</span>——信息差，使命感</li>
+        <li><span class="emphasis">「10年前我要是知道这些，现在会不一样」</span>——遗憾感+价值感双重触发</li>
+        <li><span class="emphasis">「请把这条内容截图发给你最想帮助的人」</span>——先给行动指令，再给内容，强迫性传播</li>
+        <li><span class="emphasis">「一个你从没想过，但极其重要的问题：」</span>——制造哲学思考感，吸引深度用户</li>
+      </ul>
+    </div>
+    <div class="card glow-orange">
+      <div style="font-weight:700;font-size:15px;margin-bottom:16px;color:var(--accent2)">🏁 高转化结尾话术·提升互动&分享</div>
+      <ul class="list-styled">
+        <li><span class="emphasis-o">「你最认同哪一点？评论区告诉我」</span>——开放式互动，降低参与门槛</li>
+        <li><span class="emphasis-o">「点赞收藏，下次需要时找得到」</span>——直接说明收藏价值，简单有效</li>
+        <li><span class="emphasis-o">「@一个你想一起改变的朋友」</span>——裂变式传播，转发率提升30%+</li>
+        <li><span class="emphasis-o">「你有没有类似的经历？留言区分享」</span>——引发共鸣，评论数暴增</li>
+        <li><span class="emphasis-o">「关注我，我会持续分享更多干货」</span>——直接号召关注，别害羞说</li>
+        <li><span class="emphasis-o">「如果你觉得有用，分享给需要的人」</span>——利他逻辑的分享引导</li>
+        <li><span class="emphasis-o">「下一条我要讲XX，你想看的话点个关注」</span>——制造期待，降低关注的心理成本</li>
+        <li><span class="emphasis-o">「你同意我的观点吗？说说你的想法」</span>——激发表达欲，争议性内容尤其有效</li>
+        <li><span class="emphasis-o">「明天同一时间，我继续分享第二部分」</span>——连续性内容，拉回头率极高</li>
+        <li><span class="emphasis-o">「主页有完整合集，值得收藏慢慢看」</span>——引流主页，提升关注转化</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:28px" class="grid-2">
+    <div class="card glow-purple">
+      <div style="font-weight:700;font-size:15px;margin-bottom:16px;color:var(--accent3)">🌍 English Hooks for TikTok/YouTube/Instagram</div>
+      <ul class="list-styled">
+        <li><span class="emphasis-p">「Nobody talks about this, but it's changing everything」</span></li>
+        <li><span class="emphasis-p">「I tested this for 30 days. Here's what happened」</span></li>
+        <li><span class="emphasis-p">「The one thing successful people do differently」</span></li>
+        <li><span class="emphasis-p">「Stop doing this immediately if you want to succeed」</span></li>
+        <li><span class="emphasis-p">「Most people get this completely wrong」</span></li>
+        <li><span class="emphasis-p">「I wish someone told me this 5 years ago」</span></li>
+        <li><span class="emphasis-p">「Here's the uncomfortable truth about [topic]」</span></li>
+        <li><span class="emphasis-p">「This simple trick saved me [money/time/stress]」</span></li>
+        <li><span class="emphasis-p">「If you're struggling with [problem], watch this」</span></li>
+        <li><span class="emphasis-p">「The science behind why you [do X] is fascinating」</span></li>
+        <li><span class="emphasis-p">「Day [1/30/365] of [challenge] - here's what I learned」</span></li>
+        <li><span class="emphasis-p">「POV: You just discovered [life-changing thing]」</span></li>
+      </ul>
+    </div>
+    <div class="card glow-green">
+      <div style="font-weight:700;font-size:15px;margin-bottom:16px;color:var(--accent4)">📊 标题公式·用数据提升点击率</div>
+      <ul class="list-styled">
+        <li><span class="emphasis-g">数字+行为+结果</span>：「21天做到这5件事，我的生活彻底变了」</li>
+        <li><span class="emphasis-g">问题+解决方案</span>：「总是拖延怎么办？这3个方法亲测有效」</li>
+        <li><span class="emphasis-g">对比+反转</span>：「以为是节省，其实是浪费——这10件事你都做错了」</li>
+        <li><span class="emphasis-g">身份+价值</span>：「写给所有还在迷茫的年轻人：你缺的不是努力」</li>
+        <li><span class="emphasis-g">时间+成就</span>：「30岁前必须明白的10件事（越早看越好）」</li>
+        <li><span class="emphasis-g">揭秘+颠覆</span>：「那些月入10万的人，都在悄悄做这件事」</li>
+        <li><span class="emphasis-g">否定+正确</span>：「不是不努力，是方向错了——来看这个」</li>
+        <li><span class="emphasis-g">情景+共鸣</span>：「每次看到这个场景都会泪目，你能理解吗」</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION: TOOLS ===== -->
+<section style="position:relative;z-index:1;">
+<div class="section section-alt">
+  <div class="section-label">工具资源清单</div>
+  <div class="section-title">全流程<span style="color:var(--accent)">工具链</span>推荐</div>
+  <div class="section-desc">按内容生产流程分类，每个环节推荐免费+付费两个选项。优先使用有API的工具方便后期自动化集成。</div>
+  <div class="section-divider"></div>
+
+  <div class="grid-3">
+    <div class="card glow-blue aos">
+      <div style="font-size:22px;margin-bottom:10px">💡</div>
+      <div style="font-weight:700;margin-bottom:14px;color:var(--accent)">选题&热点监控</div>
+      <ul class="list-styled">
+        <li><strong>微信指数</strong> — 免费，查关键词热度趋势</li>
+        <li><strong>百度热搜API</strong> — 免费，实时热榜抓取</li>
+        <li><strong>Google Trends</strong> — 免费，全球趋势对比</li>
+        <li><strong>抖音热榜</strong> — 免费，短视频热点风向标</li>
+        <li><strong>新榜/飞瓜数据</strong> — 付费，专业创作者数据</li>
+        <li><strong>BuzzSumo</strong> — 付费，英文内容热度分析</li>
+        <li><strong>Answer The Public</strong> — 免费，用户搜索问题挖掘</li>
+      </ul>
+    </div>
+    <div class="card glow-orange aos aos-delay-1">
+      <div style="font-size:22px;margin-bottom:10px">✍️</div>
+      <div style="font-weight:700;margin-bottom:14px;color:var(--accent2)">AI内容生产</div>
+      <ul class="list-styled">
+        <li><strong>Claude API</strong> — 长文、分析、结构化内容最优</li>
+        <li><strong>GPT-4o API</strong> — 通用创作，支持图文多模态</li>
+        <li><strong>豆包/文心一言</strong> — 国内部署，规避API风险</li>
+        <li><strong>Kimi (月之暗面)</strong> — 长文本处理能力强</li>
+        <li><strong>Midjourney/DALL-E 3</strong> — AI配图生成</li>
+        <li><strong>即梦/可灵</strong> — 国内AI视频生成</li>
+        <li><strong>ElevenLabs</strong> — 英文AI语音，最自然</li>
+        <li><strong>Azure TTS</strong> — 中文语音合成，性价比高</li>
+      </ul>
+    </div>
+    <div class="card glow-purple aos aos-delay-2">
+      <div style="font-size:22px;margin-bottom:10px">🎨</div>
+      <div style="font-weight:700;margin-bottom:14px;color:var(--accent3)">设计&排版</div>
+      <ul class="list-styled">
+        <li><strong>Canva Pro</strong> — 付费，模板最丰富，支持API</li>
+        <li><strong>即时设计</strong> — 免费，国内版Figma</li>
+        <li><strong>创客贴</strong> — 中文友好，海报/封面生成</li>
+        <li><strong>Python Pillow</strong> — 开源，批量图文处理必备</li>
+        <li><strong>醒图/黄油相机</strong> — 手机端快速排版</li>
+        <li><strong>FFmpeg</strong> — 免费，视频处理必备工具</li>
+        <li><strong>剪映专业版</strong> — 免费，支持脚本批量剪辑</li>
+      </ul>
+    </div>
+    <div class="card glow-green aos">
+      <div style="font-size:22px;margin-bottom:10px">🚀</div>
+      <div style="font-weight:700;margin-bottom:14px;color:var(--accent4)">发布&调度</div>
+      <ul class="list-styled">
+        <li><strong>影刀RPA</strong> — 国内，小红书/抖音操作最稳</li>
+        <li><strong>UiPath Community</strong> — 免费版功能强，企业级稳定</li>
+        <li><strong>Selenium/Playwright</strong> — 开发者自用，灵活度最高</li>
+        <li><strong>Buffer/Hootsuite</strong> — 海外多平台定时发布</li>
+        <li><strong>蚁小二/微小宝</strong> — 公众号/视频号排期工具</li>
+        <li><strong>Celery + Redis</strong> — 自建任务队列，最灵活</li>
+        <li><strong>n8n (self-hosted)</strong> — 可视化工作流，连接各API</li>
+      </ul>
+    </div>
+    <div class="card aos aos-delay-1">
+      <div style="font-size:22px;margin-bottom:10px">📊</div>
+      <div style="font-weight:700;margin-bottom:14px;color:var(--gold)">数据监控</div>
+      <ul class="list-styled">
+        <li><strong>飞瓜数据</strong> — 抖音/快手专业数据分析</li>
+        <li><strong>新红</strong> — 小红书数据追踪工具</li>
+        <li><strong>YouTube Analytics</strong> — 官方免费，最准确</li>
+        <li><strong>Grafana + InfluxDB</strong> — 自建监控面板，全平台汇总</li>
+        <li><strong>飞书多维表格</strong> — 免费，数据记录+可视化</li>
+        <li><strong>Google Looker Studio</strong> — 免费，数据仪表板</li>
+        <li><strong>微信公众平台后台</strong> — 免费，原生数据最准</li>
+      </ul>
+    </div>
+    <div class="card aos aos-delay-2">
+      <div style="font-size:22px;margin-bottom:10px">💰</div>
+      <div style="font-weight:700;margin-bottom:14px;color:var(--pink)">变现工具</div>
+      <ul class="list-styled">
+        <li><strong>小鹅通</strong> — 国内知识付费首选，课程+社群</li>
+        <li><strong>Substack</strong> — 海外邮件订阅，直接付费</li>
+        <li><strong>爱发电</strong> — 国内创作者赞助/赞赏平台</li>
+        <li><strong>Stripe/PayPal</strong> — 海外收款，接品牌合作必备</li>
+        <li><strong>易赞/大象</strong> — 品牌合作对接平台</li>
+        <li><strong>微信小店</strong> — 视频号带货入口</li>
+        <li><strong>Gumroad</strong> — 数字产品销售，海外创作者常用</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION: WEEKLY CHECKLIST ===== -->
+<section style="position:relative;z-index:1;">
+<div class="section section-alt2">
+  <div class="section-label">执行节奏</div>
+  <div class="section-title">每周<span style="color:var(--accent3)">作战清单</span></div>
+  <div class="section-desc">把大战略拆成每天可执行的小任务。自动化流程成熟前，这是你每周的标准作业程序（SOP）。</div>
+  <div class="section-divider"></div>
+
+  <div class="grid-2">
+    <div class="card glow-blue">
+      <div style="font-weight:700;font-size:15px;margin-bottom:18px;color:var(--accent)">📋 每日必做（约1-2小时，其余交给自动化）</div>
+      <ul class="list-styled">
+        <li>早8:00 — 查看昨日各账号数据，标记爆款内容</li>
+        <li>早8:30 — 采集今日热点话题（微博/百度/抖音热榜）</li>
+        <li>早9:00 — AI批量生成当日内容初稿（每账号3-5条）</li>
+        <li>上午 — 人工审核内容质量和合规，修改润色</li>
+        <li>午间 — 检查自动发布脚本运行状态，处理异常</li>
+        <li>下午 — 回复重要评论（至少10条），维护账号活跃度</li>
+        <li>晚间 — 整理当日数据到追踪表格，更新选题库</li>
+        <li>睡前 — 为次日内容预发布进行最后检查确认</li>
+      </ul>
+    </div>
+    <div class="card glow-orange">
+      <div style="font-weight:700;font-size:15px;margin-bottom:18px;color:var(--accent2)">📅 每周必做（周日下午，约3-4小时）</div>
+      <ul class="list-styled">
+        <li>复盘本周所有内容的数据，找出前10%爆款</li>
+        <li>深度分析爆款内容特征：选题、开头、情绪点</li>
+        <li>制定下周内容日历，确保每账号每天选题不重复</li>
+        <li>更新各账号的敏感词库和内容规范文件</li>
+        <li>优化RPA脚本中的待改进问题（封号风险、失败率）</li>
+        <li>研究竞品账号1-2个，记录可借鉴的选题/风格</li>
+        <li>检查各平台账号数据里程碑，申请变现资格</li>
+        <li>更新AI提示词库，提升生成内容的质量和多样性</li>
+      </ul>
+    </div>
+    <div class="card glow-purple">
+      <div style="font-weight:700;font-size:15px;margin-bottom:18px;color:var(--accent3)">🗓️ 每月必做（月末，约半天）</div>
+      <ul class="list-styled">
+        <li>统计各账号月度核心指标：粉丝增长/互动率/变现收入</li>
+        <li>评估各账号投入产出比，决定是否扩张/收缩</li>
+        <li>更新IP定位：根据数据调整账号风格和内容方向</li>
+        <li>技术维护：更新IP代理、检查API使用量和账单</li>
+        <li>主动联系潜在品牌合作商，更新媒体Kit报价单</li>
+        <li>评估新平台机会（平台最近是否有流量红利期？）</li>
+        <li>规划下月变现目标和新内容产品（课程/产品等）</li>
+        <li>整理最佳内容合集，制作成电子书/课程素材备用</li>
+      </ul>
+    </div>
+    <div class="card glow-green">
+      <div style="font-weight:700;font-size:15px;margin-bottom:18px;color:var(--accent4)">🎯 自动化成熟后（理想状态）每天只需做这些</div>
+      <ul class="list-styled">
+        <li>查看自动发送的日报邮件（异常提醒+数据汇总）</li>
+        <li>人工审核AI标记为"需复核"的内容（通常5-10条）</li>
+        <li>查看今日爆款内容，快速决策是否追加投流</li>
+        <li>回复粉丝高质量评论，维护账号社区氛围（30分钟）</li>
+        <li>偶尔发布一条"亲自创作"的精品内容（增加真实感）</li>
+        <li><span class="emphasis-g">其余时间：专注开发新账号、新变现产品、技术优化</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION: FAQ ===== -->
+<section style="position:relative;z-index:1;">
+<div class="section section-alt3">
+  <div class="section-label">常见问题解答</div>
+  <div class="section-title">你最可能<span style="color:var(--accent4)">踩的坑</span></div>
+  <div class="section-desc">这些是90%的新手都会遇到的困惑，提前知道答案可以节省你3-6个月的试错成本。</div>
+  <div class="section-divider"></div>
+
+  <div class="grid-2">
+    <div class="card aos">
+      <div style="font-weight:700;color:var(--accent);margin-bottom:8px">Q：同一条内容在不同平台效果差很多，正常吗？</div>
+      <div style="color:var(--text2);font-size:13px;line-height:1.8">完全正常，也是必然的。抖音的推流机制是"机器先审、人工后放大"，而小红书更依赖标签和关键词搜索。同一条内容，抖音需要开头前3秒有视觉冲击，小红书需要图片质量高+正文关键词精准。<span class="emphasis-g">建议：用数据找到每个平台的"偏好口味"，各做专属版本，而不是无脑搬运。</span></div>
+    </div>
+    <div class="card aos aos-delay-1">
+      <div style="font-weight:700;color:var(--accent);margin-bottom:8px">Q：被平台限流/降权了怎么办？</div>
+      <div style="color:var(--text2);font-size:13px;line-height:1.8">限流原因通常是：①内容质量低于平台均值；②发布频率异常（太快）；③被举报过；④账号行为不像真人。处理方法：停止发布2-3天，改为手动点赞评论其他内容，发布2-3条精品内容"救号"。如果限流严重，这个账号可以降低投入，重心移到其他账号上。</div>
+    </div>
+    <div class="card aos">
+      <div style="font-weight:700;color:var(--accent);margin-bottom:8px">Q：账号涨粉太慢，是不是方向错了？</div>
+      <div style="color:var(--text2);font-size:13px;line-height:1.8">前100条内容是测试期，不要用涨粉速度判断方向。正确判断标准是：<span class="emphasis">互动率</span>（点赞+评论+收藏/播放量，超过5%是优质）。发了100条后，如果没有一条互动率超过均值，才需要考虑调整方向。通常一个账号需要30-60条内容才能找到自己的"爆款模板"。</div>
+    </div>
+    <div class="card aos aos-delay-1">
+      <div style="font-weight:700;color:var(--accent);margin-bottom:8px">Q：AI生成的内容会被平台检测降权吗？</div>
+      <div style="color:var(--text2);font-size:13px;line-height:1.8">2025年起，各大平台确实在加强对AI内容的识别。但被降权的主要是"无修改纯AI生成"的内容。<span class="emphasis-g">解决方案：AI生成初稿（占60%工作量），人工修改加入个人视角/故事/情感表达（40%工作量）。这样的内容平台几乎无法区分，同时质量也更高。</span></div>
+    </div>
+    <div class="card aos">
+      <div style="font-weight:700;color:var(--accent);margin-bottom:8px">Q：多少粉丝才能开始接广告？</div>
+      <div style="color:var(--text2);font-size:13px;line-height:1.8">粉丝数不是核心标准，<span class="emphasis">互动率</span>才是。一个1000粉、每条互动率8%的账号，比10000粉、互动率0.5%的账号更受广告主青睐。实际上，垂类账号（健康/母婴/理财）在3000-5000粉时就可以开始联系品牌，报价低但可以积累合作经验和案例。</div>
+    </div>
+    <div class="card aos aos-delay-1">
+      <div style="font-weight:700;color:var(--accent);margin-bottom:8px">Q：要不要买粉/刷量来快速起号？</div>
+      <div style="color:var(--text2);font-size:13px;line-height:1.8"><span style="color:var(--red);font-weight:700">强烈不建议。</span> 买来的粉丝没有互动，会拉低你的互动率，让算法认为你的内容质量差，反而推流更少。而且平台定期清理无效账号，买的粉丝会消失。更重要的是，品牌合作方都会查互动率，假粉立刻被看穿，直接失去合作机会。老老实实做内容才是正道。</div>
+    </div>
+    <div class="card aos">
+      <div style="font-weight:700;color:var(--accent);margin-bottom:8px">Q：内容做多个方向会分散精力，如何选择？</div>
+      <div style="color:var(--text2);font-size:13px;line-height:1.8">建议的执行顺序：<span class="emphasis">第1-3个月集中做1-2个账号</span>，验证内容方向和生产流程后，再用自动化复制扩张到3-5个账号，最终扩展到12个。不要一开始就做12个账号，每个都分散注意力，最后全部平庸。要有"集中优势兵力打歼灭战"的策略意识。</div>
+    </div>
+    <div class="card aos aos-delay-1">
+      <div style="font-weight:700;color:var(--accent);margin-bottom:8px">Q：海外平台不懂英语能做吗？</div>
+      <div style="color:var(--text2);font-size:13px;line-height:1.8">完全可以。方案：①针对海外华人社区（全球华人约6000万），用中文做海外账号；②用AI全自动翻译并本地化国内爆款内容发英文账号；③专注东南亚华人市场（马来西亚/新加坡/印尼）。<span class="emphasis-g">YouTube和TikTok都有中文字幕自动生成功能，中国文化内容在海外有独特吸引力。</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== SECTION: ADVANCED STRATEGIES ===== -->
+<section style="position:relative;z-index:1;">
+<div class="section section-alt">
+  <div class="section-label">进阶策略</div>
+  <div class="section-title">矩阵<span style="color:var(--accent)">进阶</span>操作手册</div>
+  <div class="section-desc">当基础账号跑通后，这些进阶策略可以让你的收入从线性增长变成指数级增长。</div>
+  <div class="section-divider"></div>
+
+  <div class="grid-2" style="margin-bottom:28px">
+    <div>
+      <div style="font-weight:700;font-size:16px;margin-bottom:16px">🔗 账号间交叉引流策略</div>
+      <div class="card glow-blue">
+        <ul class="list-styled">
+          <li><span class="emphasis">同类互导</span>：「AI超能研究院」×「副业百宝箱」——看AI工具的人也想赚钱，互推转化率高达40%</li>
+          <li><span class="emphasis">亲子组合</span>：「萌芽学堂」×「健康小百科」——宝妈群体两者高度重叠，互推成本低</li>
+          <li><span class="emphasis">情感+商业</span>：「深夜治愈室」→「副业百宝箱」——情绪低谷的人最有改变现状的动力</li>
+          <li><span class="emphasis">知识漏斗</span>：免费知识账号 → 引流到付费社群/课程账号，转化率3-8%</li>
+          <li><span class="emphasis">矩阵评论</span>：用小号在大号下面"捧场评论"，制造热门话题氛围</li>
+          <li><span class="emphasis">合拍/联动</span>：不同账号偶尔合拍内容，共享对方粉丝基础</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div style="font-weight:700;font-size:16px;margin-bottom:16px">📈 爆款复制放大公式</div>
+      <div class="card glow-orange">
+        <ul class="list-styled">
+          <li><span class="emphasis-o">水平复制</span>：同一选题，换5个角度重发，找到最佳角度后All-in</li>
+          <li><span class="emphasis-o">垂直延伸</span>：爆款内容→ 系列化→ 1/5/10/30集，每集引发下一集需求</li>
+          <li><span class="emphasis-o">跨平台搬运</span>：抖音爆款→去水印→发YouTube Shorts/TikTok（注意版权）</li>
+          <li><span class="emphasis-o">长短互转</span>：爆款短视频→写长文章发知乎/公众号；长文章→拆成10条短内容</li>
+          <li><span class="emphasis-o">蹭热点嫁接</span>：发现热搜话题后，在3小时内产出结合自己账号方向的内容</li>
+          <li><span class="emphasis-o">合集打包变现</span>：10篇相关爆款内容→打包成电子书/课程，售价9.9-99元</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div style="font-weight:700;font-size:16px;margin-bottom:20px">💎 私域流量沉淀——让粉丝变资产</div>
+  <div class="grid-4">
+    <div class="card" style="text-align:center">
+      <div style="font-size:30px;margin-bottom:10px">📱</div>
+      <div style="font-weight:700;margin-bottom:6px">微信个人号</div>
+      <div style="font-size:12px;color:var(--text2)">每个账号引流到专属微信，好友上限5000，直接私聊转化，成交率最高</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:30px;margin-bottom:10px">👥</div>
+      <div style="font-weight:700;margin-bottom:6px">微信社群</div>
+      <div style="font-size:12px;color:var(--text2)">按主题建群，每群200-500人，定期输出干货，维护活跃度，是付费产品的最优转化池</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:30px;margin-bottom:10px">📧</div>
+      <div style="font-weight:700;margin-bottom:6px">邮件列表</div>
+      <div style="font-size:12px;color:var(--text2)">海外账号必建，邮件打开率30%远超社交媒体的1-5%。千人邮件列表价值¥5-50万</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:30px;margin-bottom:10px">✈️</div>
+      <div style="font-weight:700;margin-bottom:6px">Telegram频道</div>
+      <div style="font-size:12px;color:var(--text2)">不限人数，不被算法限制，适合科技/财经/工具类账号的海外用户沉淀</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">MATRIX</div>
+  <p style="color:var(--text3);font-size:13px;max-width:600px;margin:0 auto 12px">内容自动化矩阵战略规划 · 2025-2026版本</p>
+  <p style="color:var(--text3);font-size:11px;opacity:0.5">本规划仅供战略参考，实际执行请结合各平台最新政策调整。所有变现数据为市场经验估算，不构成收益承诺。</p>
+</footer>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+const top100Data = [
+  // 心灵情感
+  { rank:1,  name:"职场压力/焦虑共鸣", sub:"办公室、加班、迷茫", cat:"心灵情感", heat:99, platforms:"全平台", diff:1, rev:"极高" },
+  { rank:2,  name:"原生家庭创伤治愈", sub:"童年、父母关系、心理", cat:"心灵情感", heat:97, platforms:"全平台", diff:1, rev:"高" },
+  { rank:3,  name:"人生低谷励志故事", sub:"逆袭、坚持、翻盘", cat:"心灵情感", heat:96, platforms:"全平台", diff:1, rev:"高" },
+  { rank:4,  name:"爱情/分手情感治愈", sub:"暗恋、失恋、感情", cat:"心灵情感", heat:95, platforms:"抖音/小红书/微博", diff:1, rev:"高" },
+  { rank:5,  name:"孤独感/独处正能量", sub:"一个人生活、内向", cat:"心灵情感", heat:93, platforms:"小红书/B站", diff:1, rev:"中高" },
+  { rank:6,  name:"中年危机/35岁焦虑", sub:"中年、职业瓶颈", cat:"心灵情感", heat:92, platforms:"微信/知乎", diff:1, rev:"高" },
+  { rank:7,  name:"女性觉醒/独立话题", sub:"女性力量、自我成长", cat:"心灵情感", heat:90, platforms:"小红书/微博", diff:1, rev:"高" },
+  { rank:8,  name:"心理健康科普", sub:"抑郁、情绪管理", cat:"心灵情感", heat:89, platforms:"全平台", diff:2, rev:"中高" },
+  { rank:9,  name:"佛系/躺平哲学", sub:"内卷、放弃、淡定", cat:"心灵情感", heat:87, platforms:"B站/微博/抖音", diff:1, rev:"中" },
+  { rank:10, name:"睡前冥想/解压音频", sub:"ASMR、白噪音", cat:"心灵情感", heat:86, platforms:"抖音/YouTube/B站", diff:2, rev:"中高" },
+
+  // 娱乐搞笑
+  { rank:11, name:"社会现象吐槽评论", sub:"讽刺、反转、辛辣", cat:"娱乐搞笑", heat:98, platforms:"微博/抖音/Twitter", diff:1, rev:"高" },
+  { rank:12, name:"生活小剧场/情景段子", sub:"家庭、职场、相亲", cat:"娱乐搞笑", heat:95, platforms:"抖音/TikTok", diff:2, rev:"高" },
+  { rank:13, name:"方言梗/地域特色内容", sub:"东北、四川、广东", cat:"娱乐搞笑", heat:91, platforms:"抖音/快手", diff:1, rev:"中高" },
+  { rank:14, name:"网络热梗二创内容", sub:"表情包、热词改编", cat:"娱乐搞笑", heat:90, platforms:"微博/B站/抖音", diff:2, rev:"中" },
+  { rank:15, name:"奇葩冷知识", sub:"你不知道的真相", cat:"娱乐搞笑", heat:89, platforms:"全平台", diff:1, rev:"高" },
+  { rank:16, name:"反套路/反转故事", sub:"意料之外结局", cat:"娱乐搞笑", heat:88, platforms:"抖音/TikTok", diff:2, rev:"高" },
+  { rank:17, name:"宠物萌宠日常", sub:"猫、狗、奇特动物", cat:"娱乐搞笑", heat:94, platforms:"全平台", diff:1, rev:"中高" },
+  { rank:18, name:"整蛊/恶作剧（无伤害）", sub:"朋友家人搞笑反应", cat:"娱乐搞笑", heat:87, platforms:"抖音/TikTok/YouTube", diff:2, rev:"高" },
+  { rank:19, name:"名言金句排版图", sub:"哲理、励志、幽默", cat:"娱乐搞笑", heat:85, platforms:"微博/小红书/Ins", diff:1, rev:"中" },
+  { rank:20, name:"AI生成奇趣内容", sub:"AI绘图、AI对话截图", cat:"娱乐搞笑", heat:88, platforms:"全平台", diff:1, rev:"中高" },
+
+  // 知识教育
+  { rank:21, name:"5分钟讲透一个概念", sub:"极简科普、碎片知识", cat:"知识教育", heat:93, platforms:"B站/YouTube/抖音", diff:2, rev:"高" },
+  { rank:22, name:"历史故事/帝王将相", sub:"秘闻、权谋、反转", cat:"知识教育", heat:92, platforms:"B站/抖音/YouTube", diff:2, rev:"高" },
+  { rank:23, name:"冷门职业/职场内幕", sub:"揭秘行业真相", cat:"知识教育", heat:90, platforms:"抖音/小红书/知乎", diff:2, rev:"高" },
+  { rank:24, name:"AI工具使用教程", sub:"ChatGPT、Midjourney", cat:"知识教育", heat:96, platforms:"全平台", diff:2, rev:"极高" },
+  { rank:25, name:"副业/赚钱方法分享", sub:"真实方法、亲测有效", cat:"知识教育", heat:97, platforms:"抖音/小红书/知乎", diff:2, rev:"极高" },
+  { rank:26, name:"英语学习干货", sub:"记忆技巧、口语提升", cat:"知识教育", heat:88, platforms:"抖音/B站/YouTube", diff:2, rev:"高" },
+  { rank:27, name:"考研/考证/考公备考", sub:"方法论、时间规划", cat:"知识教育", heat:87, platforms:"B站/抖音/小红书", diff:2, rev:"高" },
+  { rank:28, name:"心理学/行为科学", sub:"认知偏差、人性分析", cat:"知识教育", heat:91, platforms:"全平台", diff:2, rev:"高" },
+  { rank:29, name:"世界奇异之谜/未解谜题", sub:"神秘事件、科学悬案", cat:"知识教育", heat:89, platforms:"B站/YouTube/抖音", diff:2, rev:"高" },
+  { rank:30, name:"名人传记/成功故事", sub:"马斯克、乔布斯", cat:"知识教育", heat:88, platforms:"全平台", diff:2, rev:"高" },
+
+  // 商业财经
+  { rank:31, name:"投资理财入门", sub:"股票、基金、定投", cat:"商业财经", heat:94, platforms:"抖音/知乎/雪球", diff:2, rev:"极高" },
+  { rank:32, name:"创业故事/商业案例", sub:"从0到1、失败复盘", cat:"商业财经", heat:92, platforms:"全平台", diff:2, rev:"高" },
+  { rank:33, name:"省钱攻略/消费降级", sub:"平替、薅羊毛、省钱", cat:"商业财经", heat:91, platforms:"小红书/抖音/微博", diff:1, rev:"高" },
+  { rank:34, name:"商业模式拆解", sub:"是如何赚钱的", cat:"商业财经", heat:89, platforms:"知乎/B站/微博", diff:2, rev:"高" },
+  { rank:35, name:"职场升职加薪技巧", sub:"谈判、表现、晋升", cat:"商业财经", heat:90, platforms:"全平台", diff:2, rev:"高" },
+  { rank:36, name:"个人成长/效率工具", sub:"时间管理、工具推荐", cat:"商业财经", heat:88, platforms:"全平台", diff:2, rev:"高" },
+  { rank:37, name:"普通人翻身逆袭故事", sub:"真实案例、接地气", cat:"商业财经", heat:93, platforms:"抖音/微博/快手", diff:1, rev:"高" },
+  { rank:38, name:"消费主义批判/极简生活", sub:"断舍离、反消费", cat:"商业财经", heat:86, platforms:"小红书/B站", diff:1, rev:"中高" },
+  { rank:39, name:"行业趋势/未来预测", sub:"10年后、风口分析", cat:"商业财经", heat:87, platforms:"知乎/微博/LinkedIn", diff:3, rev:"高" },
+  { rank:40, name:"电商/独立站赚钱方法", sub:"带货、选品、运营", cat:"商业财经", heat:90, platforms:"抖音/小红书/YouTube", diff:2, rev:"极高" },
+
+  // 生活方式
+  { rank:41, name:"美食制作/简单菜谱", sub:"家常菜、快手菜", cat:"生活方式", heat:93, platforms:"抖音/小红书/Instagram", diff:2, rev:"高" },
+  { rank:42, name:"出行游记/城市探店", sub:"旅行、打卡、攻略", cat:"生活方式", heat:91, platforms:"小红书/抖音/Instagram", diff:2, rev:"高" },
+  { rank:43, name:"好物开箱/产品测评", sub:"真实使用体验", cat:"生活方式", heat:94, platforms:"抖音/小红书/YouTube", diff:2, rev:"极高" },
+  { rank:44, name:"家居装修改造", sub:"出租屋、小户型", cat:"生活方式", heat:89, platforms:"小红书/抖音/Pinterest", diff:2, rev:"高" },
+  { rank:45, name:"穿搭/时尚搭配", sub:"日常look、平价", cat:"生活方式", heat:90, platforms:"小红书/抖音/Instagram", diff:2, rev:"高" },
+  { rank:46, name:"极简/断舍离日记", sub:"整理收纳、轻断食", cat:"生活方式", heat:85, platforms:"小红书/YouTube", diff:2, rev:"中高" },
+  { rank:47, name:"读书笔记/书单推荐", sub:"精华提炼、感悟", cat:"生活方式", heat:84, platforms:"小红书/B站/微博", diff:1, rev:"中高" },
+  { rank:48, name:"运动健身打卡", sub:"减脂、增肌、自律", cat:"生活方式", heat:88, platforms:"小红书/抖音/Instagram", diff:2, rev:"高" },
+  { rank:49, name:"一人食/独居生活", sub:"治愈、精致、简单", cat:"生活方式", heat:87, platforms:"小红书/B站", diff:2, rev:"中高" },
+  { rank:50, name:"节约生活/极简消费", sub:"一个月花多少", cat:"生活方式", heat:86, platforms:"小红书/抖音", diff:1, rev:"中高" },
+
+  // 儿童亲子
+  { rank:51, name:"儿童早教/识字认数", sub:"0-6岁启蒙", cat:"儿童亲子", heat:92, platforms:"抖音/快手/YouTube", diff:2, rev:"高" },
+  { rank:52, name:"亲子互动游戏", sub:"在家玩、无需道具", cat:"儿童亲子", heat:90, platforms:"抖音/小红书/Instagram", diff:2, rev:"高" },
+  { rank:53, name:"育儿经验/踩坑分享", sub:"宝妈经验、真实", cat:"儿童亲子", heat:91, platforms:"抖音/小红书/快手", diff:1, rev:"高" },
+  { rank:54, name:"儿童英语启蒙", sub:"自然拼读、绘本", cat:"儿童亲子", heat:89, platforms:"抖音/B站/YouTube", diff:2, rev:"高" },
+  { rank:55, name:"睡前故事/儿童音频", sub:"3-10岁睡前", cat:"儿童亲子", heat:88, platforms:"抖音/荔枝/喜马拉雅", diff:2, rev:"高" },
+  { rank:56, name:"亲子手工/创意DIY", sub:"简单材料、在家做", cat:"儿童亲子", heat:86, platforms:"小红书/抖音/Pinterest", diff:2, rev:"中高" },
+  { rank:57, name:"学霸学习方法", sub:"小学初中学习技巧", cat:"儿童亲子", heat:87, platforms:"抖音/B站/小红书", diff:2, rev:"高" },
+  { rank:58, name:"家庭教育反思", sub:"别让孩子重蹈覆辙", cat:"儿童亲子", heat:89, platforms:"全平台", diff:1, rev:"高" },
+  { rank:59, name:"儿童心理/叛逆期", sub:"青春期、沟通方法", cat:"儿童亲子", heat:87, platforms:"抖音/小红书/知乎", diff:2, rev:"高" },
+  { rank:60, name:"国际学校/双语教育", sub:"教育选择、经验", cat:"儿童亲子", heat:84, platforms:"小红书/知乎", diff:2, rev:"极高" },
+
+  // 健康养生
+  { rank:61, name:"饮食营养科普", sub:"吃什么更健康", cat:"健康养生", heat:91, platforms:"抖音/小红书/YouTube", diff:2, rev:"高" },
+  { rank:62, name:"睡眠改善方法", sub:"失眠、睡眠质量", cat:"健康养生", heat:89, platforms:"全平台", diff:2, rev:"高" },
+  { rank:63, name:"中医调理/养生秘方", sub:"中药、经络、体质", cat:"健康养生", heat:88, platforms:"抖音/快手/小红书", diff:2, rev:"高" },
+  { rank:64, name:"减肥瘦身经验", sub:"饮食控制、运动", cat:"健康养生", heat:92, platforms:"小红书/抖音/Instagram", diff:2, rev:"极高" },
+  { rank:65, name:"脊椎/颈椎保健操", sub:"久坐党、办公室", cat:"健康养生", heat:88, platforms:"抖音/B站/YouTube", diff:2, rev:"高" },
+  { rank:66, name:"女性健康科普", sub:"妇科、生理期", cat:"健康养生", heat:87, platforms:"小红书/抖音", diff:2, rev:"高" },
+  { rank:67, name:"情绪与身体的关系", sub:"心身医学、压力", cat:"健康养生", heat:86, platforms:"全平台", diff:2, rev:"中高" },
+  { rank:68, name:"健康误区辟谣", sub:"反常识、科学真相", cat:"健康养生", heat:90, platforms:"全平台", diff:2, rev:"高" },
+  { rank:69, name:"45岁后的身体变化", sub:"中老年健康关注", cat:"健康养生", heat:85, platforms:"抖音/快手/微信", diff:2, rev:"高" },
+  { rank:70, name:"瑜伽/冥想入门", sub:"初学者适合", cat:"健康养生", heat:84, platforms:"小红书/YouTube/Instagram", diff:2, rev:"中高" },
+
+  // 科技数码
+  { rank:71, name:"AI工具测评使用", sub:"最新AI产品体验", cat:"科技数码", heat:96, platforms:"全平台", diff:2, rev:"极高" },
+  { rank:72, name:"手机/电脑选购建议", sub:"性价比、入门推荐", cat:"科技数码", heat:92, platforms:"B站/抖音/知乎", diff:2, rev:"极高" },
+  { rank:73, name:"软件推荐/效率工具", sub:"Windows/Mac", cat:"科技数码", heat:90, platforms:"B站/抖音/YouTube", diff:2, rev:"高" },
+  { rank:74, name:"科技行业深度分析", sub:"苹果/特斯拉/AI", cat:"科技数码", heat:88, platforms:"知乎/微博/YouTube", diff:3, rev:"高" },
+  { rank:75, name:"游戏行业/游戏测评", sub:"新游速报、剧情", cat:"科技数码", heat:91, platforms:"B站/抖音/Twitch", diff:2, rev:"高" },
+  { rank:76, name:"编程/开发入门", sub:"0基础学Python", cat:"科技数码", heat:87, platforms:"B站/YouTube/知乎", diff:3, rev:"高" },
+  { rank:77, name:"数码开箱/评测", sub:"耳机、相机、外设", cat:"科技数码", heat:89, platforms:"B站/YouTube/抖音", diff:2, rev:"极高" },
+  { rank:78, name:"网络安全/隐私保护", sub:"防骗、个人信息", cat:"科技数码", heat:86, platforms:"全平台", diff:2, rev:"中高" },
+  { rank:79, name:"元宇宙/Web3科普", sub:"区块链、NFT", cat:"科技数码", heat:82, platforms:"微博/知乎/Twitter", diff:3, rev:"高" },
+  { rank:80, name:"无人机/VR设备体验", sub:"新技术体验", cat:"科技数码", heat:83, platforms:"B站/YouTube/抖音", diff:3, rev:"中高" },
+
+  // 其他混合类
+  { rank:81, name:"社会议题/时事评论", sub:"热点分析、深度思考", cat:"娱乐搞笑", heat:94, platforms:"微博/Twitter/知乎", diff:3, rev:"中高" },
+  { rank:82, name:"明星/娱乐圈八卦", sub:"瓜、热搜、分析", cat:"娱乐搞笑", heat:93, platforms:"微博/抖音/小红书", diff:1, rev:"高" },
+  { rank:83, name:"海外华人生活分享", sub:"留学、移民、真实日常", cat:"生活方式", heat:88, platforms:"小红书/YouTube/微博", diff:2, rev:"高" },
+  { rank:84, name:"体育赛事分析/运动", sub:"足球、篮球、解说", cat:"娱乐搞笑", heat:90, platforms:"微博/B站/YouTube", diff:2, rev:"高" },
+  { rank:85, name:"财商教育/零花钱管理", sub:"孩子理财观", cat:"儿童亲子", heat:85, platforms:"小红书/抖音/B站", diff:2, rev:"高" },
+  { rank:86, name:"二手闲置/旧物改造", sub:"省钱、环保、创意", cat:"生活方式", heat:84, platforms:"小红书/闲鱼/抖音", diff:2, rev:"中高" },
+  { rank:87, name:"古诗词/传统文化", sub:"国学、历史典故", cat:"知识教育", heat:85, platforms:"B站/抖音/视频号", diff:2, rev:"中高" },
+  { rank:88, name:"境外游/签证攻略", sub:"东南亚、欧美", cat:"生活方式", heat:88, platforms:"小红书/微博/YouTube", diff:2, rev:"高" },
+  { rank:89, name:"穷游/极致省钱旅行", sub:"100元旅游攻略", cat:"生活方式", heat:87, platforms:"小红书/抖音/B站", diff:2, rev:"中高" },
+  { rank:90, name:"自媒体运营方法论", sub:"如何涨粉、变现", cat:"商业财经", heat:91, platforms:"全平台", diff:2, rev:"极高" },
+  { rank:91, name:"失业/求职经验分享", sub:"简历、面试、跳槽", cat:"商业财经", heat:90, platforms:"小红书/知乎/微博", diff:1, rev:"高" },
+  { rank:92, name:"种草/反种草评测", sub:"真实评价、避坑", cat:"生活方式", heat:90, platforms:"小红书/抖音/Instagram", diff:2, rev:"极高" },
+  { rank:93, name:"小众爱好/圈子文化", sub:"手办、盲盒、LP", cat:"娱乐搞笑", heat:83, platforms:"B站/小红书/抖音", diff:2, rev:"中高" },
+  { rank:94, name:"民俗/地方文化纪录", sub:"乡土中国、非遗", cat:"知识教育", heat:82, platforms:"抖音/视频号/B站", diff:2, rev:"中" },
+  { rank:95, name:"身份证/户籍/法律常识", sub:"普法、维权、合同", cat:"知识教育", heat:87, platforms:"抖音/微博/小红书", diff:2, rev:"高" },
+  { rank:96, name:"星座/MBTI性格", sub:"自我认知、趣味", cat:"心灵情感", heat:86, platforms:"小红书/微博/抖音", diff:1, rev:"中高" },
+  { rank:97, name:"手账/文具/美文", sub:"精致生活、记录", cat:"生活方式", heat:80, platforms:"小红书/Pinterest", diff:2, rev:"中" },
+  { rank:98, name:"气候/环保意识", sub:"地球、可持续", cat:"知识教育", heat:79, platforms:"微博/B站/Instagram", diff:2, rev:"中" },
+  { rank:99, name:"写给年轻人的信", sub:"给20岁/30岁的你", cat:"心灵情感", heat:88, platforms:"全平台", diff:1, rev:"高" },
+  { rank:100,name:"一句话日记/微内容", sub:"短文字、碎片表达", cat:"心灵情感", heat:81, platforms:"微博/Twitter/小红书", diff:1, rev:"中" },
+];
+
+const catColorMap = {
+  "心灵情感": "tag-blue",
+  "娱乐搞笑": "tag-orange",
+  "知识教育": "tag-purple",
+  "商业财经": "tag-gold",
+  "生活方式": "tag-pink",
+  "儿童亲子": "tag-green",
+  "健康养生": "tag-teal",
+  "科技数码": "tag-red",
+};
+
+const revColorMap = {
+  "极高": "tag-gold",
+  "高": "tag-green",
+  "中高": "tag-blue",
+  "中": "tag-purple",
+};
+
+function buildTop100() {
+  const tbody = document.getElementById('top100-body');
+  tbody.innerHTML = '';
+  top100Data.forEach(item => {
+    const rankClass = item.rank === 1 ? 'rank-1' : item.rank === 2 ? 'rank-2' : item.rank === 3 ? 'rank-3' : item.rank <= 20 ? 'rank-top' : 'rank-normal';
+    const heatPct = item.heat + '%';
+    const diffDots = [1,2,3,4,5].map(i => `<div class="diff-dot ${i<=item.diff ? (item.diff<=2?'filled':'warn') : ''}"></div>`).join('');
+
+    const tr = document.createElement('tr');
+    tr.setAttribute('data-cat', item.cat);
+    tr.innerHTML = `
+      <td><div class="rank-num ${rankClass}">${item.rank <= 3 ? ['🥇','🥈','🥉'][item.rank-1] : item.rank}</div></td>
+      <td>
+        <div class="content-name">${item.name}</div>
+        <div class="content-sub">${item.sub}</div>
+      </td>
+      <td><span class="tag ${catColorMap[item.cat]||'tag-blue'}">${item.cat}</span></td>
+      <td>
+        <div class="heat-bar">
+          <div class="heat-track"><div class="heat-fill" style="width:${heatPct}"></div></div>
+          <div class="heat-text">${item.heat}</div>
+        </div>
+      </td>
+      <td style="color:var(--text2);font-size:12px">${item.platforms}</td>
+      <td><div class="difficulty">${diffDots}</div></td>
+      <td><span class="tag ${revColorMap[item.rev]||'tag-blue'}">${item.rev}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function filterTable(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#top100-body tr').forEach(tr => {
+    if (cat === 'all' || tr.getAttribute('data-cat') === cat) {
+      tr.style.display = '';
+    } else {
+      tr.style.display = 'none';
+    }
+  });
+}
+
+// ============================================================
+// PLATFORMS DATA
+// ============================================================
+const cnPlatforms = [
+  { name:"抖音", icon:"🎵", type:"短视频+直播", bg:"#FF4444", users:"7亿DAU", rev:"极高", rpa:"中等", risk:"中", features:["创作者基金","直播带货","DOU+投流","企业号API"], desc:"国内短视频绝对霸主，算法推流强，新账号冷启动快，直播变现路径成熟。是矩阵建设的第一优先级。" },
+  { name:"微信视频号", icon:"📱", type:"短视频+直播", bg:"#07C160", users:"5亿MAU", rev:"极高", rpa:"难", risk:"低", features:["私域联动","公众号跳转","直播打赏","橱窗带货"], desc:"微信生态最强变现链路，用户付费意愿最高。与公众号、小程序打通后，私域转化效率远超其他平台。" },
+  { name:"小红书", icon:"📕", type:"图文+短视频", bg:"#FF2442", users:"3亿MAU", rev:"高", rpa:"中等", risk:"低", features:["品牌合作","薯条推广","直播带货","好物推荐"], desc:"女性用户占比高，消费能力强，种草文化浓厚。美妆、生活、母婴、教育类内容变现效率极高。" },
+  { name:"B站", icon:"📺", type:"中长视频+直播", bg:"#00A1D6", users:"3.36亿MAU", rev:"中高", rpa:"较易", risk:"低", features:["创作激励","充电计划","直播连麦","课程付费"], desc:"知识型创作者首选，用户黏性极高。弹幕文化使互动率远超其他平台。适合深度内容和知识付费。" },
+  { name:"微博", icon:"🌐", type:"图文+视频", bg:"#E6162D", users:"2.52亿MAU", rev:"中高", rpa:"较易", risk:"中", features:["官方API","超话","热搜借势","粉条推广"], desc:"舆论场地位独特，热搜话题传播速度快。适合时事评论、娱乐内容、品牌公关。有完整的API接口。" },
+  { name:"快手", icon:"⚡", type:"短视频+直播", bg:"#FF5C00", users:"3.7亿DAU", rev:"高", rpa:"中等", risk:"中", features:["创作者激励","快手电商","直播带货","私信营销"], desc:"下沉市场用户多，老铁文化粉丝黏性极高，直播带货GMV全国前三。适合生活类、接地气内容。" },
+  { name:"知乎", icon:"🔵", type:"长文+视频", bg:"#0084FF", users:"1.1亿MAU", rev:"中高", rpa:"较易", risk:"低", features:["知乎盐选","付费问答","内容变现","知乎Live"], desc:"高学历、高收入用户聚集，知识付费接受度最高。回答被推荐后长尾流量极大，适合专业知识内容。" },
+  { name:"今日头条", icon:"📰", type:"图文+视频", bg:"#FF6600", users:"3亿MAU", rev:"中", rpa:"较易", risk:"中", features:["头条号创作","青云计划","广告分成","付费订阅"], desc:"字节系推荐算法，内容分发效率高。图文创作者的重要阵地，有稳定的广告分成收入。" },
+  { name:"喜马拉雅", icon:"🎙️", type:"音频+播客", bg:"#EB4D5D", users:"3亿用户", rev:"中高", rpa:"中等", risk:"低", features:["123狂欢节","会员付费","主播激励","课程变现"], desc:"音频内容领域龙头，课程和知识付费市值高。睡前故事、冥想、有声书需求庞大且持续增长。" },
+];
+
+const globalPlatforms = [
+  { name:"TikTok", icon:"🎬", type:"短视频", bg:"#010101", users:"10亿+DAU", rev:"高", rpa:"中等", risk:"中", features:["TikTok Shop","Creator Fund","LIVE Gifting","Spark Ads"], desc:"全球最大短视频平台，东南亚和欧美市场用户增长迅猛。TikTok Shop带货佣金可观，海外市场广告单价高。" },
+  { name:"YouTube", icon:"▶️", type:"中长视频+直播", bg:"#FF0000", users:"26亿MAU", rev:"极高", rpa:"较易", risk:"低", features:["AdSense","Channel Membership","Super Thanks","Shorts奖励"], desc:"全球视频平台天花板，广告分成最高，频道会员和超级感谢收益稳定。YouTube Shorts当前处于流量红利期。" },
+  { name:"Instagram", icon:"📸", type:"图文+短视频", bg:"#E1306C", users:"20亿MAU", rev:"高", rpa:"中等", risk:"低", features:["Reels奖励","品牌合作","Shop功能","Stories广告"], desc:"全球最大图文+Reels平台，时尚、美妆、生活方式变现最佳。博主收费标准按粉丝量，10万粉每条$1000+。" },
+  { name:"Twitter/X", icon:"🐦", type:"图文+音频", bg:"#000000", users:"5.56亿MAU", rev:"中", rpa:"较易", risk:"中", features:["X Premium分成","Subscriptions","付费内容","广告分成"], desc:"英文圈最重要的舆论平台，科技/金融/政治类意见领袖聚集地。新的广告分成计划对大V有一定收益。" },
+  { name:"Facebook", icon:"👥", type:"全媒体", bg:"#1877F2", users:"30亿MAU", rev:"高", rpa:"较易", risk:"低", features:["In-stream广告","Stars打赏","Groups","Marketplace"], desc:"全球用户最多，但年轻用户流失严重。40岁以上用户和东南亚市场仍极活跃，本地化内容效果好。" },
+  { name:"Pinterest", icon:"📌", type:"图文", bg:"#E60023", users:"4.82亿MAU", rev:"中高", rpa:"较易", risk:"低", features:["Idea Pins","Shop功能","创作者基金","外链引流"], desc:"美国女性用户主导，家居、婚礼、美食、时尚搜索流量极大。外链权重高，SEO友好，引流电商效率好。" },
+  { name:"LinkedIn", icon:"💼", type:"图文+视频", bg:"#0A66C2", users:"9.5亿用户", rev:"中高", rpa:"较易", risk:"低", features:["Newsletter","Learning","Sponsored内容","Premium"], desc:"职业社交平台，B2B内容变现效率最高。商业类、职场类内容在这里有极高曝光，企业客户来源渠道。" },
+  { name:"Telegram", icon:"✈️", type:"频道+社群", bg:"#2AABEE", users:"9亿MAU", rev:"中", rpa:"较易", risk:"低", features:["频道广告","Premium分成","机器人变现","付费内容"], desc:"全球用户高速增长，Telegram广告尚未普及，付费频道订阅制变现清晰。海外华人和IT圈用户活跃。" },
+  { name:"Reddit", icon:"🤖", type:"社区论坛", bg:"#FF4500", users:"8.8亿MAU", rev:"中", rpa:"难", risk:"中", features:["Awards","广告","AMA","社区引流"], desc:"英文圈最大论坛，不适合直接推广但适合参与讨论建立权威。SEO价值极高，帖子可长期获得Google搜索流量。" },
+];
+
+const nichePlatforms = [
+  { name:"雪球", icon:"⛄", type:"财经社区", bg:"#2B7BF0", users:"1800万活跃", rev:"极高", rpa:"中等", risk:"低", features:["组合收益","雪球APP","付费订阅","基金推广"], desc:"中国最大股票+基金社区，财经类博主在此的变现效率是其他平台3-5倍。用户消费意愿极强。" },
+  { name:"得到APP", icon:"📚", type:"知识付费", bg:"#FF6B2B", users:"5000万注册", rev:"极高", rpa:"难", risk:"低", features:["付费专栏","直播","听书","精品课"], desc:"罗辑思维旗下，中国知识付费天花板。入驻门槛高但一旦上线，单专栏收入可达数十万。" },
+  { name:"闲鱼", icon:"🐟", type:"二手交易", bg:"#FF6A00", users:"5亿注册", rev:"高", rpa:"中等", risk:"低", features:["闲置变现","虚拟商品","技能服务","鱼塘社群"], desc:"内容导流到闲鱼卖虚拟商品（模板/资料/咨询）是低成本变现方式，用户信任度高。" },
+  { name:"荔枝", icon:"🎙️", type:"音频直播", bg:"#FF4444", users:"6000万MAU", rev:"中高", rpa:"中等", risk:"低", features:["直播礼物","声音IP","月票打赏","课程"], desc:"声音内容垂类平台，有声情感、故事、口才类内容在荔枝有独特的受众和打赏文化。" },
+  { name:"Keep", icon:"💪", type:"健身社区", bg:"#00CF64", users:"3亿注册", rev:"高", rpa:"较难", risk:"低", features:["付费课程","Keep会员","运动记录","带货"], desc:"健身类创作者的私域。入驻后可销售定制课程和健身计划，用户付费意愿高，ARPU值高。" },
+  { name:"下厨房", icon:"🍳", type:"美食社区", bg:"#FF6000", users:"9000万用户", rev:"中高", rpa:"中等", risk:"低", features:["食材购买","品牌合作","食谱打赏","认证达人"], desc:"美食垂类社区，用户活跃度高且消费目的明确，食材、厨具品牌合作报价高。" },
+];
+
+function buildPlatforms() {
+  // CN
+  const cnEl = document.getElementById('cn-platforms');
+  cnPlatforms.forEach(p => {
+    cnEl.innerHTML += buildPlatformCard(p);
+  });
+  // Global
+  const glEl = document.getElementById('global-platforms');
+  globalPlatforms.forEach(p => {
+    glEl.innerHTML += buildPlatformCard(p);
+  });
+  // Niche
+  const niEl = document.getElementById('niche-platforms');
+  nichePlatforms.forEach(p => {
+    niEl.innerHTML += buildPlatformCard(p);
+  });
+  // Priority
+  buildPriorityTable();
+}
+
+function buildPlatformCard(p) {
+  return `
+  <div class="platform-card" style="--accent-color:${p.bg}">
+    <div class="pcard-header">
+      <div class="pcard-icon" style="background:${p.bg}22;font-size:26px">${p.icon}</div>
+      <div>
+        <div class="pcard-name">${p.name}</div>
+        <div class="pcard-type">${p.type}</div>
+      </div>
+      <span class="tag ${p.rev==='极高'?'tag-gold':p.rev==='高'?'tag-green':'tag-blue'}" style="margin-left:auto">${p.rev}</span>
+    </div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:12px">${p.desc}</div>
+    <div class="pcard-features">
+      ${p.features.map(f=>`<span class="tag tag-blue">${f}</span>`).join('')}
+    </div>
+    <div class="pcard-stats">
+      <div class="pstat"><span class="pstat-num">${p.users}</span><span class="pstat-label">用户规模</span></div>
+      <div class="pstat"><span class="pstat-num" style="color:${p.rpa==='较易'?'#22c55e':p.rpa==='中等'?'#f59e0b':'#ef4444'}">${p.rpa}</span><span class="pstat-label">RPA难度</span></div>
+    </div>
+  </div>
+  `;
+}
+
+function buildPriorityTable() {
+  const allPlatforms = [
+    { name:"抖音", traffic:10, rev:10, rpa:7, risk:6, priority:"S级 立即开始" },
+    { name:"视频号", traffic:9, rev:10, rpa:5, risk:9, priority:"S级 立即开始" },
+    { name:"小红书", traffic:8, rev:8, rpa:7, risk:8, priority:"S级 立即开始" },
+    { name:"YouTube", traffic:9, rev:10, rpa:8, risk:9, priority:"A级 第2个月" },
+    { name:"TikTok", traffic:9, rev:8, rpa:7, risk:7, priority:"A级 第2个月" },
+    { name:"B站", traffic:7, rev:7, rpa:8, risk:9, priority:"A级 第2个月" },
+    { name:"微博", traffic:7, rev:6, rpa:8, risk:6, priority:"B级 第3个月" },
+    { name:"Instagram", traffic:8, rev:7, rpa:7, risk:8, priority:"B级 第3个月" },
+    { name:"快手", traffic:8, rev:8, rpa:7, risk:6, priority:"B级 第3个月" },
+    { name:"知乎", traffic:6, rev:7, rpa:8, risk:8, priority:"B级 第3个月" },
+    { name:"Twitter/X", traffic:7, rev:5, rpa:8, risk:7, priority:"C级 第4个月" },
+    { name:"Facebook", traffic:7, rev:7, rpa:7, risk:7, priority:"C级 第4个月" },
+    { name:"今日头条", traffic:7, rev:5, rpa:8, risk:7, priority:"C级 第4个月" },
+    { name:"喜马拉雅", traffic:6, rev:7, rpa:6, risk:8, priority:"C级 第4个月" },
+    { name:"Telegram", traffic:6, rev:5, rpa:8, risk:9, priority:"D级 按需" },
+    { name:"LinkedIn", traffic:5, rev:7, rpa:7, risk:9, priority:"D级 按需" },
+  ];
+  const tbody = document.getElementById('priority-table');
+  allPlatforms.forEach(p => {
+    const score = ((p.traffic + p.rev + p.rpa + p.risk) / 4).toFixed(1);
+    const priorClass = p.priority.startsWith('S') ? 'tag-gold' : p.priority.startsWith('A') ? 'tag-green' : p.priority.startsWith('B') ? 'tag-blue' : p.priority.startsWith('C') ? 'tag-purple' : 'tag-teal';
+    const bar = (n) => `<div style="display:flex;align-items:center;gap:4px"><div style="width:${n*8}px;height:6px;background:var(--accent);border-radius:3px;opacity:0.7"></div><span style="font-size:11px;color:var(--text3)">${n}/10</span></div>`;
+    tbody.innerHTML += `
+    <tr>
+      <td style="font-weight:600">${p.name}</td>
+      <td>${bar(p.traffic)}</td>
+      <td>${bar(p.rev)}</td>
+      <td>${bar(p.rpa)}</td>
+      <td>${bar(p.risk)}</td>
+      <td><span style="font-family:var(--font-mono);font-size:15px;color:var(--accent4);font-weight:700">${score}</span></td>
+      <td><span class="tag ${priorClass}">${p.priority}</span></td>
+    </tr>
+    `;
+  });
+}
+
+// ============================================================
+// ACCOUNTS
+// ============================================================
+const accounts = [
+  {
+    emoji:"🌙", name:"深夜治愈室", tagline:"「每一个失眠的夜晚，都有人陪你」",
+    color:"#00d4ff",
+    profile:"账号名：深夜治愈室 | 冥想·解压·温暖陪伴",
+    sign:"凌晨三点，你还好吗？🌙 每天更新治愈系内容，愿你被这个世界温柔对待。",
+    cover:"深蓝夜空背景+月亮元素，字体柔和圆润，主色调#1a2744蓝色渐变",
+    platforms:["抖音","视频号","小红书","B站"],
+    content:["睡前冥想音频","情绪治愈文","焦虑自救指南","深夜共鸣故事"],
+    freq:"每日4-6条（睡前集中发布）",
+    money:"付费冥想课·解压音频包·1v1情绪陪伴",
+    est:"¥8000-30000/月（成熟期）"
+  },
+  {
+    emoji:"💼", name:"商业进化论", tagline:"「看透商业逻辑，赢在认知差」",
+    color:"#f59e0b",
+    profile:"账号名：商业进化论 | 商业案例·财富思维·认知升级",
+    sign:"每天一个改变认知的商业故事。10年创业者，专注分析成功背后的逻辑。",
+    cover:"深灰黑色背景，金色线条图表，极简商务风格，数字/图表元素突出",
+    platforms:["微博","知乎","抖音","视频号","YouTube"],
+    content:["商业模式拆解","创业失败案例","财富思维转变","投资逻辑科普"],
+    freq:"每日3-5条（早7点+午12点+晚8点）",
+    money:"品牌合作·付费专栏·私董会社群",
+    est:"¥15000-80000/月（成熟期）"
+  },
+  {
+    emoji:"🌱", name:"萌芽学堂", tagline:"「每个孩子都是等待绽放的种子」",
+    color:"#22c55e",
+    profile:"账号名：萌芽学堂 | 儿童启蒙·亲子互动·教育方法",
+    sign:"前幼师·两娃妈 | 分享每天5分钟，在家就能做的趣味启蒙游戏 🌱",
+    cover:"白底+绿色活泼元素，儿童插画风格，温暖阳光感，字体圆润可爱",
+    platforms:["抖音","小红书","视频号","B站","YouTube"],
+    content:["益智小游戏","早教绘本推荐","育儿误区辟谣","亲子手工DIY"],
+    freq:"每日4-6条（上午9点+下午4点+晚8点）",
+    money:"儿童课程·绘本测评·育儿工具箱",
+    est:"¥10000-60000/月（成熟期）"
+  },
+  {
+    emoji:"😂", name:"今天也要笑", tagline:"「人生已经够苦了，笑一笑吧」",
+    color:"#ff6b35",
+    profile:"账号名：今天也要笑 | 每日搞笑·段子·社会百态",
+    sign:"捕捉生活里那些让你忍不住笑出声的瞬间 😂 日更不断，笑声不停！",
+    cover:"亮黄底色+大笑表情包元素，高对比度，活泼跳跃感，字体粗黑夸张",
+    platforms:["抖音","微博","快手","TikTok"],
+    content:["社会现象吐槽","反转段子","生活小剧场","热梗二创"],
+    freq:"每日6-10条（全天均匀分布）",
+    money:"创作激励·品牌植入·表情包授权",
+    est:"¥5000-25000/月（成熟期）"
+  },
+  {
+    emoji:"🧬", name:"硬核科普站", tagline:"「用最简单的语言，讲最复杂的知识」",
+    color:"#a855f7",
+    profile:"账号名：硬核科普站 | 每天5分钟，知识改变认知",
+    sign:"用大白话讲透医学、心理、历史、科技的冷知识。关注我，每天学一个颠覆认知的知识。",
+    cover:"暗紫色渐变背景，荧光元素，科技感+神秘感，几何图形装饰",
+    platforms:["B站","抖音","YouTube","微博"],
+    content:["医学冷知识","心理学原理","反常识科学","历史秘闻"],
+    freq:"每日3-5条（午间+晚间）",
+    money:"品牌合作·付费专栏·线上课程",
+    est:"¥8000-40000/月（成熟期）"
+  },
+  {
+    emoji:"🥗", name:"好好吃饭研究所", tagline:"「吃得好才能活得好」",
+    color:"#14b8a6",
+    profile:"账号名：好好吃饭研究所 | 营养·菜谱·健康饮食",
+    sign:"营养师出身，日更一个3步骤搞定的健康菜谱🥗 吃对了，身体才会好。",
+    cover:"清新白绿色调，食物摄影+手绘元素，温暖食欲感，字体圆润现代",
+    platforms:["小红书","抖音","视频号","Instagram","YouTube"],
+    content:["快手家常菜","饮食营养误区","减脂食谱","外卖健康搭配"],
+    freq:"每日5-8条（上午10点+中午11点+晚6点）",
+    money:"食材测评·品牌合作·食谱电子书",
+    est:"¥10000-50000/月（成熟期）"
+  },
+  {
+    emoji:"🤖", name:"AI超能研究院", tagline:"「AI时代，普通人的弯道超车指南」",
+    color:"#00d4ff",
+    profile:"账号名：AI超能研究院 | AI工具·提效·副业变现",
+    sign:"每天分享1个让普通人也能用上的AI神器🤖 关注我，比别人早一步掌握未来工具。",
+    cover:"赛博朋克风格，蓝色+紫色渐变，电路板纹理，科技感极强",
+    platforms:["抖音","B站","YouTube","微博","小红书"],
+    content:["AI工具教程","AI副业方法","AI作图攻略","ChatGPT技巧"],
+    freq:"每日4-6条（全天分布）",
+    money:"AI课程·工具推广·付费社群",
+    est:"¥20000-100000+/月（成熟期）"
+  },
+  {
+    emoji:"💪", name:"自律生活实验室", tagline:"「戒掉拖延，成为更好的自己」",
+    color:"#22c55e",
+    profile:"账号名：自律生活实验室 | 效率方法·时间管理·自我提升",
+    sign:"亲测有效的自律方法，不是鸡汤是工具🔧 跟我一起，21天改变一个坏习惯。",
+    cover:"白底+绿色+黑色极简风，钟表/计划表图形元素，清晰利落感",
+    platforms:["小红书","抖音","B站","微博","YouTube"],
+    content:["番茄工作法","早起打卡挑战","手账时间管理","拖延症自救"],
+    freq:"每日4-6条（早7点+午12点+晚9点）",
+    money:"效率工具推广·规划模板·付费社群",
+    est:"¥8000-35000/月（成熟期）"
+  },
+  {
+    emoji:"✈️", name:"地球漫游笔记", tagline:"「世界很大，去看看」",
+    color:"#ec4899",
+    profile:"账号名：地球漫游笔记 | 旅行攻略·省钱秘籍·风景人文",
+    sign:"穷游达人，用最少的钱看最多的风景✈️ 东南亚·日本·欧洲，全有攻略！",
+    cover:"世界地图轮廓+清新旅行摄影，天蓝色调，探险感，字体手写风格",
+    platforms:["小红书","抖音","Instagram","微博","YouTube"],
+    content:["城市穷游攻略","隐秘打卡地","签证申请指南","特价机票抢购"],
+    freq:"每日3-5条（下午3点+晚8点）",
+    money:"OTA佣金·行李箱测评·旅游产品",
+    est:"¥8000-40000/月（成熟期）"
+  },
+  {
+    emoji:"💰", name:"副业百宝箱", tagline:"「工资之外，还有另一种可能」",
+    color:"#f59e0b",
+    profile:"账号名：副业百宝箱 | 真实可执行的副业方法",
+    sign:"分享我亲测可行的副业方法💰 不吹牛，不割韭菜，只讲我真正做过的事。",
+    cover:"金色+深色背景，钱币/增长图表元素，专业且有吸引力",
+    platforms:["抖音","小红书","知乎","微博","YouTube"],
+    content:["副业真实收入","低成本起步方法","自媒体入门","被动收入设计"],
+    freq:"每日4-6条（早7点+晚8点主力）",
+    money:"知识付费·变现训练营·工具推广",
+    est:"¥15000-80000+/月（成熟期）"
+  },
+  {
+    emoji:"🏥", name:"健康小百科", tagline:"「把医生说不完的话，我来说完」",
+    color:"#14b8a6",
+    profile:"账号名：健康小百科 | 医学科普·健康习惯·辟谣",
+    sign:"用大白话讲透你最关心的健康问题🏥 不卖药，只分享真正有用的健康知识。",
+    cover:"白底+青绿医疗风格，干净清洁感，专业图标元素，字体规整可信",
+    platforms:["抖音","小红书","视频号","微博","YouTube"],
+    content:["常见病预防","体检指标解读","健康误区","用药安全提示"],
+    freq:"每日4-6条（上午+晚间）",
+    money:"健康产品测评·医疗器械推广·付费咨询",
+    est:"¥10000-60000/月（成熟期）"
+  },
+  {
+    emoji:"📈", name:"认知跃迁", tagline:"「改变命运的，是你看问题的角度」",
+    color:"#a855f7",
+    profile:"账号名：认知跃迁 | 哲学·心理·思维升级",
+    sign:"每天一个改变你思维框架的洞见💡 关注后你会发现，原来世界还可以这样看。",
+    cover:"深紫色渐变背景，思维导图/大脑图形元素，神秘知识感，字体优雅有力",
+    platforms:["微博","知乎","B站","视频号","LinkedIn"],
+    content:["认知框架分析","思维误区纠正","哲学日常","人性洞察"],
+    freq:"每日3-5条（午间+深夜主力）",
+    money:"付费专栏·思维训练营·企业培训",
+    est:"¥12000-60000/月（成熟期）"
+  },
+];
+
+function buildAccounts() {
+  const container = document.getElementById('account-cards');
+  accounts.forEach(a => {
+    container.innerHTML += `
+    <div class="account-card">
+      <div class="acard-header">
+        <div class="acard-avatar" style="background:${a.color}22;border:1px solid ${a.color}44">
+          ${a.emoji}
+        </div>
+        <div>
+          <div class="acard-channel" style="color:${a.color}">${a.name}</div>
+          <div class="acard-tagline">${a.tagline}</div>
+        </div>
+      </div>
+      <div class="acard-body">
+        <div class="acard-row">
+          <div class="acard-row-label">简介</div>
+          <div class="acard-row-val" style="font-size:12px">${a.profile}</div>
+        </div>
+        <div class="acard-row">
+          <div class="acard-row-label">签名</div>
+          <div class="acard-row-val" style="font-size:12px;color:var(--text2)">${a.sign}</div>
+        </div>
+        <div class="acard-row">
+          <div class="acard-row-label">封面</div>
+          <div class="acard-row-val" style="font-size:12px;color:var(--text2)">${a.cover}</div>
+        </div>
+        <div class="acard-row">
+          <div class="acard-row-label">内容</div>
+          <div class="acard-row-val">
+            ${a.content.map(c=>`<span class="chip">${c}</span>`).join('')}
+          </div>
+        </div>
+        <div class="acard-row">
+          <div class="acard-row-label">平台</div>
+          <div class="acard-row-val">
+            ${a.platforms.map(p=>`<span class="chip" style="background:${a.color}11;border-color:${a.color}33;color:${a.color}">${p}</span>`).join('')}
+          </div>
+        </div>
+        <div class="acard-row">
+          <div class="acard-row-label">频率</div>
+          <div class="acard-row-val" style="font-size:12px">${a.freq}</div>
+        </div>
+        <div class="acard-row">
+          <div class="acard-row-label">变现</div>
+          <div class="acard-row-val" style="font-size:12px;color:var(--accent4)">${a.money}</div>
+        </div>
+      </div>
+      <div class="acard-footer">
+        <span style="font-size:11px;color:var(--text3)">预期月收入（成熟期）</span>
+        <span class="rev-est">${a.est}</span>
+      </div>
+    </div>
+    `;
+  });
+}
+
+// ============================================================
+// SCHEDULE
+// ============================================================
+function buildSchedule() {
+  const days = ['时段','周一','周二','周三','周四','周五','周六','周日'];
+  const times = ['06:00','08:00','10:00','12:00','14:00','17:00','19:00','21:00','23:00'];
+
+  // Schedule matrix: rows=times, cols=days (Mon-Sun)
+  // Values: 0=empty, 1=low, 2=med, 3=high, 4=peak
+  const matrix = [
+    [1,1,1,1,1,2,2],  // 06:00
+    [3,3,3,3,3,2,2],  // 08:00 通勤
+    [1,1,1,1,1,3,3],  // 10:00
+    [3,3,3,3,3,3,3],  // 12:00 午休
+    [1,1,1,1,1,2,2],  // 14:00
+    [3,3,3,3,4,2,2],  // 17:00 下班
+    [3,3,3,3,4,3,3],  // 19:00
+    [4,4,4,4,4,4,4],  // 21:00 黄金
+    [2,2,2,2,3,3,3],  // 23:00
+  ];
+
+  const grid = document.getElementById('schedule-grid');
+  const classMap = ['sch-empty','sch-low','sch-med','sch-high','sch-peak'];
+  const labelMap = ['—','1条','2-3','4-5','6+'];
+
+  // Header
+  days.forEach(d => {
+    const div = document.createElement('div');
+    div.className = 'sch-header';
+    div.textContent = d;
+    grid.appendChild(div);
+  });
+
+  // Rows
+  times.forEach((t, ti) => {
+    const timeDiv = document.createElement('div');
+    timeDiv.className = 'sch-time';
+    timeDiv.textContent = t;
+    grid.appendChild(timeDiv);
+
+    matrix[ti].forEach(val => {
+      const cell = document.createElement('div');
+      cell.className = `sch-cell ${classMap[val]}`;
+      cell.innerHTML = val > 0 ? `<span>${labelMap[val]}</span>` : '';
+      grid.appendChild(cell);
+    });
+  });
+}
+
+// ============================================================
+// MONEY METHODS
+// ============================================================
+const moneyMethods = [
+  { icon:"🎁", title:"平台创作激励", desc:"抖音/B站/YouTube等平台创作者基金，按播放量分成，前期稳定基础收入。B站区间约¥0.1-0.5/千播，YouTube约$1-3/千播。", est:"¥1000-20000/月", num:"01" },
+  { icon:"🤝", title:"品牌广告合作", desc:"达到1万粉后开始接品牌软植入，报价按粉丝量和垂类定。健康/财经/教育类每条报价最高，美妆其次。5万粉账号单条报价约¥1000-5000。", est:"¥5000-100000/月", num:"02" },
+  { icon:"🛒", title:"直播电商带货", desc:"抖音/快手直播间带货，10%+佣金率是标配。垂类产品（健康/母婴/教育）单品佣金高，转化率稳定。月营业额超过10万开始有规模效应。", est:"¥3000-50000/月", num:"03" },
+  { icon:"📚", title:"知识付费课程", desc:"在得到/知乎/小鹅通/视频号开付费课程是最高利润率的变现方式。单课定价99-999元，商业/教育类内容尤其适合。复购率高，边际成本接近零。", est:"¥5000-200000/月", num:"04" },
+  { icon:"👥", title:"付费社群/私域", desc:"微信付费社群年费制，专注一个垂类保持高价值内容输出。年费198-1980元，千人社群年收入即可达20-200万。运营成本极低。", est:"¥3000-50000/月", num:"05" },
+  { icon:"🔗", title:"联盟营销/CPS", desc:"推广其他产品/服务按成交分佣，京东/淘宝联盟，教育平台分销，理财平台导流。零库存，纯介绍，佣金率5%-50%不等。", est:"¥2000-30000/月", num:"06" },
+  { icon:"📧", title:"邮件订阅/Newsletter", desc:"海外账号建立邮件列表，通过Substack/Mailchimp发付费通讯。美国优质Newsletter订阅年费$100-500，千人订阅年收入约$10万。", est:"¥5000-100000/月", num:"07" },
+  { icon:"💼", title:"接单/咨询服务", desc:"成为某领域专家后，提供1v1付费咨询、定制方案、陪跑服务。时薪可达¥500-5000，适合商业/教育/健康类账号。", est:"¥3000-50000/月", num:"08" },
+  { icon:"🎨", title:"IP周边/数字产品", desc:"制作和销售数字产品：PPT模板、笔记模板、Notion模板、AI提示词库。一次制作，永久销售，毛利率极高。定价9.9-199元不等。", est:"¥1000-30000/月", num:"09" },
+  { icon:"🏷️", title:"账号孵化出售", desc:"稳定运营6-12个月的垂类账号，1万粉账号可出售约¥1000-5000，10万粉账号价值¥5-50万。可规模化孵化再出售。", est:"按项目¥5000-500000", num:"10" },
+  { icon:"📰", title:"投放/推广发布", desc:"账号有一定权重后，接受品牌方的SEO推广、公众号软文、带话题发布等。流量类账号报价低但量大，垂类账号报价高。", est:"¥2000-20000/月", num:"11" },
+  { icon:"🎙️", title:"播客/音频赞助", desc:"海外播客赞助市场成熟，单期插播广告费$500-5000。喜马拉雅广告分成+品牌合作双收入。音频内容制作成本低，变现效率高。", est:"¥2000-20000/月", num:"12" },
+  { icon:"🤖", title:"AI工具变现", desc:"封装常用AI工作流，以订阅制或一次性售卖形式出售（月费9.9-99元）。自媒体运营者痛点明确，付费意愿高，开发者变现新路径。", est:"¥3000-50000/月", num:"13" },
+  { icon:"🎓", title:"线上培训/直播课", desc:"定期开展主题直播课，单次定价19-199元，或系列课999-4999元。视频号直播付款链路最短，转化率最高，适合知识类创作者。", est:"¥5000-100000/月", num:"14" },
+  { icon:"📊", title:"数据报告/行业研究", desc:"面向企业客户出售行业数据报告、内容趋势分析，单份定价1000-50000元。适合有一定账号数据积累和行业洞察能力的创作者。", est:"按项目¥5000-200000", num:"15" },
+];
+
+function buildMoney() {
+  const container = document.getElementById('money-methods');
+  moneyMethods.forEach(m => {
+    container.innerHTML += `
+    <div class="money-card" data-num="${m.num}">
+      <span class="money-icon">${m.icon}</span>
+      <div class="money-title">${m.title}</div>
+      <div class="money-desc">${m.desc}</div>
+      <span class="money-est">${m.est}</span>
+    </div>
+    `;
+  });
+}
+
+// ============================================================
+// WARNINGS
+// ============================================================
+const warnings = [
+  { type:"danger", icon:"🚫", title:"政治类内容——绝对禁区", desc:"任何涉及政治评论、领导人、敏感历史事件、台湾/西藏/新疆的内容，一律不触碰。国内账号封号速度极快且无法申诉。宁可放弃10条流量，也不踩这条红线。" },
+  { type:"danger", icon:"⚕️", title:"医疗/投资类内容必须合规", desc:"切勿承诺「治好某病」「保证收益」，这在国内属于违法广告，可能面临罚款和账号永久封禁。健康内容必须标注「以上内容不构成医疗建议，如有疾病请就医」。" },
+  { type:"danger", icon:"©️", title:"版权意识必须到位", desc:"背景音乐、图片、视频片段都有版权。使用有版权的音乐会导致视频静音甚至删除。优先使用：Platform内置音乐库、CC0授权图片（Unsplash/Pexels）、自录音频。" },
+  { type:"caution", icon:"🤖", title:"RPA自动化被平台检测的风险", desc:"各平台都有机器行为检测系统。风险控制：①每个账号绑定固定IP，不频繁切换；②操作频率不超过真实用户水平；③保留一定比例的手动操作；④新账号前2周手动操作养号。" },
+  { type:"caution", icon:"📱", title:"账号养号期不要操之过急", desc:"新注册账号发布前需「养号」7-14天：每天正常浏览、点赞、评论，模拟真实用户行为。首条视频流量往往被平台放大测试，选最好的内容作为首发。不要前3天就每天发10条。" },
+  { type:"caution", icon:"💰", title:"广告收益预期要现实", desc:"平台创作者激励收益非常低（几毛到几分钱每千播），靠创作基金根本无法维生。核心收入来源是品牌合作和知识付费，这需要账号有足够垂类影响力。不要只靠流量分成。" },
+  { type:"info", icon:"📊", title:"不要同时铺开所有账号", desc:"先集中资源把2-3个账号做扎实，形成稳定的内容生产流程后再扩展。铺太多但每个都平庸，不如集中做好2个有深度的账号。关注粉丝增长速度和互动率，而不只是发帖数量。" },
+  { type:"info", icon:"🔁", title:"内容跨平台分发注意平台调性", desc:"同一内容在不同平台需要微调：小红书需要更多配图、标签、博主感；抖音需要钩子前置、背景音乐；微博适合话题词带流量；B站需要封面+详细简介。不要直接复制粘贴。" },
+  { type:"success", icon:"🌟", title:"让数据告诉你做什么内容", desc:"每发出100条内容，里面一定有3-5条意外爆款。仔细分析爆款的共同特征（选题、开头方式、情绪点），然后在这个方向上大量复制生产。不要对平庸内容过度优化，找到爆款规律后all-in。" },
+  { type:"success", icon:"💡", title:"AI内容需要加入个人观点", desc:"纯AI生成的内容越来越容易被识别且缺乏传播力。最好的方式是：AI生成初稿，你加入个人故事/观点/体验，这样既有效率又有温度。平台也在逐步限制纯AI内容的推流权重。" },
+];
+
+function buildWarnings() {
+  const grid = document.getElementById('warnings-grid');
+  warnings.forEach(w => {
+    grid.innerHTML += `
+    <div class="warn-box warn-${w.type} aos">
+      <span class="warn-icon">${w.icon}</span>
+      <div>
+        <div class="warn-title">${w.title}</div>
+        <div class="warn-desc">${w.desc}</div>
+      </div>
+    </div>
+    `;
+  });
+}
+
+// ============================================================
+// TABS
+// ============================================================
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+// ============================================================
+// TOPBAR
+// ============================================================
+window.addEventListener('scroll', () => {
+  const topbar = document.getElementById('topbar');
+  if (window.scrollY > window.innerHeight * 0.8) {
+    topbar.classList.add('visible');
+  } else {
+    topbar.classList.remove('visible');
+  }
+});
+
+function scrollTo(selector) {
+  const el = document.querySelector(selector);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ============================================================
+// AOS
+// ============================================================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+
+function initAOS() {
+  document.querySelectorAll('.aos').forEach(el => observer.observe(el));
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  buildTop100();
+  buildPlatforms();
+  buildAccounts();
+  buildSchedule();
+  buildMoney();
+  buildWarnings();
+  initAOS();
+});
+</script>
+</body>
+</html>
