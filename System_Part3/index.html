@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0f172a">
+    <title>【3/10】AI跨国套利系统：全自动线索雷达与RPA抓取 | 企业级全案</title>
+    
+    <style>
+        /* ==========================================================================
+           完全继承全局 CSS 变量与重置系统 (保持视觉一致性)
+           ========================================================================== */
+        :root {
+            --color-primary-50: #eff6ff; --color-primary-100: #dbeafe; --color-primary-500: #3b82f6; --color-primary-600: #2563eb; --color-primary-900: #1e3a8a;
+            --color-slate-50: #f8fafc; --color-slate-100: #f1f5f9; --color-slate-200: #e2e8f0; --color-slate-300: #cbd5e1; --color-slate-600: #475569; --color-slate-800: #1e293b; --color-slate-900: #0f172a;
+            --color-success-bg: #ecfdf5; --color-success-text: #059669; --color-warning-bg: #fffbeb; --color-warning-text: #d97706; --color-danger-bg: #fef2f2; --color-danger-text: #dc2626;
+            --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-family-mono: "Fira Code", "JetBrains Mono", Consolas, monospace;
+            --spacing-2: 0.5rem; --spacing-3: 0.75rem; --spacing-4: 1rem; --spacing-6: 1.5rem; --spacing-8: 2rem; --spacing-12: 3rem;
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1); --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --radius-md: 0.375rem; --radius-lg: 0.5rem; --radius-xl: 0.75rem; --radius-2xl: 1rem;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body { font-family: var(--font-family-base); background-color: var(--color-slate-50); color: var(--color-slate-800); line-height: 1.6; }
+
+        .app-container { max-width: 960px; margin: 0 auto; padding: var(--spacing-6) var(--spacing-4); display: flex; flex-direction: column; gap: var(--spacing-8); }
+
+        /* ==========================================================================
+           Part 3 专属UI：雷达科技风
+           ========================================================================== */
+        .hero-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #312e81 100%);
+            border-radius: var(--radius-2xl); padding: var(--spacing-12) var(--spacing-6); color: white; position: relative; overflow: hidden; box-shadow: var(--shadow-xl); text-align: center;
+        }
+        /* 雷达扫描动画背景 */
+        .hero-banner::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, transparent 70%, rgba(99, 102, 241, 0.3) 100%);
+            border-radius: 50%; animation: radarSpin 4s linear infinite; z-index: 0; pointer-events: none;
+        }
+        @keyframes radarSpin { 100% { transform: rotate(360deg); } }
+
+        .badge-version { display: inline-block; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(4px); padding: 4px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; position: relative; z-index: 1; }
+        .hero-banner h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 800; line-height: 1.2; margin-bottom: 1rem; position: relative; z-index: 1; }
+        .hero-banner p { font-size: 1.1rem; color: #e0e7ff; max-width: 650px; margin: 0 auto; position: relative; z-index: 1; }
+
+        .content-card { background: #fff; border-radius: var(--radius-xl); padding: var(--spacing-8) var(--spacing-6); box-shadow: var(--shadow-md); border: 1px solid var(--color-slate-200); }
+        .card-header { display: flex; align-items: center; margin-bottom: var(--spacing-6); padding-bottom: var(--spacing-4); border-bottom: 2px solid var(--color-slate-100); }
+        .card-icon { font-size: 2rem; margin-right: var(--spacing-4); background: var(--color-primary-50); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-lg); }
+        .card-title { font-size: 1.4rem; font-weight: 700; color: var(--color-slate-900); }
+
+        /* 折叠面板样式优化 */
+        details { background: #f8fafc; border: 1px solid var(--color-slate-200); border-radius: var(--radius-lg); margin-bottom: 1rem; overflow: hidden; transition: all 0.3s ease; }
+        summary { padding: 1.2rem 1.5rem; font-size: 1.1rem; font-weight: 600; color: var(--color-slate-900); cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; user-select: none; }
+        summary::-webkit-details-marker { display: none; }
+        summary:hover { background: #f1f5f9; }
+        summary::after { content: '▼'; font-size: 0.9rem; color: var(--color-primary-500); transition: transform 0.3s ease; }
+        details[open] summary::after { transform: rotate(180deg); }
+        .details-content { padding: 1.5rem; border-top: 1px solid var(--color-slate-200); background: white; font-size: 0.95rem; }
+
+        /* RPA逻辑代码块 */
+        .rpa-logic { background: #1e293b; color: #cbd5e1; padding: 1.5rem; border-radius: var(--radius-lg); font-family: var(--font-family-mono); font-size: 0.9rem; margin: 1rem 0; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); border-left: 4px solid var(--color-primary-500); overflow-x: auto; white-space: pre-wrap; line-height: 1.6; }
+        .rpa-keyword { color: #f472b6; font-weight: bold; } /* 粉色代表动作 */
+        .rpa-variable { color: #34d399; } /* 绿色代表变量 */
+        .rpa-comment { color: #64748b; font-style: italic; } /* 灰色代表注释 */
+
+        .alert { padding: 1rem; border-radius: var(--radius-lg); margin: 1.5rem 0; display: flex; gap: 0.75rem; font-size: 0.95rem; }
+        .alert-danger { background: var(--color-danger-bg); color: var(--color-danger-text); border-left: 4px solid #ef4444; }
+        .alert-warning { background: var(--color-warning-bg); color: var(--color-warning-text); border-left: 4px solid #f59e0b; }
+        .alert-success { background: var(--color-success-bg); color: var(--color-success-text); border-left: 4px solid #10b981; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { border: 1px solid var(--color-slate-200); padding: 0.75rem; text-align: left; font-size: 0.9rem; }
+        th { background: var(--color-slate-50); font-weight: 600; color: var(--color-slate-900); }
+
+        .highlight-box { background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2); padding: 1rem; border-radius: var(--radius-md); margin: 1rem 0; }
+
+        @media (max-width: 768px) {
+            .app-container { padding: 1rem 0.5rem; }
+            .content-card { padding: 1.5rem 1rem; }
+            summary { padding: 1rem; font-size: 1rem; }
+            .details-content { padding: 1rem; }
+            table { display: block; overflow-x: auto; white-space: nowrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="app-container">
+        
+        <!-- Hero Section -->
+        <header class="hero-banner">
+            <span class="badge-version">Part 3 / 10 | 数据采集引擎</span>
+            <h1>全自动线索雷达<br>RPA 抓取逻辑与防封策略</h1>
+            <p>在流量越来越贵的2026年，去公域平台投广告是死路一条。真正的暴利，藏在各大平台公开但庞杂的数据中。今天，我们将利用影刀RPA，构建你的第一条全自动数据抽水管。</p>
+        </header>
+
+        <!-- Module 5: 鱼塘定位 -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">🎯</div>
+                <h2 class="card-title">05. 鱼塘定位：去哪里抓有采购需求的“冷门老外”？</h2>
+            </div>
+            
+            <p>在使用机器人之前，你必须知道目标客户聚集在哪里。我们不抓普通的消费者（C端），我们要抓的是小B端（小批发商、实体店老板、包工头）。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>目标平台</th>
+                        <th>数据特征与价值</th>
+                        <th>搜索指令演示 (以寻找南美五金商为例)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Facebook Groups (群组)</strong></td>
+                        <td>极高。全球小商人最爱在群组里发帖求购。里面充满了直接留 WhatsApp 号码的“直客”。</td>
+                        <td>使用目标国语言搜索群组：<code>"importadores de ferreteria"</code> (五金进口商 - 西班牙语)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Google Maps (谷歌地图)</strong></td>
+                        <td>极稳定。抓取当地实体店面的公开邮箱、官网和电话。适合长线开发。</td>
+                        <td>在地图中定位到墨西哥城，搜索：<code>"Ferretería"</code> (五金店)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Instagram 标签 (Hashtag)</strong></td>
+                        <td>中等。适合视觉类产品（如服装、LED灯、美甲产品）。很多小店老板会留联系方式。</td>
+                        <td>搜索标签：<code>#ventasalpormayor</code> (批发销售)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-success">
+                <strong>💡 降维打击提示：不会外语怎么搜？</strong><br>
+                不要用百度翻译！打开你的大模型（如DeepSeek），输入指令：“我是一个卖[农用薄膜]的中国商人，我想在Facebook上寻找[南非]的买家。请帮我生成20个南非当地人常用的、带有极强采购意向的群组搜索关键词，包括当地俚语，并输出为表格。”
+            </div>
+        </section>
+
+        <!-- Module 6: RPA逻辑搭建 -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">🤖</div>
+                <h2 class="card-title">06. 手把手构建：影刀RPA“脸书自动抽水机”</h2>
+            </div>
+            
+            <p style="margin-bottom: 1.5rem;">接下来是核心的动手工序。请打开你在Part 2安装好的【影刀RPA】，创建一个新的【PC网页自动化】应用，命名为“FB五金客源挖掘机”。</p>
+
+            <details open>
+                <summary>步骤 1：环境接管与页面初始化</summary>
+                <div class="details-content">
+                    <p>不要让影刀去打开普通的Chrome，我们要让它接管我们在Part 2中配置好的“指纹浏览器（AdsPower）”。</p>
+                    <ol style="padding-left: 1.5rem; margin-bottom: 1rem;">
+                        <li>在指令面板搜索：<strong>“接管已打开的浏览器”</strong>。</li>
+                        <li>通过窗口标题匹配你的 AdsPower 浏览器窗口。</li>
+                        <li>加入指令：<strong>“打开网页”</strong>，填入你提前找好的Facebook群组链接（例如：<code>https://www.facebook.com/groups/xxxxxx</code>）。</li>
+                        <li><span style="color: #ef4444; font-weight: bold;">极其重要的一步：</span> 加入指令：<strong>“等待网页加载完成”</strong>，并设置一个随机延迟（如等待 3 到 7 秒）。老外的网络通常较慢，不等待直接抓取会导致机器人崩溃。</li>
+                    </ol>
+                </div>
+            </details>
+
+            <details>
+                <summary>步骤 2：破解瀑布流与自动向下滚动</summary>
+                <div class="details-content">
+                    <p>Facebook是“瀑布流”网页，你不往下滚，新的帖子就不会加载出来。我们需要写一个循环逻辑：</p>
+                    <div class="rpa-logic">
+<span class="rpa-keyword">For 循环</span> (变量 <span class="rpa-variable">i</span> 从 1 到 50):
+    <span class="rpa-comment">// 模拟人类浏览动作，防止被Facebook判定为机器人</span>
+    <span class="rpa-keyword">鼠标滚动</span> (向下滚动 800 像素)
+    <span class="rpa-keyword">随机延时</span> (产生一个 2秒 到 5秒 的随机数并等待)
+    
+    <span class="rpa-comment">// 展开长帖子，寻找隐藏的电话号码</span>
+    <span class="rpa-keyword">If 判断</span> (网页中是否存在文本 "See more" / "查看更多"):
+        <span class="rpa-keyword">点击元素</span> ("See more" 按钮)
+<span class="rpa-keyword">End For</span>
+                    </div>
+                    <p style="margin-top: 1rem;">这段逻辑会让机器人在前台像一个真实用户一样，慢条斯理地往下刷50次屏幕，把所有的隐藏帖子全部展开，露出里面的邮箱和WhatsApp号码。</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>步骤 3：数据捕获与结构化清洗 (XPath魔法)</summary>
+                <div class="details-content">
+                    <p>页面展开后，我们需要把有用的信息精准地摘取下来。</p>
+                    <p>在影刀中，使用<strong>“数据抓取 (批量)”</strong>指令。按照提示，点击页面上第一个帖子的“发帖人名字”，再点击第二个帖子的“发帖人名字”，影刀会自动生成类似 <code>//div[@class='x1y1aw1k']/span/a</code> 的 <strong>XPath</strong> 代码，瞬间选中所有发帖人。</p>
+                    
+                    <div class="highlight-box">
+                        <strong>你需要建立一个包含以下4列的数据表（Data Table）：</strong>
+                        <ul style="padding-left: 1.5rem; margin-top: 0.5rem;">
+                            <li><strong>列A：发帖人名称</strong> (用于开发信称呼)</li>
+                            <li><strong>列B：帖子主页链接</strong> (用于备用联系)</li>
+                            <li><strong>列C：帖子正文完整内容</strong> (极其重要！下节课我们将把它喂给AI进行分析)</li>
+                            <li><strong>列D：发布时间</strong> (剔除1年前的无效老帖)</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+
+            <details>
+                <summary>步骤 4：数据落盘与异常捕捉 (Try-Catch)</summary>
+                <div class="details-content">
+                    <p>网络是不稳定的。如果抓到一半断网了，或者Facebook突然弹出一个验证码，你的机器人直接崩溃报错，前面抓的数据就全丢了。</p>
+                    <p>引入 <strong>“Try-Catch (异常处理)”</strong> 机制：</p>
+                    <div class="rpa-logic">
+<span class="rpa-keyword">Try 尝试执行</span>:
+    执行上面定义的 [滚动页面] 和 [批量抓取数据]
+<span class="rpa-keyword">Catch 如果发生任何报错</span>:
+    <span class="rpa-keyword">保存数据表至Excel</span> (路径: "C:\Desktop\LeadData_ErrorBackup.xlsx")
+    <span class="rpa-keyword">发送企业微信/钉钉通知</span> ("老板，抓取中断，可能遇到验证码，已自动备份数据！")
+    <span class="rpa-keyword">终止流程</span>
+<span class="rpa-keyword">Finally 无论是否报错最后都执行</span>:
+    <span class="rpa-keyword">保存数据表至Excel</span> (路径: "C:\Desktop\LeadData_Final.xlsx")
+    <span class="rpa-keyword">关闭当前网页窗口</span>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <!-- Module 7: 防封禁玄学 -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">🛡️</div>
+                <h2 class="card-title">07. 赛博对抗：如何让平台觉得你“是一个人”？</h2>
+            </div>
+            
+            <div class="alert alert-danger">
+                <strong>很多小白的机器人活不过一天，因为他们把操作速度调到了最快。</strong> 机器瞬间点击100次，Facebook的风控AI 0.1秒就能判定你是爬虫，直接永久封号。做自动化的核心哲学是：<strong>“要慢，要蠢，要像人。”</strong>
+            </div>
+
+            <table style="margin-top: 1rem;">
+                <tr>
+                    <th>小白做法 (极易被封)</th>
+                    <th>专业架构师做法 (高存活率)</th>
+                </tr>
+                <tr>
+                    <td>固定等待时间：每次翻页死板地等待 3000毫秒。</td>
+                    <td><strong>随机噪音注入：</strong> 每次等待时间设定为 <code>Random(2145, 5320)</code> 毫秒，毫无规律。</td>
+                </tr>
+                <tr>
+                    <td>鼠标瞬间移动：光标从屏幕左上角瞬间瞬移到右下角点击。</td>
+                    <td><strong>模拟鼠标轨迹：</strong> 开启影刀的“拟人化鼠标移动”，鼠标会划出一条带有弧度、甚至会微微抖动的贝塞尔曲线。</td>
+                </tr>
+                <tr>
+                    <td>7x24小时不间断抓取。</td>
+                    <td><strong>模拟作息：</strong> 设置条件：只有在目标国度（如墨西哥）的当地时间上午9点到下午6点之间运行，周末自动暂停。</td>
+                </tr>
+            </table>
+        </section>
+
+    </main>
+
+    <footer style="text-align: center; padding: 2rem; color: var(--color-slate-600); font-size: 0.875rem;">
+        <p>System Initialized: Part 3 Complete. <br>目前你已经得到了一份存满乱七八糟外语和错乱信息的原始 Excel 表格。在下一篇 【4/10】 中，我们将引入 DeepSeek 大脑中枢，瞬间将这些垃圾数据清洗为黄金采购清单！</p>
+    </footer>
+
+</body>
+</html>

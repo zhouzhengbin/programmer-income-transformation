@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0f172a">
+    <title>【4/10】AI跨国套利系统：大模型意图识别与数据清洗 | 企业级全案</title>
+    
+    <style>
+        /* ==========================================================================
+           继承全局 CSS 变量与重置系统 (保持视觉一致性)
+           ========================================================================== */
+        :root {
+            --color-primary-50: #eff6ff; --color-primary-100: #dbeafe; --color-primary-500: #3b82f6; --color-primary-600: #2563eb; --color-primary-900: #1e3a8a;
+            --color-slate-50: #f8fafc; --color-slate-100: #f1f5f9; --color-slate-200: #e2e8f0; --color-slate-300: #cbd5e1; --color-slate-600: #475569; --color-slate-800: #1e293b; --color-slate-900: #0f172a;
+            --color-success-bg: #ecfdf5; --color-success-text: #059669; --color-warning-bg: #fffbeb; --color-warning-text: #d97706; --color-danger-bg: #fef2f2; --color-danger-text: #dc2626;
+            --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-family-mono: "Fira Code", "JetBrains Mono", Consolas, monospace;
+            --spacing-2: 0.5rem; --spacing-3: 0.75rem; --spacing-4: 1rem; --spacing-6: 1.5rem; --spacing-8: 2rem; --spacing-12: 3rem;
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1); --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --radius-md: 0.375rem; --radius-lg: 0.5rem; --radius-xl: 0.75rem; --radius-2xl: 1rem;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body { font-family: var(--font-family-base); background-color: var(--color-slate-50); color: var(--color-slate-800); line-height: 1.6; }
+
+        .app-container { max-width: 960px; margin: 0 auto; padding: var(--spacing-6) var(--spacing-4); display: flex; flex-direction: column; gap: var(--spacing-8); }
+
+        /* ==========================================================================
+           Part 4 专属UI：AI神经元紫/粉渐变科技风
+           ========================================================================== */
+        .hero-banner {
+            background: linear-gradient(135deg, #2e1065 0%, #701a75 100%);
+            border-radius: var(--radius-2xl); padding: var(--spacing-12) var(--spacing-6); color: white; position: relative; overflow: hidden; box-shadow: var(--shadow-xl); text-align: center;
+        }
+        /* 神经网络节点背景特效 */
+        .hero-banner::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(circle at 20% 30%, rgba(216, 180, 254, 0.2) 0%, transparent 20%), 
+                              radial-gradient(circle at 80% 70%, rgba(244, 114, 182, 0.2) 0%, transparent 20%);
+            z-index: 0; pointer-events: none;
+        }
+
+        .badge-version { display: inline-block; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(4px); padding: 4px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; position: relative; z-index: 1; text-transform: uppercase; letter-spacing: 0.05em; }
+        .hero-banner h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 800; line-height: 1.2; margin-bottom: 1rem; position: relative; z-index: 1; }
+        .hero-banner p { font-size: 1.1rem; color: #f3e8ff; max-width: 650px; margin: 0 auto; position: relative; z-index: 1; }
+
+        .content-card { background: #fff; border-radius: var(--radius-xl); padding: var(--spacing-8) var(--spacing-6); box-shadow: var(--shadow-md); border: 1px solid var(--color-slate-200); }
+        .card-header { display: flex; align-items: center; margin-bottom: var(--spacing-6); padding-bottom: var(--spacing-4); border-bottom: 2px solid var(--color-slate-100); }
+        .card-icon { font-size: 2rem; margin-right: var(--spacing-4); background: #faf5ff; color: #9333ea; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-lg); }
+        .card-title { font-size: 1.4rem; font-weight: 700; color: var(--color-slate-900); }
+
+        details { background: #f8fafc; border: 1px solid var(--color-slate-200); border-radius: var(--radius-lg); margin-bottom: 1rem; overflow: hidden; transition: all 0.3s ease; }
+        summary { padding: 1.2rem 1.5rem; font-size: 1.1rem; font-weight: 600; color: var(--color-slate-900); cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; }
+        summary::-webkit-details-marker { display: none; }
+        summary:hover { background: #f1f5f9; }
+        summary::after { content: '+'; font-size: 1.5rem; color: #a855f7; transition: transform 0.3s ease; }
+        details[open] summary::after { transform: rotate(45deg); }
+        .details-content { padding: 1.5rem; border-top: 1px solid var(--color-slate-200); background: white; font-size: 0.95rem; }
+
+        /* 高级终端 Prompt 样式 */
+        .prompt-container { background: #0f172a; border-radius: var(--radius-lg); overflow: hidden; margin: 1.5rem 0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); border: 1px solid #334155; }
+        .prompt-header { background: #1e293b; padding: 0.75rem 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; }
+        .prompt-title { color: #94a3b8; font-size: 0.85rem; font-family: var(--font-family-mono); font-weight: 600; }
+        .prompt-copy-btn { background: #3b82f6; color: white; border: none; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; font-weight: bold; }
+        .prompt-body { padding: 1.5rem; color: #e2e8f0; font-family: var(--font-family-mono); font-size: 0.9rem; line-height: 1.6; white-space: pre-wrap; overflow-x: auto; }
+        
+        /* 语法高亮模拟 */
+        .hl-role { color: #f472b6; font-weight: bold; }
+        .hl-keyword { color: #38bdf8; font-weight: bold; }
+        .hl-string { color: #a7f3d0; }
+        .hl-comment { color: #64748b; font-style: italic; }
+
+        .alert { padding: 1rem; border-radius: var(--radius-lg); margin: 1.5rem 0; display: flex; gap: 0.75rem; font-size: 0.95rem; line-height: 1.5; }
+        .alert-danger { background: var(--color-danger-bg); color: var(--color-danger-text); border-left: 4px solid #ef4444; }
+        .alert-warning { background: var(--color-warning-bg); color: var(--color-warning-text); border-left: 4px solid #f59e0b; }
+        .alert-success { background: var(--color-success-bg); color: var(--color-success-text); border-left: 4px solid #10b981; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { border: 1px solid var(--color-slate-200); padding: 1rem; text-align: left; font-size: 0.9rem; vertical-align: top; }
+        th { background: #f8fafc; font-weight: 600; color: var(--color-slate-900); }
+        .td-bad { background-color: #fef2f2; }
+        .td-good { background-color: #f0fdf4; }
+
+        .step-badge { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: #9333ea; color: white; border-radius: 50%; font-weight: bold; margin-right: 10px; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .app-container { padding: 1rem 0.5rem; }
+            .content-card { padding: 1.5rem 1rem; }
+            summary { padding: 1rem; font-size: 1rem; }
+            .details-content { padding: 1rem; }
+            table { display: block; overflow-x: auto; white-space: nowrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="app-container">
+        
+        <header class="hero-banner">
+            <span class="badge-version">Part 4 / 10 | AI 大脑中枢</span>
+            <h1>数据炼金术<br>用大模型构建意图识别过滤网</h1>
+            <p>RPA抓回来的几十万字外语帖子，人工看会把人逼疯。在这一章，我们将利用顶级AI的逻辑推理能力，将掺杂着垃圾广告、土味俚语的废料，瞬间转化为结构化的黄金询盘库。</p>
+        </header>
+
+        <!-- Module 8: The Problem -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">🌪️</div>
+                <h2 class="card-title">08. 为什么传统爬虫技术到这里就死了？</h2>
+            </div>
+            
+            <p>以前做爬虫的人，抓回数据后，通常用“正则表达式（Regex）”去匹配关键字（比如提取含有“buy”或者“comprar”的帖子）。但在真实的跨国商业环境中，这种做法完全失效：</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th width="40%">RPA抓取的真实原始贴 (西班牙语)</th>
+                        <th width="30%" class="td-bad">传统关键字规则匹配结果</th>
+                        <th width="30%" class="td-good">大模型 (LLM) 降维分析结果</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>"Hola, alguien tiene tubo de pvc de 4 pulgadas? necesito un chingo para una obra en Monterrey. DM porfa."<br><span style="color: #64748b; font-size: 0.8rem;">(包含拼写错误和墨西哥粗口俚语"un chingo")</span></td>
+                        <td class="td-bad">❌ 忽略。没有标准采购词汇，无法识别"tubo de pvc"与"un chingo"的关联。</td>
+                        <td class="td-good">✅ <strong>极高意向客户</strong>。识别出产品：4英寸PVC管。地点：蒙特雷。意图：工程急需大量。</td>
+                    </tr>
+                    <tr>
+                        <td>"Compro oro y plata al mejor precio, envíos a todo el país!"</td>
+                        <td class="td-bad">✅ 识别为采购（包含 Compro/买）。</td>
+                        <td class="td-good">❌ <strong>打标签为：垃圾广告</strong>。这是回收金银的广告，不是我们要找的五金买家。</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-success">
+                <strong>核心结论：</strong> 我们必须把死板的“数据表”，变成可思考的“工作流”。让AI充当一个懂100国语言、有10年外贸经验的资深业务员，帮我们逐条审核数据。
+            </div>
+        </section>
+
+        <!-- Module 9: Building the Coze Workflow -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">⚙️</div>
+                <h2 class="card-title">09. 在 Coze / Dify 中搭建数据清洗流水线</h2>
+            </div>
+            
+            <p style="margin-bottom: 1.5rem;">如果你是国内用户，推荐使用 <strong>Coze (扣子)</strong> ；如果需要更强的数据隐私，推荐开源的 <strong>Dify</strong>。以下以极易上手的 Coze 工作流为例：</p>
+
+            <details open>
+                <summary><span class="step-badge">1</span> 创建智能体与工作流 (Workflow)</summary>
+                <div class="details-content">
+                    <ol style="padding-left: 1.5rem; line-height: 1.8;">
+                        <li>登录 <code>coze.cn</code>，点击左侧【工作空间】 -> 【创建工作流】。命名为：“跨国询盘自动提纯流”。</li>
+                        <li>在画布中，你会看到一个 <strong>Start (开始)</strong> 节点。点击它，添加一个参数，命名为 <code>raw_text</code>，类型选择 <code>String (文本)</code>。这代表接收RPA抓取的一条帖子内容。</li>
+                        <li>点击Start节点右侧的加号 <code>+</code>，添加一个 <strong>大模型 (LLM) 节点</strong>。</li>
+                    </ol>
+                </div>
+            </details>
+
+            <details>
+                <summary><span class="step-badge">2</span> 选择“智商”最高的大模型基座</summary>
+                <div class="details-content">
+                    <p>清洗数据不仅需要翻译，更需要极强的“逻辑推理”和“意图剥离”能力。不要选那些便宜但愚蠢的轻量模型。</p>
+                    <ul style="padding-left: 1.5rem; line-height: 1.8;">
+                        <li><strong>推荐配置：</strong> 在 LLM 节点中，模型切换为 <strong>DeepSeek-R1</strong>、<strong>Gemini 1.5 Pro</strong> 或 <strong>Kimi (Moonshot 128k)</strong>。</li>
+                        <li><strong>温度值 (Temperature)：</strong> 调到极低的 <strong>0.1</strong> 或 <strong>0.2</strong>。我们需要AI极其严谨、铁面无私地提取事实，绝不需要它在此刻发挥创意乱编造。</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary><span class="step-badge">3</span> 强制结构化输出 (JSON 节点)</summary>
+                <div class="details-content">
+                    <p>如果AI只是输出一段中文回复（比如：“这个人想买水管”），我们的RPA依然无法把数据填回Excel的对应列中。我们必须让AI输出 <strong>JSON格式</strong> 的数据。</p>
+                    <ol style="padding-left: 1.5rem; line-height: 1.8;">
+                        <li>在 LLM 节点的输出设置中，勾选 <code>JSON Mode</code>（强制JSON输出）。</li>
+                        <li>在 LLM 节点后，再添加一个 <strong>End (结束)</strong> 节点。</li>
+                        <li>将 End 节点的输出类型也设置为 JSON，用于返回给影刀RPA。</li>
+                    </ol>
+                </div>
+            </details>
+        </section>
+
+        <!-- Module 10: The God-Tier Prompt -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">🧠</div>
+                <h2 class="card-title">10. 核心科技：价值万元的神级提词 (Prompt)</h2>
+            </div>
+            
+            <p>这个提示词经过了上千次外贸数据的实战测试，能够完美规避大模型的“幻觉”，精准剥离客户意图。<strong>请直接将其复制并粘贴到 Coze 的 LLM 节点“提示词”框内。</strong></p>
+
+            <div class="prompt-container">
+                <div class="prompt-header">
+                    <span class="prompt-title">System Prompt - Data_Alchemist_v3.0</span>
+                    <button class="prompt-copy-btn" onclick="alert('提示词已复制 (模拟效果)')">Copy Code</button>
+                </div>
+                <div class="prompt-body">
+<span class="hl-role"># Role (角色设定)</span>
+你是一个精通全球语言（特别是各地区民间俚语和方言）、且拥有20年B2B国际贸易经验的资深情报分析官。你的任务是分析从社交媒体抓取的原始多语种文本，剥离噪音，提取真实的采购商机。
+
+<span class="hl-role"># Input (输入)</span>
+原始文本内容：{{raw_text}}
+
+<span class="hl-role"># Workflow (工作流与判断逻辑)</span>
+请对上面的文本执行极其严格的审查：
+1. <span class="hl-keyword">语种识别：</span> 识别文本使用的语言。
+2. <span class="hl-keyword">意图判定 (最关键)：</span> 
+   - 对方是否表现出<span class="hl-string">“想要购买、正在寻找供应商、求购某物”</span>的意图？
+   - 如果是自我推销、发广告、找工作、纯闲聊、或者卖东西，一律判定为<span class="hl-string">"false" (无意向)</span>。
+   - 即使对方用了很不正式的俚语（如西语的ocupo, chingo, lana等），只要核心意图是“要买”，即判定为<span class="hl-string">"true" (有意向)</span>。
+3. <span class="hl-keyword">关键信息提取：</span> 如果意图为true，请仔细提取：
+   - Product (他想买什么具体产品？必须翻译为准确的中文商品名，如“十字槽沉头螺钉”，而不是“螺丝”)。
+   - Quantity (他想买多少？如果没有提及，输出"未知")。
+   - Contact (文本中是否包含电话、WhatsApp、邮箱？如果没有，输出"未提供")。
+
+<span class="hl-role"># Output Format (强制输出格式)</span>
+你必须严格按照以下 JSON 格式输出，不要包含任何 Markdown 标记或多余的解释文字，确保系统可以直接解析：
+
+{
+  "is_buyer": true/false,
+  "language": "识别出的外语",
+  "reason": "用中文简短解释为什么判定他是/不是买家",
+  "product_cn": "准确的中文商品名称",
+  "quantity": "数量描述",
+  "contact_info": "提取出的联系方式"
+}</div>
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>避坑指南：</strong> 在Prompt的 <code>{{raw_text}}</code> 位置，你必须在工作流配置中，将其映射链接到 <strong>Start节点</strong> 的 <code>raw_text</code> 变量上。这样，每次传进来的新帖子，才会自动替换到这里进行分析。
+            </div>
+        </section>
+
+        <!-- Module 11: Integration -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">🔌</div>
+                <h2 class="card-title">11. 大闭环：将 RPA 与 AI 接口联通</h2>
+            </div>
+            
+            <p>现在，我们有一个抓取数据的 RPA 机器人，还有一个负责清洗数据的 Coze 智能体。怎么把它们连起来？这需要用到 <strong>API（应用程序接口）</strong> 或 <strong>Webhook</strong>。</p>
+
+            <details open>
+                <summary>实操：让影刀自动呼叫 Coze</summary>
+                <div class="details-content">
+                    <ol style="padding-left: 1.5rem; line-height: 1.8;">
+                        <li>在 Coze 工作流的右上角，点击 <strong>“发布为 API / Webhook”</strong>，你会获得一个专属的 URL 地址（你的API接口）和一串 Bearer Token（你的通信密码）。</li>
+                        <li>回到 <strong>影刀RPA</strong>。打开我们在上一章写的流程，在“循环抓取数据”的内部，添加一个新指令：<strong>“发送 HTTP 请求”</strong>。</li>
+                        <li>将请求方式设置为 <code>POST</code>，填入 Coze 的 URL。</li>
+                        <li>在请求头（Headers）中，填入 <code>Authorization: Bearer 你的Token</code>。</li>
+                        <li>在请求体（Body）中，将抓取到的那一条 Facebook 帖子内容（即 <code>raw_text</code> 变量）以 JSON 格式发送过去。</li>
+                        <li>影刀会立刻收到 Coze 返回的 JSON 结果。</li>
+                    </ol>
+                    <p style="margin-top: 1rem; color: #059669; font-weight: bold;">神迹发生：</p>
+                    <p>你在影刀中再加一个 <strong>If 判断</strong>指令：如果返回结果里的 <code>is_buyer == true</code>，就把这个老外的名字、联系方式和翻译好的中文产品名，写入到一个名为《高意向黄金买家库.xlsx》的新表中；如果为 <code>false</code>，直接丢弃。</p>
+                </div>
+            </details>
+        </section>
+
+    </main>
+
+    <footer style="text-align: center; padding: 2rem; color: var(--color-slate-600); font-size: 0.875rem;">
+        <p>System Initialized: Part 4 Complete. <br>恭喜！此时此刻，你的电脑里只有绝对精准、已经翻译成中文的真实采购需求表格。在下一篇 【5/10】 中，我们将启动“自动化逼单矩阵”，让AI自动去 1688 找货，并用老外的母语自动给他发 WhatsApp 开发信！</p>
+    </footer>
+
+</body>
+</html>

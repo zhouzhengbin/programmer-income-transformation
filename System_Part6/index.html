@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0f172a">
+    <title>【6/10】AI跨国套利系统：AI谈判博弈与零本金收网 | 企业级全案</title>
+    
+    <style>
+        /* ==========================================================================
+           继承全局 CSS 变量与重置系统 (保持架构高度一致)
+           ========================================================================== */
+        :root {
+            --color-primary-50: #eff6ff; --color-primary-100: #dbeafe; --color-primary-500: #3b82f6; --color-primary-600: #2563eb; --color-primary-900: #1e3a8a;
+            --color-slate-50: #f8fafc; --color-slate-100: #f1f5f9; --color-slate-200: #e2e8f0; --color-slate-300: #cbd5e1; --color-slate-600: #475569; --color-slate-800: #1e293b; --color-slate-900: #0f172a;
+            --color-success-bg: #ecfdf5; --color-success-text: #059669; --color-warning-bg: #fffbeb; --color-warning-text: #d97706; --color-danger-bg: #fef2f2; --color-danger-text: #dc2626;
+            --color-finance-gradient-1: #0f172a; /* 谈判/金融模块专属：深邃金融蓝 */
+            --color-finance-gradient-2: #1e3a8a; /* 谈判/金融模块专属：信任蓝 */
+            --color-gold-accent: #fbbf24; /* 金融点缀：信任金 */
+            
+            --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-family-mono: "Fira Code", "JetBrains Mono", Consolas, monospace;
+            --spacing-2: 0.5rem; --spacing-3: 0.75rem; --spacing-4: 1rem; --spacing-6: 1.5rem; --spacing-8: 2rem; --spacing-12: 3rem;
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1); --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --radius-md: 0.375rem; --radius-lg: 0.5rem; --radius-xl: 0.75rem; --radius-2xl: 1rem;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body { font-family: var(--font-family-base); background-color: var(--color-slate-50); color: var(--color-slate-800); line-height: 1.6; }
+
+        .app-container { max-width: 960px; margin: 0 auto; padding: var(--spacing-6) var(--spacing-4); display: flex; flex-direction: column; gap: var(--spacing-8); }
+
+        /* ==========================================================================
+           Part 6 专属UI：金融与谈判信任蓝金配色
+           ========================================================================== */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--color-finance-gradient-1) 0%, var(--color-finance-gradient-2) 100%);
+            border-radius: var(--radius-2xl); padding: var(--spacing-12) var(--spacing-6); color: white; position: relative; overflow: hidden; box-shadow: var(--shadow-xl); text-align: center;
+        }
+        
+        /* 信任网格背景特效 */
+        .hero-banner::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px; z-index: 0; pointer-events: none; opacity: 0.5;
+        }
+
+        .badge-version { display: inline-block; background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.4); color: var(--color-gold-accent); backdrop-filter: blur(4px); padding: 4px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; position: relative; z-index: 1; text-transform: uppercase; letter-spacing: 0.05em; }
+        .hero-banner h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 800; line-height: 1.2; margin-bottom: 1rem; position: relative; z-index: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+        .hero-banner p { font-size: 1.1rem; color: #bfdbfe; max-width: 650px; margin: 0 auto; position: relative; z-index: 1; }
+
+        .content-card { background: #fff; border-radius: var(--radius-xl); padding: var(--spacing-8) var(--spacing-6); box-shadow: var(--shadow-md); border: 1px solid var(--color-slate-200); }
+        .card-header { display: flex; align-items: center; margin-bottom: var(--spacing-6); padding-bottom: var(--spacing-4); border-bottom: 2px solid var(--color-slate-100); }
+        .card-icon { font-size: 2rem; margin-right: var(--spacing-4); background: #eff6ff; color: #2563eb; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-lg); }
+        .card-title { font-size: 1.4rem; font-weight: 700; color: var(--color-slate-900); }
+
+        details { background: #f8fafc; border: 1px solid var(--color-slate-200); border-radius: var(--radius-lg); margin-bottom: 1rem; overflow: hidden; transition: all 0.3s ease; }
+        summary { padding: 1.2rem 1.5rem; font-size: 1.1rem; font-weight: 600; color: var(--color-slate-900); cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; }
+        summary::-webkit-details-marker { display: none; }
+        summary:hover { background: #f1f5f9; }
+        summary::after { content: '✓'; font-size: 1.2rem; color: #2563eb; transition: transform 0.3s ease; font-weight: bold; }
+        details[open] summary::after { transform: rotate(360deg); color: #10b981; }
+        .details-content { padding: 1.5rem; border-top: 1px solid var(--color-slate-200); background: white; font-size: 0.95rem; line-height: 1.7; }
+
+        /* 神级 Prompt 样式 (商务暗金版) */
+        .prompt-container { background: #0f172a; border-radius: var(--radius-lg); overflow: hidden; margin: 1.5rem 0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); border: 1px solid #334155; }
+        .prompt-header { background: #1e293b; padding: 0.75rem 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; }
+        .prompt-title { color: #fbbf24; font-size: 0.85rem; font-family: var(--font-family-mono); font-weight: 600; }
+        .prompt-body { padding: 1.5rem; color: #e2e8f0; font-family: var(--font-family-mono); font-size: 0.9rem; line-height: 1.6; white-space: pre-wrap; overflow-x: auto; }
+        .hl-role { color: #38bdf8; font-weight: bold; }
+        .hl-action { color: #f43f5e; font-weight: bold; }
+
+        /* PI 表格模拟 */
+        .pi-mockup { background: white; border: 1px solid #cbd5e1; padding: 1.5rem; margin: 1.5rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); font-family: "Helvetica", Arial, sans-serif; }
+        .pi-header { text-align: center; border-bottom: 2px solid #1e293b; padding-bottom: 1rem; margin-bottom: 1rem; font-weight: bold; font-size: 1.2rem; letter-spacing: 1px; color: #1e293b; }
+        .pi-details { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 1rem; color: #475569; }
+        .pi-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.85rem; }
+        .pi-table th { background: #f1f5f9; padding: 8px; border: 1px solid #cbd5e1; color: #1e293b; }
+        .pi-table td { padding: 8px; border: 1px solid #cbd5e1; text-align: center; color: #334155; }
+        .pi-total { text-align: right; font-weight: bold; font-size: 1rem; color: #dc2626; margin-top: 1rem; }
+
+        .alert { padding: 1rem; border-radius: var(--radius-lg); margin: 1.5rem 0; display: flex; gap: 0.75rem; font-size: 0.95rem; line-height: 1.5; }
+        .alert-danger { background: var(--color-danger-bg); color: var(--color-danger-text); border-left: 4px solid #ef4444; }
+        .alert-warning { background: var(--color-warning-bg); color: var(--color-warning-text); border-left: 4px solid #f59e0b; }
+        .alert-success { background: var(--color-success-bg); color: var(--color-success-text); border-left: 4px solid #10b981; }
+        
+        .step-badge { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: #2563eb; color: white; border-radius: 50%; font-weight: bold; margin-right: 10px; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .app-container { padding: 1rem 0.5rem; }
+            .content-card { padding: 1.5rem 1rem; }
+            summary { padding: 1rem; font-size: 1rem; }
+            .details-content { padding: 1rem; }
+            .pi-details { flex-direction: column; gap: 0.5rem; }
+            .pi-table { display: block; overflow-x: auto; white-space: nowrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="app-container">
+        
+        <header class="hero-banner">
+            <span class="badge-version">Part 6 / 10 | 谈判收网与资金闭环</span>
+            <h1>AI 谈判博弈与零本金收网<br>如何合法“空手套白狼”收定金</h1>
+            <p>当你的 WhatsApp 收到老外的回复时，机器人自动群发的工作就告一段落了。现在进入深水区：你需要运用 AI 提供的高情商话术，应对客户的杀价和质疑，并最终发出一张专业的 PI（形式发票），让老外的美元跨越大洋，稳稳落入你的万里汇账户。</p>
+        </header>
+
+        <!-- Module 16: WhatsApp 信号灯分类 -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">🚦</div>
+                <h2 class="card-title">16. 当鱼儿咬钩：WhatsApp 意向信号灯</h2>
+            </div>
+            
+            <p>每天早上醒来，打开 WhatsApp Business，你会看到一堆回复。作为只有一个人在战斗的“超级个体”，你不能在垃圾客户身上浪费时间。请严格按照以下“红绿灯”原则处理：</p>
+
+            <details>
+                <summary><span style="color: #ef4444; font-weight:bold;">🔴 红灯客户 (直接拉黑或放弃)</span></summary>
+                <div class="details-content">
+                    <ul style="padding-left: 1.5rem;">
+                        <li><strong>“Send me 1 free sample first.” (先给我免费寄个样品。)</strong><br>
+                        <em>对策：</em> 跨国运费极贵，一律拒绝。回复：“样品免费，但运费需您承担（通常要 $50 左右）。”如果他不付运费，直接不理。</li>
+                        <li><strong>“I will pay after goods arrive.” (货到付款/D/A 等信用证付款)</strong><br>
+                        <em>对策：</em> 小白绝不能碰账期。这是红线。一律回复：“抱歉，新客户仅支持 30% T/T 预付定金。” 如果他纠缠，拉黑。99% 是非洲或拉美的骗子。</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary><span style="color: #f59e0b; font-weight:bold;">🟡 黄灯客户 (AI 介入谈判)</span></summary>
+                <div class="details-content">
+                    <ul style="padding-left: 1.5rem;">
+                        <li><strong>“Your price is higher than others.” (你的价格太高了)</strong><br>
+                        <em>对策：</em> 不要立刻降价！这会显得你之前报价心虚。调用下一章的【AI 异议处理大模型】生成反驳话术。</li>
+                        <li><strong>“Are you a real factory?” (你是真实的工厂吗？)</strong><br>
+                        <em>对策：</em> 立刻去 1688 上找工厂客服索要他们的“车间生产视频”、“营业执照（打个马赛克）”，然后转发给老外，理直气壮地说是我们的车间。</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details open>
+                <summary><span style="color: #10b981; font-weight:bold;">🟢 绿灯客户 (直接逼单拿钱)</span></summary>
+                <div class="details-content">
+                    <ul style="padding-left: 1.5rem;">
+                        <li><strong>“Send me catalog and PI.” (发目录和形式发票过来)</strong><br>
+                        <em>对策：</em> 恭喜！直接进入本篇第 18 章的 PI 制作环节。</li>
+                        <li><strong>“How much for shipping to Mexico?” (运到墨西哥多少钱？)</strong><br>
+                        <em>对策：</em> 立刻去淘宝联系“墨西哥专线双清包税货代”，报体积重量算运费，加上产品钱报一个 CIF/DDP（到门）总价。</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <!-- Module 17: AI 谈判专家 Prompt -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">🗣️</div>
+                <h2 class="card-title">17. AI 异议处理大模型 (杀价克星)</h2>
+            </div>
+            
+            <p>不要用你生硬的英语/西语去跟老外讨价还价。复制老外的原话，喂给配置了以下 Prompt 的 DeepSeek 大脑，让 AI 替你生成极具压迫感且有理有据的回复。</p>
+
+            <div class="prompt-container">
+                <div class="prompt-header">
+                    <span class="prompt-title">System Prompt - Negotiator_Agent_v4.0</span>
+                </div>
+                <div class="prompt-body">
+<span class="hl-role"># Role (角色)</span>
+你是一位在中国做了15年外贸的“老狐狸”销售总监。你精通国际贸易心理学（如FOMO错失恐惧、沉没成本、锚定效应）。你不卑不亢，绝不轻易降价。
+
+<span class="hl-role"># Input (输入)</span>
+客户说的话：{{customer_reply}}
+当前销售的产品：{{product_name}}
+我们报的单价：{{current_price}}
+
+<span class="hl-action"># Task (任务)</span>
+根据客户的异议，生成一段用于 WhatsApp 的回复话术。必须遵守以下“外贸老鸟法则”：
+
+<span class="hl-action"># Rule 1 (若客户嫌贵)</span>
+1. 绝对不立刻降价。
+2. 强调“一分钱一分货”。告诉他市面上便宜的货都是用的**回料（Recycled materials）**或**克重不足（Underweight）**，而我们用的是**100%原生料（100% Virgin materials）**。
+3. 结尾给一个微小的让步但要求条件：“如果你这次能下满 1000 个，我可以向老板申请私人承担您这一单的国内段运费作为破冰诚意。”
+
+<span class="hl-action"># Rule 2 (若客户要现货)</span>
+1. 制造产能紧张的焦虑（FOMO）。“目前工厂生产线极度饱和，欧美大客户的订单已经排到了下个月。”
+2. “如果你能在本周五前确认 30% 定金，我可以利用周末的空档为您优先插单排产。”
+
+<span class="hl-action"># Output Format (输出要求)</span>
+使用客户沟通使用的同种语言输出。语气要像真实的商人聊天（使用短句分段），不要像机器人的小作文。</div>
+            </div>
+        </section>
+
+        <!-- Module 18: PI 制作与合规 -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">🧾</div>
+                <h2 class="card-title">18. 杀手锏：制作极其专业的 PI (形式发票)</h2>
+            </div>
+            
+            <p>PI (Proforma Invoice) 在国际贸易中等同于“买卖合同”。它不仅是老外去银行给你汇款的凭证，更是保护你免受国际纠纷的护身符。不要随便发个 Excel 截图，你必须导出一份规范的 PDF。</p>
+            
+            <div class="alert alert-warning">
+                <strong>收款账户匹配：</strong> 这里的银行账号，必须填你在 Part 2 中注册的【万里汇 / PingPong】分配给你的美元虚拟银行账户（花旗/摩根大通）。
+            </div>
+
+            <div class="pi-mockup">
+                <div class="pi-header">PROFORMA INVOICE</div>
+                <div class="pi-details">
+                    <div>
+                        <strong>SELLER:</strong> [你的虚拟公司名/英文拼音]<br>
+                        <strong>ADDRESS:</strong> [中国的一个真实办公地址, 比如义乌某大厦]<br>
+                        <strong>DATE:</strong> 2026-XX-XX<br>
+                        <strong>PI NO:</strong> INV-2026001
+                    </div>
+                    <div style="text-align: right;">
+                        <strong>BUYER:</strong> [老外客户名称]<br>
+                        <strong>ADDRESS:</strong> [客户国家和地址]
+                    </div>
+                </div>
+                
+                <table class="pi-table">
+                    <thead>
+                        <tr>
+                            <th>Item Description (产品描述)</th>
+                            <th>Qty (数量)</th>
+                            <th>Unit Price (单价)</th>
+                            <th>Total (总价)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>High Quality 4-inch PVC Pipes</td>
+                            <td>1,000 PCS</td>
+                            <td>$1.50</td>
+                            <td>$1,500.00</td>
+                        </tr>
+                        <tr>
+                            <td>DDP Shipping to Mexico</td>
+                            <td>1 LOT</td>
+                            <td>$350.00</td>
+                            <td>$350.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pi-total">GRAND TOTAL: $1,850.00 USD</div>
+                
+                <div style="margin-top: 1.5rem; font-size: 0.8rem; color: #475569;">
+                    <strong style="color: #1e293b; font-size:0.9rem;">BANKING DETAILS (银行汇款信息):</strong><br>
+                    <strong>Bank Name:</strong> Citibank N.A.<br>
+                    <strong>Beneficiary Name:</strong> [你的拼音或注册公司名]<br>
+                    <strong>Account No:</strong> 1234567890<br>
+                    <strong>Routing No / SWIFT:</strong> CITIUS33<br><br>
+                    <strong style="color: #dc2626;">TERMS & CONDITIONS:</strong><br>
+                    1. <strong>Payment: 30% Deposit via T/T, 70% Balance before shipment.</strong> (必须写上这条！)<br>
+                    2. Lead time: 7-10 working days after deposit received.
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 19: 空手套白狼的定金法则 -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">🐺</div>
+                <h2 class="card-title">19. 资金闭环：如何零垫资“空手套白狼”？</h2>
+            </div>
+            
+            <p>这是整个商业模式中最核心、最迷人的部分：用别人的钱，办别人的事，利润留给自己。这要求极强的纪律性。</p>
+
+            <div class="alert alert-danger">
+                <strong>铁律：不见兔子不撒鹰，不见外汇不下单！</strong> 很多小白怕老外跑了，老外发个假的汇款水单（水单就是转账截图，可以用PS伪造），小白就急冲冲自己掏钱去 1688 下单买货。一旦被骗，倾家荡产。
+            </div>
+
+            <details open>
+                <summary><span class="step-badge">1</span> 确认美金到账 (真金白银)</summary>
+                <div class="details-content">
+                    <p>老外汇款后，国际电汇（T/T）通常需要 <strong>1 到 3 个工作日</strong> 到账。必须登录你的【万里汇】后台，确确实实看到账户余额增加了（比如那一单的 30% 定金：$555 USD 进账）。</p>
+                    <p>这笔钱此时已经合法属于你了。你可以在后台点击“提现”，按当天的汇率，瞬间变成近 4000 元人民币进入你的支付宝或国内银行卡。</p>
+                </div>
+            </details>
+
+            <details open>
+                <summary><span class="step-badge">2</span> 用老外的定金去 1688 拿货 (零垫资闭环)</summary>
+                <div class="details-content">
+                    <p>我们来算一笔极其精妙的现金流账：</p>
+                    <ul style="padding-left: 1.5rem; line-height: 1.8;">
+                        <li>老外订单总价是 <strong>$1850 美元</strong> (约 13300 元人民币)。</li>
+                        <li>老外打来了 <strong>30% 定金：$555 美元</strong> (提现后约 4000 元人民币)。</li>
+                        <li>你在 1688 上找到的源头底价，总拿货成本其实只有 <strong>6000 元人民币</strong>。</li>
+                    </ul>
+                    <p>此时，你只需要自己拿 2000 块钱出来垫一下（因为 1688 通常也是款到发货），或者，你可以在 1688 上使用“信用卡付款”或“诚e赊（阿里的供应链金融工具）”，享受 30 天的免息账期。</p>
+                    <p><strong>结果是：你一分钱现金都不用出，利用时间差和信息差，完成了这批货的采购！</strong></p>
+                </div>
+            </details>
+
+        </section>
+
+    </main>
+
+    <footer style="text-align: center; padding: 2rem; color: var(--color-slate-600); font-size: 0.875rem;">
+        <p>System Initialized: Part 6 Complete. <br>货已经从 1688 厂长手里发出了，但老外还在大洋彼岸。在下一篇 【7/10】 中，我们将讲解“跨国无痕代发物流（Drop-shipping）”，教你如何通过国内隐秘的专线货代，撕掉 1688 的中文标签，贴上国际面单，并用虚假追踪号（Tracking Number）收回剩下的 70% 尾款！</p>
+    </footer>
+
+</body>
+</html>

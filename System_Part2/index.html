@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0f172a">
+    <title>【2/10】AI跨国套利系统：资金命脉与环境基座 | 企业级全案</title>
+    
+    <style>
+        /* ==========================================================================
+           完全继承 Part 1 的全局 CSS 变量与重置系统 (保持视觉一致性)
+           ========================================================================== */
+        :root {
+            --color-primary-50: #eff6ff;
+            --color-primary-100: #dbeafe;
+            --color-primary-500: #3b82f6;
+            --color-primary-600: #2563eb;
+            --color-primary-900: #1e3a8a;
+            --color-slate-50: #f8fafc;
+            --color-slate-100: #f1f5f9;
+            --color-slate-200: #e2e8f0;
+            --color-slate-300: #cbd5e1;
+            --color-slate-600: #475569;
+            --color-slate-800: #1e293b;
+            --color-slate-900: #0f172a;
+            --color-success-bg: #ecfdf5;
+            --color-success-text: #059669;
+            --color-warning-bg: #fffbeb;
+            --color-warning-text: #d97706;
+            --color-danger-bg: #fef2f2;
+            --color-danger-text: #dc2626;
+            --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --spacing-2: 0.5rem; --spacing-3: 0.75rem; --spacing-4: 1rem; --spacing-6: 1.5rem; --spacing-8: 2rem; --spacing-12: 3rem;
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --radius-lg: 0.5rem; --radius-xl: 0.75rem; --radius-2xl: 1rem;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body { font-family: var(--font-family-base); background-color: var(--color-slate-50); color: var(--color-slate-800); line-height: 1.6; }
+
+        .app-container { max-width: 960px; margin: 0 auto; padding: var(--spacing-6) var(--spacing-4); display: flex; flex-direction: column; gap: var(--spacing-8); }
+
+        /* ==========================================================================
+           新增：Part 2 专属高级 UI 组件
+           ========================================================================== */
+        .hero-banner {
+            background: linear-gradient(135deg, #1e293b 0%, #047857 100%); /* 第2章使用财富绿渐变 */
+            border-radius: var(--radius-2xl); padding: var(--spacing-12) var(--spacing-6); color: white; position: relative; overflow: hidden; box-shadow: var(--shadow-xl); text-align: center;
+        }
+        .hero-banner::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 60%); pointer-events: none;
+        }
+        .badge-version { display: inline-block; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(4px); padding: 4px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; }
+        .hero-banner h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 800; line-height: 1.2; margin-bottom: 1rem; position: relative; z-index: 1; }
+        .hero-banner p { font-size: 1.1rem; color: #d1fae5; max-width: 650px; margin: 0 auto; position: relative; z-index: 1; }
+
+        .content-card { background: #fff; border-radius: var(--radius-xl); padding: var(--spacing-8) var(--spacing-6); box-shadow: var(--shadow-md); border: 1px solid var(--color-slate-200); }
+        .card-header { display: flex; align-items: center; margin-bottom: var(--spacing-6); padding-bottom: var(--spacing-4); border-bottom: 2px solid var(--color-slate-100); }
+        .card-icon { font-size: 2rem; margin-right: var(--spacing-4); background: var(--color-primary-50); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-lg); }
+        .card-title { font-size: 1.4rem; font-weight: 700; color: var(--color-slate-900); }
+
+        /* 步骤时间轴组件 (Step Timeline) */
+        .timeline { border-left: 3px solid var(--color-primary-100); margin-left: 1.5rem; padding-left: 2rem; position: relative; }
+        .timeline-item { margin-bottom: 2.5rem; position: relative; }
+        .timeline-item::before {
+            content: attr(data-step); position: absolute; left: -3.3rem; top: 0; background: var(--color-primary-600); color: white; width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 4px solid white; box-shadow: 0 0 0 1px var(--color-primary-100);
+        }
+        .timeline-title { font-size: 1.15rem; font-weight: 700; color: var(--color-slate-900); margin-bottom: 0.5rem; }
+        .timeline-content { color: var(--color-slate-600); font-size: 1rem; }
+
+        /* 终端代码模拟框 */
+        .terminal { background: #0f172a; border-radius: var(--radius-lg); padding: 1.5rem; margin: 1rem 0; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); overflow-x: auto; }
+        .terminal-header { display: flex; gap: 6px; margin-bottom: 1rem; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-red { background: #ef4444; } .dot-yellow { background: #f59e0b; } .dot-green { background: #10b981; }
+        .terminal-text { color: #a7f3d0; font-family: monospace; font-size: 0.9rem; white-space: pre-wrap; line-height: 1.5; }
+
+        .alert { padding: 1rem; border-radius: var(--radius-lg); margin: 1rem 0; display: flex; gap: 0.75rem; font-size: 0.95rem; }
+        .alert-danger { background: var(--color-danger-bg); color: var(--color-danger-text); border-left: 4px solid #ef4444; }
+        .alert-warning { background: var(--color-warning-bg); color: var(--color-warning-text); border-left: 4px solid #f59e0b; }
+        .highlight { background: rgba(59, 130, 246, 0.1); color: var(--color-primary-700); padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+
+        @media (max-width: 768px) {
+            .app-container { padding: 1rem 0.5rem; }
+            .content-card { padding: 1.5rem 1rem; }
+            .timeline { margin-left: 0.5rem; padding-left: 1.5rem; }
+            .timeline-item::before { left: -2.3rem; width: 2rem; height: 2rem; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="app-container">
+        
+        <!-- ==========================================
+             顶部主视觉模块 (Hero Section Part 2)
+             ========================================== -->
+        <header class="hero-banner">
+            <span class="badge-version">Part 2 / 10 | 基础设施搭建</span>
+            <h1>打通跨国资金大动脉<br>& 部署自动化基座</h1>
+            <p>一切不能安全把钱收到自己口袋里的商业模式都是耍流氓。今天我们将解决两大最棘手的新手难题：如何足不出户注册合法的海外银行账户，以及如何搭建一个绝对不会被封号的安全网络抓取环境。</p>
+        </header>
+
+        <!-- ==========================================
+             第三章内容卡片 (跨国收款体系)
+             ========================================== -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">💰</div>
+                <h2 class="card-title">03. 零成本开通“虚拟跨国公司”收款账户</h2>
+            </div>
+            
+            <div class="alert alert-warning">
+                <strong>认知纠偏：</strong> 很多小白以为做老外的生意，需要找代办花几万块钱去香港或者美国注册皮包公司、开银行对公账户。在2026年，**完全不需要！** 国家为了鼓励出口创汇，现在凭借你个人的身份证，就能通过第三方跨境支付牌照公司，零门槛秒开海外虚拟银行户。
+            </div>
+
+            <p style="margin-bottom: 20px; font-size: 1.05rem;">我们将使用目前国内持牌合规、背景最硬的平台：<strong>万里汇 (WorldFirst，蚂蚁集团旗下)</strong> 或 <strong>PingPong</strong>。以下以PingPong为例进行保姆级操作拆解：</p>
+
+            <div class="timeline">
+                <div class="timeline-item" data-step="1">
+                    <div class="timeline-title">注册基础账号与 KYC 认证</div>
+                    <div class="timeline-content">
+                        <p>打开 PingPong 福贸官网（注意甄别假冒网站）。点击右上角“注册”。</p>
+                        <p><strong>选择账户类型：</strong> 务必选择<span class="highlight">“个人卖家/自由职业者”</span>（不要选企业，除非你有真实外贸公司执照）。</p>
+                        <p><strong>KYC（Know Your Customer）认证：</strong> 这一步要求极其严格。准备好你的身份证原件。要求光线明亮，边缘清晰，不能有反光。如果是手机扫码活体检测，请确保在纯色背景墙前进行，否则极易被人工智能风控驳回。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-step="2">
+                    <div class="timeline-title">申请收款子账户 (Virtual Account)</div>
+                    <div class="timeline-content">
+                        <p>认证通过后，进入后台控制面板，找到“收款管理” -> “申请收款账户”。</p>
+                        <p>系统会问你资金来源，选择 <span class="highlight">B2B 外贸服务/实物出口</span>。</p>
+                        <p><strong>币种选择策略：</strong> 不要全选！先申请 <strong>USD（美元）</strong> 和 <strong>EUR（欧元）</strong>，收款行建议选择 <em>Citibank (花旗银行)</em> 或 <em>JPMorgan Chase (摩根大通)</em>。这会给你生成一套真实的 Account Number (账号) 和 Routing Number (路由码)。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-step="3">
+                    <div class="timeline-title">制作你的第一份收款 PI (形式发票)</div>
+                    <div class="timeline-content">
+                        <p>当你在后续与老外谈妥订单后，你需要把这个账号发给老外。<strong>绝对不要在WhatsApp上直接发一串冷冰冰的数字！老外会以为你是骗子。</strong></p>
+                        <p>你必须在后台使用工具，或者用Excel生成一份专业的 <strong>Proforma Invoice (PI)</strong>，包含你的英文名字、虚拟地址、产品明细以及银行汇款路径（Wire Transfer details），保存为 PDF 格式发给客户。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-danger">
+                <strong>风控高压线（千万别碰）：</strong><br>
+                1. 严禁接收任何带有“Crypto（加密货币）”、“Casino（博彩）”名义的汇款，一旦触发反洗钱系统（AML），你的资金会被立刻冻结，且无法申诉。<br>
+                2. 第一笔款项进来时，平台可能会要求你提供“交易证明”。这时候，你只要把后续在WhatsApp上的聊天记录（包含老外确认要货的截图）截图上传即可审核通过。
+            </div>
+        </section>
+
+        <!-- ==========================================
+             第四章内容卡片 (自动化物理环境)
+             ========================================== -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">🛡️</div>
+                <h2 class="card-title">04. 构建“绝对隔离”的赛博抓取环境</h2>
+            </div>
+            
+            <p>解决了收钱问题，我们来解决“干活”的环境。要在全球网络去抓取买家信息，如果你用你平时看剧、聊天的电脑浏览器直接去访问 Facebook 或国外黄页，<strong>账号存活时间绝对超不过10分钟</strong>。因为你的“浏览器指纹”早已被标记为高危。</p>
+
+            <h3 style="margin: 1.5rem 0 1rem 0; font-size: 1.2rem; color: var(--color-slate-900);">什么是浏览器指纹 (Browser Fingerprint)？</h3>
+            <p style="margin-bottom: 1.5rem;">网站追踪你，不仅仅看IP地址。他们会读取你的电脑操作系统版本、显卡WebGL渲染特征、系统字体库、时区差异。如果你用着+8时区的北京时间电脑，却挂着美国的IP，Facebook的大数据风控秒秒钟封杀你。</p>
+
+            <div class="timeline">
+                <div class="timeline-item" data-step="A">
+                    <div class="timeline-title">安装指纹浏览器 (Anti-Detect Browser)</div>
+                    <div class="timeline-content">
+                        <p>不要使用普通的 Chrome。你需要下载专业的跨境防关联浏览器，比如 <span class="highlight">AdsPower</span> 或 <span class="highlight">Hubstudio</span>（基础版通常永久免费）。</p>
+                        <p>这类浏览器的魔法在于：它可以一键生成一个“伪装环境”。你可以点击生成，它就虚拟出一台位于美国纽约、语言为英语、时区为西五区、装有特定苹果芯片的MacBook环境。网站获取到的数据将完美匹配你的伪装。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-step="B">
+                    <div class="timeline-title">配置独立住宅 IP 代理 (Residential IP)</div>
+                    <div class="timeline-content">
+                        <p>不要用普通的“翻墙软件/机场”去搞商业抓取！那些是几十万人共享的数据中心IP（IDC），早就上了各大平台的黑名单。</p>
+                        <p>你需要去购买静态住宅IP（ISP）。这意味着这个IP在物理上对应的是海外某个人家里的真实宽带网络。在 AdsPower 的网络配置中，将购买的代理协议（SOCKS5 或 HTTP）填入对应环境。</p>
+                        
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="dot dot-red"></div>
+                                <div class="dot dot-yellow"></div>
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <div class="terminal-text">
+// 验证环境安全性的标准检测流程：
+> 打开环境，访问检测网站: whoer.net
+> 检查 DNS 泄漏状态: 正常
+> 检查 黑名单库状态: 干净 (No Blacklist)
+> 检查 伪装度评分: 100%
+[System] 环境配置完美，可以启动RPA注入协议。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-step="C">
+                    <div class="timeline-title">注入 RPA 自动化基座 (影刀/UiPath)</div>
+                    <div class="timeline-content">
+                        <p>环境搭好后，我们需要把“虚拟工人的手”放进去。</p>
+                        <p>下载安装 <strong>影刀 RPA</strong>。打开影刀，进入“插件管理”，将影刀的自动化扩展程序，安装到我们刚才配置好的 AdsPower 伪装浏览器环境中。</p>
+                        <p>至此，你完成了一个企业级的创举：**你构建了一台完全干净、身处海外、且支持代码无限自动化操控的“赛博肉机”。这就是我们后续所有自动化印钞流水线运转的物理底座！**</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer style="text-align: center; padding: 2rem; color: var(--color-slate-600); font-size: 0.875rem;">
+        <p>System Initialized: Part 2 Complete. <br>请确认你已注册收款账号，并成功在电脑上运行了指纹浏览器，再进行后续操作。</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0f172a">
+    <title>【5/10】AI跨国套利系统：全自动供应链比价与母语逼单 | 企业级全案</title>
+    
+    <style>
+        /* ==========================================================================
+           继承全局 CSS 变量与重置系统 (保持架构高度一致)
+           ========================================================================== */
+        :root {
+            --color-primary-50: #eff6ff; --color-primary-100: #dbeafe; --color-primary-500: #3b82f6; --color-primary-600: #2563eb; --color-primary-900: #1e3a8a;
+            --color-slate-50: #f8fafc; --color-slate-100: #f1f5f9; --color-slate-200: #e2e8f0; --color-slate-300: #cbd5e1; --color-slate-600: #475569; --color-slate-800: #1e293b; --color-slate-900: #0f172a;
+            --color-success-bg: #ecfdf5; --color-success-text: #059669; --color-warning-bg: #fffbeb; --color-warning-text: #d97706; --color-danger-bg: #fef2f2; --color-danger-text: #dc2626;
+            --color-sales-gradient-1: #78350f; /* 销售模块专属：深琥珀色 */
+            --color-sales-gradient-2: #ea580c; /* 销售模块专属：亮橙色 */
+            
+            --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-family-mono: "Fira Code", "JetBrains Mono", Consolas, monospace;
+            --spacing-2: 0.5rem; --spacing-3: 0.75rem; --spacing-4: 1rem; --spacing-6: 1.5rem; --spacing-8: 2rem; --spacing-12: 3rem;
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1); --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --radius-md: 0.375rem; --radius-lg: 0.5rem; --radius-xl: 0.75rem; --radius-2xl: 1rem;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body { font-family: var(--font-family-base); background-color: var(--color-slate-50); color: var(--color-slate-800); line-height: 1.6; }
+
+        .app-container { max-width: 960px; margin: 0 auto; padding: var(--spacing-6) var(--spacing-4); display: flex; flex-direction: column; gap: var(--spacing-8); }
+
+        /* ==========================================================================
+           Part 5 专属UI：销售与财富橙金渐变特效
+           ========================================================================== */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--color-sales-gradient-1) 0%, var(--color-sales-gradient-2) 100%);
+            border-radius: var(--radius-2xl); padding: var(--spacing-12) var(--spacing-6); color: white; position: relative; overflow: hidden; box-shadow: var(--shadow-xl); text-align: center;
+        }
+        
+        /* 粒子聚合金币特效背景 */
+        .hero-banner::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background-image: 
+                radial-gradient(circle at 30% 20%, rgba(253, 230, 138, 0.15) 0%, transparent 15%),
+                radial-gradient(circle at 70% 80%, rgba(254, 240, 138, 0.2) 0%, transparent 20%);
+            z-index: 0; pointer-events: none; animation: pulseGlow 4s ease-in-out infinite alternate;
+        }
+        @keyframes pulseGlow { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.1); opacity: 1; } }
+
+        .badge-version { display: inline-block; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255,255,255,0.4); backdrop-filter: blur(4px); padding: 4px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; position: relative; z-index: 1; text-transform: uppercase; letter-spacing: 0.05em; }
+        .hero-banner h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 800; line-height: 1.2; margin-bottom: 1rem; position: relative; z-index: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .hero-banner p { font-size: 1.1rem; color: #ffedd5; max-width: 650px; margin: 0 auto; position: relative; z-index: 1; }
+
+        .content-card { background: #fff; border-radius: var(--radius-xl); padding: var(--spacing-8) var(--spacing-6); box-shadow: var(--shadow-md); border: 1px solid var(--color-slate-200); }
+        .card-header { display: flex; align-items: center; margin-bottom: var(--spacing-6); padding-bottom: var(--spacing-4); border-bottom: 2px solid var(--color-slate-100); }
+        .card-icon { font-size: 2rem; margin-right: var(--spacing-4); background: #fff7ed; color: #ea580c; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-lg); }
+        .card-title { font-size: 1.4rem; font-weight: 700; color: var(--color-slate-900); }
+
+        details { background: #f8fafc; border: 1px solid var(--color-slate-200); border-radius: var(--radius-lg); margin-bottom: 1rem; overflow: hidden; transition: all 0.3s ease; }
+        summary { padding: 1.2rem 1.5rem; font-size: 1.1rem; font-weight: 600; color: var(--color-slate-900); cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; }
+        summary::-webkit-details-marker { display: none; }
+        summary:hover { background: #f1f5f9; }
+        summary::after { content: '➜'; font-size: 1.2rem; color: #ea580c; transition: transform 0.3s ease; }
+        details[open] summary::after { transform: rotate(90deg); }
+        .details-content { padding: 1.5rem; border-top: 1px solid var(--color-slate-200); background: white; font-size: 0.95rem; line-height: 1.7; }
+
+        /* 代码/逻辑框优化 */
+        .rpa-logic { background: #1e293b; color: #cbd5e1; padding: 1.5rem; border-radius: var(--radius-lg); font-family: var(--font-family-mono); font-size: 0.9rem; margin: 1rem 0; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); border-left: 4px solid #ea580c; overflow-x: auto; white-space: pre-wrap; line-height: 1.6; }
+        .rpa-keyword { color: #facc15; font-weight: bold; } 
+        .rpa-variable { color: #38bdf8; } 
+        .rpa-comment { color: #64748b; font-style: italic; }
+
+        /* 神级 Prompt 样式 */
+        .prompt-container { background: #0f172a; border-radius: var(--radius-lg); overflow: hidden; margin: 1.5rem 0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); border: 1px solid #334155; }
+        .prompt-header { background: #1e293b; padding: 0.75rem 1rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; }
+        .prompt-title { color: #fb923c; font-size: 0.85rem; font-family: var(--font-family-mono); font-weight: 600; }
+        .prompt-body { padding: 1.5rem; color: #e2e8f0; font-family: var(--font-family-mono); font-size: 0.9rem; line-height: 1.6; white-space: pre-wrap; overflow-x: auto; }
+        .hl-role { color: #fbbf24; font-weight: bold; }
+        .hl-var { color: #a7f3d0; border: 1px dashed #059669; padding: 0 4px; border-radius: 3px; }
+
+        /* 数学公式/比率卡片 */
+        .math-card { background: #fff7ed; border: 1px dashed #fdba74; padding: 1.5rem; border-radius: var(--radius-lg); text-align: center; margin: 1.5rem 0; font-size: 1.1rem; color: #9a3412; font-weight: bold; }
+
+        .alert { padding: 1rem; border-radius: var(--radius-lg); margin: 1.5rem 0; display: flex; gap: 0.75rem; font-size: 0.95rem; line-height: 1.5; }
+        .alert-danger { background: var(--color-danger-bg); color: var(--color-danger-text); border-left: 4px solid #ef4444; }
+        .alert-warning { background: var(--color-warning-bg); color: var(--color-warning-text); border-left: 4px solid #f59e0b; }
+        .alert-success { background: var(--color-success-bg); color: var(--color-success-text); border-left: 4px solid #10b981; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { border: 1px solid var(--color-slate-200); padding: 1rem; text-align: left; font-size: 0.9rem; vertical-align: top; }
+        th { background: #f8fafc; font-weight: 600; color: var(--color-slate-900); }
+        .step-badge { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: #ea580c; color: white; border-radius: 50%; font-weight: bold; margin-right: 10px; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .app-container { padding: 1rem 0.5rem; }
+            .content-card { padding: 1.5rem 1rem; }
+            summary { padding: 1rem; font-size: 1rem; }
+            .details-content { padding: 1rem; }
+            table { display: block; overflow-x: auto; white-space: nowrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="app-container">
+        
+        <header class="hero-banner">
+            <span class="badge-version">Part 5 / 10 | 供应链与触达</span>
+            <h1>全自动比价与母语逼单矩阵<br>打造“一人抵百人”的销售军团</h1>
+            <p>在上一章，AI大脑帮我们提纯出了《高意向黄金买家库》。今天，我们将让机器人自动去 1688 寻找底价货源，计算暴利差价，并用极具欺骗性（商业包装）的老外母语，自动将推销信息发送到他的 WhatsApp 上。</p>
+        </header>
+
+        <!-- Module 12: 1688 自动比价 -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">🏭</div>
+                <h2 class="card-title">12. 供应链突围：1688 源头自动比价引擎</h2>
+            </div>
+            
+            <p>上一篇的AI输出结果中，有一个核心字段：<code>product_cn</code>（精准中文商品名，例如：“工业级PVC水管 4英寸”）。现在，我们需要用这个词去中国最大的源头工厂平台 1688 拿到底价。</p>
+
+            <div class="alert alert-danger">
+                <strong>反爬虫警告：</strong> 1688 的阿里系风控是地狱级的。如果你用简单的 Http 请求去抓取网页代码，不到10次就会被封IP甚至封禁淘宝账号。我们必须采用 <strong>“RPA 图像识别（CV）+ 拟人操作”</strong> 的混合双打模式。
+            </div>
+
+            <details open>
+                <summary><span class="step-badge">1</span> 构建 1688 视觉抓取逻辑 (影刀实操)</summary>
+                <div class="details-content">
+                    <p>继续在影刀中新建一个子流程，命名为“1688查价器”。</p>
+                    <div class="rpa-logic">
+<span class="rpa-comment">// 步骤1：安全进入并搜索</span>
+<span class="rpa-keyword">打开网页</span> (网址: "https://www.1688.com", 浏览器: AdsPower指纹环境)
+<span class="rpa-keyword">填写输入框</span> (目标: 搜索栏, 内容: 变量 <span class="rpa-variable">product_cn</span>)
+<span class="rpa-keyword">点击元素</span> (目标: "搜索"按钮)
+<span class="rpa-keyword">随机延时</span> (等待 3000 到 5000 毫秒，模拟页面加载)
+
+<span class="rpa-comment">// 步骤2：视觉过滤“实力商家 (牛头标)”</span>
+<span class="rpa-comment">不要抓取普通淘宝倒爷，只抓带“牛头”图标的源头大厂。</span>
+<span class="rpa-keyword">图像查找</span> (在屏幕可视范围内，寻找 1688_niutou.png 的图片坐标)
+<span class="rpa-keyword">If 判断</span> (如果找到了牛头标):
+    <span class="rpa-keyword">获取相邻文本</span> (提取牛头标下方的【价格文本】和【商品主图URL】)
+    <span class="rpa-keyword">赋值变量</span> -> <span class="rpa-variable">factory_price_rmb</span>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <!-- Module 13: 利润精算与动态报价 -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">💵</div>
+                <h2 class="card-title">13. 算法定价：自动化暴利计算公式</h2>
+            </div>
+            
+            <p>拿到了 1688 的拿货价（假设是 10元 人民币），你不能直接按汇率报给老外。我们要将“国内运费、国际专线分摊成本、以及你的信息差利润”全部交给程序自动计算，直接生成外币报价。</p>
+
+            <div class="math-card">
+                报价公式：<br>
+                最终美元报价 = [ (1688人民币价 + 预估国内运费2元) × 暴利系数(1.6到2.0) ] ÷ 实时汇率
+            </div>
+
+            <table style="margin-top: 1.5rem;">
+                <thead>
+                    <tr>
+                        <th>参数变量</th>
+                        <th>逻辑说明 (在 Coze 或 RPA 代码中配置)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>暴利系数 (Multiplier)</strong></td>
+                        <td>根据产品属性自动调整。3C电子竞争大，系数设为 <code>1.4</code>；偏门五金、农机具信息差大，系数设为 <code>2.2</code> (即加价120%)。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>实时汇率 (Exchange Rate)</strong></td>
+                        <td>调用免费的汇率 API（如 exchangerate-api.com），每日自动获取 USD/CNY 或目标国货币的实时汇率，确保利润不被汇损吞噬。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>兜底价格 (Floor Price)</strong></td>
+                        <td>如果计算出的单价低于 $2 USD，一律按包邮打包含量报价（例如：“最低起订量100个，总价$250”），避免在几十美分上浪费精力。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Module 14: 神级逼单 Prompt -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">✍️</div>
+                <h2 class="card-title">14. AI 开发信生成：降维打击的商业心理学</h2>
+            </div>
+            
+            <p>价格算好了，接下来是“话术”。我们不仅要把报价发过去，还要利用老外的母语，将其包装得极具诱惑力。再次打开 Coze，新建一个“金牌销售生成器”节点：</p>
+
+            <div class="prompt-container">
+                <div class="prompt-header">
+                    <span class="prompt-title">System Prompt - Pitch_Master_v2.0</span>
+                </div>
+                <div class="prompt-body">
+<span class="hl-role"># Role (角色)</span>
+你是一家位于中国广东的源头工厂的外贸总监。你说话极其专业、干练，深谙B2B商业心理学。
+
+<span class="hl-role"># Input Data (输入变量)</span>
+客户原始语言: <span class="hl-var">{{target_language}}</span>
+推销产品: <span class="hl-var">{{product_cn}}</span>
+计算后的外币单价: <span class="hl-var">{{final_price_usd}}</span> USD
+
+<span class="hl-role"># Task (任务)</span>
+请使用<span class="hl-var">{{target_language}}</span>（如果是西语/阿语，请用最地道的本地商业口吻），撰写一条用于 WhatsApp 的“破冰+逼单”开发信。
+
+<span class="hl-role"># Strict Rules (严格规则)</span>
+1. <span class="hl-keyword">不要超过 50 个单词。</span>老外在手机上看 WhatsApp，太长会被直接拉黑。
+2. <span class="hl-keyword">首句抓人：</span>直接说“我们在网上看到您在寻找[产品]，我们是中国的一手源头代工厂”。（建立绝对的价格信任）
+3. <span class="hl-keyword">抛出诱饵：</span>抛出我们的底价：“我们的 EXW 批发价低至 <span class="hl-var">{{final_price_usd}}</span> USD。”
+4. <span class="hl-keyword">行动呼吁 (CTA)：</span>最后一句用疑问句结束，逼迫他回复。例如：“需要我给您发几张车间实拍图或完整报价单吗？”
+5. <span class="hl-keyword">排版：</span>适当使用 🏭, 📦, 👇 等 Emoji，让信息显得不死板。</div>
+            </div>
+        </section>
+
+        <!-- Module 15: WhatsApp 自动群发闭环 -->
+        <section class="content-card">
+            <div class="card-header">
+                <div class="card-icon">📲</div>
+                <h2 class="card-title">15. 最后一击：WhatsApp Web 端自动触达</h2>
+            </div>
+            
+            <p>万事俱备，我们要把 AI 写好的完美话术，以及从 1688 抓取下来的商品实拍图，自动发给客户的 WhatsApp。</p>
+
+            <div class="alert alert-warning">
+                <strong>封号避坑：</strong> 千万不要去买市面上那些“WhatsApp 群发协议软件”！官方抓得极严，秒封。最安全的方式，依然是使用 RPA 操控官方的网页版 (WhatsApp Web)，模拟人类手动发送。
+            </div>
+
+            <details open>
+                <summary>实操：影刀控制 WhatsApp 网页版群发</summary>
+                <div class="details-content">
+                    <ol style="padding-left: 1.5rem; line-height: 1.8;">
+                        <li><strong>登录环境：</strong> 在 AdsPower 的指纹浏览器中，打开 <code>web.whatsapp.com</code>，用你的手机扫码登录。（这个环境以后千万不要登出）。</li>
+                        <li><strong>拼接直通链接：</strong> WhatsApp 提供了一个免加好友直接聊天的官方接口。让影刀利用之前提纯出的老外电话号码（如 <code>521234567890</code>），拼接成 <code>https://wa.me/521234567890</code>。</li>
+                        <li><strong>执行发送指令：</strong>
+                            <ul style="list-style-type: disc; padding-left: 1.5rem; color: #475569;">
+                                <li>让影刀在浏览器中访问这个 <code>wa.me</code> 链接。</li>
+                                <li>点击页面上的“继续聊天 (Continue to Chat)”按钮。</li>
+                                <li>将 Coze 生成好的母语话术，粘贴到输入框。</li>
+                                <li>利用 RPA 模拟按下 <code>Enter</code> 键发送。</li>
+                                <li>（高阶操作）：将 1688 下载的商品图写入系统剪贴板，使用 <code>Ctrl+V</code> 粘贴到聊天窗口一并发送。</li>
+                            </ul>
+                        </li>
+                        <li><strong>设置安全休眠：</strong> 发完一个，必须让机器人随机休眠 2 到 8 分钟。每天单个 WhatsApp 账号发送不要超过 50 条陌生人消息。</li>
+                    </ol>
+                </div>
+            </details>
+        </section>
+
+    </main>
+
+    <footer style="text-align: center; padding: 2rem; color: var(--color-slate-600); font-size: 0.875rem;">
+        <p>System Initialized: Part 5 Complete. <br>至此，你已经建成了一条“自动寻客 -> 自动翻译 -> 自动查价 -> 自动发推销信”的完整工业流水线！<br>在接下来的【6/10】中，我们将进入“谈判深水区”：当老外回复你之后，如何利用AI话术库和专业单证（PI），空手套白狼收下他的美金定金！</p>
+    </footer>
+
+</body>
+</html>
