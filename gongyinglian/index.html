@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>冷门供应链信息差套利手册 · 提单式实操指南</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#101b2d;
+    --ink-2:#16233a;
+    --paper:#efe7d6;
+    --paper-2:#e4d9c0;
+    --brass:#c1963b;
+    --brass-2:#8f6c24;
+    --teal:#3e7068;
+    --alert:#b23a2e;
+    --line:#3a4c66;
+    --muted:#9fb0c7;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Noto Sans SC', sans-serif;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(circle at 10% 8%, rgba(193,150,59,0.06), transparent 40%),
+      radial-gradient(circle at 90% 15%, rgba(62,112,104,0.08), transparent 45%);
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:0 18px 80px;}
+  a{color:var(--brass);}
+
+  /* ---------- 顶部提单封面 ---------- */
+  .cover{
+    position:relative;
+    padding:64px 18px 46px;
+    border-bottom:1px dashed var(--line);
+    overflow:hidden;
+  }
+  .cover::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(255,255,255,0.015) 28px);
+    pointer-events:none;
+  }
+  .doc-no{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:2px;
+    color:var(--muted);
+    display:flex; justify-content:space-between;
+    margin-bottom:26px;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:3px;
+    color:var(--brass);
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  h1.title{
+    font-family:'Noto Serif SC', serif;
+    font-weight:900;
+    font-size:clamp(30px, 8vw, 46px);
+    line-height:1.25;
+    margin:0 0 18px;
+    color:var(--paper);
+    letter-spacing:0.5px;
+  }
+  h1.title em{
+    font-style:normal;
+    color:var(--brass);
+    border-bottom:3px solid var(--brass-2);
+  }
+  .sub{
+    color:var(--muted);
+    font-size:15.5px;
+    max-width:56ch;
+  }
+  .stamp{
+    position:absolute;
+    right:14px; top:34px;
+    width:104px; height:104px;
+    border:3px solid var(--alert);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center;
+    transform:rotate(-14deg);
+    color:var(--alert);
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    font-size:11.5px;
+    line-height:1.35;
+    letter-spacing:1px;
+    opacity:0.9;
+    padding:6px;
+  }
+  .stamp::before, .stamp::after{
+    content:"";
+    position:absolute;
+    inset:6px;
+    border:1px solid var(--alert);
+    border-radius:50%;
+  }
+
+  /* ---------- 目录 / 提单清单 ---------- */
+  .manifest{
+    margin:40px 0 10px;
+    background:linear-gradient(180deg, rgba(239,231,214,0.04), transparent);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:22px 20px 10px;
+  }
+  .manifest h2{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    letter-spacing:3px;
+    color:var(--muted);
+    margin:0 0 16px;
+    text-transform:uppercase;
+  }
+  .manifest ol{
+    list-style:none; margin:0; padding:0; counter-reset:mf;
+  }
+  .manifest li{
+    counter-increment:mf;
+    display:flex; align-items:baseline; gap:10px;
+    padding:9px 0;
+    border-bottom:1px dotted rgba(159,176,199,0.35);
+    font-size:14.5px;
+  }
+  .manifest li:last-child{border-bottom:none;}
+  .manifest li::before{
+    content:counter(mf, decimal-leading-zero);
+    font-family:'JetBrains Mono', monospace;
+    color:var(--brass);
+    font-size:12.5px;
+    flex-shrink:0;
+  }
+  .manifest a{text-decoration:none; color:var(--paper); flex:1;}
+  .manifest a:hover{color:var(--brass);}
+
+  /* ---------- 通用 section ---------- */
+  section{padding:52px 0 6px; border-bottom:1px dashed var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .tag{
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:2px;
+    color:var(--ink);
+    background:var(--brass);
+    padding:3px 10px;
+    border-radius:2px;
+    margin-bottom:14px;
+    text-transform:uppercase;
+  }
+  .tag.teal{background:var(--teal); color:#eafaf6;}
+  .tag.alert{background:var(--alert); color:#fceceb;}
+  h2.h{
+    font-family:'Noto Serif SC', serif;
+    font-weight:700;
+    font-size:clamp(22px, 6vw, 28px);
+    margin:0 0 16px;
+    color:var(--paper);
+  }
+  h3.h3{
+    font-family:'Noto Serif SC', serif;
+    font-weight:700;
+    font-size:18px;
+    margin:26px 0 10px;
+    color:var(--brass);
+  }
+  p{margin:0 0 14px; color:#dfe6ee; font-size:15.5px;}
+  strong{color:var(--paper);}
+  ul.list, ol.list{padding-left:20px; margin:0 0 14px;}
+  ul.list li, ol.list li{margin-bottom:8px; color:#dfe6ee; font-size:15.5px;}
+
+  /* ---------- 提单卡片 (流程步骤) ---------- */
+  .ticket{
+    position:relative;
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:6px;
+    margin:22px 0 30px;
+    padding:22px 20px 20px;
+    box-shadow:0 10px 24px rgba(0,0,0,0.28);
+  }
+  .ticket::before{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-9px;
+    height:18px;
+    background-image:radial-gradient(circle, var(--ink) 5px, transparent 5.5px);
+    background-size:20px 20px;
+    background-position:6px 0;
+    background-repeat:repeat-x;
+  }
+  .ticket-head{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    border-bottom:1px dashed var(--brass-2);
+    padding-bottom:12px; margin-bottom:12px;
+    gap:10px;
+  }
+  .ticket-num{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; color:var(--brass-2); letter-spacing:2px;
+  }
+  .ticket-title{
+    font-family:'Noto Serif SC', serif;
+    font-weight:700;
+    font-size:19px;
+    color:var(--ink-2);
+    margin:2px 0 0;
+  }
+  .ticket-badge{
+    flex-shrink:0;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    border:1.5px solid var(--ink);
+    border-radius:3px;
+    padding:3px 7px;
+    transform:rotate(4deg);
+    white-space:nowrap;
+    color:var(--ink);
+  }
+  .ticket p, .ticket li{color:#2a2015;}
+  .ticket h4{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:1.5px; text-transform:uppercase;
+    color:var(--brass-2); margin:16px 0 6px;
+  }
+  .ticket ul{margin:0 0 6px; padding-left:18px;}
+  .ticket ul li{margin-bottom:6px; font-size:14.5px;}
+  .toolrow{
+    display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 4px;
+  }
+  .chip{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    background:rgba(16,27,45,0.08);
+    border:1px solid rgba(16,27,45,0.25);
+    padding:3px 8px;
+    border-radius:20px;
+    color:var(--ink-2);
+  }
+
+  /* ---------- 折叠详情 ---------- */
+  details{
+    border:1px solid var(--line);
+    border-radius:4px;
+    margin-bottom:12px;
+    background:rgba(255,255,255,0.02);
+  }
+  details summary{
+    cursor:pointer;
+    list-style:none;
+    padding:14px 16px;
+    font-family:'Noto Sans SC', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--paper);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{
+    content:"+";
+    font-family:'JetBrains Mono', monospace;
+    color:var(--brass);
+    font-size:18px;
+    margin-left:12px;
+  }
+  details[open] summary::after{content:"–";}
+  details .d-body{padding:0 16px 16px; color:#dfe6ee; font-size:14.8px;}
+  details .d-body p{margin-bottom:10px;}
+
+  /* ---------- 表格 ---------- */
+  .tblwrap{overflow-x:auto; margin:14px 0 22px; border:1px solid var(--line); border-radius:4px;}
+  table{border-collapse:collapse; width:100%; min-width:520px; font-size:13.5px;}
+  thead th{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px; letter-spacing:1px; text-transform:uppercase;
+    background:rgba(193,150,59,0.14);
+    color:var(--brass);
+    text-align:left;
+    padding:10px 12px;
+    border-bottom:1px solid var(--line);
+    white-space:nowrap;
+  }
+  tbody td{
+    padding:10px 12px;
+    border-bottom:1px dashed rgba(159,176,199,0.25);
+    color:#dfe6ee;
+    vertical-align:top;
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:nth-child(even){background:rgba(255,255,255,0.02);}
+
+  /* ---------- 风险警示框 ---------- */
+  .warn{
+    border:1.5px solid var(--alert);
+    border-radius:4px;
+    padding:16px 16px 14px;
+    margin:18px 0;
+    position:relative;
+    background:rgba(178,58,46,0.07);
+  }
+  .warn .wlabel{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px; letter-spacing:2px; text-transform:uppercase;
+    color:var(--alert); font-weight:700; margin-bottom:8px; display:block;
+  }
+  .warn p, .warn li{color:#f1d9d6; font-size:14.5px; margin-bottom:8px;}
+  .warn ul{padding-left:18px; margin:0;}
+
+  .info{
+    border:1.5px solid var(--teal);
+    border-radius:4px;
+    padding:16px 16px 14px;
+    margin:18px 0;
+    background:rgba(62,112,104,0.08);
+  }
+  .info .ilabel{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px; letter-spacing:2px; text-transform:uppercase;
+    color:#7fd6c4; font-weight:700; margin-bottom:8px; display:block;
+  }
+  .info p, .info li{color:#dcf3ee; font-size:14.5px; margin-bottom:6px;}
+  .info ul{padding-left:18px; margin:0;}
+
+  /* ---------- checklist ---------- */
+  .checklist{list-style:none; padding:0; margin:16px 0;}
+  .checklist li{
+    display:flex; gap:10px; align-items:flex-start;
+    padding:9px 0; border-bottom:1px dotted rgba(159,176,199,0.25);
+    font-size:14.8px; color:#dfe6ee;
+  }
+  .checklist li::before{
+    content:"☐";
+    color:var(--brass);
+    font-size:16px; line-height:1.3; flex-shrink:0;
+  }
+
+  /* ---------- 结尾 ---------- */
+  .endstamp{
+    text-align:center; padding:54px 0 10px;
+  }
+  .endstamp .ring{
+    width:120px; height:120px; margin:0 auto 18px;
+    border:3px double var(--brass);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:2px; color:var(--brass);
+    transform:rotate(-6deg);
+    padding:10px;
+  }
+  .endnote{color:var(--muted); font-size:13px; max-width:52ch; margin:0 auto;}
+
+  /* ---------- 顶部导航胶囊 ---------- */
+  .navcap{
+    position:sticky; top:10px; z-index:20;
+    display:flex; justify-content:center;
+    margin:14px auto 0;
+    pointer-events:none;
+  }
+  .navcap .pill{
+    pointer-events:auto;
+    background:rgba(16,27,45,0.85);
+    backdrop-filter:blur(6px);
+    border:1px solid var(--line);
+    border-radius:30px;
+    padding:8px 16px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:1.5px;
+    color:var(--brass);
+    display:flex; gap:14px; align-items:center;
+    box-shadow:0 6px 18px rgba(0,0,0,0.35);
+  }
+  .navcap a{color:var(--muted); text-decoration:none;}
+  .navcap a:hover{color:var(--paper);}
+
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.show{opacity:1; transform:translateY(0);}
+
+  @media (max-width:420px){
+    .stamp{width:82px; height:82px; font-size:10px; right:8px; top:26px;}
+    .doc-no{font-size:10.5px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="navcap">
+  <div class="pill">
+    <a href="#flow">全景</a>
+    <a href="#agent-era">技术</a>
+    <a href="#steps">六步</a>
+    <a href="#kit">模板库</a>
+    <a href="#payments">收款</a>
+    <a href="#risk">风险</a>
+    <a href="#plan">30天</a>
+  </div>
+</div>
+
+<header class="cover">
+  <div class="doc-no">
+    <span>NO. B/L-CN-2026-0804</span>
+    <span>FOR BEGINNERS ONLY</span>
+  </div>
+  <div class="eyebrow">跨境冷门供应链 · 信息差实操手册</div>
+  <h1 class="title">一个人的<br>“全自动”<em>赛博倒爷</em>操作指南</h1>
+  <p class="sub">这份手册会把「7×24小时全自动套利系统」这个概念，拆成一个完全不懂技术、没做过外贸的人也能看懂的真实工作流——包括哪些环节真的能自动化，哪些环节必须你自己上手，以及这门生意真正的风险在哪里。</p>
+  <div class="stamp">诚实<br>评估<br>版</div>
+</header>
+
+<div class="wrap">
+
+  <nav class="manifest" id="toc">
+    <h2>提单目录 · Manifest</h2>
+    <ol>
+      <li><a href="#flow">这门生意到底赚谁的钱</a></li>
+      <li><a href="#reality">现实检查：全自动是营销话术</a></li>
+      <li><a href="#agent-era">2026技术前沿：RPA→AI Agent、海关数据、GEO</a></li>
+      <li><a href="#glossary">外贸术语速查表（新手必看）</a></li>
+      <li><a href="#steps">六个环节完整拆解（含逐步操作）</a></li>
+      <li><a href="#markets">6个目标国家深度画像</a></li>
+      <li><a href="#kit">复制粘贴模板库</a></li>
+      <li><a href="#stack">技术工具清单与搭建步骤</a></li>
+      <li><a href="#payments">跨境收款工具对比</a></li>
+      <li><a href="#budget">成本与时间预算</a></li>
+      <li><a href="#risk">风险清单与真实诈骗套路</a></li>
+      <li><a href="#plan">30天逐日行动日历</a></li>
+      <li><a href="#faq">高频问题（20问）</a></li>
+    </ol>
+  </nav>
+
+  <!-- ================= 全景逻辑 ================= -->
+  <section id="flow" class="reveal">
+    <span class="tag">01 · 生意逻辑</span>
+    <h2 class="h">这门生意到底在赚谁的钱</h2>
+    <p>先把最朴素的逻辑讲清楚，不谈技术，只谈买卖。</p>
+    <p>南美、中东、非洲的一些中小国家，有大量基础工业品和农资采购需求——比如塑料水管接头、五金件、劳保用品、简易农机配件。这些国家本地要么没有工厂，要么工厂效率低、成本高；但当地采购方大多是中小企业主或政府基层部门，他们不懂英文商务邮件，更不懂怎么在中国找到源头工厂，只能通过层层中间商采购，价格被加价好几轮。</p>
+    <p>而中国这边的源头工厂（很多在1688这类平台上）产能过剩、极度渴望订单，但完全不懂西班牙语、阿拉伯语、斯瓦希里语，也没有精力去开发这些"小单、远单、麻烦单"。</p>
+    <p><strong>你要赚的，就是这两头之间的"语言差、信息差、渠道差"。</strong>你既不生产，也不消费，你是那个把两边连起来的翻译官兼中间商。</p>
+    <div class="info">
+      <span class="ilabel">这门生意成立的三个前提</span>
+      <ul>
+        <li>信息差真实存在：对方确实找不到、找不对源头工厂</li>
+        <li>差价覆盖成本：你的加价（比如30%）要低于对方原来的采购成本，双方都划算</li>
+        <li>交易能落地：光找到客户没用，还要能收到钱、能发出货、能应对纠纷</li>
+      </ul>
+    </div>
+    <p>后面所有的技术手段（RPA、大模型翻译、AI视频），本质上都是在为这三件事服务，而不是目的本身。记住这一点，才不会被"全自动"这个词冲昏头。</p>
+  </section>
+
+  <!-- ================= 现实检查 ================= -->
+  <section id="reality" class="reveal">
+    <span class="tag alert">02 · 泼冷水</span>
+    <h2 class="h">现实检查：为什么"全自动"是营销话术</h2>
+    <p>在拆解具体步骤之前，必须先诚实地说一件事：<strong>你描述的这套系统，作为营销概念很性感，但真正落地时，至少有一半环节没法做到"全自动"</strong>。原因如下，逐条说明。</p>
+
+    <h3 class="h3">RPA monitors 不是"7×24小时监控全世界"</h3>
+    <p>大多数"冷门国家本地B2B论坛、政府采购网、社交媒体"要么没有公开API，要么明确禁止自动化抓取（robots.txt、用户协议里写明禁止爬虫），社交媒体平台（Facebook、WhatsApp Business、当地论坛）尤其严格，账号很容易被封。真实做法是：小规模、低频率抓取 + 大量人工浏览，而不是无限扩张的爬虫集群。</p>
+
+    <h3 class="h3">小语种翻译不是"实时精准翻译"</h3>
+    <p>斯瓦希里语、阿拉伯语各地方言、西非法语区的口语化表达，大语言模型的翻译质量参差不齐，尤其是专业采购术语（管件规格、公差、认证标准）翻译错一个字，可能导致整批货报废或退货纠纷。<strong>机器翻译只能做初筛和草稿，最终报价前的关键信息必须人工核实</strong>，最好找到能看懂原文的人（哪怕是兼职）复核一遍。</p>
+
+    <h3 class="h3">自动匹配货源不能跳过验厂</h3>
+    <p>1688上标注的"最低价"经常伴随着起订量、样品费、以次充好的风险。全自动比价工具能帮你缩小范围，但下单前对工厂的资质、产能、以往差评的核实，仍然依赖人工，至少前几单必须如此。</p>
+
+    <h3 class="h3">开发信能自动发，但转化靠人</h3>
+    <p>AI生成的本地化开发信和产品演示视频，确实能大幅降低"触达"的成本，但真正决定成交的，是后续报价的专业度、回复询盘的速度、以及能不能让对方信任你会按时发货、货不对板可以退换。这一段没有捷径。</p>
+    <div class="warn">
+      <span class="wlabel">一句话总结</span>
+      <p>把这套系统理解为"用自动化工具，把一个人的获客和翻译效率放大 5-10 倍"，而不是"搭建好就能躺赚的印钞机"。抱着后者的预期开始，大概率会亏钱又焦虑。</p>
+    </div>
+    <div class="info">
+      <span class="ilabel">2026年的一个真实数据背景</span>
+      <p>行业数据显示，阿里巴巴国际站这类主流B2B平台的平均询盘转化率已经降到1.2%以下，传统冷邮件的打开率跌破15%、回复率只有0.3%-0.5%。这说明即便是成熟外贸公司，获客效率也在持续下滑——不是因为大家不够"自动化"，而是因为买家的注意力越来越分散、决策路径也在变。这门生意能不能成立，最终拼的还是"信息差是否足够真实"和"你的响应速度与专业度"，技术只是放大器，不是发动机。</p>
+    </div>
+  </section>
+
+  <!-- ================= AI Agent 时代 ================= -->
+  <section id="agent-era" class="reveal">
+    <span class="tag teal">03 · 技术前沿</span>
+    <h2 class="h">2026年的真实技术水位：从RPA到AI Agent</h2>
+    <p>你说要"最先进的技术"，这里说实话讲清楚现在业内真实在用什么，而不是停留在"写个爬虫脚本"的旧认知上。</p>
+
+    <div class="ticket">
+      <div class="ticket-head">
+        <div><div class="ticket-num">TECH · 01</div><div class="ticket-title">RPA 正在被 AI Agent 取代</div></div>
+        <div class="ticket-badge">2026 趋势</div>
+      </div>
+      <p>传统RPA工具依赖固定的API接口或页面结构，网站一改版，脚本就失效，需要不断维护。2026年的新一代AI智能体（Agent）不再死板地依赖接口，而是能像人一样"看懂"网页截图、理解页面语义、自主完成点击和信息提取，即便页面结构变化也能继续工作，这类工具正在从"自动化流程"升级为"自主完成任务"。</p>
+      <h4>对你来说意味着什么</h4>
+      <ul>
+        <li>不用再自己写死板的抓取脚本去应对每个国家论坛的页面结构，用支持"视觉理解+自主操作"的智能体工具，维护成本大幅降低</li>
+        <li>但这类工具目前仍处在快速迭代期，稳定性和成本因平台而异，建议先用免费额度小范围试用，不要一开始就重金投入</li>
+      </ul>
+      <div class="toolrow">
+        <span class="chip">Clay + Claygent（AI调研智能体）</span>
+        <span class="chip">Apify（预制爬虫市场，21000+现成方案）</span>
+        <span class="chip">Bardeen（浏览器内自然语言自动化）</span>
+      </div>
+    </div>
+
+    <div class="ticket">
+      <div class="ticket-head">
+        <div><div class="ticket-num">TECH · 02</div><div class="ticket-title">用海关数据做精准寻客，而不是漫无目的监控论坛</div></div>
+        <div class="ticket-badge">现在更主流的做法</div>
+      </div>
+      <p>比起在小语种论坛里大海捞针，现在更成熟的外贸获客思路是<strong>用海关贸易数据反查</strong>：查询目标国家、目标品类的历史进口记录，直接看出"谁在进口、从哪个供应商进口、大概多久进口一次"，这比等对方主动发帖精准得多，也是目前多家外贸SaaS工具的核心卖点。</p>
+      <h4>具体怎么用</h4>
+      <ul>
+        <li>用ImportYeti一类的进口数据查询工具，输入目标品类或已知的同行/竞品客户名称，反查其供应商结构和采购频率，推测哪些企业值得开发</li>
+        <li>把海关数据和WhatsApp Business官方渠道（BSP认证）结合，找到目标企业的联系人后，通过官方合规的商业消息渠道触达，而不是用容易被封号的个人账号群发</li>
+        <li>不要迷信"数据越大越好"，海关数据只能告诉你"历史上买过"，重点还是要人工判断这家企业是否有持续采购的可能性</li>
+      </ul>
+    </div>
+
+    <div class="ticket">
+      <div class="ticket-head">
+        <div><div class="ticket-num">TECH · 03</div><div class="ticket-title">GEO：让AI搜索引擎"看到"你</div></div>
+        <div class="ticket-badge">新兴渠道</div>
+      </div>
+      <p>越来越多海外采购决策者不再打开搜索引擎输入关键词，而是直接问AI助手"哪里能买到xx产品的工厂"。如果你的产品信息、独立站内容没有被这些AI模型抓取和理解，在AI给出的推荐列表里你就是"隐形"的。这催生了一个新技能：GEO（生成式引擎优化）——针对AI搜索和AI助手的回答逻辑去优化你的内容结构和信息颗粒度，而不只是传统的关键词SEO。</p>
+      <h4>小白能做的最简单动作</h4>
+      <ul>
+        <li>在独立站或产品页面上用结构清晰的问答形式（品类是什么、规格参数、起订量、适用场景）呈现信息，方便AI模型抓取理解</li>
+        <li>保持信息真实准确，不要为了"讨好AI抓取"堆砌关键词，模型对低质量灌水内容的判断能力也在提升</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= 术语速查 ================= -->
+  <section id="glossary" class="reveal">
+    <span class="tag">04 · 新手必读</span>
+    <h2 class="h">外贸术语速查表</h2>
+    <p>后面所有模板里都会用到这些词，先在这里一次性搞懂，免得看到一半卡住。全部用大白话解释，不背定义。</p>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>术语</th><th>大白话解释</th><th>你会在哪一步用到</th></tr></thead>
+        <tbody>
+          <tr><td>MOQ<br><span style="color:var(--muted)">最小起订量</span></td><td>工厂愿意接的最小订单数量，低于这个数工厂不做或者单价会很高</td><td>询价、匹配货源</td></tr>
+          <tr><td>FOB<br><span style="color:var(--muted)">离岸价</span></td><td>你只负责把货交到中国港口装船，之后的运费、保险、清关都是客户自己搞定</td><td>报价</td></tr>
+          <tr><td>CIF<br><span style="color:var(--muted)">到岸价</span></td><td>你负责把货运到客户国家的港口，运费和保险都包含在你的报价里</td><td>报价</td></tr>
+          <tr><td>EXW<br><span style="color:var(--muted)">工厂交货价</span></td><td>客户自己安排车到工厂门口把货拉走，你什么都不管，价格最低但对新手买家不友好</td><td>报价（新手客户较少用）</td></tr>
+          <tr><td>T/T<br><span style="color:var(--muted)">电汇</span></td><td>最常见的收款方式，客户直接把钱汇到你账户，通常约定"预付30%+发货前付70%"这类比例</td><td>收款</td></tr>
+          <tr><td>L/C<br><span style="color:var(--muted)">信用证</span></td><td>银行担保的付款方式，安全但流程复杂、有手续费，一般大额订单才用</td><td>收款（大额订单）</td></tr>
+          <tr><td>PI<br><span style="color:var(--muted)">形式发票/预估发票</span></td><td>成交前给客户的一份"报价确认单"，写清楚价格、数量、条款，客户签字盖章后作为下单依据</td><td>成交确认</td></tr>
+          <tr><td>提单 B/L</td><td>货物上船之后，船公司开给你的"货物收据"，客户凭这个提单去港口提货</td><td>发货后</td></tr>
+          <tr><td>装箱单</td><td>写清楚每个箱子里装了什么、多重、多大，方便客户清关和验货核对</td><td>发货前</td></tr>
+          <tr><td>原产地证 C/O</td><td>证明这批货是中国生产的文件，有些国家凭这个文件可以享受关税优惠</td><td>发货前，视目的国要求</td></tr>
+          <tr><td>HS编码</td><td>全球通用的商品分类编码，报关、算关税都要用到，一个编码对应一类商品</td><td>报价前核算关税成本</td></tr>
+          <tr><td>验货 Inspection</td><td>发货前找第三方或自己核实货物是否符合约定的质量、数量，降低"货不对板"的风险</td><td>发货前</td></tr>
+          <tr><td>RFQ<br><span style="color:var(--muted)">询价单</span></td><td>客户发来的"我想买什么、要多少、什么规格"的原始需求</td><td>寻客、翻译提炼</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info">
+      <span class="ilabel">新手最容易踩的一个坑</span>
+      <p>刚开始不要轻易报EXW或者纯FOB给完全没做过进口的小客户——他们大概率不知道怎么在中国这边找货代订船。报价时主动附一句"我们可以帮您安排到贵国港口的运输（CIF价格另附）"，反而更容易促成第一单。</p>
+    </div>
+  </section>
+
+  <!-- ================= 六步拆解 ================= -->
+  <section id="steps" class="reveal">
+    <span class="tag">05 · 完整拆解</span>
+    <h2 class="h">六个环节：从"找到客户"到"钱到账"</h2>
+    <p>下面按真实工作流顺序，把每个环节拆成：目标是什么、用什么工具、具体怎么做、常见的坑。每一张都当作一张"提单"来看——上面盖的章说明这个环节的自动化程度。</p>
+
+    <!-- 环节一 -->
+    <div class="ticket">
+      <div class="ticket-head">
+        <div>
+          <div class="ticket-num">STEP · 01 / 06</div>
+          <div class="ticket-title">自动寻客：监控冷门市场的采购信号</div>
+        </div>
+        <div class="ticket-badge">半自动 · 60%</div>
+      </div>
+      <p><strong>目标：</strong>在目标国家的本地渠道里，找到"正在或即将采购某类工业品"的真实信号。</p>
+      <h4>目标国家怎么选</h4>
+      <ul>
+        <li>优先选：有一定工业化基础但本地供应链薄弱的国家，例如东非（肯尼亚、坦桑尼亚）、西非法语区（科特迪瓦、塞内加尔）、中东非海湾小国、南美安第斯地区国家</li>
+        <li>优先选品类：标准化程度高、非定制、单价不高但走量的工业品/农资品——塑料管件、五金紧固件、劳保用品、灌溉设备配件、包装材料</li>
+        <li>避开：需要认证严格的品类（医疗、食品直接接触类）、受出口管制的品类、需要重技术支持的设备</li>
+      </ul>
+      <h4>去哪里监控</h4>
+      <ul>
+        <li>目标国家政府电子采购平台（很多国家有公开的政府招投标网站，且往往有公开API或至少可订阅邮件通知）</li>
+        <li>本地行业协会官网、行业展会的参展商/采购商名录</li>
+        <li>Facebook Marketplace/Group、WhatsApp Business目录、LinkedIn当地企业主页（注意平台ToS，优先用官方开放的功能如关键词提醒，而非硬爬）</li>
+        <li>阿里巴巴国际站/中国制造网上，来自这些国家买家发布的求购信息（这类平台本身就有结构化的采购需求，反而是更稳妥的起点）</li>
+      </ul>
+      <h4>怎么做（小白路径）</h4>
+      <ul>
+        <li>第一步永远不是写爬虫，而是先人工看 20-30 条真实采购信息，搞清楚这些人到底怎么描述需求、常用哪些平台</li>
+        <li>用 n8n 或 Make.com 这类低代码自动化工具，对"有官方RSS/邮件订阅/API"的渠道做定时抓取和关键词过滤，这是真正能稳定跑的自动化部分</li>
+        <li>对没有开放接口、只能网页浏览的信息源，用人工+快捷键批量浏览的方式定期扫一遍，效率同样重要，但不要迷信"全自动脚本"</li>
+      </ul>
+      <div class="toolrow">
+        <span class="chip">n8n</span><span class="chip">Make.com</span>
+        <span class="chip">Google Alerts</span><span class="chip">RSS订阅</span>
+        <span class="chip">政府采购平台邮件提醒</span>
+      </div>
+      <h4>常见坑</h4>
+      <ul>
+        <li>硬爬社交媒体导致账号被封，反而失去官方渠道触达客户的能力</li>
+        <li>把"有人发了一条求购帖"等同于"这是真实、有预算的采购需求"——大量帖子是询价试探甚至是同行摸底</li>
+      </ul>
+      <h4>每天具体搜什么关键词（示例，按品类替换）</h4>
+      <ul>
+        <li>英语系市场：<span class="chip" style="background:transparent;">"plastic pipe fitting" + "tender" / "RFQ" / "supplier wanted"</span></li>
+        <li>西语系市场：<span class="chip" style="background:transparent;">"accesorios de tubería" + "licitación" / "proveedor"</span></li>
+        <li>法语系市场：<span class="chip" style="background:transparent;">"raccords en plastique" + "appel d'offres" / "fournisseur"</span></li>
+        <li>政府采购网：直接用品类的英文/法语关键词 + 国家名 + "procurement portal"搜索该国官方采购网站入口，先找到入口，再看是否支持关键词订阅</li>
+      </ul>
+      <h4>候选平台起点清单（先人工看，再决定是否值得做自动化）</h4>
+      <ul>
+        <li>阿里巴巴国际站 / 中国制造网 —— 买家已经在上面留下结构化求购信息，是新手最容易起步的渠道</li>
+        <li>目标国工商会（Chamber of Commerce）官网的会员企业名录</li>
+        <li>行业垂直展会官网的"往届采购商"名单（很多展会官网公开可查）</li>
+        <li>LinkedIn上用品类关键词+国家名搜索企业主页，人工筛选采购负责人</li>
+      </ul>
+    </div>
+
+    <!-- 环节二 -->
+    <div class="ticket">
+      <div class="ticket-head">
+        <div>
+          <div class="ticket-num">STEP · 02 / 06</div>
+          <div class="ticket-title">大脑破译：翻译与需求提炼</div>
+        </div>
+        <div class="ticket-badge">半自动 · 70%</div>
+      </div>
+      <p><strong>目标：</strong>把小语种、口语化的采购信息，转成结构化、可执行的采购单描述。</p>
+      <h4>具体怎么做</h4>
+      <ul>
+        <li>用大语言模型（如Claude、GPT系列）做第一轮翻译和信息提炼，输出固定格式：<em>品类 / 规格 / 数量 / 目标单价区间 / 交货地 / 交货时间 / 联系方式</em></li>
+        <li>给模型的提示词（prompt）里明确要求"不确定的字段标注[需人工确认]"，避免模型编造信息</li>
+        <li>对于金额、规格、认证标准这类关键信息，安排人工用当地语言词典或找懂该语言的兼职者复核一遍，哪怕只是每周花几个小时</li>
+      </ul>
+      <h4>现实的翻译准确率参考（基于公开机器翻译基准测试）</h4>
+      <p>行业基准测试显示，英语与欧洲语言（西班牙语、法语、德语）之间的翻译质量最高；英语与日语、中文、韩语等亚洲语言居中；而斯瓦希里语这类低资源语言翻译质量明显偏弱，是目前几个方向里出错率最高的一类，阿拉伯语则因为存在"标准语与口语方言并存"的情况（书面用标准阿拉伯语，日常交流用方言），翻译难度也偏高。测试同时指出，专业术语在有行业词表辅助的情况下，主流大模型表现会明显改善，但低资源语言仍不建议单独依赖机器翻译处理法律或高风险条款。</p>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>语言方向</th><th>翻译质量水平</th><th>建议</th></tr></thead>
+          <tbody>
+            <tr><td>英语↔西班牙语/法语/葡萄牙语</td><td>高，出错率最低</td><td>可信度相对最高，仍建议核对数字</td></tr>
+            <tr><td>英语↔阿拉伯语（标准语）</td><td>中等偏上</td><td>关键规格人工复核</td></tr>
+            <tr><td>阿拉伯语方言（埃及、海湾等口语）</td><td>较弱，标准语/方言混杂易出错</td><td>建议先转写为标准语再翻译</td></tr>
+            <tr><td>英语↔斯瓦希里语</td><td>目前几种语言里偏弱的一类</td><td>专业术语必须人工核实，可结合专门的机器翻译模型辅助</td></tr>
+            <tr><td>英语↔西非法语</td><td>中等偏上</td><td>数字和规格重点复核</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info">
+        <span class="ilabel">进阶技巧</span>
+        <p>对斯瓦希里语这类低资源语言，单纯用通用大模型翻译效果有限，可以把大模型（负责结构化提炼、语境理解）和专门做机器翻译的模型（负责逐句翻译）搭配使用，两边结果交叉校对，比只用一个工具的出错率更低。</p>
+      </div>
+      <div class="toolrow">
+        <span class="chip">Claude API</span><span class="chip">GPT API</span>
+        <span class="chip">DeepL（辅助校对）</span><span class="chip">Google Translate（交叉验证）</span>
+      </div>
+      <h4>提示词模板直接抄（见 06 · 模板库 有完整版）</h4>
+      <p>核心思路：让模型只做"翻译+结构化"，不做判断和编造，任何不确定字段一律标注"待确认"，而不是让模型自己猜一个数字出来。完整可复制的提示词见下方 <a href="#kit">模板库</a> 第①个模板。</p>
+    </div>
+
+    <!-- 环节三 -->
+    <div class="ticket">
+      <div class="ticket-head">
+        <div>
+          <div class="ticket-num">STEP · 03 / 06</div>
+          <div class="ticket-title">自动匹配：在源头工厂找到报价</div>
+        </div>
+        <div class="ticket-badge">半自动 · 50%</div>
+      </div>
+      <p><strong>目标：</strong>拿着结构化需求，在1688、阿里巴巴国际站等平台上找到最合适（不是唯一最低价）的工厂报价。</p>
+      <h4>具体怎么做（重要更新：官方开放平台，不用走灰色抓取）</h4>
+      <ul>
+        <li>直接用第三方脚本硬爬1688页面属于违反平台服务条款的灰色操作，容易被风控甚至面临法律风险，不建议这样做。但1688其实针对你这种"跨境代采"的场景，专门开放了官方接口——阿里巴巴开放平台（open.1688.com）下设"采购服务商"类目，其中明确有一套"跨境代采商解决方案"，提供关键词搜索接口、图搜接口、下单交易接口等，就是为了让海外买家/代采服务商能合规地对接1688的选品和下单能力，值得优先研究这条官方路径，而不是自己写爬虫</li>
+        <li>官方接口通常需要企业资质入驻、接口调用有一定的量级门槛（部分免费额度接口要求月调用量达到一定订单规模），个人开发者前期更适合先用人工搜索+批量在线询价（旺旺/客服系统支持批量发送同一询价文案）跑通业务，等订单量起来后再考虑正式申请开放平台接口</li>
+        <li>建立一个自己的"候选工厂库"表格，记录：工厂名称、品类、起订量、历史合作情况、是否支持验货、回复速度，长期积累后匹配效率会远超临时搜索</li>
+        <li>报价不只看单价，还要核算：起订量是否匹配客户需求量、打样周期、包装是否符合目标国家的清关要求</li>
+      </ul>
+      <h4>加价怎么定</h4>
+      <p>30%只是一个参考值，实际要看品类竞争程度、物流成本占比、客户对价格的敏感度。低值走量的品类（比如基础五金件）加价空间通常比听起来的30%要薄，因为物流和关税成本占比高；单价较高、非标准化程度稍高的品类，反而有更大的信息差空间。</p>
+      <div class="toolrow">
+        <span class="chip">1688人工询价</span><span class="chip">阿里巴巴国际站</span>
+        <span class="chip">Google Sheets候选工厂库</span>
+      </div>
+      <h4>候选工厂库该记哪些字段</h4>
+      <ul>
+        <li>工厂名称 / 联系人 / 联系方式 / 所在地区</li>
+        <li>主营品类 / 起订量 / 打样周期 / 生产周期</li>
+        <li>是否支持验货 / 是否支持定制包装 / 是否有出口经验</li>
+        <li>历史合作记录（合作日期、订单量、是否有质量问题）</li>
+        <li>综合评级（1-5分，自己打分，方便下次优先联系）</li>
+      </ul>
+      <h4>工厂尽调清单</h4>
+      <p>完整版见 <a href="#kit">模板库</a> 第③个模板"工厂尽调清单"，首单一定要走完这份清单，别嫌麻烦。</p>
+    </div>
+
+    <!-- 环节四 -->
+    <div class="ticket">
+      <div class="ticket-head">
+        <div>
+          <div class="ticket-num">STEP · 04 / 06</div>
+          <div class="ticket-title">自动开发：本地化开发信 + AI演示视频</div>
+        </div>
+        <div class="ticket-badge">半自动 · 65%</div>
+      </div>
+      <p><strong>目标：</strong>用对方熟悉的语言和商业礼仪，让第一封开发信不被当成垃圾邮件或诈骗。</p>
+      <h4>具体怎么做</h4>
+      <ul>
+        <li>用大语言模型生成本地化文案草稿，但一定要人工调整问候语、称谓习惯（比如中东商务邮件通常需要更完整的寒暄，直接进主题反而显得不礼貌）</li>
+        <li>产品演示视频可以用AI视频工具基于工厂提供的实拍素材做剪辑、加字幕、配语音，而不是纯AI生成产品画面——工业品采购方对"看起来假的CG产品"信任度很低</li>
+        <li>邮件发送要注意所在国家和目标国家的反垃圾邮件法规（如欧盟GDPR、美国CAN-SPAM），批量群发未经同意的营销邮件在部分国家和平台上是违规行为，容易被标记为垃圾邮件账号甚至被处罚，规模化前先了解目标市场的规则</li>
+      </ul>
+      <h4>2026年可用的AI视频/配音工具（真实产品，非概念）</h4>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>工具</th><th>能力</th><th>大致定价</th><th>适合场景</th></tr></thead>
+          <tbody>
+            <tr><td>HeyGen</td><td>支持175+语言的真人口播视频翻译，自动配音+唇形同步</td><td>免费版每月3条，Creator版约24美元/月</td><td>把工厂实拍视频配上目标语言口播，比纯字幕更亲切</td></tr>
+            <tr><td>ElevenLabs Dubbing</td><td>支持约30种语言的配音和克隆声音，语音自然度高</td><td>按用量计费</td><td>只需要配音、不需要换脸/换口型的场景</td></tr>
+            <tr><td>Synthesia</td><td>AI数字人播报，多语言、多形象</td><td>约30美元/月起</td><td>没有真人出镜素材时，用数字人做产品介绍</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>核心原则不变：<strong>素材真实优先</strong>，用AI做翻译配音和剪辑包装，而不是让AI凭空生成产品画面——工业品采购方对"一看就是AI生成"的产品视频信任度很低。</p>
+      <div class="toolrow">
+        <span class="chip">Claude/GPT文案生成</span><span class="chip">剪映/CapCut</span>
+        <span class="chip">HeyGen</span><span class="chip">ElevenLabs</span><span class="chip">邮件合规检查</span>
+      </div>
+    </div>
+
+    <!-- 环节五 -->
+    <div class="ticket">
+      <div class="ticket-head">
+        <div>
+          <div class="ticket-num">STEP · 05 / 06</div>
+          <div class="ticket-title">询盘转化：报价、样品、信任建立</div>
+        </div>
+        <div class="ticket-badge">人工主导 · 90%</div>
+      </div>
+      <p><strong>目标：</strong>把一个感兴趣的回复，变成一笔真正下单的交易。这是全流程里自动化程度最低、但决定成败的环节。</p>
+      <h4>具体要做的事</h4>
+      <ul>
+        <li>快速、专业地回复询盘，明确单价、起订量、交货期、贸易术语（FOB/CIF/EXW等）</li>
+        <li>安排样品：谁出样品费、谁出运费，要在报价阶段就说清楚，避免后续纠纷</li>
+        <li>合同和付款条款：小额首单常见做法是"部分预付+发货前结清"或通过第三方担保交易，大额订单要考虑是否需要信用证（L/C）</li>
+        <li>物流和清关：搞清楚目标国家的清关流程、常见关税、是否需要特定认证或产地证</li>
+      </ul>
+      <h4>为什么这段没法自动化</h4>
+      <p>采购方判断你是否靠谱，看的是你回复问题的专业度、处理异议的方式、以及是否愿意承担样品/小额首单的风险来建立信任。这些恰恰是AI最难替代的部分。</p>
+    </div>
+
+    <!-- 环节六 -->
+    <div class="ticket">
+      <div class="ticket-head">
+        <div>
+          <div class="ticket-num">STEP · 06 / 06</div>
+          <div class="ticket-title">履约交付：生产、物流、收款</div>
+        </div>
+        <div class="ticket-badge">人工主导 · 95%</div>
+      </div>
+      <p><strong>目标：</strong>确保工厂按约定生产、货物顺利出关入关、款项安全到账。</p>
+      <ul>
+        <li>跟单：定期跟进工厂生产进度，尤其是第一次合作的工厂</li>
+        <li>验货：有条件的话安排第三方验货（不少验货公司提供远程视频验货服务，成本不高）</li>
+        <li>收款：了解目标国家是否有外汇管制，部分国家的企业付汇有额度限制或审批流程，会直接影响到账时间</li>
+        <li>售后：工业品运输和清关环节出问题的概率不低，提前和客户约定好破损、短装等情况的处理方式</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= 目标市场画像 ================= -->
+  <section id="markets" class="reveal">
+    <span class="tag">06 · 选市场</span>
+    <h2 class="h">6个目标国家深度画像</h2>
+    <p>与其漫无目的地"监控全世界"，不如先深耕2-3个国家。下面是6个常被这类生意选中的市场，按真实特点整理，方便你对比选择。数据会变化，具体关税税率、认证要求以官方最新规定为准，这里只给方向性参考。</p>
+
+    <details>
+      <summary>🇰🇪 肯尼亚 —— 东非门户，英语沟通无障碍</summary>
+      <div class="d-body">
+        <p><strong>优势：</strong>官方语言含英语，沟通成本低；蒙巴萨港是东非重要门户，物流相对成熟；本地中小企业活跃，政府电子采购平台较透明。</p>
+        <p><strong>常见采购品类：</strong>农业灌溉配件、建筑五金、塑料管材、太阳能配件。</p>
+        <p><strong>商业文化：</strong>重视关系和耐心，第一次沟通不要太快压价成交，多花几轮邮件建立信任。</p>
+        <p><strong>提醒：</strong>部分品类进口需符合肯尼亚标准局（KEBS）的认证要求，报价前务必确认。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🇹🇿 坦桑尼亚 —— 农资与基建需求旺盛</summary>
+      <div class="d-body">
+        <p><strong>优势：</strong>农业人口占比高，农资和农机配件需求稳定；斯瓦希里语和英语并用，政府部门多用英语办公。</p>
+        <p><strong>常见采购品类：</strong>灌溉设备、农机配件、建筑材料。</p>
+        <p><strong>商业文化：</strong>决策链条可能较长，涉及多层审批，报价后耐心跟进比催单更有效。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🇨🇮 科特迪瓦 —— 西非法语区经济中心</summary>
+      <div class="d-body">
+        <p><strong>优势：</strong>西非经济共同体重要成员，阿比让港是区域物流枢纽；法语沟通为主。</p>
+        <p><strong>常见采购品类：</strong>建材五金、包装材料、劳保用品。</p>
+        <p><strong>提醒：</strong>法语开发信务必用地道法语，机器翻译的法语商务邮件容易显得生硬，建议找母语者润色首封邮件。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🇸🇳 塞内加尔 —— 西非法语区次中心</summary>
+      <div class="d-body">
+        <p><strong>优势：</strong>政治相对稳定，达喀尔港区位优势明显；与科特迪瓦类似，法语为主要商务语言。</p>
+        <p><strong>常见采购品类：</strong>渔业配件、建材、日用五金。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🇵🇪 秘鲁 —— 南美安第斯地区</summary>
+      <div class="d-body">
+        <p><strong>优势：</strong>矿业和农业发达，对基础工业品和农资需求量大；西班牙语翻译质量在几个小语种里相对最高，出错率较低。</p>
+        <p><strong>常见采购品类：</strong>矿山配件、农业灌溉设备、五金工具。</p>
+        <p><strong>提醒：</strong>部分行业进口清关手续较繁琐，建议首单找有经验的当地清关代理配合客户操作。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🇪🇨 厄瓜多尔 —— 中小订单友好</summary>
+      <div class="d-body">
+        <p><strong>优势：</strong>西班牙语市场，中小企业采购活跃，单量不大但决策相对灵活。</p>
+        <p><strong>常见采购品类：</strong>农资配件、塑料制品、包装材料。</p>
+      </div>
+    </details>
+
+    <div class="info">
+      <span class="ilabel">怎么从这6个里选</span>
+      <ul>
+        <li>如果你完全不会外语、只能靠机器翻译校对：优先选西语市场（秘鲁、厄瓜多尔），翻译出错率最低</li>
+        <li>如果你能找到英语沟通的兼职协助：优先选肯尼亚、坦桑尼亚</li>
+        <li>如果你能找到法语母语者帮忙润色文案：科特迪瓦、塞内加尔的竞争者相对更少</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= 模板库 ================= -->
+  <section id="kit" class="reveal">
+    <span class="tag">07 · 拿来即用</span>
+    <h2 class="h">复制粘贴模板库</h2>
+    <p>这一节全是可以直接抄的东西，改几个字就能用。</p>
+
+    <h3 class="h3">模板① 需求翻译提炼提示词（喂给大模型）</h3>
+    <div class="ticket">
+      <div class="ticket-head">
+        <div><div class="ticket-num">PROMPT · 01</div><div class="ticket-title">采购需求结构化提示词</div></div>
+        <div class="ticket-badge">直接复制</div>
+      </div>
+      <p style="font-family:'JetBrains Mono',monospace; font-size:13px; white-space:pre-wrap; background:rgba(16,27,45,0.06); padding:12px; border-radius:4px; border:1px dashed var(--brass-2);">你是一名专业外贸翻译兼采购分析员。下面会给你一段用[语言]写的原始采购信息。请你：
+1. 先给出忠实的中文翻译，不要意译，不确定的词保留原文并标注[?]；
+2. 再输出结构化字段：品类 / 具体规格型号 / 数量 / 单位 / 目标单价区间（如有）/ 交货地 / 期望交货时间 / 联系方式 / 原文中提到的认证或标准要求；
+3. 任何字段原文中没有提到的，一律填写"未提及"，禁止你自己编造或推测数字；
+4. 最后用一句话标注这条信息的可信度（高/中/低），并说明理由。
+
+原始信息：
+"""
+[粘贴原文]
+"""</p>
+      <h4>使用说明</h4>
+      <ul>
+        <li>把[语言][粘贴原文]换成实际内容即可</li>
+        <li>输出的"未提及"字段，就是你回复客户时要重点追问的问题</li>
+      </ul>
+    </div>
+
+    <h3 class="h3">模板② 开发信 / 首次开发邮件（英文基础版）</h3>
+    <div class="ticket">
+      <div class="ticket-head">
+        <div><div class="ticket-num">EMAIL · 01</div><div class="ticket-title">首次开发信框架</div></div>
+        <div class="ticket-badge">按国家润色</div>
+      </div>
+      <p style="font-family:'JetBrains Mono',monospace; font-size:12.5px; white-space:pre-wrap; background:rgba(16,27,45,0.06); padding:12px; border-radius:4px; border:1px dashed var(--brass-2);">Subject: Regarding your [产品类别] requirement — direct factory pricing from China
+
+Dear [称呼/公司名],
+
+I came across your requirement for [产品类别，引用对方原文提到的具体规格]. My company works directly with verified manufacturers in China specializing in this category, and I'd like to see if we can offer you a more competitive price without the extra layers of middlemen.
+
+A few quick questions so I can send you an accurate quotation:
+1. Exact specification / size / material required
+2. Order quantity (or estimated annual volume)
+3. Preferred delivery port or address
+4. Any certification or standard required in your country
+
+Happy to share factory catalogs, sample photos, or arrange a short video call at your convenience.
+
+Best regards,
+[你的名字]
+[公司/个体名称]
+[联系方式]</p>
+      <h4>本地化要点</h4>
+      <ul>
+        <li>发往中东、非洲部分国家：开头加一句简短问候和对对方公司的具体称赞，不要直接进主题</li>
+        <li>发往法语区：整封信需要用法语重写，而不是简单机翻，语气要更正式（用"Madame/Monsieur"而非"Dear"直译）</li>
+        <li>发往西语区：西语商务邮件习惯用更完整的敬语开头（Estimado/a + 全名）</li>
+      </ul>
+    </div>
+
+    <h3 class="h3">模板③ 工厂尽调清单</h3>
+    <div class="ticket">
+      <div class="ticket-head">
+        <div><div class="ticket-num">CHECKLIST · 01</div><div class="ticket-title">下单前必须确认的12项</div></div>
+        <div class="ticket-badge">首单必用</div>
+      </div>
+      <ul>
+        <li>营业执照 / 企业信息是否可在官方渠道查询核实</li>
+        <li>是否有出口记录（可要求对方提供报关单示例或询问合作过的其他海外客户）</li>
+        <li>起订量是否与客户需求量匹配</li>
+        <li>打样周期与费用，样品费是否可在正式订单中抵扣</li>
+        <li>生产周期，是否有产能保证书面承诺</li>
+        <li>付款方式与比例是否可协商</li>
+        <li>是否支持第三方验货，是否配合视频验货</li>
+        <li>包装方式是否符合目的国清关习惯（有些国家对木质包装有熏蒸证要求）</li>
+        <li>是否可提供原产地证等出口所需文件</li>
+        <li>历史差评/纠纷情况（可在平台查看评价、要求提供同行业客户联系方式）</li>
+        <li>产品是否涉及目的国强制认证，工厂是否配合提供相关检测报告</li>
+        <li>沟通响应速度（首单尽量选择回复及时、条理清晰的工厂，比价格更重要）</li>
+      </ul>
+    </div>
+
+    <h3 class="h3">模板④ 客户背景核实清单（防诈骗）</h3>
+    <div class="ticket">
+      <div class="ticket-head">
+        <div><div class="ticket-num">CHECKLIST · 02</div><div class="ticket-title">大额订单成交前的核实项</div></div>
+        <div class="ticket-badge">谨慎对待</div>
+      </div>
+      <ul>
+        <li>公司是否有可查询的注册信息（当地工商注册网站、官网、领英企业页是否一致）</li>
+        <li>联系人邮箱是否为企业域名邮箱，而非免费邮箱</li>
+        <li>是否愿意视频通话核实身份和采购意向</li>
+        <li>首次合作的大额订单，警惕"全额预付到陌生个人账户"的要求</li>
+        <li>如对方主动大幅抬高订单量诱导你先垫付样品或认证费用，需要提高警惕</li>
+        <li>付款凭证以银行实际到账为准，不轻信截图或邮件形式的"付款证明"</li>
+      </ul>
+    </div>
+
+    <h3 class="h3">模板⑤ PI（形式发票）核心字段结构</h3>
+    <div class="ticket">
+      <div class="ticket-head">
+        <div><div class="ticket-num">DOC · 01</div><div class="ticket-title">报价确认单该写什么</div></div>
+        <div class="ticket-badge">成交前必备</div>
+      </div>
+      <ul>
+        <li>卖方/买方公司全称、联系方式</li>
+        <li>产品名称、规格型号、数量、单价、总价（注明币种）</li>
+        <li>贸易术语（FOB/CIF等）及具体港口</li>
+        <li>付款方式与比例、付款期限</li>
+        <li>交货期、包装方式</li>
+        <li>有效期（报价的截止日期，避免汇率或原材料价格波动带来的损失）</li>
+        <li>双方签字盖章栏</li>
+      </ul>
+      <p>做一份Excel或Google Docs模板，每次成交前直接套用，比每次重新写快得多。</p>
+    </div>
+  </section>
+
+  <!-- ================= 工具清单 ================= -->
+  <section id="stack" class="reveal">
+    <span class="tag teal">08 · 工具箱</span>
+    <h2 class="h">技术工具清单与搭建步骤</h2>
+    <p>不需要一次性全部用上，按你实际卡住的环节，逐个引入。</p>
+    <h3 class="h3">n8n自动化工作流，手把手节点搭建</h3>
+    <p>以"监控政府采购网新公告并邮件提醒"为例，具体节点搭建顺序如下：</p>
+    <ol class="list">
+      <li><strong>RSS Feed Trigger节点：</strong>填入目标采购网站的RSS订阅地址（如果网站没有RSS，改用"Schedule Trigger"节点定时+HTTP Request节点抓取公开页面）</li>
+      <li><strong>Filter节点：</strong>设置关键词过滤条件，只保留标题或摘要中包含你目标品类关键词的条目</li>
+      <li><strong>LLM节点（HTTP Request调用大模型API）：</strong>把过滤后的内容传入，使用<a href="#kit">模板①</a>的提示词，输出结构化字段</li>
+      <li><strong>Google Sheets节点：</strong>把结构化结果追加写入你的"线索库"表格</li>
+      <li><strong>Email/Slack节点：</strong>每天定时把当天新增的线索汇总发送到你自己的邮箱或Slack，方便集中处理</li>
+    </ol>
+    <p>整个流程第一次搭建大概需要半天到一天，之后每天只需要花10-20分钟处理汇总邮件里的线索即可，这是真正值得自动化的部分。</p>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>用途</th><th>推荐工具</th><th>大致费用</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>自动化流程编排</td><td>n8n / Make.com</td><td>免费额度起，付费约 $10-50/月</td><td>连接邮件、表格、API，搭建"监控-提醒"流程</td></tr>
+          <tr><td>需求翻译与提炼</td><td>Claude API / GPT API</td><td>按用量计费，小规模每月几十美元</td><td>输出结构化采购信息</td></tr>
+          <tr><td>交叉校对翻译</td><td>DeepL / Google Translate</td><td>免费或低成本</td><td>用于和主模型结果交叉验证</td></tr>
+          <tr><td>候选客户/工厂管理</td><td>Google Sheets / Airtable</td><td>免费起</td><td>没必要一开始就上CRM系统</td></tr>
+          <tr><td>开发信文案</td><td>Claude / GPT</td><td>同上</td><td>人工校对礼仪和称谓</td></tr>
+          <tr><td>产品演示视频剪辑</td><td>剪映 / CapCut</td><td>免费</td><td>基于真实素材剪辑，不建议纯AI生成产品画面</td></tr>
+          <tr><td>邮件发送与跟踪</td><td>企业邮箱 + 邮件跟踪插件</td><td>低成本</td><td>注意目标国家反垃圾邮件规则</td></tr>
+          <tr><td>远程验货</td><td>第三方验货服务</td><td>按次收费，通常数百元/次</td><td>降低工厂履约风险</td></tr>
+          <tr><td>进口数据反查客户</td><td>ImportYeti等海关数据工具</td><td>基础功能免费</td><td>反查目标企业的历史供应商和采购频率</td></tr>
+          <tr><td>合规批量触达</td><td>WhatsApp官方BSP渠道（跨境魔方/OKKI小满等外贸SaaS）</td><td>数百元/月起</td><td>比个人账号群发更不容易被封</td></tr>
+          <tr><td>AI调研/网页信息抓取智能体</td><td>Clay + Claygent / Apify / Bardeen</td><td>免费额度起，付费数十美元/月</td><td>对付没有开放接口的信息源，替代传统爬虫脚本</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info">
+      <span class="ilabel">给小白的建议</span>
+      <p>第一个月完全可以只用 Google Sheets + 一个大模型账号 + 人工浏览，把整套流程手动跑通、验证真的能拿到询盘和订单之后，再考虑花钱上自动化工具。工具解决的是"效率"问题，不是"能不能成"的问题。</p>
+    </div>
+  </section>
+
+  <!-- ================= 跨境收款对比 ================= -->
+  <section id="payments" class="reveal">
+    <span class="tag teal">09 · 收款渠道</span>
+    <h2 class="h">跨境收款工具对比（2026现状）</h2>
+    <p>收款渠道选不对，钱到账慢、手续费高，都会直接侵蚀你的利润。下面是几个主流平台的定位，方便你按目标国家选择。</p>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>平台</th><th>覆盖特点</th><th>适合场景</th></tr></thead>
+        <tbody>
+          <tr><td>Wise Business</td><td>汇率透明、费用公开，覆盖主要发达市场货币对</td><td>小微团队，追求费用透明、操作简单</td></tr>
+          <tr><td>Airwallex</td><td>API优先设计，支持50+币种、60+国家本地收款账户</td><td>需要把收付款嵌入自己系统的团队</td></tr>
+          <tr><td>Payoneer</td><td>覆盖190+国家、70+币种，与主流平台生态深度绑定</td><td>习惯用平台生态收款的卖家</td></tr>
+          <tr><td>Thunes</td><td>专注新兴市场本地支付网络，覆盖140+国家</td><td>非洲、部分中东、拉美等新兴市场收付款</td></tr>
+          <tr><td>dLocal</td><td>深耕拉美、非洲及部分亚洲市场的本地支付方式</td><td>客户所在国有特殊本地支付习惯时</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="warn">
+      <span class="wlabel">提醒</span>
+      <p>正式收款前，先用小额测试一次，确认到账速度、手续费和汇率是否符合预期，再让客户大额付款，避免第一次合作就因为收款渠道问题产生纠纷。</p>
+    </div>
+  </section>
+
+  <!-- ================= 预算与时间 ================= -->
+  <section id="budget" class="reveal">
+    <span class="tag teal">10 · 预算与周期</span>
+    <h2 class="h">成本与时间预算（现实参考）</h2>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>阶段</th><th>大致周期</th><th>主要投入</th></tr></thead>
+        <tbody>
+          <tr><td>调研与选品</td><td>2-4 周</td><td>时间为主，几乎零成本</td></tr>
+          <tr><td>手动跑通流程、拿到第一批真实询盘</td><td>1-2 个月</td><td>大模型API费用（每月数十至一两百美元）</td></tr>
+          <tr><td>引入自动化工具、扩大监控范围</td><td>持续迭代</td><td>自动化工具订阅费，每月约几十到一两百美元</td></tr>
+          <tr><td>首单成交到收款</td><td>视品类和客户而定，常见 1-3 个月</td><td>样品费、验货费等一次性支出</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>整体来看，前期现金投入可以控制在很低的水平（大模型API费用+自动化工具订阅，每月大概几百到一千元人民币量级），真正稀缺的资源是<strong>你自己的时间</strong>，尤其是学习贸易术语、跟单、处理纠纷这些"手艺活"的时间。</p>
+  </section>
+
+  <!-- ================= 风险 ================= -->
+  <section id="risk" class="reveal">
+    <span class="tag alert">11 · 风险清单</span>
+    <h2 class="h">风险清单与真实诈骗套路</h2>
+    <p>这部分不是吓退你，而是希望你带着清醒的认知去做，遇到问题不会措手不及。</p>
+
+    <div class="warn">
+      <span class="wlabel">常见诈骗模式（了解套路，不是教你怎么骗）</span>
+      <ul>
+        <li>"大订单诱饵"：对方一上来就说要下超大额订单，条件是你先免费寄送多个样品或先垫付第三方认证费用，收到样品/费用后失联</li>
+        <li>"伪造付款凭证"：对方发来一张看起来很正式的银行付款截图或所谓"银行放款证明"，要求你先发货，实际款项并未到账，务必以自己银行账户实际到账为准</li>
+        <li>"第三方账户收款"：以各种理由要求你把货款打到与合同主体不一致的个人账户，这类要求本身就是危险信号</li>
+        <li>"身份错配"：邮件署名的公司和后续要求签合同、收款的主体名称对不上，或联系人拒绝任何形式的视频核实</li>
+      </ul>
+    </div>
+
+    <details>
+      <summary>① 数据抓取的合规风险</summary>
+      <div class="d-body">
+        <p>很多网站和社交媒体平台的服务条款明确禁止自动化抓取。违反条款可能导致账号被封，情节严重的在部分司法辖区还可能涉及法律责任。优先使用平台官方提供的API、订阅、提醒功能，对没有开放接口的信息源保持人工浏览为主、小规模自动化为辅的策略。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>② 小语种翻译误差导致的贸易纠纷</summary>
+      <div class="d-body">
+        <p>规格、数量、单位（比如公制/英制混淆）翻译错误，可能导致整批货物不符合客户要求，产生退货、索赔纠纷，甚至砸掉自己的信誉。关键条款务必用书面形式和客户逐条确认，不要只依赖口头或聊天记录里的机器翻译。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>③ 收款与外汇管制风险</summary>
+      <div class="d-body">
+        <p>一些国家对进口企业的对外付汇有额度限制或审批流程，客户即便真心想付款，也可能因为当地外汇管制而延迟或无法及时付汇。建议首单尽量采用预付款比例较高的方式，并提前了解目标国家的付汇惯例。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>④ 贸易诈骗风险</summary>
+      <div class="d-body">
+        <p>冷门市场信息不对称本身也会吸引诈骗分子，常见套路包括：伪造大额订单骗取样品、伪造付款凭证要求先发货、要求通过不透明的第三方账户收款等。核实客户真实身份（企业注册信息、实地或视频核实）、大额订单坚持通过正规渠道收款，是基本的自我保护。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>⑤ 出口合规与资质问题</summary>
+      <div class="d-body">
+        <p>即便是基础工业品，也可能涉及特定的出口许可、产品认证或目的国的进口许可要求。开展经常性的进出口贸易，通常需要办理相应的对外贸易经营资质，具体要求以所在地商务、海关主管部门规定为准，建议开展规模化业务前咨询当地的外贸代理公司或专业机构。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>⑥ 知识产权与产品合规风险</summary>
+      <div class="d-body">
+        <p>转售的产品如果涉及商标、专利或目的国的强制性认证（如某些国家对电器类产品有强制认证要求），需要提前核实，避免因产品不合规在目的国被扣关或产生法律纠纷。</p>
+      </div>
+    </details>
+
+    <div class="warn">
+      <span class="wlabel">重要提示</span>
+      <p>本手册提供的是业务流程层面的信息整理，不构成法律、税务或投资建议。涉及资质办理、合同条款、跨境收付款等具体事项，建议咨询当地的外贸代理机构、律师或会计师。</p>
+    </div>
+  </section>
+
+  <!-- ================= 行动清单 ================= -->
+  <section id="plan" class="reveal">
+    <span class="tag">12 · 30天计划</span>
+    <h2 class="h">30天逐日行动日历</h2>
+    <p>不用一开始就搭系统，按下面的节奏，先把"人能不能做成"这件事验证一遍。每天投入1-3小时即可，重点是<strong>每天都有具体产出</strong>，而不是"学习一下"这种模糊任务。</p>
+
+    <details open>
+      <summary>第1-5天：选定方向</summary>
+      <div class="d-body">
+        <ul class="checklist">
+          <li>Day1：选定1-2个目标国家、1-2个品类，写下选择理由（参考<a href="#markets">目标市场画像</a>）</li>
+          <li>Day2：在阿里巴巴国际站上搜索该品类，找到20条来自目标国家买家的真实求购信息，通读一遍</li>
+          <li>Day3：整理这20条信息的共同点：常用词汇、常见规格、常见数量级别</li>
+          <li>Day4：注册大模型API账号，跑通<a href="#kit">模板①</a>提示词，处理其中10条信息</li>
+          <li>Day5：建立三张表格：线索库 / 候选工厂库 / 客户跟进记录（用Google Sheets即可）</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>第6-12天：验证货源</summary>
+      <div class="d-body">
+        <ul class="checklist">
+          <li>Day6-7：针对5条真实需求，在1688人工询价，记录报价和起订量</li>
+          <li>Day8：对报价较有竞争力的2-3家工厂，跑一遍<a href="#kit">工厂尽调清单</a></li>
+          <li>Day9：核算到岸全成本（出厂价+国内运输+国际运费估算+目的国大致关税），得出你的真实可报价区间</li>
+          <li>Day10：写好你的第一版开发信模板（参考<a href="#kit">模板②</a>）</li>
+          <li>Day11：找人（哪怕是付费找一次性翻译服务）把开发信润色成地道的目标语言</li>
+          <li>Day12：小范围（5-10封）手动发送开发信，不批量群发</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>第13-20天：迭代与扩大</summary>
+      <div class="d-body">
+        <ul class="checklist">
+          <li>Day13-14：统计开发信回复率，分析哪些客户/表述方式回复率更高</li>
+          <li>Day15：针对有回复的客户，逐一专业解答问题，报出准确价格和交货期</li>
+          <li>Day16：开始搭建n8n自动化流程（参考<a href="#stack">工具清单</a>），把"监控-提炼"环节自动化</li>
+          <li>Day17-18：把自动化流程跑起来的新线索，重复Day6-12的动作，扩大到10-15个新客户</li>
+          <li>Day19：制作或整理产品演示素材（真实工厂实拍视频优先于纯AI生成）</li>
+          <li>Day20：复盘目前为止的转化漏斗：发出多少封→回复多少→报价多少→意向多少</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>第21-30天：推进首单</summary>
+      <div class="d-body">
+        <ul class="checklist">
+          <li>Day21-23：对最有意向的1-3个客户，走完<a href="#kit">客户背景核实清单</a>，准备PI</li>
+          <li>Day24：确认付款方式和比例，发送正式PI</li>
+          <li>Day25：收到预付款后，与工厂确认生产排期，建立跟单节奏（每周至少同步一次进度）</li>
+          <li>Day26-27：了解清楚目的国清关流程和所需文件，提前和客户或货代确认</li>
+          <li>Day28：安排验货（首单强烈建议第三方验货或视频验货）</li>
+          <li>Day29：安排发货，准备完整单据（发票、装箱单、提单等）</li>
+          <li>Day30：复盘整个30天：哪个环节最耗时、哪个环节最容易出错，写成自己的SOP，为下一轮批量复制做准备</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section id="faq" class="reveal">
+    <span class="tag">13 · 常见问题</span>
+    <h2 class="h">高频问题（20问）</h2>
+
+    <details>
+      <summary>真的可以一个人做完全部环节吗？</summary>
+      <div class="d-body"><p>初期可以，因为单量不大。但一旦订单量上来，翻译校对、跟单、验货这些环节会明显吃时间，多数人会选择在这个阶段找兼职译员或外贸跟单协助，而不是继续追求"全自动"。</p></div>
+    </details>
+
+    <details>
+      <summary>需要注册公司或办理外贸资质吗？</summary>
+      <div class="d-body"><p>如果只是小规模、偶尔的试单，很多人会先通过有资质的外贸代理公司走单验证模式；一旦业务稳定、规模扩大，通常需要办理相应的对外贸易经营资质并规范报关报税，具体要求建议咨询当地商务主管部门或专业代理机构。</p></div>
+    </details>
+
+    <details>
+      <summary>30%的加价空间现实吗？</summary>
+      <div class="d-body"><p>视品类而定。低值走量的标准化产品，物流和关税成本占比高，实际净利润空间往往低于表面上的30%；非标准化程度稍高、竞争没那么激烈的品类，反而可能有更大的空间。建议先核算清楚"到岸全成本"，而不是只看出厂价的差额。</p></div>
+    </details>
+
+    <details>
+      <summary>大语言模型翻译出错谁负责？</summary>
+      <div class="d-body"><p>最终责任在你自己身上，客户不会因为"是AI翻译的"就免除你的合同责任。这也是为什么关键条款一定要人工复核、书面确认。</p></div>
+    </details>
+
+    <details>
+      <summary>完全不懂外语可以做吗？</summary>
+      <div class="d-body"><p>可以起步，但建议优先选西班牙语市场（机器翻译准确率相对最高），并且预算里留出"找兼职译员核对关键条款"这一项，不要100%依赖机器翻译处理金额、规格这类信息。</p></div>
+    </details>
+
+    <details>
+      <summary>没有外贸经验，报价会不会亏本？</summary>
+      <div class="d-body"><p>新手最容易漏算的是国际运费和目的国关税，一定要在报价前核算"到岸全成本"，而不是只看出厂价加个百分比。第一单可以适当压缩自己的利润换取经验和口碑，但底线是不能倒贴运费和关税。</p></div>
+    </details>
+
+    <details>
+      <summary>客户一直不回复怎么办？</summary>
+      <div class="d-body"><p>正常现象，冷开发的回复率通常不高。与其反复催促同一个客户，不如把精力放在扩大新线索的数量上，同时优化开发信的开头（第一句话是否精准提到了对方的具体需求）。</p></div>
+    </details>
+
+    <details>
+      <summary>要不要一开始就注册公司？</summary>
+      <div class="d-body"><p>不必须。前几单可以先验证模式是否跑得通，再决定是否要注册公司、办理相应资质。但一旦涉及持续、规模化的进出口经营，通常需要按当地规定办理合规手续。</p></div>
+    </details>
+
+    <details>
+      <summary>可以同时做好几个国家吗？</summary>
+      <div class="d-body"><p>建议先把1-2个国家做出第一单成交案例后再横向复制，一开始摊子铺太大，每个市场都做得很浅，反而哪个都做不深。</p></div>
+    </details>
+
+    <details>
+      <summary>AI生成的产品视频客户会不会觉得假？</summary>
+      <div class="d-body"><p>纯AI生成的产品画面确实容易让工业品采购方产生不信任感，更稳妥的做法是用AI做剪辑、配音、字幕，素材本身用工厂提供的真实实拍视频。</p></div>
+    </details>
+
+    <details>
+      <summary>客户要求先发货后付款怎么办？</summary>
+      <div class="d-body"><p>首次合作的客户，不建议接受全额账期。可以商量部分预付、见提单副本再付余款，或通过更有保障的贸易方式，尽量避免自己承担全部资金风险。</p></div>
+    </details>
+
+    <details>
+      <summary>找不到会小语种的人怎么办？</summary>
+      <div class="d-body"><p>可以在自由职业平台（如Upwork、Fiverr）按次付费找母语者做文案润色或关键条款核对，成本不高，比因为翻译错误导致纠纷划算得多。</p></div>
+    </details>
+
+    <details>
+      <summary>这个模式适合全职做还是兼职试水？</summary>
+      <div class="d-body"><p>建议先兼职跑通30天计划、拿到至少1-2笔真实成交后，再评估是否值得投入更多时间转全职，避免一开始就All in导致心态失衡。</p></div>
+    </details>
+
+    <details>
+      <summary>政府采购项目是不是更容易拿到大单？</summary>
+      <div class="d-body"><p>政府采购流程通常更规范但周期更长、竞争对手可能包括更成熟的贸易公司，适合作为中长期布局，不建议作为新手的第一批目标客户。</p></div>
+    </details>
+
+    <details>
+      <summary>产品出问题客户要索赔怎么办？</summary>
+      <div class="d-body"><p>提前在PI或合同里约定好质量问题的处理方式（换货、退款比例、责任划分），出现问题后第一时间响应、提供证据（验货报告等）沟通解决，比互相扯皮更能保住长期客户关系。</p></div>
+    </details>
+
+    <details>
+      <summary>需要交税吗？</summary>
+      <div class="d-body"><p>涉及经营所得，通常需要依法申报纳税，具体税种和税率因经营主体形式和所在地而异，建议咨询当地税务机关或会计师，不要凭感觉处理。</p></div>
+    </details>
+
+    <details>
+      <summary>可以只做中间人不碰货、不碰钱吗？</summary>
+      <div class="d-body"><p>理论上可以做"信息撮合"，让工厂和客户直接对接、自己赚佣金，但这样容易被绕过（工厂和客户后续私下直接交易），大多数人还是会选择自己走单、自己收付款，把控更强。</p></div>
+    </details>
+  </section>
+
+  <div class="endstamp">
+    <div class="ring">已核验<br>非保证收益</div>
+    <p class="endnote">这份手册只梳理业务流程和常见风险，不构成投资、法律或财务建议，具体经营决策请结合自身情况并在必要时咨询专业人士。</p>
+  </div>
+
+</div>
+
+<script>
+  // 滚动淡入
+  if('IntersectionObserver' in window){
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+    }, {threshold:0.08});
+    els.forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));
+  }
+</script>
+
+</body>
+</html>
