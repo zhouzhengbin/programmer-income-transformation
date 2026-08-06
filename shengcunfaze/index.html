@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>AI时代生存法则 · 护城河 · 获客飞轮 · 选品雷达</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F8FD;
+    --card:#FFFFFF;
+    --ink:#0E2A3C;
+    --ink-soft:#5A7182;
+    --ink-faint:#93A6B4;
+    --navy:#0B3B5C;
+    --navy-deep:#082B44;
+    --line:#E3EEF5;
+    --shadow: 0 12px 32px -14px rgba(11,59,92,0.20);
+    --c1:#7C5CFF; /* 认知/护城河 - 紫 */
+    --c2:#0FA3A3; /* 获客飞轮 - 青 */
+    --c3:#FFB627; /* 选品雷达 - 金 */
+    --c4:#FF6B6B; /* 盲点风险 - 红 */
+    --c5:#2E86DE; /* 路线图 - 蓝 */
+    --c6:#38B000; /* 行动清单 - 绿 */
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Manrope','PingFang SC','Microsoft YaHei',-apple-system,BlinkMacSystemFont,sans-serif;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  .num,.eyebrow,.tag,.stat-num,.step-badge{font-family:'Poppins','Manrope',sans-serif;}
+  b{color:var(--ink);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; color:#fff; padding:46px 20px 70px; overflow:hidden;
+    background:
+      radial-gradient(110% 80% at 10% 0%, rgba(124,92,255,0.38), transparent 55%),
+      radial-gradient(110% 80% at 100% 15%, rgba(15,163,163,0.32), transparent 50%),
+      linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 55%, #114E73 100%);
+  }
+  .hero::after{
+    content:""; position:absolute; left:0; right:0; bottom:-1px; height:40px;
+    background:var(--bg); border-radius:50% 50% 0 0/100% 100% 0 0; transform:scaleX(1.4);
+  }
+  .hero-inner{position:relative; z-index:2; max-width:680px; margin:0 auto;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600;
+    letter-spacing:0.14em; color:#D9CBFF; background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.18); padding:6px 12px; border-radius:999px; text-transform:uppercase;
+  }
+  .hero h1{font-size:30px; line-height:1.35; margin:18px 0 12px; font-weight:800; letter-spacing:-0.01em;}
+  .hero h1 em{font-style:normal; background:linear-gradient(90deg,#FFD8A8,var(--c3)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.sub{font-size:14.5px; line-height:1.8; color:#CFE2ED; margin:0 0 22px; max-width:540px;}
+  .worry-row{display:flex; gap:8px; flex-wrap:wrap;}
+  .worry{
+    font-size:12px; font-weight:700; padding:8px 13px; border-radius:999px;
+    background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.2); color:#fff;
+  }
+
+  /* ---------- STICKY NAV ---------- */
+  .navwrap{position:sticky; top:0; z-index:50; background:rgba(242,248,253,0.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); padding:10px 0; margin-top:-30px;}
+  .navscroll{display:flex; gap:8px; overflow-x:auto; padding:0 16px; scrollbar-width:none;}
+  .navscroll::-webkit-scrollbar{display:none;}
+  .navchip{flex:0 0 auto; display:flex; align-items:center; gap:6px; font-size:12.5px; font-weight:700; white-space:nowrap; padding:8px 13px; border-radius:999px; border:1.5px solid var(--line); background:#fff; color:var(--ink-soft); cursor:pointer; transition:all .2s ease;}
+  .navchip .dot{width:7px; height:7px; border-radius:50%; background:var(--c);}
+  .navchip.active{color:#fff; border-color:transparent; background:var(--c); box-shadow:0 6px 14px -6px var(--c);}
+
+  main{max-width:720px; margin:0 auto; padding:8px 16px 20px;}
+  .section{margin-top:38px; scroll-margin-top:64px;}
+  .sec-head{display:flex; align-items:flex-start; gap:12px; margin-bottom:16px;}
+  .sec-badge{
+    width:40px; height:40px; border-radius:12px; flex:0 0 auto; display:flex; align-items:center; justify-content:center;
+    font-size:19px; background:var(--c); color:#fff; box-shadow:0 6px 14px -6px var(--c); font-weight:800;
+  }
+  .sec-title{font-size:19px; font-weight:800; margin:0; color:var(--ink);}
+  .sec-sub{font-size:13px; color:var(--ink-soft); margin:3px 0 0; line-height:1.6;}
+
+  .intro-block{
+    background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px 18px;
+    font-size:13.5px; line-height:1.85; color:var(--ink-soft); margin-bottom:16px; box-shadow:var(--shadow);
+  }
+  .intro-block b{color:var(--ink);}
+
+  /* ---------- MOAT GRID (section1) ---------- */
+  .moat-grid{display:grid; grid-template-columns:1fr; gap:12px;}
+  @media(min-width:640px){ .moat-grid{grid-template-columns:1fr 1fr;} }
+  .moat-card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; position:relative; overflow:hidden;}
+  .moat-card::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--c1);}
+  .moat-top{display:flex; align-items:center; gap:10px; margin-bottom:8px;}
+  .moat-icon{width:36px; height:36px; border-radius:10px; background:#F1EBFF; color:var(--c1); display:flex; align-items:center; justify-content:center; font-size:17px; flex:0 0 auto;}
+  .moat-card h3{font-size:14.5px; margin:0; font-weight:700; color:var(--ink);}
+  .moat-card p{font-size:12.5px; color:var(--ink-soft); line-height:1.7; margin:0 0 8px;}
+  .moat-example{font-size:11.5px; color:#6D4FE0; background:#F6F2FF; border-radius:8px; padding:6px 9px; line-height:1.6;}
+
+  /* ---------- FUNNEL (section2) ---------- */
+  .funnel-wrap{display:flex; flex-direction:column; gap:10px;}
+  .funnel-step{
+    background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px;
+    display:flex; gap:14px; position:relative;
+  }
+  .funnel-step::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--stc);}
+  .funnel-badge{
+    flex:0 0 auto; width:44px; height:44px; border-radius:12px; background:var(--stc); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; font-family:'Poppins';
+  }
+  .funnel-body h3{font-size:14.5px; margin:0 0 4px; font-weight:700; color:var(--ink);}
+  .funnel-body .stage-tag{font-size:10.5px; font-weight:700; color:var(--stc); background:color-mix(in srgb, var(--stc) 12%, white); padding:2px 8px; border-radius:6px; margin-left:8px;}
+  .funnel-body p{font-size:12.5px; color:var(--ink-soft); margin:0 0 8px; line-height:1.7;}
+  .funnel-actions{display:flex; flex-direction:column; gap:5px;}
+  .funnel-actions span{font-size:12px; color:var(--ink); line-height:1.6; padding-left:16px; position:relative;}
+  .funnel-actions span::before{content:"›"; position:absolute; left:0; color:var(--stc); font-weight:800;}
+  .funnel-arrow{align-self:center; color:var(--ink-faint); font-size:18px; margin:-3px 0;}
+
+  /* ---------- RADAR (section3) ---------- */
+  .radar-card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px; box-shadow:var(--shadow); margin-bottom:14px;}
+  .radar-flex{display:flex; flex-wrap:wrap; gap:18px; align-items:center; justify-content:center;}
+  .radar-legend{display:flex; flex-direction:column; gap:10px; font-size:12.5px; min-width:150px;}
+  .legend-item{display:flex; align-items:center; gap:8px;}
+  .legend-dot{width:11px; height:11px; border-radius:50%; flex:0 0 auto;}
+  .legend-item b{font-size:12.5px;}
+  .legend-item span{color:var(--ink-soft); font-size:11.5px; display:block;}
+  .dim-list{display:grid; grid-template-columns:1fr; gap:8px; margin-top:6px;}
+  @media(min-width:600px){ .dim-list{grid-template-columns:1fr 1fr;} }
+  .dim-item{background:#FFF8E9; border:1px solid #FFE7B3; border-radius:12px; padding:10px 12px;}
+  .dim-item b{font-size:12.5px; color:#8A5A00;}
+  .dim-item p{font-size:11.5px; color:#96712A; margin:3px 0 0; line-height:1.6;}
+
+  /* ---------- RISK (section4) ---------- */
+  .risk-grid{display:grid; grid-template-columns:1fr; gap:10px;}
+  @media(min-width:640px){ .risk-grid{grid-template-columns:1fr 1fr;} }
+  .risk-card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px 15px; position:relative;}
+  .risk-card::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--c4);}
+  .risk-top{display:flex; align-items:center; gap:9px; margin-bottom:6px;}
+  .risk-icon{width:32px; height:32px; border-radius:9px; background:#FFEDED; color:#E24444; display:flex; align-items:center; justify-content:center; font-size:15px; flex:0 0 auto;}
+  .risk-card h3{font-size:13.5px; margin:0; font-weight:700; color:var(--ink);}
+  .risk-card p{font-size:12px; color:var(--ink-soft); line-height:1.7; margin:0;}
+
+  /* ---------- ROADMAP (section5) ---------- */
+  .roadmap{position:relative; padding-left:26px;}
+  .roadmap::before{content:""; position:absolute; left:9px; top:6px; bottom:6px; width:2px; background:linear-gradient(var(--c5), #BFE0FF); border-radius:2px;}
+  .road-item{position:relative; padding-bottom:22px;}
+  .road-item:last-child{padding-bottom:0;}
+  .road-dot{position:absolute; left:-26px; top:2px; width:20px; height:20px; border-radius:50%; background:var(--c5); color:#fff; font-size:10.5px; font-weight:800; display:flex; align-items:center; justify-content:center; font-family:'Poppins'; box-shadow:0 0 0 4px #fff;}
+  .road-item h3{font-size:14.5px; margin:0 0 3px; font-weight:700;}
+  .road-item .road-time{font-size:11px; color:var(--c5); font-weight:700;}
+  .road-item p{font-size:12.5px; color:var(--ink-soft); margin:5px 0 6px; line-height:1.7;}
+  .road-tags{display:flex; gap:6px; flex-wrap:wrap;}
+  .road-tags span{font-size:11px; background:#EAF3FF; color:#2E6FBF; padding:3px 9px; border-radius:7px;}
+
+  /* ---------- CHECKLIST (section6) ---------- */
+  .check-list{display:flex; flex-direction:column; gap:9px;}
+  .check-item{
+    display:flex; align-items:flex-start; gap:11px; background:var(--card); border:1.5px solid var(--line);
+    border-radius:14px; padding:13px 14px; cursor:pointer; transition:all .15s ease;
+  }
+  .check-item.done{background:#F2FBF0; border-color:#BFE8B4;}
+  .check-box{width:22px; height:22px; border-radius:7px; border:2px solid #CBD9E1; flex:0 0 auto; display:flex; align-items:center; justify-content:center; font-size:13px; color:#fff; transition:all .15s ease; margin-top:1px;}
+  .check-item.done .check-box{background:var(--c6); border-color:var(--c6);}
+  .check-item p{font-size:13px; margin:0; color:var(--ink); line-height:1.6;}
+  .check-item.done p{color:#2E7D32; text-decoration:line-through; text-decoration-color:#9ED198;}
+  #progressWrap{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+  #progressBar{flex:1; height:8px; background:#E3EEF5; border-radius:99px; overflow:hidden;}
+  #progressFill{height:100%; width:0%; background:linear-gradient(90deg,var(--c6),#7BE38E); border-radius:99px; transition:width .3s ease;}
+  #progressLabel{font-size:12px; font-weight:700; color:var(--c6); font-family:'Poppins'; white-space:nowrap;}
+
+  footer{max-width:720px; margin:36px auto 0; padding:20px 16px 44px; text-align:center; color:var(--ink-faint); font-size:11.5px; line-height:1.9;}
+  footer strong{color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">深度策略拆解 · 2026.08</span>
+    <h1>人人都有AI，<br>你凭什么让人<em>为你的作品买单</em>？</h1>
+    <p class="sub">上一份地图告诉你「做什么」，这一份回答更硬核的三个问题：同质化竞争下怎么建立护城河、怎么把获客变成自动运转的系统、以及怎么科学地选对容易起步的项目——外加6个大多数人会踩的坑。</p>
+    <div class="worry-row">
+      <span class="worry">😰 同质化竞争</span>
+      <span class="worry">📉 获客难题</span>
+      <span class="worry">🎯 选品迷茫</span>
+      <span class="worry">🕳️ 看不见的坑</span>
+    </div>
+  </div>
+</div>
+
+<div class="navwrap"><div class="navscroll" id="navscroll"></div></div>
+
+<main>
+
+  <section class="section" id="sec-moat">
+    <div class="sec-head">
+      <div class="sec-badge" style="--c:var(--c1)">01</div>
+      <div><p class="sec-title">认知重构：AI拉平的是产能，不是稀缺性</p><p class="sec-sub">工具人人能买，护城河从「会不会做」转移到6个新维度</p></div>
+    </div>
+    <div class="intro-block">当所有人都用同一批AI工具时，<b>「做出来」这件事本身不再稀缺</b>——稀缺的是「凭什么是你」。以下6条是AI时代真正值钱的能力，越靠前越容易被抄，越靠后越难被复制。</div>
+    <div class="moat-grid" id="moatGrid"></div>
+  </section>
+
+  <section class="section" id="sec-funnel">
+    <div class="sec-head">
+      <div class="sec-badge" style="--c:var(--c2)">02</div>
+      <div><p class="sec-title">获客自动化飞轮：4层递进系统</p><p class="sec-sub">别一上来就想着投广告——先蹭现成流量，再让内容自己跑</p></div>
+    </div>
+    <div class="intro-block">大多数人卡在获客，是因为把「获客」当成一件事，而不是一套<b>由轻到重、由便宜到贵</b>的系统。按顺序把下面4层搭起来，越往上越省钱越可持续。</div>
+    <div class="funnel-wrap" id="funnelWrap"></div>
+  </section>
+
+  <section class="section" id="sec-radar">
+    <div class="sec-head">
+      <div class="sec-badge" style="--c:var(--c3)">03</div>
+      <div><p class="sec-title">选品/选客户群：五维雷达评分卡</p><p class="sec-sub">没有完美项目，只有匹配你当前阶段的项目</p></div>
+    </div>
+    <div class="intro-block">拿到一个项目想法后，别只看「能不能做」，用下面5个维度打分（每项1-5分），分数越高代表<b>越容易冷启动、越值得优先做</b>。右边是两个真实案例的对比，直观感受评分卡怎么用。</div>
+    <div class="radar-card">
+      <div class="radar-flex">
+        <svg id="radarSvg" width="240" height="240" viewBox="0 0 240 240"></svg>
+        <div class="radar-legend" id="radarLegend"></div>
+      </div>
+    </div>
+    <div class="dim-list" id="dimList"></div>
+  </section>
+
+  <section class="section" id="sec-risk">
+    <div class="sec-head">
+      <div class="sec-badge" style="--c:var(--c4)">04</div>
+      <div><p class="sec-title">你可能没想到的6个盲点</p><p class="sec-sub">这些不影响你「能不能开始」，但决定你「能走多远」</p></div>
+    </div>
+    <div class="risk-grid" id="riskGrid"></div>
+  </section>
+
+  <section class="section" id="sec-road">
+    <div class="sec-head">
+      <div class="sec-badge" style="--c:var(--c5)">05</div>
+      <div><p class="sec-title">执行路线图：0到矩阵化的4个阶段</p><p class="sec-sub">每个阶段只有一个目标，别同时追两个KPI</p></div>
+    </div>
+    <div class="roadmap" id="roadmapList"></div>
+  </section>
+
+  <section class="section" id="sec-check">
+    <div class="sec-head">
+      <div class="sec-badge" style="--c:var(--c6)">06</div>
+      <div><p class="sec-title">开工前自查清单</p><p class="sec-sub">点一点，看看自己真正准备到了哪一步</p></div>
+    </div>
+    <div id="progressWrap">
+      <div id="progressBar"><div id="progressFill"></div></div>
+      <span id="progressLabel">0 / 6 已确认</span>
+    </div>
+    <div class="check-list" id="checkList"></div>
+  </section>
+
+</main>
+
+<footer>
+  内容基于2026年8月公开行业资料、AI生成内容标识法规及独立创业者案例综合分析，仅供方向参考，不构成商业或投资建议。<br>
+  <strong>AI时代生存法则</strong> · 护城河思维 + 系统化获客，才是真正的竞争力
+</footer>
+
+<script>
+/* ================= NAV ================= */
+const SECTIONS = [
+  {id:'sec-moat', name:'护城河', icon:'🧱', color:'var(--c1)'},
+  {id:'sec-funnel', name:'获客飞轮', icon:'🌀', color:'var(--c2)'},
+  {id:'sec-radar', name:'选品雷达', icon:'🎯', color:'var(--c3)'},
+  {id:'sec-risk', name:'避坑指南', icon:'🕳️', color:'var(--c4)'},
+  {id:'sec-road', name:'路线图', icon:'🗺️', color:'var(--c5)'},
+  {id:'sec-check', name:'自查清单', icon:'✅', color:'var(--c6)'},
+];
+const navEl = document.getElementById('navscroll');
+SECTIONS.forEach(s=>{
+  const btn = document.createElement('div');
+  btn.className='navchip'; btn.style.setProperty('--c', s.color); btn.dataset.id=s.id;
+  btn.innerHTML = `<span class="dot"></span>${s.icon} ${s.name}`;
+  btn.addEventListener('click', ()=> document.getElementById(s.id).scrollIntoView({behavior:'smooth', block:'start'}));
+  navEl.appendChild(btn);
+});
+
+/* ================= 01 MOATS ================= */
+const MOATS = [
+  ["🎭","人格化信任","客户买的不是「一张图/一篇文」，而是「这个人靠谱」。真人出镜、真实案例、持续人设，比换一套AI模板更难被抄。","例：数字人IP做成「你本人的分身」并配上你自己的真实经历，而不是纯模板换脸。"],
+  ["📊","私有数据闭环","AI没有你手里那500个真实客户的反馈和转化数据——这些数据能让你的提示词、话术、选品越用越准，别人复制不走。","例：整理每次接单的客户反馈，反向优化你的Prompt库和报价单。"],
+  ["🧩","细分行业Know-how","把AI能力嫁接到你真正懂的具体人群/行业痛点上，做出「通用工具做不到」的组合方案，而不是卖一个人人都会的通用产品。","例：懂宠物行业的人做AI宠物客服，比纯做「AI客服工具」的人更懂行业术语和场景。"],
+  ["📦","服务化交付","把「我能做」包装成「按时交付+售后+可复购」的产品化服务，确定性本身就是溢价点。","例：AI头像定制加上「24小时交付+1次免费改稿」，比单纯卖图更值钱。"],
+  ["📍","渠道占位","谁先在某个关键词/某个平台的细分流量入口站住脚，后来者要花更多钱和时间才能挤进来。","例：先在闲鱼/小红书某个细分品类做到「搜索第一屏」，比后期砸广告更划算。"],
+  ["⚡","速度与迭代","同样用AI，谁能更快验证、更快迭代、把多个工具串成一条流程，谁就永远领先竞争者一个身位。","例：别等「学会所有工具」才开始，先跑通最小闭环，再逐步替换更好的工具。"],
+];
+const moatGrid = document.getElementById('moatGrid');
+MOATS.forEach(([icon,title,desc,example])=>{
+  const el = document.createElement('div'); el.className='moat-card';
+  el.innerHTML = `<div class="moat-top"><div class="moat-icon">${icon}</div><h3>${title}</h3></div><p>${desc}</p><div class="moat-example">💡 ${example}</div>`;
+  moatGrid.appendChild(el);
+});
+
+/* ================= 02 FUNNEL ================= */
+const FUNNEL = [
+  ["L0","占位现成流量池","冷启动阶段","不需要自己造流量，直接去「已经有人在找这个服务」的地方蹲点。",
+    ["在威客/闲鱼/猎聘/垂直论坛发布服务，覆盖对方主动搜索的关键词","加入同行/客户聚集的社群，观察别人怎么被动接单","优先选平台自带需求撮合机制的项目，而不是要自建鱼塘的"], "var(--c2)"],
+  ["L1","内容自动化引擎","起量阶段","用AI批量产出「解决具体问题」的免费内容，让搜索和推荐算法当你的销售员，而不是直接卖货。",
+    ["用AI批量生产垂直选题的图文/短视频，覆盖长尾关键词","内容里留「结果」不留「广告」，靠专业感自然引导私信","建立选题库，一套模板批量适配多个平台矩阵"], "var(--c2)"],
+  ["L2","私域自动化培育","信任沉淀","把冷流量导进私域后，用SOP+自动回复+案例库把陌生人「捂熟」再成交，而不是一上来就报价。",
+    ["设计好加好友后的自动欢迎语+案例合集打包发送","用标签/分组管理客户，按热度节奏跟进而非群发","把常见问题整理成话术库，减少重复沟通成本"], "var(--c2)"],
+  ["L3","裂变与分销放大","规模化","当前面3层跑通、有稳定转化后，才考虑设计分享激励和付费广告加速——这一步最贵，别急着上。",
+    ["给老客户设计「推荐有奖」机制，让客户带客户","招募KOC/分销员按成交抽佣，把获客外包出去","小预算测试付费广告，只投已验证有效的内容素材"], "var(--c2)"],
+];
+const funnelWrap = document.getElementById('funnelWrap');
+FUNNEL.forEach(([badge,title,stage,desc,actions,color], idx)=>{
+  const step = document.createElement('div'); step.className='funnel-step'; step.style.setProperty('--stc', color);
+  step.innerHTML = `
+    <div class="funnel-badge">${badge}</div>
+    <div class="funnel-body">
+      <h3>${title}<span class="stage-tag">${stage}</span></h3>
+      <p>${desc}</p>
+      <div class="funnel-actions">${actions.map(a=>`<span>${a}</span>`).join('')}</div>
+    </div>`;
+  funnelWrap.appendChild(step);
+  if(idx < FUNNEL.length-1){
+    const arrow = document.createElement('div'); arrow.className='funnel-arrow'; arrow.textContent='⌄';
+    funnelWrap.appendChild(arrow);
+  }
+});
+
+/* ================= 03 RADAR ================= */
+const DIMS = ['现成流量池','决策速度','复购/订阅性','可外包放大','合规安全'];
+const PROJECTS = [
+  {name:'威客文案代写', color:'#2E86DE', scores:[5,5,2,2,5]},
+  {name:'TikTok无货源电商', color:'#FF7A45', scores:[3,2,4,5,3]},
+];
+const DIM_EXPLAIN = [
+  ["现成流量池","渠道上是否已经有人在主动找这个服务，不用自己造需求"],
+  ["决策速度","客单价+决策链条是否够短，越短越容易拿到冷启动首单"],
+  ["复购/订阅性","能不能从一次性交易变成持续付费，而不是每次从零获客"],
+  ["可外包放大","能不能把自己从「执行者」变成「派单者」，不被自己的时间锁死"],
+  ["合规安全","平台规则/资质门槛/标识新规下的风险高低，越低越安全"],
+];
+function drawRadar(){
+  const svg = document.getElementById('radarSvg');
+  const cx=120, cy=120, R=88, N=DIMS.length;
+  const angle = i => -Math.PI/2 + i*2*Math.PI/N;
+  const pt = (i,r) => [cx + r*Math.cos(angle(i)), cy + r*Math.sin(angle(i))];
+  let svgHtml = '';
+  // grid rings
+  [0.25,0.5,0.75,1].forEach(f=>{
+    const pts = DIMS.map((_,i)=>pt(i,R*f).join(',')).join(' ');
+    svgHtml += `<polygon points="${pts}" fill="none" stroke="#DCE9F0" stroke-width="1"/>`;
+  });
+  // axes + labels
+  DIMS.forEach((d,i)=>{
+    const [x,y] = pt(i,R);
+    svgHtml += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#DCE9F0" stroke-width="1"/>`;
+    const [lx,ly] = pt(i,R+22);
+    svgHtml += `<text x="${lx}" y="${ly}" font-size="9.5" fill="#5A7182" text-anchor="middle" dominant-baseline="middle" font-family="Manrope">${d}</text>`;
+  });
+  // project polygons
+  PROJECTS.forEach(p=>{
+    const pts = p.scores.map((s,i)=> pt(i, R*s/5).join(',')).join(' ');
+    svgHtml += `<polygon points="${pts}" fill="${p.color}22" stroke="${p.color}" stroke-width="2"/>`;
+    p.scores.forEach((s,i)=>{ const [x,y]=pt(i,R*s/5); svgHtml += `<circle cx="${x}" cy="${y}" r="3" fill="${p.color}"/>`; });
+  });
+  svg.innerHTML = svgHtml;
+}
+drawRadar();
+const legend = document.getElementById('radarLegend');
+PROJECTS.forEach(p=>{
+  const item = document.createElement('div'); item.className='legend-item';
+  item.innerHTML = `<span class="legend-dot" style="background:${p.color}"></span><div><b>${p.name}</b><span>${p.scores.join(' · ')}（共${p.scores.reduce((a,b)=>a+b,0)}分）</span></div>`;
+  legend.appendChild(item);
+});
+const note = document.createElement('div'); note.style.fontSize='11.5px'; note.style.color='var(--ink-faint)'; note.style.marginTop='4px';
+note.textContent = '五边形越「胖」越好起步；文案代写起步快但难放大，跨境电商难起步但天花板更高——按自己现在的阶段选，不是按分数总和选。';
+legend.appendChild(note);
+
+const dimList = document.getElementById('dimList');
+DIM_EXPLAIN.forEach(([t,d])=>{
+  const el = document.createElement('div'); el.className='dim-item';
+  el.innerHTML = `<b>${t}</b><p>${d}</p>`;
+  dimList.appendChild(el);
+});
+
+/* ================= 04 RISKS ================= */
+const RISKS = [
+  ["🏷️","AI标识新规已落地","2025年9月起《人工智能生成合成内容标识办法》正式施行，主流平台已上线强制AI标识，不能删除隐藏。纯换皮搬运的内容会越来越难蒙混，反而逼着你往「真实人设+真实案例」方向走。"],
+  ["📉","收入是J型曲线","前1-3个月大概率几乎零收入，这是正常现象，不是你做错了——大多数人恰恰在这个阶段放弃。提前准备好现金流和心理预期，比找「更快的项目」更重要。"],
+  ["🔌","工具依赖风险","模型涨价、接口调整、账号被封都可能一夜清零。关键环节留一个Plan B：备用工具、备用账号、定期备份客户数据和素材。"],
+  ["💰","定价心理陷阱","早期为了拿案例可以低价甚至免费，但要提前设计好「涨价路径」，避免起步定价过低后续很难往上调，反而困死在低客单价里。"],
+  ["🔁","复购比获客更省钱","把第一批客户服务到位，沉淀SOP和案例库；老客户转介绍的成本远低于从零获客，很多人只盯着「拉新」却忘了「留存」。"],
+  ["🧵","组合打法优于单点","用同一批素材/客户资源同时喂养多个变现出口——既能接单卖图，也能做成课程，还能反哺自己的账号引流。单一收入来源永远是最大的风险。"],
+];
+const riskGrid = document.getElementById('riskGrid');
+RISKS.forEach(([icon,title,desc])=>{
+  const el = document.createElement('div'); el.className='risk-card';
+  el.innerHTML = `<div class="risk-top"><div class="risk-icon">${icon}</div><h3>${title}</h3></div><p>${desc}</p>`;
+  riskGrid.appendChild(el);
+});
+
+/* ================= 05 ROADMAP ================= */
+const ROAD = [
+  ["验证期","第1-2周","拿到第一个真实付费客户","目标不是赚钱，是验证「有人愿意为此付钱」——哪怕只是9.9元的一单。",["蹲点3个现成流量池发布服务","先低价/免费服务3-5人换真实案例与反馈","记录每一次沟通中客户的真实顾虑"]],
+  ["打磨期","第1-3月","把交付流程标准化","把「靠感觉做」变成「有SOP」，开始沉淀案例库和话术库。",["统计各渠道转化率，砍掉不赚钱的环节","把重复性工作写成清单或脚本","设计好第一版涨价路径"]],
+  ["放大期","第3-6月","从自己做到自己+杠杆","开始搭建内容自动化引擎铺量，测试外包与分销机制，把自己从执行者往管理者转移。",["批量生产引流内容铺多平台矩阵","招募兼职/外包分担重复执行工作","小预算测试付费广告与裂变机制"]],
+  ["矩阵期","第6月+","打造个人品牌资产矩阵","用同一套能力和素材喂养多个变现出口，评估是否需要组建小团队。",["同一批内容素材复用到课程/接单/引流多渠道","评估是否需要组建2-3人小团队","把个人IP本身做成可持续增值的资产"]],
+];
+const roadmapList = document.getElementById('roadmapList');
+ROAD.forEach(([title,time,goal,desc,actions], idx)=>{
+  const el = document.createElement('div'); el.className='road-item';
+  el.innerHTML = `
+    <div class="road-dot">${idx+1}</div>
+    <h3>${title} · ${goal}</h3>
+    <span class="road-time">${time}</span>
+    <p>${desc}</p>
+    <div class="road-tags">${actions.map(a=>`<span>${a}</span>`).join('')}</div>`;
+  roadmapList.appendChild(el);
+});
+
+/* ================= 06 CHECKLIST ================= */
+const CHECKS = [
+  "我已经选定1个具体细分人群，而不是泛泛的一个大赛道",
+  "我已经找到至少1个现成流量池，并发布了第一版服务",
+  "我已经设计好第一版定价，以及未来的涨价路径",
+  "我已经准备好Plan B工具/账号备份，不会因单点故障清零",
+  "我已经想清楚第一批客户案例要怎么积累和展示",
+  "我做好了前1-3个月收入可能接近于0的心理准备",
+];
+const checkList = document.getElementById('checkList');
+const state = new Array(CHECKS.length).fill(false);
+function renderProgress(){
+  const done = state.filter(Boolean).length;
+  document.getElementById('progressFill').style.width = (done/CHECKS.length*100)+'%';
+  document.getElementById('progressLabel').textContent = `${done} / ${CHECKS.length} 已确认`;
+}
+CHECKS.forEach((text,i)=>{
+  const el = document.createElement('div'); el.className='check-item';
+  el.innerHTML = `<div class="check-box">✓</div><p>${text}</p>`;
+  el.addEventListener('click', ()=>{
+    state[i] = !state[i];
+    el.classList.toggle('done', state[i]);
+    renderProgress();
+  });
+  checkList.appendChild(el);
+});
+renderProgress();
+
+/* ================= SCROLLSPY ================= */
+const chips = [...document.querySelectorAll('.navchip')];
+const secEls = [...document.querySelectorAll('.section')];
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      chips.forEach(c=>c.classList.toggle('active', c.dataset.id===e.target.id));
+      const active = chips.find(c=>c.dataset.id===e.target.id);
+      if(active) active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+    }
+  });
+}, {rootMargin:'-100px 0px -70% 0px', threshold:0});
+secEls.forEach(s=>io.observe(s));
+if(chips[0]) chips[0].classList.add('active');
+</script>
+</body>
+</html>
