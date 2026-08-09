@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>灯塔手册 · GEO/AEO 从0到顶尖高手</title>
+<style>
+:root{
+  --paper:#F5F7FB;
+  --paper-alt:#EBEFF7;
+  --card:#FFFFFF;
+  --ink:#10233F;
+  --ink-soft:#4C5876;
+  --ink-faint:#8592AC;
+  --signal:#FF6B4A;
+  --signal-dark:#E14F30;
+  --gold:#FFB648;
+  --deep:#0B1D33;
+  --deep-alt:#132C4C;
+  --deep-line:#25406A;
+  --mist:#E4EAF3;
+  --line:#DAE1EE;
+  --good:#1F9D6C;
+  --good-bg:#E7F7F0;
+  --bad:#E14848;
+  --bad-bg:#FDEBEA;
+  --info-bg:#EEF3FE;
+  --font-disp:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Noto Sans SC",sans-serif;
+  --font-body:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --font-mono:"SFMono-Regular","JetBrains Mono","Menlo","Consolas",monospace;
+  --radius:18px;
+  --radius-sm:10px;
+  --shadow:0 10px 30px -14px rgba(11,29,51,0.18);
+  --shadow-lg:0 24px 60px -20px rgba(11,29,51,0.30);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-body);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%;}
+a{color:inherit;}
+h1,h2,h3,h4{font-family:var(--font-disp);margin:0;font-weight:800;letter-spacing:-0.01em;}
+p{margin:0 0 1em;}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px;}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:12px;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--signal);font-weight:700;
+  margin-bottom:12px;
+}
+.eyebrow::before{
+  content:"";width:16px;height:2px;background:var(--signal);display:inline-block;
+}
+
+/* ===== Top progress + nav ===== */
+#progressbar{
+  position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--signal),var(--gold));
+  width:0%;z-index:9999;transition:width .1s linear;
+}
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:998;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;
+  background:rgba(245,247,251,0.82);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid transparent;
+  transition:border-color .25s, background .25s;
+}
+.topbar.scrolled{border-bottom:1px solid var(--line);}
+.brandmark{display:flex;align-items:center;gap:8px;font-family:var(--font-disp);font-weight:800;font-size:15px;color:var(--deep);}
+.brandmark .beam{width:20px;height:20px;flex:none;}
+.menubtn{
+  width:38px;height:38px;border-radius:50%;background:var(--deep);
+  display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;
+}
+.menubtn span{display:block;width:16px;height:2px;background:#fff;position:relative;}
+.menubtn span::before,.menubtn span::after{content:"";position:absolute;left:0;width:16px;height:2px;background:#fff;}
+.menubtn span::before{top:-5px;}
+.menubtn span::after{top:5px;}
+
+/* ===== chapter nav drawer ===== */
+.navdrawer{
+  position:fixed;inset:0;z-index:1000;
+  background:var(--deep);
+  color:#fff;
+  transform:translateY(-100%);
+  transition:transform .45s cubic-bezier(.65,0,.35,1);
+  overflow-y:auto;
+  padding:90px 22px 40px;
+}
+.navdrawer.open{transform:translateY(0);}
+.navdrawer .closebtn{
+  position:fixed;top:14px;right:18px;width:38px;height:38px;border-radius:50%;
+  background:rgba(255,255,255,0.12);border:none;color:#fff;font-size:18px;cursor:pointer;z-index:1001;
+}
+.navlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;}
+.navlist li{border-bottom:1px solid var(--deep-line);}
+.navlist a{
+  display:flex;align-items:baseline;gap:14px;padding:16px 4px;
+  text-decoration:none;color:#fff;font-family:var(--font-disp);font-size:17px;font-weight:700;
+}
+.navlist .n{font-family:var(--font-mono);color:var(--signal);font-size:13px;font-weight:700;}
+.navlist .sub{display:block;font-family:var(--font-body);font-weight:400;font-size:12.5px;color:#9FB0CE;margin-top:3px;}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;
+  min-height:100svh;
+  background:radial-gradient(120% 90% at 50% -10%, #1B3A63 0%, var(--deep) 55%, #071322 100%);
+  color:#fff;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:110px 0 60px;
+  overflow:hidden;
+  isolation:isolate;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:-2;
+  background-image:radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,.5) 0, transparent 60%),
+    radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,.4) 0, transparent 60%),
+    radial-gradient(1.5px 1.5px at 40% 70%, rgba(255,255,255,.35) 0, transparent 60%),
+    radial-gradient(1px 1px at 85% 65%, rgba(255,255,255,.4) 0, transparent 60%),
+    radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,.3) 0, transparent 60%),
+    radial-gradient(1.5px 1.5px at 60% 45%, rgba(255,255,255,.3) 0, transparent 60%);
+}
+.beacon-scene{
+  position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);
+  width:900px;height:900px;z-index:-1;
+  animation:sweep 7s linear infinite;
+}
+@keyframes sweep{from{transform:translate(-50%,-50%) rotate(0deg);}to{transform:translate(-50%,-50%) rotate(360deg);}}
+.beacon-scene .beam{
+  position:absolute;left:50%;top:50%;width:450px;height:120px;
+  background:conic-gradient(from 0deg, rgba(255,182,72,0) 0deg, rgba(255,182,72,0.22) 8deg, rgba(255,107,74,0.35) 0deg, rgba(255,182,72,0) 26deg);
+  transform-origin:0 50%;
+}
+.hero-inner{position:relative;z-index:2;}
+.hero .wrap{max-width:640px;}
+.tower{
+  width:34px;height:34px;margin-bottom:26px;
+}
+.hero h1{
+  font-size:clamp(32px,8vw,46px);
+  line-height:1.18;
+  color:#fff;
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(100deg,var(--gold),var(--signal));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero .lede{
+  margin-top:18px;font-size:16.5px;color:#C7D3E8;max-width:520px;
+}
+.hero .stats-strip{
+  margin-top:38px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+}
+.hero .stat{
+  border-top:1px solid rgba(255,255,255,0.18);
+  padding-top:10px;
+}
+.hero .stat b{
+  display:block;font-family:var(--font-mono);font-size:21px;color:#fff;font-weight:700;
+}
+.hero .stat span{font-size:11.5px;color:#8FA1C4;}
+.scrollcue{
+  margin-top:44px;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:#9FB0CE;
+  text-decoration:none;
+}
+.scrollcue .dot{width:26px;height:26px;border-radius:50%;border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;}
+.scrollcue .dot::after{content:"↓";animation:bob 1.6s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(4px);}}
+
+/* ===== generic section ===== */
+section{padding:64px 0;}
+.section-alt{background:var(--paper-alt);}
+.section-dark{background:linear-gradient(180deg,var(--deep) 0%, var(--deep-alt) 100%);color:#fff;}
+.section-dark .ink-soft{color:#AFC0DE;}
+h2.h-title{font-size:clamp(24px,6.4vw,30px);color:var(--deep);line-height:1.3;}
+.section-dark h2.h-title{color:#fff;}
+.h-lede{color:var(--ink-soft);font-size:15.5px;margin-top:10px;}
+.section-dark .h-lede{color:#B7C4DE;}
+
+/* chapter marker */
+.chapmark{
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;
+}
+.chapmark .num{
+  font-family:var(--font-mono);font-weight:700;font-size:13px;color:#fff;
+  background:var(--signal);padding:5px 10px;border-radius:999px;letter-spacing:.04em;
+}
+.chapmark .label{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);}
+.section-dark .chapmark .label{color:#8FA1C4;}
+
+/* ===== cards ===== */
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px;box-shadow:var(--shadow);
+}
+.card + .card{margin-top:14px;}
+.card h3{font-size:17px;color:var(--deep);margin-bottom:8px;}
+.card p:last-child{margin-bottom:0;}
+
+/* stat grid */
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
+.statcard{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:16px 14px;position:relative;overflow:hidden;
+}
+.statcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--signal);}
+.statcard b{display:block;font-family:var(--font-mono);font-size:26px;color:var(--deep);}
+.statcard b.pos{color:var(--good);}
+.statcard b.neg{color:var(--bad);}
+.statcard span{font-size:12.5px;color:var(--ink-soft);}
+
+/* table */
+.tbl-wrap{overflow-x:auto;margin:18px 0;border-radius:var(--radius-sm);border:1px solid var(--line);}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card);min-width:520px;}
+th,td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+thead th{background:var(--deep);color:#fff;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper-alt);}
+
+/* flow steps */
+.flow{display:flex;flex-direction:column;gap:0;margin:22px 0;}
+.flow-step{display:flex;gap:16px;padding:16px 0;position:relative;}
+.flow-step:not(:last-child)::before{
+  content:"";position:absolute;left:19px;top:52px;bottom:-16px;width:2px;
+  background:repeating-linear-gradient(180deg,var(--line) 0 6px, transparent 6px 12px);
+}
+.flow-num{
+  flex:none;width:40px;height:40px;border-radius:50%;background:var(--deep);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-weight:700;font-size:14px;
+}
+.flow-body h4{font-size:15.5px;color:var(--deep);margin-bottom:4px;}
+.flow-body p{font-size:14px;color:var(--ink-soft);margin:0;}
+
+/* checklist */
+.checklist{list-style:none;margin:18px 0;padding:0;display:flex;flex-direction:column;gap:10px;}
+.checklist li{
+  display:flex;gap:12px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--radius-sm);padding:13px 14px;font-size:14px;
+}
+.checklist li::before{
+  content:"";flex:none;width:18px;height:18px;margin-top:2px;border-radius:5px;
+  border:2px solid var(--signal);
+}
+.section-dark .checklist li{background:rgba(255,255,255,0.06);border-color:var(--deep-line);color:#DCE4F3;}
+
+/* do / dont */
+.dodont{display:grid;grid-template-columns:1fr;gap:12px;margin:18px 0;}
+.dobox,.dontbox{border-radius:var(--radius-sm);padding:16px;border:1px solid var(--line);}
+.dobox{background:var(--good-bg);border-color:#BEE6D3;}
+.dontbox{background:var(--bad-bg);border-color:#F3C6C2;}
+.dobox .tag,.dontbox .tag{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;font-weight:700;text-transform:uppercase;}
+.dobox .tag{color:var(--good);}
+.dontbox .tag{color:var(--bad);}
+.dobox ul,.dontbox ul{margin:8px 0 0;padding-left:18px;font-size:13.5px;}
+.dobox li,.dontbox li{margin-bottom:5px;}
+
+/* code block */
+.codeblock{
+  background:#0D2038;color:#D9E4F5;border-radius:var(--radius-sm);
+  padding:18px;font-family:var(--font-mono);font-size:12.5px;line-height:1.7;
+  overflow-x:auto;margin:16px 0;white-space:pre;border:1px solid var(--deep-line);
+}
+.codeblock .cm{color:#7C93BE;}
+.codeblock .kw{color:var(--gold);}
+.codeblock .st{color:#8FD6B4;}
+.code-label{
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--font-mono);font-size:11px;color:var(--ink-faint);letter-spacing:.06em;
+  margin:20px 0 -6px;text-transform:uppercase;
+}
+
+/* platform cards */
+.platform-scroll{display:flex;gap:14px;overflow-x:auto;margin:20px -20px 0;padding:4px 20px 18px;scroll-snap-type:x mandatory;}
+.platform-card{
+  scroll-snap-align:start;flex:none;width:250px;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);
+}
+.platform-card .pname{font-family:var(--font-disp);font-weight:800;font-size:17px;color:var(--deep);}
+.platform-card .ptag{font-family:var(--font-mono);font-size:11px;color:var(--signal);letter-spacing:.05em;margin-top:2px;display:block;}
+.platform-card .pdesc{font-size:13px;color:var(--ink-soft);margin-top:10px;}
+.platform-card .pmeta{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:12px;color:var(--ink-faint);}
+.platform-card .pmeta b{color:var(--deep);font-family:var(--font-mono);}
+
+/* accordion */
+.accordion{margin:18px 0;}
+.acc-item{border:1px solid var(--line);border-radius:var(--radius-sm);margin-bottom:10px;overflow:hidden;background:var(--card);}
+.acc-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:15px 16px;cursor:pointer;font-family:var(--font-disp);font-weight:700;font-size:14.5px;color:var(--deep);
+}
+.acc-head .plus{flex:none;width:22px;height:22px;border-radius:50%;background:var(--paper-alt);position:relative;transition:transform .3s;}
+.acc-head .plus::before,.acc-head .plus::after{content:"";position:absolute;background:var(--signal);}
+.acc-head .plus::before{left:6px;right:6px;top:10px;height:2px;}
+.acc-head .plus::after{top:6px;bottom:6px;left:10px;width:2px;transition:opacity .2s;}
+.acc-item.open .plus{transform:rotate(180deg);}
+.acc-item.open .plus::after{opacity:0;}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.acc-body-inner{padding:0 16px 16px;font-size:13.5px;color:var(--ink-soft);}
+.acc-body-inner ul{padding-left:18px;margin:8px 0 0;}
+.acc-body-inner li{margin-bottom:5px;}
+
+/* quote card */
+.quotecard{
+  border-left:3px solid var(--signal);padding:4px 0 4px 18px;margin:20px 0;
+  font-family:var(--font-disp);font-size:16px;color:var(--deep);font-weight:700;line-height:1.6;
+}
+.quotecard span{display:block;margin-top:8px;font-family:var(--font-mono);font-weight:400;font-size:11.5px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.05em;}
+
+/* pill tags */
+.pillrow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0;}
+.pill{
+  font-family:var(--font-mono);font-size:11.5px;padding:6px 12px;border-radius:999px;
+  background:var(--info-bg);color:var(--deep);border:1px solid var(--mist);
+}
+
+/* roadmap week */
+.week-card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;margin-bottom:12px;
+}
+.week-card .wk-tag{
+  display:inline-block;font-family:var(--font-mono);font-size:11px;font-weight:700;
+  background:var(--deep);color:#fff;padding:4px 10px;border-radius:6px;margin-bottom:10px;
+}
+.week-card h4{font-size:15.5px;color:var(--deep);margin-bottom:6px;}
+.week-card ul{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-soft);}
+.week-card li{margin-bottom:4px;}
+
+/* toc grid */
+.tocgrid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:22px;}
+.tocitem{
+  display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius-sm);padding:14px 16px;text-decoration:none;color:var(--deep);
+  transition:transform .2s, box-shadow .2s;
+}
+.tocitem:active{transform:scale(.98);}
+.tocitem .tn{
+  font-family:var(--font-mono);font-weight:800;font-size:15px;color:var(--signal);flex:none;width:30px;
+}
+.tocitem .tt{font-family:var(--font-disp);font-weight:700;font-size:14.5px;}
+.tocitem .ts{display:block;font-size:12px;color:var(--ink-faint);font-weight:400;margin-top:2px;}
+
+/* footer */
+footer{background:var(--deep);color:#8FA1C4;padding:50px 0 40px;font-size:12.5px;}
+footer .fbrand{color:#fff;font-family:var(--font-disp);font-weight:800;font-size:16px;margin-bottom:10px;}
+footer a{color:#C7D3E8;text-decoration:underline;text-underline-offset:3px;}
+footer .srclist{margin-top:18px;padding-top:18px;border-top:1px solid var(--deep-line);line-height:2;}
+
+/* back to top */
+.totop{
+  position:fixed;right:16px;bottom:16px;width:44px;height:44px;border-radius:50%;
+  background:var(--deep);color:#fff;display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow-lg);border:none;cursor:pointer;z-index:900;opacity:0;pointer-events:none;
+  transition:opacity .3s, transform .3s;font-size:16px;
+}
+.totop.show{opacity:1;pointer-events:auto;}
+
+/* reveal animation */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+@media(min-width:640px){
+  .statgrid{grid-template-columns:repeat(4,1fr);}
+  .dodont{grid-template-columns:1fr 1fr;}
+  .tocgrid{grid-template-columns:1fr 1fr;}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  .beacon-scene{animation:none;}
+  .scrollcue .dot::after{animation:none;}
+  .reveal{transition:none;opacity:1;transform:none;}
+}
+</style>
+</head>
+<body>
+
+<div id="progressbar"></div>
+
+<div class="topbar" id="topbar">
+  <div class="brandmark">
+    <svg class="beam" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 21h16L12 2z" fill="#FF6B4A"/><path d="M9 21l3-9 3 9" stroke="#0B1D33" stroke-width="1.2"/></svg>
+    灯塔手册
+  </div>
+  <button class="menubtn" id="menuBtn" aria-label="打开章节目录"><span></span></button>
+</div>
+
+<nav class="navdrawer" id="navDrawer">
+  <button class="closebtn" id="closeBtn" aria-label="关闭">✕</button>
+  <div class="eyebrow" style="color:var(--gold)">全书目录 · 14 章</div>
+  <ul class="navlist">
+    <li><a href="#ch00"><span class="n">00</span><span>为什么现在必须懂 GEO<span class="sub">流量入口正在从"搜索"转向"提问"</span></span></a></li>
+    <li><a href="#ch01"><span class="n">01</span><span>概念地图：SEO / AEO / GEO / LLMO<span class="sub">先把名词讲清楚，不再混用</span></span></a></li>
+    <li><a href="#ch02"><span class="n">02</span><span>AI 是怎么"读懂"世界的<span class="sub">检索-排序-生成-引用四步拆解</span></span></a></li>
+    <li><a href="#ch03"><span class="n">03</span><span>普林斯顿 GEO 实证研究<span class="sub">9 种打法，用数据说话</span></span></a></li>
+    <li><a href="#ch04"><span class="n">04</span><span>内容写作实战心法<span class="sub">答案前置、数据、引用、结构化</span></span></a></li>
+    <li><a href="#ch05"><span class="n">05</span><span>技术地基：让 AI 进得来看得懂<span class="sub">robots.txt / llms.txt / schema</span></span></a></li>
+    <li><a href="#ch06"><span class="n">06</span><span>品牌实体与第三方矩阵<span class="sub">85% 的引用来自别人的地盘</span></span></a></li>
+    <li><a href="#ch07"><span class="n">07</span><span>中国战场实战<span class="sub">豆包 / DeepSeek / 千问 / 文心 / Kimi / 元宝</span></span></a></li>
+    <li><a href="#ch08"><span class="n">08</span><span>国际战场实战<span class="sub">ChatGPT / Claude / Gemini / Perplexity</span></span></a></li>
+    <li><a href="#ch09"><span class="n">09</span><span>高阶心法与边界<span class="sub">什么有效、什么是骗局</span></span></a></li>
+    <li><a href="#ch10"><span class="n">10</span><span>效果监测方法论<span class="sub">如何证明 GEO 真的有用</span></span></a></li>
+    <li><a href="#ch11"><span class="n">11</span><span>90 天落地路线图<span class="sub">从0到第一波引用的完整节奏</span></span></a></li>
+    <li><a href="#ch12"><span class="n">12</span><span>常见误区与避坑<span class="sub">十个最容易踩的坑</span></span></a></li>
+    <li><a href="#ch13"><span class="n">13</span><span>顶尖高手速查表<span class="sub">一页纸带走全部要点</span></span></a></li>
+  </ul>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero" id="top">
+  <div class="beacon-scene" aria-hidden="true"><div class="beam"></div></div>
+  <div class="wrap hero-inner">
+    <svg class="tower" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 21h16L12 2z" fill="#FF6B4A"/><path d="M9 21l3-9 3 9" stroke="#fff" stroke-width="1.2"/></svg>
+    <div class="eyebrow" style="color:var(--gold)">2026 · 写给小白的 GEO / AEO 全指南</div>
+    <h1>让 <em>豆包、DeepSeek、千问</em><br>和 <em>ChatGPT、Claude、Gemini</em><br>主动把你推荐给用户</h1>
+    <p class="lede">这是一本从零基础到实战高手的生成式引擎优化（GEO）与回答引擎优化（AEO）手册。你不需要任何 SEO 基础，跟着 14 章走完，就能为任何产品、任何企业、任何个人 IP，搭建一套能被主流 AI 助手"看见、理解、引用、推荐"的内容体系。</p>
+    <div class="stats-strip">
+      <div class="stat"><b>4.4亿</b><span>2026年3月中国AI原生App月活用户</span></div>
+      <div class="stat"><b>85%</b><span>AI 引用内容来自第三方而非官网</span></div>
+      <div class="stat"><b>+41%</b><span>加入数据统计后引用概率提升幅度</span></div>
+    </div>
+    <a href="#ch00" class="scrollcue"><span class="dot"></span> 往下滑，点亮你的第一座灯塔</a>
+  </div>
+</header>
+
+<!-- ===================== CH00 ===================== -->
+<section id="ch00">
+  <div class="wrap">
+    <div class="chapmark reveal"><span class="num">00</span><span class="label">开篇 · 为什么是现在</span></div>
+    <h2 class="h-title reveal">搜索框正在消失，"提问框"正在取代它</h2>
+    <p class="h-lede reveal">你可能已经发现，身边越来越多人遇到问题时，第一反应不是打开百度或谷歌，而是直接问豆包、DeepSeek 或 ChatGPT。这不是错觉，而是一场正在发生的入口迁移——GEO 这门学科，就是为了应对这场迁移而生的。</p>
+
+    <div class="card reveal" style="margin-top:26px;">
+      <h3>从"搜索-点击-浏览"到"提问-获得答案"</h3>
+      <p>过去的逻辑是：用户输入关键词 → 搜索引擎给出一排链接 → 用户点进你的网站自己找答案。这套逻辑里，你只需要让自己的链接排到前十名。</p>
+      <p>现在的逻辑是：用户直接提问 → AI 检索多个信息源 → AI 把答案综合、总结、直接喂到用户面前，用户往往根本不会点开任何链接。如果 AI 的答案里没有提到你，哪怕你的官网做得再精美、传统 SEO 排名再靠前，在用户眼里你依然是"不存在"的。这就是零点击时代（Zero-Click）给内容和品牌带来的根本性挑战。</p>
+    </div>
+
+    <div class="statgrid">
+      <div class="statcard reveal"><b>4.4亿</b><span>截至2026年3月，中国AI原生App月活用户规模，单季度净增1.3亿</span></div>
+      <div class="statcard reveal"><b>3.45亿</b><span>豆包月活用户，在国内AI搜索赛道断层领先</span></div>
+      <div class="statcard reveal"><b>25%+</b><span>2026年AI搜索流量占整体搜索流量的比例已突破这一数字</span></div>
+      <div class="statcard reveal"><b>&lt;20%</b><span>仍有超过80%的企业品牌词，在六大主流AI平台里完全没有曝光</span></div>
+    </div>
+
+    <div class="card reveal" style="margin-top:14px;">
+      <h3>为什么小白现在入场，反而是好时机</h3>
+      <p>普林斯顿大学2024年的GEO实证研究有一个反直觉的结论：排名越靠后、权威度越低的内容，做GEO优化后的提升幅度反而越大——某些场景下引用可见度提升超过100%。也就是说，GEO是一种"洼地效应"极强的新战场：大品牌还没把资源砸满，规则也还在形成期，普通人和中小商家反而有机会靠"正确的方法"弯道超车，而不是拼预算、拼外链、拼多年积累的域名权重。</p>
+    </div>
+
+    <div class="quotecard reveal">
+      GEO 的本质，不是"欺骗"AI，而是把你原本就有价值的内容，改造成 AI 最容易理解、最愿意信任、最方便引用的样子。
+      <span>本手册核心方法论</span>
+    </div>
+
+    <p class="reveal" style="color:var(--ink-soft);font-size:14.5px;">读完这本手册，你会掌握：AI答案生成的底层机制、被学术界验证过的具体写作技巧、技术层面如何让AI爬虫"进得来看得懂"、中国与国际两大战场的平台差异、如何监测效果，以及一份可以直接照着执行的90天路线图。现在，让我们从最基础的名词开始。</p>
+  </div>
+</section>
+
+<!-- ===================== CH01 ===================== -->
+<section class="section-alt" id="ch01">
+  <div class="wrap">
+    <div class="chapmark reveal"><span class="num">01</span><span class="label">概念地图</span></div>
+    <h2 class="h-title reveal">SEO、AEO、GEO、LLMO 到底有什么区别</h2>
+    <p class="h-lede reveal">这几个词经常被混着用，但它们瞄准的"战场"完全不同。先把地图铺开，后面所有章节才不会学混。</p>
+
+    <div class="tbl-wrap reveal">
+      <table>
+        <thead><tr><th>名词</th><th>全称</th><th>优化目标</th><th>典型战场</th></tr></thead>
+        <tbody>
+          <tr><td><b>SEO</b></td><td>搜索引擎优化</td><td>让页面在搜索结果里排名靠前</td><td>百度、Google 传统蓝色链接列表</td></tr>
+          <tr><td><b>AEO</b></td><td>回答引擎优化</td><td>让内容被直接提取为"精选答案"</td><td>精选摘要、语音助手、AI速览框</td></tr>
+          <tr><td><b>GEO</b></td><td>生成式引擎优化</td><td>让品牌被AI在生成答案时主动引用/推荐</td><td>豆包、DeepSeek、ChatGPT、Claude 等对话式回答</td></tr>
+          <tr><td><b>LLMO</b></td><td>大语言模型优化</td><td>GEO的技术子集，专注模型如何检索与引用内容</td><td>底层召回、向量检索、结构化数据</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card reveal">
+      <h3>一句话记住三者关系</h3>
+      <p><b style="color:var(--signal)">SEO 让页面"被发现"</b>，<b style="color:var(--signal)">AEO 让内容"被提取"</b>，<b style="color:var(--signal)">GEO 让品牌"被推荐"</b>。三者不是替代关系，而是三层复合战略——事实上，Google官方也明确表示，从谷歌搜索的角度看，为生成式AI功能做优化本质上仍然是SEO的一部分，只是评判标准更新了。真正能同时通吃三个战场的内容，往往具备同一批底层特征：结构清晰、事实准确、来源可信、答案前置。</p>
+    </div>
+
+    <div class="dodont reveal">
+      <div class="dobox">
+        <span class="tag">✓ 三层通吃的内容特征</span>
+        <ul>
+          <li>开头就给出明确结论，而不是层层铺垫</li>
+          <li>有真实数据、有名有姓的引用来源</li>
+          <li>用小标题、列表、表格拆分信息颗粒度</li>
+          <li>持续更新，标注清楚发布/更新时间</li>
+        </ul>
+      </div>
+      <div class="dontbox">
+        <span class="tag">✕ 三层都会失分的做法</span>
+        <ul>
+          <li>为了塞关键词而堆砌重复词语</li>
+          <li>大段自夸式、纯营销腔的形容词堆叠</li>
+          <li>没有信息增量的"洗稿"内容</li>
+          <li>内容长期不更新、时间信息模糊</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH02 ===================== -->
+<section id="ch02">
+  <div class="wrap">
+    <div class="chapmark reveal"><span class="num">02</span><span class="label">底层原理</span></div>
+    <h2 class="h-title reveal">AI 是怎么"读懂"世界、给出答案的</h2>
+    <p class="h-lede reveal">要做好GEO，你不需要会写代码，但必须理解一件事：AI助手在回答问题时，大致会经历四个阶段。理解这四步，后面所有的写作和技术技巧都会变得"有据可依"，而不是玄学。</p>
+
+    <div class="flow reveal">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-body">
+          <h4>检索 Retrieval</h4>
+          <p>用户提问后，AI并不是单纯凭"记忆"回答，而是像撒网一样，实时检索互联网上、知识库里、第三方平台上跟问题相关的内容片段——这个过程叫检索增强生成（RAG）。你的内容能不能被"捞"上来，是第一道门槛。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-body">
+          <h4>排序与筛选 Ranking</h4>
+          <p>捞上来的信息源不止一个，AI会对这些片段做可信度、相关度、新鲜度打分，挑出最值得参考的那几条。这一步跟传统SEO的"排名"逻辑有相似之处，但评判维度更看重事实密度和来源权威性，而不只是关键词匹配。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-body">
+          <h4>综合生成 Synthesis</h4>
+          <p>AI把挑选出的多个信息源"揉"在一起，用自己的语言重新组织成一段连贯的回答，而不是简单复制粘贴某一篇文章。这意味着你不需要"抢占第一名"，只需要成为被揉进最终答案里的那几个信息源之一。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-body">
+          <h4>引用与展示 Citation</h4>
+          <p>部分平台（如豆包、DeepSeek、Perplexity、ChatGPT搜索模式）会在答案下方附上信息来源链接或品牌名称，这就是"品牌曝光"真正发生的地方——GEO要拿下的，正是这一步里那个被点名的位置。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <h3>一个关键认知转变</h3>
+      <p>传统SEO是"一对多"游戏——你和成百上千个网页竞争同一批关键词的排名位置，用户通常只看前几名。而GEO更像是"评审团投票"——AI在生成一段话的过程中，可能同时参考3到8个信息源，把它们拼接、提炼成一个答案。这意味着即使你不是"全网第一"，只要内容质量足够、结构足够清晰，依然有机会被选中、被提名。这也是为什么普林斯顿的研究发现，排名靠后的内容做GEO优化后提升幅度反而更大——因为"入选门槛"比"夺冠门槛"低得多。</p>
+    </div>
+
+    <div class="pillrow reveal">
+      <span class="pill">RAG 检索增强生成</span>
+      <span class="pill">向量检索 Embedding</span>
+      <span class="pill">信源可信度打分</span>
+      <span class="pill">段落级抽取 Passage Extraction</span>
+      <span class="pill">实时联网检索</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH03 ===================== -->
+<section class="section-dark" id="ch03">
+  <div class="wrap">
+    <div class="chapmark reveal"><span class="num">03</span><span class="label">学术实证 · 用数据说话</span></div>
+    <h2 class="h-title reveal">普林斯顿大学 GEO 研究：9 种打法，谁真的有效</h2>
+    <p class="h-lede reveal">2024年，普林斯顿大学联合佐治亚理工、艾伦人工智能研究院、印度理工德里分校的研究团队，在数据挖掘顶会 KDD 上发表了首个大规模GEO实证研究。他们在约1万条真实查询、覆盖9个领域的场景下，测试了9种常见内容优化手法对"被AI引用概率"的实际影响。这是目前GEO领域最重要、最被广泛引用的一手数据来源。</p>
+
+    <div class="statgrid reveal">
+      <div class="statcard"><span style="color:#8FA1C4">加入统计数据 Statistics</span><b class="pos">+41%</b><span style="color:#8FA1C4">单一手法中提升幅度最大，用具体数字替代模糊表述</span></div>
+      <div class="statcard"><span style="color:#8FA1C4">引用信源 Cite Sources</span><b class="pos">+30~40%</b><span style="color:#8FA1C4">对排名靠后的内容，可见度提升甚至超过115%</span></div>
+      <div class="statcard"><span style="color:#8FA1C4">加入专家引言 Quotation</span><b class="pos">+28%</b><span style="color:#8FA1C4">带署名和身份的直接引语，提升内容"证据感"</span></div>
+      <div class="statcard"><span style="color:#8FA1C4">语言流畅度优化 Fluency</span><b class="pos">+15~20%</b><span style="color:#8FA1C4">通顺、专业的表达本身就是可信度信号</span></div>
+      <div class="statcard"><span style="color:#8FA1C4">堆砌关键词 Keyword Stuffing</span><b class="neg">-9~10%</b><span style="color:#8FA1C4">唯一被验证"帮倒忙"的传统SEO老手法</span></div>
+      <div class="statcard"><span style="color:#8FA1C4">纯说服性语言 Persuasive Only</span><b class="neg">≈0</b><span style="color:#8FA1C4">没有证据支撑的营销话术，对AI几乎不起作用</span></div>
+    </div>
+
+    <div class="tbl-wrap reveal">
+      <table>
+        <thead><tr><th>手法分组</th><th>具体做法</th><th>是否有效</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="4">补充新证据类<br><span style="color:var(--ink-faint);font-weight:400;">(效果更强)</span></td><td>引用权威信源并标注出处</td><td style="color:var(--good)">强烈推荐</td></tr>
+          <tr><td>加入具体统计数字</td><td style="color:var(--good)">强烈推荐</td></tr>
+          <tr><td>加入带署名的专家引言</td><td style="color:var(--good)">推荐</td></tr>
+          <tr><td>提供独家/原创数据</td><td style="color:var(--good)">推荐</td></tr>
+          <tr><td rowspan="5">呈现方式优化类<br><span style="color:var(--ink-faint);font-weight:400;">(效果中等)</span></td><td>提升语言流畅度、专业度</td><td style="color:var(--good)">推荐</td></tr>
+          <tr><td>使用权威口吻表达</td><td style="color:var(--good)">推荐，但需避免空洞自夸</td></tr>
+          <tr><td>过度简化内容</td><td style="color:var(--ink-faint)">效果不明显</td></tr>
+          <tr><td>单纯堆叠篇幅字数</td><td style="color:var(--bad)">无效甚至负面</td></tr>
+          <tr><td>关键词堆砌</td><td style="color:var(--bad)">明确负面，会被判定为低质内容</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card reveal" style="background:rgba(255,255,255,0.06);border-color:var(--deep-line);color:#DCE4F3;">
+      <h3 style="color:#fff;">最强组合拳：流畅度 + 统计数据</h3>
+      <p style="color:#B7C4DE;">研究还测试了两两组合的效果，发现"语言流畅度优化"叠加"统计数据"的组合，效果比任何单一手法都高出5.5%以上；而"引用信源"虽然单独使用时提升幅度相对温和，但与其他手法搭配使用时，平均能带来31.4%的额外提升——引用信源更像是一个"信任倍增器"，能放大你已有数据和引语的说服力。实操结论很清晰：不要只挑一招用，把"通顺的表达 + 具体的数字 + 可查的来源"三件套一起用在同一段内容里，效果最好。</p>
+    </div>
+
+    <div class="dodont reveal">
+      <div class="dobox" style="background:rgba(31,157,108,0.14);border-color:rgba(31,157,108,0.35)">
+        <span class="tag">✓ 记住这三条黄金法则</span>
+        <ul style="color:#DCE4F3">
+          <li>能说"37%的用户反馈XX"，就不要说"很多用户反馈XX"</li>
+          <li>能标注"据某某2026年报告"，就不要写成无来源断言</li>
+          <li>能用一句专家原话佐证观点，就不要只写自己的判断</li>
+        </ul>
+      </div>
+      <div class="dontbox" style="background:rgba(225,72,72,0.14);border-color:rgba(225,72,72,0.35)">
+        <span class="tag">✕ 这些老SEO习惯要改掉</span>
+        <ul style="color:#DCE4F3">
+          <li>同一关键词在一段话里重复堆砌五六次</li>
+          <li>用大量形容词堆砌代替具体事实</li>
+          <li>为了凑字数注水，加入无信息增量的段落</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH04 ===================== -->
+<section class="section-alt" id="ch04">
+  <div class="wrap">
+    <div class="chapmark reveal"><span class="num">04</span><span class="label">实战心法</span></div>
+    <h2 class="h-title reveal">内容写作十八般武艺：从"人话"到"AI爱吃的话"</h2>
+    <p class="h-lede reveal">这一章是全书最"能立刻上手"的部分。不需要任何技术背景，改几个写作习惯，就能显著提升内容被AI抽取和引用的概率。</p>
+
+    <div class="card reveal">
+      <h3>心法一：答案前置（Answer-First）</h3>
+      <p>AI抽取内容片段时，非常偏爱"开门见山"的结构——第一句话就是结论，后面再展开论据、背景、细节。把结论埋在第三段甚至更后面，等于自动放弃了被抽取的机会。</p>
+    </div>
+
+    <div class="code-label reveal"><span>改写示例</span><span>BEFORE → AFTER</span></div>
+    <div class="dodont reveal" style="margin-top:0;">
+      <div class="dontbox">
+        <span class="tag">✕ 改写前</span>
+        <p style="font-size:13.5px;margin:10px 0 0;color:var(--ink-soft)">"随着市场竞争的日益激烈，越来越多的企业开始关注效率提升这一话题。在这样的大背景下，我们经过长期的实践摸索，发现选择合适的工具其实非常重要……（第四段才提到具体产品和结论）"</p>
+      </div>
+      <div class="dobox">
+        <span class="tag">✓ 改写后</span>
+        <p style="font-size:13.5px;margin:10px 0 0;color:var(--ink-soft)">"提升团队效率最直接的方式是XX（结论）。根据2026年行业调研，使用XX类工具的团队平均节省37%的重复劳动时间（数据）。原因主要有三点：……（展开论据）"</p>
+      </div>
+    </div>
+
+    <div class="card reveal" style="margin-top:22px;">
+      <h3>心法二：把内容拆成"可被单独抽取"的最小颗粒</h3>
+      <p>AI在生成答案时，往往只抽取一段话、一个列表项、一行表格数据，而不是整篇文章。所以每一段、每一个小标题下的内容，最好能独立成立，不依赖上下文也能读懂。多用短句、多用列表、多用小标题，少用需要"从头读到尾才能理解"的长论述。</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>心法三：FAQ结构是AEO/GEO双料神器</h3>
+      <p>把用户可能问的具体问题，直接写成"问题+简短直接答案"的FAQ模块，是被验证效果最稳定的做法之一。这种结构天然符合AI"抽取一问一答"的偏好，同时也是传统搜索引擎精选摘要最喜欢的格式。</p>
+    </div>
+
+    <div class="codeblock reveal"><span class="cm">&lt;!-- FAQ 内容结构示例，问题用真实用户会问的口语化表达 --&gt;</span>
+<span class="kw">问：</span>新手做GEO大概多久能看到效果？
+<span class="kw">答：</span>通常<span class="st">2-6个月</span>可以看到首波AI引用，<span class="st">4-6个月</span>左右效果趋于稳定。判断标准很简单：在豆包、DeepSeek、ChatGPT里直接搜索你所在行业的核心问题，看品牌是否被提及、引用是否准确。
+
+<span class="kw">问：</span>预算有限，应该先做哪个平台？
+<span class="kw">答：</span>优先选择用户体量最大、且与你目标客户重合度最高的1-2个平台集中投入，跑通效果后再横向扩展，不建议一开始就多平台平均分配资源。</div>
+
+    <div class="card reveal">
+      <h3>心法四：数字、表格、对比，是AI的"最爱食物"</h3>
+      <p>相比大段散文式描述，AI更容易、也更愿意抽取结构化的数字和表格内容——因为这类内容信息密度高、歧义少、方便直接拼进答案里。做产品介绍、行业分析、评测内容时，尽量用表格呈现"参数对比""价格对比""优缺点对比"，而不是全部写成大段文字。</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>心法五：新鲜感是隐藏的加分项</h3>
+      <p>AI在筛选信源时会参考内容的发布和更新时间，"过时"的内容即使曾经权威，也可能被更近期的信息源替代。养成在文章开头/结尾清晰标注发布日期和最近更新日期的习惯，并定期回头给旧内容"打补丁"——补充最新数据、修正过时信息，而不是任其在角落发霉。</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>心法六：去掉"营销腔"，换成"证据腔"</h3>
+      <p>研究反复验证了一件事：纯粹的自夸式形容词（"行业领先""最佳选择""颠覆性突破"）对AI几乎没有说服力，AI判断内容质量更多依靠语言的"困惑度"（perplexity）和事实密度——通顺自然、有理有据的表达，天然比夸张的营销文案更容易被识别为高质量内容。把"我们是行业最强的XX服务商"换成"我们服务了XX家企业，平均帮助客户提升XX%的YY指标"，说服力和被引用概率都会同时提升。</p>
+    </div>
+
+    <div class="pillrow reveal">
+      <span class="pill">答案前置</span><span class="pill">最小颗粒化</span><span class="pill">FAQ 结构</span>
+      <span class="pill">表格化呈现</span><span class="pill">标注更新时间</span><span class="pill">证据腔写作</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH05 ===================== -->
+<section id="ch05">
+  <div class="wrap">
+    <div class="chapmark reveal"><span class="num">05</span><span class="label">技术地基</span></div>
+    <h2 class="h-title reveal">让 AI 爬虫"进得来、看得懂"</h2>
+    <p class="h-lede reveal">再好的内容，如果AI的抓取程序根本进不来、或者进来了但看不懂页面结构，一切都是白费。这一章讲的是纯技术层的地基工作——即使你不懂代码，也可以把这些内容直接甩给你的技术同事或建站平台客服去照做。</p>
+
+    <div class="card reveal">
+      <h3>第一步：确认没有拦住 AI 爬虫</h3>
+      <p>网站根目录下的 <code>robots.txt</code> 文件，决定了哪些"机器人"可以访问你的网站。很多老网站的robots.txt是多年前配置的，可能无意中拦住了AI抓取程序。先检查、再放行。</p>
+    </div>
+
+    <div class="code-label reveal"><span>robots.txt 参考示例</span><span>放行主流 AI 抓取程序</span></div>
+    <div class="codeblock reveal"><span class="cm"># 国际平台</span>
+User-agent: <span class="kw">GPTBot</span>
+Allow: /
+User-agent: <span class="kw">OAI-SearchBot</span>
+Allow: /
+User-agent: <span class="kw">ClaudeBot</span>
+Allow: /
+User-agent: <span class="kw">Claude-Web</span>
+Allow: /
+User-agent: <span class="kw">PerplexityBot</span>
+Allow: /
+User-agent: <span class="kw">Google-Extended</span>
+Allow: /
+
+<span class="cm"># 国内平台（视各平台公开的UA名单定期更新）</span>
+User-agent: <span class="kw">Bytespider</span>
+Allow: /
+User-agent: <span class="kw">PetalBot</span>
+Allow: /
+
+Sitemap: https://你的域名.com/sitemap.xml</div>
+
+    <div class="card reveal">
+      <h3>第二步：部署 llms.txt——给AI的"专属说明书"</h3>
+      <p>llms.txt 是2024年由业内人士提出的新型标准文件，放在网站根目录（yourdomain.com/llms.txt），用简洁的Markdown格式，告诉AI"我是谁、我提供什么、我最重要的内容在哪"。它不控制爬虫权限（这是robots.txt的工作），而是帮AI跳过导航栏、广告、弹窗这些"噪音"，直接找到核心内容。目前Anthropic、Stripe、Cloudflare等公司都已经部署了自己的llms.txt。需要提醒的是：这不是万能钥匙，Google官方明确表示搜索和AI速览不会读取这个文件，它更像是"锦上添花"的辅助信号，而不是决定性因素。</p>
+    </div>
+
+    <div class="code-label reveal"><span>llms.txt 参考示例</span><span>置于域名根目录，纯文本 / Markdown 格式</span></div>
+    <div class="codeblock reveal"><span class="kw"># 品牌名称</span>
+
+<span class="cm">> 一句话说明你是做什么的、服务谁</span>
+
+<span class="kw">## 产品与服务</span>
+- [核心产品页](https://域名/product): 一句话描述这个产品解决什么问题
+- [定价页](https://域名/pricing): 定价方案与适用场景
+
+<span class="kw">## 常见问题</span>
+- [FAQ](https://域名/faq): 用户最常问的问题与解答
+
+<span class="kw">## 关于我们</span>
+- [公司介绍](https://域名/about): 成立时间、团队背景、核心优势
+
+<span class="kw">## Optional</span>
+- [博客归档](https://域名/blog): 次要内容，AI可按需跳过</div>
+
+    <div class="checklist reveal">
+      <li>文件必须放在域名根目录，不能放在 /docs/llms.txt 这种子路径下</li>
+      <li>用 text/plain 或 text/markdown 格式返回，状态码为200，不要挂在登录墙后面</li>
+      <li>每个分类下放2-8个链接，超过10个就说明分类粒度太粗了</li>
+      <li>次要内容放进"Optional"分组，方便上下文有限的AI按需跳过</li>
+      <li>在 robots.txt 里加一行注释，提示未来的爬虫这个文件的存在</li>
+    </div>
+
+    <div class="card reveal">
+      <h3>第三步：结构化数据 Schema.org（这个才是重头戏）</h3>
+      <p>如果说llms.txt是"锦上添花"，结构化数据（JSON-LD格式的Schema标记）就是真正被验证长期有效的核心技术信号。它相当于在页面里嵌入一份"机器可读的身份证"，明确告诉AI"这是一个企业""这是一个产品，价格是多少""这是一组常见问答"，大幅降低AI理解和信任你内容的门槛。</p>
+    </div>
+
+    <div class="code-label reveal"><span>Organization 结构化数据示例</span><span>放入页面 &lt;head&gt; 中</span></div>
+    <div class="codeblock reveal">&lt;script type=<span class="st">"application/ld+json"</span>&gt;
+{
+  <span class="kw">"@context"</span>: <span class="st">"https://schema.org"</span>,
+  <span class="kw">"@type"</span>: <span class="st">"Organization"</span>,
+  <span class="kw">"name"</span>: <span class="st">"你的品牌名称"</span>,
+  <span class="kw">"url"</span>: <span class="st">"https://你的域名.com"</span>,
+  <span class="kw">"logo"</span>: <span class="st">"https://你的域名.com/logo.png"</span>,
+  <span class="kw">"sameAs"</span>: [
+    <span class="st">"https://weibo.com/你的账号"</span>,
+    <span class="st">"https://zhihu.com/org/你的账号"</span>
+  ],
+  <span class="kw">"description"</span>: <span class="st">"一句话准确描述你是做什么的"</span>
+}
+&lt;/script&gt;</div>
+
+    <div class="code-label reveal"><span>FAQPage 结构化数据示例</span><span>与页面可见FAQ内容保持完全一致</span></div>
+    <div class="codeblock reveal">&lt;script type=<span class="st">"application/ld+json"</span>&gt;
+{
+  <span class="kw">"@context"</span>: <span class="st">"https://schema.org"</span>,
+  <span class="kw">"@type"</span>: <span class="st">"FAQPage"</span>,
+  <span class="kw">"mainEntity"</span>: [{
+    <span class="kw">"@type"</span>: <span class="st">"Question"</span>,
+    <span class="kw">"name"</span>: <span class="st">"新手做GEO大概多久能看到效果？"</span>,
+    <span class="kw">"acceptedAnswer"</span>: {
+      <span class="kw">"@type"</span>: <span class="st">"Answer"</span>,
+      <span class="kw">"text"</span>: <span class="st">"通常2-6个月可见首波AI引用，4-6个月效果趋于稳定。"</span>
+    }
+  }]
+}
+&lt;/script&gt;</div>
+
+    <div class="dodont reveal">
+      <div class="dobox">
+        <span class="tag">✓ 技术地基优先级排序</span>
+        <ul>
+          <li>域名权重与信任度（长期积累，最基础）</li>
+          <li>内容本身的GEO可抽取结构（本手册核心）</li>
+          <li>结构化数据 Schema 标记</li>
+          <li>页面元信息（标题、描述）清晰准确</li>
+          <li>llms.txt（辅助信号，锦上添花）</li>
+        </ul>
+      </div>
+      <div class="dontbox">
+        <span class="tag">✕ 常见技术性失误</span>
+        <ul>
+          <li>结构化数据里写的内容和页面可见内容对不上</li>
+          <li>核心页面被robots.txt误拦截</li>
+          <li>页面加载速度过慢导致爬虫抓取超时</li>
+          <li>把llms.txt当成"万能解药"而忽视内容质量本身</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH06 ===================== -->
+<section class="section-alt" id="ch06">
+  <div class="wrap">
+    <div class="chapmark reveal"><span class="num">06</span><span class="label">品牌资产</span></div>
+    <h2 class="h-title reveal">85%的引用来自别人的地盘，不是你的官网</h2>
+    <p class="h-lede reveal">这是GEO和传统SEO最大的思维差异：SEO本质上是"自家阵地"的游戏，你主要优化自己的网站；而GEO更像是"公共舆论场"的游戏——行业数据显示，大约85%的品牌在AI搜索中被提及，来源是第三方平台（媒体报道、评测文章、社区讨论、问答平台），而不是品牌自己的官网，品牌通过第三方信源被引用的概率是通过自有网站的6.5倍以上。</p>
+
+    <div class="card reveal">
+      <h3>先做好"实体一致性"（NAP Consistency）</h3>
+      <p>在铺第三方内容之前，先确保你的品牌名称、核心描述、联系方式、官网链接，在全网各个平台上保持完全一致的表述。名字这里叫"XX科技"、那里叫"XX公司"、又一个地方叫"XX Tech"，会让AI在做实体识别时产生混淆，降低信任评分。统一口径，是免费但极容易被忽视的基础工作。</p>
+    </div>
+
+    <div class="card reveal">
+      <h3>第三方内容矩阵，应该铺在哪里</h3>
+      <p>结合国内AI平台的信源偏好，建议按优先级布局以下几类第三方阵地，具体渠道选择应结合自身行业和预算灵活调整：</p>
+    </div>
+
+    <div class="tbl-wrap reveal">
+      <table>
+        <thead><tr><th>渠道类型</th><th>典型平台</th><th>为什么重要</th></tr></thead>
+        <tbody>
+          <tr><td>知识问答社区</td><td>知乎、百度知道等</td><td>结构天然是"问题+答案"，与AI抽取逻辑高度契合</td></tr>
+          <tr><td>新闻资讯稿件</td><td>行业媒体、权威新闻源</td><td>结构清晰、事实明确、有权威背书，是被多篇研究反复验证的高权重信源</td></tr>
+          <tr><td>内容自媒体平台</td><td>公众号、百家号、头条号等</td><td>直接影响豆包等平台的内容池覆盖面</td></tr>
+          <tr><td>百科类条目</td><td>百度百科等权威百科</td><td>是AI建立"品牌实体认知"最核心的信源之一</td></tr>
+          <tr><td>垂直评测/对比内容</td><td>行业垂直媒体、测评博主</td><td>对比类问题是用户最常向AI提问的场景之一</td></tr>
+          <tr><td>论坛与真实讨论</td><td>垂直论坛、行业社群</td><td>真实用户讨论的"自然引用"，可信度权重高</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="dodont reveal">
+      <div class="dobox">
+        <span class="tag">✓ 铺第三方内容的正确姿势</span>
+        <ul>
+          <li>优先选择本身已经被AI稳定收录的高权重媒体/平台</li>
+          <li>每篇稿件都提供信息增量，而不是同一篇文案到处复制粘贴</li>
+          <li>在内容里自然嵌入具体数据、案例，而不是纯软文吹捧</li>
+          <li>持续、小批量、长周期投放，而不是集中砸一波就停</li>
+        </ul>
+      </div>
+      <div class="dontbox">
+        <span class="tag">✕ 容易踩的坑</span>
+        <ul>
+          <li>选择根本不被AI收录的"僵尸媒体"，稿件写得再好也是白费</li>
+          <li>同一篇稿子换个标题到处群发，被判定为低质重复内容</li>
+          <li>只顾发稿数量，完全不追踪AI是否真的引用了这些内容</li>
+          <li>一次性冲量后不再维护，导致品牌认知无法持续沉淀</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH07 ===================== -->
+<section id="ch07">
+  <div class="wrap">
+    <div class="chapmark reveal"><span class="num">07</span><span class="label">中国战场实战</span></div>
+    <h2 class="h-title reveal">豆包 / DeepSeek / 千问 / 文心一言 / Kimi / 元宝</h2>
+    <p class="h-lede reveal">国内AI搜索市场已经形成"一超多强"格局。左右滑动查看六大平台的用户体量与优化侧重点——具体收录周期与引用规则会持续变化，请以各平台实测为准，避免完全依赖任何单一第三方评分。</p>
+  </div>
+  <div class="platform-scroll reveal">
+    <div class="platform-card">
+      <span class="ptag">用户体量断层领先</span>
+      <div class="pname">豆包</div>
+      <p class="pdesc">2026年月活约3.45亿，是国内目前覆盖面最广的AI原生应用，用户结构也在快速向三线以下城市与中老年群体渗透。</p>
+      <div class="pmeta">优化侧重：<b>头条号矩阵 + 内容更新频率</b>，字节系内容生态内的内容更容易被抓取沉淀。</div>
+    </div>
+    <div class="platform-card">
+      <span class="ptag">B2B与专业场景强势</span>
+      <div class="pname">DeepSeek</div>
+      <p class="pdesc">月活约1.27亿，用户粘性突出，月人均使用频次高，在专业、B2B、深度问题场景下的推荐意愿相对更强。</p>
+      <div class="pmeta">优化侧重：<b>内容深度与专业性</b>，对内容质量的要求相对更高，堆量效果有限。</div>
+    </div>
+    <div class="platform-card">
+      <span class="ptag">阿里生态联动</span>
+      <div class="pname">千问 Qwen</div>
+      <p class="pdesc">依托阿里系电商与内容生态，在电商、生活服务类问题上有天然的信源整合优势。</p>
+      <div class="pmeta">优化侧重：<b>阿里系内容平台布局</b>，结合电商详情页结构化数据效果更佳。</div>
+    </div>
+    <div class="platform-card">
+      <span class="ptag">收录速度最快</span>
+      <div class="pname">文心一言</div>
+      <p class="pdesc">依托百度搜索的既有收录体系，内容进入答案池的速度在几大平台中普遍偏快。</p>
+      <div class="pmeta">优化侧重：<b>百家号 + 百度生态内容</b>，与传统百度SEO基本盘高度重合。</div>
+    </div>
+    <div class="platform-card">
+      <span class="ptag">重视专业深度</span>
+      <div class="pname">Kimi</div>
+      <p class="pdesc">在长文本理解和学术/专业类内容处理上有特点，对内容专业度的门槛相对更高，收录周期也相对更长。</p>
+      <div class="pmeta">优化侧重：<b>知识密度与逻辑严谨性</b>，适合深度行业内容优先布局。</div>
+    </div>
+    <div class="platform-card">
+      <span class="ptag">腾讯生态联动</span>
+      <div class="pname">腾讯元宝</div>
+      <p class="pdesc">依托微信公众号与腾讯内容生态，社交场景下的内容传播与沉淀有天然优势。</p>
+      <div class="pmeta">优化侧重：<b>公众号内容矩阵</b>，结合视频号等腾讯系内容形式效果更佳。</div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="card reveal">
+      <h3>国内实操建议：先集中，再扩散</h3>
+      <p>不建议一开始就在六个平台平均分配资源。更务实的做法是：先挑1-2个与你目标用户重合度最高、且用户体量较大的平台集中投入，跑通"发布内容→被AI收录→出现在真实回答里"这条链路，验证方法论有效后，再横向复制到其他平台。多数从业者反馈，从开始系统投入到看到首波稳定引用，大约需要2-6个月，请把这当作一场"长期资产建设"而不是一次性投放。</p>
+    </div>
+    <div class="dodont reveal">
+      <div class="dobox">
+        <span class="tag">✓ 国内GEO加分项</span>
+        <ul>
+          <li>新闻稿件类内容因结构清晰、事实明确，是目前公认效果最扎实的抓手之一</li>
+          <li>百科词条、权威媒体报道对品牌"实体认知"建立帮助很大</li>
+          <li>持续监测品牌词在各平台的实测表现，而不是只看发布数量</li>
+        </ul>
+      </div>
+      <div class="dontbox">
+        <span class="tag">✕ 国内常见误区</span>
+        <ul>
+          <li>迷信"包收录、包引用"的服务承诺——目前没有任何机制能100%保证结果</li>
+          <li>只押注一个平台，完全忽视其余平台的用户增量</li>
+          <li>把GEO和刷量、买粉、灰产手法混为一谈，长期反而会伤害品牌信任度</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH08 ===================== -->
+<section class="section-alt" id="ch08">
+  <div class="wrap">
+    <div class="chapmark reveal"><span class="num">08</span><span class="label">国际战场实战</span></div>
+    <h2 class="h-title reveal">ChatGPT / Claude / Gemini / Perplexity</h2>
+    <p class="h-lede reveal">如果你的产品或内容面向海外用户，国际主流AI平台的引用偏好也各有侧重，值得分开理解。</p>
+
+    <div class="tbl-wrap reveal">
+      <table>
+        <thead><tr><th>平台</th><th>观察到的偏好倾向</th><th>建议侧重</th></tr></thead>
+        <tbody>
+          <tr><td><b>ChatGPT / OAI-SearchBot</b></td><td>综合参考多信源，注重内容结构化与问答匹配度</td><td>FAQ结构 + 结构化数据双管齐下</td></tr>
+          <tr><td><b>Claude</b></td><td>相对更看重内容的原创分析深度，而非简单信息聚合</td><td>提供独到观点、原创数据和深度分析</td></tr>
+          <tr><td><b>Gemini / Google AI Overview</b></td><td>与Google自然搜索排名关联度较高</td><td>传统SEO基本功依然重要，两者需协同推进</td></tr>
+          <tr><td><b>Perplexity</b></td><td>对内容新鲜度和明确来源引用格外敏感</td><td>保持更新频率，清晰标注信息来源</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card reveal">
+      <h3>官方的提醒：警惕"GEO玄学"</h3>
+      <p>Google官方在其搜索中心文档中明确指出，市面上流传的许多所谓"AEO/GEO独家技巧"其实缺乏依据，不代表谷歌搜索真实的工作原理。这是一个提醒：与其追逐层出不穷的"秘籍""黑科技"，不如把精力放在本手册反复强调的这几个已被验证的基本功上——清晰的结构、真实的证据、准确的事实、可信的来源。这些既是对AI友好的内容，本质上也是对真实用户友好的内容，两者从来都不矛盾。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH09 ===================== -->
+<section id="ch09">
+  <div class="wrap">
+    <div class="chapmark reveal"><span class="num">09</span><span class="label">高阶心法</span></div>
+    <h2 class="h-title reveal">从熟练工到顶尖高手：认清有效边界</h2>
+    <p class="h-lede reveal">越往高阶走，越需要分清"真正有效的长期功夫"和"看起来聪明、实际没用甚至有害的旁门左道"。这一章帮你建立高手级的判断力。</p>
+
+    <div class="accordion reveal">
+      <div class="acc-item open">
+        <div class="acc-head"><span>为什么"提示词注入"式的操控不可取</span><span class="plus"></span></div>
+        <div class="acc-body" style="max-height:400px;"><div class="acc-body-inner">
+          <p>网上流传过一些在网页里藏入隐藏文字、试图直接"指挥"AI输出特定内容的手法。这类操控式手段本质上是在利用系统漏洞，而不是提供真实价值，一旦被平台识别，轻则内容被降权或过滤，重则整个域名被拉入黑名单，得不偿失。顶尖高手拼的从来不是"骗过AI一次"，而是持续、稳定地成为AI愿意信任的信源。</p>
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head"><span>如何识别"GEO服务"里的智商税陷阱</span><span class="plus"></span></div>
+        <div class="acc-body"><div class="acc-body-inner">
+          <p>目前GEO/AEO是一个新兴、监管和标准都还在形成期的领域，市面上出现了大量良莠不齐的服务商。判断一个服务是否靠谱，可以问自己几个问题：</p>
+          <ul>
+            <li>对方是否承诺"100%包收录、包引用"？——目前没有任何技术能做出这种保证，敢这么承诺的通常有问题</li>
+            <li>对方是否愿意展示真实、可复现的过往案例效果，而不是只给一堆截图？</li>
+            <li>对方的方法论是否经得起"这是不是也在提升真实内容质量"这道检验？</li>
+            <li>对方是否建议你长期投入优质内容与技术基建，还是只想卖你一次性的"刷量"服务？</li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head"><span>顶尖高手和普通从业者的核心差距在哪</span><span class="plus"></span></div>
+        <div class="acc-body"><div class="acc-body-inner">
+          <p>普通从业者往往停留在"发很多内容、堆很多渠道"的量级思维；顶尖高手则会建立一套完整的反馈闭环：持续监测品牌在各AI平台的真实表现 → 找到表现最好和最差的内容特征 → 反推出下一步内容和渠道策略的调整方向 → 再次监测验证。GEO不是一次性项目，而是像做产品一样持续迭代的系统工程。</p>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="quotecard reveal">
+      能同时经得起"这对AI有没有用"和"这对真实用户有没有用"两道检验的内容，才是值得长期投入的内容。
+      <span>高阶心法</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH10 ===================== -->
+<section class="section-alt" id="ch10">
+  <div class="wrap">
+    <div class="chapmark reveal"><span class="num">10</span><span class="label">效果监测</span></div>
+    <h2 class="h-title reveal">如何证明 GEO 真的有用，而不是自嗨</h2>
+    <p class="h-lede reveal">没有监测，就没有优化。这一章给你一套不需要任何付费工具、靠"手动测试"就能上手的监测方法，以及进阶后可以考虑引入的专业方式。</p>
+
+    <div class="flow reveal">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-body">
+          <h4>建立你的核心问题清单</h4>
+          <p>列出10-20个目标用户最可能向AI提出的真实问题，尽量用用户的口语化表达，而不是你自己的行业术语。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-body">
+          <h4>用"新对话"逐一实测</h4>
+          <p>在豆包、DeepSeek、ChatGPT等平台，每次都开一个全新的对话窗口（避免历史记忆干扰结果），把清单里的问题逐条提问，记录AI的回答里是否出现了你的品牌、出现的位置、描述是否准确。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-body">
+          <h4>建立一张简单的追踪表</h4>
+          <p>用表格记录：测试日期 / 平台 / 提问内容 / 是否提及品牌 / 提及是否准确 / 排在第几个信源。每月固定复测一次，观察趋势变化，而不是只看单次结果。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-body">
+          <h4>关注"份额"而不是"名次"</h4>
+          <p>GEO没有像传统SEO那样清晰的"第一名"概念，更实用的指标是"提及份额"（Share of Model）——在你测试的这批问题里，有多大比例的回答提到了你，相比竞争对手的提及比例如何。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <h3>进阶：借助专业监测工具</h3>
+      <p>当业务规模变大、需要监测的问题和平台组合变多时，手动测试的效率会明显跟不上，市面上已经出现一批专注于AI可见度监测的工具，可以自动化追踪品牌在多个AI平台的引用频率、位置和准确度变化。选择工具时，同样要留意上一章提到的"避坑"原则，优先选择能提供透明、可验证数据的产品。</p>
+    </div>
+
+    <div class="checklist reveal">
+      <li>每月固定日期复测，形成可对比的时间序列数据</li>
+      <li>同时监测自己的品牌词和2-3个主要竞争对手，建立相对参照</li>
+      <li>记录AI描述你品牌时用的具体措辞，及时发现并修正不准确的描述</li>
+      <li>把监测结果和内容发布节奏对照，找到真正有效的内容类型</li>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH11 ===================== -->
+<section class="section-dark" id="ch11">
+  <div class="wrap">
+    <div class="chapmark reveal"><span class="num">11</span><span class="label">落地路线图</span></div>
+    <h2 class="h-title reveal">90 天路线图：从0到第一波AI引用</h2>
+    <p class="h-lede reveal">理论讲完了，这一章把前面所有内容压缩成一份可以直接照着执行的时间表。不需要团队、不需要预算门槛，一个人也能按这个节奏推进。</p>
+
+    <div class="week-card reveal" style="margin-top:24px;">
+      <span class="wk-tag">第 1-2 周 · 地基期</span>
+      <h4>盘点现状 + 打好技术地基</h4>
+      <ul>
+        <li>用第10章的方法，手动测试品牌在3-5个主流AI平台的现状，作为效果对照基线</li>
+        <li>检查并修正 robots.txt，确认没有误拦截AI抓取程序</li>
+        <li>统一全网品牌名称、简介、联系方式等基础信息（NAP一致性）</li>
+        <li>为官网核心页面（首页、产品页、关于我们）补充结构化数据标记</li>
+      </ul>
+    </div>
+    <div class="week-card reveal">
+      <span class="wk-tag">第 3-5 周 · 内容改造期</span>
+      <h4>用GEO心法重写现有核心内容</h4>
+      <ul>
+        <li>挑选3-5篇最重要的现有页面/文章，按"答案前置"原则重新组织结构</li>
+        <li>为每篇核心内容补充具体数据、可查证的来源引用</li>
+        <li>整理一份完整的FAQ模块，覆盖用户最常问的10-20个真实问题</li>
+        <li>部署 llms.txt，梳理清楚网站最核心的内容地图</li>
+      </ul>
+    </div>
+    <div class="week-card reveal">
+      <span class="wk-tag">第 6-9 周 · 第三方铺设期</span>
+      <h4>启动第三方内容矩阵</h4>
+      <ul>
+        <li>确定1-2个优先投入的AI平台，集中资源而非平均分配</li>
+        <li>在已被目标平台稳定收录的媒体/自媒体上，发布3-6篇高质量、有信息增量的内容</li>
+        <li>补全或更新权威百科类词条信息</li>
+        <li>在行业相关的问答社区，围绕真实用户问题给出高质量回答</li>
+      </ul>
+    </div>
+    <div class="week-card reveal">
+      <span class="wk-tag">第 10-13 周 · 验证与迭代期</span>
+      <h4>复测效果，调整策略</h4>
+      <ul>
+        <li>用第一周建立的问题清单，重新完整测试一轮，对比基线数据</li>
+        <li>找出效果最好的内容类型和渠道，加大投入</li>
+        <li>找出完全没有起效的动作，果断砍掉或调整</li>
+        <li>把这套流程固化为月度常规动作，而不是一次性项目</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH12 ===================== -->
+<section id="ch12">
+  <div class="wrap">
+    <div class="chapmark reveal"><span class="num">12</span><span class="label">避坑指南</span></div>
+    <h2 class="h-title reveal">十个最容易踩的坑</h2>
+    <div class="checklist reveal">
+      <li><b>误区一：</b>以为把网站做好就够了——实际上85%的引用来自第三方平台，只优化官网远远不够</li>
+      <li><b>误区二：</b>迷信"包收录、包引用"的服务承诺——目前没有任何机制能保证100%命中</li>
+      <li><b>误区三：</b>照搬旧SEO那套关键词堆砌思路——这是被明确验证会起反作用的做法</li>
+      <li><b>误区四：</b>只发一轮内容就等结果——GEO需要2-6个月的持续投入才能看到稳定效果</li>
+      <li><b>误区五：</b>内容发布后从不更新——AI对新鲜度敏感，长期不维护的内容会被更新的信源替代</li>
+      <li><b>误区六：</b>结构化数据里的内容和页面实际内容对不上——这属于误导性标记，弊大于利</li>
+      <li><b>误区七：</b>把所有资源平均分配到六七个平台——不如先集中打透1-2个核心平台</li>
+      <li><b>误区八：</b>用夸张营销话术代替真实数据和案例——AI和真实用户都不买账</li>
+      <li><b>误区九：</b>只关注发布数量，从不监测AI实际引用效果——等于蒙眼开车</li>
+      <li><b>误区十：</b>把GEO当成一次性项目而非长期资产建设——真正的高手都是在打持久战</li>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CH13 ===================== -->
+<section class="section-alt" id="ch13">
+  <div class="wrap">
+    <div class="chapmark reveal"><span class="num">13</span><span class="label">速查表</span></div>
+    <h2 class="h-title reveal">顶尖高手速查表：一页纸带走全部要点</h2>
+    <p class="h-lede reveal">把这一页截图保存，或者收藏这个页面——每次做内容前，对照这份清单自查一遍。</p>
+
+    <div class="card reveal">
+      <h3>内容自查 5 问</h3>
+      <ul style="margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-soft)">
+        <li>第一句话是不是已经给出了明确结论？</li>
+        <li>有没有至少一个具体数字或可查证的来源？</li>
+        <li>能不能拆成小标题、列表或表格，方便单独抽取？</li>
+        <li>有没有清晰标注发布/更新时间？</li>
+        <li>去掉所有形容词后，剩下的内容还有没有实际信息量？</li>
+      </ul>
+    </div>
+
+    <div class="statgrid reveal" style="margin-top:20px;">
+      <div class="statcard"><b style="font-size:16px;">技术地基</b><span>robots.txt 放行 · llms.txt 部署 · Schema结构化数据</span></div>
+      <div class="statcard"><b style="font-size:16px;">内容心法</b><span>答案前置 · 数据引用 · FAQ结构 · 持续更新</span></div>
+      <div class="statcard"><b style="font-size:16px;">第三方矩阵</b><span>媒体稿件 · 问答社区 · 百科词条 · 实体一致性</span></div>
+      <div class="statcard"><b style="font-size:16px;">监测迭代</b><span>核心问题清单 · 月度复测 · 提及份额追踪</span></div>
+    </div>
+
+    <div class="card reveal" style="margin-top:14px;background:var(--deep);color:#fff;border-color:var(--deep-line)">
+      <h3 style="color:#fff;">写给小白的最后一句话</h3>
+      <p style="color:#C7D3E8;">GEO没有一招制胜的魔法，它更像是把"写好一篇真正有价值的内容"这件事，翻译成了AI听得懂的语言。踏实做好这本手册里的每一步，比追逐任何"速成秘籍"都更靠谱。现在，去点亮属于你的第一座灯塔吧。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fbrand">🗼 灯塔手册</div>
+    <p>本手册用于学习与实践参考，AI 平台的排序与引用机制会持续演化，请以各平台官方文档为准，并定期复测你的策略效果。GEO 是长期资产建设，没有能保证100%命中的"黑科技"，对任何承诺"包收录、包引用"的服务保持警惕。</p>
+    <div class="srclist">
+      <div>主要参考与延伸阅读：</div>
+      <div>· Aggarwal et al., <em>GEO: Generative Engine Optimization</em>, ACM KDD 2024（普林斯顿大学 / 佐治亚理工 / IIT德里联合研究）</div>
+      <div>· Google Search Central《Optimizing for Generative AI Features on Google Search》官方指南</div>
+      <div>· WRITER、Jasper、Ahrefs、SparkToro、Yext 等机构 2026 年 GEO/AEO 行业报告</div>
+      <div>· QuestMobile《中国移动互联网2026春季大报告》</div>
+      <div>· llmstxt.org 标准说明文档</div>
+    </div>
+  </div>
+</footer>
+
+<button class="totop" id="toTop" aria-label="回到顶部">↑</button>
+
+<script>
+// progress bar
+const bar=document.getElementById('progressbar');
+const topTopBtn=document.getElementById('toTop');
+const topbar=document.getElementById('topbar');
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const scrolled=(h.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
+  bar.style.width=scrolled+'%';
+  topTopBtn.classList.toggle('show', h.scrollTop>800);
+  topbar.classList.toggle('scrolled', h.scrollTop>10);
+});
+topTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+// drawer
+const menuBtn=document.getElementById('menuBtn');
+const closeBtn=document.getElementById('closeBtn');
+const drawer=document.getElementById('navDrawer');
+menuBtn.addEventListener('click',()=>drawer.classList.add('open'));
+closeBtn.addEventListener('click',()=>drawer.classList.remove('open'));
+drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>drawer.classList.remove('open')));
+
+// reveal on scroll
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// accordion
+document.addEventListener('click',(e)=>{
+  const head=e.target.closest('.acc-head');
+  if(!head) return;
+  const item=head.parentElement;
+  const body=item.querySelector('.acc-body');
+  const wasOpen=item.classList.contains('open');
+  item.closest('.accordion').querySelectorAll('.acc-item').forEach(it=>{
+    it.classList.remove('open');
+    it.querySelector('.acc-body').style.maxHeight=null;
+  });
+  if(!wasOpen){
+    item.classList.add('open');
+    body.style.maxHeight=body.scrollHeight+'px';
+  }
+});
+</script>
+</body>
+</html>
