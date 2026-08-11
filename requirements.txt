@@ -1,0 +1,272 @@
+from http.server import BaseHTTPRequestHandler
+import json
+import base64
+import io
+import os
+import urllib.request
+from PIL import Image, ImageDraw, ImageFont
+
+# ==========================================
+# 📄 响应式 H5 前端界面 (专为手机端优化)
+# ==========================================
+HTML_PAGE = """<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>证件安全水印云工具</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, sans-serif; background: #f4f6f9; padding: 15px; color: #333; }
+        .card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        h2 { font-size: 20px; text-align: center; margin-bottom: 15px; color: #111; }
+        label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 15px; }
+        input[type="text"], select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; }
+        .file-upload { display: block; width: 100%; padding: 15px; text-align: center; background: #f8f9fa; border: 2px dashed #0066ff; border-radius: 8px; cursor: pointer; color: #0066ff; font-weight: 600; margin-top: 15px; }
+        input[type="file"] { display: none; }
+        button { width: 100%; padding: 14px; background: #0066ff; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; margin-top: 20px; cursor: pointer; }
+        button:disabled { background: #ccc; }
+        .preview-area { margin-top: 20px; text-align: center; display: none; }
+        .preview-area img { max-width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .download-btn { background: #28a745; margin-top: 15px; }
+        #preview-img-tag { margin-top: 10px; max-width: 100%; max-height: 200px; display: none; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>🛡️ 证件安全水印工具</h2>
+        
+        <label>1. 请输入或选择水印内容：</label>
+        <input type="text" id="watermarkText" value="仅供办理业务使用，他用无效" placeholder="可手动修改此处文字">
+        
+        <label>2. 选择水印位置：</label>
+        <select id="positionChoice">
+            <option value="身份证正面">身份证正面 (避开头像与号码)</option>
+            <option value="身份证背面">身份证背面 (签发机关上方)</option>
+        </select>
+
+        <label class="file-upload" for="imageInput">
+            📸 点击此处拍照或从相册选图
+        </label>
+        <input type="file" id="imageInput" accept="image/*">
+        <img id="preview-img-tag" src="" alt="预览图">
+
+        <button id="submitBtn" onclick="processImage()">🚀 一键添加水印</button>
+    </div>
+
+    <div class="card preview-area" id="resultArea">
+        <h3 style="margin-bottom:10px; color:#28a745;">✅ 处理成功！</h3>
+        <img id="resultImage" src="" alt="处理后的图片">
+        <button class="download-btn" onclick="downloadImage()">💾 保存到手机相册</button>
+    </div>
+
+    <script>
+        let base64Image = null;
+
+        // 监听图片选择，压缩并转为 Base64
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    // 前端压缩图片，防止手机超大图片导致云端超时
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    let width = img.width;
+                    let height = img.height;
+                    const maxSize = 1200;
+
+                    if (width > height && width > maxSize) {
+                        height *= maxSize / width;
+                        width = maxSize;
+                    } else if (height > maxSize) {
+                        width *= maxSize / height;
+                        height = maxSize;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    base64Image = canvas.toDataURL('image/jpeg', 0.85);
+                    
+                    const previewTag = document.getElementById('preview-img-tag');
+                    previewTag.src = base64Image;
+                    previewTag.style.display = 'inline-block';
+                }
+                img.src = event.target.result;
+            }
+            reader.readAsDataURL(file);
+        });
+
+        async function processImage() {
+            if (!base64Image) { alert('请先上传图片！'); return; }
+            
+            const text = document.getElementById('watermarkText').value.trim();
+            const position = document.getElementById('positionChoice').value;
+            const btn = document.getElementById('submitBtn');
+            
+            btn.disabled = true;
+            btn.innerText = '⏳ 云端极速处理中...';
+
+            try {
+                const response = await fetch(window.location.href, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        image: base64Image.split(',')[1], 
+                        text: text, 
+                        position: position 
+                    })
+                });
+
+                const data = await response.json();
+                if (data.status === 'success') {
+                    document.getElementById('resultImage').src = 'data:image/jpeg;base64,' + data.result;
+                    document.getElementById('resultArea').style.display = 'block';
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                } else {
+                    alert('处理失败: ' + data.message);
+                }
+            } catch (err) {
+                alert('网络异常，请重试');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = '🚀 一键添加水印';
+            }
+        }
+
+        function downloadImage() {
+            const link = document.createElement('a');
+            link.href = document.getElementById('resultImage').src;
+            link.download = 'watermark_' + new Date().getTime() + '.jpg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
+"""
+
+# ==========================================
+# 🐍 Python 云端图像处理核心逻辑
+# ==========================================
+class handler(BaseHTTPRequestHandler):
+
+    def do_GET(self):
+        """返回移动端 H5 界面"""
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html; charset=utf-8')
+        self.end_headers()
+        self.wfile.write(HTML_PAGE.encode('utf-8'))
+
+    def do_POST(self):
+        """处理 H5 发送的图片数据"""
+        try:
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+
+            content_length = int(self.headers.get('Content-Length', 0))
+            post_data = self.rfile.read(content_length)
+            req_data = json.loads(post_data.decode('utf-8'))
+
+            base64_str = req_data.get('image', '')
+            watermark_text = req_data.get('text', '仅限办业务使用')
+            position_choice = req_data.get('position', '身份证正面')
+
+            # 解码前端传来的 Base64 图片
+            image_data = base64.b64decode(base64_str)
+            base_image = Image.open(io.BytesIO(image_data)).convert("RGBA")
+            
+            # 执行核心打水印算法
+            out_image = self.apply_watermark(base_image, watermark_text, position_choice)
+
+            # 编码回 Base64 发给前端
+            buffered = io.BytesIO()
+            out_image.save(buffered, format="JPEG", quality=90)
+            result_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
+
+            self.wfile.write(json.dumps({"status": "success", "result": result_base64}).encode('utf-8'))
+
+        except Exception as e:
+            self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode('utf-8'))
+
+    def apply_watermark(self, base_image, watermark_text, position_choice):
+        """继承自原脚本的安全区域水印算法"""
+        width, height = base_image.size
+
+        # 定义水印的安全区域（使用相对比例）
+        if position_choice == "身份证正面":
+            safe_box = (int(width * 0.18), int(height * 0.52), int(width * 0.60), int(height * 0.85))
+        else:
+            safe_box = (int(width * 0.20), int(height * 0.35), int(width * 0.80), int(height * 0.65))
+
+        box_width = safe_box[2] - safe_box[0]
+        box_height = safe_box[3] - safe_box[1]
+
+        watermark_layer = Image.new('RGBA', base_image.size, (255, 255, 255, 0))
+        draw = ImageDraw.Draw(watermark_layer)
+
+        # 获取云端中文字体
+        font_path = self.get_cloud_font()
+        font_size = int(height / 25)  # 适配移动端压缩后的图片比例
+        font = ImageFont.truetype(font_path, font_size)
+
+        # 调用原版算法中的换行处理
+        wrapped_lines = self.wrap_text_by_char(watermark_text, font, box_width)
+        
+        line_height = font.getbbox("A")[3] - font.getbbox("A")[1] + 5 
+        total_text_height = line_height * len(wrapped_lines)
+
+        current_y = safe_box[1] + (box_height - total_text_height) / 2
+
+        for line in wrapped_lines:
+            line_width = font.getlength(line)
+            current_x = safe_box[0] + (box_width - line_width) / 2
+            # 绘制文字（半透明红色，更醒目）
+            draw.text((current_x, current_y), line, font=font, fill=(215, 58, 73, 160))
+            current_y += line_height
+
+        out_image = Image.alpha_composite(base_image, watermark_layer).convert("RGB")
+        return out_image
+
+    def wrap_text_by_char(self, text, font, max_width):
+        """原脚本中的按字符换行算法"""
+        lines = []
+        current_line = ""
+        for char in text:
+            if font.getlength(current_line + char) <= max_width:
+                current_line += char
+            else:
+                lines.append(current_line)
+                current_line = char
+        lines.append(current_line)
+        return lines
+
+    def get_cloud_font(self):
+        """
+        核心突破：解决 Serverless 环境无中文字体导致乱码的问题。
+        动态拉取开源中文字体存入云端临时目录 /tmp。
+        """
+        font_path = "/tmp/wqy-microhei.ttc"
+        if not os.path.exists(font_path):
+            try:
+                # 从可靠的 CDN 下载文泉驿微米黑字体
+                font_url = "https://cdn.jsdelivr.net/gh/StellarCN/scp_zh@master/fonts/SimHei.ttf"
+                urllib.request.urlretrieve(font_url, font_path)
+            except Exception:
+                pass # 如果下载失败，系统将尝试回退 (可能会变成方块)
+        return font_path if os.path.exists(font_path) else None
+
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.end_headers()
