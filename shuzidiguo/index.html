@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>数字资产帝国｜网站+硬盘 全资产管理与传承框架</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:      #24303D;
+    --ink-soft: #5B6673;
+    --ink-faint:#94A0AB;
+    --paper:    #F7F4EC;
+    --paper-2:  #FFFFFF;
+    --line:     #E4DDCB;
+    --amber:    #B8622C;
+    --amber-bg: #FBEEE2;
+    --sage:     #3E7A68;
+    --sage-bg:  #E7F3EE;
+    --slate:    #3E5C8A;
+    --slate-bg: #E9EFF8;
+    --red:      #A6402F;
+    --red-bg:   #FAEAE6;
+    --gold:     #93762E;
+    --gold-bg:  #F5EFDD;
+    --radius:   14px;
+    --radius-lg:20px;
+    --shadow:   0 1px 2px rgba(36,48,61,.05), 0 18px 40px -24px rgba(36,48,61,.22);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Noto Sans SC',-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--paper); color:var(--ink); line-height:1.75; font-size:15.5px;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{ font-family:'Noto Serif SC',Georgia,serif; color:var(--ink); line-height:1.32; font-weight:700; }
+  a{ color:var(--slate); }
+  strong{ color:var(--ink); font-weight:700; }
+  code{ background:#ECE7D8; padding:2px 7px; border-radius:5px; font-size:.87em; font-family:'JetBrains Mono',Consolas,monospace; color:#3A2E1A; word-break:break-all; }
+  pre{ background:#232B22; color:#E8F0E5; padding:16px 18px; border-radius:var(--radius); overflow-x:auto; font-size:12.6px; font-family:'JetBrains Mono',Consolas,monospace; margin:14px 0; line-height:1.65; white-space:pre; }
+  pre code{ background:none; color:inherit; padding:0; }
+  ::selection{ background:var(--amber-bg); color:var(--ink); }
+
+  #progressbar{ position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--amber),var(--sage),var(--slate)); z-index:200; width:0%; transition:width .1s; }
+
+  .topbar{
+    position:sticky; top:0; z-index:60; background:rgba(247,244,236,.94); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between;
+    padding:13px 20px;
+  }
+  .topbar-brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:14.5px; font-family:'Noto Serif SC',serif; }
+  .topbar-brand .mark{ width:30px; height:30px; border-radius:9px; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif SC',serif; font-size:15px; flex-shrink:0; }
+  .topbar-sub{ color:var(--ink-soft); font-size:12px; font-weight:500; font-family:'Noto Sans SC',sans-serif; margin-left:2px; }
+  #nav-toggle{ display:none; }
+  .nav-toggle-label{
+    display:none; align-items:center; gap:8px; font-size:13px; font-weight:600;
+    border:1px solid var(--line); padding:8px 14px; border-radius:999px; cursor:pointer; background:var(--paper-2);
+    white-space:nowrap;
+  }
+
+  .layout{ display:grid; grid-template-columns:284px 1fr; max-width:1280px; margin:0 auto; gap:0; }
+  .sidebar{
+    position:sticky; top:53px; align-self:start; height:calc(100vh - 53px); overflow-y:auto;
+    padding:30px 16px 60px; border-right:1px solid var(--line);
+    scrollbar-width:thin;
+  }
+  .sidebar-title{ font-size:11px; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint); font-weight:700; margin-bottom:12px; padding:0 10px; }
+  .sidebar-title.sub{ margin-top:24px; }
+  .sidebar a{
+    display:block; font-size:13.3px; color:var(--ink-soft); text-decoration:none; padding:6.5px 10px;
+    border-radius:8px; margin-bottom:1px; font-weight:500;
+  }
+  .sidebar a:hover{ background:var(--paper-2); color:var(--ink); }
+  .sidebar .phase-num{ color:var(--amber); font-weight:700; margin-right:6px; font-family:'Noto Serif SC',serif; font-size:12.5px; }
+
+  main{ padding:44px clamp(20px,4vw,60px) 110px; max-width:900px; }
+
+  .intro{ margin-bottom:60px; }
+  .intro .eyebrow{ font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--amber); background:var(--amber-bg); display:inline-block; padding:6px 13px; border-radius:999px; margin-bottom:18px; }
+  .intro h1{ font-size:clamp(27px,4.2vw,41px); margin-bottom:18px; letter-spacing:-.01em; }
+  .intro p.lead{ color:var(--ink-soft); font-size:16.6px; max-width:68ch; }
+
+  .tag{ display:inline-block; font-size:11px; font-weight:700; padding:3px 10px; border-radius:999px; margin-right:5px; white-space:nowrap; }
+  .tag.disk{ background:var(--gold-bg); color:var(--gold); }
+  .tag.site{ background:var(--slate-bg); color:var(--slate); }
+  .tag.auto{ background:var(--sage-bg); color:var(--sage); }
+  .tag.legacy{ background:var(--amber-bg); color:var(--amber); }
+  .tag.money{ background:#EEF0EC; color:#4B5B4E; }
+  .tag.core{ background:var(--red-bg); color:var(--red); }
+
+  .stat-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin:26px 0; }
+  .stat-card{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow); }
+  .stat-card .num{ font-family:'Noto Serif SC',serif; font-size:22px; font-weight:700; color:var(--amber); }
+  .stat-card .label{ font-size:12.3px; color:var(--ink-soft); margin-top:4px; }
+
+  .overview-table{ width:100%; border-collapse:collapse; margin-top:24px; font-size:13.6px; }
+  .overview-table th{ text-align:left; color:var(--ink-soft); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em; padding:0 12px 10px 0; border-bottom:1px solid var(--line); }
+  .overview-table td{ padding:12px 12px 12px 0; border-bottom:1px solid var(--line); vertical-align:top; }
+  .overview-table tr:last-child td{ border-bottom:none; }
+
+  .phase{ padding-top:68px; margin-top:-16px; border-top:1px solid var(--line); }
+  .phase:first-of-type{ border-top:none; }
+  .phase-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:8px; flex-wrap:wrap; }
+  .phase-num-badge{ font-family:'Noto Serif SC',serif; font-size:15px; font-weight:700; color:var(--amber); background:var(--amber-bg); padding:4px 13px; border-radius:999px; flex-shrink:0; }
+  .phase h2{ font-size:clamp(21px,2.7vw,28px); }
+  .phase-meta{ color:var(--ink-soft); font-size:13.6px; margin-bottom:30px; max-width:74ch; }
+
+  .sub h3{ font-size:17.3px; margin:34px 0 11px; }
+  .sub h4{ font-size:15px; margin:24px 0 9px; color:var(--ink); }
+  .sub p{ color:var(--ink-soft); margin-bottom:13px; }
+  .sub ul, .sub ol{ color:var(--ink-soft); margin:0 0 15px 20px; }
+  .sub li{ margin-bottom:6.5px; }
+
+  .step-list{ counter-reset:step; margin:18px 0 26px; }
+  .step{
+    display:grid; grid-template-columns:34px 1fr; gap:14px; padding:14px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .step:last-child{ border-bottom:none; }
+  .step .num{
+    counter-increment:step; width:30px; height:30px; border-radius:50%; background:var(--ink); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-family:'Noto Serif SC',serif; font-size:13.5px; font-weight:600; flex-shrink:0;
+  }
+  .step .num::before{ content:counter(step); }
+  .step .body strong{ display:block; margin-bottom:3px; font-size:14.6px; }
+  .step .body span{ color:var(--ink-soft); font-size:14px; }
+
+  .callout{ border-radius:var(--radius); padding:16px 20px; margin:20px 0; font-size:14px; display:flex; gap:12px; }
+  .callout .icon{ flex-shrink:0; font-size:16px; line-height:1.5; }
+  .callout.tip{ background:var(--sage-bg); color:#1F4A32; }
+  .callout.warn{ background:var(--red-bg); color:#742A1C; }
+  .callout.info{ background:var(--slate-bg); color:#1B3C5C; }
+  .callout.star{ background:var(--amber-bg); color:#6E3B0C; }
+  .callout.gold{ background:var(--gold-bg); color:#5A4718; }
+  .callout b{ color:inherit; }
+
+  .checklist{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); padding:20px 22px; margin:22px 0; box-shadow:var(--shadow); }
+  .checklist .cl-title{ font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); margin-bottom:12px; }
+  .checklist label{ display:flex; align-items:flex-start; gap:10px; font-size:14.3px; margin-bottom:10px; cursor:pointer; }
+  .checklist input[type=checkbox]{ margin-top:3px; width:16px; height:16px; accent-color:var(--amber); flex-shrink:0; }
+
+  .example{ background:var(--paper-2); border-left:3px solid var(--amber); border-radius:0 var(--radius) var(--radius) 0; padding:14px 18px; margin:16px 0; font-size:13.9px; box-shadow:var(--shadow); }
+  .example .ex-label{ font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--amber); font-weight:700; margin-bottom:6px; }
+
+  table.data{ width:100%; border-collapse:collapse; margin:18px 0; font-size:13.3px; background:var(--paper-2); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
+  table.data th{ text-align:left; background:#EFEBDD; color:var(--ink); font-weight:700; padding:10px 14px; font-size:12.6px; }
+  table.data td{ padding:10px 14px; border-top:1px solid var(--line); color:var(--ink-soft); vertical-align:top; }
+  table.data tr:hover td{ background:#FBFAF6; }
+  .table-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .table-scroll table{ min-width:560px; }
+
+  .card-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin:20px 0; }
+  .mini-card{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); padding:17px 19px; box-shadow:var(--shadow); }
+  .mini-card h4{ margin:0 0 8px; font-size:14.8px; display:flex; align-items:center; gap:8px; }
+  .mini-card p{ font-size:13.3px; margin-bottom:8px; }
+  .mini-card .mc-tags{ margin-top:10px; }
+
+  details{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); margin-bottom:10px; box-shadow:var(--shadow); overflow:hidden; }
+  summary{ padding:15px 20px; font-weight:600; font-size:14.4px; cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  summary::-webkit-details-marker{ display:none; }
+  summary .chev{ color:var(--ink-faint); font-weight:400; transition:transform .2s; flex-shrink:0; }
+  details[open] summary .chev{ transform:rotate(45deg); }
+  details p{ padding:0 20px 18px; color:var(--ink-soft); font-size:13.9px; }
+
+  .flow{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:20px 0; }
+  .flow .fnode{ background:var(--paper-2); border:1px solid var(--line); border-radius:10px; padding:9px 14px; font-size:12.8px; font-weight:600; box-shadow:var(--shadow); white-space:nowrap; }
+  .flow .farrow{ color:var(--ink-faint); font-size:15px; }
+
+  .letter{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius-lg); padding:26px 28px; margin:22px 0; box-shadow:var(--shadow); font-size:14.3px; color:var(--ink-soft); }
+  .letter h4{ margin-bottom:10px; }
+
+  .totop{
+    position:fixed; right:22px; bottom:22px; width:42px; height:42px; border-radius:50%; background:var(--ink); color:#fff;
+    border:none; cursor:pointer; font-size:16px; opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; z-index:80;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .totop.show{ opacity:1; pointer-events:auto; }
+  .totop:hover{ transform:translateY(-2px); }
+
+  footer{ text-align:center; color:var(--ink-faint); font-size:11.6px; padding:36px 20px 60px; max-width:900px; margin:0 auto; line-height:1.9; }
+
+  @media (max-width: 900px){
+    .layout{ grid-template-columns:1fr; }
+    .sidebar{
+      position:fixed; top:53px; left:0; right:0; bottom:0; height:auto; z-index:55; background:var(--paper);
+      transform:translateY(-110%); transition:transform .25s ease; padding:20px 20px 100px; border-right:none;
+    }
+    #nav-toggle:checked ~ .layout .sidebar{ transform:translateY(0); }
+    .nav-toggle-label{ display:flex; }
+    main{ padding:32px 18px 90px; }
+    .step{ grid-template-columns:26px 1fr; }
+    pre{ font-size:11.5px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progressbar"></div>
+<input type="checkbox" id="nav-toggle">
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="mark">帝</div>
+    <div>数字资产帝国 <span class="topbar-sub">网站+硬盘 全资产管理与传承框架</span></div>
+  </div>
+  <label for="nav-toggle" class="nav-toggle-label">☰ 目录</label>
+</div>
+
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-title">总览</div>
+    <a href="#overview">全书地图与顶层逻辑</a>
+
+    <div class="sidebar-title sub">顶层设计</div>
+    <a href="#phase1"><span class="phase-num">01</span>三层资产架构模型</a>
+
+    <div class="sidebar-title sub">硬盘：源仓库</div>
+    <a href="#phase2"><span class="phase-num">02</span>硬盘目录树完整设计</a>
+    <a href="#phase3"><span class="phase-num">03</span>产品库标准化结构</a>
+
+    <div class="sidebar-title sub">网站：展示与交易层</div>
+    <a href="#phase4"><span class="phase-num">04</span>网站信息架构</a>
+    <a href="#phase5"><span class="phase-num">05</span>零成本上线：本地电脑当服务器</a>
+    <a href="#phase6"><span class="phase-num">06</span>域名选购指南</a>
+    <a href="#phase7"><span class="phase-num">07</span>未来云端迁移路径</a>
+
+    <div class="sidebar-title sub">资产与变现全景</div>
+    <a href="#phase8"><span class="phase-num">08</span>数字资产类型全景矩阵</a>
+    <a href="#phase9"><span class="phase-num">09</span>变现渠道全景地图</a>
+    <a href="#phase10"><span class="phase-num">10</span>自动化三阶段路线</a>
+
+    <div class="sidebar-title sub">传承：让家人接得住</div>
+    <a href="#phase11"><span class="phase-num">11</span>给孩子的传承系统 ⭐</a>
+    <a href="#phase12"><span class="phase-num">12</span>总路线图：90天+长期</a>
+
+    <div class="sidebar-title sub">收尾</div>
+    <a href="#checklist">总检查清单</a>
+    <a href="#faq">常见问题</a>
+    <a href="#appendix">术语表与目录树参考</a>
+  </nav>
+
+  <main>
+
+    <!-- ================= INTRO ================= -->
+    <section class="intro" id="overview">
+      <span class="eyebrow">顶层规划篇 · 与你已有的《数字产品变现全流程手册》《技术运营与变现基建手册》配合使用</span>
+      <h1>数字资产帝国：网站 + 硬盘，两个容器装下你的一切，也装下你不在时孩子仍能看懂的一切</h1>
+      <p class="lead">你现在脑子乱，不是因为想法太少，而是因为想法太多、还没有一个"放东西的容器"。这份手册只做一件事：给你一套硬盘目录结构和一套网站架构，把你所有的工具、内容、渠道、脚本、账号、经验，全部收纳进一个任何时候都能被你自己、被合作者、被将来的孩子看懂并接手的系统里。</p>
+
+      <div class="stat-row">
+        <div class="stat-card"><div class="num">2</div><div class="label">核心容器：硬盘（源仓库）+ 网站（展示交易层）</div></div>
+        <div class="stat-card"><div class="num">0元</div><div class="label">起步成本：本地电脑当服务器 + 域名成本价</div></div>
+        <div class="stat-card"><div class="num">9</div><div class="label">硬盘顶层目录，编号即优先级</div></div>
+        <div class="stat-card"><div class="num">1份</div><div class="label">"如果我不在了"文档，让传承不是遗憾</div></div>
+      </div>
+
+      <div class="callout star">
+        <div class="icon">🧭</div>
+        <div><b>怎么使用这份手册：</b>如果你现在极度混乱，只做一件事——直接跳到第02章，把硬盘上建好9个顶层文件夹。光是"有地方放"这一个动作，就能让你的焦虑感下降一半。其余章节可以按自己的节奏慢慢消化，不用一次读完。</div>
+      </div>
+
+      <div class="table-scroll">
+      <table class="overview-table">
+        <tr><th>部分</th><th>解决什么问题</th><th>核心产出</th></tr>
+        <tr><td>01 顶层架构</td><td>硬盘、网站、传承三者到底是什么关系</td><td>一张"单一数据源"模型图</td></tr>
+        <tr><td>02–03 硬盘</td><td>东西该放哪、怎么命名、怎么找到</td><td>可直接照抄的目录树</td></tr>
+        <tr><td>04–07 网站</td><td>不花钱怎么上线、域名怎么买、以后怎么升级</td><td>本地Docker+隧道的具体技术方案</td></tr>
+        <tr><td>08–10 资产与变现</td><td>能做什么、卖去哪、怎么自动化</td><td>类型×渠道匹配矩阵 + 自动化路线</td></tr>
+        <tr><td>11–12 传承</td><td>万一有一天你不在了，孩子怎么办</td><td>"00_START_HERE"完整设计</td></tr>
+      </table>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 1 ================= -->
+    <section class="phase" id="phase1">
+      <div class="phase-head"><span class="phase-num-badge">01</span><h2>三层资产架构模型</h2><span class="tag core">核心</span></div>
+      <p class="phase-meta">在动手建任何文件夹、买任何域名之前，先把这套系统的骨架想清楚。骨架错了，后面越勤奋，将来推倒重来的成本越高。</p>
+
+      <div class="sub">
+        <h3>1.1 一条最重要的原则：单一数据源（Single Source of Truth）</h3>
+        <p>你现在的困惑很大一部分来自"东西散落在很多地方"——脑子里、聊天记录里、桌面上、不同网盘里。这套架构只认一个真相：<strong>硬盘上的文件，才是"真"的那一份</strong>。网站上显示的、云端跑的、别人下载到的，全部都只是硬盘内容的"投影"或"副本"。这样一来，任何时候硬盘损坏或丢失文件，只要有备份，一切都能原样恢复；任何时候你想清楚"我到底有多少资产"，答案永远在硬盘里，不用去十几个平台后台逐个翻。</p>
+
+        <div class="flow">
+          <div class="fnode">🗄️ 硬盘 / 本地资产库<br><span style="font-weight:400;color:var(--ink-soft);font-size:11.5px">唯一真相 · 源仓库</span></div>
+          <div class="farrow">→</div>
+          <div class="fnode">🌐 网站<br><span style="font-weight:400;color:var(--ink-soft);font-size:11.5px">展示 + 交易 · 投影</span></div>
+          <div class="farrow">→</div>
+          <div class="fnode">📢 各渠道分发<br><span style="font-weight:400;color:var(--ink-soft);font-size:11.5px">小红书/闲鱼/海外平台</span></div>
+        </div>
+        <div class="flow">
+          <div class="fnode">🗄️ 硬盘 / 本地资产库</div>
+          <div class="farrow">→</div>
+          <div class="fnode">📜 00_START_HERE<br><span style="font-weight:400;color:var(--ink-soft);font-size:11.5px">传承入口 · 给孩子</span></div>
+        </div>
+
+        <h3>1.2 三层容器分别负责什么</h3>
+        <div class="card-grid">
+          <div class="mini-card">
+            <h4>🗄️ 硬盘：源仓库层</h4>
+            <p>存放所有源文件、原始素材、脚本代码、账号清单、财务记录、决策日志。它不对外，只对你自己和未来的接手人负责。它的价值标准只有一个：<strong>十年后打开还能看懂</strong>。</p>
+            <div class="mc-tags"><span class="tag disk">硬盘</span><span class="tag legacy">传承基石</span></div>
+          </div>
+          <div class="mini-card">
+            <h4>🌐 网站：展示交易层</h4>
+            <p>是硬盘内容的"门面"，负责让陌生人认识你的产品、产生信任、完成购买。它可以随时重建——因为它的所有内容都能从硬盘重新生成，所以网站层可以大胆折腾、试错、换风格。</p>
+            <div class="mc-tags"><span class="tag site">网站</span></div>
+          </div>
+          <div class="mini-card">
+            <h4>📜 传承：延续层</h4>
+            <p>不是独立的第三个地方，而是硬盘里优先级最高的一个文件夹（<code>00_START_HERE</code>），加上一套让不懂技术的人也能照做的操作说明。它的读者不是你，是将来的家人。</p>
+            <div class="mc-tags"><span class="tag legacy">传承</span></div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <div class="icon">💡</div>
+          <div><b>为什么先讲这个：</b>很多人一上来就纠结"该用什么建站工具""域名后缀选哪个"，但那些都是三层模型里最外层、最容易替换的部分。真正稀缺、不可替代、需要认真设计一次就能用很多年的，是硬盘那一层的目录结构和命名规则。这也是为什么本手册把硬盘部分放在网站部分之前。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 2 ================= -->
+    <section class="phase" id="phase2">
+      <div class="phase-head"><span class="phase-num-badge">02</span><h2>硬盘目录树完整设计</h2><span class="tag disk">硬盘</span></div>
+      <p class="phase-meta">建议单独用一块外置硬盘或电脑上单独一个分区，只放这套系统，不要和日常下载、游戏、照片混在一起。九个顶层文件夹，编号即优先级，编号本身就是"如果只能抢救三个文件夹，抢救前三个"的信息。</p>
+
+      <div class="sub">
+        <h3>2.1 顶层九大目录</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>目录</th><th>存什么</th><th>谁会打开它</th></tr>
+          <tr><td><code>00_START_HERE</code></td><td>给孩子的信、资产总地图、"我不在了请按顺序做"文档、联系人清单</td><td>家人 / 未来的你</td></tr>
+          <tr><td><code>01_ASSETS_资产总账</code></td><td>域名清单、账号清单（不含密码）、收入来源清单、资产估值记录</td><td>你 / 会计 / 家人</td></tr>
+          <tr><td><code>02_PRODUCTS_产品库</code></td><td>所有python工具/工作流/复杂项目/PDF/图片/视频/图文的源文件</td><td>你 / 未来的合作者</td></tr>
+          <tr><td><code>03_WEBSITE_网站源码</code></td><td>网站前后端完整代码，可一键部署</td><td>你 / 技术接手人</td></tr>
+          <tr><td><code>04_AUTOMATION_自动化脚本</code></td><td>发布脚本、定价脚本、财务对账、监控告警</td><td>你 / 未来维护者</td></tr>
+          <tr><td><code>05_FINANCE_财务与账户</code></td><td>各平台收款账户信息、税务记录、发票</td><td>你 / 会计 / 家人</td></tr>
+          <tr><td><code>06_LEGAL_法律与传承</code></td><td>遗嘱相关文件、数字遗产授权书、律师联系方式</td><td>家人 / 律师</td></tr>
+          <tr><td><code>07_LEARNING_经验与知识库</code></td><td>决策日志、踩坑记录、市场调研</td><td>你自己（最大受益人）</td></tr>
+          <tr><td><code>08_ARCHIVE_归档</code></td><td>废弃产品、旧版本、不再维护但舍不得删的东西</td><td>基本没人，但别删</td></tr>
+        </table>
+        </div>
+
+        <div class="callout star">
+          <div class="icon">⭐</div>
+          <div><b><code>00_START_HERE</code> 不是排面，是真的第一优先级。</b>把它想象成家里那个"如果发生火灾第一个抢救的抽屉"。它体量很小（几份文档），但决定了这套系统在你无法维护时是"资产"还是"一堆没人看得懂的文件"。第11章会详细展开这个文件夹该写什么、怎么写。</div>
+        </div>
+
+        <h3>2.2 命名规则：让搜索比记忆更可靠</h3>
+        <ul>
+          <li>所有顶层目录用<strong>两位数字前缀 + 英文关键词 + 中文说明</strong>，比如 <code>02_PRODUCTS_产品库</code>——数字前缀保证排序永远正确，英文关键词方便脚本引用，中文说明方便人眼识别。</li>
+          <li>产品/项目文件夹用<strong>创建日期_产品名</strong>，比如 <code>20260812_发票自动核对工具</code>，日期在前，任何文件管理器按名称排序即等于按时间排序。</li>
+          <li>永远不要用"最终版""终极final""真的final2"这类命名——用文件夹层级 + 一个 <code>CHANGELOG.md</code> 记录版本变化，而不是用文件名堆版本号。</li>
+          <li>每个大文件夹根目录放一个 <code>README.md</code>，一句话说明"这个文件夹是干什么的、里面找什么去哪个子目录"。不确定该怎么写时，就想象你在给一个完全不懂技术、但识字的家人做说明。</li>
+        </ul>
+
+        <div class="example">
+          <div class="ex-label">示例：README.md 的最低标准</div>
+          <p style="margin:0;">"这个文件夹存放我做的所有付费小工具的源代码。每个工具一个子文件夹，命名规则是『创建日期_工具名』。想看某个工具是干嘛的、怎么用、怎么改，先打开它自己文件夹里的 <code>product_card.md</code>。"</p>
+        </div>
+
+        <h3>2.3 备份策略：源仓库不能只有一份</h3>
+        <p>硬盘作为"唯一真相"，最大的风险恰恰是"唯一"两个字——硬盘会坏。建议采用简单的<strong>3-2-1备份原则</strong>：至少3份副本、存在2种不同介质上、其中1份异地存放。</p>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>1份工作盘</strong><span>日常读写用的主硬盘/分区</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>1份本地备份盘</strong><span>用免费的同步工具（如Syncthing）或简单的定时脚本，每天/每周把工作盘完整镜像到另一块物理硬盘</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>1份云端冷备份</strong><span>选一个便宜的对象存储（如Backblaze B2、又拍云）或干脆用一个加密压缩包上传到网盘，只存关键内容（不含大体积素材），更新频率可以放低到每月一次</span></div></div>
+        </div>
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>云端冷备份务必<strong>加密后再上传</strong>（比如用 7-Zip 加密压缩，或 VeraCrypt 建一个加密容器），因为里面可能包含账号清单、财务记录等敏感信息。加密密码本身要记录在 <code>06_LEGAL</code> 文件夹里说明的取得方式中，而不是明文放在任何网盘上。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 3 ================= -->
+    <section class="phase" id="phase3">
+      <div class="phase-head"><span class="phase-num-badge">03</span><h2>产品库标准化结构</h2><span class="tag disk">硬盘</span></div>
+      <p class="phase-meta">这是你会最频繁打开的文件夹。不管产品是python脚本、n8n工作流、复杂项目、PDF、图片模板、视频还是图文，都套用同一套子结构——统一以后，未来无论是你自己找东西、写自动化脚本批量处理，还是孩子接手，都不用为每种类型重新学一套规则。</p>
+
+      <div class="sub">
+        <h3>3.1 七大产品类型目录</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>子目录</th><th>装什么内容</th></tr>
+          <tr><td><code>python_tools</code></td><td>各种解决具体问题的小脚本/小软件，比如批量改文件名、自动生成报表</td></tr>
+          <tr><td><code>workflows_自动化流程</code></td><td>n8n / Zapier / Make 等工作流的导出文件、说明文档</td></tr>
+          <tr><td><code>complex_projects_复杂项目</code></td><td>体量更大的产品，比如带界面的小型SaaS、多脚本组合的系统</td></tr>
+          <tr><td><code>ebooks_pdf</code></td><td>电子书、指南、模板类PDF</td></tr>
+          <tr><td><code>graphics_templates_图片模板</code></td><td>设计素材、Canva/PPT/Notion模板、可商用图库</td></tr>
+          <tr><td><code>videos_视频</code></td><td>教程视频、素材库、成片</td></tr>
+          <tr><td><code>articles_图文</code></td><td>博客文章、专栏、图文教程的原始文稿</td></tr>
+        </table>
+        </div>
+
+        <h3>3.2 每个产品文件夹内部的标准结构（不论属于哪一类）</h3>
+        <pre>20260812_发票自动核对工具/
+├── source/              ← 源代码 / 原始工程文件
+├── build/               ← 打包后的成品（exe、pdf、zip等可直接分发的文件）
+├── docs/                ← 使用说明、开发笔记
+├── marketing/           ← 详情页文案、海报、宣传素材
+└── product_card.md      ← 标准化产品说明卡（见下方）</pre>
+
+        <div class="example">
+          <div class="ex-label">product_card.md 标准模板 —— 每个产品必须有</div>
+          <p style="margin:0 0 8px;"><strong>产品名：</strong>发票自动核对工具<br>
+          <strong>一句话定位：</strong>帮小微企业财务人员把发票信息自动核对进Excel，省掉手工录入<br>
+          <strong>目标人群：</strong>10人以下企业的财务/行政<br>
+          <strong>定价：</strong>39元买断（国内）/ $9.9买断（跨境）<br>
+          <strong>已上架渠道：</strong>Payhip（英文版）、闲鱼（中文版）<br>
+          <strong>自动化脚本入口：</strong><code>04_AUTOMATION/publish_scripts/invoice_tool_publish.py</code><br>
+          <strong>维护说明：</strong>每季度检查一次Excel库依赖版本；如果闲鱼下架，先查是否触发关键词限制</p>
+        </div>
+
+        <div class="callout tip">
+          <div class="icon">✅</div>
+          <div>这张卡片是整套系统里<strong>投入产出比最高</strong>的一个动作——只要五分钟就能填完，但它同时是你自己半年后回来对产品的"记忆备份"，也是孩子未来接手时唯一需要读的一份文件。网站上的产品页面、后续第10章的自动发布脚本，理论上都可以直接读取这张卡片里的结构化信息自动生成。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 4 ================= -->
+    <section class="phase" id="phase4">
+      <div class="phase-head"><span class="phase-num-badge">04</span><h2>网站信息架构</h2><span class="tag site">网站</span></div>
+      <p class="phase-meta">网站是硬盘内容对外的门面，核心目标是"陌生人能在90秒内看懂你在卖什么、值不值得信任、怎么付钱"。</p>
+
+      <div class="sub">
+        <h3>4.1 建议的页面结构</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>首页</strong><span>一句话定位 + 按类型分类的产品入口（工具/工作流/项目/资料/图文）+ 信任要素（案例、评价、联系方式）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>产品分类页</strong><span>对应02章的七大类型，每类一个筛选页面，可按价格/热度/更新时间排序</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>单品详情页（落地页）</strong><span>直接读取该产品的 product_card.md 结构化生成：定位、适合谁、能解决什么、价格、购买按钮</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>免费/付费分层页</strong><span>用"部分内容免费引流+核心内容付费"的结构，免费内容承接广告/自然流量，付费内容承接转化</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>关于/信任页</strong><span>你是谁、为什么做这些工具、联系方式——降低陌生用户的购买顾虑</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>后台内容管理</strong><span>不需要复杂CMS，一个简单的数据库表 + 管理页面，字段直接对应product_card.md的结构即可</span></div></div>
+        </div>
+
+        <h3>4.2 会员/订阅分层建议</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>层级</th><th>内容</th><th>目的</th></tr>
+          <tr><td>免费</td><td>部分图文教程、免费小工具、newsletter订阅</td><td>获取流量与邮件列表，建立信任</td></tr>
+          <tr><td>单品购买</td><td>按个买断某个工具/PDF/模板</td><td>验证单个产品是否有真实付费需求</td></tr>
+          <tr><td>订阅/会员</td><td>所有已上架产品的持续访问权 + 优先体验新品</td><td>在多个产品验证成功后，提升复购和客单价</td></tr>
+        </table>
+        </div>
+        <div class="callout info">
+          <div class="icon">💡</div>
+          <div>建议顺序：<strong>先做单品买断，跑通至少3-5个有真实成交的产品之后，再上线订阅制</strong>。订阅制对信任要求更高，过早推出往往转化很低，反而打击信心。这一点与你已有的《数字产品变现全流程手册》第七章"扩大规模"的建议一致。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 5 ================= -->
+    <section class="phase" id="phase5">
+      <div class="phase-head"><span class="phase-num-badge">05</span><h2>零成本上线：本地电脑当服务器</h2><span class="tag auto">技术</span></div>
+      <p class="phase-meta">这是解决"不想花钱买服务器"的核心方案：让家里的电脑（哪怕是一台闲置的旧笔记本或几百元的迷你主机）扮演服务器角色，通过隧道技术让外网用户访问到，全程不需要公网IP、不需要在路由器上开端口、几乎零成本。</p>
+
+      <div class="sub">
+        <h3>5.1 技术方案总览</h3>
+        <div class="flow">
+          <div class="fnode">🖥️ 本地电脑<br><span style="font-weight:400;color:var(--ink-soft);font-size:11.5px">Docker 容器运行网站</span></div>
+          <div class="farrow">→</div>
+          <div class="fnode">🔒 Cloudflare Tunnel<br><span style="font-weight:400;color:var(--ink-soft);font-size:11.5px">免费内网穿透</span></div>
+          <div class="farrow">→</div>
+          <div class="fnode">🌍 你的域名<br><span style="font-weight:400;color:var(--ink-soft);font-size:11.5px">全球可访问，自动HTTPS</span></div>
+        </div>
+        <p>三个部件缺一不可：<strong>Docker</strong>把网站打包成"一键可运行"的容器（这一步同时也让03章的<code>03_WEBSITE_网站源码</code>天然具备了"随时能在任何机器上跑起来"的能力，为第7章的云端迁移埋下伏笔）；<strong>Cloudflare Tunnel</strong>是免费的隧道服务，让处于家庭网络NAT之后、没有公网IP的电脑也能被外网访问，且自动提供HTTPS证书；<strong>域名</strong>则通过一条CNAME记录指向这条隧道。</p>
+
+        <h3>5.2 具体搭建步骤</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>准备一台常开机的设备</strong><span>闲置笔记本、二手迷你主机（如Intel N100机型，二手价约几百元，功耗低到可以24小时开着）、或树莓派均可，装好Docker与Docker Compose</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>把网站写成docker-compose.yml</strong><span>放在硬盘的 <code>03_WEBSITE_网站源码</code> 目录下，一条命令 <code>docker compose up -d</code> 即可启动全部服务（网站程序+数据库）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>注册Cloudflare账号并接入你的域名</strong><span>Cloudflare是免费的CDN/DNS服务商，接入域名后可以使用它的Tunnel功能</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>安装cloudflared并创建隧道</strong><span>在本地电脑上运行cloudflared，把隧道指向本地Docker容器监听的端口，Cloudflare会自动处理HTTPS证书</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>设置开机自启与自动重启</strong><span>Docker容器设置 <code>restart: always</code>，操作系统层面设置Docker服务和cloudflared开机自启，保证断电重启后自动恢复</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>接入免费的可用性监控</strong><span>用UptimeRobot等免费服务，每5分钟探测一次网站是否在线，掉线时邮件/微信提醒你</span></div></div>
+        </div>
+
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div><b>本地方案的现实局限，要提前接受：</b>家庭网络的稳定性、带宽、以及"家里停电/路由器重启"的意外情况，决定了它无法做到云服务器级别的99.9%可用性。适合的阶段是<strong>产品验证期、访问量不大的阶段</strong>——这恰恰和你目前"先想清楚框架、还没大规模投入"的状态完全匹配。等某个产品流量明显起来、或者需要对外接单/被商业伙伴依赖时，第7章会讲清楚怎么无缝搬到云端。</div>
+        </div>
+
+        <h4>提升稳定性的低成本手段</h4>
+        <ul>
+          <li>给电脑配一个几十元的小型UPS（不间断电源），短时停电不掉线</li>
+          <li>用有线网络代替WiFi，减少不稳定因素</li>
+          <li>路由器设置为电脑分配固定内网IP，避免IP漂移导致服务异常</li>
+          <li>准备一个"电脑没开"时展示的临时静态页面，托管在Cloudflare Pages（免费），作为兜底</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 6 ================= -->
+    <section class="phase" id="phase6">
+      <div class="phase-head"><span class="phase-num-badge">06</span><h2>域名选购指南：稳定 + 高性价比</h2><span class="tag site">网站</span></div>
+      <p class="phase-meta">域名是这套系统里少数需要"长期持有、不轻易更换"的资产，选错注册商最常见的坑是"首年低价、次年暴涨"，稳定性比一次性便宜更重要。</p>
+
+      <div class="sub">
+        <h3>6.1 注册商对比</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>注册商</th><th>特点</th><th>适合场景</th></tr>
+          <tr><td>Cloudflare Registrar</td><td>按批发成本价收费，不加价，没有"首年低价次年暴涨"套路，且与Tunnel/CDN天然集成</td><td>长期持有的主力域名，强烈推荐配合第5章方案使用</td></tr>
+          <tr><td>Porkbun</td><td>界面友好、价格常年在第一梯队、支持免费WHOIS隐私保护</td><td>作为备选或用于注册多个变体域名</td></tr>
+          <tr><td>Namesilo</td><td>老牌稳定、续费价格波动小、同样自带免费隐私保护</td><td>喜欢"一次设置不用管"的用户</td></tr>
+          <tr><td>阿里云 / 腾讯云</td><td>国内平台购买+备案一体化更方便，需要面向国内用户走.cn域名或需要ICP备案时更适合</td><td>国内独立站/需要备案的场景</td></tr>
+        </table>
+        </div>
+
+        <div class="callout warn">
+          <div class="icon">🚩</div>
+          <div>不建议把域名注册在<strong>首年促销价格极低、但续费价格成倍上涨</strong>的平台（这是不少大型域名商的常见套路）。判断标准很简单：注册前直接搜"域名商名+续费价格"，如果续费价格是首年的3倍以上，慎选。</div>
+        </div>
+
+        <h3>6.2 后缀与购买策略</h3>
+        <ul>
+          <li>面向国际用户优先 <code>.com</code>，其次 <code>.io</code> / <code>.co</code>；面向国内用户可以 <code>.com</code> 搭配 <code>.cn</code></li>
+          <li>不需要一开始就买齐所有后缀变体，先用一个主域名跑通验证，等某个品牌名被验证有价值后，再考虑买齐防止别人抢注</li>
+          <li>开启域名自动续费 + WHOIS隐私保护（大多数上述注册商免费提供），避免忘记续费导致域名过期被抢注</li>
+          <li>域名到期提醒设置双重保险：注册商邮件提醒 + 自己在日历上手动加一条提前30天的提醒</li>
+        </ul>
+
+        <div class="callout gold">
+          <div class="icon">🔑</div>
+          <div>域名的<strong>注册商账号本身</strong>要在第11章"传承系统"里被明确记录——域名一旦过期被抢注，几乎无法追回。这是整套资产里最脆弱的单点，一定要在传承文档里给予最高优先级说明。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 7 ================= -->
+    <section class="phase" id="phase7">
+      <div class="phase-head"><span class="phase-num-badge">07</span><h2>未来云端迁移路径</h2><span class="tag site">网站</span></div>
+      <p class="phase-meta">因为第5章已经把网站容器化（Docker Compose），从本地电脑搬到云服务器时，理论上不需要重写任何代码，只是"换一个地方运行同一份容器"。</p>
+
+      <div class="sub">
+        <h3>7.1 什么信号说明该升级到云服务器了</h3>
+        <ul>
+          <li>某个产品的访问量开始让本地网络明显卡顿，或监控工具报告的掉线次数明显增多</li>
+          <li>开始有商业伙伴/广告投放依赖网站的稳定在线，掉线造成的损失开始大于服务器成本</li>
+          <li>需要7x24小时运行需要更高算力的自动化任务（比如定时爬虫、批量视频处理）</li>
+        </ul>
+
+        <h3>7.2 迁移步骤</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>选一台性价比高的云服务器</strong><span>入门阶段选最低配（1核1G或2核2G即可），不需要一步到位买贵的</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>在云服务器上安装Docker，拉取硬盘里的网站源码</strong><span>直接用03章的 <code>03_WEBSITE_网站源码</code> 目录，运行同一条 <code>docker compose up -d</code></span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>迁移数据库/文件数据</strong><span>用数据库自带的导出导入工具，把本地容器里的数据同步到云端容器</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>先用测试域名/子域名验证云端版本运行正常</strong><span>比如先用 test.你的域名.com 指向新服务器，确认无误后再切正式域名</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>把DNS记录从Cloudflare Tunnel切换为直接指向云服务器IP</strong><span>切换瞬间可能有几分钟DNS生效延迟，建议选低流量时段操作</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>本地电脑保留为备用/开发环境</strong><span>不必关停，可以继续作为测试新功能的场所，云端只跑正式版本</span></div></div>
+        </div>
+
+        <div class="callout tip">
+          <div class="icon">✅</div>
+          <div>这套"本地先验证、云端后规模化"的路径，本质上和你在《数字产品变现全流程手册》里"先小范围测试、验证后再扩大投放"的逻辑完全一致——只是把这个原则从"营销动作"延伸到了"技术基建"上。不要在还没验证产品价值时就为可能不需要的规模提前买单。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 8 ================= -->
+    <section class="phase" id="phase8">
+      <div class="phase-head"><span class="phase-num-badge">08</span><h2>数字资产类型全景矩阵</h2><span class="tag money">资产</span></div>
+      <p class="phase-meta">把你想做的"解决各种生活工作创业困难"的想法，落到六大具体可执行的资产类型上，每种类型标注制作门槛和变现方式，方便你判断从哪个切入。</p>
+
+      <div class="table-scroll">
+      <table class="data">
+        <tr><th>类型</th><th>典型形式</th><th>制作工具</th><th>变现难度</th><th>复用潜力</th></tr>
+        <tr><td>Python小工具</td><td>批量处理/自动核对/格式转换类脚本，打包成exe或网页小工具</td><td>Python + PyInstaller / Streamlit</td><td>中——需要精准找到高频重复的具体痛点</td><td>高，一次开发可打包卖给多类用户</td></tr>
+        <tr><td>自动化工作流</td><td>n8n/Zapier配置好的"连接多个软件自动干活"的流程模板</td><td>n8n（可自建免费）、Make</td><td>中偏高——目标用户对"自动化"概念要有一定认知</td><td>高，同一流程改改参数可服务不同行业</td></tr>
+        <tr><td>复杂项目</td><td>带界面的小型SaaS工具、多脚本组合系统</td><td>Python/前端框架 + 数据库</td><td>高——开发周期长，但客单价和复购也更高</td><td>中，通常需要持续维护</td></tr>
+        <tr><td>PDF/电子书</td><td>方法论指南、模板合集、清单工具</td><td>Canva、Notion导出、docx转PDF</td><td>低——门槛最低，适合验证选题</td><td>高，边际成本几乎为零</td></tr>
+        <tr><td>图片/设计模板</td><td>Notion模板、PPT模板、社交媒体素材包</td><td>Canva、Figma</td><td>低偏中——竞争激烈，需要差异化定位</td><td>高</td></tr>
+        <tr><td>视频</td><td>教程课程、素材库、案例拆解</td><td>剪映/Premiere + AI配音辅助</td><td>中偏高——制作耗时，但信任感转化率通常更高</td><td>中，内容会过时需要更新</td></tr>
+        <tr><td>图文/专栏</td><td>付费newsletter、深度专栏、行业情报</td><td>纯写作 + 排版工具</td><td>中——依赖持续输出和个人IP积累</td><td>中，适合长期经营</td></tr>
+      </table>
+      </div>
+
+      <div class="callout info">
+        <div class="icon">💡</div>
+        <div><b>给新手的建议顺序：</b>PDF/图片模板门槛最低，适合先用来验证"这个选题到底有没有人愿意付费"；验证成功后，再考虑把同一套方法论升级为python工具或自动化工作流（制作成本更高，但客单价和壁垒也更高）；复杂项目留到你已经有稳定收入产品、且愿意投入长期维护精力时再做。这与《数字产品变现全流程手册》第一至二章"从选题验证到产品初稿"的顺序完全呼应。</div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 9 ================= -->
+    <section class="phase" id="phase9">
+      <div class="phase-head"><span class="phase-num-badge">09</span><h2>变现渠道全景地图</h2><span class="tag money">资产</span></div>
+      <p class="phase-meta">不同资产类型适合的渠道不同，这张矩阵帮你快速判断"这个产品该往哪个渠道投放"，具体每个渠道的注册与合规细节，请查阅你已有的《数字产品变现全流程手册》。</p>
+
+      <div class="table-scroll">
+      <table class="data">
+        <tr><th>资产类型</th><th>跨境优先渠道</th><th>国内优先渠道</th></tr>
+        <tr><td>Python小工具</td><td>Gumroad、Payhip、Product Hunt（首发曝光）</td><td>闲鱼、独立网站+小红书导流</td></tr>
+        <tr><td>自动化工作流</td><td>Gumroad、n8n官方模板市场（部分支持分成）</td><td>知识星球、闲鱼</td></tr>
+        <tr><td>复杂项目/小型SaaS</td><td>独立官网 + Product Hunt + Reddit相关社区</td><td>独立官网 + 公众号 + 私域</td></tr>
+        <tr><td>PDF/电子书</td><td>Payhip、Gumroad、Lemon Squeezy</td><td>小红书（电子资源类目）、闲鱼</td></tr>
+        <tr><td>图片/设计模板</td><td>Etsy、Creative Market、Gumroad</td><td>闲鱼、小红书</td></tr>
+        <tr><td>视频</td><td>Gumroad课程、YouTube引流+站外收费</td><td>视频号/B站引流+私域收费</td></tr>
+        <tr><td>图文/专栏</td><td>Substack、Ko-fi</td><td>公众号付费阅读、知识星球</td></tr>
+      </table>
+      </div>
+
+      <div class="callout tip">
+        <div class="icon">🌏</div>
+        <div>网站本身应该同时承接跨境与国内两条线的落地页——同一款产品做成中英文两个版本页面，各自适配对应渠道的用户习惯和支付方式（跨境走MoR代管收款，国内走个人收款/店铺收款），互不冲突，可以同时小范围各测一次，这一点《数字产品变现全流程手册》阶段五已有详细说明，此处不再重复。</div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 10 ================= -->
+    <section class="phase" id="phase10">
+      <div class="phase-head"><span class="phase-num-badge">10</span><h2>自动化三阶段路线</h2><span class="tag auto">自动化</span></div>
+      <p class="phase-meta">自动化的前提永远是"已验证有效的动作"，而不是"还没验证过的猜测"——这是贯穿本手册与你已有两份手册的共同原则。以下把整个自动化历程拆成三个阶段，避免一上来就想做全自动，反而因为太复杂而卡住不动。</p>
+
+      <div class="card-grid">
+        <div class="mini-card">
+          <h4>阶段一：全手动验证期</h4>
+          <p>所有发布、定价、回复消息都手动完成。目的是先确认某个产品/渠道组合真的有人愿意付费，同时在<code>07_LEARNING</code>里记录每一步的手感和数据。</p>
+          <div class="mc-tags"><span class="tag legacy">人工为主</span></div>
+        </div>
+        <div class="mini-card">
+          <h4>阶段二：半自动化期</h4>
+          <p>把已验证有效的重复动作脚本化：例如用脚本批量生成不同渠道的产品详情文案、自动生成销售数据周报、定时把各平台流水抓取汇总到<code>05_FINANCE</code>。但涉及"钱"和"决策"的环节（比如是否降价、是否下架）仍由人工确认。</p>
+          <div class="mc-tags"><span class="tag auto">脚本辅助</span></div>
+        </div>
+        <div class="mini-card">
+          <h4>阶段三：编排自动化期</h4>
+          <p>用n8n等工作流工具，把"新产品完成→自动生成落地页→自动发布到多渠道→自动同步库存/价格→自动汇总数据"串成一条流水线，人工只负责创作新内容和审核关键节点。</p>
+          <div class="mc-tags"><span class="tag auto">工作流编排</span></div>
+        </div>
+      </div>
+
+      <h3>10.1 建议的自动化工具栈</h3>
+      <div class="table-scroll">
+      <table class="data">
+        <tr><th>用途</th><th>推荐工具</th><th>备注</th></tr>
+        <tr><td>定时任务</td><td>GitHub Actions（免费额度）、系统自带crontab</td><td>适合每日/每周执行的脚本，如数据抓取、周报生成</td></tr>
+        <tr><td>工作流编排</td><td>n8n（可在Docker里自建，免费）</td><td>和03章的网站容器部署方式完全一致，复用同一套Docker基础设施</td></tr>
+        <tr><td>财务自动对账</td><td>Python脚本 + 各平台API/导出表格</td><td>汇总多渠道流水到统一Excel，减少人工核对错误</td></tr>
+        <tr><td>可用性监控</td><td>UptimeRobot（免费额度）</td><td>网站/API掉线自动告警，第5章已提及</td></tr>
+        <tr><td>发布脚本</td><td>存放在 <code>04_AUTOMATION/publish_scripts/</code></td><td>每个脚本头部注释清楚"依赖什么、多久跑一次、失败了找谁"</td></tr>
+      </table>
+      </div>
+
+      <div class="callout warn">
+        <div class="icon">⚠️</div>
+        <div>国内多个平台对<strong>异常规律性的自动化操作</strong>检测越来越严格（比如固定时间点批量发布、固定频率批量私信），涉及平台账号操作的自动化建议保留随机延时和人工抽查环节，避免触发风控导致账号受限。</div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 11 ================= -->
+    <section class="phase" id="phase11">
+      <div class="phase-head"><span class="phase-num-badge">11</span><h2>给孩子的传承系统</h2><span class="tag legacy">传承 · 核心</span></div>
+      <p class="phase-meta">这是整份手册里最不一样的一章。前面十章教的是"怎么把事情做起来"，这一章要回答的问题是——如果有一天你不在了，一个也许完全不懂技术、正处在悲伤中的家人，怎么才能在不求助任何人的情况下，看懂并接手这一切。这不是悲观，而是一种对家人最踏实的爱。</p>
+
+      <div class="sub">
+        <h3>11.1 设计原则：写给"不懂技术、心情沉重"的读者</h3>
+        <ul>
+          <li><strong>语言要简单到不需要任何背景知识</strong>——不用"部署""容器""DNS"这类术语，改用"怎么让网站重新打开"这种大白话</li>
+          <li><strong>信息分层</strong>：最紧急、最重要的放在最前面一页纸；细节放在后面，需要时再翻</li>
+          <li><strong>不在这份文档里写任何真实密码</strong>——只写"密码在哪里、怎么合法取得"，密码本身交给专门的密码管理器和法律流程去保管</li>
+          <li><strong>定期更新</strong>——建议每季度花15分钟检查一次这份文档是否还准确，账号变了、密码管理方式变了都要同步更新</li>
+        </ul>
+
+        <h3>11.2 <code>00_START_HERE</code> 文件夹应该放的五份文件</h3>
+
+        <div class="letter">
+          <h4>① 给孩子的一封信.pdf</h4>
+          <p>不需要写得多正式，就是你想对孩子说的话——为什么做这些东西、希望这些收入怎么被使用、对Ta未来的期待。这份文件的作用不是"技术交接"，是情感锚点，让后面几份冷冰冰的操作文档有了温度和意义。</p>
+        </div>
+
+        <div class="mini-card" style="margin-bottom:16px;">
+          <h4>② 资产总地图（一页纸）</h4>
+          <p>一张表，列出：我有哪些网站/域名、哪些产品在哪些平台上架、钱主要从哪几个渠道进来、目前每月大概能产生多少收入。目的是让家人5分钟内对"这套系统值多少钱、复不复杂"有一个整体判断，决定是要继续经营、请人托管、还是逐步关停变现。</p>
+        </div>
+
+        <div class="mini-card" style="margin-bottom:16px;">
+          <h4>③ 如果我不在了_请按顺序做.md</h4>
+          <p>用类似本手册的"step-list"风格，写清楚最开始几步该做什么——比如"第一步：联系xx律师，电话在联系人清单里""第二步：域名续费日期都在资产总地图里，先确认没有临近到期的""第三步：如果决定继续经营，联系xx（如果有信任的合作者/技术顾问）"。不追求覆盖所有情况，只求把最初、最容易出错的几步说清楚。</p>
+        </div>
+
+        <div class="mini-card" style="margin-bottom:16px;">
+          <h4>④ 联系人清单.md</h4>
+          <p>律师、会计/税务顾问、域名注册商客服方式、如果有信任的技术合作者也列上，附上各自能帮上什么忙的一句话说明。</p>
+        </div>
+
+        <div class="mini-card" style="margin-bottom:16px;">
+          <h4>⑤ 密码管理器access说明.md</h4>
+          <p>说明你使用的密码管理器是什么（建议用支持"紧急访问/继承人"功能的产品，比如支持Emergency Access的密码管理工具），以及依照法律程序（遗嘱、公证）可以怎样合法取得访问权限——这份文件本身<strong>不包含任何真实密码</strong>，只是一张"钥匙在哪个保险箱、保险箱怎么合法打开"的说明图。</p>
+        </div>
+
+        <h3>11.3 与正式法律文件的配合（<code>06_LEGAL</code>目录）</h3>
+        <p>数字资产的传承光靠一份文档并不具备法律效力，建议尽快、且以此为契机，完成以下两件事，并把结果的说明（非敏感内容）也放进<code>06_LEGAL</code>：</p>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>咨询一次本地律师，完成或更新遗嘱</strong><span>明确写入"数字资产"条款，包括域名、网站、各平台账号及其收入的处置方式——不同地区对数字资产的继承认定方式不同，务必以本地专业意见为准，本手册不构成法律建议</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>为密码管理器设置正式的"紧急联系人/继承人"机制</strong><span>大多数主流密码管理器都提供这项功能，可以设置延迟授权（比如申请后30天无异议自动开放访问），既保证你在世时的安全，也保证万一发生意外时家人不会被完全锁在门外</span></div></div>
+        </div>
+
+        <div class="callout star">
+          <div class="icon">💛</div>
+          <div>这一章看起来是九个阶段里最"不像商业规划"的一章，但恰恰是你最初提出的核心诉求。把它做好，不需要花钱、也不需要太多时间——真正需要的只是一次认真、诚实的自我梳理。建议读完这一章后，先花一个周末，把<code>00_START_HERE</code>的五份文件写出初稿，哪怕不完美，有胜于无。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 12 ================= -->
+    <section class="phase" id="phase12">
+      <div class="phase-head"><span class="phase-num-badge">12</span><h2>总路线图：90天启动 + 长期节奏</h2><span class="tag core">路线图</span></div>
+      <p class="phase-meta">把前面十一章的动作，按时间线排出优先级——先搭骨架，再验证产品，最后才谈自动化和规模化。</p>
+
+      <h3>12.1 90天启动计划</h3>
+      <div class="table-scroll">
+      <table class="data">
+        <tr><th>周次</th><th>核心任务</th></tr>
+        <tr><td>第1周</td><td>建好硬盘9大顶层目录（02章）+ 写出<code>00_START_HERE</code>五份文件初稿（11章）</td></tr>
+        <tr><td>第2周</td><td>选定第一个产品方向（参考08章矩阵，建议从PDF/图片模板起步）+ 建立第一个product_card.md</td></tr>
+        <tr><td>第3～4周</td><td>产品制作完成 + 域名购买（06章）+ 本地Docker+Cloudflare Tunnel跑通网站（05章）</td></tr>
+        <tr><td>第5～6周</td><td>网站首页与首个落地页上线（04章）+ 小范围渠道测试（09章，参考已有《数字产品变现全流程手册》阶段五）</td></tr>
+        <tr><td>第7～8周</td><td>数据复盘，决定该产品继续/调整/换选题</td></tr>
+        <tr><td>第9～10周</td><td>启动第二个产品，开始用脚本沉淀已验证的重复动作（10章阶段二）</td></tr>
+        <tr><td>第11～12周</td><td>季度回顾：更新<code>00_START_HERE</code>与资产总账、检查备份是否正常执行</td></tr>
+      </table>
+      </div>
+
+      <h3>12.2 长期节奏建议</h3>
+      <ul>
+        <li><strong>每月</strong>：更新<code>01_ASSETS_资产总账</code>里的收入与账号清单</li>
+        <li><strong>每季度</strong>：检查<code>00_START_HERE</code>是否需要更新、检查备份策略是否仍在正常执行（02章3-2-1原则）</li>
+        <li><strong>每半年</strong>：评估是否有产品/流量达到需要迁移云端的信号（07章）、评估是否该进入自动化下一阶段（10章）</li>
+        <li><strong>每年</strong>：和律师/顾问确认一次遗嘱与数字资产条款是否需要因资产变化而更新（11章）</li>
+      </ul>
+    </section>
+
+    <!-- ================= 总检查清单 ================= -->
+    <section class="phase" id="checklist">
+      <div class="phase-head"><span class="phase-num-badge">✓</span><h2>总检查清单</h2></div>
+      <div class="checklist">
+        <div class="cl-title">十二章逐一自查，一句话标准</div>
+        <label><input type="checkbox"> 01：我清楚硬盘是"唯一真相"，网站只是它的投影</label>
+        <label><input type="checkbox"> 02：硬盘上已经建好9大顶层目录，且有3-2-1备份策略在跑</label>
+        <label><input type="checkbox"> 03：至少一个产品已经套用标准子结构，并写好product_card.md</label>
+        <label><input type="checkbox"> 04：网站的分类、落地页、免费/付费分层结构已经想清楚</label>
+        <label><input type="checkbox"> 05：本地Docker+Cloudflare Tunnel方案已跑通，且设置了监控和自启</label>
+        <label><input type="checkbox"> 06：域名已在稳定注册商购买，续费方式和到期提醒已设置</label>
+        <label><input type="checkbox"> 07：我清楚什么信号说明该迁移云端，以及迁移的大致步骤</label>
+        <label><input type="checkbox"> 08：我对六大资产类型的门槛和变现难度有基本判断，知道从哪个切入</label>
+        <label><input type="checkbox"> 09：每个产品都清楚该去哪些渠道，跨境/国内两条线互不冲突</label>
+        <label><input type="checkbox"> 10：自动化只用在已验证有效的动作上，涉及钱和决策的环节保留人工确认</label>
+        <label><input type="checkbox"> 11：<code>00_START_HERE</code>五份文件已写出初稿，且不含任何明文密码</label>
+        <label><input type="checkbox"> 12：我已排好90天启动节奏，并设置了每月/季度/年度的复查提醒</label>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section class="phase" id="faq">
+      <div class="phase-head"><span class="phase-num-badge">?</span><h2>常见问题</h2></div>
+
+      <details open>
+        <summary>我现在完全没有任何产品，是不是应该先建好整套系统再开始做产品？<span class="chev">+</span></summary>
+        <p>不建议。第1周只需要把9大顶层目录建好、写好<code>00_START_HERE</code>的初稿即可（合计不超过半天），剩下的目录会随着你做第一个产品自然填充起来。这套框架的目的是"让你在做事的同时不迷路"，而不是"做事之前先花几周搭系统"。</p>
+      </details>
+      <details>
+        <summary>本地电脑当服务器，家里网络运营商会不会有问题（比如封禁）？<span class="chev">+</span></summary>
+        <p>正常的家庭宽带套餐本身不禁止你运行个人网站，但要注意两点：一是很多家庭宽带是动态IP甚至运营商级NAT（没有独立公网IP），这正是本手册选择Cloudflare Tunnel方案的原因——它完全不需要公网IP；二是如果网站访问量变得很大、接近商用规模，建议提前评估当地宽带套餐条款，避免因为流量或性质问题被限速或调整。</p>
+      </details>
+      <details>
+        <summary>孩子还小，现在写"给孩子的传承系统"是不是太早了？<span class="chev">+</span></summary>
+        <p>不早。这份文档的价值不取决于孩子现在几岁，而取决于系统本身是否存在，以及是否有人能理解它——传承文档写的是给"未来任何一个需要接手的人"看的，可能是长大后的孩子，也可能是你的配偶或其他信任的家人，越早建立、越早养成季度更新的习惯，未来任何时候需要用到它时越不会措手不及。</p>
+      </details>
+      <details>
+        <summary>密码到底应该存在哪里？<span class="chev">+</span></summary>
+        <p>建议使用一款支持"紧急访问/继承人"机制的密码管理器（大多数主流产品都有），日常密码全部存在里面，只在遗嘱和联系人清单里说明"怎么通过合法流程取得访问权"，而不是把明文密码写进任何硬盘文档、聊天记录或云端笔记里，这是整套系统里唯一一处坚持"不落地成文件"的信息。</p>
+      </details>
+      <details>
+        <summary>这套硬盘框架和我以前随手建的文件夹差别大吗，需要把旧文件全部推倒重来吗？<span class="chev">+</span></summary>
+        <p>不需要全部推倒重来。建议新建这9个顶层目录后，用一到两周时间，把旧文件按内容性质分批"搬家"归位即可，搬的过程本身也是一次很好的资产盘点。暂时分类不清楚的文件，先扔进<code>08_ARCHIVE_归档</code>，不要因为"一步到位分类干净"而拖延了整体框架的建立。</p>
+      </details>
+      <details>
+        <summary>本地Docker方案会不会太"技术"，我完全不懂编程能搞定吗？<span class="chev">+</span></summary>
+        <p>Docker和Cloudflare Tunnel的安装本身有大量图形化教程，跟着官方文档一步步操作，通常一两个小时可以跑通第一次。如果确实卡住，也可以把这部分作为"愿意花一点点钱外包的第一个环节"——花几十到一二百元请人帮你搭一次初始环境，之后日常的启动/重启只需要记住几条固定命令即可，不需要持续懂编程。</p>
+      </details>
+      <details>
+        <summary>要不要现在就买多个域名把品牌名占全？<span class="chev">+</span></summary>
+        <p>不建议。参考06章的建议，先用一个主域名验证产品和品牌名是否真的跑得通，被验证有价值之后再考虑买齐后缀变体防止抢注。过早在多个域名上花钱，属于在验证之前为可能不需要的规模买单。</p>
+      </details>
+    </section>
+
+    <!-- ================= 附录 ================= -->
+    <section class="phase" id="appendix">
+      <div class="phase-head"><span class="phase-num-badge">附</span><h2>术语表与目录树参考</h2></div>
+      <div class="sub">
+        <h3>术语表</h3>
+        <table class="data">
+          <tr><th>术语</th><th>解释</th></tr>
+          <tr><td>单一数据源</td><td>系统中只认一个地方的内容为"真"，其余地方都只是它的副本或投影，避免多处不一致</td></tr>
+          <tr><td>Docker / Docker Compose</td><td>把应用和它的运行环境打包在一起的技术，让同一份代码能在任何装了Docker的电脑或服务器上以同样方式运行</td></tr>
+          <tr><td>Cloudflare Tunnel</td><td>一种免费的内网穿透服务，让没有公网IP的本地电脑也能被外网安全访问，并自动提供HTTPS</td></tr>
+          <tr><td>3-2-1备份原则</td><td>至少3份数据副本、存放在2种不同介质上、其中1份保存在异地，用于降低单点数据丢失风险</td></tr>
+          <tr><td>紧急访问/继承人（Emergency Access）</td><td>密码管理器提供的功能，允许指定联系人在满足特定条件（如延迟等待期）后合法获得账户访问权限</td></tr>
+          <tr><td>product_card.md</td><td>本手册建议的标准化产品说明卡，用统一字段记录每个产品的定位、定价、渠道和维护要点</td></tr>
+          <tr><td>MoR（Merchant of Record）</td><td>合规收款代管平台，详见《数字产品变现全流程手册》附录术语表</td></tr>
+          <tr><td>ICP备案</td><td>国内网站使用境内服务器/CDN节点通常需要完成的合规登记流程，详见《技术运营与变现基建手册》</td></tr>
+        </table>
+
+        <h3>完整目录树参考（可直接照抄）</h3>
+        <pre>DigitalEmpire/                             ← 建议单独分区或专属外置盘
+├── 00_START_HERE/                          ⭐ 最高优先级
+│   ├── 给孩子的一封信.pdf
+│   ├── 资产总地图.pdf
+│   ├── 如果我不在了_请按顺序做.md
+│   ├── 联系人清单.md
+│   └── 密码管理器access说明.md
+├── 01_ASSETS_资产总账/
+│   ├── 域名清单.xlsx
+│   ├── 账号清单.xlsx
+│   ├── 收入来源清单.xlsx
+│   └── 资产估值记录/
+├── 02_PRODUCTS_产品库/
+│   ├── python_tools/
+│   ├── workflows_自动化流程/
+│   ├── complex_projects_复杂项目/
+│   ├── ebooks_pdf/
+│   ├── graphics_templates_图片模板/
+│   ├── videos_视频/
+│   └── articles_图文/
+│       └── <创建日期_产品名>/
+│           ├── source/
+│           ├── build/
+│           ├── docs/
+│           ├── marketing/
+│           └── product_card.md
+├── 03_WEBSITE_网站源码/
+│   ├── frontend/
+│   ├── backend/
+│   ├── docker-compose.yml
+│   └── DEPLOY.md
+├── 04_AUTOMATION_自动化脚本/
+│   ├── publish_scripts/
+│   ├── pricing_scripts/
+│   ├── finance_reconcile/
+│   └── monitoring/
+├── 05_FINANCE_财务与账户/
+│   ├── platform_accounts.md
+│   ├── tax_records/
+│   └── invoices/
+├── 06_LEGAL_法律与传承/
+│   ├── 遗嘱相关文件/
+│   ├── 数字遗产授权书/
+│   └── 律师联系方式.md
+├── 07_LEARNING_经验与知识库/
+│   ├── decision_log.md
+│   ├── failures_踩坑记录.md
+│   └── market_research/
+└── 08_ARCHIVE_归档/</pre>
+
+        <div class="callout info">
+          <div class="icon">📎</div>
+          <div>具体选题验证、收款渠道、广告合规等商业操作细节请查阅《数字产品变现全流程手册》，网站限流、防爬虫、GEO优化等技术运营细节请查阅《技术运营与变现基建手册》，三份手册配合使用。</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  数字资产帝国 · 网站+硬盘 全资产管理与传承框架 · 配合《数字产品变现全流程手册》《技术运营与变现基建手册》使用 · 基于截至2026年8月的公开信息整理，各工具/平台的具体功能与政策可能随时变化，正式操作前请以官方最新说明为准 · 传承与法律相关部分不构成法律建议，请务必咨询当地专业律师 · 建议先完成第2章目录搭建与第11章传承文档初稿，其余章节可按自己的节奏消化
+</footer>
+
+<button class="totop" id="toTop" aria-label="回到顶部">↑</button>
+
+<script>
+  var pb = document.getElementById('progressbar');
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement;
+    var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    pb.style.width = scrolled + '%';
+    var toTop = document.getElementById('toTop');
+    if (h.scrollTop > 600) { toTop.classList.add('show'); } else { toTop.classList.remove('show'); }
+  });
+  document.getElementById('toTop').addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+  document.querySelectorAll('.sidebar a').forEach(function(a){
+    a.addEventListener('click', function(){
+      var t = document.getElementById('nav-toggle');
+      if (t) t.checked = false;
+    });
+  });
+</script>
+
+</body>
+</html>
