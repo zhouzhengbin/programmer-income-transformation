@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纯本地安全视频切片器</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; padding: 20px; background: #f0f2f5; }
+        .card { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        button { background: #0066ff; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-top: 15px; }
+        button:disabled { background: #ccc; }
+        #log { margin-top: 20px; padding: 10px; background: #282c34; color: #98c379; border-radius: 6px; font-family: monospace; font-size: 12px; height: 100px; overflow-y: auto; }
+    </style>
+    <!-- 这里就是那把“数字大菜刀”，直接从全球 CDN 引入 FFmpeg 的网页版引擎 -->
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.0/dist/ffmpeg.min.js"></script>
+</head>
+<body>
+
+<div class="card">
+    <h2>✂️ 纯本地视频切片器</h2>
+    <p style="color: #666; font-size: 14px;">您的视频将在本设备浏览器内直接处理，绝对隐私安全，0上传。</p>
+    
+    <input type="file" id="videoUploader" accept="video/*"><br>
+    
+    <!-- 设置切片参数 -->
+    <div style="margin-top: 15px;">
+        <label>截取前 <input type="number" id="duration" value="5" style="width: 50px;"> 秒</label>
+    </div>
+
+    <button id="sliceBtn" onclick="processVideo()">🚀 开始本地切片</button>
+    
+    <!-- 运行日志 -->
+    <div id="log">等待操作...</div>
+    
+    <!-- 结果视频展示区 -->
+    <video id="outputVideo" controls style="width: 100%; margin-top: 20px; display: none;"></video>
+</div>
+
+<script>
+    // 1. 初始化 FFmpeg 引擎
+    const { createFFmpeg, fetchFile } = FFmpeg;
+    // 开启日志，方便你在屏幕上看到它切片的进度
+    const ffmpeg = createFFmpeg({ log: true }); 
+
+    async function processVideo() {
+        const uploader = document.getElementById('videoUploader');
+        const duration = document.getElementById('duration').value;
+        const btn = document.getElementById('sliceBtn');
+        const logBox = document.getElementById('log');
+
+        if (!uploader.files[0]) {
+            alert("请先选择一个视频！");
+            return;
+        }
+
+        btn.disabled = true;
+        logBox.innerHTML = "正在加载 FFmpeg 引擎到浏览器 (首次需要几秒钟)...\n";
+
+        // 2. 加载引擎
+        if (!ffmpeg.isLoaded()) {
+            await ffmpeg.load();
+        }
+
+        const file = uploader.files[0];
+        logBox.innerHTML += `开始处理视频: ${file.name}\n`;
+
+        // 3. 把用户选的视频，写入浏览器的“虚拟内存硬盘”中，命名为 input.mp4
+        ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(file));
+
+        logBox.innerHTML += `执行切片指令...\n`;
+        
+        // 4. 核心魔法！在浏览器里执行跟 CMD 终端一模一样的 FFmpeg 指令！
+        // 这里的指令意思是：从 0秒开始，截取指定的时长，保存为 output.mp4
+        await ffmpeg.run('-i', 'input.mp4', '-ss', '00:00:00', '-t', duration, '-c', 'copy', 'output.mp4');
+
+        logBox.innerHTML += `处理完成！正在生成下载链接...\n`;
+
+        // 5. 从浏览器的虚拟硬盘里把 output.mp4 拿出来
+        const data = ffmpeg.FS('readFile', 'output.mp4');
+        
+        // 6. 转换成可以播放和下载的真实视频链接
+        const videoBlob = new Blob([data.buffer], { type: 'video/mp4' });
+        const videoUrl = URL.createObjectURL(videoBlob);
+        
+        // 7. 显示在网页上
+        const outputVideo = document.getElementById('outputVideo');
+        outputVideo.src = videoUrl;
+        outputVideo.style.display = 'block';
+
+        btn.disabled = false;
+        logBox.innerHTML += `✅ 成功！你可以右键点击下方视频进行保存。`;
+    }
+</script>
+
+</body>
+</html>
