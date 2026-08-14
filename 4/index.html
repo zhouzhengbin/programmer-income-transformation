@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>全域营销体系｜从0到产品化 全流程手册</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:      #16233F;
+    --ink-soft: #4B5875;
+    --ink-faint:#8592AC;
+    --paper:    #F6F5F1;
+    --paper-2:  #FFFFFF;
+    --line:     #E3E0D6;
+    --gold:     #B8863B;
+    --gold-bg:  #FBF3E4;
+    --teal:     #2E6F6C;
+    --teal-bg:  #EAF3F2;
+    --warn:     #A24A34;
+    --warn-bg:  #FBEBE5;
+    --blue:     #2E4E8F;
+    --blue-bg:  #EAF0FB;
+    --purple:   #6B4E9F;
+    --purple-bg:#F0EBFA;
+    --pink:     #A8467A;
+    --pink-bg:  #FBEAF2;
+    --radius:   14px;
+    --shadow:   0 1px 2px rgba(22,35,63,.04), 0 16px 36px -22px rgba(22,35,63,.2);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Inter',-apple-system,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--paper); color:var(--ink); line-height:1.7; font-size:15.5px;
+  }
+  h1,h2,h3,h4{ font-family:'Fraunces',"PingFang SC",Georgia,serif; color:var(--ink); line-height:1.3; }
+  a{ color:var(--teal); }
+  strong{ color:var(--ink); }
+  code{ background:#EDEAE0; padding:2px 6px; border-radius:5px; font-size:.9em; font-family:'SF Mono',Consolas,monospace; word-break:break-all; }
+  img{ max-width:100%; }
+
+  /* ===== 顶部进度条 ===== */
+  #progress{ position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--teal)); width:0%; z-index:9999; transition:width .1s linear; }
+
+  .topbar{
+    position:sticky; top:0; z-index:60; background:rgba(246,245,241,.94); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px;
+  }
+  .topbar-brand{ display:flex; align-items:center; gap:10px; font-weight:600; font-size:14.5px; }
+  .topbar-brand .mark{ width:28px; height:28px; border-radius:8px; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:14px; flex-shrink:0; }
+  .topbar-actions{ display:flex; align-items:center; gap:10px; }
+  .search-mini{ display:none; }
+  #nav-toggle{ display:none; }
+  .nav-toggle-label{
+    display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600;
+    border:1px solid var(--line); padding:8px 14px; border-radius:999px; cursor:pointer; background:var(--paper-2);
+  }
+
+  .layout{ display:grid; grid-template-columns:280px 1fr; max-width:1260px; margin:0 auto; gap:0; }
+  .sidebar{
+    position:sticky; top:57px; align-self:start; height:calc(100vh - 57px); overflow-y:auto;
+    padding:32px 18px 60px; border-right:1px solid var(--line);
+  }
+  .sidebar-title{ font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); font-weight:700; margin-bottom:14px; }
+  .sidebar-title.sub{ margin-top:24px; }
+  .sidebar a{
+    display:block; font-size:13.4px; color:var(--ink-soft); text-decoration:none; padding:6px 10px;
+    border-radius:8px; margin-bottom:1px; font-weight:500;
+  }
+  .sidebar a:hover{ background:var(--paper-2); color:var(--ink); }
+  .sidebar .phase-num{ color:var(--gold); font-weight:700; margin-right:6px; font-family:'Fraunces',serif; }
+
+  main{ padding:40px clamp(18px,4vw,56px) 120px; max-width:880px; }
+
+  .intro{ margin-bottom:56px; }
+  .intro .eyebrow{ font-size:12.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--teal); background:var(--teal-bg); display:inline-block; padding:6px 12px; border-radius:999px; margin-bottom:16px; }
+  .intro h1{ font-size:clamp(26px,4vw,40px); margin-bottom:16px; }
+  .intro p.lead{ color:var(--ink-soft); font-size:16.5px; max-width:68ch; }
+
+  .track-tag{ display:inline-block; font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:999px; margin-right:6px; white-space:nowrap; }
+  .track-tag.global{ background:var(--blue-bg); color:var(--blue); }
+  .track-tag.domestic{ background:var(--warn-bg); color:var(--warn); }
+  .track-tag.both{ background:var(--teal-bg); color:#1F4F4D; }
+  .track-tag.free{ background:var(--purple-bg); color:var(--purple); }
+  .track-tag.new{ background:var(--pink-bg); color:var(--pink); }
+
+  .overview-table{ width:100%; border-collapse:collapse; margin-top:24px; font-size:13.4px; }
+  .overview-table th{ text-align:left; color:var(--ink-soft); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em; padding:0 12px 10px 0; border-bottom:1px solid var(--line); }
+  .overview-table td{ padding:12px 12px 12px 0; border-bottom:1px solid var(--line); vertical-align:top; }
+  .overview-table tr:last-child td{ border-bottom:none; }
+
+  .phase{ padding-top:64px; margin-top:-16px; border-top:1px solid var(--line); }
+  .phase:first-of-type{ border-top:none; }
+  .phase-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:8px; flex-wrap:wrap; }
+  .phase-num-badge{ font-family:'Fraunces',serif; font-size:15px; font-weight:700; color:var(--gold); background:var(--gold-bg); padding:4px 12px; border-radius:999px; flex-shrink:0; }
+  .phase h2{ font-size:clamp(21px,2.6vw,28px); }
+  .phase-meta{ color:var(--ink-soft); font-size:13.5px; margin-bottom:28px; }
+
+  .sub h3{ font-size:17px; margin:32px 0 10px; }
+  .sub h4{ font-size:14.8px; margin:22px 0 8px; color:var(--ink); }
+  .sub p{ color:var(--ink-soft); margin-bottom:12px; }
+  .sub ul, .sub ol{ color:var(--ink-soft); margin:0 0 14px 20px; }
+  .sub li{ margin-bottom:6px; }
+
+  .step-list{ counter-reset:step; margin:18px 0 26px; }
+  .step{ display:grid; grid-template-columns:34px 1fr; gap:14px; padding:14px 0; border-bottom:1px dashed var(--line); }
+  .step:last-child{ border-bottom:none; }
+  .step .num{ counter-increment:step; width:30px; height:30px; border-radius:50%; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:13.5px; font-weight:600; }
+  .step .num::before{ content:counter(step); }
+  .step .body strong{ display:block; margin-bottom:3px; font-size:14.5px; }
+  .step .body span{ color:var(--ink-soft); font-size:14px; }
+
+  .callout{ border-radius:var(--radius); padding:16px 20px; margin:20px 0; font-size:14px; display:flex; gap:12px; }
+  .callout .icon{ flex-shrink:0; font-size:16px; line-height:1.5; }
+  .callout.tip{ background:var(--teal-bg); color:#1F4F4D; }
+  .callout.warn{ background:var(--warn-bg); color:#7A3826; }
+  .callout.info{ background:var(--blue-bg); color:#22345E; }
+  .callout.new{ background:var(--pink-bg); color:#6E2B54; }
+  .callout b{ color:inherit; }
+
+  .checklist{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); padding:20px 22px; margin:22px 0; box-shadow:var(--shadow); }
+  .checklist .cl-title{ font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); margin-bottom:12px; }
+  .checklist label{ display:flex; align-items:flex-start; gap:10px; font-size:14.3px; margin-bottom:10px; cursor:pointer; }
+  .checklist input[type=checkbox]{ margin-top:3px; width:16px; height:16px; accent-color:var(--gold); flex-shrink:0; }
+
+  .example{ background:var(--paper-2); border-left:3px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:14px 18px; margin:16px 0; font-size:13.8px; }
+  .example .ex-label{ font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--gold); font-weight:700; margin-bottom:6px; }
+
+  table.data{ width:100%; border-collapse:collapse; margin:18px 0; font-size:13.2px; background:var(--paper-2); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
+  table.data th{ background:var(--ink); color:#fff; text-align:left; padding:10px 14px; font-weight:600; font-size:12.2px; }
+  table.data td{ padding:10px 14px; border-bottom:1px solid var(--line); color:var(--ink-soft); }
+  table.data tr:last-child td{ border-bottom:none; }
+  table.data td:first-child, table.data th:first-child{ color:var(--ink); font-weight:600; }
+  .table-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+
+  .card-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:20px 0; }
+  .mini-card{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow); }
+  .mini-card h4{ margin:0 0 6px; font-size:14.5px; }
+  .mini-card p{ margin:0; font-size:13px; color:var(--ink-soft); }
+  .mini-card .tags{ margin-bottom:8px; }
+
+  pre{ background:#1B2438; color:#E7ECF6; border-radius:var(--radius); padding:18px 20px; overflow-x:auto; font-size:12.6px; line-height:1.65; margin:16px 0; font-family:'SF Mono',Consolas,monospace; }
+  pre code{ background:none; padding:0; color:inherit; }
+
+  details{ border-bottom:1px solid var(--line); padding:16px 0; }
+  summary{ cursor:pointer; font-weight:600; font-size:14.8px; list-style:none; display:flex; justify-content:space-between; gap:12px; }
+  summary::-webkit-details-marker{ display:none; }
+  summary .chev{ color:var(--ink-soft); transition:transform .2s; flex-shrink:0; }
+  details[open] .chev{ transform:rotate(45deg); }
+  details p{ color:var(--ink-soft); margin-top:10px; font-size:14px; }
+
+  .funnel{ display:flex; flex-direction:column; gap:6px; margin:22px 0; }
+  .funnel-row{ display:grid; grid-template-columns:130px 1fr; align-items:center; gap:12px; }
+  .funnel-row .label{ font-size:12.5px; font-weight:700; color:var(--ink-soft); text-align:right; }
+  .funnel-row .bar{ height:34px; border-radius:8px; display:flex; align-items:center; padding:0 14px; color:#fff; font-size:12.5px; font-weight:600; }
+
+  .toc-inline{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); padding:18px 22px; margin:24px 0; box-shadow:var(--shadow); }
+  .toc-inline h4{ margin-bottom:10px; font-size:13px; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); }
+  .toc-inline ol{ margin:0; padding-left:20px; columns:2; column-gap:24px; }
+  .toc-inline li{ font-size:13.4px; margin-bottom:6px; break-inside:avoid; }
+  .toc-inline a{ text-decoration:none; color:var(--ink-soft); }
+  .toc-inline a:hover{ color:var(--teal); }
+
+  footer{ text-align:center; padding:40px 20px 60px; color:var(--ink-faint); font-size:12.5px; max-width:700px; margin:0 auto; }
+
+  .back-top{ position:fixed; bottom:24px; right:24px; width:44px; height:44px; border-radius:50%; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:var(--shadow); z-index:50; font-size:16px; opacity:0; pointer-events:none; transition:opacity .2s; }
+  .back-top.show{ opacity:1; pointer-events:auto; }
+
+  @media (max-width: 900px){
+    .layout{ grid-template-columns:1fr; }
+    .nav-toggle-label{ display:flex; }
+    .sidebar{
+      position:fixed; top:57px; left:0; right:0; bottom:0; background:var(--paper);
+      transform:translateY(-110%); transition:transform .28s ease; z-index:55;
+      height:calc(100vh - 57px); padding:24px 20px 80px;
+    }
+    #nav-toggle:checked ~ .layout .sidebar{ transform:translateY(0); }
+    main{ padding:28px 18px 100px; }
+    .toc-inline ol{ columns:1; }
+    .funnel-row{ grid-template-columns:80px 1fr; }
+  }
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<input type="checkbox" id="nav-toggle">
+
+<div class="topbar">
+  <div class="topbar-brand"><span class="mark">营</span> 全域营销体系 · 产品化手册</div>
+  <div class="topbar-actions">
+    <label for="nav-toggle" class="nav-toggle-label">☰ 目录</label>
+  </div>
+</div>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-title">总览</div>
+    <a href="#intro">写在前面</a>
+    <a href="#map">全书地图</a>
+
+    <div class="sidebar-title sub">第一部分 · 认知底座</div>
+    <a href="#phase0"><span class="phase-num">00</span>定位与产品化决策</a>
+    <a href="#phase1"><span class="phase-num">01</span>营销底层框架</a>
+
+    <div class="sidebar-title sub">第二部分 · 渠道地图</div>
+    <a href="#phase2"><span class="phase-num">02</span>全渠道地图总览</a>
+    <a href="#phase3"><span class="phase-num">03</span>国内渠道打法库</a>
+    <a href="#phase4"><span class="phase-num">04</span>海外渠道打法库</a>
+    <a href="#phase5"><span class="phase-num">05</span>前沿渠道：Web3/AI搜索/AR/私域</a>
+
+    <div class="sidebar-title sub">第三部分 · 内容与工具</div>
+    <a href="#phase6"><span class="phase-num">06</span>内容资产体系</a>
+    <a href="#phase7"><span class="phase-num">07</span>低成本投放（可选）</a>
+    <a href="#phase8"><span class="phase-num">08</span>自动化与AI工具箱</a>
+    <a href="#phase9"><span class="phase-num">09</span>数据看板与增长复盘</a>
+
+    <div class="sidebar-title sub">第四部分 · 产品化与反身营销</div>
+    <a href="#phase10"><span class="phase-num">10</span>把体系产品化</a>
+    <a href="#phase11"><span class="phase-num">11</span>如何营销"营销产品"本身</a>
+    <a href="#phase12"><span class="phase-num">12</span>合规红线</a>
+
+    <div class="sidebar-title sub">附录</div>
+    <a href="#faq">常见问题</a>
+    <a href="#appendix">术语表 / 执行日历 / 清单</a>
+  </nav>
+
+  <main>
+    <section class="intro" id="intro">
+      <span class="eyebrow">全域营销体系 · v1</span>
+      <h1>从"会营销"到"卖营销"<br>一套可产品化的全域营销体系手册</h1>
+      <p class="lead">这本手册本身就是一件数字产品。它的目标读者是"数字产品创业者"——你要卖的不是某一件具体商品，而是一整套"任何人都能照着做出获客结果"的方法论。手册覆盖国内+海外、免费为主+低成本广告为辅、传统平台+区块链/Web3/AI搜索等前沿渠道，最后教你如何把这套体系本身包装成可以卖钱的产品，并且用它自己的方法论来营销它自己。</p>
+
+      <div class="callout info">
+        <div class="icon">🧭</div>
+        <div><b>怎么用这本手册：</b>如果你是第一次搭建营销体系，建议按 00 → 12 顺序通读一遍，先搭认知框架，再挑渠道，再产出内容，最后决定怎么把它做成产品卖出去。如果你已经在做营销、只想找具体渠道的操作细节，可以直接从左侧目录跳到对应渠道章节。</div>
+      </div>
+    </section>
+
+    <section class="phase" id="map" style="padding-top:0;border-top:none;">
+      <h2 style="font-size:20px;margin-bottom:16px;">全书地图：13 个阶段 + 4 个部分</h2>
+      <div class="table-scroll">
+      <table class="overview-table">
+        <tr><th>部分</th><th>阶段</th><th>解决什么问题</th><th>产出物</th></tr>
+        <tr><td rowspan="2">① 认知底座</td><td>00 定位与产品化决策</td><td>先想清楚要卖的营销产品长什么样</td><td>产品形态假设 + 一句话定位</td></tr>
+        <tr><td>01 营销底层框架</td><td>不背话术，理解营销的通用逻辑</td><td>人群-场景-钩子画布</td></tr>
+        <tr><td rowspan="4">② 渠道地图</td><td>02 全渠道地图总览</td><td>一张图看懂所有可选渠道</td><td>渠道选择矩阵</td></tr>
+        <tr><td>03 国内渠道打法库</td><td>小红书/抖音/视频号/知乎/B站等具体怎么做</td><td>分渠道SOP</td></tr>
+        <tr><td>04 海外渠道打法库</td><td>Reddit/X/TikTok/YouTube/SEO等具体怎么做</td><td>分渠道SOP</td></tr>
+        <tr><td>05 前沿渠道</td><td>Web3/区块链、AI搜索GEO/AEO、AR、私域自动化</td><td>新渠道试验清单</td></tr>
+        <tr><td rowspan="4">③ 内容与工具</td><td>06 内容资产体系</td><td>白皮书/电子书/案例研究/挑战话题怎么产出</td><td>内容资产库模板</td></tr>
+        <tr><td>07 低成本投放</td><td>需要加投流时怎么花小钱测试</td><td>投放SOP</td></tr>
+        <tr><td>08 自动化与AI工具箱</td><td>用Python/AI把重复动作自动化</td><td>可复用脚本清单</td></tr>
+        <tr><td>09 数据看板与增长复盘</td><td>怎么判断该继续/调整/放弃</td><td>复盘看板模板</td></tr>
+        <tr><td rowspan="3">④ 产品化</td><td>10 把体系产品化</td><td>决定卖工具包/课程/社群/SaaS哪种形态</td><td>产品交付清单</td></tr>
+        <tr><td>11 反身营销</td><td>用这套体系营销这套体系本身</td><td>冷启动+案例证明打法</td></tr>
+        <tr><td>12 合规红线</td><td>广告法/平台规则/Web3营销合规</td><td>自查清单</td></tr>
+      </table>
+      </div>
+    </section>
+
+    <!-- ================= 阶段00 ================= -->
+    <section class="phase" id="phase0">
+      <div class="phase-head"><span class="phase-num-badge">00</span><h2>定位与产品化决策：先想清楚要卖什么形态</h2></div>
+      <div class="phase-meta">目标：在动手写一个字之前，先决定这套营销体系最终要以什么"产品形态"卖给谁，避免做到一半发现方向不对。</div>
+
+      <div class="sub">
+        <h3>0.1 三个必须先回答的问题</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>卖给谁</strong><span>是卖给"完全不懂营销的个体创业者/微商/小卖家"（需要傻瓜式SOP），还是卖给"有一定基础想系统化的自由职业者/自媒体人"（需要框架和工具），还是卖给"企业内部的市场部新人"（需要可复用的流程文档）？不同人群决定了内容的详细程度和语气。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>解决什么具体痛点</strong><span>不要定位成"教你做营销"这种泛泛的话题，而是"没有预算、没有团队、一个人也能把自己的数字产品/实体产品卖出第一单"——越具体，购买意愿越强。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>用什么形态交付</strong><span>同一套内容可以是电子书/H5知识库、Notion模板、Python自动化工具包、视频课程、付费社群、甚至SaaS工具，形态不同定价和获客方式完全不同，见阶段10详细展开。</span></div></div>
+        </div>
+
+        <h3>0.2 一句话定位公式</h3>
+        <div class="example">
+          <div class="ex-label">公式</div>
+          <p style="margin:0;">给 <b>[具体人群]</b>，一套 <b>[具体形态]</b>，让他们不需要 <b>[常见障碍，如预算/团队/经验]</b>，也能在 <b>[具体时间]</b> 内做到 <b>[具体可衡量的结果]</b>。</p>
+        </div>
+        <div class="example">
+          <div class="ex-label">示例</div>
+          <p style="margin:0;">给"一个人做副业的数字产品创业者"，一套"全域免费获客工具包（H5手册+Python脚本+模板库）"，让他们不需要"投广告的预算和团队"，也能在"30天内"做到"跑通至少一个免费渠道的稳定获客"。</p>
+        </div>
+
+        <h3>0.3 产品化前的自检</h3>
+        <div class="checklist">
+          <div class="cl-title">阶段00验收清单</div>
+          <label><input type="checkbox"> 我能用一句话说清楚这套体系卖给谁、解决什么问题</label>
+          <label><input type="checkbox"> 我至少列出了3种可能的交付形态，并初步判断了哪种最适合自己现在的资源</label>
+          <label><input type="checkbox"> 我确认了这个定位下确实存在"愿意付费"的真实需求（可参考同类产品/课程/社群的销量或热度作为佐证）</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段01 ================= -->
+    <section class="phase" id="phase1">
+      <div class="phase-head"><span class="phase-num-badge">01</span><h2>营销底层框架：不背话术，理解通用逻辑</h2></div>
+      <div class="phase-meta">目标：把后面所有渠道的具体打法，都能套进同一套底层逻辑里理解，而不是死记硬背每个平台的操作步骤。</div>
+
+      <div class="sub">
+        <h3>1.1 人群-场景-钩子画布</h3>
+        <p>任何一次成功的营销行为，本质上都是回答清楚这三个问题：</p>
+        <table class="data">
+          <tr><th>要素</th><th>要回答的问题</th><th>常见错误</th></tr>
+          <tr><td>人群</td><td>具体是谁？他现在正在经历什么困扰？</td><td>定位太宽泛，比如"所有想赚钱的人"</td></tr>
+          <tr><td>场景</td><td>他在什么时间、什么平台、带着什么情绪刷到你？</td><td>不考虑场景，同一套文案投所有渠道</td></tr>
+          <tr><td>钩子</td><td>前3秒/前一行字，凭什么让他继续看下去？</td><td>先自我介绍再讲价值，而不是先讲价值</td></tr>
+        </table>
+
+        <h3>1.2 增长飞轮：AARRR 模型的通俗版</h3>
+        <div class="funnel">
+          <div class="funnel-row"><div class="label">获取 Acquisition</div><div class="bar" style="width:100%;background:var(--blue);">陌生人第一次看到你</div></div>
+          <div class="funnel-row"><div class="label">激活 Activation</div><div class="bar" style="width:82%;background:#3A5DA3;">他点开、看完、留下联系方式</div></div>
+          <div class="funnel-row"><div class="label">留存 Retention</div><div class="bar" style="width:64%;background:var(--teal);">他愿意再看你第二次内容</div></div>
+          <div class="funnel-row"><div class="label">转化 Revenue</div><div class="bar" style="width:40%;background:var(--gold);">他为你的产品付了第一笔钱</div></div>
+          <div class="funnel-row"><div class="label">推荐 Referral</div><div class="bar" style="width:22%;background:var(--purple);">他主动把你推荐给别人</div></div>
+        </div>
+        <p>这套手册里所有渠道的打法，本质上都是在优化这五个环节里的某一环。判断"要不要换渠道"或"要不要优化内容"之前，先搞清楚自己卡在哪一环，见阶段09的数据复盘方法论。</p>
+
+        <h3>1.3 内容-渠道-转化 三角关系</h3>
+        <p>免费营销和付费广告最大的区别在于：付费广告可以用钱买曝光量来弥补内容的短板，免费营销必须让"内容本身"承担获客、建立信任、促成转化三重任务。因此这本手册把绝大部分篇幅放在内容资产体系（阶段06）和分渠道免费打法（阶段03-05）上，付费投放（阶段07）作为锦上添花的补充手段。</p>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>贯穿全书的核心原则：<b>先把一个渠道做到"能稳定带来结果"，再复制到下一个渠道</b>。同时铺10个渠道，往往等于哪个都做不深，见阶段02的渠道选择矩阵。</div>
+        </div>
+
+        <h3>1.4 免费 vs 低成本广告：怎么分配精力</h3>
+        <table class="data">
+          <tr><th>维度</th><th>纯免费打法</th><th>低成本广告（辅助）</th></tr>
+          <tr><td>核心成本</td><td>时间和创作能力</td><td>少量预算 + 已验证有效的素材</td></tr>
+          <tr><td>适合阶段</td><td>0-1验证期，几乎所有阶段都需要</td><td>已验证内容有效、想加速放量时</td></tr>
+          <tr><td>风险</td><td>见效可能较慢，依赖持续输出</td><td>投错受众/素材烧钱无效果</td></tr>
+          <tr><td>本手册态度</td><td>重点讲解，占全书主要篇幅</td><td>作为可选加速器简要讲解，不强制</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================= 阶段02 ================= -->
+    <section class="phase" id="phase2">
+      <div class="phase-head"><span class="phase-num-badge">02</span><h2>全渠道地图总览</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：一眼看懂现在有哪些渠道可选，再结合自己的内容能力和目标人群，选出1-2个主战场。</div>
+
+      <div class="sub">
+        <h3>2.1 全景地图：四大类渠道</h3>
+        <div class="card-grid">
+          <div class="mini-card">
+            <div class="tags"><span class="track-tag domestic">国内</span></div>
+            <h4>国内内容/电商渠道</h4>
+            <p>小红书、抖音、视频号、知乎、B站、公众号、闲鱼、淘宝、拼多多、豆瓣</p>
+          </div>
+          <div class="mini-card">
+            <div class="tags"><span class="track-tag global">海外</span></div>
+            <h4>海外内容/社群渠道</h4>
+            <p>Reddit、X(Twitter)、TikTok、YouTube、LinkedIn、Pinterest、Facebook Group、Discord、Product Hunt、独立站SEO</p>
+          </div>
+          <div class="mini-card">
+            <div class="tags"><span class="track-tag new">前沿</span></div>
+            <h4>新技术渠道</h4>
+            <p>AI搜索/GEO/AEO、Web3与区块链社群营销、AR互动营销、Agent自动化分发</p>
+          </div>
+          <div class="mini-card">
+            <div class="tags"><span class="track-tag free">私域</span></div>
+            <h4>私域沉淀渠道</h4>
+            <p>微信社群/朋友圈、邮件列表、企业微信、Discord/Telegram社群、会员制社区</p>
+          </div>
+        </div>
+
+        <h3>2.2 渠道选择矩阵：按内容形式和获客速度筛选</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>渠道类型</th><th>擅长的内容形式</th><th>获客速度</th><th>长期复利性</th><th>适合人群</th></tr>
+          <tr><td>短视频类（抖音/视频号/TikTok）</td><td>15-60秒强钩子视频</td><td>快，可能单条爆发</td><td>中，依赖持续更新</td><td>敢出镜、擅长口播或剪辑</td></tr>
+          <tr><td>图文种草类（小红书/Pinterest）</td><td>3-9张图+短文案</td><td>中等</td><td>高，笔记长尾搜索流量持续</td><td>擅长排版和视觉表达</td></tr>
+          <tr><td>问答/专业类（知乎/Reddit/Quora）</td><td>长文深度回答</td><td>慢，但精准度高</td><td>很高，长期被搜索引用</td><td>擅长文字、有专业积累</td></tr>
+          <tr><td>社群/论坛类（Facebook群/Discord/豆瓣）</td><td>真诚讨论+适度分享</td><td>慢，靠信任积累</td><td>高，社群关系是复利资产</td><td>愿意长期泡在社群里</td></tr>
+          <tr><td>长文/播客类（公众号/B站/YouTube）</td><td>系统化深度内容</td><td>慢</td><td>很高，转化率通常最高</td><td>有系统性方法论输出能力</td></tr>
+          <tr><td>SEO/AI搜索类（独立站/GEO优化）</td><td>结构化长期内容</td><td>很慢，3-6个月见效</td><td>极高，几乎零边际成本获客</td><td>愿意做长期投入</td></tr>
+        </table>
+        </div>
+
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>新手最常见的错误不是"选错渠道"，而是"同时铺开5-6个渠道，每个都浅尝辄止"。建议先用下面的自测选出1个主渠道+1个备用渠道，投入至少4周再评估，而不是每周都在换赛道。</div>
+        </div>
+
+        <h3>2.2b 渠道快速参考：冷启动难度与见效周期</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>渠道</th><th>冷启动难度</th><th>预期见效周期</th><th>是否需要出镜/真人</th></tr>
+          <tr><td>小红书</td><td>低</td><td>2-4周</td><td>可选，图文即可</td></tr>
+          <tr><td>抖音/视频号</td><td>中</td><td>2-6周</td><td>建议但非必须</td></tr>
+          <tr><td>知乎</td><td>中</td><td>1-3个月</td><td>不需要</td></tr>
+          <tr><td>公众号</td><td>高</td><td>3-6个月</td><td>不需要</td></tr>
+          <tr><td>Reddit</td><td>中，规则门槛高</td><td>2-8周</td><td>不需要</td></tr>
+          <tr><td>X (Twitter)</td><td>中</td><td>1-3个月</td><td>不需要</td></tr>
+          <tr><td>TikTok/YouTube Shorts</td><td>低到中</td><td>1-4周</td><td>建议但非必须</td></tr>
+          <tr><td>YouTube长视频</td><td>高</td><td>3-6个月</td><td>建议</td></tr>
+          <tr><td>独立站SEO</td><td>高，需持续投入</td><td>3-6个月起</td><td>不需要</td></tr>
+        </table>
+        </div>
+
+        <h3>2.3 三题自测：选出你的主战场</h3>
+        <table class="data">
+          <tr><th>问题</th><th>倾向图文/短视频类</th><th>倾向长文/专业类</th><th>倾向社群/私域类</th></tr>
+          <tr><td>我更擅长哪种表达</td><td>视觉呈现、剪辑</td><td>文字逻辑、深度分析</td><td>一对一沟通、社群氛围营造</td></tr>
+          <tr><td>我能接受多快看到反馈</td><td>1-2周想看到数据</td><td>可以接受1-2个月</td><td>可以接受更长期的关系积累</td></tr>
+          <tr><td>目标产品客单价</td><td>低客单价、冲动消费型</td><td>中高客单价、需要建立信任</td><td>高客单价、需要深度信任或复购</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================= 阶段03 ================= -->
+    <section class="phase" id="phase3">
+      <div class="phase-head"><span class="phase-num-badge">03</span><h2>国内渠道打法库</h2><span class="track-tag domestic">国内</span></div>
+      <div class="phase-meta">目标：拿到每个国内主流渠道"从0开始免费获客"的具体操作步骤，可以直接照做。</div>
+
+      <div class="sub">
+        <h3>3.1 小红书：种草+搜索双引擎</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>账号定位</strong><span>账号简介一句话说清楚"你是谁、能帮谁解决什么问题"，头像/昵称统一辨识度</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>选题库搭建</strong><span>用"搜索框联想词+同类爆款笔记评论区高频问题"两个来源，攒够20个选题再开始更新，避免边做边想</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>笔记结构</strong><span>封面图3秒抓眼球（数字/对比/悬念） + 正文前两行说结果不说过程 + 结尾自然引导评论区互动或主页链接</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>发布节奏</strong><span>前2周每周至少3篇稳定测试哪类选题/封面风格数据更好，找到规律后再固定节奏</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>评论区运营</strong><span>前30分钟是流量池判断关键期，务必逐条回复评论提升互动率，互动率是笔记能否破圈的核心信号</span></div></div>
+        </div>
+        <div class="callout tip"><div class="icon">💡</div><div>小红书本质是"搜索引擎+社交推荐"的混合体，一篇笔记可能在发布半年后仍通过搜索持续带来流量，因此标题和正文的关键词布局比其他平台更重要，参考阶段06的SEO/GEO写法。</div></div>
+
+        <h3>3.2 抖音 / 视频号：短视频强钩子逻辑</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>黄金3秒法则</strong><span>视频开头必须是冲突/结果/提问三选一，不要用"大家好我是..."作为开场</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>信息密度</strong><span>每3-5秒需要有一个新的信息点或画面变化，避免长时间静止讲话导致划走</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>完播率优先</strong><span>视频时长宁短勿长，新手建议控制在30-60秒，先保证完播率再逐步加长</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>视频号私域联动</strong><span>视频号内容可直接导流到个人微信/企业微信，是国内少数能自然连接公域和私域的渠道，适合做深度信任转化</span></div></div>
+        </div>
+
+        <h3>3.3 知乎：专业信任型渠道</h3>
+        <p>核心打法是"找到已经有搜索量的问题，写出全网最完整的回答"。用知乎自带搜索框+"热榜"功能找到目标人群正在问的具体问题，回答结构建议：先给结论，再展开论证，最后附上可执行的步骤清单，比空谈理论更容易被顶到高赞。</p>
+
+        <h3>3.4 B站：中长视频深度内容</h3>
+        <p>适合系统性方法论输出，比如把这套营销体系拆解成一个系列合集视频。B站用户对"实操演示+人格化表达"接受度高，可以适度展示真实操作过程（比如录屏演示如何在小红书发第一篇笔记），比单纯口播更有说服力。</p>
+
+        <h3>3.5 公众号：深度长文+私域沉淀</h3>
+        <p>公众号增长红利已过，但仍是私域沉淀的重要一环——通过短视频/图文平台导流关注公众号，用深度长文建立专业信任，再引导添加个人微信或进社群，形成完整的"公域获客→私域转化"闭环。</p>
+
+        <h3>3.6 闲鱼 / 淘宝 / 拼多多：电商侧免费流量</h3>
+        <table class="data">
+          <tr><th>平台</th><th>免费流量打法</th><th>适合品类</th></tr>
+          <tr><td>闲鱼</td><td>标题堆砌长尾关键词、"想要"功能主动蹲守求购帖、动态发布保持账号活跃度</td><td>数字产品模板、二手实体商品、低客单价工具包</td></tr>
+          <tr><td>淘宝</td><td>标题关键词优化+详情页承接搜索流量，早期靠"淘客/达人分销"获取免费曝光</td><td>标准化实体商品、有供应链的品类</td></tr>
+          <tr><td>拼多多</td><td>低价引流款+"多多进宝"分销联盟，靠低价和分销员免费带量</td><td>高性价比实体商品</td></tr>
+        </table>
+
+        <h3>3.7 豆瓣：小众垂直社区</h3>
+        <p>豆瓣小组仍是国内为数不多"去中心化、重内容质量"的社区，适合垂直度极高的选题（比如读书方法、考研经验、小众爱好）。核心打法是先在小组里做真实的价值贡献型发帖（不是广告），积累几个月的信任后再自然植入产品链接。</p>
+
+        <h3>3.8 分平台标题公式速查（可直接套用）</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>平台</th><th>标题公式</th><th>示例</th></tr>
+          <tr><td>小红书</td><td>数字+人群+反差结果</td><td>"0预算3个月，我一个人把笔记做到日均500曝光"</td></tr>
+          <tr><td>抖音</td><td>提问+悬念</td><td>"为什么你的视频总是没人看完？可能是这3秒错了"</td></tr>
+          <tr><td>知乎</td><td>直接对应问题+承诺完整度</td><td>"零基础怎么做内容营销？这可能是最完整的一份回答"</td></tr>
+          <tr><td>公众号</td><td>结果前置+具体方法暗示</td><td>"我是怎么用一套模板，把转化率翻了一倍的"</td></tr>
+          <tr><td>B站</td><td>系列感+干货承诺</td><td>"营销小白进阶合集(1)：选题的底层逻辑"</td></tr>
+        </table>
+        </div>
+
+        <h3>3.9 各平台常见踩坑速查</h3>
+        <table class="data">
+          <tr><th>平台</th><th>常见坑</th><th>规避方式</th></tr>
+          <tr><td>小红书</td><td>笔记开篇即打广告导致限流</td><td>先给价值再引导，广告类关键词自然融入而非堆砌</td></tr>
+          <tr><td>抖音</td><td>视频过度剪辑导致信息密度过高，用户跟不上</td><td>保留必要的呼吸感，每个信息点停留至少1-2秒</td></tr>
+          <tr><td>知乎</td><td>回答被判定为"营销号"内容降权</td><td>先输出真实观点和论证，链接/产品信息放在回答末尾且不过度堆砌</td></tr>
+          <tr><td>公众号</td><td>标题党导致打开率虚高但完读率低，长期影响账号权重</td><td>标题真实反映内容，避免过度夸大</td></tr>
+        </table>
+
+        <div class="checklist">
+          <div class="cl-title">阶段03验收清单</div>
+          <label><input type="checkbox"> 已确定1个国内主渠道并完成账号搭建（简介/头像/昵称统一定位）</label>
+          <label><input type="checkbox"> 已积累至少20条选题库，不用边做边想选题</label>
+          <label><input type="checkbox"> 已连续稳定发布至少2周，并记录每篇内容的基础数据</label>
+          <label><input type="checkbox"> 已套用至少一条标题公式并测试效果</label>
+          <label><input type="checkbox"> 已确认自己的内容不会踩中该平台的常见限流坑</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段04 ================= -->
+    <section class="phase" id="phase4">
+      <div class="phase-head"><span class="phase-num-badge">04</span><h2>海外渠道打法库</h2><span class="track-tag global">海外</span></div>
+      <div class="phase-meta">目标：拿到主流海外渠道的免费获客操作步骤，语言门槛不高，AI翻译润色可以辅助起步。</div>
+
+      <div class="sub">
+        <h3>4.1 Reddit：社群规则最严格但转化最精准</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>先潜水再发言</strong><span>加入目标 subreddit 后先观察至少1-2周社区文化和规则（每个板块都有独立的自我推广规则，通常写在侧边栏 Rules 里）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>90/10 原则</strong><span>90%的发言是真诚参与讨论、回答别人的问题，只有10%左右适度带出自己的产品，比例反过来极易被封号或被社区嫌弃</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>用故事代替广告</strong><span>比起直接甩链接，"我是怎么解决这个问题的"这种个人故事型分享，在Reddit的接受度和转化率都更高</span></div></div>
+        </div>
+
+        <h3>4.2 X (Twitter)：建立个人影响力的主战场</h3>
+        <p>核心是"Build in Public"（公开构建）文化——持续分享产品开发/内容创作过程中的真实进展、遇到的问题、学到的经验，逐渐积累关注者对你的信任，这批粉丝后续转化率远高于陌生广告触达的用户。配合 Thread（长推文串）讲清楚一个完整方法论，是知识型产品在X上最有效的内容形式。</p>
+
+        <h3>4.3 TikTok / YouTube Shorts：全球短视频流量池</h3>
+        <p>打法逻辑与国内抖音类似（黄金3秒、完播率优先），区别在于TikTok的算法对新账号相对友好，冷启动阶段即使0粉丝也有机会获得较大自然流量池测试，适合用同一支视频的不同语言版本做多市场测试。</p>
+
+        <h3>4.4 YouTube：长视频SEO复利最强的渠道</h3>
+        <p>YouTube本质是"视频形式的搜索引擎"，标题和描述的关键词布局直接决定长期能否被搜到。一条制作精良的教程类长视频，可能在发布1-2年后仍持续带来搜索流量，是所有免费渠道里长期复利性最强的之一，但前期制作和SEO学习成本也更高。</p>
+
+        <h3>4.5 LinkedIn：面向B端和职场人群</h3>
+        <p>如果目标产品是面向自由职业者、企业内部人员或B端客户，LinkedIn的免费内容打法（专业观点+职业故事+适度数据佐证）转化质量通常优于其他社交平台，且天然带有职业身份背书，适合做订阅制/企业培训类产品的冷启动。</p>
+
+        <h3>4.6 Facebook Group / Discord / 独立论坛</h3>
+        <p>与Reddit逻辑类似，先找到目标人群聚集的垂直社群，长期真诚参与讨论，再适度分享。Discord近年成为独立开发者/创作者社群的重要阵地，适合边做产品边通过服务器沉淀早期种子用户，形成"边开发边营销"的公开构建效应。</p>
+
+        <h3>4.7 Product Hunt：数字产品/工具类的冷启动引爆点</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>上线前预热</strong><span>提前在个人社交账号预告产品即将上线，积累"上线当天投票"的种子支持者</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>选对上线时间</strong><span>通常建议选择工作日、美国时间零点后不久发布，给足24小时曝光窗口期</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>上线当天全程互动</strong><span>及时回复每一条评论，能显著提升当日排名和后续自然流量</span></div></div>
+        </div>
+
+        <h3>4.8 独立站 SEO：几乎零边际成本的长期渠道</h3>
+        <p>为落地页/产品站点做基础SEO（关键词布局、合理标题层级、内链结构），虽然见效慢（通常3-6个月），但一旦被搜索引擎收录并稳定排名，几乎不需要额外投入就能持续带来免费流量，是本手册强烈建议"顺手做"的长期动作，具体方法参考阶段05的AI搜索优化（GEO/AEO）章节。</p>
+
+        <h3>4.9 海外内容钩子公式速查</h3>
+        <table class="data">
+          <tr><th>渠道</th><th>钩子公式</th><th>示例</th></tr>
+          <tr><td>Reddit</td><td>真实经历+具体数字</td><td>"I spent $0 and got my first 100 users in 30 days — here's exactly what I did"</td></tr>
+          <tr><td>X (Twitter)</td><td>反常识观点开头</td><td>"Everyone tells you to post daily. I posted once a week and grew faster. Here's why."</td></tr>
+          <tr><td>TikTok/Shorts</td><td>前3秒抛出结果再倒叙</td><td>开场直接展示最终效果画面，再说"这是我怎么做到的"</td></tr>
+          <tr><td>YouTube</td><td>标题包含明确可搜索关键词+承诺完整度</td><td>"The Complete Guide to Free Marketing for Beginners (2026)"</td></tr>
+        </table>
+
+        <h3>4.10 海外渠道常见踩坑</h3>
+        <table class="data">
+          <tr><th>渠道</th><th>常见坑</th><th>规避方式</th></tr>
+          <tr><td>Reddit</td><td>违反90/10原则被社区举报/封号</td><td>严格控制自我推广比例，多参与真实讨论</td></tr>
+          <tr><td>X</td><td>只发广告型内容，无人互动</td><td>结合Build in Public，展示真实过程而非只发成果</td></tr>
+          <tr><td>YouTube</td><td>标题党导致差评和留存率下降，反而影响推荐权重</td><td>标题真实匹配内容，把悬念留给内容本身</td></tr>
+          <tr><td>Product Hunt</td><td>上线当天无人支持，排名迅速下滑</td><td>提前至少1-2周预热积累种子支持者</td></tr>
+        </table>
+
+        <div class="checklist">
+          <div class="cl-title">阶段04验收清单</div>
+          <label><input type="checkbox"> 已确定1个海外主渠道并了解该社区的自我推广规则</label>
+          <label><input type="checkbox"> 内容已用AI辅助翻译并经过人工/母语者审核，语义无偏差</label>
+          <label><input type="checkbox"> 已规划好独立站的基础SEO设置（标题、描述、关键词）</label>
+          <label><input type="checkbox"> 已套用至少一条钩子公式并测试效果</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段05 ================= -->
+    <section class="phase" id="phase5">
+      <div class="phase-head"><span class="phase-num-badge">05</span><h2>前沿渠道：Web3 / AI搜索 / AR / 私域自动化</h2><span class="track-tag new">前沿</span></div>
+      <div class="phase-meta">目标：了解正在崛起、但还没被大多数人重视的新兴营销阵地，提前布局能拿到更低成本的注意力红利。</div>
+
+      <div class="sub">
+        <h3>5.1 AI搜索时代的营销：GEO / AEO 是什么</h3>
+        <p>随着越来越多用户直接向 ChatGPT / DeepSeek / Perplexity / 豆包等AI助手提问而不是打开搜索引擎，"让AI在回答问题时引用/推荐你的内容"正在成为新的流量入口，这就是 GEO（生成式引擎优化）和 AEO（答案引擎优化）。</p>
+        <table class="data">
+          <tr><th>传统SEO</th><th>GEO / AEO</th></tr>
+          <tr><td>优化目标是排在搜索结果第一页</td><td>优化目标是被AI直接引用或推荐</td></tr>
+          <tr><td>关键词密度和外链权重是核心信号</td><td>内容的结构化程度、可信度、明确的问答格式更重要</td></tr>
+          <tr><td>用户看到链接后需要点击才能获取信息</td><td>用户可能直接采纳AI给出的答案，你需要在答案里"被提及"</td></tr>
+        </table>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>内容结构化</strong><span>用清晰的标题层级、要点列表、FAQ格式组织内容，方便AI抓取和引用，而不是大段无结构的文字</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>直接回答问题</strong><span>每个章节开头用一两句话直接给出结论，再展开论证——这符合AI摘要和引用的偏好逻辑</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>建立可信来源信号</strong><span>在多个平台（知乎、公众号、独立站）用一致的表述反复沉淀同一套方法论，提高被AI判定为"权威来源"的概率</span></div></div>
+        </div>
+        <div class="callout new"><div class="icon">🤖</div><div>这本手册本身在写作时就有意识地采用了结构化、问答式的内容组织方式，某种程度上也是在做一次GEO实践——你可以把这当作一个活教材来观察和学习。</div></div>
+
+        <h3>5.2 Web3 / 区块链社群营销</h3>
+        <p>如果目标人群本身活跃在加密/Web3圈层，Discord和Telegram社群运营、以及围绕NFT/代币激励设计的"任务式传播"（比如完成分享/邀请任务获得社区身份或积分），是这个圈层特有的低成本获客方式。核心原则和传统社群运营一致：先提供真实价值，再谈激励和传播，避免陷入纯粹的空投/薅羊毛式流量，这类流量转化质量通常很差。</p>
+        <div class="callout warn"><div class="icon">⚠️</div><div>Web3营销领域存在大量监管不确定性，尤其涉及代币发行、收益承诺类表述时风险极高，务必参考阶段12的合规红线，避免触碰"证券化代币""收益保证"等敏感表述。</div></div>
+
+        <h3>5.3 AR / 互动式营销</h3>
+        <p>AR滤镜（如小红书/抖音/Instagram的品牌特效）和轻量互动网页（H5小游戏、测试类互动页）能显著提升内容的分享率和停留时长。对个人/小团队而言，门槛较高的3D建模可以先跳过，优先尝试用现成的AI工具生成互动式H5测试页（比如"测测你适合哪种营销打法"），成本远低于开发完整AR应用，却能获得类似的传播效果。</p>
+
+        <h3>5.4 Agent / 自动化分发网络</h3>
+        <p>随着AI Agent工具的普及，"一次创作、多平台自动分发"的自动化程度正在提高（比如用工具把一篇长文自动拆解成小红书笔记+推文串+短视频脚本三种格式）。这类工具能大幅节省重复劳动，但内容的核心洞察和真实性判断仍然需要人工把关，具体工具清单见阶段08。</p>
+
+        <h3>5.5 私域自动化：让免费流量沉淀为长期资产</h3>
+        <p>无论从哪个公域渠道获客，最终都建议引导用户沉淀到你能反复触达、不受平台算法左右的私域（个人微信/企业微信群/邮件列表/Discord服务器）。私域的价值在于复购和转介绍成本极低，是整套体系里"复利最强"的资产，建议从第一天起就规划好私域承接路径，而不是等公域流量做起来了才补课。</p>
+
+        <div class="checklist">
+          <div class="cl-title">阶段05验收清单</div>
+          <label><input type="checkbox"> 已了解GEO/AEO基本逻辑，并在自己的内容中尝试结构化、问答式写法</label>
+          <label><input type="checkbox"> 已规划好私域承接入口（个人微信/社群/邮件列表任选其一）</label>
+          <label><input type="checkbox"> 如涉及Web3/AR等前沿渠道，已确认不触碰阶段12的合规红线</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段06 ================= -->
+    <section class="phase" id="phase6">
+      <div class="phase-head"><span class="phase-num-badge">06</span><h2>内容资产体系：白皮书 / 电子书 / 案例研究 / 挑战话题</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：把免费获客的核心弹药——内容——按几种可复用的形式系统化生产出来，而不是每次都从零开始想创意。</div>
+
+      <div class="sub">
+        <h3>6.1 六种内容资产形式对照表</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>形式</th><th>作用</th><th>适合渠道</th><th>制作成本</th></tr>
+          <tr><td>白皮书 / 行业报告</td><td>建立专业权威感，适合作为"留资钩子"</td><td>公众号、独立站、LinkedIn</td><td>中高，需要数据整理</td></tr>
+          <tr><td>电子书 / H5知识手册</td><td>系统化交付方法论，可直接作为产品</td><td>各渠道通用，作为落地页赠品或正式产品</td><td>中，本手册即是此类</td></tr>
+          <tr><td>案例研究 Case Study</td><td>用真实结果建立信任，是转化率最高的内容形式之一</td><td>知乎、独立站、销售落地页</td><td>低，前提是有真实案例可写</td></tr>
+          <tr><td>挑战话题 / Hashtag Challenge</td><td>激发UGC传播，借助参与者的社交关系链扩散</td><td>抖音、小红书、TikTok</td><td>中，需要设计清晰的参与规则</td></tr>
+          <tr><td>模板 / 工具包</td><td>降低用户使用门槛，本身就是极强的传播钩子（"求资源"心理）</td><td>各渠道通用</td><td>低到中，可复用已有素材</td></tr>
+          <tr><td>UGC 共创内容</td><td>用真实用户声音做社会证明，成本最低、可信度最高</td><td>各渠道通用</td><td>低，但需要设计激励机制</td></tr>
+        </table>
+        </div>
+
+        <h3>6.2 案例研究写作公式（转化率最高的形式）</h3>
+        <div class="example">
+          <div class="ex-label">结构公式</div>
+          <p style="margin:0;"><b>背景</b>（这个人/这家公司之前遇到什么具体困境）→ <b>尝试过什么但没用</b>（增加可信度，避免显得太顺利）→ <b>用了什么方法</b>（自然带出你的产品/方法论）→ <b>具体可衡量的结果</b>（数字化呈现，越具体越可信）→ <b>可复制的启发</b>（读者能带走的行动建议）</p>
+        </div>
+
+        <h3>6.3 挑战话题设计三要素</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>低参与门槛</strong><span>参与动作必须简单到"看完就能立刻做"，比如"晒出你用这套模板做的第一版落地页"</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>自带传播理由</strong><span>参与者分享的内容本身要能给他自己带来价值感或炫耀感，而不只是为了帮你宣传</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>明确激励机制</strong><span>哪怕只是"精选3条送额外资料包"这种低成本激励，也比完全没有反馈机制的挑战参与率高得多</span></div></div>
+        </div>
+
+        <h3>6.4 内容生产SOP：一次创作，多平台复用</h3>
+        <p>建议按"核心长文（知乎/公众号）→ 拆解成图文笔记（小红书）→ 拆解成短视频脚本（抖音/TikTok）→ 拆解成社交媒体短文案（X/朋友圈）"的顺序复用同一份核心洞察，大幅降低内容生产的边际成本。AI工具可以辅助完成格式转换，但每个平台的语感和钩子仍需要人工微调，见阶段08工具箱。</p>
+
+        <h3>6.5 文案公式库（可直接套用）</h3>
+        <p>以下是本手册整理的通用文案公式，覆盖标题、开篇、正文说服、结尾行动号召四个环节，可以直接套用到任意渠道，只需替换括号里的具体内容。</p>
+
+        <h4>标题公式</h4>
+        <table class="data">
+          <tr><th>公式</th><th>示例</th></tr>
+          <tr><td>数字 + 时间 + 结果</td><td>"7天，0预算，从0到第一个真实用户"</td></tr>
+          <tr><td>反常识 + 解释</td><td>"我不投广告，反而获客成本更低——原因是这个"</td></tr>
+          <tr><td>人群 + 痛点 + 解决方案暗示</td><td>"没有团队的独立创业者，怎么一个人做完整套营销"</td></tr>
+          <tr><td>对比型</td><td>"同样是发笔记，为什么他的能上热门而你的不能"</td></tr>
+        </table>
+
+        <h4>开篇钩子公式</h4>
+        <table class="data">
+          <tr><th>类型</th><th>公式</th><th>示例</th></tr>
+          <tr><td>痛点直击</td><td>用读者自己的话描述他正在经历的困扰</td><td>"你是不是也试过发了十几篇笔记，阅读量还是卡在两位数"</td></tr>
+          <tr><td>结果前置</td><td>先展示结果，再倒叙讲过程</td><td>"这是我上个月的后台数据截图，接下来说说我具体做了什么"</td></tr>
+          <tr><td>提问引导</td><td>用一个读者会点头认同的问题开场</td><td>"你有没有想过，为什么同样的内容别人能火，你的却没人看"</td></tr>
+        </table>
+
+        <h4>正文说服结构（PAS公式）</h4>
+        <div class="example">
+          <div class="ex-label">Problem-Agitate-Solution</div>
+          <p style="margin:0;"><b>Problem</b>（点出具体问题）→ <b>Agitate</b>（放大这个问题带来的真实影响，让读者产生共鸣）→ <b>Solution</b>（给出你的解决方案，自然带出产品/方法）</p>
+        </div>
+
+        <h4>结尾行动号召（CTA）公式</h4>
+        <table class="data">
+          <tr><th>场景</th><th>CTA示例</th></tr>
+          <tr><td>引导互动</td><td>"你在获客上卡在哪一步？评论区告诉我，抽3位朋友送资料包"</td></tr>
+          <tr><td>引导私域</td><td>"完整版工具包和模板整理在主页，需要的话可以直接看简介"</td></tr>
+          <tr><td>引导购买</td><td>"如果这套方法对你有用，完整版包含了所有可直接套用的模板和脚本，链接在评论区第一条"</td></tr>
+        </table>
+
+        <h3>6.6 案例库：三个真实场景示例（用于学习案例研究写法）</h3>
+        <div class="example">
+          <div class="ex-label">案例一 · 数字产品冷启动</div>
+          <p style="margin:0;"><b>背景：</b>一位独立开发者做了一个效率工具，上线后无人问津。<b>尝试过但没用：</b>直接在多个群里甩链接，被移出群聊。<b>方法：</b>改为先在Reddit相关板块分享"我做这个工具解决了自己的什么问题"的真实经历，评论区自然带出链接。<b>结果：</b>两周内获得47个真实注册用户。<b>启发：</b>先讲故事再带产品，比直接推销转化率更高。</p>
+        </div>
+        <div class="example">
+          <div class="ex-label">案例二 · 实体产品小红书冷启动</div>
+          <p style="margin:0;"><b>背景：</b>一个手工饰品小卖家，闲鱼上架数月无成交。<b>尝试过但没用：</b>只发产品图和价格，没人关注。<b>方法：</b>转向小红书发布"制作过程+搭配教程"类内容，产品作为内容的自然延伸而非主角。<b>结果：</b>第3篇笔记获得小范围曝光后带来首批询单。<b>启发：</b>内容平台的转化逻辑是"先被内容吸引，再对产品产生兴趣"，顺序不能颠倒。</p>
+        </div>
+        <div class="example">
+          <div class="ex-label">案例三 · 知识付费产品知乎冷启动</div>
+          <p style="margin:0;"><b>背景：</b>一位职场培训师想推广自己的课程。<b>尝试过但没用：</b>直接在回答里插入课程链接，被折叠。<b>方法：</b>找到目标人群高频搜索的具体问题，写出全网最完整的免费回答，结尾自然提及"更系统的内容整理成了一份课程"。<b>结果：</b>单篇回答持续6个月带来稳定询单。<b>启发：</b>知乎的长尾搜索流量价值远超发布当天的曝光，重内容质量而非追热点。</p>
+        </div>
+
+        <h3>6.7 完整落地页文案模板（可直接填空使用）</h3>
+        <p>以下是一份可直接套用的落地页文案骨架，方括号内为需要替换的占位内容，结构参照阶段06.5的文案公式组合而成：</p>
+        <div class="example">
+          <div class="ex-label">落地页文案骨架</div>
+          <p style="margin:0 0 8px;"><b>【顶部一句话价值主张】</b>给 [具体人群]，[具体形式的产品]，让你不需要 [常见障碍] 也能 [具体结果]。</p>
+          <p style="margin:0 0 8px;"><b>【痛点共鸣段】</b>你是不是也遇到过：[痛点1]、[痛点2]、[痛点3]？这些问题的根源其实是 [核心原因]。</p>
+          <p style="margin:0 0 8px;"><b>【解决方案段】</b>[产品名] 通过 [核心方法/结构]，帮你系统化解决这个问题，具体包含：[要点1]、[要点2]、[要点3]。</p>
+          <p style="margin:0 0 8px;"><b>【证据段】</b>[真实案例/数据/用户原话，引用阶段06.6的案例库写法]</p>
+          <p style="margin:0 0 8px;"><b>【降低决策门槛段】</b>价格：[定价]；退款政策：[具体承诺]；常见问题：[FAQ 2-3条]</p>
+          <p style="margin:0;"><b>【行动号召】</b>[具体的下一步动作，如"立即获取"按钮文案]</p>
+        </div>
+
+        <h3>6.8 30天内容选题库模板（可直接套用，替换括号内容）</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>天数</th><th>选题方向</th></tr>
+          <tr><td>Day 1-3</td><td>[目标人群]最常遇到的3个痛点各写一篇</td></tr>
+          <tr><td>Day 4-6</td><td>拆解1个同行/竞品做得好的案例，分析可借鉴之处</td></tr>
+          <tr><td>Day 7-9</td><td>分享你自己踩过的坑和真实教训</td></tr>
+          <tr><td>Day 10-12</td><td>给出一份可直接套用的工具/模板/清单</td></tr>
+          <tr><td>Day 13-15</td><td>回答粉丝评论区里出现频率最高的3个问题</td></tr>
+          <tr><td>Day 16-18</td><td>对比2-3种常见方法/工具的优劣</td></tr>
+          <tr><td>Day 19-21</td><td>发布一篇深度案例研究（参照6.2公式）</td></tr>
+          <tr><td>Day 22-24</td><td>分享行业最新趋势/变化并给出应对建议</td></tr>
+          <tr><td>Day 25-27</td><td>发起一次挑战话题/互动活动（参照6.3）</td></tr>
+          <tr><td>Day 28-30</td><td>阶段性复盘：这30天学到的3个核心经验</td></tr>
+        </table>
+        </div>
+
+        <div class="checklist">
+          <div class="cl-title">阶段06验收清单</div>
+          <label><input type="checkbox"> 已产出至少1篇案例研究（哪怕是自己作为第一个用户的真实案例）</label>
+          <label><input type="checkbox"> 已建立内容选题库，不少于20条待产出选题</label>
+          <label><input type="checkbox"> 已规划好"一次创作多平台复用"的具体拆解路径</label>
+          <label><input type="checkbox"> 已收藏文案公式库，尝试套用至少2条到实际内容中</label>
+          <label><input type="checkbox"> 已用落地页模板填空出自己产品的完整文案初稿</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段07 ================= -->
+    <section class="phase" id="phase7">
+      <div class="phase-head"><span class="phase-num-badge">07</span><h2>低成本投放（可选加速器）</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：在免费渠道已经验证内容有效的前提下，用小额预算加速放量，而不是从一开始就依赖广告。</div>
+
+      <div class="sub">
+        <h3>7.1 什么时候该考虑投放</h3>
+        <div class="callout tip"><div class="icon">💡</div><div>只有当免费内容已经跑出"稳定的自然转化数据"时，付费投放才是在放大一个已验证的结果；如果免费内容本身还没验证有效，投放只会更快地把问题放大，浪费更多预算。</div></div>
+
+        <h3>7.2 各渠道最小投放起点参考</h3>
+        <table class="data">
+          <tr><th>渠道</th><th>起投建议</th><th>适合目标</th></tr>
+          <tr><td>小红书薯条</td><td>几十元/篇起</td><td>测试笔记点击率和咨询转化</td></tr>
+          <tr><td>抖音DOU+</td><td>几十元起</td><td>测试完播率和主页访问转化</td></tr>
+          <tr><td>Meta Ads</td><td>每天5-10美元</td><td>测试受众和素材反应</td></tr>
+          <tr><td>Google/Reddit Ads</td><td>每天5-15美元</td><td>搜索意图明确的场景转化率通常更高</td></tr>
+        </table>
+
+        <h3>7.3 小额投放SOP</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>只测一个变量</strong><span>每次投放只改变一个因素（受众、素材或文案），否则无法判断到底是什么带来了差异</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>保守预算起步</strong><span>新账户建议至少1-2周保持小额预算，观察数据稳定性再决定是否加大</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>每日人工查看数据</strong><span>不建议一开始就使用自动调价/自动加预算工具，人工判断更能结合真实业务逻辑</span></div></div>
+        </div>
+        <div class="callout warn"><div class="icon">⚠️</div><div>广告文案务必规避极限词和收益承诺类表述，详见阶段12合规红线，否则容易导致账户被封甚至面临行政处罚。</div></div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段08 ================= -->
+    <section class="phase" id="phase8">
+      <div class="phase-head"><span class="phase-num-badge">08</span><h2>自动化与AI工具箱</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：把已经验证有效的重复动作自动化，节省时间投入到内容创意和真实沟通这些机器替代不了的环节。这些脚本本身也是可以打包进产品交付物里的资产，见阶段10。</div>
+
+      <div class="sub">
+        <h3>8.1 自动化优先级路线图</h3>
+        <table class="data">
+          <tr><th>优先级</th><th>自动化内容</th><th>风险</th></tr>
+          <tr><td>先做</td><td>内容多平台格式转换、多语言翻译（人工审核后使用）</td><td>低</td></tr>
+          <tr><td>再做</td><td>数据抓取与整理、竞品监测、关键词挖掘</td><td>低到中</td></tr>
+          <tr><td>然后做</td><td>私信/评论自动回复模板</td><td>中，需定期人工抽查</td></tr>
+          <tr><td>最后做，且保留人工确认</td><td>自动发布、自动调整广告预算</td><td>高，涉及账号安全</td></tr>
+        </table>
+
+        <h3>8.2 实用 Python 脚本示例</h3>
+        <p>以下脚本均为通用逻辑示例，具体平台API/接口需以官方最新文档为准，实际使用前请确认目标平台是否允许此类自动化行为，避免违反平台规则导致封号。</p>
+
+        <h4>示例一：关键词选题挖掘（整理热门问题/评论高频词）</h4>
+        <pre><code>import re
+from collections import Counter
+
+def extract_keywords(text_list, stopwords, top_n=30):
+    """
+    从一批评论/问题文本中提取高频词，辅助选题挖掘
+    text_list: 文本列表，如爬取到的评论或问题标题
+    stopwords: 需要过滤的停用词表
+    """
+    all_words = []
+    for text in text_list:
+        # 简单的中文分词占位逻辑，实际建议使用 jieba 等分词库
+        words = re.findall(r'[\u4e00-\u9fa5]{2,6}', text)
+        all_words.extend([w for w in words if w not in stopwords])
+
+    counter = Counter(all_words)
+    return counter.most_common(top_n)
+
+# 使用示例
+comments = ["怎么免费引流", "小白怎么做营销", "预算不够怎么办", "..."]
+stopwords = {"我们", "这个", "什么"}
+top_keywords = extract_keywords(comments, stopwords)
+print("高频选题关键词：", top_keywords)</code></pre>
+
+        <h4>示例二：内容多平台格式转换（调用AI API批量拆解长文）</h4>
+        <pre><code>import requests
+import json
+
+def repurpose_content(long_article, target_platform, api_key):
+    """
+    把一篇长文自动拆解成指定平台的格式
+    target_platform: "xiaohongshu" / "douyin_script" / "twitter_thread"
+    """
+    prompt_map = {
+        "xiaohongshu": "把以下长文改写成一篇小红书图文笔记，要求：3秒抓眼球的标题+分段短句+结尾自然引导互动",
+        "douyin_script": "把以下长文改写成一条60秒短视频口播脚本，要求前3秒必须是冲突或结果",
+        "twitter_thread": "把以下长文拆解成一个8条推文的Thread，每条不超过280字符"
+    }
+
+    response = requests.post(
+        "https://api.anthropic.com/v1/messages",
+        headers={"Content-Type": "application/json", "x-api-key": api_key},
+        json={
+            "model": "claude-sonnet-4-6",
+            "max_tokens": 1500,
+            "messages": [{
+                "role": "user",
+                "content": f"{prompt_map[target_platform]}\n\n原文：{long_article}"
+            }]
+        }
+    )
+    return response.json()["content"][0]["text"]
+
+# 使用示例
+result = repurpose_content(long_article="...", target_platform="xiaohongshu", api_key="YOUR_KEY")
+print(result)</code></pre>
+
+        <h4>示例三：数据看板自动汇总（多渠道数据统一整理）</h4>
+        <pre><code>import csv
+from datetime import datetime
+
+def aggregate_channel_data(channel_csvs, output_path):
+    """
+    把多个渠道各自导出的CSV数据文件，统一汇总成一张周报表
+    channel_csvs: {"渠道名": "文件路径"} 的字典
+    """
+    summary = []
+    for channel, path in channel_csvs.items():
+        with open(path, newline='', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            total_views = sum(int(row.get("views", 0)) for row in reader)
+        summary.append({"渠道": channel, "总曝光": total_views, "统计日期": datetime.now().strftime("%Y-%m-%d")})
+
+    with open(output_path, "w", newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=["渠道", "总曝光", "统计日期"])
+        writer.writeheader()
+        writer.writerows(summary)
+
+    return summary
+
+# 使用示例
+data = aggregate_channel_data(
+    {"小红书": "xhs_data.csv", "抖音": "dy_data.csv"},
+    output_path="weekly_summary.csv"
+)
+print("本周汇总：", data)</code></pre>
+
+        <h4>示例四：多语言本地化批量翻译+术语一致性检查</h4>
+        <pre><code>import requests
+
+GLOSSARY = {
+    "落地页": "landing page",
+    "转化率": "conversion rate",
+    "私域": "owned audience"
+}
+
+def translate_with_glossary(text, target_lang, api_key):
+    """
+    调用AI翻译，并强制统一关键术语，避免同一个词在不同段落被翻译成不同表达
+    """
+    glossary_note = "；".join([f"{k}固定翻译为{v}" for k, v in GLOSSARY.items()])
+    prompt = f"将以下内容翻译为{target_lang}，术语要求：{glossary_note}\n\n原文：{text}"
+
+    response = requests.post(
+        "https://api.anthropic.com/v1/messages",
+        headers={"Content-Type": "application/json", "x-api-key": api_key},
+        json={
+            "model": "claude-sonnet-4-6",
+            "max_tokens": 2000,
+            "messages": [{"role": "user", "content": prompt}]
+        }
+    )
+    return response.json()["content"][0]["text"]
+
+# 使用示例：批量翻译一批落地页文案，保持术语统一
+sections = ["价值主张段落...", "FAQ段落...", "退款政策段落..."]
+translated = [translate_with_glossary(s, "English", "YOUR_KEY") for s in sections]</code></pre>
+
+        <h4>示例五：内容发布日历自动生成（辅助排期，不做自动发布）</h4>
+        <pre><code>from datetime import datetime, timedelta
+
+def generate_content_calendar(start_date, topics, posts_per_week=3):
+    """
+    根据选题库自动排出发布日历，仍需人工手动发布，
+    只做排期辅助，不涉及自动发布账号安全风险
+    """
+    calendar = []
+    current = datetime.strptime(start_date, "%Y-%m-%d")
+    interval_days = 7 // posts_per_week
+
+    for topic in topics:
+        calendar.append({"日期": current.strftime("%Y-%m-%d"), "选题": topic})
+        current += timedelta(days=interval_days)
+
+    return calendar
+
+# 使用示例
+topics = ["选题1：为什么你的笔记没流量", "选题2：三个免费获客渠道对比", "选题3：..."]
+plan = generate_content_calendar("2026-08-18", topics, posts_per_week=3)
+for row in plan:
+    print(row["日期"], "-", row["选题"])</code></pre>
+
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>核心原则不变：自动化只能重复执行"已经被人工验证过是对的"动作，不能替你做定价、文案核心创意、涉及资金的决策。各平台对批量/异常规律性自动化操作的检测越来越严格，使用前务必确认目标平台的服务条款。</div>
+        </div>
+
+        <h3>8.3 现成工具清单（无需写代码）</h3>
+        <table class="data">
+          <tr><th>用途</th><th>工具方向</th><th>说明</th></tr>
+          <tr><td>AI文案/翻译</td><td>DeepSeek、豆包、ChatGPT、Claude</td><td>国内文案优先用豆包/DeepSeek，语感更符合中文表达习惯</td></tr>
+          <tr><td>批量配图/短视频素材</td><td>即梦AI、Midjourney、剪映模板化生成</td><td>适合挑战话题类内容的批量物料生产</td></tr>
+          <tr><td>多平台内容排期</td><td>各平台自带创作者工具、第三方排期工具</td><td>注意排期工具本身是否符合平台规则</td></tr>
+          <tr><td>数据看板</td><td>飞书多维表格、Notion、简单的Excel/Sheets模板</td><td>初期不需要专门的BI工具，能记录趋势即可</td></tr>
+        </table>
+
+        <div class="checklist">
+          <div class="cl-title">阶段08验收清单</div>
+          <label><input type="checkbox"> 已识别出自己流程中至少1-2个可以自动化的重复动作</label>
+          <label><input type="checkbox"> 涉及发布/资金的自动化环节，已确认保留人工确认步骤</label>
+          <label><input type="checkbox"> 已确认所用自动化方式不违反目标平台服务条款</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段09 ================= -->
+    <section class="phase" id="phase9">
+      <div class="phase-head"><span class="phase-num-badge">09</span><h2>数据看板与增长复盘</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：用数据而不是感觉，判断该继续、调整还是放弃某个渠道或某种内容形式。</div>
+
+      <div class="sub">
+        <h3>9.1 核心指标速查表</h3>
+        <table class="data">
+          <tr><th>指标</th><th>计算方式</th><th>反映什么问题</th></tr>
+          <tr><td>曝光量</td><td>内容被展示的次数</td><td>渠道分发/算法推荐是否给了流量</td></tr>
+          <tr><td>点击率/完播率</td><td>点击或看完人数 ÷ 曝光量</td><td>标题/封面/前3秒钩子是否吸引人</td></tr>
+          <tr><td>互动率</td><td>点赞+评论+收藏 ÷ 曝光量</td><td>内容本身是否有价值感、引发共鸣</td></tr>
+          <tr><td>转化率</td><td>完成目标行为（购买/加微信/留资）人数 ÷ 到达人数</td><td>落地页/详情页的信任感和说服力是否足够</td></tr>
+          <tr><td>获客成本</td><td>投入总成本 ÷ 新增用户数</td><td>该渠道是否具备规模化放大的经济性</td></tr>
+        </table>
+
+        <h3>9.2 问题诊断对照表</h3>
+        <table class="data">
+          <tr><th>症状</th><th>可能原因</th><th>下一步动作</th></tr>
+          <tr><td>曝光低</td><td>标题/封面不够吸引、发布时间不对、账号权重低</td><td>优化钩子，测试不同标题封面组合，检查发布时段</td></tr>
+          <tr><td>曝光可以，点击/完播低</td><td>封面与内容不符、前几秒没抓住注意力</td><td>重新设计开头钩子，参考同类爆款结构</td></tr>
+          <tr><td>点击可以，转化为零</td><td>落地页信任感不足、价格/定位不匹配、购买路径太复杂</td><td>回到内容/落地页文案，补充信任要素，简化购买路径</td></tr>
+          <tr><td>转化可以，但复购/推荐低</td><td>产品交付体验不够好，或缺少后续触点</td><td>优化交付体验，规划私域后续触达节奏</td></tr>
+        </table>
+
+        <h3>9.3 用AI辅助分析，但不替你做决定</h3>
+        <p>把周期性数据整理成表格丢给AI做归因分析和趋势总结，能节省核对时间，但"继续投入/调整/放弃"的最终判断应基于真实业务逻辑和你能观察到的用户真实反馈情绪，AI看不到账户里真实的钱和真实的用户表情。</p>
+
+        <div class="checklist">
+          <div class="cl-title">阶段09验收清单</div>
+          <label><input type="checkbox"> 已建立至少一份跨渠道的数据记录表，每周更新</label>
+          <label><input type="checkbox"> 能清楚判断当前问题出在漏斗的哪一环（曝光/点击/转化/复购）</label>
+          <label><input type="checkbox"> 决策基于真实数据而非主观感觉</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段10 ================= -->
+    <section class="phase" id="phase10">
+      <div class="phase-head"><span class="phase-num-badge">10</span><h2>把体系产品化：具体交付形态设计</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：把阶段00的初步定位落地成一个真正可以标价、可以交付的产品包。</div>
+
+      <div class="sub">
+        <h3>10.1 五种交付形态对照</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>形态</th><th>典型定价区间</th><th>制作成本</th><th>优点</th><th>局限</th></tr>
+          <tr><td>H5知识手册/电子书</td><td>低到中</td><td>一次制作，边际成本趋近于0</td><td>门槛低、易传播、可作为更高阶产品的引流品</td><td>客单价天花板较低</td></tr>
+          <tr><td>工具包（模板+脚本）</td><td>中</td><td>需要打磨可直接套用的模板</td><td>"可落地"感强，复购/口碑传播率高</td><td>需要持续维护更新（平台规则会变）</td></tr>
+          <tr><td>视频课程</td><td>中到高</td><td>录制+剪辑成本较高</td><td>信任感强，适合系统化知识传递</td><td>制作周期长，更新成本高</td></tr>
+          <tr><td>付费社群/训练营</td><td>中到高</td><td>需要持续运营投入</td><td>客单价高、复购率高、能沉淀真实案例反哺内容</td><td>依赖运营者持续投入时间</td></tr>
+          <tr><td>轻量SaaS工具</td><td>订阅制，长期LTV高</td><td>技术开发成本最高</td><td>规模化后边际成本最低，护城河最深</td><td>需要技术能力或找到技术合伙人</td></tr>
+        </table>
+        </div>
+
+        <h3>10.2 阶梯式产品结构（推荐做法）</h3>
+        <p>不建议一开始就押注单一形态，更稳妥的做法是设计一个"从免费到高价"的阶梯，让不同信任程度的用户都能找到适合自己的入口：</p>
+        <div class="funnel">
+          <div class="funnel-row"><div class="label">引流品</div><div class="bar" style="width:100%;background:var(--teal);">免费H5手册精简版 / 免费模板</div></div>
+          <div class="funnel-row"><div class="label">入门品</div><div class="bar" style="width:75%;background:var(--blue);">完整版工具包（手册+脚本+模板）</div></div>
+          <div class="funnel-row"><div class="label">核心品</div><div class="bar" style="width:50%;background:var(--gold);">系统课程 / 训练营</div></div>
+          <div class="funnel-row"><div class="label">高价品</div><div class="bar" style="width:28%;background:var(--purple);">付费社群 / 1对1咨询 / SaaS订阅</div></div>
+        </div>
+
+        <h3>10.3 交付物具体清单示例（以"全域营销工具包"为例）</h3>
+        <ul>
+          <li>本手册的完整版 H5/PDF（自适应各屏幕，可离线保存）</li>
+          <li>阶段08的Python脚本打包，附带"每个空格填什么"的填空说明文档</li>
+          <li>分渠道SOP的可打印检查清单（对应阶段03-05每个渠道）</li>
+          <li>落地页/详情页/挑战话题的可直接套用模板</li>
+          <li>数据看板模板（飞书多维表格或Excel版本）</li>
+          <li>（进阶）专属社群或答疑通道，用于收集真实使用反馈迭代产品</li>
+        </ul>
+
+        <h3>10.4 定价参考区间（同类产品市场调研起点）</h3>
+        <table class="data">
+          <tr><th>形态</th><th>国内市场常见区间</th><th>海外市场常见区间</th></tr>
+          <tr><td>H5/电子书</td><td>9.9-99元</td><td>$5-$29</td></tr>
+          <tr><td>工具包（模板+脚本）</td><td>29-299元</td><td>$19-$99</td></tr>
+          <tr><td>视频课程</td><td>99-999元</td><td>$49-$299</td></tr>
+          <tr><td>付费社群/训练营</td><td>199-1999元/期</td><td>$99-$999/期</td></tr>
+          <tr><td>轻量SaaS订阅</td><td>19-99元/月</td><td>$9-$49/月</td></tr>
+        </table>
+        <p>以上区间仅供起步参考，具体定价仍需结合阶段01.2的定位、目标人群付费能力、以及阶段09数据验证后的真实转化情况调整，不建议照搬他人定价而不做自己的验证测试。</p>
+
+        <h3>10.5 产品命名的三个原则</h3>
+        <ul>
+          <li><b>直白优于聪明：</b>宁可平实地说清楚"这是什么、能帮你做到什么"，也不要用双关语或行业黑话让人猜不透</li>
+          <li><b>包含目标人群或场景词：</b>比如"独立创业者获客工具包"比"增长秘籍"更容易被搜索到、被精准人群一眼识别</li>
+          <li><b>预留系列化空间：</b>如果计划后续做多个产品，命名体系建议统一前缀或风格，方便建立品牌辨识度</li>
+        </ul>
+
+        <div class="checklist">
+          <div class="cl-title">阶段10验收清单</div>
+          <label><input type="checkbox"> 已确定第一版要交付的具体形态和交付物清单</label>
+          <label><input type="checkbox"> 已设计至少"免费引流品+付费核心品"两级阶梯结构</label>
+          <label><input type="checkbox"> 定价已参考同类产品/服务的市场区间，不是凭空拍脑袋</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段11 ================= -->
+    <section class="phase" id="phase11">
+      <div class="phase-head"><span class="phase-num-badge">11</span><h2>反身营销：如何营销"营销产品"本身</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：营销产品有一个天然优势——它本身就是最好的广告素材，因为你可以直接用它教的方法来卖它自己。这一阶段专门拆解这种"自证"打法。</div>
+
+      <div class="sub">
+        <h3>11.1 核心逻辑：用自己当第一个案例</h3>
+        <p>营销类产品最容易踩的坑是"教别人怎么获客，自己的产品却卖不动"——这会严重损害可信度。反过来，如果你能把打造和推广这个产品本身的全过程公开出来，本身就是最强的案例研究（对照阶段06的案例研究写作公式），比任何空洞的营销话术都有说服力。</p>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div><b>反身营销的黄金公式：</b>把你用这套体系冷启动这个产品本身的真实过程——包括踩过的坑、真实数据、花了多长时间——完整记录并公开，让"这本手册本身的冷启动过程"成为读者能看到的最有说服力的证据。</div>
+        </div>
+
+        <h3>11.2 具体打法清单</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>Build in Public（公开构建）</strong><span>在X/小红书/公众号持续更新"这套体系诞生的过程"，包括构思、测试、真实数据截图，参考阶段04.2的打法</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>把自己变成案例研究</strong><span>用阶段06.2的案例公式，写一篇"我是如何用这套方法论，让这个产品本身跑通第一批用户"的深度文章</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>免费引流品先行验证</strong><span>先发布手册的精简免费版本测试市场反馈和真实需求强度，再决定完整付费版的定价和形态，避免闭门造车</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>挑战话题反哺产品</strong><span>发起"晒出你用这套工具包做出的第一个结果"挑战（对照阶段06.3），参与者的真实反馈既是产品迭代依据，也是天然的UGC社会证明素材</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>联盟/分销计划</strong><span>邀请已购买且真实认可产品的用户，通过专属链接分享获得分成，是营销类产品常见且有效的低成本扩散方式，注意分销文案同样需遵守阶段12合规红线</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>社群共创迭代</strong><span>把早期购买用户拉进一个反馈群，用他们的真实使用问题持续更新手册内容，"持续更新"本身也是复购和口碑传播的理由</span></div></div>
+        </div>
+
+        <h3>11.3 社会证明的搭建顺序</h3>
+        <table class="data">
+          <tr><th>阶段</th><th>能用的社会证明</th></tr>
+          <tr><td>0个真实用户</td><td>你自己冷启动这个产品的真实过程和数据（哪怕数据不好看，坦诚本身就是信任要素）</td></tr>
+          <tr><td>1-10个真实用户</td><td>逐一邀请真实反馈，哪怕是文字截图形式的评价，也比没有强</td></tr>
+          <tr><td>10-100个真实用户</td><td>挑选1-2个效果最好的用户做成完整案例研究，作为核心转化素材</td></tr>
+          <tr><td>100+真实用户</td><td>可以开始用"已帮助XX人"这类真实数字做背书，注意数字必须真实可核实，不能虚构</td></tr>
+        </table>
+
+        <h3>11.4 常见反身营销误区</h3>
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>不要陷入"自己都没验证过就开始卖"的陷阱——如果这套体系连自己的冷启动都没跑通，直接就大规模宣传售卖，一旦被读者发现"言行不一"，对信任度的伤害会比普通产品更严重。建议至少完整走完阶段00-09一轮，拿到真实的自身案例数据后，再进入规模化推广。</div>
+        </div>
+
+        <div class="checklist">
+          <div class="cl-title">阶段11验收清单</div>
+          <label><input type="checkbox"> 已用这套体系本身的方法论，至少验证过一次自己产品的冷启动</label>
+          <label><input type="checkbox"> 已把自己的冷启动过程整理成至少一篇可公开的案例研究</label>
+          <label><input type="checkbox"> 已规划好从"0个用户"到"规模化"的社会证明积累路径</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段12 ================= -->
+    <section class="phase" id="phase12">
+      <div class="phase-head"><span class="phase-num-badge">12</span><h2>合规红线</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：把营销类产品和自动化工具容易踩的合规坑提前排掉。本节为一般性信息整理，不构成法律或税务建议，具体情况建议咨询专业律师/税务师。</div>
+
+      <div class="sub">
+        <h3>12.1 广告与营销用语红线</h3>
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>国内《广告法》明确禁止"最""第一""国家级""绝对""保证效果"等绝对化用语和虚假宣传；海外主流广告平台同样禁止"guaranteed income""get rich quick"类收益保证表述。营销类产品尤其容易被审视是否"自己都做不到却宣传能帮别人做到"，措辞需格外谨慎。</div>
+        </div>
+        <ul>
+          <li>不使用"保证获客""一夜爆红""零成本躺赚流量"等效果承诺类表述</li>
+          <li>不虚构用户数量、案例效果、好评数据</li>
+          <li>分销/联盟计划的收益表述需真实，不能暗示"躺赚""层级返利"等易被认定为传销风险的结构</li>
+        </ul>
+
+        <h3>12.2 平台规则速览</h3>
+        <table class="data">
+          <tr><th>平台/领域</th><th>容易踩的坑</th></tr>
+          <tr><td>各内容平台</td><td>批量自动发布、异常规律性操作容易被判定违规，营销/引流类内容需注意平台对"广告导流"的具体规则</td></tr>
+          <tr><td>Reddit/Discord等社群</td><td>违反90/10原则、纯广告式发帖容易被封号或社区拉黑</td></tr>
+          <tr><td>Web3/区块链相关</td><td>涉及代币发行、收益承诺的表述在多数司法辖区存在证券法风险，务必谨慎评估或直接规避</td></tr>
+          <tr><td>AI生成内容</td><td>各平台和司法辖区对AI生成内容的著作权归属、是否需标注仍在演变中，建议核心内容保留人工创作痕迹</td></tr>
+        </table>
+
+        <h3>12.3 税务与经营合规提醒</h3>
+        <p>营销类产品的收入同样属于经营所得，需按个人/个体工商户/企业等不同经营主体依法申报，具体税率和征收方式因地区和政策而异，建议前期做好流水记录，规模变大后咨询专业税务师规范申报。</p>
+
+        <div class="checklist">
+          <div class="cl-title">阶段12验收清单</div>
+          <label><input type="checkbox"> 所有对外文案（落地页/广告/挑战话题）未使用绝对化用语和虚假宣传</label>
+          <label><input type="checkbox"> 分销/联盟计划结构不涉及传销风险的层级返利设计</label>
+          <label><input type="checkbox"> 已了解所用平台的核心规则红线，不会因不知情而被封号</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section class="phase" id="faq">
+      <div class="phase-head"><span class="phase-num-badge">?</span><h2>常见问题</h2></div>
+
+      <details open>
+        <summary>我完全没有内容创作基础，能从哪个渠道开始？<span class="chev">+</span></summary>
+        <p>建议从小红书或知乎开始——图文形式的制作门槛低于视频，且这两个平台对"干货型"内容的算法友好度较高，适合先积累文字表达和选题能力，再逐步尝试短视频渠道。</p>
+      </details>
+      <details>
+        <summary>要不要同时做国内和海外两条线？<span class="chev">+</span></summary>
+        <p>不建议一开始就两条线并行。先在你更熟悉语言/文化的一侧验证内容和转化模型，跑通之后再考虑用阶段07的本地化方法迁移到另一侧，这样风险和精力消耗都更可控。</p>
+      </details>
+      <details>
+        <summary>两周内容发出去完全没有反馈，是不是渠道选错了？<span class="chev">+</span></summary>
+        <p>先用阶段09的诊断表格排查是"曝光低"（渠道/标题问题）还是"曝光可以但没互动/转化"（内容质量或落地页问题），两种情况的下一步动作完全不同，不要过早下"渠道选错了"的结论。</p>
+      </details>
+      <details>
+        <summary>这套体系里提到的自动化脚本，新手能直接用吗？<span class="chev">+</span></summary>
+        <p>阶段08的脚本是通用逻辑示例，实际使用需要具备基础的Python运行环境知识，并结合目标平台的最新接口/规则调整。如果作为产品交付物打包，建议附上更详细的"环境搭建+逐行使用说明"文档，降低小白用户的使用门槛。</p>
+      </details>
+      <details>
+        <summary>AI生成的内容会不会被平台判定为低质或不能商用？<span class="chev">+</span></summary>
+        <p>各平台规则仍在演变，建议核心方法论和真实案例以自己的经验为主干，AI只做语言润色和格式转换的辅助，配图优先使用允许商用的生成工具并留存生成记录。</p>
+      </details>
+      <details>
+        <summary>要不要一开始就做付费社群？<span class="chev">+</span></summary>
+        <p>不建议。付费社群需要持续运营投入，且早期没有真实案例积累时很难支撑起客单价。建议先用免费/低价引流品验证需求，积累至少几个真实成功案例后，再考虑升级到阶段10.2阶梯结构里的高价形态。</p>
+      </details>
+      <details>
+        <summary>竞品已经有类似的营销手册/课程了，我还有机会吗？<span class="chev">+</span></summary>
+        <p>营销方法论类内容的核心壁垒不在于"信息是否独家"（大部分方法论本身并不神秘），而在于你能否持续产出真实案例、保持内容更新、以及和用户建立的信任关系，这些是竞品难以简单复制的部分，重点参考阶段11的反身营销打法建立差异化。</p>
+      </details>
+      <details>
+        <summary>如何判断一个渠道该放弃还是该再坚持一下？<span class="chev">+</span></summary>
+        <p>参考阶段09的诊断表格，同时给自己设定一个明确的"最小测试周期"（建议至少4周、10篇以上内容），周期内没有达到预期的最基础信号（比如完全没有互动），且已经尝试过至少2-3种不同选题/形式仍无起色，可以考虑更换主渠道；如果只是转化率不理想但已有一定曝光和互动，通常是落地页/文案问题而非渠道问题，优先优化而非放弃。</p>
+      </details>
+      <details>
+        <summary>实体产品和数字产品的营销打法有什么本质区别？<span class="chev">+</span></summary>
+        <p>核心逻辑相通（人群-场景-钩子、AARRR模型都适用），主要区别在于：实体产品更依赖视觉展示和物流/库存管理，转化路径通常需要电商平台承接（详见阶段03.6）；数字产品交付无实体限制，更适合独立落地页+MoR收款平台的组合，且边际成本更低，适合用免费引流品做更大范围的测试。两者都建议先用免费内容渠道验证需求，再决定是否投入更多资源。</p>
+      </details>
+      <details>
+        <summary>没有预算做投放，纯靠免费渠道真的能起量吗？<span class="chev">+</span></summary>
+        <p>可以，但需要更长的时间投入和更高的内容质量密度。免费渠道的核心杠杆是"内容本身的传播力"和"持续输出的复利效应"，本手册阶段03-06给出的具体SOP和公式，正是为了在没有预算的前提下，尽可能提高内容的自然获客效率。多数真实案例都是先靠免费渠道验证模型，再考虑是否加投放放大，而不是反过来。</p>
+      </details>
+      <details>
+        <summary>一个人精力有限，能同时兼顾内容创作、渠道运营、产品打磨吗？<span class="chev">+</span></summary>
+        <p>初期建议按阶段划分优先级：先把内容和1个主渠道跑通（阶段03-06），再考虑产品化打磨（阶段10），不要三件事同时全力推进。可以用阶段08的自动化工具节省内容格式转换等重复劳动的时间，把节省出来的精力集中在真正需要人工判断的选题和沟通环节。</p>
+      </details>
+      <details>
+        <summary>这套体系适合完全没有粉丝基础的新账号吗？<span class="chev">+</span></summary>
+        <p>适合。手册里的打法本身就是围绕"0基础冷启动"设计的，尤其是阶段11的反身营销逻辑——用你自己从0开始做这件事的真实过程作为内容素材，反而是新账号最有说服力的冷启动素材，比空谈方法论更容易获得信任。</p>
+      </details>
+      <details>
+        <summary>挑战话题/Hashtag Challenge需要多少参与者才算成功？<span class="chev">+</span></summary>
+        <p>不必用绝对数量衡量，早期哪怕只有个位数真实参与者，只要能产出有价值的UGC内容和真实反馈，就已经达到了目的——这些内容本身可以反哺后续的案例研究和社会证明积累（见阶段11.3）。参与规模会随着账号影响力增长自然扩大，不需要第一次就追求爆款级别的参与量。</p>
+      </details>
+    </section>
+
+    <!-- ================= 附录 ================= -->
+    <section class="phase" id="appendix">
+      <div class="phase-head"><span class="phase-num-badge">附</span><h2>术语表 / 执行日历 / 检查清单</h2></div>
+      <div class="sub">
+        <h3>术语表</h3>
+        <table class="data">
+          <tr><th>术语</th><th>解释</th></tr>
+          <tr><td>AARRR 模型</td><td>获取-激活-留存-转化-推荐五阶段增长框架，用于定位当前营销问题出在哪一环</td></tr>
+          <tr><td>GEO（生成式引擎优化）</td><td>让内容更容易被AI助手在生成回答时引用或推荐的优化方法</td></tr>
+          <tr><td>AEO（答案引擎优化）</td><td>针对"直接给出答案"型搜索/AI场景的内容结构优化</td></tr>
+          <tr><td>Build in Public</td><td>把产品开发和运营的真实过程公开分享，借此积累信任和关注度的策略</td></tr>
+          <tr><td>90/10 原则</td><td>社群运营中真诚参与讨论占比应远高于自我推广占比的经验法则</td></tr>
+          <tr><td>私域</td><td>可反复触达、不依赖平台算法分发的用户群体，常见载体是微信群、社群、邮件列表</td></tr>
+          <tr><td>UGC</td><td>用户生成内容，由真实用户而非品牌方产出的内容，可信度通常更高</td></tr>
+          <tr><td>LTV（用户终身价值）</td><td>一个用户从首次购买到停止消费期间为你带来的总收入</td></tr>
+        </table>
+
+        <h3>8周启动执行日历模板</h3>
+        <table class="data">
+          <tr><th>周次</th><th>核心任务</th></tr>
+          <tr><td>第1周</td><td>完成阶段00-01定位与框架梳理</td></tr>
+          <tr><td>第2周</td><td>完成阶段02渠道选择 + 阶段03/04主渠道账号搭建</td></tr>
+          <tr><td>第3-4周</td><td>按阶段06内容资产体系持续产出，稳定发布节奏</td></tr>
+          <tr><td>第5周</td><td>阶段09数据复盘，判断渠道/内容是否需要调整</td></tr>
+          <tr><td>第6周</td><td>（可选）阶段07小额投放测试放大</td></tr>
+          <tr><td>第7周</td><td>阶段10产品化：确定交付形态和阶梯结构</td></tr>
+          <tr><td>第8周</td><td>阶段11反身营销：把自己的冷启动过程整理成案例，正式对外推广产品</td></tr>
+        </table>
+
+        <h3>常见错误案例速览</h3>
+        <table class="data">
+          <tr><th>常见错误</th><th>后果</th><th>怎么避免</th></tr>
+          <tr><td>同时铺开5-6个渠道</td><td>每个渠道都浅尝辄止，无法积累账号权重</td><td>参照阶段02选出1-2个主战场，先做深再复制</td></tr>
+          <tr><td>内容开篇即打广告</td><td>被平台限流，读者划走率极高</td><td>套用阶段06.5的开篇钩子公式，先给价值再引导</td></tr>
+          <tr><td>没有内容资产库，边做边想选题</td><td>更新节奏不稳定，容易半途而废</td><td>提前积累至少20条选题库</td></tr>
+          <tr><td>免费渠道没跑通就直接投放</td><td>放大了还没验证过的问题，浪费预算</td><td>先用阶段09诊断表确认内容和落地页都已验证有效</td></tr>
+          <tr><td>产品还没验证就大规模营销自己</td><td>被读者发现"言行不一"，损害长期信任</td><td>先按阶段11.4的建议完整走完一轮自身验证</td></tr>
+          <tr><td>广告文案使用极限词/收益承诺</td><td>账号被封，国内可能面临行政处罚</td><td>参照阶段12合规红线逐条自查</td></tr>
+        </table>
+
+        <h3>常用工具速查表</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>用途</th><th>国内可用工具</th><th>海外可用工具</th></tr>
+          <tr><td>AI文案助手</td><td>豆包、DeepSeek、Kimi</td><td>ChatGPT、Claude、Gemini</td></tr>
+          <tr><td>图片生成</td><td>即梦AI、文心一格</td><td>Midjourney、DALL-E</td></tr>
+          <tr><td>视频剪辑</td><td>剪映</td><td>CapCut、Descript</td></tr>
+          <tr><td>数据看板</td><td>飞书多维表格</td><td>Notion、Google Sheets</td></tr>
+          <tr><td>建站/落地页</td><td>微信小程序、店铺自带工具</td><td>Netlify、Vercel、Cloudflare Pages</td></tr>
+          <tr><td>私域承接</td><td>企业微信、微信群</td><td>Discord、邮件列表工具（Mailchimp等）</td></tr>
+        </table>
+        </div>
+
+        <h3>全流程总检查清单（打印出来贴在手边）</h3>
+        <div class="checklist">
+          <div class="cl-title">从0到产品化，13个阶段各一句话自查</div>
+          <label><input type="checkbox"> 00：我能一句话说清楚这套体系卖给谁、解决什么问题</label>
+          <label><input type="checkbox"> 01：我理解人群-场景-钩子和AARRR的通用逻辑，不是死记硬背话术</label>
+          <label><input type="checkbox"> 02：我选出了1-2个主战场渠道，而不是同时铺开所有渠道</label>
+          <label><input type="checkbox"> 03：国内主渠道账号已搭建并稳定发布至少2周</label>
+          <label><input type="checkbox"> 04：海外主渠道内容已发布，语言经过人工审核</label>
+          <label><input type="checkbox"> 05：已了解GEO/AEO等前沿趋势，并规划好私域承接</label>
+          <label><input type="checkbox"> 06：已建立内容资产库，能一次创作多平台复用</label>
+          <label><input type="checkbox"> 07：（如需要）投放只在内容已验证有效后进行，从小额起步</label>
+          <label><input type="checkbox"> 08：自动化只用于已验证有效的重复动作，涉及钱和决策的部分保留人工确认</label>
+          <label><input type="checkbox"> 09：我是根据真实数据而非感觉，做出继续/调整/放弃的判断</label>
+          <label><input type="checkbox"> 10：我确定了具体的产品交付形态和阶梯结构</label>
+          <label><input type="checkbox"> 11：我用这套体系验证过自己产品的冷启动，并整理成了案例</label>
+          <label><input type="checkbox"> 12：广告合规、平台规则、税务申报三方面我都已心里有数</label>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<a href="#intro" class="back-top" id="backTop">↑</a>
+
+<footer>
+  全域营销体系 · 从0到产品化 全流程手册 · 本手册基于截至2026年8月的公开信息整理，各平台规则、政策可能随时变化，正式操作前请以官方最新说明为准 · 本手册不构成法律或税务建议 · 建议按顺序阅读，遇到卡点可随时回到对应阶段重新确认
+</footer>
+
+<script>
+  // 顶部进度条
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement;
+    var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    document.getElementById('progress').style.width = scrolled + '%';
+    var backTop = document.getElementById('backTop');
+    if(h.scrollTop > 600){ backTop.classList.add('show'); } else { backTop.classList.remove('show'); }
+  });
+  // 移动端点击目录链接后自动收起侧栏
+  document.querySelectorAll('.sidebar a').forEach(function(a){
+    a.addEventListener('click', function(){
+      var toggle = document.getElementById('nav-toggle');
+      if(toggle) toggle.checked = false;
+    });
+  });
+</script>
+
+</body>
+</html>
