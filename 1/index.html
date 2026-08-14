@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字产品变现｜跨境+国内 人工落地全流程手册 v3</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:      #16233F;
+    --ink-soft: #4B5875;
+    --paper:    #F6F5F1;
+    --paper-2:  #FFFFFF;
+    --line:     #E3E0D6;
+    --gold:     #B8863B;
+    --gold-bg:  #FBF3E4;
+    --teal:     #2E6F6C;
+    --teal-bg:  #EAF3F2;
+    --warn:     #A24A34;
+    --warn-bg:  #FBEBE5;
+    --blue:     #2E4E8F;
+    --blue-bg:  #EAF0FB;
+    --radius:   14px;
+    --shadow:   0 1px 2px rgba(22,35,63,.04), 0 16px 36px -22px rgba(22,35,63,.2);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Inter',-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--paper); color:var(--ink); line-height:1.7; font-size:15.5px;
+  }
+  h1,h2,h3,h4{ font-family:'Fraunces',Georgia,serif; color:var(--ink); line-height:1.25; }
+  a{ color:var(--teal); }
+  strong{ color:var(--ink); }
+  code{ background:#EDEAE0; padding:2px 6px; border-radius:5px; font-size:.9em; font-family:'SF Mono',Consolas,monospace; }
+
+  .topbar{
+    position:sticky; top:0; z-index:60; background:rgba(246,245,241,.92); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px;
+  }
+  .topbar-brand{ display:flex; align-items:center; gap:10px; font-weight:600; font-size:14.5px; }
+  .topbar-brand .mark{ width:28px; height:28px; border-radius:8px; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:14px; }
+  #nav-toggle{ display:none; }
+  .nav-toggle-label{
+    display:none; align-items:center; gap:8px; font-size:13px; font-weight:600;
+    border:1px solid var(--line); padding:8px 14px; border-radius:999px; cursor:pointer; background:var(--paper-2);
+  }
+
+  .layout{ display:grid; grid-template-columns:270px 1fr; max-width:1220px; margin:0 auto; gap:0; }
+  .sidebar{
+    position:sticky; top:57px; align-self:start; height:calc(100vh - 57px); overflow-y:auto;
+    padding:32px 18px 40px; border-right:1px solid var(--line);
+  }
+  .sidebar-title{ font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); font-weight:700; margin-bottom:14px; }
+  .sidebar-title.sub{ margin-top:22px; }
+  .sidebar a{
+    display:block; font-size:13.6px; color:var(--ink-soft); text-decoration:none; padding:6px 10px;
+    border-radius:8px; margin-bottom:1px; font-weight:500;
+  }
+  .sidebar a:hover{ background:var(--paper-2); color:var(--ink); }
+  .sidebar .phase-num{ color:var(--gold); font-weight:700; margin-right:6px; font-family:'Fraunces',serif; }
+
+  main{ padding:40px clamp(20px,4vw,56px) 100px; max-width:860px; }
+
+  .intro{ margin-bottom:56px; }
+  .intro .eyebrow{ font-size:12.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--teal); background:var(--teal-bg); display:inline-block; padding:6px 12px; border-radius:999px; margin-bottom:16px; }
+  .intro h1{ font-size:clamp(28px,4vw,40px); margin-bottom:16px; }
+  .intro p.lead{ color:var(--ink-soft); font-size:16.5px; max-width:66ch; }
+
+  .track-tag{ display:inline-block; font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:999px; margin-right:6px; }
+  .track-tag.global{ background:var(--blue-bg); color:var(--blue); }
+  .track-tag.domestic{ background:var(--warn-bg); color:var(--warn); }
+  .track-tag.both{ background:var(--teal-bg); color:#1F4F4D; }
+
+  .overview-table{ width:100%; border-collapse:collapse; margin-top:24px; font-size:13.6px; }
+  .overview-table th{ text-align:left; color:var(--ink-soft); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em; padding:0 12px 10px 0; border-bottom:1px solid var(--line); }
+  .overview-table td{ padding:12px 12px 12px 0; border-bottom:1px solid var(--line); vertical-align:top; }
+  .overview-table tr:last-child td{ border-bottom:none; }
+
+  .phase{ padding-top:64px; margin-top:-16px; border-top:1px solid var(--line); }
+  .phase:first-of-type{ border-top:none; }
+  .phase-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:8px; flex-wrap:wrap; }
+  .phase-num-badge{ font-family:'Fraunces',serif; font-size:15px; font-weight:700; color:var(--gold); background:var(--gold-bg); padding:4px 12px; border-radius:999px; flex-shrink:0; }
+  .phase h2{ font-size:clamp(22px,2.6vw,28px); }
+  .phase-meta{ color:var(--ink-soft); font-size:13.5px; margin-bottom:28px; }
+
+  .sub h3{ font-size:17px; margin:32px 0 10px; }
+  .sub h4{ font-size:14.8px; margin:22px 0 8px; color:var(--ink); }
+  .sub p{ color:var(--ink-soft); margin-bottom:12px; }
+  .sub ul, .sub ol{ color:var(--ink-soft); margin:0 0 14px 20px; }
+  .sub li{ margin-bottom:6px; }
+
+  .step-list{ counter-reset:step; margin:18px 0 26px; }
+  .step{
+    display:grid; grid-template-columns:34px 1fr; gap:14px; padding:14px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .step:last-child{ border-bottom:none; }
+  .step .num{
+    counter-increment:step; width:30px; height:30px; border-radius:50%; background:var(--ink); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:13.5px; font-weight:600;
+  }
+  .step .num::before{ content:counter(step); }
+  .step .body strong{ display:block; margin-bottom:3px; font-size:14.5px; }
+  .step .body span{ color:var(--ink-soft); font-size:14px; }
+
+  .callout{ border-radius:var(--radius); padding:16px 20px; margin:20px 0; font-size:14px; display:flex; gap:12px; }
+  .callout .icon{ flex-shrink:0; font-size:16px; line-height:1.5; }
+  .callout.tip{ background:var(--teal-bg); color:#1F4F4D; }
+  .callout.warn{ background:var(--warn-bg); color:#7A3826; }
+  .callout.info{ background:var(--blue-bg); color:#22345E; }
+  .callout b{ color:inherit; }
+
+  .checklist{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); padding:20px 22px; margin:22px 0; box-shadow:var(--shadow); }
+  .checklist .cl-title{ font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); margin-bottom:12px; }
+  .checklist label{ display:flex; align-items:flex-start; gap:10px; font-size:14.3px; margin-bottom:10px; cursor:pointer; }
+  .checklist input[type=checkbox]{ margin-top:3px; width:16px; height:16px; accent-color:var(--gold); flex-shrink:0; }
+
+  .example{ background:var(--paper-2); border-left:3px solid var(--gold); border-radius:0 var(--radius) var(--radius) 0; padding:14px 18px; margin:16px 0; font-size:13.8px; }
+  .example .ex-label{ font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--gold); font-weight:700; margin-bottom:6px; }
+
+  table.data{ width:100%; border-collapse:collapse; margin:18px 0; font-size:13.4px; background:var(--paper-2); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
+  table.data th{ background:var(--ink); color:#fff; text-align:left; padding:10px 14px; font-weight:600; font-size:12.3px; }
+  table.data td{ padding:10px 14px; border-bottom:1px solid var(--line); color:var(--ink-soft); }
+  table.data tr:last-child td{ border-bottom:none; }
+  table.data td:first-child, table.data th:first-child{ color:var(--ink); font-weight:600; }
+
+  details{ border-bottom:1px solid var(--line); padding:16px 0; }
+  summary{ cursor:pointer; font-weight:600; font-size:14.8px; list-style:none; display:flex; justify-content:space-between; gap:12px; }
+  summary::-webkit-details-marker{ display:none; }
+  summary .chev{ color:var(--ink-soft); transition:transform .2s; flex-shrink:0; }
+  details[open] .chev{ transform:rotate(45deg); }
+  details p{ margin-top:10px; color:var(--ink-soft); font-size:14px; }
+
+  footer{ padding:40px clamp(20px,4vw,56px) 60px; max-width:860px; color:var(--ink-soft); font-size:13px; border-top:1px solid var(--line); }
+
+  @media (max-width:900px){
+    .layout{ grid-template-columns:1fr; }
+    .nav-toggle-label{ display:inline-flex; }
+    .sidebar{
+      position:fixed; top:53px; left:0; right:0; height:calc(100vh - 53px);
+      background:var(--paper); border-right:none; transform:translateY(-110%);
+      transition:transform .25s ease; z-index:55; padding:20px;
+    }
+    #nav-toggle:checked ~ .layout .sidebar{ transform:translateY(0); }
+    main{ padding-top:28px; }
+  }
+  @media (max-width:520px){
+    .step{ grid-template-columns:26px 1fr; }
+    .step .num{ width:24px; height:24px; font-size:11.5px; }
+  }
+</style>
+</head>
+<body>
+
+<input type="checkbox" id="nav-toggle">
+
+<div class="topbar">
+  <div class="topbar-brand"><div class="mark">M</div> 数字产品变现全流程手册 v3</div>
+  <label for="nav-toggle" class="nav-toggle-label">☰ 目录</label>
+</div>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-title">总览</div>
+    <a href="#overview">整体总览 · 怎么用这份手册</a>
+    <div class="sidebar-title sub">主线流程</div>
+    <a href="#phase1"><span class="phase-num">01</span>选题与需求验证</a>
+    <a href="#phase2"><span class="phase-num">02</span>产品形态与AI生产工具箱</a>
+    <a href="#phase3"><span class="phase-num">03</span>收款与开店账号大全</a>
+    <a href="#phase4"><span class="phase-num">04</span>落地页/详情页/笔记制作</a>
+    <a href="#phase5"><span class="phase-num">05</span>小范围人工投放测试</a>
+    <a href="#phase6"><span class="phase-num">06</span>看数据、做判断</a>
+    <a href="#phase7"><span class="phase-num">07</span>验证成功后怎么扩大</a>
+    <a href="#phase8"><span class="phase-num">08</span>自动化分级路线图</a>
+    <div class="sidebar-title sub">保障与查询</div>
+    <a href="#phase9"><span class="phase-num">09</span>合规、税务与法律全解</a>
+    <a href="#phase10"><span class="phase-num">10</span>工具箱总清单速查表</a>
+    <a href="#phase11"><span class="phase-num">11</span>定价策略与客户服务</a>
+    <a href="#phase12"><span class="phase-num">12</span>完整案例全流程实录</a>
+    <a href="#risk"><span class="phase-num">✓</span>风险检查清单</a>
+    <a href="#faq"><span class="phase-num">?</span>新手常见问题</a>
+    <a href="#appendix"><span class="phase-num">附</span>术语表与执行日历</a>
+  </nav>
+
+  <main>
+
+    <div class="intro" id="overview">
+      <span class="eyebrow">Manual v3 · 跨境 + 国内双轨 · 详尽版</span>
+      <h1>数字产品变现<br>人工落地全流程手册</h1>
+      <p class="lead">这份手册把每一步拆到"具体点哪个按钮、写哪句话、选哪个平台"的颗粒度，并且同时覆盖<strong>跨境出海</strong>和<strong>国内变现</strong>两条路径——你可以只走一条，也可以两条都试。核心原则只有一条：<strong>先用最小成本换到真实数据，再决定往哪投入更多。</strong>内容基于截至2026年8月的最新平台规则、工具与费率整理，但平台政策随时会变，正式操作前建议按手册里给出的官方链接再确认一遍最新条款。不需要一次全懂，跟着当前阶段做就行。</p>
+
+      <div style="margin-top:18px;">
+        <span class="track-tag global">跨境</span> 表示这部分主要面向出海/外语市场；
+        <span class="track-tag domestic">国内</span> 表示主要面向中文/国内市场；
+        <span class="track-tag both">通用</span> 表示两条路径都适用。全文用这三个标签帮你快速定位该看哪部分。
+      </div>
+
+      <table class="overview-table">
+        <tr><th>阶段</th><th>要做的事</th><th>预计时间</th><th>预计花费</th><th>适用</th></tr>
+        <tr><td>01 选题验证</td><td>确认真的有人为这个问题付费</td><td>2～4 天</td><td>0 元</td><td>通用</td></tr>
+        <tr><td>02 制作产品</td><td>做出一份能真实解决问题的数字产品</td><td>3～7 天</td><td>0～200 元</td><td>通用</td></tr>
+        <tr><td>03 收款/开店</td><td>跨境 MoR 平台 或 国内电商/知识付费平台开通</td><td>半天～3天</td><td>0～300 元</td><td>通用</td></tr>
+        <tr><td>04 落地页/详情页</td><td>用模板填内容 + 免费发布上线</td><td>半天</td><td>0 元</td><td>通用</td></tr>
+        <tr><td>05 小范围测试</td><td>发帖/笔记，或投放小额广告</td><td>2～3 周</td><td>约 50～1000 元</td><td>通用</td></tr>
+        <tr><td>06 数据判断</td><td>根据真实点击/转化决定去留</td><td>1 天</td><td>0 元</td><td>通用</td></tr>
+        <tr><td>07 扩大</td><td>复制到第二个市场/渠道</td><td>视情况</td><td>视情况</td><td>通用</td></tr>
+        <tr><td>08 自动化</td><td>把已验证的动作逐步交给脚本/工具</td><td>验证成功后再做</td><td>视情况</td><td>通用</td></tr>
+        <tr><td>09 合规税务</td><td>把账户、税务、著作权风险提前排掉</td><td>贯穿全程</td><td>视情况</td><td>通用</td></tr>
+      </table>
+
+      <div class="callout warn">
+        <div class="icon">⚠️</div>
+        <div><b>提前说清楚：</b>这条路线的目标不是"零思考躺赚"，是把"要不要投入更多钱和时间"这个决定，建立在真实用户行为数据上，而不是建立在猜测或者 AI 自由发挥上。前面几个阶段全是人工操作，正是为了拿到这份"真实数据"。任何宣称"全自动躺赚""AI一键日入过千"的课程或工具，都值得你先打个问号。</div>
+      </div>
+
+      <h3 style="margin-top:36px; font-size:18px;">这一版新增了什么</h3>
+      <ul>
+        <li>把原来只讲跨境的流程，扩展成<strong>跨境出海</strong>和<strong>国内变现</strong>两条完整并行的路径，每个阶段都分别给出具体操作。</li>
+        <li>新增第 02 阶段"产品形态与AI生产工具箱"，把 PDF 之外的十几种数字产品形态、以及2026年可用的AI写作/生图/生视频工具全部列出对比。</li>
+        <li>第 03 阶段大幅扩充，纳入 2026 年最新的 Merchant of Record（合规收款代管）平台费率对比、国内小红书/知乎/闲鱼等平台的最新入驻规则，以及个体工商户注册全流程。</li>
+        <li>新增第 09 阶段"合规、税务与法律全解"，把很多人容易忽略、但真出事会很麻烦的税务申报、著作权、广告法红线一次讲清楚。</li>
+        <li>新增第 10 阶段"工具箱总清单"，把全手册出现的工具按用途做成一张速查大表。</li>
+        <li>风险清单和 FAQ 都做了大幅扩充，新增了国内平台特有的坑。</li>
+      </ul>
+    </div>
+
+    <!-- ================= 阶段一 ================= -->
+    <section class="phase" id="phase1">
+      <div class="phase-head"><span class="phase-num-badge">01</span><h2>选题与需求验证</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：在写产品之前，确认"真的有一群具体的人，正在为这个问题苦恼且愿意付费"。这一步不分跨境还是国内，逻辑完全一样，只是蹲点的地方不同。</div>
+
+      <div class="sub">
+        <h3>1.1 为什么大多数人第一步就卡死</h3>
+        <p>最常见的失败原因不是"执行力不够"，是选题一开始就选了个和免费内容正面竞争的泛泛话题，比如"怎么用AI赚钱"。这类话题网上有几千篇免费文章，买家没有理由付费。好卖的选题必须具体到"一秒钟就知道是不是在说我"。</p>
+
+        <div class="example">
+          <div class="ex-label">对比示例（跨境）</div>
+          ❌ 泛泛话题：<em>"如何用AI提升效率"</em> — 谁都可能是目标用户 = 谁都不是<br><br>
+          ✅ 具体话题：<em>"Etsy 手工饰品卖家：用 AI 在 30 分钟内写完一周的产品文案和客服话术"</em> — 一句话就能筛出真实买家
+        </div>
+
+        <div class="example">
+          <div class="ex-label">对比示例（国内）</div>
+          ❌ 泛泛话题：<em>"考研上岸经验分享"</em> — 每年几十万篇同质内容<br><br>
+          ✅ 具体话题：<em>"三跨考生（跨专业跨院校跨考类型）：从零基础到教育学专硕上岸的3个月择校与择校避坑表"</em> — 精准锁定一个细分人群
+        </div>
+
+        <h3>1.2 选题公式：具体人群 + 具体场景 + 具体结果</h3>
+        <p>把你脑子里的想法套进这个公式，写不出来就说明还不够具体：</p>
+        <div class="example">
+          <span class="ex-label">公式</span>
+          【谁】+ 在【什么具体场景下】+ 遇到【什么具体麻烦】，我的产品能让他【做到什么具体结果】
+        </div>
+
+        <h3>1.2.1 十个"选题公式"应用示例，照着改就能用</h3>
+        <p>下面这些例子横跨跨境和国内不同领域，不是让你直接抄选题（抄了也不代表你懂这个领域），而是让你学会套公式的方法，找到你自己真正懂、又有具体人群在为之付费的角度。</p>
+        <table class="data">
+          <tr><th>人群</th><th>场景</th><th>麻烦</th><th>产品方向示例</th></tr>
+          <tr><td>Etsy 手工饰品卖家</td><td>每周要更新新品文案</td><td>不会写吸引人的产品描述和客服话术</td><td>AI辅助文案30分钟模板+提示词包</td></tr>
+          <tr><td>自由译者</td><td>接到多个平台的稿件</td><td>报价和交稿节奏经常混乱，容易漏单</td><td>接单管理Notion模板+报价计算器</td></tr>
+          <tr><td>独立开发者</td><td>做完MVP准备发布</td><td>不知道怎么写Product Hunt发布文案</td><td>发布清单+文案模板包</td></tr>
+          <tr><td>考研三跨考生</td><td>零基础跨专业备考</td><td>不知道怎么选择目标院校、避坑</td><td>择校决策表+3个月备考排期模板</td></tr>
+          <tr><td>小红书新手博主</td><td>刚开始做垂类账号</td><td>不知道选题方向和内容排期</td><td>90天内容日历模板+选题库</td></tr>
+          <tr><td>宝妈副业人群</td><td>利用碎片时间做副业</td><td>不知道哪些副业适合自己、怎么起步</td><td>副业启动手册+每日1小时执行清单</td></tr>
+          <tr><td>跨境电商新手卖家</td><td>准备在亚马逊/Shopify开店</td><td>不清楚选品和物流的具体流程</td><td>选品评估表+供应链联系人清单</td></tr>
+          <tr><td>自由职业设计师</td><td>接私单需要报价</td><td>不知道怎么给客户合理定价、写合同</td><td>报价单模板+简易合同模板包</td></tr>
+          <tr><td>健身新手</td><td>没有教练指导、居家训练</td><td>不知道动作是否正确、怎么排计划</td><td>8周居家训练计划+动作自查清单</td></tr>
+          <tr><td>自媒体带货主播</td><td>准备第一场直播</td><td>不知道直播流程和话术怎么设计</td><td>直播脚本模板+应急话术库</td></tr>
+        </table>
+
+        <h3>1.2.2 选题灵感库（40个方向，按人群分类，帮你打开思路）</h3>
+        <p>这不是一份"照抄就能赚钱"的清单，而是帮你判断"我懂的领域属于哪个方向"的参考框架。真正决定这个选题能不能做成的，是你自己在阶段1.3里蹲点验证出的具体结果。</p>
+
+        <h4>职场与副业类</h4>
+        <table class="data">
+          <tr><th>方向</th><th>可能的产品角度</th></tr>
+          <tr><td>简历与求职</td><td>行业定制简历模板、面试问题应对话术库、领英优化清单</td></tr>
+          <tr><td>远程工作</td><td>远程办公工具搭建指南、时区协作模板、远程求职渠道清单</td></tr>
+          <tr><td>自由职业接单</td><td>报价计算器、客户沟通话术、合同模板包</td></tr>
+          <tr><td>职场沟通</td><td>向上汇报话术模板、跨部门协作邮件模板</td></tr>
+          <tr><td>副业启动</td><td>90天副业启动清单、副业方向自测表</td></tr>
+        </table>
+
+        <h4>学习与考试类</h4>
+        <table class="data">
+          <tr><th>方向</th><th>可能的产品角度</th></tr>
+          <tr><td>考研/考公</td><td>择校决策表、备考排期模板、真题错题整理系统</td></tr>
+          <tr><td>语言学习</td><td>词汇速记卡片包、口语场景对话模板</td></tr>
+          <tr><td>留学申请</td><td>文书写作框架、选校对比表、时间线管理模板</td></tr>
+          <tr><td>技能认证</td><td>考证备考清单、题库整理包</td></tr>
+        </table>
+
+        <h4>生活方式类</h4>
+        <table class="data">
+          <tr><th>方向</th><th>可能的产品角度</th></tr>
+          <tr><td>居家健身</td><td>无器械训练计划、饮食记录表模板</td></tr>
+          <tr><td>极简生活/收纳</td><td>断舍离清单、收纳空间规划表</td></tr>
+          <tr><td>亲子育儿</td><td>月龄发展记录表、亲子活动清单</td></tr>
+          <tr><td>宠物养护</td><td>新手养宠清单、宠物健康记录模板</td></tr>
+          <tr><td>个人理财</td><td>记账模板、预算规划表（注意：涉及具体投资建议需谨慎，避免触及金融监管红线）</td></tr>
+        </table>
+
+        <h4>创作者与自媒体类</h4>
+        <table class="data">
+          <tr><th>方向</th><th>可能的产品角度</th></tr>
+          <tr><td>内容创作</td><td>选题日历模板、爆款标题公式库</td></tr>
+          <tr><td>短视频制作</td><td>脚本模板、剪辑节奏参考表</td></tr>
+          <tr><td>电商运营</td><td>选品评估表、详情页文案框架</td></tr>
+          <tr><td>设计与排版</td><td>PPT/简历设计模板包、配色方案速查表</td></tr>
+        </table>
+
+        <h4>特定人群/垂直行业类</h4>
+        <table class="data">
+          <tr><th>方向</th><th>可能的产品角度</th></tr>
+          <tr><td>手工艺卖家（Etsy/闲鱼）</td><td>产品文案模板、定价参考表</td></tr>
+          <tr><td>独立开发者/SaaS创始人</td><td>产品发布清单、冷启动获客渠道清单</td></tr>
+          <tr><td>房产经纪人</td><td>客户跟进话术、房源介绍模板</td></tr>
+          <tr><td>婚礼策划从业者</td><td>流程清单、供应商联系模板</td></tr>
+          <tr><td>健身教练</td><td>训练计划模板包、客户跟进系统</td></tr>
+        </table>
+
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>特别提醒：涉及医疗、法律、金融投资建议类的选题，即便你有相关背景，也需要格外注意合规边界——很多国家和地区对这些领域的建议内容有执业资质要求，不建议新手第一次尝试就选择这类高监管领域。</div>
+        </div>
+
+        <h3>1.3-A 跨境路径：去哪里找真实需求 <span class="track-tag global">跨境</span></h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>Reddit 关键词蹲点</strong><span>打开 reddit.com，在搜索框直接搜你想到的关键词（比如 "translator deadline"），重点看评论区，找那种带情绪的抱怨句子，比如"I always struggle with…"、"Is there any tool for…"。把找到的 3～5 条原话抄下来，这些就是你未来落地页文案的素材库。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>同类产品评论区蹲点</strong><span>去 Gumroad / Etsy / Payhip 搜同类关键词，找到已经在卖的类似产品，翻它的评论/问答区，找买家说"如果能再讲讲XX就好了"这种话——这些就是你产品要补的空白，也是你产品能比对手强的地方。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>Facebook / 行业垂直论坛</strong><span>搜你目标人群会加入的群组（比如"Freelance Translators Network"），看置顶帖和高赞讨论里反复出现的问题。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>Amazon 同主题书籍的 1～3 星评论</strong><span>如果有相关的电子书/纸质书，去它的评论区专门看差评，差评里"这本书没讲到的地方"往往就是市场空白。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>Google Trends + AnswerThePublic</strong><span>把候选关键词丢进 trends.google.com 看搜索热度是不是稳定或上升（避免选一个正在退潮的话题），再用 answerthepublic.com 或 AlsoAsked 看这个词周围人们还在问什么细分问题。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>Indie Hackers / Product Hunt 评论区</strong><span>如果你的产品偏工具/SaaS类型，去 indiehackers.com 和 producthunt.com 看同类产品发布帖下面的真实用户反馈，很多"我还差一个功能"的评论就是你的机会。</span></div></div>
+        </div>
+
+        <h3>1.3-B 国内路径：去哪里找真实需求 <span class="track-tag domestic">国内</span></h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>小红书关键词蹲点</strong><span>搜索目标关键词，切到"最热"排序，看高赞笔记评论区，重点找"求链接""求模板""在哪买"这类高转化信号的评论；同时用小红书自带的"薯条数据"或第三方工具灰豚数据/新红数据看话题热度趋势。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>知乎问题+高赞回答蹲点</strong><span>搜目标关键词相关问题，看关注人数和浏览量高但优质回答少的"问题缺口"，这些往往是可以做成付费内容的选题；也可以看知乎"想法"和圆桌下的真实抱怨。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>闲鱼同类商品蹲点</strong><span>搜相关关键词，看有多少人已经在卖同类虚拟资料/模板，销量和评价数是真实需求最直接的信号；同时看买家评价里说"还缺什么"。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>百度指数 + 微信指数 + 抖音搜索指数</strong><span>index.baidu.com 查关键词搜索趋势是否稳定，微信指数（微信小程序内搜索）看是否有私域流量基础，抖音搜索看是否有内容空档。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>豆瓣小组 / 微博超话 / 抖音评论区</strong><span>豆瓣垂直小组（如"考研互助小组""考公上岸互助""副业赚钱"）里的置顶帖和高回复帖，抖音同类账号视频评论区的高赞留言，都是原话素材库。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>拼多多/淘宝已有付费资料的评价区</strong><span>搜"资料包""模板""教程"类目下已经在卖的同类商品，看差评和追评，找"内容不全""过时了"这类具体抱怨，这是你产品能做得更好的切入点。</span></div></div>
+        </div>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>跨境和国内的核心区别：跨境更看重"英语论坛里带情绪的抱怨原话"，国内更看重"电商平台里已经在成交的同类商品数据"。国内电商生态更成熟，同类商品的销量、评价是比论坛抱怨更直接的需求信号。</div>
+        </div>
+
+        <h3>1.4 如何用 AI 加速需求调研（而不是让 AI 替你编需求）</h3>
+        <p>把你蹲点收集到的 10～20 条真实原话，粘贴给 DeepSeek、Kimi 或 ChatGPT，让它帮你做"归类聚类+高频关键词提取"，快速看出哪几类抱怨出现频率最高。<strong>正确用法是让 AI 帮你整理已经存在的真实信息，错误用法是直接问 AI "现在什么选题好卖"然后照抄它编出来的答案</strong>——AI 训练数据有滞后性，也没有能力判断当下真实的付费意愿，它给出的"热门选题"往往是几年前就已经被验证过的旧话题，或者根本是编造的。</p>
+
+        <table class="data">
+          <tr><th>需求信号强度</th><th>具体表现</th><th>判断</th></tr>
+          <tr><td>强信号</td><td>已经有同类产品在稳定成交（有销量/评价），且评价区反复出现"还想要XX"</td><td>值得做，且已知道差异化方向</td></tr>
+          <tr><td>中等信号</td><td>论坛/评论区有大量抱怨，但没有找到对应的付费产品</td><td>可能是需求真实但没人满足，也可能是需求强度不够以至于没人愿意做，需要更谨慎验证</td></tr>
+          <tr><td>弱信号</td><td>只是你自己觉得"这个应该有人需要"，没有找到任何真实抱怨或同类产品</td><td>风险较高，建议先做免费小范围测试（比如发一篇免费笔记/帖子看反馈）再决定要不要投入</td></tr>
+        </table>
+
+        <div class="checklist">
+          <div class="cl-title">阶段一验收清单（全部打勾才能进入阶段二）</div>
+          <label><input type="checkbox"> 我能用"选题公式"写出一句完整的话，没有卡壳</label>
+          <label><input type="checkbox"> 我找到了至少 3 条真实用户的抱怨原话，并抄录下来（跨境用英文原话，国内用中文原话均可）</label>
+          <label><input type="checkbox"> 我找到了至少 1 个同类产品正在被购买（说明市场存在，不是伪需求）</label>
+          <label><input type="checkbox"> 我清楚知道自己产品比现有产品好在哪一个具体的点</label>
+          <label><input type="checkbox"> 我已经决定先走跨境路径、国内路径，还是两条都小范围试一下</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段二 ================= -->
+    <section class="phase" id="phase2">
+      <div class="phase-head"><span class="phase-num-badge">02</span><h2>产品形态与AI生产工具箱</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：选定一种数字产品形态，用 2026 年可用的 AI 工具把它做出来，内容真实可执行，不追求排版精美。</div>
+
+      <div class="sub">
+        <h3>2.1 数字产品形态大全（不止 PDF）</h3>
+        <p>原手册只提到 PDF 指南，实际上数字产品有很多种形态，选哪种取决于你的选题和目标人群的使用习惯：</p>
+        <table class="data">
+          <tr><th>形态</th><th>适合场景</th><th>制作难度</th><th>典型定价</th></tr>
+          <tr><td>PDF 图文指南</td><td>方法论、清单类、教程类内容</td><td>低</td><td>9～29 美元 / 19～99 元</td></tr>
+          <tr><td>Notion 模板</td><td>效率工具、项目管理、知识库类</td><td>低～中</td><td>9～49 美元 / 29～99 元</td></tr>
+          <tr><td>Excel/Google Sheets 模板</td><td>财务计算、追踪表、自动化公式工具</td><td>中</td><td>9～39 美元 / 19～59 元</td></tr>
+          <tr><td>视频课程（录屏+讲解）</td><td>操作类、软件教学类，转化率通常高于纯文字</td><td>中</td><td>19～99 美元 / 49～299 元</td></tr>
+          <tr><td>Notion/飞书 知识库+社群</td><td>持续更新的资料库、陪伴式服务</td><td>中，但需持续维护</td><td>订阅制 9～29 美元/月 或 一次性入会 99～499 元</td></tr>
+          <tr><td>设计素材包（模板/字体/PPT/简历模板）</td><td>设计师、求职者、自媒体人</td><td>低～中</td><td>5～39 美元 / 9～49 元</td></tr>
+          <tr><td>Prompt 提示词包</td><td>AI工具重度使用者，垂直行业提示词</td><td>低</td><td>9～29 美元 / 19～59 元</td></tr>
+          <tr><td>轻量 Web 小工具/计算器</td><td>有明确计算/转换需求的垂直场景，配合AI辅助编程可低成本实现</td><td>中～高</td><td>一次性 19～49 美元 或 订阅制</td></tr>
+          <tr><td>付费专栏/连载文章</td><td>知乎付费想法、小红书付费笔记、Substack 邮件订阅</td><td>低，但需持续输出</td><td>单篇 1～9.9 元 或 全年订阅</td></tr>
+          <tr><td>音频课/播客付费内容</td><td>通勤场景、陪伴式学习内容</td><td>中</td><td>喜马拉雅/小宇宙付费专栏定价灵活</td></tr>
+        </table>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>新手建议：第一个产品优先选 PDF 图文指南或 Notion/Excel 模板——制作门槛最低、AI辅助程度最高、上架流程最简单，跑通一次全流程之后，再考虑升级成视频课程或订阅制产品。</div>
+        </div>
+
+        <h3>2.2 内容大纲结构（照抄这个骨架，填内容就行）</h3>
+        <table class="data">
+          <tr><th>板块</th><th>内容</th><th>建议篇幅</th></tr>
+          <tr><td>开篇</td><td>说清楚这份指南解决什么问题，读完能做到什么，适合谁不适合谁</td><td>1 页</td></tr>
+          <tr><td>核心方法</td><td>拆成 5～8 个具体步骤，每步包含：做什么 / 为什么这样做 / 常见错误 / 可复制的模板或清单</td><td>15～20 页</td></tr>
+          <tr><td>案例或素材包</td><td>1～2 个具体案例，或一份可以直接套用的模板/清单</td><td>3～5 页</td></tr>
+          <tr><td>结尾</td><td>常见问题 + 下一步行动建议</td><td>1～2 页</td></tr>
+        </table>
+
+        <h3>2.3 2026 年 AI 生产工具箱（按用途分类，实测可用）</h3>
+        <p>下面这些工具的排名和特点基于 2026 年上半年的实测和横评信息整理，AI工具更新极快，正式使用前建议先用免费额度实测一遍效果再决定是否付费订阅。</p>
+
+        <h4>写作与文案</h4>
+        <table class="data">
+          <tr><th>工具</th><th>特点</th><th>适合</th></tr>
+          <tr><td>DeepSeek（深度求索）</td><td>逻辑推理和代码能力强，支持"深度思考"模式展示推理过程，中文内容被AI检测率相对较低，免费额度大</td><td>方法论类、教程类、需要严谨逻辑的内容；跨境和国内都适用</td></tr>
+          <tr><td>豆包（字节跳动）</td><td>中文语感自然、创意写作强，日常文案和社交媒体内容首选，语音交互体验好</td><td>小红书笔记、社媒文案、口语化内容</td></tr>
+          <tr><td>Kimi（月之暗面）</td><td>超长上下文记忆，适合处理长文档、合同、报告分析</td><td>需要参考大量长文档整理成内容的场景，比如法律/金融/咨询类选题</td></tr>
+          <tr><td>通义千问</td><td>多模态能力强，能同时处理图文素材，阿里云生态集成方便</td><td>需要结合图片素材做内容整理的场景</td></tr>
+          <tr><td>ChatGPT / Claude</td><td>英文写作质量高、语言地道，Claude 在长文本结构化写作和复杂逻辑上的表现通常最稳定</td><td>面向英语市场的落地页文案、产品说明、广告文案</td></tr>
+          <tr><td>Gemini（Google）</td><td>超长上下文，多模态能力强，可结合 Google 搜索</td><td>需要结合最新资料做内容调研的场景</td></tr>
+        </table>
+
+        <h4>配图与设计</h4>
+        <table class="data">
+          <tr><th>工具</th><th>特点</th><th>适合</th></tr>
+          <tr><td>即梦 AI（字节）</td><td>基于 Seedream 模型，生成速度极快（2K图约1.8秒），性价比高，支持多模态混合输入</td><td>国内用户做封面图、配图、短视频素材，性价比优先</td></tr>
+          <tr><td>Midjourney</td><td>审美风格独特、细节丰富，是设计圈公认的高质量生图工具，但需要英文提示词和海外网络环境</td><td>需要高质量视觉封面、海报，跨境产品优先</td></tr>
+          <tr><td>Canva（可画）</td><td>拖拽式设计+AI辅助（Magic Design），有大量现成模板，中英文都支持</td><td>新手做落地页配图、社媒封面、PPT，几乎零学习成本</td></tr>
+          <tr><td>Stable Diffusion（本地部署）</td><td>免费、可控性强、支持本地隐私部署，但需要一定显卡配置和技术基础</td><td>有一定技术基础、追求完全可控和零版权风险的用户</td></tr>
+          <tr><td>海艺 AI / 通义万相</td><td>国内直连、无需翻墙，模型丰富，功能全面</td><td>国内用户不想折腾网络环境时的替代方案</td></tr>
+        </table>
+
+        <h4>排版与文档制作</h4>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>Google Docs / 腾讯文档 / 飞书文档</strong><span>写作阶段用，支持多人协作、自动保存，导出方便。国内用户用腾讯文档或飞书文档更顺手，无需翻墙。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>Canva / Notion</strong><span>做排版精美一点的 PDF 或模板类产品时用，Canva 有大量现成的电子书/指南模板，Notion 适合做可交互的模板类产品。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>Gamma</strong><span>输入大纲，AI 自动生成带设计感的演示文稿/文档，适合快速做出视觉效果不错的产品封面页和内页。</span></div></div>
+        </div>
+
+        <h4>视频与音频（如果做视频课程）</h4>
+        <table class="data">
+          <tr><th>工具</th><th>特点</th><th>适合</th></tr>
+          <tr><td>剪映 / CapCut</td><td>字节旗下剪辑工具，国内叫剪映、海外叫CapCut，自动字幕、AI配音功能齐全，免费</td><td>录屏课程剪辑、加字幕、加背景音乐，新手首选</td></tr>
+          <tr><td>即梦 Seedance / Pika / Runway</td><td>文生视频/图生视频工具，可以做产品演示动画或宣传短片</td><td>需要动态视觉素材做广告或落地页头图时</td></tr>
+          <tr><td>剪映AI配音 / ElevenLabs</td><td>文字转真人感语音，多语言支持</td><td>不想真人出镜配音的视频课程</td></tr>
+        </table>
+
+        <h3>2.3.1 可以直接抄用的 AI 提示词（Prompt）模板</h3>
+        <p>把方括号里的内容换成你自己的信息，粘贴到 DeepSeek/豆包/ChatGPT/Claude 里即可使用：</p>
+        <div class="example">
+          <div class="ex-label">大纲生成提示词</div>
+          我要写一份面向【目标人群】的数字指南，解决的核心问题是【具体麻烦】，读完之后能达到【具体结果】。请帮我生成一份包含5～8个步骤的详细大纲，每个步骤要包含：这一步要做什么、为什么这样做、常见错误提醒、可复制的模板或清单建议。请用【中文/英文】输出，语气【专业但不生硬/口语化亲切】。
+        </div>
+        <div class="example">
+          <div class="ex-label">口语化整理提示词</div>
+          下面是我口述的一段思路，请帮我整理成通顺、有逻辑的书面表达，不要改变我原本的观点和方法，只优化语言表达和结构，保留我原本的举例和细节：【粘贴你的口述内容】
+        </div>
+        <div class="example">
+          <div class="ex-label">自查提示词</div>
+          请你扮演一个从来没接触过这个领域的新手，读完下面这段内容后，指出哪些地方你看不懂、哪些步骤缺少具体操作细节、哪些地方需要举例才能理解：【粘贴你写的内容】
+        </div>
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>再次提醒：以上提示词的作用是"整理你已经想清楚的内容"，不是"让AI替你想出一套你自己都不懂的方法"。如果AI生成的步骤你自己没办法逐条核实是否正确、是否符合真实场景，就不要直接收录进产品，这是避免退款和差评最重要的一条原则。</div>
+        </div>
+
+        <h3>2.4 写作节奏建议</h3>
+        <p>不需要一天写完。按"每天写 1～2 个步骤"的节奏，3～5 天能写完一份 20 页左右的初稿。AI 工具在这一步的正确用法是<strong>帮你把口语化的思路整理成通顺的书面表达</strong>，错误用法是<strong>让 AI 凭空编一套你自己都讲不清楚原理的步骤</strong>——后者会导致买家真的照做出问题，引发大量退款和差评，这是真实的商业风险。</p>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>自查标准：写完每一步，问自己"如果有人现在照着做，卡在这一步来问我，我能不能马上答上来"。答不上来说明这步写得不够具体，需要补充。</div>
+        </div>
+
+        <h3>2.5 排版导出（具体操作）</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>写作阶段</strong><span>跨境用户打开 docs.google.com 新建文档；国内用户用腾讯文档 docs.qq.com 或飞书文档 feishu.cn，直接写内容，不用纠结格式，先把内容写完整。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>套用简单排版</strong><span>用文档自带的"标题1/标题2"样式分章节，插入目录，让文档看起来有清晰结构即可，不需要花哨设计。想要更精美可以把内容导入 Canva 的电子书模板重新排版一遍。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>导出 PDF</strong><span>Google Docs：菜单栏 文件 → 下载 → PDF文档(.pdf)；腾讯文档/飞书文档：文件 → 导出为 → PDF，就得到了可以直接上架销售的文件。</span></div></div>
+        </div>
+
+        <div class="checklist">
+          <div class="cl-title">阶段二验收清单</div>
+          <label><input type="checkbox"> 已经确定产品形态（PDF/模板/视频课/专栏等），并且和阶段一的选题、目标人群相匹配</label>
+          <label><input type="checkbox"> 每一个步骤我自己都能讲清楚原理，不是 AI 凭空编的</label>
+          <label><input type="checkbox"> 至少包含一份可以直接复制使用的模板/清单/话术</label>
+          <label><input type="checkbox"> 已经导出成最终文件格式，自己完整体验了一遍确认没有错漏</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段三 ================= -->
+    <section class="phase" id="phase3">
+      <div class="phase-head"><span class="phase-num-badge">03</span><h2>收款与开店账号大全</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：拥有一个真实能收到陌生人付款、并能合法提现到国内银行卡的通道。这是最容易踩坑、也是这份手册重点更新的部分。</div>
+
+      <div class="sub">
+        <h3>3.1-A 跨境路径：选哪个 Merchant of Record（MoR）平台 <span class="track-tag global">跨境</span></h3>
+        <p>MoR（合规收款代管平台）会替你承担全球增值税/消费税代扣代缴、支付合规、拒付纠纷处理，你不需要自己去几十个国家注册税号，这是新手做跨境数字产品最省心的方式。截至 2026 年年中，主流选择和真实费率如下：</p>
+        <table class="data">
+          <tr><th>平台</th><th>费率</th><th>特点</th><th>适合</th></tr>
+          <tr><td>Payhip</td><td>免费版抽成 5%，付费版($29/月起)0手续费</td><td>不是MoR，需自己处理税务；支持13种收款方式含PayPal，上手门槛最低</td><td>刚起步、想零成本先测试的新手</td></tr>
+          <tr><td>Gumroad</td><td>统一 10%</td><td>是MoR，最简单但费率最高；PayPal 已在2025年初恢复支持</td><td>只想极简操作、走量不大的个人卖家</td></tr>
+          <tr><td>Lemon Squeezy</td><td>5% + $0.50</td><td>是MoR，被 Stripe 收购后仍独立运营，功能成熟（含发行下载、联盟计划），2026年正逐步向 Stripe Managed Payments 迁移，需关注后续变化</td><td>想要功能完整、口碑成熟的中间选项</td></tr>
+          <tr><td>Polar</td><td>免费版 5%+$0.50，付费版低至 3.8%+$0.40</td><td>是MoR，对开发者/独立黑客友好，明确支持中国台湾等亚洲地区结算</td><td>技术向产品、SaaS小工具</td></tr>
+          <tr><td>Creem</td><td>3.9%+$0.40</td><td>是MoR，费率目前较低，欧洲主体、内置分账与联盟工具，覆盖国家数相对较少（约50+）</td><td>预算敏感、想压低手续费的卖家</td></tr>
+          <tr><td>Dodo Payments</td><td>4%+$0.40起（国际交易+1.5%，订阅+0.5%）</td><td>是MoR，覆盖 220+ 国家和地区，无固定月费，适合面向全球分布用户</td><td>目标用户遍布多国、看重覆盖广度</td></tr>
+          <tr><td>Paddle</td><td>5%+$0.50</td><td>是MoR，最成熟、最"企业级"，适合已有一定规模的SaaS</td><td>已验证成功、准备规模化的团队，不建议作为第一次测试的首选（相对更重）</td></tr>
+        </table>
+
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>选择建议：<strong>第一次测试</strong>直接用 Payhip 免费版或 Gumroad 就够了，不需要纠结费率——测试阶段的目标是拿到"陌生人真实付费"这个信号，几个点的手续费差异完全不重要。等阶段六验证成功、准备扩大规模时，再根据自己的目标市场覆盖范围和流水规模，重新评估换成 Polar / Creem / Dodo Payments 这类费率更低的平台。</div>
+        </div>
+
+        <h3>3.2-A 在 Payhip 上架产品（具体点击路径）<span class="track-tag global">跨境</span></h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>注册账号</strong><span>访问 payhip.com → 点右上角 "Sign up" → 填邮箱和密码 → 完成邮箱验证</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>新建商品</strong><span>登录后台 → 左侧菜单 "Products" → 点 "New Product" → 选择 "Digital product"</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>上传文件与信息</strong><span>上传你的产品文件 → 填写商品标题、描述、价格（建议 9～29 美元区间）→ 上传一张封面图（用 Canva 或即梦AI 生成也可以）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>绑定收款方式</strong><span>后台 "Settings" → "Payments" → 关联你的 PayPal 或 Stripe 账号（没有的话先去 paypal.com 或 stripe.com 免费注册一个）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>发布并拿到链接</strong><span>点击 "Publish"，发布成功后在商品页面右上角能看到 "Share" 按钮，点开复制你的商品购买链接（形如 payhip.com/b/xxxxx），这个链接就是之后落地页模板里 <code>[[CHECKOUT_URL]]</code> 要填的内容</span></div></div>
+        </div>
+
+        <h3>3.3-A 跨境收款提现到国内账户：怎么选 <span class="track-tag global">跨境</span></h3>
+        <p>PayPal/Stripe 收到的美元，需要提现到一个能落地国内银行卡的通道。2026年主流的几个跨境收款服务商对比（费率和体验会随时间波动，正式使用前建议登录官网核实最新费率）：</p>
+        <table class="data">
+          <tr><th>平台</th><th>提现费率</th><th>到账速度</th><th>背景/特点</th></tr>
+          <tr><td>万里汇 WorldFirst</td><td>最高0.3%封顶，部分场景0费率，0汇损（实时中间价）</td><td>最快1分钟，支持节假日到账</td><td>蚂蚁集团旗下，全球60+牌照，可提现到支付宝</td></tr>
+          <tr><td>连连国际</td><td>综合约0.5%</td><td>官宣最快2秒，实际接近准实时</td><td>中国首批跨境外汇试点机构之一，覆盖100+国家电商平台</td></tr>
+          <tr><td>PingPong</td><td>综合约0.5%～1%，人民币提现约0.4%</td><td>较快</td><td>老牌跨境收款服务商，覆盖主流电商平台</td></tr>
+          <tr><td>Payoneer 派安盈</td><td>单笔$400以下收$4，以上收1%，跨币种另加0.5%～2%，年费$29.95（年收款超$6,000可豁免）</td><td>受合规审核周期影响，大额可能较慢</td><td>老牌国际化程度高，对新手小额卖家不算最友好</td></tr>
+          <tr><td>Airwallex 空中云汇</td><td>汇率加点0.5%起，另有订阅费</td><td>受银行营业时间限制，节假日不保证</td><td>2026年1月起被澳大利亚AUSTRAC下令进行合规审计，选型时可作为参考信息</td></tr>
+        </table>
+
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>注册万里汇/连连国际账号</strong><span>访问官网 → 选择"个人/自由职业者"或"企业"账户类型 → 用身份证完成实名认证（通常1～3个工作日审核）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>绑定收款来源</strong><span>在 PayPal/Stripe/Payhip 后台，把提现方式绑定到你新注册的账户</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>提现到国内银行卡</strong><span>后台发起提现，选择人民币和你的国内银行卡，等待到账</span></div></div>
+        </div>
+
+        <h3>3.1-B 国内路径：平台怎么选 <span class="track-tag domestic">国内</span></h3>
+        <p>国内做数字产品/知识付费变现，几个主流平台各有不同的入驻门槛和适合的产品形态，2026年的最新情况如下：</p>
+        <table class="data">
+          <tr><th>平台</th><th>2026年最新门槛</th><th>适合</th><th>费率参考</th></tr>
+          <tr><td>小红书店铺（电子资源类目）</td><td>2026年新规：个人店已取消1000粉门槛，但"电子资源"类目仍需满足入驻满180天/粉丝≥1000/近1年任意月流水≥6000元（三选一可用其他平台同主体流水证明），需签署《合规经营承诺函》</td><td>虚拟资料、模板、教程类，天然带图文种草流量</td><td>技术服务费按类目浮动，个人店较低</td></tr>
+          <tr><td>小红书付费笔记</td><td>无需开店，账号功能内直接开通，门槛很低</td><td>知识科普、经验分享类内容，部分试读+付费解锁模式</td><td>平台抽成后到账</td></tr>
+          <tr><td>知乎付费内容（好物推荐/付费想法/知识市场）</td><td>账号需要一定活跃度和垂直领域内容积累，实际门槛因类目而异</td><td>专业性强、需要深度内容的领域（法律/金融/考试/职场）</td><td>平台抽成，具体见知乎创作者中心</td></tr>
+          <tr><td>闲鱼个人闲置/知识付费</td><td>0门槛，实名认证即可开店</td><td>新手起步测试、单量不大的场景，不能大规模投流</td><td>基本免费，仅支付宝/微信支付通道费</td></tr>
+          <tr><td>抖音小店/知识付费</td><td>需要企业资质或个体工商户资质开通"知识付费"权限；个人版限制较多</td><td>短视频引流转化能力强，适合能持续产出短视频的人</td><td>类目佣金视商品类型，通常5%～20%</td></tr>
+          <tr><td>视频号小店</td><td>个人可开通，企业/个体户权限更全</td><td>私域+公众号+视频号联动的内容创作者</td><td>参考微信支付商户费率</td></tr>
+          <tr><td>得物/微店/有赞微商城</td><td>个体户/企业资质门槛，适合已经有一定品牌积累的卖家</td><td>需要独立店铺形象、想摆脱平台流量依赖的中期阶段</td><td>视套餐而定，有赞需付订阅费</td></tr>
+        </table>
+
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div><b>2026年小红书虚拟资料新规重点：</b>平台对电子资源类商品的审核明显收紧，实际执行中重点核查粉丝数、流水证明、承诺书这三项。如果账号是新号、粉丝和流水都不够，可以考虑先用"个人售卖"模式（0门槛、不能开店投流，只能小单量过渡）积累数据，或参考本手册第九章的合规建议评估其他类目路径，<strong>不建议为了绕过审核而使用不合规的类目挂靠方式</strong>，一旦被平台判定为违规经营，可能导致店铺冻结、保证金扣除等后果。</div>
+        </div>
+
+        <h3>3.2-B 国内小红书店铺开通具体路径 <span class="track-tag domestic">国内</span></h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>入驻申请</strong><span>App内"我" → 点右上角设置图标 → "创作者中心"或直接搜索"小红书店铺后台" → 选择开店主体类型（个人/个体工商户/企业）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>选择经营类目</strong><span>后台"店铺" → "类目管理"，根据你的产品选择"电子资源"或相近类目，核对该类目所需资质（粉丝数、流水证明、承诺函等）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>上传商品</strong><span>标题遵循"品牌+品名+属性+规格"公式且不超过20字，不使用极限词（"最""第一""绝对"等），主图不少于3张且首图为真实效果图，详情页真实描述内容和交付方式</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>设置自动发货</strong><span>虚拟商品建议设置自动发货（上传网盘链接/提取码或使用第三方自动发货工具），减少人工处理订单的时间成本，同时注意加密保护你的原创内容，防止被买家转卖或泄露</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>绑定收款</strong><span>关联微信支付/支付宝商户号，个人店通常直接绑定个人账户，个体户/企业店需要对公或对私经营账户</span></div></div>
+        </div>
+
+        <h3>3.3-B 个体工商户注册全流程（想在国内平台长期稳定经营，建议尽早办）<span class="track-tag domestic">国内</span></h3>
+        <p>很多国内平台（抖音小店、部分小红书类目、视频号完整权限）需要个体工商户或企业资质才能开通，个体工商户注册流程在2026年已经高度线上化，多数城市可以全程手机办理，不需要到场：</p>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>准备材料</strong><span>身份证、经营地址证明（可用居住地址，部分地区支持"住所+经营场所分离承诺书"无需额外租赁证明）、经营范围（选"技术服务""信息咨询服务""设计服务"等即可覆盖大部分数字产品经营）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>线上申请</strong><span>打开"国家政务服务平台"App或当地"市场监督管理局"官方小程序，选择"个体工商户设立登记"，填写字号名称（比如"XX市XX工作室"）、经营范围、经营地址</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>核名与提交</strong><span>系统会自动查重字号名称，通过后提交申请，多数地区1～3个工作日内电子营业执照即可下发，部分地区支持当场办结</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>刻章与开对公账户（视需要）</strong><span>如果只是自己经营，不涉及大额对公结算，可以先不刻章、不开对公户；如果计划长期规模化经营或需要对公转账，再补办</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>税务报到</strong><span>个体工商户设立后系统通常会自动同步税务登记信息，登录电子税务局App确认税种核定情况，个体工商户多数可以享受小规模纳税人的核定征收或查账征收优惠，具体见第九阶段"合规、税务与法律全解"</span></div></div>
+        </div>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>不确定要不要注册个体户：如果只是阶段五的小范围测试阶段（预计销售额几百到几千元），可以先用个人身份在闲鱼/小红书个人店测试；一旦阶段六验证成功、准备进入阶段七规模化扩大，或者平台明确要求资质才能开通更高权限时，再注册个体工商户，成本很低（多数地区免费）且流程很快。</div>
+        </div>
+
+        <h3>3.5 更多可选平台补充 <span class="track-tag both">通用</span></h3>
+        <table class="data">
+          <tr><th>平台</th><th>赛道</th><th>特点</th></tr>
+          <tr><td>Etsy（跨境）</td><td>手工艺、数字下载品（Digital Download）</td><td>自带海量精准搜索流量，适合设计类模板/打印品，但类目审核和知识产权规则较严格，需提前了解平台政策</td></tr>
+          <tr><td>Substack（跨境）</td><td>付费邮件订阅专栏</td><td>适合持续输出深度内容的创作者，订阅制现金流稳定，平台抽成10%</td></tr>
+          <tr><td>Ko-fi（跨境）</td><td>创作者打赏+数字商品</td><td>门槛低，适合先靠免费内容积累粉丝、再逐步引导付费</td></tr>
+          <tr><td>TikTok Shop（跨境）</td><td>短视频电商</td><td>适合有短视频内容能力、目标市场覆盖美/英/东南亚的卖家，需要企业资质入驻，规则更新频繁需持续关注</td></tr>
+          <tr><td>知识星球（国内）</td><td>付费社群/知识库</td><td>适合需要长期陪伴式服务、持续答疑的产品，订阅制续费率是核心指标</td></tr>
+          <tr><td>喜马拉雅/小宇宙（国内）</td><td>付费音频/播客</td><td>适合通勤场景、陪伴式学习内容，制作门槛比视频低</td></tr>
+          <tr><td>得物（国内）</td><td>潮流/设计类电商</td><td>年轻用户群体质量高，但入驻需要一定品牌调性和资质，更适合中期阶段</td></tr>
+          <tr><td>公众号"看一看"+知识付费插件</td><td>图文深度内容</td><td>适合已有一定公众号粉丝积累的创作者，可接入"荔枝微课"等第三方知识付费工具</td></tr>
+        </table>
+
+        <h3>3.4 自测（发布前必做，别跳过）<span class="track-tag both">通用</span></h3>
+        <p>用你自己的另一个邮箱/账号（或者拜托朋友），完整走一遍"打开购买链接 → 付款 → 收到下载内容 → 打开确认完整"的全过程，确认整条链路真的通畅，再对外推广。国内平台同样要测试一遍"下单 → 自动发货 → 提取内容"的完整链路。</p>
+
+        <div class="checklist">
+          <div class="cl-title">阶段三验收清单</div>
+          <label><input type="checkbox"> （跨境）Payhip/Gumroad等平台商品已发布，拿到真实购买链接；（国内）小红书店铺/闲鱼/知乎等已发布商品</label>
+          <label><input type="checkbox"> 收款方式已绑定并测试成功（PayPal/Stripe 或 微信支付/支付宝商户号）</label>
+          <label><input type="checkbox"> （跨境）提现通道（万里汇/连连/Payoneer等）已完成实名认证</label>
+          <label><input type="checkbox"> （国内，如需要）个体工商户注册已完成或已明确评估暂不需要</label>
+          <label><input type="checkbox"> 自己完整测试过一次购买流程，确认能收到/下载文件</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段四 ================= -->
+    <section class="phase" id="phase4">
+      <div class="phase-head"><span class="phase-num-badge">04</span><h2>落地页 / 详情页 / 笔记制作</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：把产品信息做成一个客户点击链接后能看到、能建立信任、能直接购买的页面——跨境是独立落地页，国内更多是店铺详情页+种草笔记的组合。</div>
+
+      <div class="sub">
+        <h3>4.1-A 跨境：制作独立落地页 <span class="track-tag global">跨境</span></h3>
+        <p>这一部分建议用一套浅色响应式 H5 模板，配合"每个空格填什么"说明文档来使用，不需要重新学建站。按下面顺序执行：</p>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>填内容</strong><span>打开落地页模板 HTML 文件，对照填空说明文档，把方括号占位符换成阶段一、二里已经确定的真实内容</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>填购买链接</strong><span>把阶段三拿到的 Payhip/Gumroad/Polar 等真实购买链接，填进所有 <code>[[CHECKOUT_URL]]</code> 位置</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>三处一致性检查</strong><span>价格、退款政策、购买按钮跳转，这三处必须对得上，逐条核对一遍</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>发布上线</strong><span>用 Netlify Drop（app.netlify.com/drop）把文件拖上去，几分钟内拿到一个真实网址；也可以用 Vercel、GitHub Pages、Cloudflare Pages，都支持免费静态网页托管</span></div></div>
+        </div>
+
+        <h4>落地页必须包含的信任要素</h4>
+        <ul>
+          <li>清晰的一句话价值主张（读者3秒内知道这是不是给他的）</li>
+          <li>具体的"读完/用完能得到什么"列表（不是功能罗列，是结果罗列）</li>
+          <li>真实的产品截图或内页预览（不要用纯文字描述）</li>
+          <li>退款政策（哪怕是"7天无理由"这种简单承诺，也比没有强）</li>
+          <li>真实可回复的联系邮箱</li>
+          <li>FAQ 板块，提前回答"这个适合我吗""和其他同类产品有什么区别"</li>
+        </ul>
+
+        <h3>4.1-B 国内：详情页 + 种草笔记组合 <span class="track-tag domestic">国内</span></h3>
+        <p>国内路径通常不需要独立落地页，而是"电商详情页（负责转化）+ 内容平台笔记/视频（负责种草引流）"两部分组合：</p>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>制作详情页</strong><span>在店铺后台商品编辑页，用平台自带的图文编辑器插入产品截图、目录预览、适用人群说明；小红书/闲鱼建议前3张图直接展示"能得到什么"，比纯文字描述转化率更高</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>制作种草笔记</strong><span>笔记内容以"提供价值"为主（比如先分享部分免费干货或使用心得），不要写成纯广告；结尾自然引导"完整版/详细模板在我主页店铺"，避免使用极限词和夸大宣传用语（详见第九阶段广告合规）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>笔记与商品挂链</strong><span>小红书：笔记编辑页底部"添加链接"功能关联店铺商品；抖音：视频挂载小黄车；知乎：想法/回答插入好物链接</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>三处一致性检查</strong><span>笔记里说的价格、笔记里说的内容范围、详情页实际展示的内容，这三处必须完全一致，避免"标题党"引发的差评和投诉</span></div></div>
+        </div>
+
+        <h3>4.2 AI 辅助制作落地页/详情页文案</h3>
+        <p>把阶段一收集到的真实用户抱怨原话，作为素材喂给 DeepSeek/ChatGPT/Claude，让它帮你把这些真实痛点转化成落地页的标题和开篇文案——这样写出来的文案会比凭空想象更有共鸣感。国内文案建议用豆包或DeepSeek，语感更符合中文互联网表达习惯。</p>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>不管跨境还是国内，落地页/详情页文案的核心公式都是：<strong>用读者自己的话描述他的痛苦 → 说明你的产品怎么解决 → 给出具体可信的证据（案例/截图/用户原话）→ 降低决策门槛（价格锚点、退款保证、FAQ）</strong>。</div>
+        </div>
+
+        <h3>4.3 让落地页/详情页自带一点自然流量（SEO 基础）<span class="track-tag both">通用</span></h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>标题和描述包含目标关键词</strong><span>把阶段一蹲点时找到的高频关键词自然地放进落地页的 &lt;title&gt; 标签和详情页标题里，不要堆砌关键词</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>合理的标题层级</strong><span>用 H1/H2/H3 标签组织落地页内容结构，方便搜索引擎和读者都能快速抓住重点</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>国内笔记的关键词布局</strong><span>小红书/知乎的搜索算法同样重视标题和前几行文字里的关键词，笔记标题尽量包含目标人群会搜索的具体词汇</span></div></div>
+        </div>
+        <p>SEO 不是这套流程里的核心增长渠道（阶段五的人工测试渠道才是），但花很少的时间做好这几点基础设置，能让你的落地页/笔记在被分享后持续获得一些免费的搜索流量，属于"顺手做"的低成本动作。</p>
+
+        <div class="checklist">
+          <div class="cl-title">阶段四验收清单</div>
+          <label><input type="checkbox">（跨境）独立落地页已发布上线，能通过公开网址访问；（国内）店铺详情页+至少1篇种草笔记已发布</label>
+          <label><input type="checkbox"> 价格、退款政策、购买入口三处信息完全一致</label>
+          <label><input type="checkbox"> 用手机和电脑分别打开检查过一遍，确认排版正常、链接可点</label>
+          <label><input type="checkbox"> 已包含至少一个真实可信的信任要素（截图/案例/退款承诺）</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段五 ================= -->
+    <section class="phase" id="phase5">
+      <div class="phase-head"><span class="phase-num-badge">05</span><h2>小范围人工投放测试</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：只花小钱、小范围，验证陌生人是否真的会为此付费。这是整个流程里唯一"见真章"的一步。</div>
+
+      <div class="sub">
+        <h3>5.1 六条路径，选一到两条能坚持做的（不要全部一起上）</h3>
+        <table class="data">
+          <tr><th>路径</th><th>具体怎么做</th><th>成本</th><th>适合</th></tr>
+          <tr><td>跨境·免费发帖</td><td>每周在 1～2 个相关 Reddit/Facebook 群组，先分享一段免费干货内容，评论区/简介放链接，不要硬广</td><td>0 元，需要时间</td><td>愿意花时间的新手</td></tr>
+          <tr><td>跨境·小额付费广告</td><td>Meta Ads Manager 后台，每天 5～10 美元预算，只投 1 个国家、1 条素材</td><td>约 50～100 美元/2周</td><td>想快速拿到数据的人</td></tr>
+          <tr><td>跨境·Google/Reddit Ads</td><td>针对搜索意图明确的关键词投 Google Ads，或在垂直 Reddit 版块投 Reddit Ads，转化意图通常比社交广告更强</td><td>约 50～150 美元/2周</td><td>选题有明确搜索关键词的场景</td></tr>
+          <tr><td>国内·免费发帖/笔记</td><td>每周在小红书/知乎/豆瓣发布1～2篇内容，先输出价值再自然引导</td><td>0 元，需要时间</td><td>愿意花时间的新手，国内内容生态更成熟</td></tr>
+          <tr><td>国内·小额信息流投放</td><td>小红书"薯条"推广、知乎"品牌任务"或"好物推荐"、抖音"DOU+"，单次投放几十到几百元</td><td>约 50～500 元/2周</td><td>想快速起量测试转化的人</td></tr>
+          <tr><td>中文平台先验证，再决定是否出海</td><td>先在小红书/知乎用中文验证模型是否成立，再决定要不要做外语版</td><td>0 元</td><td>目标人群本来就有中文用户，或想降低第一次测试的语言门槛</td></tr>
+        </table>
+
+        <h3>5.2-A Meta 广告后台具体操作路径 <span class="track-tag global">跨境</span></h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>创建广告账户</strong><span>访问 business.facebook.com → 创建 Business Manager → 完成企业验证（个人也可以创建，但大额投放可能需要验证）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>新建广告系列</strong><span>Ads Manager → "Create" → 选目标 "Sales" 或 "Traffic" → 设置每日预算 5～10 美元</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>设置受众与素材</strong><span>选择目标国家/年龄/兴趣 → 上传广告图或短视频 + 文案 → 链接填你的落地页网址</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>人工确认发布</strong><span>提交审核（通常几小时到1天）→ 通过后广告开始投放，<strong>每天人工查看一次数据</strong>，不建议一开始就用任何自动改预算的工具或脚本</span></div></div>
+        </div>
+
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>广告账户新手常见问题：新账户投放金额过大、素材涉嫌夸大宣传（比如"保证赚钱"类字眼）容易被封号限制。前两周务必保持每天预算低、文案措辞保守。</div>
+        </div>
+
+        <h3>5.2-B 国内投流渠道具体操作路径 <span class="track-tag domestic">国内</span></h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>小红书薯条</strong><span>笔记发布后点击"薯条"推广按钮 → 选推广目标（"更多点击"或"更多咨询"）→ 设置预算（最低几十元起）和投放时长 → 选定向人群 → 提交，审核通过后当天生效</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>抖音 DOU+</strong><span>视频发布后点"上热门" → 选投放目的（"点赞评论""主页访问量"或"直接转化"）→ 设置金额（最低几十元）→ 选定向或系统智能推荐 → 支付并等待审核</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>知乎品牌任务/好物推荐</strong><span>在文章/回答/想法中插入好物链接，知乎会根据点击和转化情况给予一定的自然流量倾斜；也可以通过"知+"投放获得更多曝光（需要一定预算门槛）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>人工确认发布</strong><span>审核通过后开始投放，<strong>每天人工查看一次数据</strong>（点击率、互动率、转化情况），不建议一开始就大额度投放</span></div></div>
+        </div>
+
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>国内平台同样存在"新账号/新笔记异常投放容易被限流"的问题，建议先靠自然流量测试1～2周，确认内容本身有一定自然互动后，再叠加小额付费推广，效果会比一上来就砸钱更好。</div>
+        </div>
+
+        <h3>5.3 两周内容行动日历（免费发帖/笔记路径参考，跨境国内通用逻辑）</h3>
+        <table class="data">
+          <tr><th>时间</th><th>动作</th></tr>
+          <tr><td>第1～2天</td><td>在目标论坛/平台潜水，了解发帖规则，避免直接被当广告删帖或限流</td></tr>
+          <tr><td>第3天</td><td>发布第一篇"免费干货"内容（分享部分内容，不直接推销）</td></tr>
+          <tr><td>第4～7天</td><td>认真回复评论区问题，观察哪些点大家最感兴趣</td></tr>
+          <tr><td>第8天</td><td>发布第二篇，这次可以自然带上购买链接/店铺入口</td></tr>
+          <tr><td>第9～14天</td><td>重复在1～2个新渠道做同样动作，记录每次的点击和转化数据</td></tr>
+        </table>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>跨境和国内可以同步小范围测试，互不冲突——比如同一份内容素材，国内先发一篇小红书笔记看反馈，跨境同步在 Reddit 发一篇英文版看反馈，两边数据都能帮你判断这个选题是否成立，且能互相印证。</div>
+        </div>
+
+        <h3>5.4 广告/笔记文案模板库（照抄结构，替换具体内容）</h3>
+        <div class="example">
+          <div class="ex-label">模板一：痛点开头型</div>
+          还在为【具体麻烦】头疼吗？【目标人群】的你一定遇到过这种情况：【描述一个具体场景】。这份【产品名】帮你【具体结果】，已经有读者反馈【真实效果，不夸大】。
+        </div>
+        <div class="example">
+          <div class="ex-label">模板二：反常识型</div>
+          大部分人做【某件事】都会犯这个错误：【具体错误】。其实正确的做法是【核心方法一句话概括】，这份【产品名】把完整方法拆成了【N】个可执行步骤。
+        </div>
+        <div class="example">
+          <div class="ex-label">模板三：清单型（国内笔记常用）</div>
+          【目标人群】必看！整理了【N】条【某领域】干货，看完能少走很多弯路（文末有完整版）：1、... 2、... 3、...（免费展示3-5条有价值内容，完整版引导到商品链接）
+        </div>
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>使用以上模板时，"真实效果""具体场景"这类占位内容必须替换成你自己能证实的真实信息，不能编造用户评价或效果数据，这既是广告合规的要求，也是长期口碑的基础。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段六 ================= -->
+    <section class="phase" id="phase6">
+      <div class="phase-head"><span class="phase-num-badge">06</span><h2>看数据、做判断</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：用真实数字而不是感觉，决定下一步是继续投入、调整，还是放弃这个选题。</div>
+
+      <div class="sub">
+        <table class="data">
+          <tr><th>数据情况</th><th>说明</th><th>建议动作</th></tr>
+          <tr><td>曝光多、点击少（点击率 &lt;1%）</td><td>标题/封面/钩子不吸引人</td><td>回到落地页/详情页，重写标题和首图文案，先别急着加预算</td></tr>
+          <tr><td>点击多、购买少（转化率 &lt;1%）</td><td>落地页/详情页信任感不够，或价格/内容不匹配预期</td><td>检查价格是否合理、FAQ是否打消了顾虑、退款政策是否清楚</td></tr>
+          <tr><td>点击和购买都有，但很少</td><td>模型基本成立，只是流量规模不够</td><td>值得进入阶段七，扩大同一渠道的投入</td></tr>
+          <tr><td>2周内几乎零点击零互动</td><td>渠道选错了，或选题本身没有需求</td><td>换一个渠道再测一次；如果两个渠道都是零反馈，认真考虑回到阶段一换选题</td></tr>
+          <tr><td>跨境有反馈、国内没反馈（或反之）</td><td>说明需求集中在其中一个市场，人群习惯、支付习惯或内容表达方式不匹配另一个市场</td><td>先集中资源做反馈好的那条路径，另一条路径可以后续再重新评估，不必同时硬推两边</td></tr>
+        </table>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>不需要追求完美数据才行动。只要出现了"陌生人真实付款"这个信号，哪怕只有1～2单，也说明这个模型是成立的，值得进入下一阶段。</div>
+        </div>
+
+        <h3>6.0 提前把数据追踪设置好（阶段四、五就该做，这里统一说明）</h3>
+        <table class="data">
+          <tr><th>工具</th><th>用途</th><th>适用</th></tr>
+          <tr><td>UTM 参数</td><td>在每条推广链接后面加上来源标记（如 <code>?utm_source=reddit&utm_campaign=test1</code>），这样后台就能区分每一单到底来自哪个渠道</td><td>跨境+国内通用，国内部分平台用自带的"渠道码"功能替代</td></tr>
+          <tr><td>Google Analytics（免费）</td><td>安装到落地页，查看访客来源、停留时长、跳出率</td><td>跨境独立落地页</td></tr>
+          <tr><td>各支付/电商平台自带数据后台</td><td>Payhip/Gumroad 后台自带销售数据看板；小红书/抖音店铺后台自带"生意参谋"类数据面板</td><td>跨境+国内通用，是最基础也最重要的数据来源</td></tr>
+          <tr><td>灰豚数据/新红数据（付费，非必需）</td><td>查看小红书笔记的完整数据表现和同类账号对比</td><td>国内，规模化运营后再考虑，测试阶段不必须</td></tr>
+        </table>
+        <p>不需要一开始就上复杂的数据工具，最基础的原则是：<strong>每条推广出去的链接，都要能追溯到具体来自哪个渠道、哪条素材</strong>，这样阶段六做判断时才有真实依据，而不是凭感觉猜"好像是这个渠道效果好"。</p>
+
+        <h3>6.1 用 AI 辅助数据分析（而不是让 AI 替你做决定）</h3>
+        <p>把两周内的点击量、转化量、评论反馈等原始数据整理成表格，丢给 DeepSeek/ChatGPT 让它帮你做归因分析和趋势总结，能节省不少人工核对时间。但最终"要不要继续投入"的判断，应该基于上面表格里列出的真实业务逻辑，而不是照搬 AI 给出的建议——AI 看不到你账户里真实的钱和真实的用户反馈情绪，只有你自己知道。</p>
+      </div>
+    </section>
+
+    <!-- ================= 阶段七 ================= -->
+    <section class="phase" id="phase7">
+      <div class="phase-head"><span class="phase-num-badge">07</span><h2>验证成功后怎么扩大</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：把已经跑通的模型，谨慎地复制到更大范围。</div>
+      <div class="sub">
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>先复制渠道，再复制语言/市场</strong><span>同一个市场里，多试1～2个新的发帖/投流渠道或小幅提高广告预算，比直接翻译成新语言、或从国内跨到跨境（反之亦然）更划算，风险也更低</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>翻译新语言市场前，先人工审核</strong><span>用AI辅助翻译落地页和产品内容后，务必找懂当地语言的人（或至少自己借助翻译工具反向检查）通读一遍，确认没有语义偏差，尤其是价格、退款条款这类涉及承诺的文字</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>从国内扩展到跨境（或反之）前，重新走一遍阶段三</strong><span>不同市场的收款、税务、平台规则完全不同，不能简单复用同一套账号体系，需要重新按第三阶段和第九阶段的对应路径开通账户</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>把验证过的定价、退款政策原样复用</strong><span>不要让新市场"重新决定"价格和退款政策，用已经验证过的版本，只翻译语言/调整本地化表达，减少出错空间</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>考虑升级产品形态</strong><span>如果最初是 PDF 图文指南，验证成功后可以考虑升级为视频课程、订阅制社群等更高客单价的形态，提高同一批用户的终身价值</span></div></div>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3>7.1 多语言本地化检查清单（进入新语言市场前逐条核对）<span class="track-tag global">跨境</span></h3>
+        <div class="checklist">
+          <div class="cl-title">本地化检查</div>
+          <label><input type="checkbox"> 货币单位和价格已按当地习惯本地化（不是简单的汇率换算数字，可以参考当地同类产品定价）</label>
+          <label><input type="checkbox"> 日期、度量单位格式已本地化</label>
+          <label><input type="checkbox"> 文案中的比喻、俗语已替换为当地读者能理解的表达，而不是直译</label>
+          <label><input type="checkbox"> 收款方式覆盖当地常用的支付习惯（部分地区更依赖本地钱包而非信用卡）</label>
+          <label><input type="checkbox"> 客服响应时区和语言能力已提前规划好（哪怕是用AI辅助回复，也要有人工审核环节）</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段八 ================= -->
+    <section class="phase" id="phase8">
+      <div class="phase-head"><span class="phase-num-badge">08</span><h2>自动化分级路线图</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">等阶段五、六跑出真实成交后再考虑，这里先了解顺序即可。</div>
+      <div class="sub">
+        <table class="data">
+          <tr><th>优先级</th><th>自动化内容</th><th>风险</th><th>推荐工具</th></tr>
+          <tr><td>先做</td><td>已验证文案批量翻译成新语言（人工审核后再用）</td><td>低——出错顶多是文字别扭，不涉及钱</td><td>DeepSeek/ChatGPT/Claude 批量翻译+人工校对</td></tr>
+          <tr><td>再做</td><td>配图/短视频素材批量生成</td><td>低——出错顶多不好看</td><td>即梦AI/Midjourney/剪映批量生成模板化素材</td></tr>
+          <tr><td>然后做</td><td>客服问答自动化（FAQ机器人、自动回复模板）</td><td>中——回答错误可能引发退款纠纷，需要定期人工抽查</td><td>各平台自带客服机器人、或简单的关键词自动回复</td></tr>
+          <tr><td>最后做，且保留人工确认</td><td>自动发帖、自动调整广告预算</td><td>高——直接涉及账号安全和真实花费，建议长期保留"超过一定金额必须人工确认"的红线</td><td>需谨慎评估第三方自动化工具的合规性，避免违反平台规则导致封号</td></tr>
+        </table>
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>核心原则：自动化只能重复执行"已经被人工验证过是对的"动作，不能替你做定价、退款政策这类需要你本人承担后果的决定。国内平台对"批量自动发布/异常规律性操作"的检测越来越严格（详见阶段三关于小红书新规"批量开店"的处罚说明），使用自动化工具前务必先了解目标平台的规则红线。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段九 ================= -->
+    <section class="phase" id="phase9">
+      <div class="phase-head"><span class="phase-num-badge">09</span><h2>合规、税务与法律全解</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：把容易被新手忽略、但真出事会很麻烦的税务申报、外汇合规、著作权、广告用语风险提前排掉。本节内容为一般性信息整理，不构成法律或税务建议，具体金额较大或情况复杂时，建议咨询当地税务师或律师。</div>
+
+      <div class="sub">
+        <h3>9.1 跨境收入：外汇与税务 <span class="track-tag global">跨境</span></h3>
+        <ul>
+          <li><strong>个人结售汇额度：</strong>中国大陆居民个人每人每年有等值5万美元的便利化结售汇额度，超过额度需要提供相应的交易凭证（比如跨境收款平台的交易记录、经营流水说明）才能继续结汇，建议提前了解清楚，避免大额提现时卡在这一步。</li>
+          <li><strong>个人所得税：</strong>通过跨境平台获得的经营性收入，理论上需要按"经营所得"或"劳务报酬"申报个人所得税，具体适用税目和税率需结合个人经营主体形式（自然人/个体工商户）判断，建议前期收入不大时先做好流水记录，规模变大后咨询专业税务师规范申报。</li>
+          <li><strong>境外平台代扣代缴：</strong>部分 MoR 平台（如 Lemon Squeezy、Paddle）已经替你处理了买家所在国的增值税/消费税，这部分不需要你自己操心，但你从这些平台提现到国内后产生的个人所得税，仍然是你自己的申报义务。</li>
+          <li><strong>发票与合同：</strong>境外交易通常不涉及国内发票，但建议留存好平台后台的交易记录、合同条款（如 Payhip/Gumroad 的服务条款截图），作为未来可能需要的完税凭证或纠纷证据。</li>
+        </ul>
+
+        <h3>9.2 国内收入：税务与经营合规 <span class="track-tag domestic">国内</span></h3>
+        <ul>
+          <li><strong>个人身份经营：</strong>用个人身份在闲鱼/小红书个人店等小范围测试阶段，收入零星、金额不大时，风险相对可控，但严格来说持续性经营行为理论上仍应依法纳税；建议一旦稳定出单，尽快按下方个体工商户路径规范化。</li>
+          <li><strong>个体工商户税务：</strong>多数地区个体工商户可以选择"核定征收"（按核定的应税所得率简易计算）或"查账征收"，月销售额未超过增值税起征点（各地及各年政策可能调整，需以当地税务局最新规定为准）的部分通常可以享受小规模纳税人增值税减免；具体核定方式建议登录当地"电子税务局"或到办税服务厅咨询。</li>
+          <li><strong>平台代扣代缴：</strong>抖音小店、视频号小店等部分平台会在结算时代扣一定税费，具体规则以平台结算页面说明为准，不代表你不再有其他纳税义务，是否需要额外申报建议结合个体户/企业实际经营情况确认。</li>
+          <li><strong>保留经营记录：</strong>建议养成习惯，定期导出各平台的销售流水、推广费用支出记录，方便年度汇算清缴或应对税务核查。</li>
+        </ul>
+
+        <h3>9.3 著作权与内容合规 <span class="track-tag both">通用</span></h3>
+        <table class="data">
+          <tr><th>风险点</th><th>说明</th><th>建议</th></tr>
+          <tr><td>AI生成内容的著作权归属</td><td>不同司法辖区对AI生成内容能否受著作权保护、归谁所有的规定并不统一，且在持续变化中</td><td>产品核心内容尽量保留可证明的人工创作痕迹（大纲、修改记录），AI仅作为辅助工具</td></tr>
+          <tr><td>素材/图片/字体侵权</td><td>使用未授权的图片、字体、音乐会构成侵权，即便是"网上随便搜的"</td><td>优先使用AI生成图片（注意生成工具自身的使用条款）、可商用素材站（如 Unsplash、Pexels 需核实商用授权范围）、正版字体授权</td></tr>
+          <tr><td>产品内容抄袭他人</td><td>参考同类产品做"竞品调研"时，直接照搬对方原文结构或大段文字属于侵权</td><td>调研阶段只提炼思路和结构框架，具体表达必须自己重新撰写</td></tr>
+          <tr><td>保护自己的原创内容</td><td>虚拟产品容易被买家转卖、盗版传播</td><td>可使用加密分享/防截屏工具限制转发下载，PDF可加数字水印标注购买者信息，从技术上增加被盗版转卖的成本</td></tr>
+        </table>
+
+        <h3>9.4 广告与营销用语红线 <span class="track-tag both">通用</span></h3>
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>国内《广告法》明确禁止使用"最""第一""国家级""绝对""保证效果"等绝对化用语和虚假宣传；跨境 Meta/Google 等平台的广告政策同样禁止"guaranteed income""get rich quick"类宣称收益保证的表述。这两类用语不仅可能导致广告账户被封，情节严重的国内还可能面临行政处罚。</div>
+        </div>
+        <ul>
+          <li>不使用"保证赚钱""7天暴富""零成本躺赚"等收益承诺类表述</li>
+          <li>不虚构用户评价、销量、好评数</li>
+          <li>不使用医疗、金融等特殊行业的功效宣称（除非产品本身确实属于该行业且已具备相应资质）</li>
+          <li>价格、优惠、限时信息必须真实，不能虚构"原价998现价99"这类无依据的价格对比</li>
+        </ul>
+
+        <h3>9.5 平台规则速览（容易被忽略的几条）<span class="track-tag both">通用</span></h3>
+        <table class="data">
+          <tr><th>平台</th><th>容易踩的坑</th></tr>
+          <tr><td>小红书</td><td>塑造虚假人设（财富、学历、收入等）在2026年社区公约2.0中被明确列为重点治理对象；批量开店、异常批量发布商品、关联违规店铺会被认定为"扰乱经营秩序"</td></tr>
+          <tr><td>Meta/Google Ads</td><td>新账户大额投放、素材涉及夸大宣传字眼，容易触发风控被限制或封号</td></tr>
+          <tr><td>各类 MoR 平台</td><td>部分平台存在因"风险信号"冻结账户资金的真实案例（选型时可参考第三阶段费率对比表中的用户反馈信息），建议前期保留其他提现备用方案，不要把全部收入沉淀在单一平台</td></tr>
+          <tr><td>抖音/视频号</td><td>知识付费类目对内容真实性审核较严，虚构课程效果、伪造学员反馈容易被下架处罚</td></tr>
+        </table>
+
+        <div class="checklist">
+          <div class="cl-title">阶段九自查清单</div>
+          <label><input type="checkbox"> 我清楚自己收入需要申报个人所得税（或已规划好个体工商户的税务路径）</label>
+          <label><input type="checkbox"> 我保留了各平台的交易流水记录，方便未来核查或申报</label>
+          <label><input type="checkbox"> 产品内容和落地页素材没有侵犯他人著作权（图片/字体/文字均已确认授权来源）</label>
+          <label><input type="checkbox"> 所有对外文案（落地页/详情页/广告/笔记）没有使用绝对化用语和虚假宣传</label>
+          <label><input type="checkbox"> 我了解自己所使用平台的核心规则红线，不会因不知情而被封号</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段十 ================= -->
+    <section class="phase" id="phase10">
+      <div class="phase-head"><span class="phase-num-badge">10</span><h2>工具箱总清单速查表</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">把全手册出现过的工具按用途汇总成一张表，方便直接查找，不用再翻回前面章节。</div>
+
+      <div class="sub">
+        <h3>10.1 需求调研</h3>
+        <table class="data">
+          <tr><th>用途</th><th>跨境工具</th><th>国内工具</th></tr>
+          <tr><td>关键词/趋势</td><td>Google Trends, AnswerThePublic, AlsoAsked</td><td>百度指数, 微信指数, 抖音搜索指数</td></tr>
+          <tr><td>论坛/社区蹲点</td><td>Reddit, Facebook 群组, Indie Hackers, Product Hunt</td><td>小红书, 知乎, 豆瓣小组, 微博超话</td></tr>
+          <tr><td>同类产品/竞品调研</td><td>Gumroad, Etsy, Payhip, Amazon 书评</td><td>闲鱼, 淘宝, 拼多多同类资料评价区</td></tr>
+        </table>
+
+        <h3>10.2 内容生产</h3>
+        <table class="data">
+          <tr><th>用途</th><th>推荐工具</th></tr>
+          <tr><td>写作/文案</td><td>DeepSeek、豆包、Kimi、通义千问（国内）；ChatGPT、Claude、Gemini（跨境英文）</td></tr>
+          <tr><td>配图/设计</td><td>即梦AI、Canva、海艺AI、通义万相（国内直连）；Midjourney、Stable Diffusion（跨境/进阶）</td></tr>
+          <tr><td>文档写作与排版</td><td>Google Docs（跨境）、腾讯文档/飞书文档（国内）、Notion、Gamma</td></tr>
+          <tr><td>视频剪辑</td><td>剪映（国内）、CapCut（海外）、Runway、Pika</td></tr>
+          <tr><td>配音</td><td>剪映AI配音、ElevenLabs</td></tr>
+        </table>
+
+        <h3>10.3 收款与开店</h3>
+        <table class="data">
+          <tr><th>用途</th><th>跨境</th><th>国内</th></tr>
+          <tr><td>数字产品上架/收款</td><td>Payhip, Gumroad, Lemon Squeezy, Polar, Creem, Dodo Payments, Paddle</td><td>小红书店铺、闲鱼、抖音小店、视频号小店、知乎好物</td></tr>
+          <tr><td>基础支付通道</td><td>PayPal, Stripe</td><td>微信支付、支付宝商户</td></tr>
+          <tr><td>跨境提现</td><td>万里汇 WorldFirst, 连连国际, PingPong, Payoneer, Airwallex</td><td>-</td></tr>
+          <tr><td>主体注册</td><td>-</td><td>国家政务服务平台App / 当地市场监督管理局小程序（个体工商户注册）</td></tr>
+        </table>
+
+        <h3>10.4 发布与投放</h3>
+        <table class="data">
+          <tr><th>用途</th><th>跨境</th><th>国内</th></tr>
+          <tr><td>建站/落地页托管</td><td>Netlify Drop, Vercel, GitHub Pages, Cloudflare Pages</td><td>店铺详情页（各平台自带）</td></tr>
+          <tr><td>广告投放</td><td>Meta Ads Manager, Google Ads, Reddit Ads</td><td>小红书薯条、抖音DOU+、知+</td></tr>
+        </table>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>建议：不需要一次性把所有工具都装一遍。按当前所在阶段，只装当前阶段用得到的2～3个工具，用熟练了再考虑扩展，工具越多不代表效率越高。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段十一 ================= -->
+    <section class="phase" id="phase11">
+      <div class="phase-head"><span class="phase-num-badge">11</span><h2>定价策略与客户服务</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">目标：把定价这件容易凭感觉决定的事，变得有依据；把客户服务这件容易被忽略的事，提前准备好模板。</div>
+
+      <div class="sub">
+        <h3>11.1 定价参考区间</h3>
+        <table class="data">
+          <tr><th>产品类型</th><th>跨境参考区间</th><th>国内参考区间</th></tr>
+          <tr><td>入门级PDF指南/模板</td><td>9～19 美元</td><td>19～49 元</td></tr>
+          <tr><td>进阶方法论/系统性指南</td><td>19～49 美元</td><td>49～199 元</td></tr>
+          <tr><td>视频课程</td><td>29～99 美元</td><td>99～499 元</td></tr>
+          <tr><td>订阅制社群/知识库</td><td>9～29 美元/月</td><td>29～99 元/月 或 199～499 元/年</td></tr>
+          <tr><td>一对一咨询/定制服务</td><td>50～200 美元/小时</td><td>200～1000 元/小时</td></tr>
+        </table>
+        <p>定价心理学上有三个常见做法可以直接用：</p>
+        <ul>
+          <li><strong>锚点定价：</strong>在价格旁边展示"原价"或"如果找人一对一咨询要花多少钱"这类参照物，让当前价格显得划算（前提是这个参照必须真实，不能虚构，否则违反广告合规）</li>
+          <li><strong>尾数定价：</strong>19美元/19元 比 20美元/20元 在心理感知上显得更便宜，这是被广泛验证的定价习惯</li>
+          <li><strong>阶梯定价：</strong>提供"基础版/标准版/进阶版"三档，多数人会选择中间档，可以引导更多人选到你真正想主推的价格档位</li>
+        </ul>
+
+        <h3>11.2 退款处理话术模板</h3>
+        <div class="example">
+          <div class="ex-label">退款申请回复模板</div>
+          您好，感谢您的反馈。按照我们XX天无理由退款的承诺，我已经为您处理退款，预计1～3个工作日内到账。同时想请教一下，是内容哪部分没有达到您的预期呢？您的反馈对我改进产品非常重要，方便的话希望能听听您的想法（不影响退款处理）。
+        </div>
+        <p>不要因为收到退款申请就产生防御心理去和买家争论，大方处理退款，同时真诚询问原因，这些反馈往往是你改进产品、降低后续退款率最直接的信息来源。</p>
+
+        <h3>11.3 常见客服问题话术模板</h3>
+        <table class="data">
+          <tr><th>场景</th><th>话术要点</th></tr>
+          <tr><td>没收到下载链接/文件</td><td>先确认订单信息，检查垃圾邮件/订单记录，第一时间重新发送，不要让买家等待超过24小时</td></tr>
+          <tr><td>询问内容是否适合自己</td><td>诚实说明产品适合谁、不适合谁，不要为了促成成交夸大适用范围，长期来看诚实回答带来的口碑价值更高</td></tr>
+          <tr><td>询问能否开发票（国内）</td><td>提前了解清楚自己的经营主体是否具备开票资质，个人身份经营通常无法开具正规发票，需提前告知买家</td></tr>
+          <tr><td>投诉内容与描述不符</td><td>先核实具体是哪部分不符，如确实是描述问题，及时修改详情页/落地页描述并处理退款，避免同类投诉持续发生</td></tr>
+        </table>
+
+        <h3>11.4 私域与复购：把一次性买家变成长期用户</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>跨境：邮件列表</strong><span>用 Payhip/Lemon Squeezy 等平台自带的邮件收集功能，或接入 Mailchimp/ConvertKit 等免费额度较高的邮件工具，购买后自动加入邮件列表，定期发送有价值的免费内容，为后续产品发布做铺垫</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>国内：私域社群/公众号</strong><span>购买后引导加入微信群或关注公众号，注意国内平台对"引流到私域"的规则限制（部分平台不允许在商品详情页直接留微信号，需要通过发货内容里的说明文档引导），提前了解清楚目标平台的具体规则</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>复购与追加销售</strong><span>在已购买用户群体中，适度推荐更进阶的产品或服务（比如从PDF指南升级到视频课程），转化率通常远高于对陌生新用户的推广</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 阶段十二 ================= -->
+    <section class="phase" id="phase12">
+      <div class="phase-head"><span class="phase-num-badge">12</span><h2>完整案例全流程实录</h2><span class="track-tag both">通用</span></div>
+      <div class="phase-meta">用一个虚构但具体的案例，把前面十一个阶段串联起来，帮你建立完整的画面感。以下人物和数据均为示例，不代表真实收益承诺。</div>
+
+      <div class="sub">
+        <h3>案例背景</h3>
+        <p>小陈是一名有3年经验的自由译者，同时观察到身边不少同行经常因为报价混乱、交稿排期冲突而错失客户或超时违约。她决定把自己这些年摸索出的一套"接单管理方法"做成数字产品。</p>
+
+        <table class="data">
+          <tr><th>阶段</th><th>小陈的具体行动</th><th>结果</th></tr>
+          <tr><td>01 选题验证</td><td>在 Reddit r/translator 和国内"自由译者"豆瓣小组各蹲点3天，收集到12条关于"报价混乱""交稿延误"的真实抱怨；发现 Etsy 和闲鱼上都有类似的"接单管理模板"在售但评价数不多</td><td>确认需求存在，且当前同类产品做得不够好</td></tr>
+          <tr><td>02 制作产品</td><td>用腾讯文档写出中文版大纲，用 Google Docs 翻译成英文版；用 Notion 做了一个可交互的接单管理模板；配图用 Canva 现成模板</td><td>5天完成中英双语版本产品初稿</td></tr>
+          <tr><td>03 收款开店</td><td>跨境用 Payhip 免费版上架英文版（定价19美元），国内在闲鱼上架中文版测试（定价39元），同时申请小红书个人店</td><td>半天内两条渠道都拿到真实购买链接</td></tr>
+          <tr><td>04 落地页/详情页</td><td>用 Netlify Drop 发布英文落地页；小红书发布一篇"自由译者接单避坑"的免费干货笔记</td><td>当天上线，链路测试通过</td></tr>
+          <tr><td>05 小范围测试</td><td>Reddit群组分享2篇免费干货帖，Meta广告投放5美元/天测试1周；小红书笔记用薯条小额推广</td><td>两周内跨境渠道售出3单，国内渠道售出5单</td></tr>
+          <tr><td>06 数据判断</td><td>发现国内渠道转化率明显更高（她的中文表达更自然，信任感更强），跨境渠道点击率不错但转化偏低</td><td>决定优先集中资源在国内渠道，跨境渠道保留但降低优先级</td></tr>
+          <tr><td>07 扩大</td><td>在国内追加知乎渠道发布深度文章，同时把闲鱼渠道升级为小红书店铺电子资源类目正式入驻</td><td>月销量从个位数提升到稳定两位数</td></tr>
+        </table>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>这个案例的关键不是数字本身，而是"先小范围双轨测试、再根据真实数据集中资源"这个决策过程——小陈没有一开始就押注某一条路径，而是用最小成本换到了数据之后再做选择，这正是本手册反复强调的核心原则。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 风险清单 ================= -->
+    <section class="phase" id="risk">
+      <div class="phase-head"><span class="phase-num-badge">✓</span><h2>合规与风险检查清单</h2><span class="track-tag both">通用</span></div>
+      <div class="checklist">
+        <div class="cl-title">上线前最后检查一遍（通用）</div>
+        <label><input type="checkbox"> 落地页/详情页价格在所有位置（页面文字 + 结构化数据）完全一致</label>
+        <label><input type="checkbox"> 退款政策全站只有一种表述，没有前后矛盾</label>
+        <label><input type="checkbox"> 没有使用"保证赚钱""绝对零成本""最""第一"等夸大或可能违反广告合规的措辞</label>
+        <label><input type="checkbox"> 购买按钮链接到真实、已测试过的收款页面</label>
+        <label><input type="checkbox"> 留了真实可回复的联系邮箱或客服入口</label>
+        <label><input type="checkbox"> 广告/投流金额从小额开始，没有使用任何自动无人工确认改预算的工具</label>
+        <label><input type="checkbox"> 产品内容中的图片、字体、引用素材都已确认授权来源</label>
+      </div>
+      <div class="checklist">
+        <div class="cl-title">跨境专属检查</div>
+        <label><input type="checkbox"> 已了解个人年度5万美元便利化结售汇额度，大额提现前提前规划</label>
+        <label><input type="checkbox"> 收款平台/MoR的服务条款已通读，了解其风控冻结账户的历史情况</label>
+        <label><input type="checkbox"> 落地页外语版本已经过母语者或反向翻译检查，没有语义偏差</label>
+      </div>
+      <div class="checklist">
+        <div class="cl-title">国内专属检查</div>
+        <label><input type="checkbox"> 已核实所选平台类目的最新入驻门槛（粉丝数/流水证明/资质要求）</label>
+        <label><input type="checkbox"> 没有虚构人设（财富、学历、收入、情感经历等）</label>
+        <label><input type="checkbox"> 明确了个人身份经营还是需要注册个体工商户，税务申报路径已想清楚</label>
+        <label><input type="checkbox"> 虚拟商品已设置合理的防盗版/加密保护措施</label>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section class="phase" id="faq">
+      <div class="phase-head"><span class="phase-num-badge">?</span><h2>新手常见问题</h2></div>
+
+      <details open>
+        <summary>Payhip/Gumroad 提示我的国家不被支持怎么办？<span class="chev">+</span></summary>
+        <p>可以先尝试 Lemon Squeezy、Polar 或 Payhip（对个人卖家的地区限制通常较宽松），收款后统一提现到万里汇或 Payoneer 账户，两者对国内用户支持都比较成熟，万里汇背靠蚂蚁集团、可直接提现到支付宝，是目前费率和到账速度综合表现较优的选择。</p>
+      </details>
+      <details>
+        <summary>广告账户审核被拒/被封怎么办？<span class="chev">+</span></summary>
+        <p>先检查文案是否有夸大宣传字眼，落地页/详情页是否信息完整（联系方式、退款政策）。小额、保守的投放记录有助于账户长期健康，新账户不建议一开始就大额投放，国内的薯条/DOU+同样适用这个原则。</p>
+      </details>
+      <details>
+        <summary>两周测试完全没有任何购买，是不是这个模式不成立？<span class="chev">+</span></summary>
+        <p>不一定。先排查是"没人看到"（曝光/点击数据都很低，说明渠道或标题问题）还是"看到了但不买"（点击不少但转化为零，说明落地页/详情页信任感或价格问题），两种情况的下一步动作完全不同，回到阶段六对照表格判断。</p>
+      </details>
+      <details>
+        <summary>我该不该现在就把之前的自动化脚本用起来？<span class="chev">+</span></summary>
+        <p>建议先完整走完阶段一到六，拿到至少一次真实成交之后再考虑。脚本能放大的是"已经验证有效"的动作，如果放大的是还没验证过的猜测，只会更快地把问题也放大，国内平台对异常规律性的自动化操作检测也越来越严格，前期使用需格外谨慎。</p>
+      </details>
+      <details>
+        <summary>应该先做跨境还是先做国内？<span class="chev">+</span></summary>
+        <p>如果你的英语内容表达能力较强、目标选题在英语世界确实有更成熟的付费习惯（比如效率工具、SaaS类），可以优先跨境；如果选题和你自己的知识背景更贴近中文语境（比如考试类、职场类、本地生活类），优先国内会更快看到反馈，且国内电商基础设施（收款、开店、物流）比跨境更简单快捷。两条路径互不冲突，也可以像阶段五建议的那样同时小范围各试一次。</p>
+      </details>
+      <details>
+        <summary>小红书新规下，账号粉丝和流水都不够怎么办？<span class="chev">+</span></summary>
+        <p>可以先用"个人售卖"模式（0门槛过渡，但不能开店投流、只能小单量运营）积累前期数据和口碑，同时通过内容运营慢慢涨粉、通过闲鱼等其他平台积累同主体流水证明，达标后再申请电子资源类目的完整店铺权限。不建议寻找不合规的"代办""挂靠"渠道，一旦被平台判定资质造假，后续处罚成本更高。</p>
+      </details>
+      <details>
+        <summary>用 AI 生成的内容会不会被判定抄袭或者不能商用？<span class="chev">+</span></summary>
+        <p>目前各平台和司法辖区对 AI 生成内容的规则仍在演变中，建议：核心内容以自己的真实经验和思路为主干，AI 只做语言润色和结构整理的辅助；配图优先选用允许商用的生成工具并保留生成记录；如果产品会规模化销售，建议定期关注所用 AI 工具的服务条款更新，条款可能随时间调整。</p>
+      </details>
+      <details>
+        <summary>国内收入需要交多少税？<span class="chev">+</span></summary>
+        <p>具体税率和征收方式因个人经营主体（自然人/个体工商户/企业）、当地政策、收入规模而有较大差异，且各地及各年度的起征点、优惠政策可能调整，本手册不给出具体数字，建议登录当地电子税务局App查询，或前期收入不大时先做好流水记录，规模变大后咨询专业税务师规范申报，避免不必要的滞纳金和处罚风险。</p>
+      </details>
+      <details>
+        <summary>没有任何设计基础，落地页/详情页会不会做得很丑？<span class="chev">+</span></summary>
+        <p>不用担心。用现成的落地页模板 + Canva 的电子书/详情页模板，只需要替换文字和图片，不需要自己从零设计。视觉精美程度对转化率的影响，远小于"文案是否说到用户心坎里"和"信任要素是否齐全"这两点，新手时间应该优先花在阶段一的需求调研和阶段四的文案打磨上。</p>
+      </details>
+      <details>
+        <summary>Lemon Squeezy 被 Stripe 收购后还能继续用吗？<span class="chev">+</span></summary>
+        <p>截至2026年，Lemon Squeezy 仍在独立运营，没有关停计划，但 Stripe 正在推进自己的 Stripe Managed Payments 产品并引导用户逐步迁移，长期产品路线图会更多由 Stripe 主导。如果你现阶段正在使用它，可以继续用；如果是新用户第一次选择，可以同时了解一下 Polar、Creem、Dodo Payments 这几个近两年费率更低、也提供合规代管服务的替代选项，货比三家后再定。</p>
+      </details>
+      <details>
+        <summary>可以同时在多个平台上架同一个产品吗？<span class="chev">+</span></summary>
+        <p>可以，而且是推荐做法——把同一份内容分别放到 Payhip（跨境）和小红书/闲鱼（国内）测试，能同时验证两个市场的反馈，互不冲突。唯一要注意的是每个平台的定价、产品描述要各自符合当地用户习惯和平台规则，不能简单复制粘贴。</p>
+      </details>
+      <details>
+        <summary>产品上线后卖不动，是应该降价还是换渠道？<span class="chev">+</span></summary>
+        <p>先按阶段六的判断表格排查是"没人看到"还是"看到了不买"。如果是曝光和点击都不错但转化低，可以先尝试优化落地页文案、增加信任要素，而不是第一时间降价——低价往往解决不了信任问题，反而可能让用户怀疑产品质量。如果确认是渠道选错了（目标用户根本不在这个渠道活跃），换渠道会比降价更有效。</p>
+      </details>
+      <details>
+        <summary>要不要注册商标或申请专利？<span class="chev">+</span></summary>
+        <p>对于阶段一到阶段六的小范围测试来说，通常不需要。等到阶段七验证成功、准备规模化经营，且你的产品/品牌名称已经形成一定辨识度和商业价值时，再考虑注册商标保护品牌，这属于锦上添花而非起步的必要条件，不建议在验证阶段就投入这部分成本和精力。</p>
+      </details>
+      <details>
+        <summary>如何判断一个"跨境赚钱"课程或工具是不是割韭菜？<span class="chev">+</span></summary>
+        <p>几个判断信号：是否承诺"保证收益""躺赚"（真实商业不存在这种承诺）；是否要求你先交高额加盟费/代理费才能开始（正规的跨境电商工具通常本身有免费试用或极低门槛）；是否愿意具体讲清楚方法论细节，还是一直强调"跟着老师做就行"回避细节。这份手册的每一步都可以自己动手免费验证，不需要向任何人付费才能开始第一步。</p>
+      </details>
+    </section>
+
+    <!-- ================= 附录 ================= -->
+    <section class="phase" id="appendix">
+      <div class="phase-head"><span class="phase-num-badge">附</span><h2>术语表与执行日历</h2></div>
+      <div class="sub">
+        <h3>术语表</h3>
+        <table class="data">
+          <tr><th>术语</th><th>解释</th></tr>
+          <tr><td>MoR（Merchant of Record）</td><td>合规收款代管平台，代替你承担全球税务代扣代缴、支付合规、拒付纠纷处理的责任，你只需专注产品和内容</td></tr>
+          <tr><td>落地页 / Landing Page</td><td>专门为承接某一条广告/推广流量、引导用户完成购买动作而设计的单页面网站</td></tr>
+          <tr><td>转化率</td><td>完成购买的人数 ÷ 到达页面的总人数，是衡量落地页/详情页是否有效的核心指标</td></tr>
+          <tr><td>点击率（CTR）</td><td>点击广告/笔记的人数 ÷ 看到该内容的总人数（曝光量），衡量标题/封面吸引力</td></tr>
+          <tr><td>个体工商户</td><td>中国大陆一种简易的经营主体登记形式，门槛低、注册快，适合个人小规模经营</td></tr>
+          <tr><td>结售汇额度</td><td>中国大陆居民个人每年可自由结汇（外币换人民币）的便利化额度，目前为等值5万美元</td></tr>
+        </table>
+
+        <h3>4周启动执行日历模板</h3>
+        <table class="data">
+          <tr><th>周次</th><th>核心任务</th></tr>
+          <tr><td>第1周</td><td>完成阶段一选题验证 + 阶段二产品初稿</td></tr>
+          <tr><td>第2周</td><td>完成产品定稿 + 阶段三收款账号开通 + 阶段四落地页/详情页上线</td></tr>
+          <tr><td>第3～4周</td><td>阶段五小范围测试（同步跨境和/或国内渠道）+ 每日记录数据</td></tr>
+          <tr><td>第5周</td><td>阶段六数据复盘 + 决定扩大、调整还是换选题</td></tr>
+        </table>
+
+        <h3>更多术语补充</h3>
+        <table class="data">
+          <tr><th>术语</th><th>解释</th></tr>
+          <tr><td>UTM 参数</td><td>附加在链接后面的一串参数，用于标记流量来源渠道，方便数据统计时区分不同渠道效果</td></tr>
+          <tr><td>拒付 / Chargeback</td><td>买家通过发卡银行申请强制退款并冻结争议金额的行为，MoR平台通常会代替卖家处理这类纠纷</td></tr>
+          <tr><td>私域流量</td><td>商家可以反复触达、不依赖平台算法分发的用户群体，常见载体是微信群、公众号、邮件列表</td></tr>
+          <tr><td>客单价</td><td>平均每个订单的金额，客单价×订单数=总销售额，是评估产品定价策略的重要指标</td></tr>
+          <tr><td>复购率</td><td>已购买用户中再次购买的比例，是衡量产品长期价值和用户满意度的重要指标</td></tr>
+          <tr><td>核定征收 / 查账征收</td><td>中国大陆个体工商户/企业两种常见的税款计算方式，核定征收按预先核定的应税所得率简易计算，查账征收按实际账目计算</td></tr>
+          <tr><td>A/B测试</td><td>同时展示两个版本的文案/素材给不同用户，对比数据决定哪个版本效果更好的实验方法</td></tr>
+          <tr><td>Merchant of Record vs Payment Gateway</td><td>MoR是替你承担销售法律责任和税务合规的"法律卖方"；Payment Gateway（如纯Stripe账户）只负责处理支付本身，税务合规仍需你自己承担</td></tr>
+        </table>
+
+        <h3>常见错误案例速览（以下均为综合多个真实场景整理的典型情况，帮助识别类似问题）</h3>
+        <table class="data">
+          <tr><th>常见错误</th><th>后果</th><th>怎么避免</th></tr>
+          <tr><td>选题跟风做"AI赚钱"类泛泛话题</td><td>和免费内容正面竞争，几乎无人付费</td><td>严格套用1.2选题公式，做到"具体人群+具体场景+具体结果"</td></tr>
+          <tr><td>让AI凭空编写自己都不懂的方法步骤</td><td>买家照做出问题，引发大量退款和差评</td><td>每一步都自查"我能不能马上答上来"，答不上来就补充或删除</td></tr>
+          <tr><td>广告文案使用"保证赚钱"等极限词</td><td>广告账户被封，国内可能面临行政处罚</td><td>参照阶段九广告合规红线逐条自查</td></tr>
+          <tr><td>一开始就大额投放广告</td><td>新账户容易触发风控，被限制或封号，损失也更大</td><td>从每天5～10美元或几十元人民币开始，观察1～2周再决定是否加大</td></tr>
+          <tr><td>把全部收入沉淀在单一收款平台</td><td>一旦账户因风控被冻结，资金取出困难</td><td>保留至少一个备用提现通道，定期把资金转出到银行卡</td></tr>
+          <tr><td>不设置任何数据追踪</td><td>无法判断到底是哪个渠道带来了转化，后续决策全靠猜</td><td>参照阶段六设置UTM参数和基础数据看板</td></tr>
+          <tr><td>忽视平台资质门槛强行上架</td><td>店铺被冻结、保证金被扣，前期投入白费</td><td>上架前先核实目标平台/类目的最新入驻规则</td></tr>
+        </table>
+
+        <h3>全流程总检查清单（打印出来贴在手边）</h3>
+        <div class="checklist">
+          <div class="cl-title">从0到第一单，九个阶段各一句话自查</div>
+          <label><input type="checkbox"> 01：我有至少3条真实用户抱怨原话和1个正在成交的同类产品作为依据</label>
+          <label><input type="checkbox"> 02：产品每一步我自己都能讲清楚原理，AI只是辅助整理</label>
+          <label><input type="checkbox"> 03：收款账号已开通并测试成功，个体工商户（如需要）已规划</label>
+          <label><input type="checkbox"> 04：落地页/详情页价格、退款政策、购买链接三处一致</label>
+          <label><input type="checkbox"> 05：广告/笔记预算从小额开始，且已设置好数据追踪</label>
+          <label><input type="checkbox"> 06：我是根据真实数据、而不是感觉，做出继续/调整/放弃的决定</label>
+          <label><input type="checkbox"> 07：扩大规模时，我复用了已验证的定价和政策，只调整了渠道或语言</label>
+          <label><input type="checkbox"> 08：自动化只用于已验证有效的重复动作，涉及钱和决策的部分保留人工确认</label>
+          <label><input type="checkbox"> 09：税务、著作权、广告合规三方面我都已经心里有数，不是完全没考虑过</label>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  数字产品变现 · 跨境+国内 人工落地全流程手册 v3 · 本手册基于截至2026年8月的公开信息整理，平台规则、费率、政策可能随时变化，正式操作前请以各平台官方最新说明为准 · 本手册不构成税务、法律或投资建议 · 建议按顺序阅读和执行，遇到卡点可以随时回到对应阶段重新确认
+</footer>
+
+</body>
+</html>
