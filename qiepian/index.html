@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纯本地安全视频切片器 (终极加固版)</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 20px; background: #f0f2f5; color: #333; }
+        .card { max-width: 650px; margin: 30px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        h2 { font-size: 22px; margin-bottom: 8px; color: #111; }
+        p.desc { color: #666; font-size: 14px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+        input[type="file"] { width: 100%; padding: 10px; background: #f8f9fa; border: 1px dashed #ccc; border-radius: 6px; cursor: pointer; }
+        input[type="number"] { width: 80px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        button { background: #0066ff; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: bold; width: 100%; margin-top: 10px; transition: background 0.2s; }
+        button:hover { background: #0052cc; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        #log { margin-top: 20px; padding: 12px; background: #1e1e1e; color: #4af626; border-radius: 8px; font-family: 'Courier New', Courier, monospace; font-size: 12px; height: 140px; overflow-y: auto; line-height: 1.5; }
+        .result-area { margin-top: 20px; display: none; text-align: center; }
+        video { width: 100%; border-radius: 8px; margin-top: 10px; max-height: 300px; background: #000; }
+        .download-btn { display: inline-block; background: #28a745; color: white; text-decoration: none; padding: 10px 20px; border-radius: 6px; margin-top: 12px; font-weight: bold; }
+        .download-btn:hover { background: #218838; }
+    </style>
+    <!-- 引入稳定版本的 FFmpeg 网页版引擎 -->
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.0/dist/ffmpeg.min.js"></script>
+</head>
+<body>
+
+<div class="card">
+    <h2>✂️ 纯本地安全视频切片器</h2>
+    <p class="desc">所有计算均在您的设备浏览器本地完成，绝对隐私安全，0上传，无服务器限制。</p>
+    
+    <div class="form-group">
+        <label>选择视频文件：</label>
+        <input type="file" id="videoUploader" accept="video/*">
+    </div>
+    
+    <div class="form-group">
+        <label>截取时长：</label>
+        从第 0 秒开始，截取前 <input type="number" id="duration" value="5" min="1"> 秒
+    </div>
+
+    <button id="sliceBtn" onclick="processVideo()">🚀 开始本地极速切片</button>
+    
+    <!-- 运行日志输出框 -->
+    <div id="log">系统就绪，等待选择视频...</div>
+    
+    <!-- 结果展示与下载区 -->
+    <div class="result-area" id="resultArea">
+        <h3 style="color: #28a745; font-size: 16px;">✅ 切片成功！</h3>
+        <video id="outputVideo" controls></video><br>
+        <a id="downloadLink" class="download-btn" href="#" download="sliced_output.mp4">⬇️ 点击下载切片视频</a>
+    </div>
+</div>
+
+<script>
+    function logMessage(msg, isError = false) {
+        const logBox = document.getElementById('log');
+        const colorStyle = isError ? 'color: #ff6b6b;' : 'color: #4af626;';
+        logBox.innerHTML += `<span style="${colorStyle}">${msg}</span><br>`;
+        logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    // 1. 初始化 FFmpeg 引擎（指定核心库绝对路径，杜绝加载卡死）
+    const { createFFmpeg, fetchFile } = FFmpeg;
+    const ffmpeg = createFFmpeg({ 
+        log: true,
+        corePath: 'https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js'
+    }); 
+
+    async function processVideo() {
+        const uploader = document.getElementById('videoUploader');
+        const duration = document.getElementById('duration').value;
+        const btn = document.getElementById('sliceBtn');
+        const resultArea = document.getElementById('resultArea');
+        
+        // 环境安全检测：检查浏览器是否支持跨域隔离
+        if (typeof SharedArrayBuffer === 'undefined') {
+            alert("⚠️ 严重警告：当前浏览器未启用跨域隔离 (SharedArrayBuffer 不可用)！\n\n这会导致 FFmpeg 无法启动。请确保您的网站根目录下包含正确的 vercel.json 跨域标头配置，并已成功部署到云端。");
+            logMessage("❌ 错误：浏览器缺少跨域隔离环境，切片中止。", true);
+            return;
+        }
+
+        if (!uploader.files[0]) {
+            alert("请先选择一个要切片的视频文件！");
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerText = "⏳ 正在本地处理中...";
+        resultArea.style.display = 'none';
+        document.getElementById('log.innerHTML'] = ""; // 清空日志
+        logMessage("🚀 开始初始化任务...");
+
+        try {
+            // 2. 加载引擎（带错误捕获）
+            if (!ffmpeg.isLoaded()) {
+                logMessage("📦 正在从云端 CDN 加载核心处理引擎（首次约需 3-10 秒）...");
+                await ffmpeg.load();
+                logMessage("🎉 核心引擎加载成功！");
+            }
+
+            const file = uploader.files[0];
+            logMessage(`📂 正在读取视频文件: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
+
+            // 3. 将视频写入浏览器虚拟内存
+            logMessage("📥 正在将视频装载入浏览器虚拟内存...");
+            ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(file));
+
+            logMessage(`⚙️ 正在执行切片指令（截取前 ${duration} 秒）...`);
+            
+            // 4. 执行 FFmpeg 切片指令
+            await ffmpeg.run('-i', 'input.mp4', '-ss', '00:00:00', '-t', duration, '-c', 'copy', 'output.mp4');
+
+            logMessage("✨ 切片处理完成！正在生成下载通道...");
+
+            // 5. 读取生成的文件
+            const data = ffmpeg.FS('readFile', 'output.mp4');
+            
+            // 6. 转换为网页可播放的 Blob 链接
+            const videoBlob = new Blob([data.buffer], { type: 'video/mp4' });
+            const videoUrl = URL.createObjectURL(videoBlob);
+            
+            // 7. 绑定到页面展示并提供下载
+            const outputVideo = document.getElementById('outputVideo');
+            outputVideo.src = videoUrl;
+            
+            const downloadLink = document.getElementById('downloadLink');
+            downloadLink.href = videoUrl;
+            downloadLink.download = `slice_${duration}s_${file.name}`;
+
+            resultArea.style.display = 'block';
+            logMessage("✅ 全部流程执行完毕！请在下方预览或下载。");
+
+        } catch (err) {
+            // 🔴 拦截所有底层报错并打印红字，彻底告别死卡
+            logMessage(`❌ 运行出错: ${err.message}`, true);
+            console.error(err);
+            alert("处理视频时发生异常，详情请查看黑框日志。");
+        } finally {
+            btn.disabled = false;
+            btn.innerText = "🚀 开始本地极速切片";
+        }
+    }
+</script>
+
+</body>
+</html>

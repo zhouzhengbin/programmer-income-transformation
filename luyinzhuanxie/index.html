@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纯本地安全 AI 语音转文字 (支持 M4A/MP3)</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 20px; background: #f0f2f5; color: #333; }
+        .card { max-width: 700px; margin: 30px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        h2 { font-size: 22px; margin-bottom: 8px; color: #111; }
+        p.desc { color: #666; font-size: 14px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+        input[type="file"] { width: 100%; padding: 10px; background: #f8f9fa; border: 1px dashed #ccc; border-radius: 6px; cursor: pointer; }
+        button { background: #7b4a8c; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: bold; width: 100%; margin-top: 10px; transition: background 0.2s; }
+        button:hover { background: #653b75; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        #log { margin-top: 15px; padding: 12px; background: #1e1e1e; color: #4af626; border-radius: 8px; font-family: 'Courier New', Courier, monospace; font-size: 12px; height: 120px; overflow-y: auto; line-height: 1.5; }
+        .result-area { margin-top: 20px; display: none; }
+        textarea { width: 100%; height: 200px; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; line-height: 1.6; resize: vertical; background: #f9f9f9; }
+        .copy-btn { background: #28a745; margin-top: 10px; }
+        .copy-btn:hover { background: #218838; }
+    </style>
+    <!-- 引入浏览器端运行大模型的 Transformers.js 核心库 -->
+    <script type="module">
+        import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2';
+        
+        env.allowRemoteModels = true;
+        window.transformersPipeline = pipeline;
+    </script>
+</head>
+<body>
+
+<div class="card">
+    <h2>🎙️ 纯本地 AI 语音转文字工具 (支持 M4A)</h2>
+    <p class="desc">完美支持 iPhone 录音 `.m4a`、`.mp3`、`.wav` 等格式。纯前端浏览器本地 AI 运行，0上传，绝对安全。</p>
+    
+    <div class="form-group">
+        <label>选择录音或音视频文件 (支持 .m4a, .mp3, .wav, .mp4 等)：</label>
+        <!-- 显式支持 .m4a 后缀 -->
+        <input type="file" id="audioUploader" accept=".m4a,audio/*,video/*">
+    </div>
+
+    <button id="transcribeBtn" onclick="runTranscription()">🚀 开始 AI 本地转文字</button>
+    
+    <!-- 运行日志输出框 -->
+    <div id="log">系统就绪，请选择文件后点击开始...</div>
+    
+    <!-- 识别结果展示区 -->
+    <div class="result-area" id="resultArea">
+        <label>转写出来的文字结果：</label>
+        <textarea id="resultText" readonly></textarea>
+        <button class="copy-btn" onclick="copyText()">📋 复制全部文字</button>
+    </div>
+</div>
+
+<script>
+    function logMessage(msg, isError = false) {
+        const logBox = document.getElementById('log');
+        const colorStyle = isError ? 'color: #ff6b6b;' : 'color: #4af626;';
+        logBox.innerHTML += `<span style="${colorStyle}">${msg}</span><br>`;
+        logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    let transcriber = null;
+
+    // 智能解码音频文件（完美支持 M4A/AAC、MP3、WAV 等格式）
+    async function decodeAudioFile(file) {
+        const arrayBuffer = await file.arrayBuffer();
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
+        
+        try {
+            // 浏览器内置解码器直接解包 M4A/AAC 数据
+            const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+            return audioBuffer.getChannelData(0); // 提取单声道波形数据
+        } catch (e) {
+            throw new Error("音频解码失败。该 .m4a 文件可能已损坏或编码格式过于特殊，请尝试转换为标准的 mp3/wav 后重试。");
+        }
+    }
+
+    async function runTranscription() {
+        const fileInput = document.getElementById('audioUploader');
+        const btn = document.getElementById('transcribeBtn');
+        const resultArea = document.getElementById('resultArea');
+        const resultText = document.getElementById('resultText');
+
+        if (!fileInput.files[0]) {
+            alert("请先选择一个音视频或 M4A 录音文件！");
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerText = "⏳ AI 正在转写中...";
+        resultArea.style.display = 'none';
+        document.getElementById('log').innerHTML = ""; 
+        logMessage("🚀 初始化 AI 运行环境...");
+
+        try {
+            if (!transcriber) {
+                logMessage("📦 正在加载浏览器端 Whisper AI 模型（首次联网下载约需 10-30 秒，之后秒开）...");
+                
+                if (!window.transformersPipeline) {
+                    throw new Error("AI 核心库加载失败，请检查网络或刷新页面重试。");
+                }
+
+                transcriber = await window.transformersPipeline(
+                    'automatic-speech-recognition', 
+                    'Xenova/whisper-tiny', 
+                    {
+                        progress_callback: (data) => {
+                            if (data.status === 'progress') {
+                                logMessage(`模型下载进度: ${data.file} (${Math.round(data.progress)}%)`);
+                            }
+                        }
+                    }
+                );
+                logMessage("🎉 AI 模型加载成功并已缓存！");
+            }
+
+            const file = fileInput.files[0];
+            logMessage(`📂 正在读取文件: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
+
+            logMessage("🔄 正在硬件解码 M4A/音频数据并重采样至 16kHz...");
+            const audioData = await decodeAudioFile(file);
+
+            logMessage("🎙️ AI 正在全速听写中，请稍候...");
+
+            const output = await transcriber(audioData, {
+                chunk_length_s: 30,
+                stride_length_s: 5,
+                language: 'chinese',
+                task: 'transcribe',
+            });
+
+            logMessage("✨ 转写大功告成！");
+            resultText.value = output.text ? output.text.trim() : "（未识别到有效语音内容）";
+            resultArea.style.display = 'block';
+
+        } catch (err) {
+            logMessage(`❌ 运行出错: ${err.message}`, true);
+            console.error(err);
+            alert("转写过程发生异常，详情请查看黑色日志框。");
+        } finally {
+            btn.disabled = false;
+            btn.innerText = "🚀 开始 AI 本地转文字";
+        }
+    }
+
+    function copyText() {
+        const text = document.getElementById('resultText');
+        text.select();
+        document.execCommand('copy');
+        alert("✅ 文本已成功复制到剪贴板！");
+    }
+</script>
+
+</body>
+</html>

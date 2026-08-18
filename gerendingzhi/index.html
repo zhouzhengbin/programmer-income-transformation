@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字产品全景作战手册｜从创意到变现的接地气执行计划</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:      #1B2430;
+    --ink-soft: #57626F;
+    --ink-faint:#8B93A0;
+    --paper:    #F5F3EC;
+    --paper-2:  #FFFFFF;
+    --line:     #E1DCCC;
+    --brand:    #2A5C8A;
+    --brand-bg: #E7F0F8;
+    --warm:     #C1671B;
+    --warm-bg:  #FBEEE0;
+    --sage:     #3E7A57;
+    --sage-bg:  #E7F3EC;
+    --plum:     #7B4A8C;
+    --plum-bg:  #F2E9F4;
+    --red:      #A6402F;
+    --red-bg:   #FAEAE6;
+    --radius:   14px;
+    --radius-lg:20px;
+    --shadow:   0 1px 2px rgba(27,36,48,.05), 0 18px 40px -24px rgba(27,36,48,.22);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Noto Sans SC',-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--paper); color:var(--ink); line-height:1.75; font-size:15.5px;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{ font-family:'Noto Serif SC',Georgia,serif; color:var(--ink); line-height:1.32; font-weight:700; }
+  a{ color:var(--brand); }
+  strong{ color:var(--ink); font-weight:700; }
+  code{ background:#ECE7D8; padding:2px 7px; border-radius:5px; font-size:.87em; font-family:'JetBrains Mono',Consolas,monospace; color:#3A2E1A; }
+  ::selection{ background:var(--warm-bg); color:var(--ink); }
+
+  #progressbar{ position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--brand),var(--warm)); z-index:200; width:0%; transition:width .1s; }
+
+  .topbar{
+    position:sticky; top:0; z-index:60; background:rgba(245,243,236,.94); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between;
+    padding:13px 20px;
+  }
+  .topbar-brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:14.5px; font-family:'Noto Serif SC',serif; }
+  .topbar-brand .mark{ width:30px; height:30px; border-radius:9px; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif SC',serif; font-size:15px; flex-shrink:0; }
+  .topbar-sub{ color:var(--ink-soft); font-size:12px; font-weight:500; font-family:'Noto Sans SC',sans-serif; margin-left:2px; }
+  #nav-toggle{ display:none; }
+  .nav-toggle-label{
+    display:none; align-items:center; gap:8px; font-size:13px; font-weight:600;
+    border:1px solid var(--line); padding:8px 14px; border-radius:999px; cursor:pointer; background:var(--paper-2);
+    white-space:nowrap;
+  }
+
+  .layout{ display:grid; grid-template-columns:284px 1fr; max-width:1280px; margin:0 auto; gap:0; }
+  .sidebar{
+    position:sticky; top:53px; align-self:start; height:calc(100vh - 53px); overflow-y:auto;
+    padding:30px 16px 60px; border-right:1px solid var(--line);
+    scrollbar-width:thin;
+  }
+  .sidebar-title{ font-size:11px; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint); font-weight:700; margin-bottom:12px; padding:0 10px; }
+  .sidebar-title.sub{ margin-top:24px; }
+  .sidebar a{
+    display:block; font-size:13.3px; color:var(--ink-soft); text-decoration:none; padding:6.5px 10px;
+    border-radius:8px; margin-bottom:1px; font-weight:500;
+  }
+  .sidebar a:hover{ background:var(--paper-2); color:var(--ink); }
+  .sidebar .phase-num{ color:var(--warm); font-weight:700; margin-right:6px; font-family:'Noto Serif SC',serif; font-size:12.5px; }
+
+  main{ padding:44px clamp(20px,4vw,60px) 110px; max-width:900px; }
+
+  .intro{ margin-bottom:60px; }
+  .intro .eyebrow{ font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--brand); background:var(--brand-bg); display:inline-block; padding:6px 13px; border-radius:999px; margin-bottom:18px; }
+  .intro h1{ font-size:clamp(28px,4.2vw,42px); margin-bottom:18px; letter-spacing:-.01em; }
+  .intro p.lead{ color:var(--ink-soft); font-size:16.8px; max-width:68ch; }
+
+  .tag{ display:inline-block; font-size:11px; font-weight:700; padding:3px 10px; border-radius:999px; margin-right:5px; white-space:nowrap; }
+  .tag.py{ background:var(--brand-bg); color:var(--brand); }
+  .tag.html{ background:var(--warm-bg); color:var(--warm); }
+  .tag.domestic{ background:var(--sage-bg); color:var(--sage); }
+  .tag.global{ background:var(--plum-bg); color:var(--plum); }
+  .tag.both{ background:#EEF0EC; color:#4B5B4E; }
+  .tag.new{ background:var(--red-bg); color:var(--red); }
+
+  .stat-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin:26px 0; }
+  .stat-card{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow); }
+  .stat-card .num{ font-family:'Noto Serif SC',serif; font-size:24px; font-weight:700; color:var(--brand); }
+  .stat-card .label{ font-size:12.5px; color:var(--ink-soft); margin-top:4px; }
+
+  .overview-table{ width:100%; border-collapse:collapse; margin-top:24px; font-size:13.6px; }
+  .overview-table th{ text-align:left; color:var(--ink-soft); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em; padding:0 12px 10px 0; border-bottom:1px solid var(--line); }
+  .overview-table td{ padding:12px 12px 12px 0; border-bottom:1px solid var(--line); vertical-align:top; }
+  .overview-table tr:last-child td{ border-bottom:none; }
+
+  .phase{ padding-top:68px; margin-top:-16px; border-top:1px solid var(--line); }
+  .phase:first-of-type{ border-top:none; }
+  .phase-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:8px; flex-wrap:wrap; }
+  .phase-num-badge{ font-family:'Noto Serif SC',serif; font-size:15px; font-weight:700; color:var(--warm); background:var(--warm-bg); padding:4px 13px; border-radius:999px; flex-shrink:0; }
+  .phase h2{ font-size:clamp(22px,2.7vw,29px); }
+  .phase-meta{ color:var(--ink-soft); font-size:13.6px; margin-bottom:30px; max-width:74ch; }
+
+  .sub h3{ font-size:17.5px; margin:34px 0 11px; }
+  .sub h4{ font-size:15px; margin:24px 0 9px; color:var(--ink); }
+  .sub p{ color:var(--ink-soft); margin-bottom:13px; }
+  .sub ul, .sub ol{ color:var(--ink-soft); margin:0 0 15px 20px; }
+  .sub li{ margin-bottom:6.5px; }
+
+  .step-list{ counter-reset:step; margin:18px 0 26px; }
+  .step{
+    display:grid; grid-template-columns:34px 1fr; gap:14px; padding:14px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .step:last-child{ border-bottom:none; }
+  .step .num{
+    counter-increment:step; width:30px; height:30px; border-radius:50%; background:var(--ink); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-family:'Noto Serif SC',serif; font-size:13.5px; font-weight:600; flex-shrink:0;
+  }
+  .step .num::before{ content:counter(step); }
+  .step .body strong{ display:block; margin-bottom:3px; font-size:14.6px; }
+  .step .body span{ color:var(--ink-soft); font-size:14px; }
+
+  .callout{ border-radius:var(--radius); padding:16px 20px; margin:20px 0; font-size:14px; display:flex; gap:12px; }
+  .callout .icon{ flex-shrink:0; font-size:16px; line-height:1.5; }
+  .callout.tip{ background:var(--sage-bg); color:#1F4A32; }
+  .callout.warn{ background:var(--red-bg); color:#742A1C; }
+  .callout.info{ background:var(--brand-bg); color:#1B3C5C; }
+  .callout.star{ background:var(--warm-bg); color:#6E3B0C; }
+  .callout b{ color:inherit; }
+
+  .checklist{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); padding:20px 22px; margin:22px 0; box-shadow:var(--shadow); }
+  .checklist .cl-title{ font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); margin-bottom:12px; }
+  .checklist label{ display:flex; align-items:flex-start; gap:10px; font-size:14.3px; margin-bottom:10px; cursor:pointer; }
+  .checklist input[type=checkbox]{ margin-top:3px; width:16px; height:16px; accent-color:var(--warm); flex-shrink:0; }
+
+  .example{ background:var(--paper-2); border-left:3px solid var(--warm); border-radius:0 var(--radius) var(--radius) 0; padding:14px 18px; margin:16px 0; font-size:13.9px; box-shadow:var(--shadow); }
+  .example .ex-label{ font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--warm); font-weight:700; margin-bottom:6px; }
+
+  table.data{ width:100%; border-collapse:collapse; margin:18px 0; font-size:13.3px; background:var(--paper-2); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
+  table.data th{ background:var(--ink); color:#fff; text-align:left; padding:10px 14px; font-weight:600; font-size:12.2px; }
+  table.data td{ padding:10px 14px; border-bottom:1px solid var(--line); color:var(--ink-soft); }
+  table.data tr:last-child td{ border-bottom:none; }
+  table.data td:first-child, table.data th:first-child{ color:var(--ink); font-weight:600; }
+  .table-scroll{ width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:var(--radius); box-shadow:var(--shadow); margin:18px 0; }
+  .table-scroll table.data{ margin:0; box-shadow:none; min-width:640px; }
+
+  .card-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin:20px 0; }
+  .card{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow); }
+  .card h4{ margin:0 0 8px; font-size:15px; }
+  .card p{ font-size:13.3px; margin-bottom:0; }
+  .card .tags{ margin-top:10px; }
+
+  details{ border-bottom:1px solid var(--line); padding:16px 0; }
+  summary{ cursor:pointer; font-weight:600; font-size:14.8px; list-style:none; display:flex; justify-content:space-between; gap:12px; }
+  summary::-webkit-details-marker{ display:none; }
+  summary .chev{ color:var(--ink-soft); transition:transform .2s; flex-shrink:0; }
+  details[open] .chev{ transform:rotate(45deg); }
+  details p, details ul{ margin-top:10px; color:var(--ink-soft); font-size:14px; }
+
+  .decision-tree{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius-lg); padding:22px 24px; margin:20px 0; box-shadow:var(--shadow); }
+  .decision-tree .q{ font-weight:700; font-size:14.5px; margin:14px 0 6px; display:flex; gap:8px; align-items:baseline; }
+  .decision-tree .q .qmark{ color:var(--warm); font-family:'Noto Serif SC',serif; }
+  .decision-tree .a{ color:var(--ink-soft); font-size:13.8px; margin-left:20px; padding-left:14px; border-left:2px solid var(--line); margin-bottom:10px; }
+
+  .platform-badge-row{ display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 20px; }
+  .pb{ font-size:12.5px; font-weight:600; padding:6px 13px; border-radius:999px; border:1px solid var(--line); background:var(--paper-2); color:var(--ink-soft); }
+
+  footer{ padding:44px clamp(20px,4vw,60px) 70px; max-width:900px; color:var(--ink-soft); font-size:13px; border-top:1px solid var(--line); }
+
+  .totop{ position:fixed; right:24px; bottom:24px; width:44px; height:44px; border-radius:50%; background:var(--ink); color:#fff; border:none; font-size:18px; cursor:pointer; box-shadow:var(--shadow); opacity:0; pointer-events:none; transition:opacity .2s; z-index:50; }
+  .totop.show{ opacity:1; pointer-events:auto; }
+
+  @media (max-width:900px){
+    .layout{ grid-template-columns:1fr; }
+    .nav-toggle-label{ display:inline-flex; }
+    .sidebar{
+      position:fixed; top:52px; left:0; right:0; height:calc(100vh - 52px);
+      background:var(--paper); border-right:none; transform:translateY(-115%);
+      transition:transform .25s ease; z-index:55; padding:20px;
+    }
+    #nav-toggle:checked ~ .layout .sidebar{ transform:translateY(0); }
+    main{ padding-top:30px; }
+  }
+  @media (max-width:520px){
+    .step{ grid-template-columns:26px 1fr; }
+    .step .num{ width:24px; height:24px; font-size:11.5px; }
+    body{ font-size:14.8px; }
+    .intro h1{ font-size:26px; }
+  }
+</style>
+</head>
+<body>
+<div id="progressbar"></div>
+<input type="checkbox" id="nav-toggle">
+
+<div class="topbar" id="topbar">
+  <div class="topbar-brand"><div class="mark">数</div> 数字产品全景作战手册 <span class="topbar-sub">个人定制版 · 2026.08</span></div>
+  <label for="nav-toggle" class="nav-toggle-label">☰ 目录</label>
+</div>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-title">总览</div>
+    <a href="#overview">整体总览 · 怎么用这份手册</a>
+    <a href="#assets">你的能力资产盘点</a>
+    <div class="sidebar-title sub">第一部分 · 做什么</div>
+    <a href="#idea01"><span class="phase-num">01</span>产品形态全景图</a>
+    <a href="#idea02"><span class="phase-num">02</span>Python小工具创意库</a>
+    <a href="#idea03"><span class="phase-num">03</span>知识类HTML/PDF创意库</a>
+    <a href="#idea04"><span class="phase-num">04</span>网页小工具创意库</a>
+    <a href="#idea05"><span class="phase-num">05</span>模板与素材类创意库</a>
+    <a href="#idea06"><span class="phase-num">06</span>100个接地气产品灵感总表</a>
+    <div class="sidebar-title sub">第二部分 · 卖到哪</div>
+    <a href="#plat01"><span class="phase-num">07</span>交易平台全景地图</a>
+    <a href="#plat02"><span class="phase-num">08</span>国内平台逐个详解</a>
+    <a href="#plat03"><span class="phase-num">09</span>跨境平台逐个详解</a>
+    <a href="#plat04"><span class="phase-num">10</span>自有域名独立站怎么用</a>
+    <a href="#plat05"><span class="phase-num">11</span>平台选择决策树</a>
+    <div class="sidebar-title sub">第三部分 · 怎么被看见</div>
+    <a href="#geo01"><span class="phase-num">12</span>GEO/AEO落地到你的产品</a>
+    <a href="#geo02"><span class="phase-num">13</span>老办法：内容与渠道</a>
+    <div class="sidebar-title sub">第四部分 · 怎么变现</div>
+    <a href="#mon01"><span class="phase-num">14</span>七种变现模式全解</a>
+    <a href="#mon02"><span class="phase-num">15</span>定价与产品矩阵策略</a>
+    <div class="sidebar-title sub">第五部分 · 怎么落地</div>
+    <a href="#exec01"><span class="phase-num">16</span>90天执行路线图</a>
+    <a href="#exec02"><span class="phase-num">17</span>技术实现指南</a>
+    <a href="#exec03"><span class="phase-num">18</span>合规与风险</a>
+    <a href="#exec04"><span class="phase-num">19</span>完整案例演练</a>
+    <div class="sidebar-title sub">保障</div>
+    <a href="#risk"><span class="phase-num">✓</span>总检查清单</a>
+    <a href="#faq"><span class="phase-num">?</span>常见问题</a>
+    <a href="#appendix"><span class="phase-num">附</span>术语表</a>
+  </nav>
+
+  <main>
+    <div class="intro" id="overview">
+      <span class="eyebrow">个人定制规划 · 整合两份手册 · 2026年8月版</span>
+      <h1>数字产品全景作战手册<br>从创意到变现，接地气执行</h1>
+      <p class="lead">你已经具备两块很硬的底子：<strong>用AI写Python脚本、能打包成EXE给不懂电脑的人直接双击用</strong>，以及<strong>用AI做知识类HTML再转PDF</strong>，还有一个可以完全自主的网站域名。这份手册要解决的问题只有一个：把这两块底子，接到一条"选题→做出来→放对平台→被人看见→收到钱→滚雪球"的完整链路上，而且每一步都要具体到你今晚就能动手。</p>
+
+      <div class="stat-row">
+        <div class="stat-card"><div class="num">6大类</div><div class="label">产品形态，覆盖你现有技能</div></div>
+        <div class="stat-card"><div class="num">100+</div><div class="label">接地气产品创意，可直接抄改</div></div>
+        <div class="stat-card"><div class="num">20+</div><div class="label">国内外交易平台逐个说清楚放什么</div></div>
+        <div class="stat-card"><div class="num">7种</div><div class="label">变现模式，不止"一次性卖断"</div></div>
+        <div class="stat-card"><div class="num">90天</div><div class="label">从0到产品矩阵的执行日历</div></div>
+      </div>
+
+      <div style="margin-top:18px;">
+        <span class="tag py">Python工具</span> 需要你的脚本/打包能力；
+        <span class="tag html">HTML/PDF</span> 需要你的知识整理+排版能力；
+        <span class="tag domestic">国内</span> 面向中文市场；
+        <span class="tag global">跨境</span> 面向海外市场；
+        <span class="tag both">通用</span> 两条路都适用。全文用这几个标签帮你快速定位。
+      </div>
+
+      <h3 style="margin-top:38px; font-size:19px;">这份手册和你已有的两份手册是什么关系</h3>
+      <table class="overview-table">
+        <tr><th>文档</th><th>解决什么问题</th><th>你现在该怎么用它</th></tr>
+        <tr><td>《数字产品变现全流程手册》</td><td>选题验证→制作→上架→测试→复盘→合规，这条主链路讲得非常细</td><td>当作"操作手册"长期放身边查——具体怎么点、怎么开户、怎么报税，都去那份手册里找</td></tr>
+        <tr><td>《GEO/AEO从0到高手手册》</td><td>怎么让AI（ChatGPT/DeepSeek/豆包/百度AI）在被问到相关问题时主动推荐你</td><td>当作"被动获客引擎"的说明书，用在你做独立站和内容矩阵的阶段</td></tr>
+        <tr><td>本手册（你正在看的）</td><td>回答你现在最卡的两个问题：<strong>具体做什么产品</strong>、<strong>具体放哪卖</strong>，并把前两份手册的方法论套到你的具体技能和资产上</td><td>从头到尾看一遍建立全局认知，然后主要活在"第16章90天路线图"里，按周执行，随时回查其他章节</td></tr>
+      </table>
+
+      <div class="callout warn">
+        <div class="icon">⚠️</div>
+        <div><b>先泼一盆冷水：</b>你现在"有点乱"的真正原因，大概率不是"不知道能做什么"，而是<strong>可选项太多、没有筛选标准</strong>。这份手册不会让选项变少，但会在每个清单后面给你一条筛选标准——看完不是要你把100个创意都做一遍，是要你用标准挑出3个，认真做完第一个。</div>
+      </div>
+    </div>
+
+    <!-- ================= 能力资产盘点 ================= -->
+    <section class="phase" id="assets">
+      <div class="phase-head"><span class="phase-num-badge">00</span><h2>你的能力资产盘点</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">目标：先把你现有的"武器"摆清楚，后面所有创意和平台建议，都是围绕这几件武器展开，而不是让你从零学新技能。</div>
+
+      <div class="sub">
+        <div class="card-grid">
+          <div class="card">
+            <h4>① AI + Python 脚本能力</h4>
+            <p>能让AI帮你写实用脚本（如身份证水印、批量改文件名/格式转换），并打包成EXE给不懂代码的人双击运行。这是你最稀缺、最难被抄走的能力——因为大多数"卖数字产品"的人只会写文字类内容，不会做"真正能跑起来解决问题的软件"。</p>
+            <div class="tags"><span class="tag py">核心资产</span></div>
+          </div>
+          <div class="card">
+            <h4>② AI + HTML/PDF 知识产品能力</h4>
+            <p>能让AI帮你做结构清晰、排版精美的知识类HTML页面，再转成PDF交付。这项能力对应"内容型数字产品"，制作门槛低、复用性强，是快速走通"选题→产品→上架"全流程、积累第一批真实反馈的最佳载体。</p>
+            <div class="tags"><span class="tag html">核心资产</span></div>
+          </div>
+          <div class="card">
+            <h4>③ 自有网站域名</h4>
+            <p>意味着你不必完全依赖平台规则和流量分发，可以搭建一个"所有小工具的家"——独立站既能承接网页小工具（在线直接用），也能作为落地页承接Python工具的下载与授权，还是GEO/AEO优化的主阵地（详见第12章）。</p>
+            <div class="tags"><span class="tag both">放大器</span></div>
+          </div>
+          <div class="card">
+            <h4>④ AI协作能力本身</h4>
+            <p>你已经习惯让AI辅助生产，这意味着你能同时经营"多条产品线"而不被制作环节拖死——真正的瓶颈永远是"选对题+放对平台+让人看见"，不是"做不出来"。这份手册重点补齐的正是这两块。</p>
+            <div class="tags"><span class="tag both">杠杆</span></div>
+          </div>
+        </div>
+
+        <h3>三种资产怎么组合，决定了你能做的产品类型</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>组合方式</th><th>能做出的产品类型</th><th>优势</th></tr>
+          <tr><td>Python脚本 单独用</td><td>桌面小工具EXE（本地运行、不联网也能用的批处理/证件处理/文件整理类）</td><td>不怕平台限流，一次做好可以反复卖，天然有"确实解决了问题"的口碑</td></tr>
+          <tr><td>HTML/PDF 单独用</td><td>知识指南、检查清单、模板包、Prompt包</td><td>制作最快，适合用来快速验证选题、积累第一批评价和粉丝</td></tr>
+          <tr><td>Python + HTML/PDF 组合</td><td>"工具 + 使用说明书/教程"打包产品，比如"证件照批量处理工具 + 图文教程"</td><td>客单价可以做得更高，因为交付的是"完整解决方案"而不是单一形态</td></tr>
+          <tr><td>Python 脚本 → 改造成网页小工具</td><td>把本地EXE的核心逻辑用JS重写，做成能在你独立站在线直接用的网页版（不用下载安装）</td><td>使用门槛降到最低（打开网页就能用），特别适合"不太懂电脑"的目标用户，也是GEO时代最容易被AI推荐的形态之一（见第12章）</td></tr>
+          <tr><td>三者 + 独立站</td><td>一个持续更新的"工具箱网站"，多个小工具+知识内容+邮件列表，形成品牌资产</td><td>不再依赖单一平台的流量分发，长期复利最高，也是本手册重点建议的终局形态</td></tr>
+        </table>
+        </div>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>给你的关键建议：<strong>不要一开始就冲着"独立站+多产品矩阵"这个终局去做</strong>。按照《数字产品变现全流程手册》阶段一到六的方法，先用HTML/PDF这条最快的路径跑通一次"选题验证→上架→真实成交"，拿到第一份真实数据和信心，再把Python工具和独立站补上去。本手册第16章会把这个节奏拆到具体每一周。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 01 产品形态全景图 ================= -->
+    <section class="phase" id="idea01">
+      <div class="phase-head"><span class="phase-num-badge">01</span><h2>产品形态全景图</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">目标：在具体想创意之前，先看清楚"数字产品"这个大类下到底有多少种形态，每种形态需要什么技能、制作难度多高、适合放在哪类平台，建立一张全局地图。</div>
+
+      <div class="sub">
+        <h3>1.1 六大产品形态总表</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>形态大类</th><th>具体举例</th><th>依赖的能力</th><th>制作难度</th><th>用户使用门槛</th><th>典型定价</th></tr>
+          <tr><td>① 桌面小工具（EXE/APP）</td><td>身份证水印、批量改图、文件整理、证件照裁切</td><td>Python + 打包</td><td>中</td><td>需下载安装，双击即用，最低操作门槛</td><td>9.9～99元/买断，或298元起/终身授权</td></tr>
+          <tr><td>② 网页小工具（无需下载）</td><td>在线计算器、转换器、生成器</td><td>HTML/JS + 独立站</td><td>中</td><td>打开网页直接用，零安装门槛，最适合"不太懂电脑"人群</td><td>免费引流+打赏，或功能限制版收费解锁</td></tr>
+          <tr><td>③ 知识类PDF/图文指南</td><td>方法论、清单类、避坑指南</td><td>HTML→PDF</td><td>低</td><td>下载后阅读，无操作门槛</td><td>9～59元</td></tr>
+          <tr><td>④ 结构化模板</td><td>Excel台账、Notion模板、PPT模板、合同模板</td><td>HTML/PDF + Office</td><td>低～中</td><td>下载后按说明填写，门槛低</td><td>9～99元</td></tr>
+          <tr><td>⑤ 工具+教程组合包</td><td>Python工具+图文/视频教程</td><td>Python + HTML/PDF</td><td>中</td><td>下载工具+看说明，中等门槛，但交付价值最完整</td><td>29～199元</td></tr>
+          <tr><td>⑥ 持续更新型产品</td><td>工具订阅、模板库会员、内容专栏</td><td>以上任意组合 + 长期维护</td><td>中～高（重在坚持）</td><td>视具体产品而定</td><td>9～29元/月，或99～299元/年</td></tr>
+        </table>
+        </div>
+
+        <h3>1.2 你该先做哪一种：三个判断维度</h3>
+        <div class="decision-tree">
+          <div class="q"><span class="qmark">Q1</span>你现在最想快速拿到"真实有人付费"这个信号，还是想直接冲高客单价？</div>
+          <div class="a">想快信号 → 选③知识类PDF或④模板，1～3天能上线；想冲客单价 → 选⑤工具+教程组合包，但制作周期更长，建议先用③跑通选题验证方法论再做⑤。</div>
+          <div class="q"><span class="qmark">Q2</span>你的目标用户"懂不懂电脑"？</div>
+          <div class="a">完全不懂电脑（如中老年人、纯文科背景人群）→ 优先②网页小工具或①EXE桌面工具（双击即用），少用需要理解"复制粘贴到某个软件"的形态；有基础操作能力的上班族/学生 → ③④⑤都可以。</div>
+          <div class="q"><span class="qmark">Q3</span>这个需求是"一次性解决"还是"反复要用"？</div>
+          <div class="a">一次性解决（比如"考公上岸避坑指南"）→ ③④这类一次性交付产品；反复要用（比如"每周都要处理一批证件照"）→ ①②这类工具类产品复购和口碑传播效果更好，是你Python技能的主战场。</div>
+        </div>
+
+        <div class="callout star">
+          <div class="icon">🎯</div>
+          <div><b>给你的判断结论：</b>你的第一个产品建议是<strong>③知识类PDF（用HTML/PDF技能，最快验证选题）</strong>，第二个产品建议紧接着做<strong>①或②工具类（用Python技能，建立差异化壁垒）</strong>。两者最好是同一个选题的两个交付形态——比如"手机开店必备资料"选题，先出一份PDF指南验证需求，验证成功后再配一个"批量生成商品主图/加水印"的小工具，客单价和复购率会明显提升。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 02 Python小工具创意库 ================= -->
+    <section class="phase" id="idea02">
+      <div class="phase-head"><span class="phase-num-badge">02</span><h2>Python小工具创意库</h2><span class="tag py">Python工具</span></div>
+      <div class="phase-meta">目标：把你"AI写脚本+打包EXE"的能力，对应到普通老百姓、个体户、学生、上班族真正会花钱解决的具体麻烦上。原则只有一条：<strong>解决一个具体到"发生在昨天"的麻烦，而不是抽象的"提升效率"</strong>。</div>
+
+      <div class="sub">
+        <h3>2.1 证件与图片处理类（你已经在做的方向，值得深挖成一个系列）</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>工具名称</th><th>解决的具体麻烦</th><th>目标人群</th><th>制作要点</th><th>参考定价</th></tr>
+          <tr><td>身份证/证件批量加水印</td><td>租房、贷款、开户要交身份证复印件，又怕被盗用</td><td>租客、办贷款/开户人群、HR</td><td>PIL批量处理+自定义水印文字/透明度</td><td>9.9～19.9元</td></tr>
+          <tr><td>证件照一键换底色/裁尺寸</td><td>不同单位要求的证件照底色、尺寸规格都不一样，来回改很烦</td><td>考公考编、签证办理、求职人群</td><td>抠图（可调用开源模型或简单色彩算法）+ 常见证件照尺寸库</td><td>免费引流+9.9元解锁批量</td></tr>
+          <tr><td>身份证信息识别核对小工具</td><td>批量核对身份证号、姓名是否符合格式规范（不涉及验真）</td><td>个体户、小微企业HR、房产中介</td><td>正则校验身份证号规则（出生日期/校验位）</td><td>19～39元/买断</td></tr>
+          <tr><td>图片批量压缩/转格式</td><td>发朋友圈/上传系统总提示"图片过大"，一张张压缩太麻烦</td><td>电商卖家、自媒体、行政人员</td><td>Pillow批量压缩，支持拖拽文件夹</td><td>免费或9.9元去广告版</td></tr>
+          <tr><td>批量给商品图加统一水印/logo</td><td>小卖家自己拍的图想统一加店铺logo防盗图</td><td>闲鱼/拼多多/微商个体卖家</td><td>批量水印+位置/透明度自定义模板</td><td>19.9元</td></tr>
+          <tr><td>老照片批量重命名整理</td><td>手机相册几千张照片按拍摄日期/人物混乱堆积</td><td>中老年人子女、家庭用户</td><td>读取EXIF拍摄时间，按日期自动建文件夹归类</td><td>19.9～29.9元</td></tr>
+        </table>
+        </div>
+
+        <h3>2.2 文件与文档批量处理类</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>工具名称</th><th>解决的具体麻烦</th><th>目标人群</th><th>制作要点</th><th>参考定价</th></tr>
+          <tr><td>批量重命名/整理文件</td><td>几百份合同/发票/简历命名混乱找不到</td><td>行政、HR、财务、个体户</td><td>按规则批量重命名（日期+编号+关键词）</td><td>免费+高级版19.9元</td></tr>
+          <tr><td>PDF批量合并/拆分/加水印</td><td>投标文件、报销单要合并成一个PDF按顺序提交</td><td>行政、财务、投标从业者</td><td>PyPDF2/pikepdf 批量操作</td><td>19.9～49元</td></tr>
+          <tr><td>Excel多表合并/去重小工具</td><td>各部门交上来的Excel格式不统一，手动合并要一整天</td><td>财务、HR、统计/运营岗</td><td>pandas读取合并+去重逻辑，支持简单容错</td><td>29～99元</td></tr>
+          <tr><td>Word批量替换/生成（邮件合并升级版）</td><td>批量生成几百份格式一样、内容不同的通知书/证书/邀请函</td><td>学校、培训机构、企业行政</td><td>python-docx模板替换字段批量生成</td><td>39～99元</td></tr>
+          <tr><td>发票信息批量提取/汇总</td><td>报销季几十张发票要手动抄录金额和抬头到表格</td><td>财务、个体工商户</td><td>OCR识别（可调用免费/低成本API）+结构化输出Excel</td><td>49～149元或按次收费</td></tr>
+          <tr><td>合同关键信息批量提取</td><td>几十份合同要快速核对金额/日期/双方主体是否一致</td><td>法务、中小企业主</td><td>正则+关键词定位提取，非AI理解，明确边界为"辅助核对"</td><td>99～299元</td></tr>
+        </table>
+        </div>
+
+        <h3>2.3 学习与考试类</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>工具名称</th><th>解决的具体麻烦</th><th>目标人群</th><th>制作要点</th><th>参考定价</th></tr>
+          <tr><td>错题本自动整理工具</td><td>拍照的错题散落在相册里，考前复习找不齐</td><td>中小学生家长、备考人群</td><td>本地图片按科目/日期归类+简单标签系统</td><td>19.9～39元</td></tr>
+          <tr><td>PPT批量转Word讲义</td><td>老师/培训师上课PPT想快速转成文字讲义发给学员</td><td>老师、培训机构、企业内训</td><td>python-pptx提取文字+排版成Word</td><td>29～59元</td></tr>
+          <tr><td>刷题记录与错误率统计小工具</td><td>刷题APP数据不方便导出分析薄弱知识点</td><td>考公考研考编人群</td><td>本地Excel记录+简单图表统计</td><td>19.9元</td></tr>
+          <tr><td>简历批量筛选关键词工具</td><td>HR收到几百份简历要快速按关键词初筛</td><td>企业HR、猎头</td><td>批量读取PDF/Word简历+关键词匹配打分</td><td>99～299元</td></tr>
+        </table>
+        </div>
+
+        <h3>2.4 小生意与个体户经营类（非常值得深挖，付费意愿最强）</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>工具名称</th><th>解决的具体麻烦</th><th>目标人群</th><th>制作要点</th><th>参考定价</th></tr>
+          <tr><td>进销存小账本工具</td><td>小卖部/微商没有专业软件，用本子记账容易算错</td><td>夫妻店、微商、社区团购团长</td><td>本地Excel/SQLite记录进出货+自动计算库存和利润</td><td>49～149元/买断</td></tr>
+          <tr><td>客户群发提醒/生日提醒工具</td><td>老客户维护全靠脑子记，容易忘记跟进</td><td>美容美发、保险、微商从业者</td><td>本地Excel客户库+到期提醒弹窗（不涉及自动群发以规避平台风控）</td><td>39～99元</td></tr>
+          <tr><td>快递单号批量查询/汇总</td><td>批量发货后要一个个查物流状态很麻烦</td><td>电商卖家、代购</td><td>调用快递查询开放接口批量查+导出表格</td><td>29～79元或按月订阅</td></tr>
+          <tr><td>价格/成本核算计算器（可视化EXE版）</td><td>批发进价+运费+平台佣金核算利润容易算错</td><td>电商/微商卖家</td><td>简单GUI（tkinter）输入变量自动算出利润率</td><td>19.9～49元</td></tr>
+          <tr><td>排班表自动生成工具</td><td>餐饮/零售小店排班全靠手写表格，经常冲突</td><td>餐饮店长、零售店主</td><td>输入人数/规则自动生成排班Excel</td><td>49～99元</td></tr>
+        </table>
+        </div>
+
+        <h3>2.5 生活与家庭场景类</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>工具名称</th><th>解决的具体麻烦</th><th>目标人群</th><th>制作要点</th><th>参考定价</th></tr>
+          <tr><td>装修预算计算器</td><td>装修报价单项目繁多，不知道哪里被多算钱</td><td>准备装修的家庭</td><td>输入面积/档次自动估算各项预算区间</td><td>免费引流+定制报价29元</td></tr>
+          <tr><td>婚礼/满月宴请客人名单与座位排布工具</td><td>几十桌宾客关系复杂，手写排座位容易出错</td><td>准备办婚礼/宴请的家庭</td><td>输入宾客关系自动生成座位分组建议</td><td>29.9～59元</td></tr>
+          <tr><td>家庭记账本（比市面APP更简单版）</td><td>记账APP功能太复杂，很多中老年人不会用</td><td>中老年人、追求极简记账的用户</td><td>极简GUI，大字体大按钮，本地存储不联网更安心</td><td>19.9～29.9元</td></tr>
+          <tr><td>家庭旧物/闲置整理清单生成工具</td><td>搬家/断舍离不知道哪些东西该留该扔该卖</td><td>准备搬家、闲鱼卖家</td><td>拍照+简单分类标签+清单导出</td><td>免费+9.9元</td></tr>
+        </table>
+        </div>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div><b>选题自查标准（照抄阶段一的选题公式）：</b>能不能一句话说清楚"【谁】在【什么场景】遇到【什么具体麻烦】，我的工具帮他【做到什么结果】"？上面每一行都是按这个公式设计的，你可以直接照抄改造，也可以用这个公式把自己生活/工作中遇到的麻烦套进去，那往往是转化率最高的选题——因为你自己就是需求验证的第一个真实用户。</div>
+        </div>
+
+        <h3>2.6 打包与交付要点（给不懂电脑的人用，这几点必须做到）</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>用 PyInstaller 打包成单文件EXE</strong><span><code>pyinstaller -F -w -i icon.ico 工具名.py</code>，<code>-F</code>打包成单文件方便发送，<code>-w</code>去掉黑框命令行窗口，<code>-i</code>加自定义图标显得专业。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>做一个极简GUI界面，别用命令行</strong><span>不懂电脑的用户看到黑框命令行会直接放弃，用 tkinter 做几个按钮和输入框，标注清楚"第一步选文件夹""第二步点开始"，比功能多少更重要。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>配一份"三张图就能看懂"的使用说明</strong><span>用你的HTML/PDF能力做一份图文教程，每一步配一张操作截图，不需要文字很多，图比字更让人放心。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>处理好"Windows安全警告"这一关</strong><span>没有代码签名证书的EXE会被系统标记"未知发布者"，务必在说明书里提前截图告知用户"这是正常现象，点击更多信息→仍要运行"，否则大量用户会以为是病毒直接卸载差评。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>标注清楚系统兼容性和"不上传隐私数据"</strong><span>Windows版本号、是否支持Mac，以及最重要的——涉及身份证等敏感信息的工具，一定要在说明里明确"纯本地处理，不联网、不上传任何数据"，这是这类工具最大的信任门槛，也是最大的卖点。</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 03 知识类HTML/PDF创意库 ================= -->
+    <section class="phase" id="idea03">
+      <div class="phase-head"><span class="phase-num-badge">03</span><h2>知识类HTML/PDF创意库</h2><span class="tag html">HTML/PDF</span></div>
+      <div class="phase-meta">目标：延续你现在做的事，但从"泛泛的知识类HTML"升级到"具体人群会掏钱的知识产品"。这类产品制作最快，建议作为每个新选题的第一个验证形态。</div>
+
+      <div class="sub">
+        <h3>3.1 六种最容易起步的知识产品子类型</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>子类型</th><th>核心特征</th><th>举例选题</th><th>参考定价</th></tr>
+          <tr><td>避坑指南类</td><td>把"踩过的坑"整理成清单，读者最怕自己重蹈覆辙</td><td>《二手房过户避坑清单：18个真实纠纷案例整理》</td><td>19～39元</td></tr>
+          <tr><td>流程手把手类</td><td>把复杂官方流程拆成"点哪个按钮"的颗粒度（就是你现在做的两份手册的风格）</td><td>《个体工商户注销全流程：从材料到最后一步的截图指南》</td><td>19～49元</td></tr>
+          <tr><td>对比决策类</td><td>帮读者在多个选项里做决定，节省调研时间</td><td>《给新手爸妈的奶粉/纸尿裤选购决策表（按预算分级）》</td><td>9.9～29元</td></tr>
+          <tr><td>模板速查类</td><td>不需要读者理解原理，直接照抄套用</td><td>《租房合同审查清单+补充协议模板》</td><td>9.9～19.9元</td></tr>
+          <tr><td>周期陪伴类</td><td>按天/按周拆解的执行计划，制造"跟练"感</td><td>《30天备考四六级冲刺计划表（可打印版）》</td><td>19～39元</td></tr>
+          <tr><td>行业内幕/资源整理类</td><td>把分散在各处的资源/联系方式/渠道整理成一份，节省读者搜索成本</td><td>《本地宝妈副业资源清单：可信平台+靠谱渠道汇总》</td><td>19～39元</td></tr>
+        </table>
+        </div>
+
+        <h3>3.2 三十个选题方向速查（按人群分类，直接套用选题公式改造）</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>人群</th><th>选题方向示例</th></tr>
+          <tr><td>新手爸妈</td><td>新生儿证件办理全流程（准生证/户口/医保）、疫苗接种时间表打印版、入园材料清单</td></tr>
+          <tr><td>租房族</td><td>押金退还纠纷应对指南、水电煤过户流程、合租室友matching话术模板</td></tr>
+          <tr><td>准备买房/换房家庭</td><td>贷款材料清单、公积金提取全流程、学区房核实避坑清单</td></tr>
+          <tr><td>中老年人子女</td><td>父母手机防诈骗设置图文教程、老年人医保异地就医报销流程、父母养老资格认证操作指南</td></tr>
+          <tr><td>应届生/求职者</td><td>三方协议/劳动合同审查要点、离职交接清单、社保断缴影响与补救</td></tr>
+          <tr><td>个体户/小微创业者</td><td>营业执照变更/注销流程、小规模纳税人申报避坑、个体户医保社保缴纳指南</td></tr>
+          <tr><td>宠物主人</td><td>宠物医院选择与常见套路避坑、异地带宠物出行材料清单</td></tr>
+          <tr><td>装修/搬家人群</td><td>装修合同审查清单、水电验收标准图解、搬家公司比价避坑指南</td></tr>
+          <tr><td>考证/考公考编人群</td><td>特定证书报考流程与材料清单、面试常见问题话术库</td></tr>
+          <tr><td>跨境/涉外事务人群</td><td>签证材料清单、海外学历认证流程、境外汇款合规操作指南</td></tr>
+        </table>
+        </div>
+
+        <h3>3.3 制作节奏与质量标准</h3>
+        <p>制作方法直接复用《数字产品变现全流程手册》第二阶段的大纲结构和AI提示词模板，这里补充两条专属于你的建议：</p>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>把两份现有手册的排版体系沉淀成"个人模板库"</strong><span>你已经做出两份视觉规范、结构清晰的HTML手册，把这套CSS样式（侧边栏目录、卡片、清单、表格）保存成一个可复用的HTML模板骨架，以后每个新选题只需要替换内容，制作时间能压缩到1天以内。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>官方流程类选题，务必核实最新政策再发布</strong><span>凡是涉及"某个官方流程"的选题（户籍、社保、工商注册），发布前务必用AI+搜索核对一遍最新政策是否变化，并在文档里注明"信息整理于XXXX年X月，官方规则可能调整，请以最新公示为准"，这既是免责声明，也是对读者负责。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>每份PDF结尾都加一个"配套工具"预告位</strong><span>为后续把知识类产品和Python工具打通做铺垫——比如避坑指南结尾写"这份清单的电子版可打印表格+自动计算工具，见XX链接"，为工具类产品导流。</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 04 网页小工具创意库 ================= -->
+    <section class="phase" id="idea04">
+      <div class="phase-head"><span class="phase-num-badge">04</span><h2>网页小工具创意库</h2><span class="tag html">HTML/JS</span></div>
+      <div class="phase-meta">目标：把Python脚本的核心逻辑用纯前端HTML/JS重写，做成打开网页就能用、不用下载安装的在线小工具，放在你的独立站上——这是"不太懂电脑的人"使用门槛最低的形态，也是GEO时代最容易被AI搜索/推荐的产品形态（详见第12章）。</div>
+
+      <div class="sub">
+        <h3>4.1 为什么值得把部分EXE工具改造成网页版</h3>
+        <table class="overview-table">
+          <tr><th>对比维度</th><th>EXE桌面工具</th><th>网页小工具</th></tr>
+          <tr><td>使用门槛</td><td>需要下载、可能被杀毒软件拦截、Windows安全警告</td><td>打开链接直接用，手机电脑都行，零安装门槛</td></tr>
+          <tr><td>获客方式</td><td>依赖平台上架或朋友转发</td><td>可被搜索引擎和AI问答直接收录推荐，天然自带流量入口</td></tr>
+          <tr><td>适合场景</td><td>需要处理本地大批量文件、涉及隐私不便上传的场景</td><td>单次/轻量处理，或计算类、生成类不涉及大文件上传的场景</td></tr>
+          <tr><td>变现方式</td><td>一次性买断为主</td><td>免费引流+高级功能付费解锁，更适合细水长流</td></tr>
+        </table>
+
+        <h3>4.2 三十个网页小工具创意（纯前端可实现，无需服务器和数据库）</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>工具</th><th>解决的问题</th><th>目标人群</th></tr>
+          <tr><td>身份证号/银行卡号打码工具</td><td>发给别人看之前想遮住中间几位数字</td><td>所有人</td></tr>
+          <tr><td>图片在线加水印/压缩</td><td>不想下载软件，网页里直接拖图片处理</td><td>电商卖家、自媒体</td></tr>
+          <tr><td>房贷/车贷计算器（等额本息vs等额本金对比）</td><td>不清楚两种还款方式差多少利息</td><td>准备贷款买房买车人群</td></tr>
+          <tr><td>个税/年终奖个税计算器</td><td>每年个税政策记不住，怕自己算错</td><td>上班族、HR、财务</td></tr>
+          <tr><td>装修预算估算器</td><td>不知道装修各项费用大概占比多少</td><td>准备装修家庭</td></tr>
+          <tr><td>产假/年假/病假天数计算器</td><td>各地产假规则不同，自己算容易出错</td><td>准备休产假的职场女性、HR</td></tr>
+          <tr><td>PDF在线合并/压缩/加水印</td><td>不想装软件，临时用一下就走</td><td>学生、行政、求职者</td></tr>
+          <tr><td>简历一页纸排版工具</td><td>不会用Word排版，想快速做出整洁简历</td><td>应届生、求职者</td></tr>
+          <tr><td>婚礼请柬/邀请函在线生成器</td><td>不想花钱找设计师做一份简单请柬</td><td>准备结婚的新人</td></tr>
+          <tr><td>合租房租/水电分摊计算器</td><td>室友之间分摊费用总是算不清楚有争议</td><td>合租族</td></tr>
+          <tr><td>旅行行李清单生成器</td><td>出发前总担心漏带东西</td><td>出行/出差人群</td></tr>
+          <tr><td>二维码批量生成工具</td><td>需要给多个链接/名片批量生成二维码</td><td>小商家、活动组织者</td></tr>
+          <tr><td>文字转语音朗读工具（用于校对）</td><td>写完文章想听一遍检查有没有病句</td><td>自媒体创作者、学生</td></tr>
+          <tr><td>合同违约金计算器</td><td>不清楚违约金按什么比例计算</td><td>租房/购房/商务合同当事人</td></tr>
+          <tr><td>宝宝生长发育曲线对照工具</td><td>体检报告数值看不懂是否正常</td><td>新手爸妈</td></tr>
+          <tr><td>退休金/社保缴费年限计算器</td><td>不清楚自己还差多少年能退休、能领多少</td><td>临近退休人群、子女</td></tr>
+        </table>
+        </div>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div><b>制作提示：</b>这类工具用AI生成一个单文件HTML（把CSS/JS都写在同一个文件里）即可运行，不需要服务器、不需要数据库，上传到你的独立站或 Netlify/Vercel/GitHub Pages 这类免费静态托管即可，几乎零成本。计算逻辑较简单的（如个税、还款方式）AI基本可以一次性写对，但涉及具体数值和公式的（如个税税率表、产假天数政策）务必手动核对官方最新数据来源，避免算错了误导用户造成实际损失。</div>
+        </div>
+
+        <h3>4.3 免费引流 + 付费解锁的常见设计方式</h3>
+        <ul>
+          <li><strong>基础功能免费，批量/高级功能付费：</strong>比如单张图片加水印免费，批量处理100张收费解锁。</li>
+          <li><strong>结果预览免费，导出/下载付费：</strong>比如计算结果网页上直接看到，想要下载可打印PDF版本需要付费。</li>
+          <li><strong>工具免费，配套详细指南付费：</strong>工具本身是引流钩子，深度使用技巧和案例集打包成付费PDF。</li>
+          <li><strong>广告位/打赏：</strong>工具完全免费，靠流量做联盟推广或放置不打扰体验的广告位（详见第14章变现模式）。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 05 模板与素材类创意库 ================= -->
+    <section class="phase" id="idea05">
+      <div class="phase-head"><span class="phase-num-badge">05</span><h2>模板与素材类创意库</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">目标：这是制作门槛最低、最适合用来"批量出品、薄利多销"的一类，也适合和知识类PDF打包组合销售，提高客单价。</div>
+
+      <div class="sub">
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>类型</th><th>具体举例</th><th>制作方式</th><th>参考定价</th></tr>
+          <tr><td>Excel实用模板</td><td>家庭记账本、进销存台账、装修预算表、员工考勤表、婚礼预算清单</td><td>Excel公式+条件格式，AI辅助设计公式逻辑</td><td>9.9～39元</td></tr>
+          <tr><td>Word/PDF法律文书模板</td><td>租房合同补充协议、借条模板、劳务协议、委托书</td><td>基于公开范本+律师建议条款整理（注明"仅供参考非正式法律意见"）</td><td>9.9～29元</td></tr>
+          <tr><td>PPT模板</td><td>述职报告PPT、婚礼策划PPT、儿童生日会PPT</td><td>Canva/AI生成设计+可编辑源文件</td><td>9.9～39元</td></tr>
+          <tr><td>Notion/飞书效率模板</td><td>个人年度目标管理、读书笔记系统、副业收支追踪</td><td>Notion模板搭建+使用说明</td><td>19～59元</td></tr>
+          <tr><td>简历模板包</td><td>不同行业/风格简历模板+填写指南</td><td>Word/Canva模板+范例</td><td>9.9～29元/份，或9份打包套餐</td></tr>
+          <tr><td>Prompt提示词包</td><td>宝妈育儿AI提问模板、小生意文案AI提示词、简历优化提示词</td><td>整理并测试有效的提示词+使用说明</td><td>9.9～29元</td></tr>
+          <tr><td>打印类素材</td><td>儿童描红字帖、习惯养成打卡表、家庭日历规划表</td><td>Canva设计+PDF导出可直接打印</td><td>9.9～19.9元</td></tr>
+        </table>
+        </div>
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>模板类产品最适合做成"打包套餐"提升客单价，比如把8份不同风格简历模板打包成"求职季简历模板全家桶"，单价从9.9元的单份提升到39元的套餐，制作成本几乎不增加，利润率显著提高。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 06 100个产品灵感总表 ================= -->
+    <section class="phase" id="idea06">
+      <div class="phase-head"><span class="phase-num-badge">06</span><h2>接地气产品灵感总表（速查版）</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">目标：把前面五章的创意汇总成一张可以打印、可以随时划勾选择的速查表，附上建议投放的平台方向，方便你快速拍板做哪几个。</div>
+
+      <div class="sub">
+        <p>使用方法：先扫一遍全表，圈出3～5个你自己也懂、身边有真实需求场景的方向，再回到第1章的三个判断维度做最终筛选，只启动1个开始执行。</p>
+
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>#</th><th>产品方向</th><th>形态</th><th>目标人群</th><th>建议平台方向</th></tr>
+          <tr><td>1</td><td>身份证/证件批量加水印工具</td><td>EXE+网页版</td><td>租客/办贷款人群</td><td>闲鱼、独立站、CSDN下载</td></tr>
+          <tr><td>2</td><td>证件照换底色裁尺寸工具</td><td>网页版</td><td>考公考编/求职</td><td>独立站、小红书引流</td></tr>
+          <tr><td>3</td><td>图片批量压缩转格式</td><td>EXE+网页版</td><td>电商卖家、自媒体</td><td>独立站、闲鱼</td></tr>
+          <tr><td>4</td><td>商品图批量加水印/logo</td><td>EXE</td><td>闲鱼/微商卖家</td><td>闲鱼、微店</td></tr>
+          <tr><td>5</td><td>老照片按日期批量整理</td><td>EXE</td><td>中老年人子女</td><td>小红书、闲鱼</td></tr>
+          <tr><td>6</td><td>文件批量重命名工具</td><td>EXE</td><td>行政/财务/个体户</td><td>闲鱼、CSDN、独立站</td></tr>
+          <tr><td>7</td><td>PDF批量合并/拆分/加水印</td><td>EXE+网页版</td><td>行政/求职者/学生</td><td>独立站（网页版最佳）</td></tr>
+          <tr><td>8</td><td>Excel多表合并去重工具</td><td>EXE</td><td>财务/HR/运营</td><td>闲鱼、CSDN</td></tr>
+          <tr><td>9</td><td>Word批量生成证书/通知书</td><td>EXE</td><td>学校/培训机构</td><td>闲鱼、B端直接联系</td></tr>
+          <tr><td>10</td><td>发票信息批量提取汇总</td><td>EXE</td><td>财务、个体户</td><td>闲鱼、猪八戒网</td></tr>
+          <tr><td>11</td><td>合同关键信息批量提取核对</td><td>EXE</td><td>法务/中小企业主</td><td>猪八戒网、独立站</td></tr>
+          <tr><td>12</td><td>错题本自动整理工具</td><td>EXE</td><td>中小学生家长</td><td>小红书、闲鱼</td></tr>
+          <tr><td>13</td><td>PPT批量转Word讲义</td><td>EXE</td><td>老师/培训师</td><td>闲鱼、知乎</td></tr>
+          <tr><td>14</td><td>简历批量关键词筛选</td><td>EXE</td><td>企业HR</td><td>猪八戒网、独立站</td></tr>
+          <tr><td>15</td><td>小卖部进销存记账工具</td><td>EXE</td><td>夫妻店/微商</td><td>闲鱼、小红书</td></tr>
+          <tr><td>16</td><td>客户生日/到期提醒工具</td><td>EXE</td><td>美容美发/保险从业者</td><td>闲鱼、抖音同城</td></tr>
+          <tr><td>17</td><td>快递单号批量查询汇总</td><td>EXE+网页版</td><td>电商卖家/代购</td><td>闲鱼、独立站</td></tr>
+          <tr><td>18</td><td>利润核算计算器</td><td>EXE+网页版</td><td>电商/微商卖家</td><td>独立站、小红书</td></tr>
+          <tr><td>19</td><td>排班表自动生成工具</td><td>EXE</td><td>餐饮店长/零售店主</td><td>闲鱼、抖音同城</td></tr>
+          <tr><td>20</td><td>装修预算计算器</td><td>网页版</td><td>准备装修家庭</td><td>独立站、小红书</td></tr>
+          <tr><td>21</td><td>婚宴座位排布工具</td><td>网页版+PDF</td><td>准备办婚礼家庭</td><td>小红书、独立站</td></tr>
+          <tr><td>22</td><td>极简家庭记账本</td><td>EXE</td><td>中老年人</td><td>闲鱼、社区渠道</td></tr>
+          <tr><td>23</td><td>身份证号银行卡打码在线工具</td><td>网页版</td><td>所有人</td><td>独立站（SEO/GEO首选）</td></tr>
+          <tr><td>24</td><td>房贷车贷还款方式对比计算器</td><td>网页版</td><td>准备贷款人群</td><td>独立站、知乎</td></tr>
+          <tr><td>25</td><td>个税/年终奖计算器</td><td>网页版</td><td>上班族/HR/财务</td><td>独立站、知乎</td></tr>
+          <tr><td>26</td><td>产假年假病假天数计算器</td><td>网页版</td><td>职场女性/HR</td><td>独立站、小红书</td></tr>
+          <tr><td>27</td><td>合租房租水电分摊计算器</td><td>网页版</td><td>合租族</td><td>独立站、小红书</td></tr>
+          <tr><td>28</td><td>旅行行李清单生成器</td><td>网页版</td><td>出行人群</td><td>独立站、小红书</td></tr>
+          <tr><td>29</td><td>二维码批量生成工具</td><td>网页版</td><td>小商家/活动组织者</td><td>独立站</td></tr>
+          <tr><td>30</td><td>合同违约金计算器</td><td>网页版</td><td>租房购房当事人</td><td>独立站、知乎</td></tr>
+          <tr><td>31</td><td>宝宝生长发育曲线对照</td><td>网页版</td><td>新手爸妈</td><td>独立站、小红书</td></tr>
+          <tr><td>32</td><td>退休金社保缴费年限计算器</td><td>网页版</td><td>临近退休人群</td><td>独立站、知乎</td></tr>
+          <tr><td>33</td><td>二手房过户避坑指南PDF</td><td>PDF</td><td>买卖二手房人群</td><td>小红书、闲鱼、知乎</td></tr>
+          <tr><td>34</td><td>个体户注销全流程指南PDF</td><td>PDF</td><td>个体户经营者</td><td>小红书、知乎</td></tr>
+          <tr><td>35</td><td>新生儿证件办理流程PDF</td><td>PDF</td><td>新手爸妈</td><td>小红书</td></tr>
+          <tr><td>36</td><td>租房押金退还纠纷应对指南</td><td>PDF</td><td>租房族</td><td>小红书、闲鱼</td></tr>
+          <tr><td>37</td><td>父母防诈骗手机设置图文教程</td><td>PDF+短视频</td><td>中老年人子女</td><td>小红书、抖音</td></tr>
+          <tr><td>38</td><td>三方协议/离职交接清单</td><td>PDF+模板</td><td>应届生/求职者</td><td>小红书、知乎</td></tr>
+          <tr><td>39</td><td>装修合同审查清单</td><td>PDF</td><td>装修家庭</td><td>小红书、知乎</td></tr>
+          <tr><td>40</td><td>宠物医院避坑指南</td><td>PDF</td><td>宠物主人</td><td>小红书</td></tr>
+          <tr><td>41</td><td>签证材料清单（多国）</td><td>PDF</td><td>出境人群</td><td>Gumroad、小红书</td></tr>
+          <tr><td>42</td><td>家庭记账Excel模板</td><td>Excel模板</td><td>普通家庭</td><td>闲鱼、Payhip</td></tr>
+          <tr><td>43</td><td>租房合同补充协议模板</td><td>Word模板</td><td>租房族</td><td>小红书、闲鱼</td></tr>
+          <tr><td>44</td><td>述职报告PPT模板</td><td>PPT模板</td><td>上班族</td><td>闲鱼、Envato</td></tr>
+          <tr><td>45</td><td>儿童描红字帖打印素材</td><td>PDF打印素材</td><td>幼儿家长</td><td>小红书、闲鱼</td></tr>
+          <tr><td>46</td><td>习惯打卡表打印素材</td><td>PDF打印素材</td><td>自律人群</td><td>小红书、Etsy</td></tr>
+          <tr><td>47</td><td>Etsy卖家AI文案提示词包</td><td>Prompt包</td><td>跨境电商卖家</td><td>Gumroad、Etsy</td></tr>
+          <tr><td>48</td><td>自由译者接单管理Notion模板</td><td>Notion模板</td><td>自由译者</td><td>Gumroad、Payhip</td></tr>
+          <tr><td>49</td><td>独立开发者产品发布清单</td><td>PDF+模板</td><td>独立开发者</td><td>Gumroad、Product Hunt</td></tr>
+          <tr><td>50</td><td>考研择校决策表</td><td>Excel/PDF</td><td>考研人群</td><td>小红书、闲鱼</td></tr>
+          <tr><td>51</td><td>小红书内容日历模板</td><td>Notion/Excel</td><td>新手博主</td><td>小红书、闲鱼</td></tr>
+          <tr><td>52</td><td>副业启动手册</td><td>PDF</td><td>宝妈/副业人群</td><td>小红书、知乎</td></tr>
+          <tr><td>53</td><td>跨境电商选品评估表</td><td>Excel</td><td>跨境电商新手</td><td>Gumroad、闲鱼</td></tr>
+          <tr><td>54</td><td>自由设计师报价合同模板</td><td>Word模板</td><td>自由职业设计师</td><td>Gumroad、闲鱼</td></tr>
+          <tr><td>55</td><td>8周居家健身计划表</td><td>PDF</td><td>健身新手</td><td>小红书、Etsy</td></tr>
+          <tr><td>56</td><td>直播脚本与应急话术库</td><td>PDF</td><td>带货主播</td><td>抖音、小红书</td></tr>
+          <tr><td>57</td><td>身份证信息格式核对小工具</td><td>EXE</td><td>HR/房产中介</td><td>闲鱼、猪八戒网</td></tr>
+          <tr><td>58</td><td>批量证件照排版打印工具（一寸多张）</td><td>EXE+网页版</td><td>照相馆/学生</td><td>独立站、闲鱼</td></tr>
+          <tr><td>59</td><td>宝宝取名寓意查询小工具</td><td>网页版</td><td>新手爸妈</td><td>独立站</td></tr>
+          <tr><td>60</td><td>老年人医保异地就医报销指南</td><td>PDF</td><td>中老年人子女</td><td>小红书</td></tr>
+          <tr><td>61</td><td>驾照/车辆年检到期提醒工具</td><td>EXE+网页版</td><td>有车一族</td><td>独立站</td></tr>
+          <tr><td>62</td><td>合同/文件电子签名批量盖章工具</td><td>EXE</td><td>个体户/中小企业</td><td>闲鱼、猪八戒网</td></tr>
+          <tr><td>63</td><td>视频/音频批量转文字工具</td><td>EXE+网页版</td><td>自媒体/学生</td><td>独立站、闲鱼</td></tr>
+          <tr><td>64</td><td>Excel转PDF/图片批量转换器</td><td>EXE+网页版</td><td>行政/财务</td><td>独立站</td></tr>
+          <tr><td>65</td><td>婚礼请柬在线生成器</td><td>网页版</td><td>准备结婚新人</td><td>独立站、小红书</td></tr>
+          <tr><td>66</td><td>装修水电验收标准图解</td><td>PDF</td><td>装修家庭</td><td>小红书、知乎</td></tr>
+          <tr><td>67</td><td>农村土地确权/宅基地政策解读</td><td>PDF</td><td>农村居民</td><td>抖音、今日头条</td></tr>
+          <tr><td>68</td><td>个体户医保社保缴纳指南</td><td>PDF</td><td>个体户经营者</td><td>小红书、知乎</td></tr>
+          <tr><td>69</td><td>Excel函数速查手册（含实例）</td><td>PDF+Excel</td><td>职场新人</td><td>闲鱼、知乎</td></tr>
+          <tr><td>70</td><td>会议纪要自动整理小工具</td><td>EXE</td><td>行政/职场人士</td><td>猪八戒网、闲鱼</td></tr>
+        </table>
+        </div>
+
+        <div class="callout star">
+          <div class="icon">🎯</div>
+          <div>不需要凑够100个才能开始——以上70个方向已经覆盖了证件图片、文件文档、生活计算、家庭婚育、经营管理、学习考试、跨境等绝大多数"老百姓真正会用到"的场景。真正决定成败的不是创意数量，而是你选中之后是否按第16章的90天路线图认真跑完第一个。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 07 交易平台全景地图 ================= -->
+    <section class="phase" id="plat01">
+      <div class="phase-head"><span class="phase-num-badge">07</span><h2>交易平台全景地图</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">目标：解决你"想放哪些交易平台"这个核心困惑——先建立一张"产品类型 → 平台类型"的总地图，再在08、09章逐个平台讲清楚具体规则。</div>
+
+      <div class="sub">
+        <h3>7.1 先分清楚四类平台，各自的角色不同</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>平台类型</th><th>角色</th><th>代表平台</th><th>适合放什么</th></tr>
+          <tr><td>① 内容种草+电商一体平台</td><td>既能发内容获取流量，又能直接挂店铺成交</td><td>小红书、抖音、视频号</td><td>知识类PDF、模板、需要"种草感"的产品</td></tr>
+          <tr><td>② 纯交易/闲置平台</td><td>0门槛快速起步，交易导向强于内容导向</td><td>闲鱼、微店</td><td>所有形态起步测试，尤其是工具类EXE</td></tr>
+          <tr><td>③ 专业内容/知识平台</td><td>用户有明确"付费学知识"心智</td><td>知乎、CSDN、B站</td><td>深度知识类内容、技术向工具</td></tr>
+          <tr><td>④ 开发者/极客向下载平台</td><td>用户群体本身有一定技术理解能力，愿意为软件付费</td><td>CSDN下载、GitHub Sponsor、蓝奏云+闲鱼引流</td><td>Python工具类、脚本类</td></tr>
+          <tr><td>⑤ 跨境MoR收款平台</td><td>面向海外用户，自带合规收款能力</td><td>Payhip、Gumroad、Lemon Squeezy、Polar</td><td>知识类PDF、模板、面向海外场景的工具</td></tr>
+          <tr><td>⑥ 跨境素材/软件市场</td><td>面向海外，垂直品类自带精准流量</td><td>Etsy、Envato、CodeCanyon、itch.io</td><td>设计素材、代码/软件类产品</td></tr>
+          <tr><td>⑦ 众包/接单平台</td><td>不是"卖标准品"而是"承接定制需求"，适合把你的工具能力变成服务收入</td><td>猪八戒网、Upwork、Fiverr</td><td>批量文件处理、定制小工具开发服务</td></tr>
+          <tr><td>⑧ 自有独立站</td><td>不受平台规则和流量分发限制，长期品牌资产沉淀地</td><td>你自己的域名</td><td>网页小工具、产品矩阵展示、GEO优化主阵地</td></tr>
+        </table>
+        </div>
+
+        <h3>7.2 按你的产品形态，速查该投哪几类平台</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>产品形态</th><th>首选平台类型</th><th>次选/补充</th></tr>
+          <tr><td>Python EXE工具</td><td>闲鱼（起步测试）+ CSDN下载（技术向流量）</td><td>独立站（长期）、猪八戒网（定制服务）</td></tr>
+          <tr><td>网页小工具</td><td>独立站（核心阵地）</td><td>小红书/知乎（引流讲解）</td></tr>
+          <tr><td>知识类PDF</td><td>小红书店铺/付费笔记 + 闲鱼</td><td>知乎付费内容、跨境同步Payhip/Gumroad</td></tr>
+          <tr><td>Excel/模板类</td><td>闲鱼 + 小红书</td><td>跨境同步Etsy（设计类模板尤其合适）</td></tr>
+          <tr><td>工具+教程组合包</td><td>闲鱼 + 独立站</td><td>知乎（技术向讲解引流）</td></tr>
+          <tr><td>持续更新型（订阅/会员）</td><td>知识星球、微信视频号会员</td><td>独立站+Substack/Patreon（跨境）</td></tr>
+        </table>
+        </div>
+
+        <div class="platform-badge-row">
+          <span class="pb">闲鱼</span><span class="pb">小红书</span><span class="pb">知乎</span><span class="pb">CSDN下载</span><span class="pb">微店</span><span class="pb">视频号</span><span class="pb">猪八戒网</span><span class="pb">知识星球</span><span class="pb">Payhip</span><span class="pb">Gumroad</span><span class="pb">Lemon Squeezy</span><span class="pb">Polar</span><span class="pb">Etsy</span><span class="pb">Envato</span><span class="pb">CodeCanyon</span><span class="pb">itch.io</span><span class="pb">Product Hunt</span><span class="pb">Gitee/GitHub</span><span class="pb">独立站</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 08 国内平台逐个详解 ================= -->
+    <section class="phase" id="plat02">
+      <div class="phase-head"><span class="phase-num-badge">08</span><h2>国内平台逐个详解</h2><span class="tag domestic">国内</span></div>
+      <div class="phase-meta">目标：本章不重复《数字产品变现全流程手册》第三阶段已经讲过的小红书店铺注册流程，重点补充该手册没有覆盖、但特别适合你"工具类产品"的平台，以及每个平台"具体该放什么"的判断标准。</div>
+
+      <div class="sub">
+        <h3>8.1 闲鱼——工具类产品起步测试的最佳选择</h3>
+        <p>闲鱼0门槛、审核宽松、买家对"虚拟商品/软件工具"接受度高，是你验证Python工具类产品最合适的第一站。</p>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>标题写清楚"解决什么问题"</strong><span>比如"身份证批量加水印工具 电脑软件 支持批量处理 附教程"，而不是抽象的"效率工具"。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>详情页放操作截图和效果对比图</strong><span>处理前后的对比图比文字描述更有说服力，附上"不联网、不上传、本地处理"的说明打消隐私顾虑。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>交付方式：网盘链接+激活方式</strong><span>用夸克网盘/百度网盘分享EXE安装包，虚拟商品建议设置自动发货减少人工客服时间。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>防止被随意传播</strong><span>可以在软件里加一个简单的机器码/序列号校验（无需复杂加密，能起到基本防传播作用即可），避免一次购买全网免费传播导致的销量流失。</span></div></div>
+        </div>
+
+        <h3>8.2 CSDN下载 / 蓝奏云等技术向渠道——被低估的Python工具分发地</h3>
+        <p>CSDN下载频道聚集了大量有实际文件处理需求、且对"软件付费"接受度较高的用户（程序员、IT从业者、企业信息化人员），适合把你的批量处理类工具（Excel合并、文件重命名、PDF处理）发布到这类渠道，定价可比闲鱼略高，因为用户更能理解工具的技术价值。同时可以在CSDN写一篇配套的技术博客介绍工具原理和使用场景，天然带来搜索流量。</p>
+
+        <h3>8.3 猪八戒网等众包平台——把工具能力变成"服务"而不只是"标准品"</h3>
+        <p>很多人不会想到，你的Python批量处理能力本身可以作为一项<strong>定制服务</strong>在猪八戒网、一品威客等众包平台接单——比如"帮我批量处理3000张证件照""帮我把这批扫描件转成可编辑Excel"，客单价往往比卖标准化产品更高，且能反向发现新的标准化产品选题（同一类需求出现3次以上，就值得做成标准产品）。</p>
+
+        <h3>8.4 知识星球——持续更新型产品/陪伴式服务的国内首选</h3>
+        <p>如果你的选题适合"持续更新"（比如"每周更新一批新的实用小工具"或"每月更新一期避坑资讯"），知识星球是国内最成熟的付费社群载体，支持一次性入会付费或订阅制，适合把单次购买的工具/PDF用户转化为长期付费会员，提升客户终身价值（详见第14章变现模式）。</p>
+
+        <h3>8.5 平台组合建议表</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>阶段</th><th>建议组合</th><th>原因</th></tr>
+          <tr><td>第一个产品测试期</td><td>闲鱼 + 小红书（发1～2篇笔记引流）</td><td>0门槛、见效最快，符合《变现手册》阶段五"小范围测试"原则</td></tr>
+          <tr><td>验证成功后扩大期</td><td>+CSDN下载（工具类）或知乎（知识类）+ 独立站上线</td><td>拓展精准垂直流量，独立站开始承接长期品牌资产</td></tr>
+          <tr><td>成熟期</td><td>+知识星球会员 或 视频号小店</td><td>把一次性买家转化为持续付费用户，提升复购</td></tr>
+        </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 09 跨境平台逐个详解 ================= -->
+    <section class="phase" id="plat03">
+      <div class="phase-head"><span class="phase-num-badge">09</span><h2>跨境平台逐个详解</h2><span class="tag global">跨境</span></div>
+      <div class="phase-meta">目标：《数字产品变现全流程手册》第三阶段已经详细讲了MoR平台的费率对比和Payhip上架流程，本章重点补充"面向工具/软件类产品"的跨境平台，以及素材类平台的具体打法。</div>
+
+      <div class="sub">
+        <h3>9.1 Gumroad / Payhip / Lemon Squeezy / Polar——知识类和轻量工具的通用选择</h3>
+        <p>费率对比已在《变现手册》3.1-A详细列出，这里补充一点：<strong>Polar 和 Creem 对"开发者/独立黑客"身份的产品（比如你的Python工具、网页小工具）接受度和展示形式更友好</strong>，产品页支持直接展示GitHub仓库、技术说明，比纯内容向的Payhip更适合技术型产品。</p>
+
+        <h3>9.2 Etsy——被严重低估的模板/素材类出海渠道</h3>
+        <p>Etsy不只是手工艺品平台，Digital Download（数字下载品）类目本身流量巨大，且用户天然有"打印/使用"心智，非常适合你的<strong>打印类素材、Excel模板、PPT模板</strong>这类产品出海。操作要点：</p>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>开店</strong><span>etsy.com/sell → 注册 Shop → 选择产品类目为 "Digital Download"</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>关键词研究</strong><span>用 Etsy 搜索框下拉联想词和 eRank/Alura 等免费工具找目标关键词，标题和标签要覆盖搜索习惯（如"budget planner printable"而非"记账本"直译）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>视觉呈现是核心</strong><span>Etsy买家极度依赖预览图判断质量，务必用Canva做出干净精美的产品预览图（展示打印后/使用中的效果），这是Etsy转化率的第一决定因素</span></div></div>
+        </div>
+
+        <h3>9.3 Envato Market / CodeCanyon——面向真正的"软件/代码"类产品</h3>
+        <p>如果你的Python工具打磨得足够完善（比如做成一个更完整的小型桌面应用），CodeCanyon（Envato旗下）是专门面向开发者售卖代码/软件/脚本的市场，用户群体对"付费软件"接受度最高，但<strong>审核较严格</strong>（需要代码质量、文档完整性达标），建议在闲鱼/CSDN验证产品有真实需求后，再投入精力打磨提交CodeCanyon版本。</p>
+
+        <h3>9.4 itch.io——独立开发者友好、审核宽松的补充渠道</h3>
+        <p>itch.io最早是独立游戏平台，现在也接受各类小型软件工具，特点是<strong>上架几乎零门槛、支持"随意定价"（用户可选择支付更多或免费获取）</strong>，适合作为工具类产品的补充分发渠道，尤其适合还在打磨阶段、想先积累用户反馈的产品。</p>
+
+        <h3>9.5 Product Hunt——一次性的"高光曝光"渠道，不是常规销售渠道</h3>
+        <p>Product Hunt 更适合在产品打磨到一定成熟度后，做一次集中的"发布日"曝光，能带来短期内的集中流量和早期用户反馈，但不是持续的销售渠道，建议在阶段七"验证成功后扩大规模"时使用，不建议作为第一个产品的首选测试渠道。</p>
+
+        <h3>9.6 跨境渠道选择速查表</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>产品类型</th><th>首选跨境平台</th><th>次选</th></tr>
+          <tr><td>知识类PDF/指南</td><td>Payhip、Gumroad</td><td>Substack（连载类）</td></tr>
+          <tr><td>Excel/PPT/打印类模板</td><td>Etsy</td><td>Gumroad、Creative Market</td></tr>
+          <tr><td>Python工具/脚本类软件</td><td>itch.io（起步）→ CodeCanyon（成熟后）</td><td>Polar、Product Hunt（发布曝光）</td></tr>
+          <tr><td>网页小工具（SaaS化雏形）</td><td>Polar、Creem（支持订阅制收款）</td><td>Product Hunt发布</td></tr>
+          <tr><td>Prompt提示词包</td><td>Gumroad、PromptBase（垂直平台）</td><td>Etsy</td></tr>
+        </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 10 自有域名独立站怎么用 ================= -->
+    <section class="phase" id="plat04">
+      <div class="phase-head"><span class="phase-num-badge">10</span><h2>自有域名独立站怎么用</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">目标：你已经有域名，这是很多新手没有的优势资产。本章说清楚独立站在整个体系里该扮演什么角色，以及具体怎么搭建，成本控制在最低。</div>
+
+      <div class="sub">
+        <h3>10.1 独立站不是用来"替代"平台，而是"承接沉淀"</h3>
+        <p>不要一开始就想着"把所有流量都导到独立站成交"——平台（小红书/闲鱼/知乎）的流量分发能力远强于新站，独立站前期最重要的角色是：</p>
+        <ul>
+          <li><strong>网页小工具的运行主机</strong>：所有免安装的在线小工具直接放在这里，用户体验最完整。</li>
+          <li><strong>各平台产品的统一展示橱窗</strong>：把闲鱼、CSDN、Etsy等各处的商品链接汇总成一个"全部作品"页面，方便老用户直接找到你。</li>
+          <li><strong>GEO/AEO优化的核心阵地</strong>：AI问答工具（ChatGPT/DeepSeek/豆包）推荐答案时更倾向引用结构清晰的独立站内容，而不是被平台屏蔽抓取的闲鱼/小红书详情页（详见第12章）。</li>
+          <li><strong>邮件列表/私域的落地页</strong>：长期积累的第一方用户资产，不受任何平台规则变化影响。</li>
+        </ul>
+
+        <h3>10.2 搭建方式：不需要重新学建站</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>方式</th><th>适合场景</th><th>成本</th></tr>
+          <tr><td>纯静态HTML + Netlify/Vercel/Cloudflare Pages免费托管</td><td>你已经熟练的HTML能力，网页小工具+作品展示页，最推荐</td><td>域名费（已有）+ 0元托管费</td></tr>
+          <tr><td>WordPress建站</td><td>需要频繁更新博客内容、做SEO/GEO长期内容矩阵</td><td>虚拟主机约100～300元/年</td></tr>
+          <tr><td>无代码建站工具（如Notion Site、蝉知、Webflow）</td><td>想要更精美的视觉但不想写代码</td><td>0～数百元/年不等</td></tr>
+        </table>
+        </div>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>基于你现有能力，建议直接用<strong>纯静态HTML方式</strong>：首页展示"工具箱"入口（每个网页小工具一个卡片），二级页面放各个工具的实际功能页和知识类内容，全部用AI辅助生成、你现在已经很熟练的这套流程即可完成，不需要额外学习新工具。</div>
+        </div>
+
+        <h3>10.3 独立站基础页面结构建议</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>首页</strong><span>一句话说清楚"这是什么"，直接展示3～6个最受欢迎工具的入口卡片，避免堆砌营销话术</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>工具箱页面</strong><span>所有网页小工具的分类导航，每个工具单独一个页面（利于GEO/SEO单独被收录）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>知识/资料页面</strong><span>放PDF/模板类产品的介绍与购买入口（可跳转到闲鱼/小红书/知识星球完成实际交易）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>关于/联系页</strong><span>说清楚你是谁、为什么做这些工具，一个真实可回复的联系方式，这是建立信任、也是GEO优化里"实体一致性"的重要部分（详见第12章）</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>llms.txt 与结构化数据</strong><span>参考《GEO/AEO从0到高手手册》第五章，给独立站补上llms.txt文件和Schema.org结构化标记，提高被AI问答工具收录引用的概率</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 11 平台选择决策树 ================= -->
+    <section class="phase" id="plat05">
+      <div class="phase-head"><span class="phase-num-badge">11</span><h2>平台选择决策树</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">目标：把前面几章的所有平台信息，压缩成一个"回答几个问题就知道该上哪"的决策工具，避免每次都要重新翻表格。</div>
+
+      <div class="sub">
+        <div class="decision-tree">
+          <div class="q"><span class="qmark">Q1</span>产品是软件工具（EXE/网页版），还是内容型（PDF/模板）？</div>
+          <div class="a">软件工具 → 优先闲鱼+CSDN起步，独立站承接网页版；内容型 → 优先小红书+闲鱼，同步可跨境到Payhip/Etsy。</div>
+          <div class="q"><span class="qmark">Q2</span>目标用户主要在国内还是有明显的海外市场？</div>
+          <div class="a">国内为主 → 先把国内路径跑通，跨境作为第二阶段扩展（复用《变现手册》7.1本地化清单）；海外场景明确（比如面向Etsy卖家、独立开发者的选题）→ 可以直接从跨境MoR平台起步。</div>
+          <div class="q"><span class="qmark">Q3</span>是想做"一次性标准品"还是"愿意持续更新"？</div>
+          <div class="a">一次性标准品 → 常规平台上架即可；愿意持续更新 → 优先接入知识星球/视频号会员或Substack这类支持订阅制的载体。</div>
+          <div class="q"><span class="qmark">Q4</span>你是否已经积累了3次以上同类型的定制化需求咨询？</div>
+          <div class="a">是 → 说明这是一个可以标准化的产品机会，同时也可以直接在猪八戒网/Upwork接单变现，两条腿走路；否 → 先按标准品逻辑测试。</div>
+        </div>
+
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>不建议一开始就同时铺5个以上平台——精力会被摊薄，任何一个平台都做不深，数据也无法形成有效对比。按照《变现手册》阶段五的建议，<strong>先选1～2个渠道认真做满两周</strong>，拿到真实数据后再决定要不要扩展到更多平台。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 12 GEO/AEO落地 ================= -->
+    <section class="phase" id="geo01">
+      <div class="phase-head"><span class="phase-num-badge">12</span><h2>GEO/AEO落地到你的产品</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">目标：《GEO/AEO从0到高手手册》讲的是通用方法论，本章把它具体落到"你的工具类独立站+知识类内容"这个场景，讲清楚该做哪几件事、优先级怎么排。</div>
+
+      <div class="sub">
+        <h3>12.1 为什么网页小工具天生适合GEO</h3>
+        <p>当有人问ChatGPT/DeepSeek/豆包"身份证复印件怎么加水印"或"合租房租怎么分摊计算"这类具体问题时，AI越来越倾向于直接推荐一个"能马上解决问题的具体工具页面"，而不是一篇泛泛的文章。这正是<strong>网页小工具（第4章）</strong>相比纯内容型产品的结构性优势——工具页面天然具备"具体、可验证、能直接给出答案"的特征，这正是GEO最看重的内容形态。</p>
+
+        <h3>12.2 落地到你独立站的五个具体动作（按优先级排序）</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>答案前置：每个工具页面开头就是"结果"</strong><span>网页小工具页面不要先讲一堆背景介绍，第一屏就让用户看到工具本体和一句话说明"这个工具能做什么"，符合《GEO手册》心法一"答案前置"，AI抓取时也更容易提炼出准确摘要。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>确认没有拦住AI爬虫</strong><span>检查独立站的 robots.txt，不要误把 GPTBot、ClaudeBot、PerplexityBot 等AI爬虫加入禁止名单（新手用现成建站模板时容易踩这个坑），具体检查方法见《GEO手册》第五章第一步。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>部署 llms.txt</strong><span>在独立站根目录放一份 llms.txt，用简洁的清单说明你的网站是做什么的、有哪些核心工具页面，相当于"给AI的专属说明书"，具体格式参考《GEO手册》第五章第二步。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>给每个工具页面配 FAQ 结构化数据</strong><span>每个工具页面下方加3～5个"这个工具怎么用/免费吗/数据安全吗"的FAQ模块，并用 Schema.org 的 FAQPage 结构化标记包裹，这是《GEO手册》心法三里提到的"AEO/GEO双料神器"，转化率和AI引用率都会提升。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>实体一致性（NAP Consistency）</strong><span>你的独立站、闲鱼店铺、小红书账号、CSDN账号，昵称/头像/简介风格保持一致可识别，帮助AI和搜索引擎把这些分散的内容源判断为同一个可信实体，提升整体被推荐的概率，具体方法见《GEO手册》第六章。</span></div></div>
+        </div>
+
+        <h3>12.3 知识类内容的GEO优化要点（复用你已有的写作能力）</h3>
+        <ul>
+          <li><strong>把内容拆成"可被单独抽取"的最小颗粒</strong>：你现有两份手册已经在用"清单+步骤+表格"的结构，这正是GEO最友好的写法，继续保持。</li>
+          <li><strong>数字、表格、对比是AI的"最爱食物"</strong>：本手册第6章的100个产品灵感总表、平台对比表格，这类结构化内容天然容易被AI提炼引用，独立站内容也应延续这个习惯。</li>
+          <li><strong>去掉"营销腔"，换成"证据腔"</strong>：不写"最好用的身份证加水印工具"，写"支持批量处理200张以内、纯本地运行不联网、Windows 10/11实测通过"，具体数据比形容词更容易被AI采信和引用。</li>
+        </ul>
+
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div><b>警惕"GEO玄学"：</b>《GEO手册》第八章明确提醒过，不要迷信"某个神秘技巧能让AI必定推荐你"，GEO本质上还是"把内容做得对AI和真实用户都更有用"，没有捷径。你现在最该做的不是钻研更多GEO技巧，而是先把工具页面和内容做扎实，GEO是放大器，不是从0到1的发动机。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 13 老办法：内容与渠道 ================= -->
+    <section class="phase" id="geo02">
+      <div class="phase-head"><span class="phase-num-badge">13</span><h2>老办法：内容与渠道运营</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">目标：GEO是"被动获客"的放大器，但不能替代《变现手册》阶段五讲的主动内容运营和小额投放，两者要配合进行，不要指望只靠GEO就能出单。</div>
+
+      <div class="sub">
+        <h3>13.1 工具类产品的内容运营打法（区别于纯知识类内容）</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>内容类型</th><th>具体做法</th><th>发布渠道</th></tr>
+          <tr><td>使用场景演示</td><td>拍一段15～30秒短视频，展示"处理前一堆乱麻→处理后整整齐齐"的对比效果</td><td>小红书、抖音</td></tr>
+          <tr><td>踩坑对比笔记</td><td>"我试了3个身份证加水印的方法，最后自己写了个工具"这种带过程感的叙事，比直接打广告转化率高</td><td>小红书、知乎</td></tr>
+          <tr><td>技术向讲解</td><td>简单讲讲工具背后的实现思路（不用讲全部代码），吸引懂技术、愿意为"真软件"付费的用户</td><td>CSDN、知乎、掘金</td></tr>
+          <tr><td>免费小工具引流</td><td>网页版工具完全免费开放使用，在工具页面底部/结果页自然引导到付费的进阶版或知识产品</td><td>独立站+搜索/GEO自然流量</td></tr>
+        </table>
+        </div>
+
+        <h3>13.2 两周内容行动参考（复用《变现手册》5.3框架，按工具类产品调整）</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>时间</th><th>行动</th></tr>
+          <tr><td>第1～2天</td><td>闲鱼上架产品，小红书发第一篇"处理前后对比"笔记</td></tr>
+          <tr><td>第3～5天</td><td>独立站上线对应的免费网页版工具，笔记评论区/详情页补充链接</td></tr>
+          <tr><td>第6～8天</td><td>CSDN发一篇技术向使用教程博客，附带下载链接</td></tr>
+          <tr><td>第9～11天</td><td>观察前期数据，追加1篇"用户反馈/常见问题"笔记，回应评论区疑问</td></tr>
+          <tr><td>第12～14天</td><td>小额投放测试（小红书薯条50～200元）或继续免费渠道，按《变现手册》阶段六做数据判断</td></tr>
+        </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 14 七种变现模式 ================= -->
+    <section class="phase" id="mon01">
+      <div class="phase-head"><span class="phase-num-badge">14</span><h2>七种变现模式全解</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">目标：《数字产品变现全流程手册》主要讲的是"一次性买断"模式，本章把你可以用到的变现模式全部铺开，帮你搭出一个组合式的收入结构，而不是单靠一种模式。</div>
+
+      <div class="sub">
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>模式</th><th>怎么运作</th><th>适合的产品类型</th><th>优点</th><th>注意事项</th></tr>
+          <tr><td>① 一次性买断</td><td>付一次钱，永久获得产品/工具</td><td>PDF、模板、EXE工具</td><td>决策门槛低，容易成交，适合起步验证</td><td>没有持续现金流，需要不断开发新品</td></tr>
+          <tr><td>② 订阅制/会员制</td><td>按月/按年付费持续使用或持续获得更新内容</td><td>持续更新的工具箱、知识星球、内容专栏</td><td>现金流稳定，客户终身价值高</td><td>需要持续投入维护和更新，前期见效慢</td></tr>
+          <tr><td>③ 免费引流+付费增值（Freemium）</td><td>基础功能免费，高级功能/批量处理付费解锁</td><td>网页小工具</td><td>获客成本最低，天然适合GEO被动获客</td><td>需要设计好免费和付费的边界，太吝啬会导致差评</td></tr>
+          <tr><td>④ 授权/License模式</td><td>按使用范围（个人版/团队版/商用版）分级定价</td><td>成熟的Python工具、企业向批量处理工具</td><td>同一产品可以覆盖不同预算的客户，拉高整体客单价</td><td>需要一定的技术手段区分授权（可从简单序列号做起）</td></tr>
+          <tr><td>⑤ 定制服务/众包接单</td><td>直接承接客户的定制化批量处理需求，按项目收费</td><td>你的Python批量处理能力</td><td>客单价最高，且能反向发现新的标准化产品选题</td><td>耗费个人时间，不能无限扩展，是"卖时间"而非"卖产品"</td></tr>
+          <tr><td>⑥ 打赏/联盟返佣</td><td>内容/工具完全免费，靠用户自愿打赏或推荐相关产品赚佣金</td><td>网页小工具、知识内容</td><td>用户心理负担最小，适合冷启动期积累口碑</td><td>收入不稳定，不建议作为唯一收入来源</td></tr>
+          <tr><td>⑦ 产品矩阵组合销售</td><td>把多个单品打包成套餐（如"证件处理工具全家桶"）</td><td>已有3个以上同类产品后</td><td>提升客单价，边际制作成本几乎为零</td><td>需要先有足够数量的单品积累</td></tr>
+        </table>
+        </div>
+
+        <h3>14.1 给你的组合建议：分阶段搭配使用</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>阶段</th><th>主力模式</th><th>辅助模式</th></tr>
+          <tr><td>起步期（1个产品验证阶段）</td><td>① 一次性买断</td><td>⑥ 打赏（网页免费版）</td></tr>
+          <tr><td>扩大期（3～5个产品）</td><td>① + ⑦ 组合套餐</td><td>④ 授权分级（面向企业/团队客户）</td></tr>
+          <tr><td>成熟期（有稳定用户群）</td><td>② 订阅制/知识星球</td><td>⑤ 定制服务（承接高价值单个需求）</td></tr>
+        </table>
+        </div>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>特别提醒：⑤定制服务/众包接单虽然客单价最高，但本质是"卖时间"，容易占用你原本用来打磨标准化产品的精力。建议给自己设一个上限（比如每周不超过1～2单定制），核心精力仍然放在能够"睡后收入"的标准化产品上。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 15 定价与产品矩阵策略 ================= -->
+    <section class="phase" id="mon02">
+      <div class="phase-head"><span class="phase-num-badge">15</span><h2>定价与产品矩阵策略</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">目标：结合《变现手册》第十一阶段的定价参考区间，针对你的工具类和知识类产品给出更具体的定价锚点，以及如何搭建产品矩阵实现"1+1>2"。</div>
+
+      <div class="sub">
+        <h3>15.1 分产品类型的定价参考</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>产品类型</th><th>入门定价</th><th>成熟期定价</th><th>定价依据</th></tr>
+          <tr><td>单一功能小工具EXE</td><td>9.9～19.9元</td><td>29～49元</td><td>解决单一具体问题，替代方案（手动操作）耗时可量化</td></tr>
+          <tr><td>组合功能工具/工具+教程包</td><td>29～59元</td><td>99～199元</td><td>交付完整解决方案，节省时间价值更明确</td></tr>
+          <tr><td>知识类PDF指南</td><td>9.9～19.9元</td><td>29～59元</td><td>参考同类已成交产品定价，避免和免费内容正面竞争</td></tr>
+          <tr><td>模板/素材单份</td><td>4.9～9.9元</td><td>19～29元（套餐）</td><td>薄利多销，靠打包套餐提升客单价</td></tr>
+          <tr><td>工具授权（团队/商用版）</td><td>99～299元</td><td>299～999元</td><td>面向企业/团队预算，价值锚点是"节省的人力成本"</td></tr>
+          <tr><td>知识星球/订阅制</td><td>9～19元/月</td><td>99～199元/年</td><td>参考同类知识付费社群定价，年费通常比月费×12打折</td></tr>
+        </table>
+        </div>
+
+        <h3>15.2 产品矩阵搭建思路：从"一个点"到"一张网"</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>先验证一个"点"</strong><span>按第16章90天路线图，用一个选题跑通"知识PDF+对应小工具"的组合，拿到真实成交和反馈。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>横向扩展成"同类型多个点"</strong><span>沿着第2章的分类（证件图片类/文件处理类/生活计算类），把同一大类下的相邻需求逐个补齐，比如做完身份证加水印，接着做证件照裁尺寸、批量压缩，用户群高度重叠，获客成本被摊薄。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>连成"网"：打包+交叉推荐</strong><span>把同类型的3～5个工具打包成"XX工具全家桶"套餐，独立站每个工具页面底部推荐"猜你还需要"的关联工具，同时也是内容素材（"3个证件处理必备工具合集"）。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>纵向升级："工具→服务→社群"</strong><span>把最受欢迎的一类工具用户，逐步引导进知识星球或订阅制服务，获得更新推送和优先定制权，提升客户终身价值。</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 16 90天执行路线图 ================= -->
+    <section class="phase" id="exec01">
+      <div class="phase-head"><span class="phase-num-badge">16</span><h2>90天执行路线图</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">目标：这是整份手册最重要的一章——把前面所有章节压缩成一张可以直接照着做的周历，从"选定方向"到"拥有一个初具规模的产品矩阵"。</div>
+
+      <div class="sub">
+        <h3>16.1 第一阶段（第1～2周）：选定方向 + 做出第一个产品</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>周次</th><th>核心任务</th><th>对应章节</th></tr>
+          <tr><td>第1周</td><td>从第6章100个灵感总表圈出3～5个方向，用第1章三个判断维度筛选出1个；按《变现手册》阶段一做需求验证（找3条真实抱怨+1个同类已成交产品）</td><td>第1、6章 + 变现手册阶段一</td></tr>
+          <tr><td>第2周</td><td>制作第一个产品：优先出知识类PDF版本（最快验证），同步启动对应EXE/网页小工具的开发</td><td>第2、3章 + 变现手册阶段二</td></tr>
+        </table>
+        </div>
+
+        <h3>16.2 第二阶段（第3～5周）：上架 + 小范围测试</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>周次</th><th>核心任务</th><th>对应章节</th></tr>
+          <tr><td>第3周</td><td>闲鱼+小红书上架PDF产品；工具类产品打包EXE、完成基础GUI和使用说明；独立站搭建首页和第一个工具页面上线</td><td>第8、10章 + 变现手册阶段三四</td></tr>
+          <tr><td>第4周</td><td>按13.2的两周内容日历开始发布笔记/技术博客，闲鱼+小红书同步测试；部署robots.txt和llms.txt</td><td>第12、13章 + 变现手册阶段五</td></tr>
+          <tr><td>第5周</td><td>继续测试，视数据情况追加小额投放（50～200元）；每日记录UTM/渠道数据</td><td>变现手册阶段五六</td></tr>
+        </table>
+        </div>
+
+        <h3>16.3 第三阶段（第6～9周）：复盘 + 补齐工具矩阵</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>周次</th><th>核心任务</th><th>对应章节</th></tr>
+          <tr><td>第6周</td><td>按《变现手册》阶段六数据判断表复盘：是"没人看到"还是"看到不买"，决定调整方向还是扩大投入</td><td>变现手册阶段六</td></tr>
+          <tr><td>第7～8周</td><td>验证成功则横向补齐同类型2～3个工具（按15.2产品矩阵思路），制作组合套餐；同步CSDN发布技术类产品</td><td>第2、8、15章</td></tr>
+          <tr><td>第9周</td><td>把已验证有效的动作按《变现手册》阶段八自动化分级路线图，逐步把重复性操作（自动发货、数据记录）交给脚本</td><td>变现手册阶段八</td></tr>
+        </table>
+        </div>
+
+        <h3>16.4 第四阶段（第10～13周）：产品矩阵 + 长期资产</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>周次</th><th>核心任务</th><th>对应章节</th></tr>
+          <tr><td>第10～11周</td><td>独立站补全所有已上线工具的页面和FAQ结构化数据；评估是否需要注册个体工商户（视流水规模）</td><td>第10、12章 + 变现手册阶段九</td></tr>
+          <tr><td>第12周</td><td>评估是否开通知识星球/订阅制服务，把核心用户转化为长期会员</td><td>第14章</td></tr>
+          <tr><td>第13周</td><td>整体复盘90天数据，规划下一个90天周期（新选题方向或跨境扩展）</td><td>全书</td></tr>
+        </table>
+        </div>
+
+        <div class="checklist">
+          <div class="cl-title">90天节奏自查（每两周回看一次）</div>
+          <label><input type="checkbox"> 我没有同时启动超过2个新选题，专注跑完当前这一个</label>
+          <label><input type="checkbox"> 每一步的决策依据是真实数据，不是"我觉得应该"</label>
+          <label><input type="checkbox"> 知识类产品和工具类产品是围绕同一个选题展开的，不是两条不相关的线</label>
+          <label><input type="checkbox"> 独立站在稳步补充内容，不是搭好了就晾在那不管</label>
+          <label><input type="checkbox"> 合规、税务问题我心里有数，不是完全没考虑过（见第18章）</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 17 技术实现指南 ================= -->
+    <section class="phase" id="exec02">
+      <div class="phase-head"><span class="phase-num-badge">17</span><h2>技术实现指南</h2><span class="tag py">Python工具</span></div>
+      <div class="phase-meta">目标：把"用AI写脚本+打包EXE"这件事标准化成一套可重复的流程，每次做新工具都少踩一次坑。</div>
+
+      <div class="sub">
+        <h3>17.1 标准化开发流程（每个新工具都按这个顺序）</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>需求转化为AI提示词</strong><span>把选题公式（谁+场景+麻烦+结果）转化为给AI的开发需求描述，明确输入是什么、处理逻辑是什么、输出是什么，让AI先给出功能设计方案而不是直接写代码，你确认方案没问题再让它写。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>核心逻辑 + GUI 分离开发</strong><span>先让AI写好核心处理函数并用命令行简单测试逻辑是否正确，确认没问题后再套上 tkinter/PyQt 的界面外壳，避免界面和逻辑代码混在一起调试困难。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>自己至少测试20次边界情况</strong><span>文件夹里混了非目标格式的文件怎么办、文件名带特殊字符怎么办、处理一个超大文件会不会卡死——这些边界情况AI不会主动帮你想全，需要你自己动手测试，这是避免差评最重要的一步。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>打包与体积优化</strong><span><code>pyinstaller -F -w --exclude-module matplotlib 工具名.py</code>，排除用不到的大型库能显著减小EXE体积（很多AI生成的代码会引入不必要的库），体积太大会拖慢下载速度、影响转化率。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>杀毒软件误报处理</strong><span>PyInstaller打包的EXE容易被部分杀毒软件误报为可疑程序，可以将文件提交到 virustotal.com 查看多引擎检测结果，如有误报可提交给对应杀毒软件厂商申诉，同时在产品说明里提前说明这是PyInstaller工具的常见现象。</span></div></div>
+        </div>
+
+        <h3>17.2 简单授权/防传播方案（不需要复杂加密）</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>方案</th><th>实现难度</th><th>效果</th></tr>
+          <tr><td>无任何限制，靠低定价+口碑</td><td>无</td><td>最简单，适合9.9～19.9元的轻量工具，被传播的损失小于加密的开发成本</td></tr>
+          <tr><td>试用次数限制（本地计数）</td><td>低</td><td>免费试用3～5次后弹窗提示购买，兼顾体验和转化，适合Freemium模式</td></tr>
+          <tr><td>简单序列号校验</td><td>中</td><td>购买后获得一串序列号输入激活，能过滤大部分随手传播，适合29元以上的工具</td></tr>
+          <tr><td>机器码绑定</td><td>中～高</td><td>获取设备唯一标识与序列号绑定，防止序列号被批量转卖，适合99元以上的团队/商用版</td></tr>
+        </table>
+        </div>
+
+        <h3>17.3 网页小工具部署清单（复用你现有独立站）</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>单文件HTML+内嵌JS/CSS</strong><span>让AI把工具逻辑用JS重写，所有代码写在一个HTML文件里，不需要额外服务器和数据库，涉及隐私数据的计算全部在浏览器本地完成，不上传任何服务器，这既是最大的隐私卖点，也省去了后端开发成本。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>移动端适配自查</strong><span>用手机打开每个工具页面实测一遍，很多目标用户（尤其中老年、下沉市场人群）主要用手机访问，按钮和输入框要足够大、排版不能错乱。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>免费静态托管</strong><span>Netlify Drop/Vercel/Cloudflare Pages 拖拽上传即可发布，绑定你已有的域名，几分钟内所有工具页面就能通过正式网址访问。</span></div></div>
+        </div>
+
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>特别提醒（涉及身份证等敏感信息的工具）：无论是EXE还是网页版，只要处理身份证、银行卡等敏感信息，<strong>务必做到纯本地处理、绝不上传服务器</strong>，并在产品说明里明确写清楚这一点。这不仅是合规底线，也是这类工具最核心的信任卖点——你现在做的身份证水印工具正踩在这个优势上，值得在文案里反复强调。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 18 合规与风险 ================= -->
+    <section class="phase" id="exec03">
+      <div class="phase-head"><span class="phase-num-badge">18</span><h2>合规与风险（工具类产品专属补充）</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">目标：《数字产品变现全流程手册》第九阶段已经讲了通用的税务、著作权、广告合规，本章只补充"软件/工具类产品"特有的风险点。</div>
+
+      <div class="sub">
+        <h3>18.1 工具类产品的特有风险清单</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>风险点</th><th>具体表现</th><th>怎么规避</th></tr>
+          <tr><td>身份证等敏感信息处理边界</td><td>身份证水印/信息核对类工具容易被误解为"帮助伪造证件"或涉及个人信息违规处理</td><td>产品说明中明确工具只做水印/格式核对，不提供任何身份证生成、验真、去水印功能；纯本地处理不上传，不留存任何用户数据</td></tr>
+          <tr><td>软件免责声明缺失</td><td>工具处理批量文件时如果出现异常导致数据丢失/损坏，用户可能要求赔偿</td><td>在产品说明和购买页明确"建议处理前备份原文件""工具按现状提供，不对因使用产生的数据损失承担责任"等基础免责条款</td></tr>
+          <tr><td>被误用于违规用途</td><td>批量处理类工具存在被小部分用户用于批量伪造资料等违规场景的可能</td><td>产品定位和文案避免暗示"可用于伪造/造假"，功能设计上避开明显容易被滥用的高风险场景（如身份证信息生成而非仅格式校验）</td></tr>
+          <tr><td>软件著作权归属</td><td>AI辅助生成的代码，版权归属和可商用性在部分辖区仍存在讨论空间</td><td>核心代码逻辑以自己确认理解、可维护为前提，保留开发过程记录，条款细节可参考《变现手册》9.3著作权部分处理原则</td></tr>
+          <tr><td>Windows安全警告引发误解投诉</td><td>用户误以为未签名EXE是病毒，产生大量差评或投诉</td><td>在购买页和说明书显著位置提前截图说明这是正常现象及处理方式（第2.6节已提及）</td></tr>
+        </table>
+        </div>
+
+        <h3>18.2 网页小工具的隐私与数据安全提示</h3>
+        <ul>
+          <li>凡是本地JS完成计算的工具（不联网上传），务必在页面显著位置注明"所有计算均在您的浏览器本地完成，不会上传任何数据到服务器"，这是最大的信任背书。</li>
+          <li>如果工具确实需要联网（比如调用第三方API做OCR识别），务必在使用前明确告知用户，并在隐私说明中列出数据流向。</li>
+          <li>不要在网页工具里嵌入来路不明的统计/广告脚本，尤其是处理敏感信息的页面，一旦被发现有隐藏的数据回传行为，对信任的破坏是毁灭性的。</li>
+        </ul>
+
+        <h3>18.3 定价与合规两不误的产品说明模板</h3>
+        <div class="example">
+          <div class="ex-label">可直接套用的产品说明免责声明模板</div>
+          本工具用于【具体功能，如"批量为身份证复印件添加自定义水印"】，所有处理均在您的设备本地完成，不上传、不留存任何文件或个人信息。使用前建议备份原始文件，因误操作导致的数据损失本工具不承担相应责任。本工具不提供任何证件生成、验真或去除水印功能，请勿用于任何违反法律法规的用途。
+        </div>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>其余通用合规内容（个体工商户注册、跨境外汇与税务、广告用语红线、平台规则速览）请直接查阅《数字产品变现全流程手册》第九阶段，那份手册已经写得非常详细，不在本手册重复。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 19 完整案例演练 ================= -->
+    <section class="phase" id="exec04">
+      <div class="phase-head"><span class="phase-num-badge">19</span><h2>完整案例演练</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">目标：用一个贴合你实际能力的完整案例，把前面19章的方法论串成一条你能直接照抄的执行链路。</div>
+
+      <div class="sub">
+        <h3>案例：证件资料批量处理工具箱（从0到产品矩阵）</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>阶段</th><th>具体动作</th></tr>
+          <tr><td>选题验证</td><td>在闲鱼/小红书搜索"身份证水印"相关内容，发现大量个人求助帖询问"怎么给复印件加水印"，且已有同类EXE工具在闲鱼有真实销量，确认需求真实存在</td></tr>
+          <tr><td>产品制作（第一个产品）</td><td>用AI写Python脚本实现批量水印功能，测试20种边界情况后打包成EXE，配一份3页图文说明书（用HTML/PDF技能制作）</td></tr>
+          <tr><td>上架测试</td><td>闲鱼定价19.9元上架，标题"身份证复印件批量加水印工具 支持自定义文字 纯本地不联网"；小红书发布"租房必备：身份证复印件怎么防盗用"图文笔记，引导至闲鱼链接</td></tr>
+          <tr><td>数据判断（2周后）</td><td>笔记曝光尚可但转化率偏低，评论区反馈"能不能同时处理银行卡"，判断为"看到了但不买"信号中的功能覆盖不足问题</td></tr>
+          <tr><td>调整与扩展</td><td>补充银行卡/护照等证件类型的水印模板，同时开发免费网页版放到独立站（打开即用，解决"要不要装软件"的决策门槛问题）</td></tr>
+          <tr><td>横向扩展产品矩阵</td><td>沿用同一批用户，陆续开发"证件照裁尺寸工具""老照片批量整理工具"，打包成"证件资料处理工具箱"套餐，定价49元</td></tr>
+          <tr><td>GEO优化</td><td>独立站每个工具单独页面+FAQ结构化数据，部署llms.txt，CSDN发布配套技术博客，逐步被"身份证复印件加水印"相关搜索和AI问答收录</td></tr>
+          <tr><td>长期沉淀</td><td>把稳定复购/咨询的用户导入知识星球，定期更新新工具，形成"工具箱订阅"的持续收入来源</td></tr>
+        </table>
+        </div>
+
+        <div class="callout star">
+          <div class="icon">🎯</div>
+          <div>这个案例走的正是你现在已经在做的方向，只是补齐了"验证→矩阵→GEO→持续收入"这条完整链路。不需要凭空想一个新方向，从你已经动手做过的身份证水印工具开始，按这条链路继续往下走，就是最快能看到结果的路径。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 总检查清单 ================= -->
+    <section class="phase" id="risk">
+      <div class="phase-head"><span class="phase-num-badge">✓</span><h2>总检查清单</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">打印出来贴在手边，每启动一个新产品都从头核对一遍。</div>
+
+      <div class="sub">
+        <div class="checklist">
+          <div class="cl-title">选题与产品</div>
+          <label><input type="checkbox"> 我能用选题公式一句话说清楚这个产品，且这个具体问题我自己真的懂</label>
+          <label><input type="checkbox"> 我找到了真实存在的需求信号（抱怨原话或同类已成交产品）</label>
+          <label><input type="checkbox"> 我明确了这个选题优先用哪种产品形态起步（PDF/EXE/网页版）</label>
+        </div>
+        <div class="checklist">
+          <div class="cl-title">制作与测试</div>
+          <label><input type="checkbox"> EXE工具已经过至少20种边界情况测试</label>
+          <label><input type="checkbox"> 涉及敏感信息的工具已明确标注"纯本地处理不上传"</label>
+          <label><input type="checkbox"> 产品说明包含基础免责声明</label>
+          <label><input type="checkbox"> Windows安全警告的说明已经提前准备好</label>
+        </div>
+        <div class="checklist">
+          <div class="cl-title">上架与推广</div>
+          <label><input type="checkbox"> 已选定1～2个起步平台，没有一开始就铺太多渠道</label>
+          <label><input type="checkbox"> 价格、说明、购买入口三处信息完全一致</label>
+          <label><input type="checkbox"> 独立站对应页面已上线，且做了robots.txt和llms.txt基础检查</label>
+        </div>
+        <div class="checklist">
+          <div class="cl-title">合规与长期</div>
+          <label><input type="checkbox"> 税务、著作权、广告合规我心里有数（详见《变现手册》第九阶段）</label>
+          <label><input type="checkbox"> 我是根据真实数据而不是感觉做出继续/调整/放弃的判断</label>
+          <label><input type="checkbox"> 自动化只用于已验证有效的动作，涉及钱和决策的部分仍保留人工确认</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section class="phase" id="faq">
+      <div class="phase-head"><span class="phase-num-badge">?</span><h2>常见问题</h2></div>
+
+      <details open>
+        <summary>我应该先做Python工具还是先做HTML/PDF知识产品？<span class="chev">+</span></summary>
+        <p>建议先做知识类PDF——制作最快，能最先验证"这个选题真的有人愿意付费"这个最关键的问题。验证成功后再补对应的工具类产品，这样工具的开发投入是建立在已知需求真实存在的基础上，风险最低。</p>
+      </details>
+      <details>
+        <summary>身份证水印这类工具，会不会有法律风险？<span class="chev">+</span></summary>
+        <p>工具本身（给复印件加水印、防止盗用）是在保护用户隐私安全，属于正向价值。风险主要来自"被误用"或"被误解"，按第18章的做法明确功能边界、加免责声明、避免任何暗示"可用于伪造证件"的文案，可以把风险控制在很低的水平。如果对具体经营主体和合规要求仍有疑虑，建议咨询当地市场监管或法律专业人士确认。</p>
+      </details>
+      <details>
+        <summary>网页小工具会不会被别人抄走代码？<span class="chev">+</span></summary>
+        <p>纯前端HTML/JS的代码用户可以在浏览器里看到源码，这确实是无法完全避免的。但真正的壁垒不是代码本身，而是"你先发现了这个需求、先做出来、先积累了流量和口碑"，等别人抄到时你已经在做下一个产品或已经把品牌做起来了。不建议为了防抄袭把太多精力花在代码混淆上。</p>
+      </details>
+      <details>
+        <summary>独立站前期没有流量，是不是白做了？<span class="chev">+</span></summary>
+        <p>不是白做。独立站前期的作用主要是"承接"（网页工具的运行主机+GEO优化阵地），不是"获客主战场"，前期流量应该主要靠闲鱼/小红书这类自带流量的平台。独立站的价值会随着内容积累、GEO效果显现和品牌沉淀逐步体现，是一笔"长期复利"投资，不追求短期见效。</p>
+      </details>
+      <details>
+        <summary>要不要一开始就做跨境版本？<span class="chev">+</span></summary>
+        <p>如果选题本身就带有明显海外场景（比如面向Etsy卖家、独立开发者），可以直接跨境起步；如果是身份证水印、装修计算器这类强本地化的生活场景工具，建议先在国内验证，跨境版本需要重新做本地化调研（不同国家的证件类型、法规都不同），不建议同时铺开两条线分散精力。</p>
+      </details>
+      <details>
+        <summary>做了几个工具但没人买，该放弃吗？<span class="chev">+</span></summary>
+        <p>先排查是"没人看到"还是"看到了不买"（方法见《变现手册》阶段六）。如果是曝光低，问题可能出在渠道选错或标题不够具体；如果是曝光可以但转化低，回头检查产品说明是否讲清楚了"解决什么具体问题"，以及是否有足够的信任要素（截图、免责声明、纯本地处理承诺）。不要在没有排查清楚原因之前就轻易放弃或轻易加大投入。</p>
+      </details>
+      <details>
+        <summary>我一个人精力有限，100个创意根本做不完怎么办？<span class="chev">+</span></summary>
+        <p>这100个创意本来就不是让你都做，是给你一个足够大的选择池，配合第1章和第11章的判断标准挑出真正适合你的1～3个方向。这份手册真正的成功标准不是"做了多少个产品"，是"有没有认真跑完第一个90天周期"。</p>
+      </details>
+    </section>
+
+    <!-- ================= 附录 ================= -->
+    <section class="phase" id="appendix">
+      <div class="phase-head"><span class="phase-num-badge">附</span><h2>术语表</h2></div>
+      <div class="sub">
+        <table class="data">
+          <tr><th>术语</th><th>解释</th></tr>
+          <tr><td>Freemium</td><td>基础功能免费、高级功能付费的产品模式，本手册第14章①③模式的组合应用</td></tr>
+          <tr><td>MoR（Merchant of Record）</td><td>合规收款代管平台，详见《数字产品变现全流程手册》附录术语表</td></tr>
+          <tr><td>llms.txt</td><td>放在网站根目录、用简洁清单向AI说明网站内容结构的文件，详见《GEO/AEO从0到高手手册》第五章</td></tr>
+          <tr><td>NAP Consistency（实体一致性）</td><td>你在各平台的账号名称、简介、视觉风格保持一致，帮助AI和搜索引擎识别为同一可信实体</td></tr>
+          <tr><td>Schema.org 结构化数据</td><td>一套通用的网页标记规范，帮助搜索引擎和AI更准确理解页面内容，如FAQPage标记FAQ模块</td></tr>
+          <tr><td>PyInstaller</td><td>把Python脚本打包成独立可执行文件（EXE）的常用工具</td></tr>
+          <tr><td>产品矩阵</td><td>围绕同一批目标用户，横向或纵向扩展出的多个相关产品组合，详见第15章</td></tr>
+        </table>
+
+        <div class="callout info">
+          <div class="icon">📎</div>
+          <div>更多通用术语（结售汇额度、个体工商户、拒付/Chargeback、UTM参数、A/B测试等）请查阅《数字产品变现全流程手册》附录术语表，两份手册配合查阅使用。</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  数字产品全景作战手册 · 个人定制版 · 整合《数字产品变现全流程手册 v3》与《GEO/AEO从0到高手手册》并结合个人技能资产重新规划 · 基于截至2026年8月的公开信息整理，平台规则、费率、政策可能随时变化，正式操作前请以各平台官方最新说明为准 · 本手册不构成税务、法律或投资建议 · 建议按第16章90天路线图逐周执行，遇到卡点随时回查对应章节
+</footer>
+
+<button class="totop" id="toTop" aria-label="回到顶部">↑</button>
+
+<script>
+  var pb = document.getElementById('progressbar');
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement;
+    var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    pb.style.width = scrolled + '%';
+    var toTop = document.getElementById('toTop');
+    if (h.scrollTop > 600) { toTop.classList.add('show'); } else { toTop.classList.remove('show'); }
+  });
+  document.getElementById('toTop').addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+  // close mobile nav on link click
+  document.querySelectorAll('.sidebar a').forEach(function(a){
+    a.addEventListener('click', function(){
+      var t = document.getElementById('nav-toggle');
+      if (t) t.checked = false;
+    });
+  });
+</script>
+
+</body>
+</html>

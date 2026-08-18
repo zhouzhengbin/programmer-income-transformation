@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>增长作战室 · 网络营销全景图鉴</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ 0. 设计令牌 Design Tokens ============ */
+:root{
+  --bg:#0B111A;
+  --bg-2:#0F1620;
+  --panel:#121A24;
+  --panel-2:#17212C;
+  --line:#243040;
+  --line-soft:#1B2530;
+  --text:#E7EEF4;
+  --text-dim:#8FA3B5;
+  --text-mute:#5D7185;
+  --signal:#00E5A0;      /* 增长 / 完成 / 正向 */
+  --signal-dim:#0A5C46;
+  --alert:#FFB020;       /* 提醒 / 待办 / 风险 */
+  --alert-dim:#6B4A12;
+  --info:#3FC3FF;        /* 数据 / 信息 */
+  --info-dim:#0F4A66;
+  --danger:#FF5D5D;
+  --radius:14px;
+  --radius-sm:8px;
+  --font-display:'Space Grotesk', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-body:'Inter', 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
+  --font-mono:'JetBrains Mono', 'Consolas', monospace;
+}
+*{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{
+  background:
+    radial-gradient(ellipse 900px 500px at 50% -10%, rgba(63,195,255,0.08), transparent 60%),
+    radial-gradient(ellipse 700px 400px at 100% 20%, rgba(0,229,160,0.06), transparent 60%),
+    var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  line-height:1.6;
+  padding-bottom:70px;
+  overflow-x:hidden;
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+}
+a{color:inherit;}
+::selection{background:var(--signal); color:#08131A;}
+::-webkit-scrollbar{width:5px; height:5px;}
+::-webkit-scrollbar-thumb{background:var(--line); border-radius:4px;}
+
+.wrap{max-width:560px; margin:0 auto; padding:0 18px;}
+.mono{font-family:var(--font-mono);}
+.eyebrow{
+  font-family:var(--font-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--signal); display:flex; align-items:center; gap:8px; margin-bottom:10px;
+}
+.eyebrow::before{content:''; width:16px; height:1px; background:var(--signal); display:inline-block;}
+.section-title{
+  font-family:var(--font-display); font-weight:700; font-size:22px; color:var(--text);
+  letter-spacing:-0.01em; margin-bottom:6px;
+}
+.section-sub{color:var(--text-dim); font-size:13.5px; margin-bottom:22px; max-width:46ch;}
+section{padding:56px 0 8px;}
+.divider{height:1px; background:linear-gradient(90deg, transparent, var(--line), transparent); margin:8px 0;}
+
+/* ============ 1. 顶部状态栏 ============ */
+.statusbar{
+  position:sticky; top:0; z-index:50;
+  background:rgba(11,17,26,0.86); backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-soft);
+}
+.statusbar-inner{
+  max-width:560px; margin:0 auto; padding:10px 18px;
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+}
+.sb-left{display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:11px; color:var(--text-dim);}
+.sb-dot{width:6px; height:6px; border-radius:50%; background:var(--signal); box-shadow:0 0 8px var(--signal); animation:blink 2.2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.35;}}
+.sb-progress{flex:1; max-width:180px; height:4px; background:var(--line-soft); border-radius:2px; overflow:hidden;}
+.sb-progress-fill{height:100%; width:0%; background:linear-gradient(90deg, var(--info), var(--signal)); transition:width .4s ease;}
+.sb-pct{font-family:var(--font-mono); font-size:11px; color:var(--signal); min-width:32px; text-align:right;}
+
+/* ============ 2. HERO：雷达扫描 ============ */
+.hero{padding:34px 0 10px; position:relative;}
+.hero-tag{
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--font-mono); font-size:11px; letter-spacing:.08em;
+  color:var(--alert); border:1px solid var(--alert-dim); background:rgba(255,176,32,0.07);
+  padding:4px 10px; border-radius:99px; margin-bottom:18px;
+}
+.hero h1{
+  font-family:var(--font-display); font-weight:700; font-size:32px; line-height:1.18;
+  letter-spacing:-0.02em; color:var(--text); margin-bottom:14px;
+}
+.hero h1 span{color:var(--signal);}
+.hero p.lead{color:var(--text-dim); font-size:14.5px; max-width:44ch; margin-bottom:26px;}
+
+.radar-wrap{
+  position:relative; width:100%; max-width:400px; aspect-ratio:1/1; margin:0 auto 8px;
+}
+.radar-svg{width:100%; height:100%; display:block;}
+.radar-ring{fill:none; stroke:var(--line); stroke-width:1;}
+.radar-sweep-group{transform-origin:200px 200px; animation:sweep 6s linear infinite;}
+@keyframes sweep{from{transform:rotate(0deg);} to{transform:rotate(360deg);}}
+.radar-node{cursor:default;}
+.radar-node circle.dot{fill:var(--panel-2); stroke:var(--info); stroke-width:1.6;}
+.radar-node text{font-family:var(--font-mono); font-size:9.5px; fill:var(--text-dim);}
+.radar-center circle{fill:var(--signal); filter:drop-shadow(0 0 10px rgba(0,229,160,.8));}
+.radar-center text{font-family:var(--font-display); font-weight:700; font-size:12px; fill:#08131A;}
+.radar-pulse{fill:none; stroke:var(--signal); stroke-width:1.4; opacity:0; animation:pulse 3s ease-out infinite;}
+@keyframes pulse{0%{r:14; opacity:.9;} 100%{r:70; opacity:0;}}
+
+.hero-stats{display:flex; gap:10px; margin-top:22px;}
+.hstat{flex:1; background:var(--panel); border:1px solid var(--line-soft); border-radius:var(--radius-sm); padding:12px 10px; text-align:center;}
+.hstat .n{font-family:var(--font-display); font-weight:700; font-size:19px; color:var(--signal);}
+.hstat .l{font-size:10.5px; color:var(--text-mute); margin-top:2px;}
+
+/* ============ 3. 阶段追踪条 Phase Tracker ============ */
+.phase-scroll{display:flex; gap:10px; overflow-x:auto; padding:4px 18px 14px; margin:0 -18px; scrollbar-width:none;}
+.phase-scroll::-webkit-scrollbar{display:none;}
+.phase-card{
+  flex:0 0 auto; width:230px; background:var(--panel); border:1px solid var(--line-soft);
+  border-radius:var(--radius); padding:16px; position:relative; overflow:hidden;
+}
+.phase-card::before{content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--phase-color, var(--info));}
+.phase-idx{font-family:var(--font-mono); font-size:10px; color:var(--text-mute); letter-spacing:.1em;}
+.phase-name{font-family:var(--font-display); font-weight:700; font-size:15.5px; margin:4px 0 8px; color:var(--text);}
+.phase-desc{font-size:12px; color:var(--text-dim); margin-bottom:10px;}
+.phase-focus{display:flex; flex-wrap:wrap; gap:5px;}
+.phase-focus span{
+  font-family:var(--font-mono); font-size:9.5px; color:var(--phase-color, var(--info));
+  border:1px solid currentColor; opacity:.85; padding:2px 6px; border-radius:5px;
+}
+
+/* ============ 4. 能力雷达（六维） ============ */
+.skillchart-box{background:var(--panel); border:1px solid var(--line-soft); border-radius:var(--radius); padding:20px; display:flex; flex-direction:column; align-items:center;}
+.skillchart-box svg{width:100%; max-width:320px;}
+.skill-legend{display:grid; grid-template-columns:1fr 1fr; gap:8px 14px; width:100%; margin-top:14px;}
+.skill-legend-item{display:flex; justify-content:space-between; font-size:12px; color:var(--text-dim); border-bottom:1px dashed var(--line-soft); padding-bottom:5px;}
+.skill-legend-item b{color:var(--text); font-weight:600;}
+
+/* ============ 5. 模块分组 & 卡片（手风琴） ============ */
+.group-tag{
+  font-family:var(--font-mono); font-size:11px; color:var(--info); letter-spacing:.1em;
+  margin:26px 0 12px; display:flex; align-items:center; gap:8px;
+}
+.group-tag::after{content:''; flex:1; height:1px; background:var(--line-soft);}
+
+.mcard{
+  background:var(--panel); border:1px solid var(--line-soft); border-radius:var(--radius);
+  margin-bottom:10px; overflow:hidden; transition:border-color .25s ease;
+}
+.mcard.open{border-color:var(--signal-dim);}
+.mcard-head{
+  display:flex; align-items:center; gap:12px; padding:14px 15px; cursor:pointer;
+  -webkit-user-select:none; user-select:none;
+}
+.mcard-code{
+  font-family:var(--font-mono); font-size:10.5px; color:var(--bg); background:var(--info);
+  padding:3px 6px; border-radius:5px; white-space:nowrap; font-weight:600; flex-shrink:0;
+}
+.mcard-titlewrap{flex:1; min-width:0;}
+.mcard-title{font-family:var(--font-display); font-weight:600; font-size:15.5px; color:var(--text);}
+.mcard-oneliner{font-size:11.5px; color:var(--text-mute); margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.mcard-chevron{
+  width:20px; height:20px; flex-shrink:0; color:var(--text-mute);
+  transition:transform .3s ease; display:flex; align-items:center; justify-content:center;
+}
+.mcard.open .mcard-chevron{transform:rotate(180deg); color:var(--signal);}
+.mcard-body{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+.mcard-body-inner{padding:0 16px 18px; border-top:1px solid var(--line-soft); margin-top:0;}
+
+.mblock{margin-top:14px;}
+.mblock-label{
+  font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--text-mute); margin-bottom:7px; display:flex; align-items:center; gap:6px;
+}
+.mblock-label .dotc{width:5px; height:5px; border-radius:50%;}
+.mblock p.logic{font-size:13px; color:var(--text-dim); line-height:1.7;}
+
+.taglist{display:flex; flex-wrap:wrap; gap:6px;}
+.taglist span{
+  font-size:11.5px; color:var(--info); background:rgba(63,195,255,0.08);
+  border:1px solid var(--info-dim); padding:4px 9px; border-radius:99px;
+}
+.trendlist, .checklist, .mistakelist{list-style:none;}
+.trendlist li{
+  font-size:12.5px; color:var(--text-dim); padding:6px 0 6px 16px; position:relative; line-height:1.55;
+}
+.trendlist li::before{content:'▸'; position:absolute; left:0; color:var(--alert); font-size:11px;}
+.checklist li{
+  font-size:12.5px; color:var(--text-dim); padding:6px 0 6px 26px; position:relative; line-height:1.55;
+  cursor:pointer;
+}
+.checklist li::before{
+  content:''; position:absolute; left:0; top:7px; width:15px; height:15px; border-radius:4px;
+  border:1.5px solid var(--line); background:var(--bg-2);
+}
+.checklist li.done{color:var(--text-mute); text-decoration:line-through; text-decoration-color:var(--signal-dim);}
+.checklist li.done::before{background:var(--signal); border-color:var(--signal);}
+.checklist li.done::after{
+  content:''; position:absolute; left:4px; top:9px; width:7px; height:4px;
+  border-left:2px solid #08131A; border-bottom:2px solid #08131A; transform:rotate(-45deg);
+}
+.mistakelist li{
+  font-size:12.5px; color:var(--text-dim); padding:6px 0 6px 22px; position:relative; line-height:1.55;
+}
+.mistakelist li::before{content:'✕'; position:absolute; left:0; color:var(--danger); font-size:11px; font-weight:700;}
+
+/* ============ 6. 90天作战计划 ============ */
+.plan90{position:relative; padding-left:20px;}
+.plan90::before{content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1.5px; background:linear-gradient(180deg, var(--info), var(--signal), var(--alert));}
+.week{position:relative; padding-bottom:20px;}
+.week::before{
+  content:''; position:absolute; left:-20px; top:3px; width:9px; height:9px; border-radius:50%;
+  background:var(--bg); border:2px solid var(--info);
+}
+.week-head{display:flex; align-items:baseline; gap:8px; margin-bottom:4px;}
+.week-num{font-family:var(--font-mono); font-size:11px; color:var(--info); font-weight:600;}
+.week-title{font-family:var(--font-display); font-weight:600; font-size:14px; color:var(--text);}
+.week-desc{font-size:12.5px; color:var(--text-dim);}
+
+/* ============ 7. 工具库 Grid ============ */
+.toolgrid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+.toolcat{background:var(--panel); border:1px solid var(--line-soft); border-radius:var(--radius-sm); padding:12px;}
+.toolcat h4{font-family:var(--font-mono); font-size:10.5px; color:var(--alert); letter-spacing:.06em; margin-bottom:8px;}
+.toolcat ul{list-style:none;}
+.toolcat li{font-size:12px; color:var(--text-dim); padding:3px 0;}
+.toolcat li b{color:var(--text); font-weight:600;}
+
+/* ============ 8. 误区 & KPI ============ */
+.mythgrid{display:flex; flex-direction:column; gap:8px;}
+.myth{background:var(--panel); border:1px solid var(--line-soft); border-left:3px solid var(--danger); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:11px 13px;}
+.myth .mtitle{font-size:13px; font-weight:600; color:var(--text); margin-bottom:3px;}
+.myth .mbody{font-size:12px; color:var(--text-dim);}
+
+/* ============ 9. FAQ / 资源 ============ */
+.reslist{display:flex; flex-direction:column; gap:8px;}
+.resitem{
+  display:flex; justify-content:space-between; align-items:center; gap:10px;
+  background:var(--panel); border:1px solid var(--line-soft); border-radius:var(--radius-sm); padding:12px 13px;
+}
+.resitem .rname{font-size:13px; color:var(--text); font-weight:600;}
+.resitem .rtype{font-size:11px; color:var(--text-mute); font-family:var(--font-mono);}
+
+/* ============ 10. Footer ============ */
+.disclaimer{
+  background:var(--panel-2); border:1px dashed var(--line); border-radius:var(--radius);
+  padding:16px; font-size:12px; color:var(--text-dim); line-height:1.7; margin-top:8px;
+}
+.disclaimer b{color:var(--alert);}
+footer{padding:40px 0 20px; text-align:center;}
+footer .fmark{font-family:var(--font-mono); font-size:10.5px; color:var(--text-mute); letter-spacing:.08em;}
+
+/* ============ 11. 底部悬浮进度按钮 ============ */
+.fab{
+  position:fixed; right:16px; bottom:16px; z-index:60;
+  width:52px; height:52px; border-radius:50%;
+  background:var(--panel); border:1px solid var(--line-soft);
+  display:flex; align-items:center; justify-content:center; flex-direction:column;
+  box-shadow:0 8px 24px rgba(0,0,0,.4); cursor:pointer;
+}
+.fab .fp{font-family:var(--font-mono); font-size:12px; color:var(--signal); font-weight:700;}
+.fab .fl{font-size:7px; color:var(--text-mute); letter-spacing:.05em;}
+
+@media (min-width:600px){
+  .hero h1{font-size:38px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ 顶部状态栏 ============ -->
+<div class="statusbar">
+  <div class="statusbar-inner">
+    <div class="sb-left"><span class="sb-dot"></span>SYSTEM · 全景图鉴 v2026.1</div>
+    <div class="sb-progress"><div class="sb-progress-fill" id="topProgressFill"></div></div>
+    <div class="sb-pct" id="topProgressPct">0%</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ HERO：雷达 ============ -->
+  <div class="hero">
+    <span class="hero-tag">⚠ 先说清楚，再开始</span>
+    <h1>没有"无脑执行"的<br>顶级高手，<span>只有持续迭代的操盘手</span></h1>
+    <p class="lead">
+      这份图鉴不会让你"看完就变世界第一"——任何这样承诺的东西都值得怀疑。它能做到的是：把网络营销这个庞大、碎片、天天在变的领域，整理成一张你能反复对照、按周执行、持续升级的作战地图。真正让你变强的，是接下来 12 个月里你亲手投放、亲手复盘的那些活动。
+    </p>
+
+    <div class="radar-wrap">
+      <svg class="radar-svg" viewBox="0 0 400 400">
+        <circle class="radar-ring" cx="200" cy="200" r="60"></circle>
+        <circle class="radar-ring" cx="200" cy="200" r="110"></circle>
+        <circle class="radar-ring" cx="200" cy="200" r="160"></circle>
+        <g class="radar-sweep-group">
+          <path d="M200,200 L200,40 A160,160 0 0,1 338,120 Z" fill="url(#sweepGrad)"></path>
+        </g>
+        <defs>
+          <linearGradient id="sweepGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="rgba(0,229,160,0.30)"/>
+            <stop offset="100%" stop-color="rgba(0,229,160,0)"/>
+          </linearGradient>
+        </defs>
+
+        <!-- 中心：你 -->
+        <g class="radar-center">
+          <circle cx="200" cy="200" r="18"></circle>
+          <text x="200" y="204" text-anchor="middle">你</text>
+        </g>
+        <circle class="radar-pulse" cx="200" cy="200" r="14" style="animation-delay:0s"></circle>
+        <circle class="radar-pulse" cx="200" cy="200" r="14" style="animation-delay:1.5s"></circle>
+
+        <!-- 环绕节点：各营销形式 -->
+        <g class="radar-node"><circle class="dot" cx="200" cy="60" r="16"></circle><text x="200" y="34" text-anchor="middle">SEO</text></g>
+        <g class="radar-node"><circle class="dot" cx="330" cy="140" r="16"></circle><text x="330" y="114" text-anchor="middle">短视频</text></g>
+        <g class="radar-node"><circle class="dot" cx="340" cy="260" r="16"></circle><text x="340" y="290" text-anchor="middle">直播电商</text></g>
+        <g class="radar-node"><circle class="dot" cx="250" cy="355" r="16"></circle><text x="250" y="383" text-anchor="middle">私域</text></g>
+        <g class="radar-node"><circle class="dot" cx="130" cy="355" r="16"></circle><text x="130" y="383" text-anchor="middle">付费广告</text></g>
+        <g class="radar-node"><circle class="dot" cx="55" cy="255" r="16"></circle><text x="40" y="286" text-anchor="middle">社媒</text></g>
+        <g class="radar-node"><circle class="dot" cx="65" cy="135" r="16"></circle><text x="50" y="110" text-anchor="middle">内容</text></g>
+        <g class="radar-node"><circle class="dot" cx="200" cy="200" r="0"></circle></g>
+      </svg>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hstat"><div class="n" id="statModules">16</div><div class="l">核心营销形式</div></div>
+      <div class="hstat"><div class="n">90</div><div class="l">天作战节奏</div></div>
+      <div class="hstat"><div class="n" id="statActions">0</div><div class="l">行动项已勾选</div></div>
+    </div>
+  </div>
+
+  <!-- ============ 阶段路线图 ============ -->
+  <section id="roadmap">
+    <div class="eyebrow">ROADMAP</div>
+    <div class="section-title">从小白到操盘手的四个阶段</div>
+    <div class="section-sub">不要试图同时学 16 种形式。按阶段收窄注意力，是新手最该学会的"战略耐心"。</div>
+
+    <div class="phase-scroll">
+      <div class="phase-card" style="--phase-color:#3FC3FF;">
+        <div class="phase-idx">PHASE 00 · 0–1 个月</div>
+        <div class="phase-name">认知筑基</div>
+        <div class="phase-desc">先搞懂营销的底层逻辑和你要卖给谁，再谈渠道和技巧。</div>
+        <div class="phase-focus"><span>用户画像</span><span>价值主张</span><span>漏斗模型</span></div>
+      </div>
+      <div class="phase-card" style="--phase-color:#00E5A0;">
+        <div class="phase-idx">PHASE 01 · 1–3 个月</div>
+        <div class="phase-name">单点突破</div>
+        <div class="phase-desc">选 1 个内容渠道 + 1 个转化路径，跑通"发布→数据→复盘"闭环。</div>
+        <div class="phase-focus"><span>短视频或内容营销</span><span>私域承接</span><span>数据看板</span></div>
+      </div>
+      <div class="phase-card" style="--phase-color:#FFB020;">
+        <div class="phase-idx">PHASE 02 · 3–6 个月</div>
+        <div class="phase-name">矩阵扩张</div>
+        <div class="phase-desc">在跑通的基础上叠加付费流量和第二渠道，学会用数据分配预算。</div>
+        <div class="phase-focus"><span>SEM/信息流</span><span>KOL合作</span><span>A/B测试</span></div>
+      </div>
+      <div class="phase-card" style="--phase-color:#FF5D5D;">
+        <div class="phase-idx">PHASE 03 · 6–12 个月</div>
+        <div class="phase-name">系统化 & AI 增效</div>
+        <div class="phase-desc">搭建营销自动化、AI内容生产线，把个人打法升级为可复制的系统。</div>
+        <div class="phase-focus"><span>营销自动化</span><span>AIGC工作流</span><span>增长模型</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 底层能力六维 ============ -->
+  <section id="skillmap">
+    <div class="eyebrow">CORE ABILITIES</div>
+    <div class="section-title">比"知道渠道"更重要的六项底层能力</div>
+    <div class="section-sub">渠道会变，这六项能力构成的"底盘"不会过时——这才是真正的护城河。</div>
+
+    <div class="skillchart-box">
+      <svg viewBox="0 0 320 320">
+        <!-- 六边形网格 -->
+        <polygon points="160,30 267,95 267,225 160,290 53,225 53,95" fill="none" stroke="#243040" stroke-width="1"></polygon>
+        <polygon points="160,73 224,111 224,209 160,247 96,209 96,111" fill="none" stroke="#1B2530" stroke-width="1"></polygon>
+        <polygon points="160,116 181,128 181,192 160,204 139,192 139,128" fill="none" stroke="#1B2530" stroke-width="1"></polygon>
+        <!-- 数据多边形：文案/数据/设计/技术/心理学/执行力 -->
+        <polygon points="160,45 245,100 250,215 160,275 75,210 70,105" fill="rgba(0,229,160,0.16)" stroke="#00E5A0" stroke-width="2"></polygon>
+        <g font-family="JetBrains Mono" font-size="10.5" fill="#8FA3B5" text-anchor="middle">
+          <text x="160" y="20">文案表达</text>
+          <text x="278" y="92">数据分析</text>
+          <text x="278" y="232">技术工具</text>
+          <text x="160" y="308">心理学 & 转化</text>
+          <text x="42" y="232">审美 & 设计</text>
+          <text x="42" y="92">执行 & 复盘</text>
+        </g>
+      </svg>
+      <div class="skill-legend">
+        <div class="skill-legend-item"><span>文案表达</span><b>基础必修</b></div>
+        <div class="skill-legend-item"><span>数据分析</span><b>决策核心</b></div>
+        <div class="skill-legend-item"><span>技术工具</span><b>效率杠杆</b></div>
+        <div class="skill-legend-item"><span>心理学&转化</span><b>成交关键</b></div>
+        <div class="skill-legend-item"><span>审美&设计</span><b>信任加分</b></div>
+        <div class="skill-legend-item"><span>执行&复盘</span><b>唯一护城河</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 16 大营销形式（数据驱动渲染） ============ -->
+  <section id="modules">
+    <div class="eyebrow">FIELD MANUAL</div>
+    <div class="section-title">16 种网络营销形式全解</div>
+    <div class="section-sub">点击展开每一项，查看核心逻辑、2026 最新打法、执行清单、工具箱与常见误区。</div>
+    <div id="moduleContainer"></div>
+  </section>
+
+  <!-- ============ 90天作战计划 ============ -->
+  <section id="plan">
+    <div class="eyebrow">90-DAY OPERATION</div>
+    <div class="section-title">90 天新手启动计划</div>
+    <div class="section-sub">不需要每天都做新事，重复本身就是策略。以下按周给出重点，可直接照搬执行。</div>
+
+    <div class="plan90" id="plan90Container"></div>
+  </section>
+
+  <!-- ============ 工具库 ============ -->
+  <section id="tools">
+    <div class="eyebrow">TOOLBOX</div>
+    <div class="section-title">2026 营销工具箱速查</div>
+    <div class="section-sub">工具会迭代，但"这类工具要解决什么问题"不会变——认准品类，再挑当下最顺手的那个。</div>
+
+    <div class="toolgrid" id="toolGrid"></div>
+  </section>
+
+  <!-- ============ 常见误区 ============ -->
+  <section id="myths">
+    <div class="eyebrow">MYTH BUSTING</div>
+    <div class="section-title">小白最容易踩的 10 个坑</div>
+    <div class="mythgrid" id="mythGrid"></div>
+  </section>
+
+  <!-- ============ 持续学习资源 ============ -->
+  <section id="resources">
+    <div class="eyebrow">KEEP LEARNING</div>
+    <div class="section-title">保持"与时俱进"的信息源</div>
+    <div class="section-sub">营销这行最大的风险不是不努力，而是用三年前的经验做今天的判断。定期刷这些信息源，而不是只刷一次这个页面。</div>
+    <div class="reslist" id="resList"></div>
+  </section>
+
+  <!-- ============ 免责声明 / 结语 ============ -->
+  <section id="end">
+    <div class="disclaimer">
+      <b>诚实的话放最后：</b>这份图鉴能帮你少走弯路、建立体系化认知，但它替代不了三件事——① 真实预算下的实盘投放经验，② 面对失败数据时的复盘耐心，③ 长期主义的时间积累。任何声称"看完必成顶级高手"的内容，本质上都是营销技巧本身在你身上生效了一次，请保持这份清醒，这也是你成为高手的第一课。
+    </div>
+    <footer>
+      <div class="fmark">END OF FILE · 持续更新，持续验证，持续复盘</div>
+    </footer>
+  </div>
+
+</div>
+
+<div class="fab" id="fabBtn">
+  <div class="fp" id="fabPct">0%</div>
+  <div class="fl">进度</div>
+</div>
+
+<script>
+/* ============================================================
+   数据层：16 大营销形式
+   ============================================================ */
+const MODULES = [
+{group:"洞察与内容", code:"FDN-01", title:"营销底层逻辑与用户画像", one:"不懂用户，渠道都是白费力气",
+ logic:"一切营销形式最终服务于同一个问题：在对的时间，把对的信息，用对的方式，送到对的人面前。开始学任何渠道之前，先把这四个变量搞清楚——你的产品解决什么具体痛点？谁最迫切需要？他们平时在哪里获取信息？他们做决策时最在意什么？把这些写成一份1页纸的用户画像，是所有后续动作的地基。",
+ trends:["2026年AI搜索(如AI Overview、对话式搜索)正在改变用户的信息获取路径，用户画像里要新增\"用户会怎么向AI提问\"这一维度","消费者对\"过度营销感\"的容忍度持续下降，真实、具体、有信息密度的内容比华丽话术更有效","私域数据资产（会员、社群、订阅列表）的重要性因第三方Cookie的持续退场而进一步上升"],
+ actions:["用1句话写清楚你的产品解决什么问题","列出3类目标用户并各写一段典型的一天","找到用户决策前最常问的5个问题","画一张从\"陌生人\"到\"付费用户\"的漏斗图","确定漏斗每一层你打算用什么内容承接"],
+ tools:["问卷星/腾讯问卷（用户调研）","小红书/知乎搜索（挖掘真实提问）","Notion/飞书文档（画像沉淀）","AnswerThePublic（关键词问题挖掘）","Miro（漏斗可视化）"],
+ mistakes:["还没搞清楚用户是谁就急着学投放技巧","用自己的喜好替代用户调研","画像写得太笼统，比如\"25-35岁女性\"（缺乏行为和场景细节）"]},
+
+{group:"洞察与内容", code:"CNT-02", title:"内容营销", one:"长期免费流量的发动机",
+ logic:"内容营销是用有价值的信息、故事或工具，持续吸引并留住目标用户，而不是靠硬广打断他们。它的复利效应体现在：一篇优质长文/教程可以在几个月甚至几年内持续带来自然流量，而广告一停投，流量立刻归零。核心公式：选题源于用户真实问题 + 你的独特视角或数据 + 稳定的更新节奏。",
+ trends:["AI辅助创作已成标配，但纯AI生成、缺乏一手经验的内容在搜索和推荐算法中权重明显下降","\"经验证据\"(真实截图、实测数据、案例复盘)比观点性文章更容易获得信任和转发","长文内容正在被重新拆解成短视频脚本、图文卡片、播客等多形态分发，一次创作、多渠道复用成为标准工作流"],
+ actions:["建立一个选题库，收集用户常问的50个问题","确定1个主内容形态(图文/视频/播客)作为内核","制定可持续的更新频率(如每周2篇，而非三天打鱼两天晒网)","为每篇内容设计一个明确的下一步行动(关注/留资/购买)","建立内容表现追踪表，记录阅读量、互动率、转化率"],
+ tools:["ChatGPT/Claude（选题与初稿辅助）","Notion（内容日历与选题库）","Canva（图文排版）","Google Trends/微信指数（选题热度验证）","飞书多维表格（内容数据追踪）"],
+ mistakes:["选题围绕\"我想说什么\"而不是\"用户想知道什么\"","更新频率忽高忽低，算法和用户都难以建立习惯","每篇内容都在卖货，完全没有纯价值输出"]},
+
+{group:"洞察与内容", code:"SEO-03", title:"SEO 与 AI 搜索优化", one:"让搜索引擎和AI主动推荐你",
+ logic:"传统SEO关注三件事：技术健康度(网站能否被顺利抓取)、内容相关性(是否精准回答搜索意图)、权威信号(外链与口碑)。2026年最大的变化是：搜索正从\"关键词匹配\"转向\"意图理解+AI摘要\"，用户很多问题在搜索结果页或AI对话中就被直接解答，不再点击进入网站。这意味着SEO的目标从单纯\"排名第一\"扩展为\"成为AI摘要引用的信源\"。",
+ trends:["AIO/AI Overview（AI生成摘要）大幅压缩了传统蓝色链接的点击率，被AI引用比排名第一更重要","结构化数据(Schema标记)、清晰的问答式内容结构，显著提升被AI摘要引用的概率","E-E-A-T(经验、专业、权威、可信)权重持续上升，匿名、无信源的内容越来越难获得好排名","视频/图片在搜索结果中的占比上升，多模态SEO(视频字幕、alt文本)成为新增长点"],
+ actions:["用Google Search Console/百度站长平台绑定并监测你的网站","做一次关键词研究，找到10-20个搜索量适中、竞争度可控的词","为核心页面撰写清晰的标题、描述和结构化的H1-H3标签","在内容中加入作者信息、数据来源、发布/更新日期以强化可信度","每月检查一次核心页面在AI搜索(如AI Overview)中是否被引用"],
+ tools:["Google Search Console（免费，必装）","Ahrefs / SEMrush（关键词与外链分析）","百度指数/5118（中文关键词工具）","Screaming Frog（技术SEO审计）","Schema.org标记生成器（结构化数据）"],
+ mistakes:["堆砌关键词而忽视内容真实可读性","只优化网页SEO，完全忽视AI搜索场景下如何被引用","做完一次优化就当作永久生效，从不复查排名变化"]},
+
+{group:"短内容与直播", code:"SVD-04", title:"短视频营销", one:"注意力最集中的战场",
+ logic:"短视频的核心不是拍摄技巧，而是\"3秒留人、15秒讲清一个点、结尾给出明确动作\"的节奏控制。平台算法本质是一台兴趣分发机器：完播率、互动率、关注转化率决定了你的内容能被推给多少陌生人。做好短视频营销，本质是持续测试\"选题+开头+节奏\"的组合，找到你所在垂类的最优公式。",
+ trends:["竖屏15-60秒中长比例内容(既非纯15秒也非长视频)在多平台获得更均衡的推荐权重","AI数字人/AI配音显著降低了出镜成本，但真人出镜+真实场景的信任度依旧更高","评论区正在成为\"第二内容场\"，置顶评论、引导讨论本身就是提升互动率的手段","跨平台一鱼多吃(抖音/视频号/小红书/Reels/Shorts同步分发)成为标配工作流"],
+ actions:["研究同赛道10个爆款视频，拆解开头3秒的钩子写法","固定一个人设/账号定位，避免选题四处漂移","设计一个可复制的视频结构模板(钩子-冲突-解决-行动号召)","每周至少发布3条，坚持满4周再评估数据","建立数据复盘表：完播率、点赞率、评论率、转化率"],
+ tools:["剪映/CapCut（剪辑）","巨量创意/蝉妈妈（选题与对标账号分析）","Notion（选题库与脚本模板）","即梦/Runway（AI辅助素材生成）","飞瓜数据（多平台数据监测）"],
+ mistakes:["只关注拍摄画质，忽视开头3秒的钩子设计","频繁更换人设和选题方向，账号权重难以积累","只发布不复盘，同样的错误反复犯"]},
+
+{group:"短内容与直播", code:"LIV-05", title:"直播电商与直播营销", one:"实时信任，实时成交",
+ logic:"直播的独特价值在于\"实时互动+即时决策\"：主播可以现场回答疑虑、展示细节、制造紧迫感，把犹豫期从几天压缩到几分钟。一场成功的直播由三部分构成——开播前的预热引流、直播中的节奏设计(福利款/利润款/爆款交替)、下播后的复盘与留存转化。",
+ trends:["店播(品牌自播)常态化，不再依赖头部主播的单场爆发，而是追求日常稳定的自然流量","短视频引流+直播间承接的组合打法成为标准链路，短视频负责种草，直播间负责成交","虚拟主播/AI数字人直播在标品、长时段场景中被更多采用，用于降低人力成本","私域直播(在社群/视频号内小范围直播)对高客单价、高信任门槛品类效果显著"],
+ actions:["确定直播间的选品结构：引流款、利润款、爆款各占比多少","写一份直播脚本框架，包含开场话术、每小时的节奏安排","设计至少2个直播间专属福利，提升下单紧迫感","开播前3天在短视频/社群做预热，明确告知开播时间与福利","下播后24小时内完成数据复盘：观看时长、转化率、客单价"],
+ tools:["抖音直播中控台/视频号直播助手","蝉妈妈/新抖（直播数据分析）","OBS Studio（专业直播推流）","小葱/千川（直播间投流工具）","飞书文档（直播脚本协作）"],
+ mistakes:["没有清晰的选品结构，全场都在卖同一类型商品导致节奏单一","主播只顾自说自话，不看评论区互动，错过成交信号","从不复盘直播数据，凭感觉判断\"这场效果好不好\""]},
+
+{group:"社交与社群", code:"SOC-06", title:"社交媒体营销", one:"在用户已经聚集的地方出现",
+ logic:"不同平台有截然不同的内容语法和用户心智：小红书重\"种草与生活方式\"，微博重\"话题与热点\"，Instagram重\"美学与故事\"，Facebook/X重\"社群与讨论\"。做社交媒体营销的第一步不是\"我要做全平台\"，而是判断你的目标用户主要活跃在哪1-2个平台，先把那里做深。",
+ trends:["平台内搜索行为激增(尤其小红书、抖音)，用户把这些平台当\"生活搜索引擎\"使用，因此\"平台内SEO\"(标题关键词、标签)越来越重要","算法从\"看关注\"转向\"看兴趣推荐\"，粉丝数不再是唯一护城河，内容质量的即时权重更高","评论区互动质量成为新的排名信号，引导真实讨论比刷量更有效","跨境社媒(TikTok、Instagram、Pinterest)成为出海品牌的标配起点"],
+ actions:["用一周时间调研目标用户主要活跃的1-2个平台","分析该平台内你所在垂类的前20个账号，总结内容套路","制定平台专属的内容日历，而非把同一条内容简单复制粘贴","设置每天固定时间回复评论和私信，维护互动权重","每月分析一次粉丝画像，确认是否匹配你的目标用户"],
+ tools:["新红/千瓜数据（小红书数据分析）","Meta Business Suite（Facebook/Instagram管理）","Hootsuite/Buffer（多平台内容排期）","Later（Instagram视觉化内容规划）","新榜（全平台内容趋势监测）"],
+ mistakes:["同一条内容不做任何调整，直接复制粘贴发到所有平台","只发内容不互动，把社媒当成单向广播渠道","盲目追求粉丝数量，忽视粉丝与目标用户的匹配度"]},
+
+{group:"社交与社群", code:"PRV-07", title:"私域流量与社群运营", one:"把流量变成可反复触达的资产",
+ logic:"私域的本质是把\"平台租来的流量\"转化为\"你能直接触达、不受算法摆布的关系资产\"，载体通常是企业微信、个人微信、社群或订阅号。私域运营不是建了群就完事，而是要设计清晰的\"进群理由-群内价值-转化路径-长期维护\"四段式结构，否则群会迅速沉寂。",
+ trends:["企业微信+SCRM工具的组合成为品牌私域标配，支持标签化管理和自动化触达","\"轻互动\"(小范围问答、投票、抽奖)比大水漫灌式发广告更能维持群活跃度","IP化人设(把运营者塑造成有温度的\"人\"而非冷冰冰的官方账号)显著提升私域转化率","私域与直播联动(社群预告+专属直播优惠)成为高客单价品类的标准打法"],
+ actions:["设计一个清晰的\"加好友/进群\"钩子(如免费资料、专属优惠)","制定社群规则和内容日历，避免群内只发广告","建立客户标签体系，按兴趣/阶段做差异化触达","设计一套从\"新用户\"到\"复购用户\"的私域旅程","每周检查群活跃度和退群率，及时调整运营策略"],
+ tools:["企业微信（私域主阵地）","有赞/微盟（私域电商工具）","SCRM工具如尘锋/进圈（客户标签与自动化）","问卷星（社群满意度调研）","语雀/飞书（社群SOP文档管理）"],
+ mistakes:["把私域当成\"广告轰炸群\"，用户加入不久就选择退群或屏蔽","从不做用户分层，对所有人发送完全相同的内容","只关注加人数量，不关注留存率和转化率"]},
+
+{group:"付费与转化", code:"ADS-08", title:"付费广告：SEM 与信息流", one:"用钱换时间，用数据换效率",
+ logic:"SEM(搜索竞价)捕捉的是\"已经有明确需求、正在主动搜索\"的用户，适合转化路径短的产品；信息流广告(如朋友圈广告、抖音广告)则是在用户刷内容时主动打断、激发潜在需求，适合种草型产品。两者都遵循同一套底层逻辑：定向精准度 × 素材吸引力 × 落地页转化率 = 最终投放效果，缺一不可。",
+ trends:["各平台AI自动出价/智能投放(如Google Performance Max、巨量引擎的自动化产品)逐渐取代人工手动调价，操盘手的工作重心转向\"素材生产\"和\"数据判断\"而非\"手动调参\"","隐私新规(如iOS ATT)持续压缩第三方追踪能力，第一方数据(私域用户、CRM名单)的定向价值上升","短视频广告素材的\"内容化\"程度提高，硬广式广告的点击率明显低于\"看起来像自然内容\"的广告","小预算测试后再放量成为标准流程，避免一开始就大额投放同一个未经验证的素材"],
+ actions:["从小预算(如每日100-300元)开始测试，而不是一次性大额投放","准备至少5-8版不同角度的素材(问题型/对比型/证言型)进行A/B测试","为广告设计专属落地页，而不是直接跳转到通用首页","设置清晰的转化追踪(如像素/事件追踪)，确保数据可复盘","建立每周投放复盘表，记录点击率、转化率、获客成本"],
+ tools:["Google Ads / 百度推广（搜索广告）","巨量引擎/腾讯广告（信息流广告）","Meta Ads Manager（Facebook/Instagram广告）","Google Analytics 4（转化追踪）","Google Optimize替代品如VWO（落地页A/B测试）"],
+ mistakes:["一上来就投放大预算，没有先用小预算验证素材和定向","只看点击率不看转化率和获客成本，被虚假繁荣的数据误导","广告素材长期不更新，导致用户产生\"广告疲劳\"，点击率持续下滑"]},
+
+{group:"付费与转化", code:"KOL-09", title:"KOL / KOC 网红营销", one:"借用他人的信任背书",
+ logic:"KOL(关键意见领袖)自带影响力和流量，适合快速起量和品牌曝光；KOC(关键意见消费者)粉丝量小但信任度高、转化率往往更高、合作成本更低。做红人营销的关键不是找粉丝最多的那个人，而是找\"粉丝画像与你的目标用户高度重合\"的那个人，并给足够的创作自由度，而非用僵硬的品牌话术束缚对方。",
+ trends:["\"腰部+尾部KOC矩阵\"打法(用大量中小达人代替少数头部达人)性价比持续走高，风险也更分散","长期合作(签约季度/年度)比一次性投放更能积累信任和复利效应","达人自制内容(而非品牌提供的标准素材)转化率普遍更高，品牌方越来越倾向于\"给方向不给脚本\"","效果类合作(按CPS/带货佣金结算)在中小预算品牌中占比上升，降低了试错成本"],
+ actions:["用达人平台工具筛选出粉丝画像匹配的10-20位候选人","优先联系粉丝量1万-50万区间的腰部达人进行首轮测试","给达人提供产品卖点和素材方向，而非逐字脚本","设置清晰的合作KPI(曝光/互动/转化)并提前约定结算方式","建立达人合作档案，记录效果数据，沉淀长期合作名单"],
+ tools:["蝉妈妈/新抖（抖音达人筛选与数据分析）","千瓜数据（小红书达人库）","Kolr/AspireIQ（海外网红营销平台）","飞书多维表格（达人合作管理）","抖音星图/淘宝联盟（官方达人对接平台）"],
+ mistakes:["只看粉丝数量，不核实粉丝画像和真实互动率(警惕僵尸粉)","给达人的品牌话术过于生硬，导致内容明显\"不像达人自己会说的话\"","合作一次没效果就放弃整个渠道，而不分析是选人问题还是素材问题"]},
+
+{group:"付费与转化", code:"EDM-10", title:"邮件营销与营销自动化", one:"最被低估的高ROI渠道",
+ logic:"邮件/短信/APP推送等\"拥有型渠道\"(owned channel)不受算法摆布，触达成本极低，适合做长期的用户培育和复购激活。营销自动化的核心是根据用户行为(如注册、浏览、放弃购物车)触发预设的个性化流程，把\"一次性获客\"变成\"持续培育成交\"。",
+ trends:["行为触发式自动化(如\"用户3天未打开APP自动发送召回内容\")比群发式邮件效果高出数倍","AI辅助的动态个性化内容(根据用户标签自动替换文案/推荐商品)成为主流","邮件送达率和反垃圾邮件规则趋严，列表健康度(定期清理无效地址)比列表大小更重要","邮件+短信+私域的多触点组合序列(而非单一渠道轰炸)转化效果最佳"],
+ actions:["选择一个营销自动化工具并完成基础的用户标签体系搭建","设计一封\"欢迎邮件序列\"(3-5封)，在用户注册后自动触发","为放弃购物车/长期未互动用户设置召回自动化流程","坚持每月至少清理一次无效或从不打开的邮件地址","持续测试邮件标题和发送时间，追踪打开率和点击率"],
+ tools:["Mailchimp/HubSpot（国际主流营销自动化平台）","MarketingForce/微盟（国内SCRM与自动化工具）","SendGrid（邮件发送与送达率优化）","Zapier/Make（跨工具自动化流程搭建）","Google Analytics 4（邮件转化追踪）"],
+ mistakes:["把邮件营销当成\"偶尔想起来才发一次\"的渠道，缺乏系统化节奏","邮件内容全部是促销信息，从不提供纯价值内容，导致用户逐渐取消订阅","从不清理无效邮箱地址，导致送达率持续下滑甚至被标记为垃圾邮件"]},
+
+{group:"电商与出海", code:"ECM-11", title:"电商平台营销", one:"货架逻辑：曝光×转化×复购",
+ logic:"淘宝、天猫、京东、拼多多等平台电商营销遵循\"货架逻辑\"：用户带着购买意图主动搜索或浏览，因此标题关键词、主图点击率、详情页转化率、评价与销量构成了核心竞争力。与内容平台\"种草\"不同，电商平台更接近\"临门一脚\"的转化战场，站内广告(直通车/超级推荐等)则是加速曝光的杠杆。",
+ trends:["站内搜索算法越来越重视\"内容化\"(如带图文评价、短视频详情页)对转化率的加成","私域+直播+短视频反哺电商店铺(全域经营)成为大中型商家标配打法，不再依赖单一平台自然流量","会员运营(付费会员/积分体系)在复购型品类中的重要性持续上升","跨平台一致的品牌视觉与价格体系，成为用户信任度的重要指标"],
+ actions:["优化商品标题，融入用户高频搜索的关键词而非堆砌形容词","设计3-5版主图并测试点击率，保留数据最优版本","邀请首批用户留下带图评价，建立初始信任背书","制定站内广告的最低预算测试计划，从小额起步","建立店铺数据看板，追踪访客数、转化率、客单价、复购率"],
+ tools:["生意参谋（淘宝/天猫官方数据工具）","京东商智（京东数据分析）","蝉妈妈/东小店（多平台电商数据）","Photoshop/创客贴（主图与详情页设计）","有赞（自建电商与私域联动）"],
+ mistakes:["详情页只强调产品参数，不解决用户\"为什么现在就该买\"的疑虑","忽视评价管理，任由差评堆积而不主动跟进解决","站内广告预算一次性投入过大，未经小规模测试就放量"]},
+
+{group:"电商与出海", code:"GLB-12", title:"出海与跨境营销", one:"换一套语言、文化和合规逻辑",
+ logic:"出海营销不是把国内内容简单翻译成英文，而是要重新理解目标市场的文化语境、支付习惯、平台生态和法规要求(如GDPR数据合规)。成功的出海项目往往从1-2个成熟市场切入(如东南亚或北美)，验证产品-市场匹配度后再逐步扩张，而不是一开始就铺开全球。",
+ trends:["TikTok Shop在东南亚、北美的电商化进程加快，成为出海品牌新的重要增长点","独立站(Shopify等)+社媒矩阵+海外KOL的组合打法，正在替代单纯依赖亚马逊等第三方平台的模式","本地化(Localization)而非单纯翻译成为标配要求，包括本地支付方式、本地网红、本地节日营销","AI翻译与AI配音大幅降低了多语言内容生产成本，但文化语境的把握仍需本地团队或顾问"],
+ actions:["选定1-2个优先出海市场，研究其主流社媒平台和购物习惯","完成目标市场的本地化(货币、语言、支付方式、物流说明)","寻找1-2位本地KOC进行小规模测试合作","了解目标市场的基本数据合规要求(如GDPR)","建立本地客服响应机制，避免因语言障碍流失用户"],
+ tools:["Shopify（独立站建站）","TikTok Shop/Amazon Seller Central（跨境电商平台）","DeepL/ChatGPT（多语言内容与本地化辅助）","Meta Ads Manager（海外社媒广告投放）","Semrush（海外市场关键词与竞品分析）"],
+ mistakes:["直接把国内营销素材机翻后照搬使用，忽视文化差异","低估物流、支付、售后等本地化基础设施的搭建难度","没有做数据合规功课就大规模收集海外用户数据"]},
+
+{group:"技术与效率", code:"AIM-13", title:"AI 营销工具与 AIGC 工作流", one:"2026年的最大杠杆",
+ logic:"AI正在重塑营销生产链条的每一环：选题(AI辅助洞察热点)、创作(AI文案/图片/视频生成)、投放(AI自动出价与素材优选)、分析(AI自动生成数据报告)。真正的高手不是\"会用某个AI工具\"，而是搭建一套\"人负责判断和创意方向，AI负责规模化执行\"的工作流，把自己从重复劳动中解放出来，投入到策略和复盘上。",
+ trends:["AI数字人直播/AI配音在标品、多语言场景的应用持续扩大，人力成本大幅下降","多模态AI(文本生成图片、图片生成视频)让小团队也能产出接近专业团队水准的素材","AI生成内容的\"同质化\"风险上升，缺乏真实经验和独特视角的纯AI内容效果明显下滑，人机协作(AI打底稿+人工注入真实经验)成为最优解","AI驱动的实时数据分析和智能预警(如自动识别异常流量或转化率骤降)逐渐成为标配"],
+ actions:["为你的核心内容形态搭建一套\"AI初稿+人工精修\"的标准工作流","用AI工具批量生成素材变体，用于广告A/B测试","尝试用AI辅助生成数据分析报告，节省人工整理时间","为AI生成内容建立审核checklist，避免事实错误和同质化","持续关注1-2个AI工具的更新日志，保持工具认知不过时"],
+ tools:["ChatGPT/Claude（文案与策略辅助）","Midjourney/即梦（AI图片生成）","Runway/可灵（AI视频生成）","HeyGen（AI数字人视频）","Perplexity（AI辅助市场调研）"],
+ mistakes:["完全依赖AI生成内容，不注入任何真实经验和数据，导致内容空洞同质化","把AI当成\"一次性写手\"，没有搭建可复用的标准化工作流","盲目追新工具，频繁切换却没有真正吃透任何一个"]},
+
+{group:"技术与效率", code:"GRW-14", title:"用户增长与裂变机制", one:"让用户带来用户",
+ logic:"增长黑客的核心框架是AARRR模型：获取(Acquisition)、激活(Activation)、留存(Retention)、推荐(Referral)、收入(Revenue)。裂变机制(如拼团、邀请奖励、老带新)本质是把\"推荐\"环节产品化，用清晰的利益机制激励现有用户主动传播，从而降低平均获客成本。",
+ trends:["\"双向奖励\"机制(邀请人和被邀请人都获得实际利益)比单向奖励更有效地驱动分享行为","裂变活动越来越强调\"分享内容本身有趣/有用\"，而非单纯利益驱动，避免被平台判定为诱导分享而限流","私域+裂变的组合(在已有社群内发起裂变)比公开广场式裂变的转化质量更高","数据埋点和归因分析成为增长团队的标配能力，用于识别哪个环节流失率最高"],
+ actions:["画出完整的AARRR漏斗，标注每一层当前的转化率","找到漏斗中流失率最高的一环，作为优先优化目标","设计一个低成本、双向奖励的裂变机制并小范围测试","为关键用户行为设置数据埋点，确保增长动作可被追踪衡量","建立每周增长复盘会，用数据而非直觉判断优化方向"],
+ tools:["Google Analytics 4/神策数据（用户行为埋点分析）","Growth Book（A/B测试与增长实验管理）","Mixpanel（用户留存与漏斗分析）","有赞/小鹅通（拼团裂变工具）","飞书OKR（增长目标管理）"],
+ mistakes:["盲目复制别人的裂变玩法，不考虑自己产品和用户是否适配","只关注拉新数量，完全忽视新用户的留存率和长期价值","增长活动缺乏数据埋点，事后无法判断到底是哪个环节起了作用"]},
+
+{group:"技术与效率", code:"ANL-15", title:"数据分析与效果衡量", one:"没有数据支撑的营销都是猜测",
+ logic:"数据分析能力决定了你能不能把\"感觉这个渠道不错\"升级为\"这个渠道的获客成本比另一个低30%，应该加大投入\"。核心是建立一套贯穿全链路的指标体系：曝光→点击→转化→复购，并搞清楚\"归因\"——用户最终成交，到底是被哪个触点真正影响的，而不是简单地把功劳都记在最后一次点击上。",
+ trends:["随着第三方Cookie限制加强，多触点归因模型(而非单一\"最后点击归因\")的重要性显著上升","GA4取代Universal Analytics成为行业标准，事件驱动的数据模型要求更精细的埋点设计","AI辅助的自动异常检测(如自动提醒\"转化率突然下降\")降低了人工盯盘的门槛","跨渠道数据整合(把广告、私域、电商后台数据汇总到一个看板)成为中大型团队标配"],
+ actions:["为你的核心转化路径设置GA4或同类工具的事件追踪","建立一张周度数据看板，包含曝光、点击、转化、成本四项核心指标","学习基础的归因模型知识，理解\"首次触点\"和\"末次触点\"归因的差异","每周固定时间做数据复盘，而不是等出问题才临时查数据","为关键指标设置预警阈值，出现异常波动时能第一时间发现"],
+ tools:["Google Analytics 4（网站与APP行为分析）","神策数据/GrowingIO（国内用户行为分析）","Google Data Studio/Tableau（数据可视化看板）","Excel/飞书多维表格（轻量数据整理）","Hotjar（用户行为热图与录屏）"],
+ mistakes:["只看总量数据(如\"这个月访问量10万\")，不拆解到渠道和转化环节","把所有转化功劳都归给最后一次点击的渠道，误判各渠道真实价值","数据看板搭建后从不维护，指标定义混乱，团队各说各话"]},
+
+{group:"技术与效率", code:"CRO-16", title:"品牌文案、心理学与转化率优化", one:"把流量变成成交的最后一公里",
+ logic:"再多的流量，如果落地页/详情页/私信话术不能有效说服用户，都会白白流失。转化率优化(CRO)建立在营销心理学基础上：稀缺性、社会认同、权威背书、损失厌恶等原理，配合清晰的文案结构(痛点-方案-证据-行动号召)，能显著提升同样流量下的成交率。品牌文案的终极目标不是\"听起来很厉害\"，而是\"让用户觉得你懂他的问题\"。",
+ trends:["\"证据型文案\"(具体数据、真实用户证言、可验证的案例)比形容词堆砌的文案转化率更高","落地页设计越来越强调移动端优先(Mobile First)，加载速度每延迟1秒都会显著拉低转化率","AI辅助的多版本文案测试(自动生成并测试多个标题/CTA)成为提效标配","个性化文案(根据用户来源渠道/标签展示不同话术)在成熟团队中应用渐广"],
+ actions:["为核心落地页写至少3个版本的标题，测试哪个转化率最高","在页面中加入至少3种社会认同信号(用户数、评价、媒体报道等)","明确每个页面唯一的行动号召(CTA)，避免选项过多造成犹豫","检查移动端加载速度和排版，确保3秒内完整呈现核心信息","学习1-2个经典心理学原理(如稀缺性、损失厌恶)并应用到实际文案中"],
+ tools:["Hotjar/FullStory（用户行为录屏，发现卡点）","Unbounce/兔展（落地页搭建与A/B测试）","Google PageSpeed Insights（页面加载速度检测）","ChatGPT/Claude（文案多版本生成）","Optimizely（企业级A/B测试平台）"],
+ mistakes:["文案通篇讲产品参数，不讲用户能获得的具体好处","页面同时放置5个以上不同的行动号召，用户无所适从","从不做A/B测试，凭主观审美判断哪个版本\"看起来更好\""]}
+];
+
+/* ============================================================
+   数据层：90天计划（12周）
+   ============================================================ */
+const PLAN = [
+ {w:"WEEK 01-02", t:"筑基：搞清楚你是谁、卖给谁", d:"完成用户画像、竞品分析，确定1个主攻渠道和1个内容形态。"},
+ {w:"WEEK 03-04", t:"跑通第一条内容线", d:"稳定更新目标渠道内容，建立数据追踪表，不追求爆款，先追求稳定节奏。"},
+ {w:"WEEK 05-06", t:"搭建私域承接", d:"设计加粉/进群钩子，把内容带来的流量沉淀为可反复触达的私域资产。"},
+ {w:"WEEK 07-08", t:"第一轮小额付费测试", d:"用小预算测试3-5版广告素材，找到点击率和转化率最优的组合。"},
+ {w:"WEEK 09-10", t:"引入第一个KOC合作", d:"联系3-5位粉丝画像匹配的中小达人，测试内容植入的转化效果。"},
+ {w:"WEEK 11-12", t:"复盘、系统化、放量", d:"汇总90天数据，识别最优渠道组合，搭建自动化流程，为下一阶段规模化做准备。"}
+];
+
+/* ============================================================
+   数据层：工具箱
+   ============================================================ */
+const TOOLS = [
+ {cat:"内容创作", items:[["ChatGPT / Claude","文案与策略辅助"],["剪映 / CapCut","视频剪辑"],["Canva","图文与海报设计"],["即梦 / Midjourney","AI图片生成"]]},
+ {cat:"数据分析", items:[["Google Analytics 4","全链路行为分析"],["神策数据","国内用户行为分析"],["飞书多维表格","轻量数据整理"],["生意参谋","电商数据分析"]]},
+ {cat:"广告投放", items:[["巨量引擎","抖音系信息流广告"],["Google Ads","搜索与展示广告"],["Meta Ads Manager","Facebook/Instagram广告"],["腾讯广告","朋友圈/公众号广告"]]},
+ {cat:"私域与自动化", items:[["企业微信","私域主阵地"],["有赞","私域电商与会员"],["HubSpot","营销自动化(海外)"],["尘锋SCRM","客户标签与自动化"]]},
+ {cat:"SEO与调研", items:[["Google Search Console","搜索表现监测"],["Ahrefs","关键词与外链分析"],["5118 / 百度指数","中文关键词工具"],["新红 / 蝉妈妈","达人与内容数据"]]},
+ {cat:"出海与跨境", items:[["Shopify","独立站建站"],["TikTok Shop","跨境短视频电商"],["DeepL","多语言本地化"],["Semrush","海外关键词分析"]]}
+];
+
+/* ============================================================
+   数据层：常见误区
+   ============================================================ */
+const MYTHS = [
+ {t:"1 · 迷信\"一夜爆火\"", b:"绝大多数持续赚钱的账号和品牌，都是几十上百次不温不火的尝试后才跑出规律。把偶然当必然，只会打乱你的节奏。"},
+ {t:"2 · 只学技巧，不建体系", b:"今天学一个标题公式，明天学一个投放技巧，各自孤立，永远拼不成完整的增长系统。先搭骨架，再填技巧。"},
+ {t:"3 · 渠道贪多，样样不精", b:"新手同时做5个平台，往往5个都做得半死不活。先把1个渠道做到能稳定出结果，再考虑扩张。"},
+ {t:"4 · 只看虚荣指标", b:"点赞、粉丝数好看不等于赚钱。盯紧转化率、获客成本、复购率这些真正影响生意的指标。"},
+ {t:"5 · 把AI当万能替代品", b:"AI能大幅提效，但缺乏真实经验和判断力注入的纯AI内容，效果通常明显弱于人机协作的内容。"},
+ {t:"6 · 不做A/B测试凭感觉决策", b:"\"我觉得这个标题更好\"式的判断，长期来看输给哪怕最简单的数据对比测试。"},
+ {t:"7 · 私域=广告轰炸群", b:"没有价值输出、只发广告的社群，用户流失速度会远超你拉新的速度。"},
+ {t:"8 · 广告投放一步到位大额投入", b:"没有经过小额测试验证的素材和定向，直接大额投放大概率是在烧钱交学费。"},
+ {t:"9 · 从不复盘，重复踩坑", b:"没有固定的复盘节奏(周复盘/月复盘)，同样的错误会反复出现，经验无法沉淀。"},
+ {t:"10 · 幻想存在\"万能公式\"", b:"任何渠道的\"必爆公式\"都会随着算法和用户审美迭代而失效，真正的能力是持续测试和快速调整。"}
+];
+
+/* ============================================================
+   数据层：持续学习资源类型
+   ============================================================ */
+const RES = [
+ {n:"各平台官方营销学院 / 帮助中心", t:"权威·免费"},
+ {n:"Google/Meta 官方博客与算法更新公告", t:"一手信源"},
+ {n:"行业数据周报(新榜、蝉妈妈月报等)", t:"趋势追踪"},
+ {n:"目标垂类头部账号的持续跟拍分析", t:"实战对标"},
+ {n:"营销类播客与从业者访谈", t:"深度认知"},
+ {n:"每季度一次的竞品全渠道复盘", t:"自我校准"}
+];
+
+/* ============================================================
+   渲染逻辑
+   ============================================================ */
+function renderModules(){
+  const container = document.getElementById('moduleContainer');
+  let lastGroup = "";
+  let html = "";
+  MODULES.forEach((m, idx) => {
+    if(m.group !== lastGroup){
+      html += `<div class="group-tag">${m.group}</div>`;
+      lastGroup = m.group;
+    }
+    const actionItems = m.actions.map((a,i)=>`<li data-mid="${idx}" data-aid="${i}">${a}</li>`).join('');
+    html += `
+    <div class="mcard" id="mcard-${idx}">
+      <div class="mcard-head" onclick="toggleCard(${idx})">
+        <span class="mcard-code">${m.code}</span>
+        <div class="mcard-titlewrap">
+          <div class="mcard-title">${m.title}</div>
+          <div class="mcard-oneliner">${m.one}</div>
+        </div>
+        <span class="mcard-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+      <div class="mcard-body" id="mbody-${idx}">
+        <div class="mcard-body-inner">
+          <div class="mblock">
+            <div class="mblock-label"><span class="dotc" style="background:#3FC3FF"></span>核心逻辑</div>
+            <p class="logic">${m.logic}</p>
+          </div>
+          <div class="mblock">
+            <div class="mblock-label"><span class="dotc" style="background:#FFB020"></span>2026 最新趋势</div>
+            <ul class="trendlist">${m.trends.map(t=>`<li>${t}</li>`).join('')}</ul>
+          </div>
+          <div class="mblock">
+            <div class="mblock-label"><span class="dotc" style="background:#00E5A0"></span>执行清单（点击打勾）</div>
+            <ul class="checklist">${actionItems}</ul>
+          </div>
+          <div class="mblock">
+            <div class="mblock-label"><span class="dotc" style="background:#3FC3FF"></span>常用工具</div>
+            <div class="taglist">${m.tools.map(t=>`<span>${t}</span>`).join('')}</div>
+          </div>
+          <div class="mblock">
+            <div class="mblock-label"><span class="dotc" style="background:#FF5D5D"></span>常见误区</div>
+            <ul class="mistakelist">${m.mistakes.map(t=>`<li>${t}</li>`).join('')}</ul>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  });
+  container.innerHTML = html;
+
+  // 绑定 checklist 点击
+  document.querySelectorAll('.checklist li').forEach(li=>{
+    li.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      li.classList.toggle('done');
+      updateProgress();
+    });
+  });
+}
+
+function toggleCard(idx){
+  const card = document.getElementById('mcard-'+idx);
+  const body = document.getElementById('mbody-'+idx);
+  const isOpen = card.classList.contains('open');
+  if(isOpen){
+    card.classList.remove('open');
+    body.style.maxHeight = null;
+  } else {
+    card.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+  }
+}
+
+function renderPlan(){
+  const container = document.getElementById('plan90Container');
+  container.innerHTML = PLAN.map(p => `
+    <div class="week">
+      <div class="week-head"><span class="week-num">${p.w}</span><span class="week-title">${p.t}</span></div>
+      <div class="week-desc">${p.d}</div>
+    </div>
+  `).join('');
+}
+
+function renderTools(){
+  const grid = document.getElementById('toolGrid');
+  grid.innerHTML = TOOLS.map(g => `
+    <div class="toolcat">
+      <h4>${g.cat}</h4>
+      <ul>${g.items.map(([n,d])=>`<li><b>${n}</b><br>${d}</li>`).join('')}</ul>
+    </div>
+  `).join('');
+}
+
+function renderMyths(){
+  const grid = document.getElementById('mythGrid');
+  grid.innerHTML = MYTHS.map(m => `
+    <div class="myth"><div class="mtitle">${m.t}</div><div class="mbody">${m.b}</div></div>
+  `).join('');
+}
+
+function renderRes(){
+  const list = document.getElementById('resList');
+  list.innerHTML = RES.map(r => `
+    <div class="resitem"><span class="rname">${r.n}</span><span class="rtype">${r.t}</span></div>
+  `).join('');
+}
+
+/* ============================================================
+   进度追踪
+   ============================================================ */
+function updateProgress(){
+  const total = document.querySelectorAll('.checklist li').length;
+  const done = document.querySelectorAll('.checklist li.done').length;
+  const pct = total ? Math.round((done/total)*100) : 0;
+  document.getElementById('topProgressFill').style.width = pct + '%';
+  document.getElementById('topProgressPct').textContent = pct + '%';
+  document.getElementById('fabPct').textContent = pct + '%';
+  document.getElementById('statActions').textContent = done;
+
+  // 重新计算已展开卡片的高度（因为勾选文字可能换行变化不大，但保险起见）
+  document.querySelectorAll('.mcard.open').forEach(card=>{
+    const body = card.querySelector('.mcard-body');
+    body.style.maxHeight = body.scrollHeight + 'px';
+  });
+}
+
+document.getElementById('fabBtn').addEventListener('click', ()=>{
+  document.getElementById('modules').scrollIntoView({behavior:'smooth'});
+});
+
+renderModules();
+renderPlan();
+renderTools();
+renderMyths();
+renderRes();
+updateProgress();
+document.getElementById('statModules').textContent = MODULES.length;
+</script>
+</body>
+</html>

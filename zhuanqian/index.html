@@ -1,0 +1,1780 @@
+HTML = """<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>网络自由完整指南 · 2026年版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F6F2;--bg2:#FFFFFF;--bg3:#F0EEE8;--bg4:#E8E5DC;
+  --ink:#1A1A2E;--ink2:#3D3D5C;--ink3:#7A7A9A;
+  --red:#E63946;--teal:#2EC4B6;--amber:#FF9F1C;
+  --purple:#7B2FBE;--green:#06D6A0;--blue:#3A86FF;--pink:#FF6B9D;
+  --orange:#FF6B35;
+  --border:#E2E0D8;--border2:#C8C5B8;
+  --shadow:0 4px 24px rgba(26,26,46,.08);
+  --shadow-lg:0 12px 48px rgba(26,26,46,.14);
+  --r:14px;--r2:8px;
+  --ff-d:'Playfair Display',serif;
+  --ff-b:'Noto Sans SC',sans-serif;
+  --ff-m:'IBM Plex Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--ff-b);line-height:1.7;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+::selection{background:rgba(230,57,70,.15)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+/* PROGRESS */
+#pgbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--red),var(--amber),var(--teal),var(--purple));z-index:9999;width:0;transition:width .1s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;background:rgba(247,246,242,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-logo{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--red),var(--orange));display:flex;align-items:center;justify-content:center;font-size:18px}
+.nav-text{font-family:var(--ff-m);font-size:12px;font-weight:600;letter-spacing:1px;color:var(--ink)}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{padding:6px 12px;font-size:12px;font-weight:500;color:var(--ink3);border-radius:6px;transition:all .2s}
+.nav-links a:hover{color:var(--ink);background:var(--bg3)}
+@media(max-width:768px){.nav-links{display:none}}
+
+/* HERO */
+#hero{min-height:100vh;padding:100px 6vw 80px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;position:relative;overflow:hidden;max-width:1200px;margin:0 auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(230,57,70,.08);border:1px solid rgba(230,57,70,.25);color:var(--red);font-family:var(--ff-m);font-size:11px;font-weight:600;letter-spacing:2px;padding:5px 14px;border-radius:20px;margin-bottom:28px;text-transform:uppercase}
+.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);animation:blink 1.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero-h1{font-family:var(--ff-d);font-size:clamp(38px,6vw,80px);font-weight:900;line-height:1.05;letter-spacing:-1px;color:var(--ink);margin-bottom:10px;max-width:900px}
+.hero-h1 em{font-style:normal;color:var(--red)}
+.hero-h1 .gr{background:linear-gradient(135deg,var(--amber),var(--red),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-h2{font-family:var(--ff-d);font-size:clamp(22px,3.5vw,42px);font-weight:700;color:var(--ink3);margin-bottom:32px;max-width:800px;line-height:1.2}
+.hero-lead{font-size:clamp(14px,1.5vw,18px);color:var(--ink2);line-height:1.9;max-width:680px;margin-bottom:40px}
+.hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px}
+.htag{background:var(--bg2);border:1.5px solid var(--border);border-radius:20px;padding:7px 16px;font-size:13px;font-weight:500;color:var(--ink2);transition:all .2s}
+.htag:hover{border-color:var(--red);color:var(--red)}
+.hero-stat-row{display:flex;flex-wrap:wrap;gap:20px;margin-bottom:44px}
+.hs{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:16px 20px;min-width:120px}
+.hs-n{font-family:var(--ff-d);font-size:32px;font-weight:700;line-height:1;color:var(--ink)}
+.hs-l{font-size:11px;color:var(--ink3);margin-top:4px;font-weight:500}
+.hero-btn-row{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{background:var(--ink);color:#fff;font-size:14px;font-weight:700;padding:14px 32px;border-radius:30px;border:none;cursor:pointer;transition:all .25s;font-family:var(--ff-b);letter-spacing:.5px}
+.btn-primary:hover{background:var(--red);transform:translateY(-2px);box-shadow:0 8px 28px rgba(230,57,70,.35)}
+.btn-ghost{background:transparent;border:2px solid var(--ink);color:var(--ink);font-size:14px;font-weight:700;padding:12px 30px;border-radius:30px;cursor:pointer;transition:all .25s;font-family:var(--ff-b)}
+.btn-ghost:hover{border-color:var(--red);color:var(--red)}
+.hero-scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--ink3);font-size:11px;letter-spacing:2px;text-transform:uppercase;font-family:var(--ff-m)}
+.hero-scroll-hint::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,var(--border2),transparent);animation:scrollpulse 1.8s infinite}
+@keyframes scrollpulse{0%,100%{opacity:1;transform:scaleY(1)}50%{opacity:.4;transform:scaleY(.5)}}
+
+/* DIVIDER */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0 6vw}
+
+/* SECTION COMMON */
+.section{padding:80px 6vw;max-width:1400px;margin:0 auto}
+.band{padding:80px 6vw}
+.band-inner{max-width:1400px;margin:0 auto}
+.sec-tag{display:inline-flex;align-items:center;gap:10px;font-family:var(--ff-m);font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--ink3);margin-bottom:16px}
+.sec-tag::before{content:'';width:24px;height:2px;background:currentColor;border-radius:2px}
+.sec-h2{font-family:var(--ff-d);font-size:clamp(28px,4vw,54px);font-weight:900;line-height:1.1;letter-spacing:-0.5px;color:var(--ink);margin-bottom:16px}
+.sec-lead{font-size:clamp(14px,1.4vw,16px);color:var(--ink2);line-height:1.9;max-width:720px;margin-bottom:48px}
+.c-red{color:var(--red)}.c-teal{color:var(--teal)}.c-amber{color:var(--amber)}.c-purple{color:var(--purple)}.c-green{color:var(--green)}.c-blue{color:var(--blue)}
+
+/* CALLOUT */
+.callout{border-radius:var(--r);padding:22px 26px;margin:24px 0;display:flex;gap:16px;align-items:flex-start}
+.callout.warn{background:rgba(230,57,70,.05);border:1px solid rgba(230,57,70,.2)}
+.callout.tip{background:rgba(46,196,182,.05);border:1px solid rgba(46,196,182,.2)}
+.callout.info{background:rgba(58,134,255,.05);border:1px solid rgba(58,134,255,.2)}
+.callout.gold{background:rgba(255,159,28,.05);border:1px solid rgba(255,159,28,.2)}
+.callout.purple{background:rgba(123,47,190,.05);border:1px solid rgba(123,47,190,.2)}
+.callout-icon{font-size:24px;flex-shrink:0;line-height:1}
+.callout-title{font-weight:700;font-size:14px;color:var(--ink);margin-bottom:6px}
+.callout-text{font-size:13.5px;color:var(--ink2);line-height:1.85}
+
+/* ─── PART 1: 心理诊断 ─── */
+.abandon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:40px}
+.acard{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);padding:26px;position:relative;overflow:hidden;transition:all .3s}
+.acard:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.acard::before{content:attr(data-num);position:absolute;top:-10px;right:14px;font-family:var(--ff-d);font-size:80px;font-weight:900;color:var(--bg3);line-height:1}
+.acard-icon{font-size:28px;margin-bottom:12px;display:block}
+.acard-title{font-weight:700;font-size:16px;color:var(--ink);margin-bottom:8px}
+.acard-body{font-size:13px;color:var(--ink2);line-height:1.8;margin-bottom:14px}
+.acard-fix{padding:10px 14px;border-radius:var(--r2);background:rgba(46,196,182,.07);border-left:3px solid var(--teal);font-size:12.5px;color:var(--ink2);line-height:1.7}
+.acard-fix strong{display:block;font-size:11px;font-family:var(--ff-m);letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
+.cycle-diagram{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0;margin:40px 0}
+.cycle-node{background:var(--bg2);border:2px solid var(--border);border-radius:12px;padding:18px 20px;text-align:center;min-width:140px;transition:all .3s;cursor:default}
+.cycle-node:hover{border-color:var(--red);transform:scale(1.05)}
+.cycle-node-icon{font-size:26px;display:block;margin-bottom:6px}
+.cycle-node-label{font-weight:700;font-size:13px;color:var(--ink);margin-bottom:3px}
+.cycle-node-sub{font-size:11px;color:var(--ink3)}
+.cycle-arrow{font-size:22px;color:var(--border2);padding:0 6px;flex-shrink:0}
+.break-box{background:linear-gradient(135deg,rgba(230,57,70,.08),rgba(255,159,28,.08));border:2px solid rgba(230,57,70,.2);border-radius:var(--r);padding:28px 32px;text-align:center;margin:30px 0}
+.break-box h3{font-family:var(--ff-d);font-size:28px;font-weight:700;color:var(--red);margin-bottom:12px}
+.break-box p{font-size:15px;color:var(--ink2);line-height:1.85;max-width:600px;margin:0 auto}
+
+/* ─── PART 2: 第一性原理 ─── */
+.principle-stack{display:flex;flex-direction:column;gap:16px;margin-bottom:44px}
+.pcard{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);padding:28px 32px;display:grid;grid-template-columns:64px 1fr;gap:24px;align-items:start;transition:all .3s;cursor:pointer}
+.pcard:hover{box-shadow:var(--shadow-lg);transform:translateX(6px);border-color:var(--pc,var(--teal))}
+.pcard-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--pc,var(--teal)),var(--pc2,var(--green)));display:flex;align-items:center;justify-content:center;font-family:var(--ff-d);font-size:24px;font-weight:700;color:#fff;flex-shrink:0}
+.pcard-tag{font-family:var(--ff-m);font-size:9px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--pc,var(--teal));margin-bottom:6px;display:block}
+.pcard-title{font-weight:700;font-size:18px;color:var(--ink);margin-bottom:8px;font-family:var(--ff-d)}
+.pcard-body{font-size:14px;color:var(--ink2);line-height:1.85;margin-bottom:12px}
+.pcard-formula{font-family:var(--ff-m);font-size:13px;color:var(--pc,var(--teal));padding:10px 16px;background:rgba(46,196,182,.06);border-radius:var(--r2);border:1px solid rgba(46,196,182,.15);letter-spacing:.5px}
+.formula-big{background:linear-gradient(135deg,rgba(230,57,70,.05),rgba(255,159,28,.05));border:2px dashed rgba(230,57,70,.25);border-radius:var(--r);padding:32px;text-align:center;margin:32px 0}
+.formula-big .formula-eq{font-family:var(--ff-m);font-size:clamp(14px,2.5vw,22px);color:var(--ink);line-height:1.8;font-weight:600}
+.formula-big .formula-eq em{font-style:normal;color:var(--red)}
+.formula-big .formula-label{font-size:13px;color:var(--ink3);margin-top:12px;font-style:italic}
+.mindset-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
+@media(max-width:700px){.mindset-grid{grid-template-columns:1fr}}
+.mindset-col{background:var(--bg2);border-radius:var(--r);padding:24px;border:1.5px solid var(--border)}
+.mindset-col h4{font-weight:700;font-size:15px;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.mindset-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.mindset-list li{font-size:13px;color:var(--ink2);line-height:1.7;display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:var(--r2)}
+.mindset-list li.bad{background:rgba(230,57,70,.05);border-left:3px solid var(--red)}
+.mindset-list li.bad::before{content:'✗';color:var(--red);font-weight:700;flex-shrink:0}
+.mindset-list li.good{background:rgba(6,214,160,.05);border-left:3px solid var(--green)}
+.mindset-list li.good::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0}
+
+/* ─── PART 3: 技术武器库 ─── */
+.tech-matrix{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px;margin-bottom:40px}
+.tech-category{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;transition:all .3s}
+.tech-category:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.tc-head{padding:18px 22px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+.tc-icon{font-size:24px}
+.tc-name{font-weight:700;font-size:15px;color:#fff}
+.tc-count{font-family:var(--ff-m);font-size:10px;background:rgba(255,255,255,.2);padding:2px 8px;border-radius:10px;color:#fff;margin-left:auto}
+.tc-tools{padding:16px 22px;display:flex;flex-direction:column;gap:10px}
+.tool-row{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:var(--r2);background:var(--bg3);transition:all .2s;cursor:pointer}
+.tool-row:hover{background:var(--bg4);transform:translateX(3px)}
+.tool-emoji{font-size:18px;flex-shrink:0}
+.tool-info{flex:1}
+.tool-name{font-weight:600;font-size:13px;color:var(--ink)}
+.tool-desc{font-size:11.5px;color:var(--ink3);margin-top:1px}
+.tool-badge{font-family:var(--ff-m);font-size:9px;font-weight:700;padding:2px 7px;border-radius:8px;white-space:nowrap;flex-shrink:0}
+.free{background:rgba(6,214,160,.12);color:var(--green);border:1px solid rgba(6,214,160,.25)}
+.paid{background:rgba(58,134,255,.12);color:var(--blue);border:1px solid rgba(58,134,255,.25)}
+.hot{background:rgba(230,57,70,.12);color:var(--red);border:1px solid rgba(230,57,70,.25)}
+.ai-formula-banner{background:linear-gradient(135deg,#1A1A2E,#2D1B69,#1A1A2E);color:#fff;border-radius:var(--r);padding:40px;text-align:center;margin:40px 0;position:relative;overflow:hidden}
+.ai-formula-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(123,47,190,.3),transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,196,182,.2),transparent 60%)}
+.afb-inner{position:relative}
+.afb-tag{font-family:var(--ff-m);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:14px;display:block}
+.afb-title{font-family:var(--ff-d);font-size:clamp(22px,4vw,42px);font-weight:700;margin-bottom:20px;line-height:1.2}
+.afb-title em{font-style:normal;background:linear-gradient(135deg,#FFD700,#FF6B35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.afb-formula{font-family:var(--ff-m);font-size:clamp(13px,2vw,18px);color:rgba(255,255,255,.9);letter-spacing:.5px;line-height:2}
+.afb-sub{font-size:13px;color:rgba(255,255,255,.5);margin-top:16px}
+
+/* ─── PART 4: 商业模式 ─── */
+.model-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.mtab{padding:9px 18px;border-radius:20px;cursor:pointer;font-size:13px;font-weight:600;border:2px solid var(--border);background:var(--bg2);color:var(--ink3);transition:all .25s;font-family:var(--ff-b)}
+.mtab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.model-card{display:none;background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden}
+.model-card.active{display:grid;grid-template-columns:1fr 1fr;gap:0}
+@media(max-width:900px){.model-card.active{grid-template-columns:1fr}}
+.mc-left{padding:36px;border-right:1px solid var(--border)}
+@media(max-width:900px){.mc-left{border-right:none;border-bottom:1px solid var(--border)}}
+.mc-right{padding:36px;background:var(--bg3)}
+.mc-head{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.mc-emoji{font-size:36px}
+.mc-badge{font-family:var(--ff-m);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:10px;margin-bottom:4px;display:block}
+.mc-name{font-family:var(--ff-d);font-weight:700;font-size:22px;color:var(--ink)}
+.mc-desc{font-size:14px;color:var(--ink2);line-height:1.85;margin-bottom:22px}
+.mc-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px}
+.mc-meta-item{background:var(--bg3);border-radius:var(--r2);padding:12px 14px}
+.mc-meta-label{font-family:var(--ff-m);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:4px;display:block}
+.mc-meta-value{font-weight:700;font-size:14px;color:var(--ink)}
+.mc-steps-title{font-weight:700;font-size:14px;color:var(--ink);margin-bottom:14px;font-family:var(--ff-m);letter-spacing:1px;text-transform:uppercase}
+.mc-step{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}
+.mc-step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff-m);font-size:12px;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px}
+.mc-step-content{}
+.mc-step-title{font-weight:700;font-size:14px;color:var(--ink);margin-bottom:3px}
+.mc-step-body{font-size:12.5px;color:var(--ink2);line-height:1.75}
+.mc-tools-list{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
+.mc-tool{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);padding:6px 12px;font-size:12px;font-weight:500;color:var(--ink2);display:flex;align-items:center;gap:5px}
+.mc-income-box{background:linear-gradient(135deg,rgba(6,214,160,.08),rgba(46,196,182,.05));border:1px solid rgba(6,214,160,.2);border-radius:var(--r);padding:20px 22px}
+.mc-income-label{font-family:var(--ff-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;display:block}
+.mc-income-value{font-family:var(--ff-d);font-size:32px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.mc-income-note{font-size:12px;color:var(--ink3)}
+.mc-auto-box{background:linear-gradient(135deg,rgba(123,47,190,.07),rgba(58,134,255,.04));border:1px solid rgba(123,47,190,.2);border-radius:var(--r);padding:18px 20px;margin-top:16px}
+.mc-auto-label{font-family:var(--ff-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:10px;display:block}
+.mc-auto-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.mc-auto-list li{font-size:12.5px;color:var(--ink2);display:flex;align-items:flex-start;gap:8px;line-height:1.65}
+.mc-auto-list li::before{content:'⚡';flex-shrink:0;font-size:12px}
+.model-compare{overflow-x:auto;margin-top:40px;border-radius:var(--r);border:1px solid var(--border);background:var(--bg2)}
+.mctable{width:100%;border-collapse:collapse;min-width:800px}
+.mctable th{padding:13px 16px;text-align:left;font-family:var(--ff-m);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);background:var(--bg3);border-bottom:1px solid var(--border)}
+.mctable td{padding:13px 16px;border-bottom:1px solid var(--border);font-size:13px;color:var(--ink2);vertical-align:top;line-height:1.6}
+.mctable tr:last-child td{border-bottom:none}
+.mctable tr:hover td{background:var(--bg3)}
+.td-name{font-weight:700;color:var(--ink)!important;font-size:14px!important}
+.pill{display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:600}
+.pill-r{background:rgba(230,57,70,.1);color:var(--red)}
+.pill-g{background:rgba(6,214,160,.1);color:var(--green)}
+.pill-a{background:rgba(255,159,28,.1);color:var(--amber)}
+.pill-b{background:rgba(58,134,255,.1);color:var(--blue)}
+
+/* ─── PART 5: 90天计划 ─── */
+.phase-nav{display:flex;gap:2px;margin-bottom:32px;background:var(--bg3);border-radius:12px;padding:4px}
+.phase-btn{flex:1;padding:12px 8px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;border:none;background:transparent;color:var(--ink3);transition:all .25s;font-family:var(--ff-b);text-align:center}
+.phase-btn.active{background:var(--bg2);color:var(--ink);box-shadow:var(--shadow)}
+.phase-pane{display:none}
+.phase-pane.active{display:block}
+.phase-header{background:linear-gradient(135deg,var(--ph-c1,var(--red)),var(--ph-c2,var(--orange)));border-radius:var(--r);padding:28px 32px;color:#fff;margin-bottom:28px;display:flex;align-items:center;gap:20px}
+@media(max-width:600px){.phase-header{flex-direction:column;text-align:center}}
+.ph-icon{font-size:40px;flex-shrink:0}
+.ph-title{font-family:var(--ff-d);font-size:28px;font-weight:700;margin-bottom:4px}
+.ph-subtitle{font-size:14px;opacity:.85;margin-bottom:6px}
+.ph-goal{font-family:var(--ff-m);font-size:12px;opacity:.7;letter-spacing:.5px}
+.week-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-bottom:28px}
+.week-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;transition:all .3s}
+.week-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.wc-head{padding:14px 18px;font-weight:700;font-size:14px;color:#fff;display:flex;align-items:center;gap:10px}
+.wc-body{padding:16px 18px}
+.day-row{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start;padding:8px 10px;border-radius:var(--r2);transition:all .2s}
+.day-row:hover{background:var(--bg3)}
+.day-label{font-family:var(--ff-m);font-size:10px;font-weight:600;color:var(--ink3);min-width:28px;margin-top:2px;flex-shrink:0}
+.day-tasks{flex:1}
+.day-task{font-size:13px;color:var(--ink2);line-height:1.65}
+.day-task strong{color:var(--ink);font-weight:700}
+.milestone-bar{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);padding:24px 28px;margin-bottom:20px}
+.mb-title{font-weight:700;font-size:15px;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.mb-items{display:flex;flex-direction:column;gap:10px}
+.mb-item{display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:var(--r2);background:var(--bg3);transition:all .2s}
+.mb-item:hover{background:var(--bg4)}
+.mb-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;transition:all .2s}
+.mb-check.done{background:var(--green);border-color:var(--green);color:#fff}
+.mb-text{font-size:13px;color:var(--ink2);flex:1;line-height:1.5}
+.mb-tag{font-family:var(--ff-m);font-size:9px;padding:2px 7px;border-radius:8px;white-space:nowrap}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-top:20px}
+.kpi{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r2);padding:16px;text-align:center;transition:all .3s}
+.kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.kpi-n{font-family:var(--ff-d);font-size:28px;font-weight:700;color:var(--ink);line-height:1;margin-bottom:4px}
+.kpi-l{font-size:11px;color:var(--ink3);font-weight:500}
+
+/* ─── PART 6: 自动化系统 ─── */
+.auto-flow{display:flex;flex-direction:column;gap:2px;margin-bottom:36px}
+.af-node{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);padding:24px 28px;display:grid;grid-template-columns:56px 1fr auto;gap:20px;align-items:center;transition:all .3s;cursor:pointer;position:relative}
+.af-node:hover{box-shadow:var(--shadow);border-color:var(--af-c,var(--teal));transform:translateX(4px)}
+.af-node::after{content:'';position:absolute;left:27px;bottom:-2px;width:2px;height:2px;background:var(--border2);z-index:1}
+.af-circle{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.af-content{}
+.af-tag{font-family:var(--ff-m);font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--af-c,var(--teal));margin-bottom:4px;display:block}
+.af-title{font-weight:700;font-size:15px;color:var(--ink);margin-bottom:4px}
+.af-body{font-size:13px;color:var(--ink2);line-height:1.7}
+.af-tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.af-tool{font-size:11px;padding:2px 8px;border-radius:8px;background:var(--bg3);color:var(--ink2);border:1px solid var(--border)}
+.af-saving{text-align:right;flex-shrink:0}
+.af-saving-n{font-family:var(--ff-d);font-size:20px;font-weight:700;color:var(--green);line-height:1;display:block}
+.af-saving-l{font-size:10px;color:var(--ink3);font-family:var(--ff-m);letter-spacing:.5px}
+.auto-stacks{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;margin-top:36px}
+.stack-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;transition:all .3s}
+.stack-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.sc-head{padding:18px 22px;display:flex;align-items:center;gap:12px}
+.sc-icon{font-size:22px}
+.sc-title{font-weight:700;font-size:15px}
+.sc-body{padding:16px 22px}
+.sc-item{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start;padding:8px 10px;border-radius:var(--r2);background:var(--bg3)}
+.sc-step-n{font-family:var(--ff-m);font-size:11px;font-weight:700;min-width:22px;flex-shrink:0;padding-top:1px}
+.sc-step-text{font-size:13px;color:var(--ink2);line-height:1.65}
+.sc-step-text strong{color:var(--ink)}
+
+/* ─── PART 7: 每日系统 ─── */
+.daily-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:36px}
+@media(max-width:800px){.daily-grid{grid-template-columns:1fr}}
+.time-block{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden}
+.tb-head{padding:16px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+.tb-time{font-family:var(--ff-m);font-size:13px;font-weight:600;color:var(--ink)}
+.tb-label{font-size:12px;color:var(--ink3);margin-left:auto}
+.tb-body{padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.tb-task{display:flex;gap:12px;align-items:flex-start;padding:9px 12px;border-radius:var(--r2);background:var(--bg3);transition:all .2s}
+.tb-task:hover{background:var(--bg4)}
+.tb-task-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.tb-task-content{}
+.tb-task-title{font-weight:600;font-size:13.5px;color:var(--ink);margin-bottom:2px}
+.tb-task-desc{font-size:12px;color:var(--ink3);line-height:1.6}
+.weekly-review{background:linear-gradient(135deg,rgba(123,47,190,.06),rgba(58,134,255,.04));border:1.5px solid rgba(123,47,190,.2);border-radius:var(--r);padding:28px 32px;margin-bottom:28px}
+.wr-title{font-weight:700;font-size:18px;color:var(--ink);margin-bottom:20px;display:flex;align-items:center;gap:10px;font-family:var(--ff-d)}
+.wr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.wr-item{background:var(--bg2);border-radius:var(--r2);padding:14px 16px}
+.wr-q{font-weight:600;font-size:13px;color:var(--ink);margin-bottom:6px}
+.wr-a{font-size:12px;color:var(--ink3);line-height:1.65}
+.metrics-dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:28px}
+.metric-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);padding:20px;transition:all .3s}
+.metric-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.metric-icon{font-size:22px;margin-bottom:8px;display:block}
+.metric-n{font-family:var(--ff-d);font-size:26px;font-weight:700;color:var(--mc,var(--ink));margin-bottom:4px;line-height:1}
+.metric-label{font-size:12px;color:var(--ink3);font-weight:500}
+.metric-trend{font-size:11px;margin-top:6px;display:flex;align-items:center;gap:4px}
+.trend-up{color:var(--green)}.trend-dn{color:var(--red)}
+
+/* ─── PART 8: 心理护盾 ─── */
+.shield-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:36px}
+.shield-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);padding:26px;transition:all .3s;position:relative;overflow:hidden}
+.shield-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.shield-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--sc,var(--teal)),transparent)}
+.sc-icon2{font-size:30px;margin-bottom:14px;display:block}
+.sc-title2{font-weight:700;font-size:16px;color:var(--ink);margin-bottom:8px;font-family:var(--ff-d)}
+.sc-body2{font-size:13.5px;color:var(--ink2);line-height:1.85;margin-bottom:14px}
+.sc-action{font-family:var(--ff-m);font-size:11px;color:var(--sc,var(--teal));padding:8px 12px;background:rgba(46,196,182,.06);border-radius:var(--r2);border:1px solid rgba(46,196,182,.15);display:block}
+.promise-box{background:linear-gradient(135deg,var(--ink),#2D1B69);color:#fff;border-radius:var(--r);padding:48px;text-align:center;margin-top:48px;position:relative;overflow:hidden}
+.pb-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(230,57,70,.2),transparent 50%),radial-gradient(ellipse at 80% 50%,rgba(46,196,182,.2),transparent 50%)}
+.pb-inner{position:relative}
+.pb-title{font-family:var(--ff-d);font-size:clamp(28px,5vw,52px);font-weight:900;margin-bottom:16px;line-height:1.1}
+.pb-title em{font-style:normal;background:linear-gradient(135deg,#FFD700,#FF6B35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pb-body{font-size:16px;opacity:.8;max-width:600px;margin:0 auto 32px;line-height:1.9}
+.pb-items{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-bottom:36px}
+.pb-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:10px 20px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
+.pb-btn{display:inline-block;background:linear-gradient(135deg,var(--amber),var(--red));color:#fff;font-size:15px;font-weight:700;padding:16px 40px;border-radius:30px;cursor:pointer;transition:all .3s;border:none;font-family:var(--ff-b)}
+.pb-btn:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(230,57,70,.4)}
+
+/* FOOTER */
+footer{padding:48px 6vw;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;max-width:1400px;margin:0 auto}
+.ft-brand{font-family:var(--ff-m);font-size:12px;font-weight:600;color:var(--ink3)}
+.ft-note{font-size:12px;color:var(--ink3);max-width:500px;text-align:center;line-height:1.7}
+.ft-ver{font-family:var(--ff-m);font-size:11px;color:var(--border2)}
+
+/* ANIMATIONS */
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+@media(max-width:600px){.section{padding:60px 4vw}.band{padding:60px 4vw}}
+</style>
+</head>
+<body>
+<div id="pgbar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">🧠</div>
+    <span class="nav-text">FREEDOM OS · 2026</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#abandon">突破放弃</a></li>
+    <li><a href="#principle">第一性原理</a></li>
+    <li><a href="#tech">AI武器库</a></li>
+    <li><a href="#model">商业模式</a></li>
+    <li><a href="#plan">90天计划</a></li>
+    <li><a href="#auto">自动化</a></li>
+    <li><a href="#daily">每日系统</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-eyebrow">2026年最新版 · 完整路径指南</div>
+  <h1 class="hero-h1">你不是没能力<br>你只是缺少<br><span class="gr">清晰的系统</span></h1>
+  <h2 class="hero-h2">从第一性原理出发，用 AI 自动化打造<em class="c-red">属于你的网络自由</em></h2>
+  <p class="hero-lead">你已经想了很久了。每次开始，每次中途放弃——不是因为你不够努力，而是因为你在没有地图的情况下独自摸黑前行。这份指南，就是你一直缺少的那张地图。</p>
+  <div class="hero-tags">
+    <span class="htag">🧠 第一性原理思维</span>
+    <span class="htag">🤖 AI全自动化</span>
+    <span class="htag">📱 一台电脑启动</span>
+    <span class="htag">⚡ 2026最新技术</span>
+    <span class="htag">🚀 90天快速变现</span>
+    <span class="htag">💰 睡后被动收入</span>
+    <span class="htag">🌐 全球互联网市场</span>
+  </div>
+  <div class="hero-stat-row">
+    <div class="hs"><div class="hs-n" style="color:var(--red)">6</div><div class="hs-l">大商业模式路径</div></div>
+    <div class="hs"><div class="hs-n" style="color:var(--teal)">90</div><div class="hs-l">天快速启动计划</div></div>
+    <div class="hs"><div class="hs-n" style="color:var(--amber)">40+</div><div class="hs-l">免费AI工具推荐</div></div>
+    <div class="hs"><div class="hs-n" style="color:var(--purple)">2h</div><div class="hs-l">每天执行即可</div></div>
+  </div>
+  <div class="hero-btn-row">
+    <button class="btn-primary" onclick="document.getElementById('abandon').scrollIntoView({behavior:'smooth'})">开始我的自由之路 →</button>
+    <button class="btn-ghost" onclick="document.getElementById('model').scrollIntoView({behavior:'smooth'})">先看商业模式</button>
+  </div>
+  <div class="hero-scroll-hint">向下滚动</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     PART 1: 突破放弃循环
+════════════════════════════════════════════════════ -->
+<section id="abandon" class="section fade-in">
+  <div class="sec-tag" style="color:var(--red)">第一部分</div>
+  <h2 class="sec-h2">你为什么<em class="c-red">每次都放弃？</em></h2>
+  <p class="sec-lead">在给你任何方法之前，我们必须先解决一个根本问题：你不是第一次有这个想法，也不是第一次开始。但你每次都在某个点上停下来了。我们来精准诊断原因。</p>
+
+  <div class="callout warn fade-in">
+    <div class="callout-icon">🔍</div>
+    <div>
+      <div class="callout-title">诚实地面对自己</div>
+      <div class="callout-text">根据研究，互联网创业失败的核心原因不是市场、不是技术、不是竞争——而是创业者在<strong>清晰度不足时做了太多决策</strong>，最终被不确定性压垮。你的问题几乎可以精确地归结为以下5个之一。</div>
+    </div>
+  </div>
+
+  <!-- 5大放弃原因 -->
+  <div class="abandon-grid fade-in">
+    <div class="acard" data-num="01">
+      <span class="acard-icon">🌀</span>
+      <div class="acard-title">方向太多，选择瘫痪</div>
+      <div class="acard-body">看到短视频说这个赚钱，又看到文章说那个更好。脑子里同时有10个方向，每个都觉得可行，每个又都不确定——最终什么都没做成。</div>
+      <div class="acard-fix">
+        <strong>🔧 破解方法</strong>
+        用第一性原理筛选：只选1条路，深挖90天，期间不看其他方向。本指南第四部分有选择工具。
+      </div>
+    </div>
+    <div class="acard" data-num="02">
+      <span class="acard-icon">📊</span>
+      <div class="acard-title">太晚才看到结果</div>
+      <div class="acard-body">做了2周内容，没有流量；做了1个月，没有变现。没有正反馈，动力就快速消耗殆尽。你的大脑需要多巴胺奖励，但你设置的奖励周期太长了。</div>
+      <div class="acard-fix">
+        <strong>🔧 破解方法</strong>
+        把目标分解为每日小里程碑，让每天都有可量化的进展。本指南给出具体的每日成功指标。
+      </div>
+    </div>
+    <div class="acard" data-num="03">
+      <span class="acard-icon">🤯</span>
+      <div class="acard-title">技术复杂度超过预期</div>
+      <div class="acard-body">开始时觉得很简单，做到一半发现要学的东西越来越多：建网站、学剪辑、懂SEO、会投放……每一步都是新的山头，精力被消耗殆尽。</div>
+      <div class="acard-fix">
+        <strong>🔧 破解方法</strong>
+        2026年的AI工具已经把80%的技术门槛消除。你的任务是学会使用工具，而不是成为专家。
+      </div>
+    </div>
+    <div class="acard" data-num="04">
+      <span class="acard-icon">💸</span>
+      <div class="acard-title">没有收入，信心崩溃</div>
+      <div class="acard-body">第一个月投入了大量时间，但收入是0。理性上知道需要时间，但情感上已经开始怀疑：我是不是根本不适合这个？这件事是不是骗局？</div>
+      <div class="acard-fix">
+        <strong>🔧 破解方法</strong>
+        选择"快速验证"商业模式，在前两周就能看到第一笔收入（哪怕只是几十元），建立信心锚点。
+      </div>
+    </div>
+    <div class="acard" data-num="05">
+      <span class="acard-icon">⏰</span>
+      <div class="acard-title">没有系统，靠意志力</div>
+      <div class="acard-body">依赖每天"今天心情好就多做点"的方式运作。没有固定时间、没有清单、没有流程——全靠意志力维持，而意志力是最不可靠的资源。</div>
+      <div class="acard-fix">
+        <strong>🔧 破解方法</strong>
+        每天固定2小时，执行本指南的日程系统，让习惯代替意志力。系统运行，不靠感觉。
+      </div>
+    </div>
+  </div>
+
+  <!-- 放弃循环图 -->
+  <h3 style="font-family:var(--ff-d);font-size:22px;font-weight:700;margin-bottom:20px;text-align:center">你一直陷在这个<span class="c-red">死亡循环</span>里</h3>
+  <div class="cycle-diagram fade-in">
+    <div class="cycle-node">
+      <span class="cycle-node-icon">✨</span>
+      <div class="cycle-node-label">兴奋启动</div>
+      <div class="cycle-node-sub">我要开始了！</div>
+    </div>
+    <div class="cycle-arrow">→</div>
+    <div class="cycle-node">
+      <span class="cycle-node-icon">😰</span>
+      <div class="cycle-node-label">遇到困难</div>
+      <div class="cycle-node-sub">不知道下一步</div>
+    </div>
+    <div class="cycle-arrow">→</div>
+    <div class="cycle-node">
+      <span class="cycle-node-icon">📉</span>
+      <div class="cycle-node-label">没有结果</div>
+      <div class="cycle-node-sub">时间白费了？</div>
+    </div>
+    <div class="cycle-arrow">→</div>
+    <div class="cycle-node">
+      <span class="cycle-node-icon">😔</span>
+      <div class="cycle-node-label">开始怀疑</div>
+      <div class="cycle-node-sub">是不是我不行</div>
+    </div>
+    <div class="cycle-arrow">→</div>
+    <div class="cycle-node" style="border-color:var(--red)">
+      <span class="cycle-node-icon">🚫</span>
+      <div class="cycle-node-label" style="color:var(--red)">放弃</div>
+      <div class="cycle-node-sub">等下次"状态好"</div>
+    </div>
+  </div>
+
+  <div class="break-box fade-in">
+    <h3>这次不一样，因为你有了系统</h3>
+    <p>系统的力量远大于意志力。从今天开始，你不需要每天决定"做什么"——本指南已经告诉你了。你只需要打开清单，执行，然后关掉。大脑的能量用在创造，不用在决策。</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     PART 2: 第一性原理
+════════════════════════════════════════════════════ -->
+<section id="principle" class="section fade-in">
+  <div class="sec-tag" style="color:var(--teal)">第二部分</div>
+  <h2 class="sec-h2">互联网赚钱的<em class="c-teal">底层公式</em></h2>
+  <p class="sec-lead">掌握第一性原理，就是找到事物最底层的真相，而不是模仿别人的表面做法。以下是互联网赚钱真正不变的底层逻辑——无论平台怎么变、技术怎么迭代，这些公式永远成立。</p>
+
+  <div class="formula-big fade-in">
+    <div class="formula-eq">
+      互联网收入 = <em>注意力</em> × 信任度 × 转化率 × 规模化系数
+    </div>
+    <div class="formula-label">这是一切网络商业模式的底层公式。你的任何努力，最终都在提升这4个变量中的一个或多个。</div>
+  </div>
+
+  <div class="principle-stack fade-in">
+    <div class="pcard" style="--pc:var(--red);--pc2:var(--orange)">
+      <div class="pcard-num">1</div>
+      <div>
+        <span class="pcard-tag">核心变量 01</span>
+        <div class="pcard-title">注意力 · 所有商业的起点</div>
+        <div class="pcard-body">互联网上最稀缺的资源不是钱，不是技术，而是人类的注意力。任何成功的网络商业模式，本质上都是先赢得注意力。2026年，用AI工具批量生产高价值内容，是获取注意力成本最低的方式。</div>
+        <div class="pcard-formula">注意力获取成本↓ = AI内容生产效率↑ × 分发渠道多元化 × 精准定位目标人群</div>
+      </div>
+    </div>
+    <div class="pcard" style="--pc:var(--teal);--pc2:var(--green)">
+      <div class="pcard-num">2</div>
+      <div>
+        <span class="pcard-tag">核心变量 02</span>
+        <div class="pcard-title">信任度 · 变现的唯一桥梁</div>
+        <div class="pcard-body">没有人会从一个不信任的人那里买东西。信任来源于：持续输出有价值内容、真实的个人经历分享、社群和口碑积累。2026年AI泛滥时代，真实性和人格化是信任的最大护城河。</div>
+        <div class="pcard-formula">信任度 = 一致性 × 时间 × 价值密度 / 商业噪音</div>
+      </div>
+    </div>
+    <div class="pcard" style="--pc:var(--amber);--pc2:var(--orange)">
+      <div class="pcard-num">3</div>
+      <div>
+        <span class="pcard-tag">核心变量 03</span>
+        <div class="pcard-title">转化率 · 把关注变成收入</div>
+        <div class="pcard-body">转化率是有了注意力和信任之后，让用户"掏钱"的能力。这取决于：产品和需求的匹配度、价格定位是否合理、销售路径是否顺畅。好的系统能让转化几乎自动发生。</div>
+        <div class="pcard-formula">转化率↑ = 需求精准匹配 × 摩擦力↓ × 价格锚定 × 稀缺感</div>
+      </div>
+    </div>
+    <div class="pcard" style="--pc:var(--purple);--pc2:var(--blue)">
+      <div class="pcard-num">4</div>
+      <div>
+        <span class="pcard-tag">核心变量 04</span>
+        <div class="pcard-title">规模化系数 · 睡后收入的关键</div>
+        <div class="pcard-body">上班是用时间换钱，系数永远是1。规模化的本质是把你的一次性劳动变成可无限复制的资产。数字产品、自动化流程、AI助理，让你的"工作小时"不再是收入的上限。</div>
+        <div class="pcard-formula">规模化系数 = 1 / (需要你亲自投入的比例) × 自动化程度 × 产品可复制性</div>
+      </div>
+    </div>
+    <div class="pcard" style="--pc:var(--green);--pc2:var(--teal)">
+      <div class="pcard-num">5</div>
+      <div>
+        <span class="pcard-tag">核心原则 05</span>
+        <div class="pcard-title">MVP原则 · 最小可行化快速验证</div>
+        <div class="pcard-body">99%的互联网创业失败，是因为在验证需求之前投入太多资源。第一性原理要求：在最低成本下，最快速度验证"这个市场愿意为这个产品付钱吗"。答案是Yes，再加码投入。</div>
+        <div class="pcard-formula">MVP时间 ≤ 2周 → 获得真实市场反馈 → 迭代或转向 → 规模化</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 思维对比 -->
+  <h3 style="font-family:var(--ff-d);font-size:22px;font-weight:700;margin-bottom:20px" class="fade-in">打破5个致命的错误思维</h3>
+  <div class="mindset-grid fade-in">
+    <div class="mindset-col">
+      <h4 style="color:var(--red)">❌ 错误思维（放弃的根源）</h4>
+      <ul class="mindset-list">
+        <li class="bad">我要先把所有东西都学会，再开始行动</li>
+        <li class="bad">我要等到有完整的产品再发布</li>
+        <li class="bad">竞争太激烈了，市场已经饱和</li>
+        <li class="bad">我没有粉丝、没有资源、没有背景</li>
+        <li class="bad">我需要一个绝无仅有的创新点子</li>
+        <li class="bad">先做副业攒够钱，再全力投入</li>
+        <li class="bad">我需要一个团队才能开始</li>
+      </ul>
+    </div>
+    <div class="mindset-col">
+      <h4 style="color:var(--green)">✓ 正确思维（成功的基础）</h4>
+      <ul class="mindset-list">
+        <li class="good">行动中学习，边做边优化，速度就是护城河</li>
+        <li class="good">先发布最简版本，收到反馈再迭代完善</li>
+        <li class="good">有竞争说明有市场，我只需要1%的份额</li>
+        <li class="good">0粉丝启动是常态，AI帮我以10倍速积累</li>
+        <li class="good">模仿成功者的底层逻辑，加入自己的视角</li>
+        <li class="good">每天2小时，90天见结果，不需要辞职</li>
+        <li class="good">2026年AI就是我的团队，一人公司完全可行</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout gold fade-in" style="margin-top:28px">
+    <div class="callout-icon">💡</div>
+    <div>
+      <div class="callout-title">第一性原理的终极问题</div>
+      <div class="callout-text">每次做任何决策前，问自己：<strong>"这件事的本质是什么？如果我从零开始，没有任何假设，我会怎么做？"</strong>这个问题会帮你砍掉90%的无效行动，把精力集中在真正重要的事上。</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     PART 3: AI武器库
+════════════════════════════════════════════════════ -->
+<section id="tech" class="section fade-in">
+  <div class="sec-tag" style="color:var(--purple)">第三部分</div>
+  <h2 class="sec-h2">你的<em class="c-purple">AI武器库</em> · 2026最新版</h2>
+  <p class="sec-lead">这是历史上第一次，一个普通人可以拥有比10年前大型公司更强的内容生产、营销和分析能力——只需要一台电脑和免费工具。这就是你的不公平优势。</p>
+
+  <div class="ai-formula-banner fade-in">
+    <div class="afb-inner">
+      <span class="afb-tag">2026年的核心洞见</span>
+      <h3 class="afb-title">你的大脑 + <em>AI工具</em> = 过去10人团队的能力</h3>
+      <div class="afb-formula">
+        AI写作助理 × AI视频生成 × AI图像设计 × AI自动化工作流<br>
+        = 每天输出 ×10 倍内容 × 节省 ×8 倍时间 × 降低 ×5 倍成本
+      </div>
+      <div class="afb-sub">你不是在和人竞争，你是在带着AI和其他人竞争</div>
+    </div>
+  </div>
+
+  <div class="tech-matrix fade-in">
+    <div class="tech-category">
+      <div class="tc-head" style="background:linear-gradient(135deg,#E63946,#FF6B35)">
+        <span class="tc-icon">✍️</span>
+        <span class="tc-name">AI内容创作</span>
+        <span class="tc-count">8个工具</span>
+      </div>
+      <div class="tc-tools">
+        <div class="tool-row"><span class="tool-emoji">🤖</span><div class="tool-info"><div class="tool-name">DeepSeek / Claude</div><div class="tool-desc">中英文写作、文案、脚本生成</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">📝</span><div class="tool-info"><div class="tool-name">ChatGPT 4o</div><div class="tool-desc">多模态创作，图文分析</div></div><span class="tool-badge paid">付费</span></div>
+        <div class="tool-row"><span class="tool-emoji">✨</span><div class="tool-info"><div class="tool-name">Notion AI</div><div class="tool-desc">内容管理+AI写作一体</div></div><span class="tool-badge paid">付费</span></div>
+        <div class="tool-row"><span class="tool-emoji">🎯</span><div class="tool-info"><div class="tool-name">文心一言 / 通义</div><div class="tool-desc">国内平台内容，本土化强</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">📊</span><div class="tool-info"><div class="tool-name">Gamma.app</div><div class="tool-desc">AI一键生成PPT和演示文稿</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">📧</span><div class="tool-info"><div class="tool-name">Copy.ai</div><div class="tool-desc">营销文案、邮件自动生成</div></div><span class="tool-badge free">免费</span></div>
+      </div>
+    </div>
+    <div class="tech-category">
+      <div class="tc-head" style="background:linear-gradient(135deg,#7B2FBE,#3A86FF)">
+        <span class="tc-icon">🎬</span>
+        <span class="tc-name">AI视频生成</span>
+        <span class="tc-count">7个工具</span>
+      </div>
+      <div class="tc-tools">
+        <div class="tool-row"><span class="tool-emoji">🎭</span><div class="tool-info"><div class="tool-name">剪映 AI数字人</div><div class="tool-desc">国内最易用，免费数字人配音</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">🎥</span><div class="tool-info"><div class="tool-name">HeyGen</div><div class="tool-desc">真实感AI数字人视频，接企业单</div></div><span class="tool-badge hot">热门</span></div>
+        <div class="tool-row"><span class="tool-emoji">🌊</span><div class="tool-info"><div class="tool-name">Sora / Kling</div><div class="tool-desc">文字生成视频，内容创作利器</div></div><span class="tool-badge hot">热门</span></div>
+        <div class="tool-row"><span class="tool-emoji">✂️</span><div class="tool-info"><div class="tool-name">CapCut / 剪映PC</div><div class="tool-desc">AI自动字幕、剪辑、特效</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">🎙️</span><div class="tool-info"><div class="tool-name">ElevenLabs</div><div class="tool-desc">全球最佳AI配音，多语言</div></div><span class="tool-badge paid">付费</span></div>
+        <div class="tool-row"><span class="tool-emoji">📱</span><div class="tool-info"><div class="tool-name">Pika / Runway ML</div><div class="tool-desc">图片生成动态视频</div></div><span class="tool-badge paid">付费</span></div>
+      </div>
+    </div>
+    <div class="tech-category">
+      <div class="tc-head" style="background:linear-gradient(135deg,#2EC4B6,#06D6A0)">
+        <span class="tc-icon">🎨</span>
+        <span class="tc-name">AI图像设计</span>
+        <span class="tc-count">6个工具</span>
+      </div>
+      <div class="tc-tools">
+        <div class="tool-row"><span class="tool-emoji">🖼️</span><div class="tool-info"><div class="tool-name">即梦AI / 文心一格</div><div class="tool-desc">国内免费，商业用图生成</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">🌟</span><div class="tool-info"><div class="tool-name">Midjourney</div><div class="tool-desc">商业级AI绘图，接单必备</div></div><span class="tool-badge paid">付费</span></div>
+        <div class="tool-row"><span class="tool-emoji">🎭</span><div class="tool-info"><div class="tool-name">FLUX / Stable Diffusion</div><div class="tool-desc">本地部署，成本为零</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">✏️</span><div class="tool-info"><div class="tool-name">Canva AI</div><div class="tool-desc">设计模板+AI，新手友好</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">🔥</span><div class="tool-info"><div class="tool-name">Adobe Firefly</div><div class="tool-desc">商用授权安全的AI图像</div></div><span class="tool-badge paid">付费</span></div>
+      </div>
+    </div>
+    <div class="tech-category">
+      <div class="tc-head" style="background:linear-gradient(135deg,#FF9F1C,#FFD700)">
+        <span class="tc-icon">⚡</span>
+        <span class="tc-name">AI自动化工具</span>
+        <span class="tc-count">8个工具</span>
+      </div>
+      <div class="tc-tools">
+        <div class="tool-row"><span class="tool-emoji">🔗</span><div class="tool-info"><div class="tool-name">Zapier / Make.com</div><div class="tool-desc">连接所有App，自动化工作流</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">🤖</span><div class="tool-info"><div class="tool-name">n8n（自建）</div><div class="tool-desc">免费开源，本地自动化神器</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">📣</span><div class="tool-info"><div class="tool-name">Buffer / 小红书定时</div><div class="tool-desc">多平台内容自动定时发布</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">🧠</span><div class="tool-info"><div class="tool-name">Dify.ai / Coze</div><div class="tool-desc">零代码搭建AI应用和机器人</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">💬</span><div class="tool-info"><div class="tool-name">ManyChat</div><div class="tool-desc">社媒自动回复和营销漏斗</div></div><span class="tool-badge paid">付费</span></div>
+        <div class="tool-row"><span class="tool-emoji">📊</span><div class="tool-info"><div class="tool-name">Airtable / 飞书</div><div class="tool-desc">自动化数据库和业务系统</div></div><span class="tool-badge free">免费</span></div>
+      </div>
+    </div>
+    <div class="tech-category">
+      <div class="tc-head" style="background:linear-gradient(135deg,#3A86FF,#0066CC)">
+        <span class="tc-icon">📈</span>
+        <span class="tc-name">流量&amp;数据分析</span>
+        <span class="tc-count">6个工具</span>
+      </div>
+      <div class="tc-tools">
+        <div class="tool-row"><span class="tool-emoji">🔍</span><div class="tool-info"><div class="tool-name">Google Analytics 4</div><div class="tool-desc">全平台用户行为追踪</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">📱</span><div class="tool-info"><div class="tool-name">飞瓜数据 / 蝉妈妈</div><div class="tool-desc">抖音小红书爆款选品分析</div></div><span class="tool-badge paid">付费</span></div>
+        <div class="tool-row"><span class="tool-emoji">🌐</span><div class="tool-info"><div class="tool-name">Ahrefs / SEMrush</div><div class="tool-desc">SEO关键词和竞品分析</div></div><span class="tool-badge paid">付费</span></div>
+        <div class="tool-row"><span class="tool-emoji">📊</span><div class="tool-info"><div class="tool-name">百度指数 / 微信指数</div><div class="tool-desc">国内市场热度免费查询</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">💡</span><div class="tool-info"><div class="tool-name">Hotjar</div><div class="tool-desc">用户点击热图，优化转化</div></div><span class="tool-badge free">免费</span></div>
+      </div>
+    </div>
+    <div class="tech-category">
+      <div class="tc-head" style="background:linear-gradient(135deg,#FF6B9D,#C44B9E)">
+        <span class="tc-icon">🛒</span>
+        <span class="tc-name">电商&amp;变现工具</span>
+        <span class="tc-count">7个工具</span>
+      </div>
+      <div class="tc-tools">
+        <div class="tool-row"><span class="tool-emoji">🏪</span><div class="tool-info"><div class="tool-name">爱发电 / Gumroad</div><div class="tool-desc">数字产品销售，无需技术</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">🎓</span><div class="tool-info"><div class="tool-name">小鹅通 / 腾讯课堂</div><div class="tool-desc">课程销售，私域流量变现</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">🌍</span><div class="tool-info"><div class="tool-name">Shopify / WooCommerce</div><div class="tool-desc">独立站，品牌自主变现</div></div><span class="tool-badge paid">付费</span></div>
+        <div class="tool-row"><span class="tool-emoji">📦</span><div class="tool-info"><div class="tool-name">淘宝/拼多多/1688</div><div class="tool-desc">国内电商，一件代发起步</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">💌</span><div class="tool-info"><div class="tool-name">ConvertKit / Mailchimp</div><div class="tool-desc">邮件列表自动化营销</div></div><span class="tool-badge free">免费</span></div>
+        <div class="tool-row"><span class="tool-emoji">⭐</span><div class="tool-info"><div class="tool-name">知识星球</div><div class="tool-desc">付费社群，稳定订阅收入</div></div><span class="tool-badge free">免费</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout info fade-in">
+    <div class="callout-icon">🎯</div>
+    <div>
+      <div class="callout-title">工具选择原则：不要工具瘫痪</div>
+      <div class="callout-text">不要试图学会所有工具。选定一个商业模式后，只学该模式需要的3-5个工具，用3周时间把它们用熟。其他的等有了稳定收入后再扩展。<strong>先聚焦，再扩张。</strong></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     PART 4: 商业模式选择
+════════════════════════════════════════════════════ -->
+<section id="model" class="section fade-in">
+  <div class="sec-tag" style="color:var(--amber)">第四部分</div>
+  <h2 class="sec-h2">选择你的<em class="c-amber">商业路径</em></h2>
+  <p class="sec-lead">以下6条路径，每一条都经过验证，每一条都可以在2026年用AI大幅加速。你只需要选择1条最适合你当前状态的，然后深挖90天。不要同时走两条路。</p>
+
+  <div class="model-tabs fade-in">
+    <button class="mtab active" onclick="switchModel('m1',this)">🎬 AI内容创作</button>
+    <button class="mtab" onclick="switchModel('m2',this)">📦 数字产品</button>
+    <button class="mtab" onclick="switchModel('m3',this)">🎓 知识变现</button>
+    <button class="mtab" onclick="switchModel('m4',this)">🛒 自动化电商</button>
+    <button class="mtab" onclick="switchModel('m5',this)">💼 AI服务接单</button>
+    <button class="mtab" onclick="switchModel('m6',this)">🔗 联盟营销</button>
+  </div>
+
+  <!-- Model 1 -->
+  <div class="model-card active" id="m1">
+    <div class="mc-left">
+      <div class="mc-head">
+        <span class="mc-emoji">🎬</span>
+        <div>
+          <span class="mc-badge" style="background:rgba(230,57,70,.1);color:var(--red)">推荐指数 ★★★★★</span>
+          <div class="mc-name">AI内容创作矩阵</div>
+        </div>
+      </div>
+      <div class="mc-desc">用AI工具批量生产高价值短视频、图文内容，在抖音/小红书/视频号/B站同步分发，通过广告分成、带货佣金、品牌合作三重变现。2026年流量红利最大的方向之一。</div>
+      <div class="mc-meta">
+        <div class="mc-meta-item"><span class="mc-meta-label">启动资金</span><span class="mc-meta-value">0 元</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">见效时间</span><span class="mc-meta-value">30-60天</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">每日投入</span><span class="mc-meta-value">2-3小时</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">难度</span><span class="mc-meta-value" style="color:var(--green)">低</span></div>
+      </div>
+      <div class="mc-steps-title">核心执行步骤</div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--red)">1</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">选定1个垂直领域</div>
+          <div class="mc-step-body">健康知识/财经解读/历史故事/职场干货/育儿/法律常识。选你有一定了解的，不需要是专家。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--red)">2</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">用AI建立内容流水线</div>
+          <div class="mc-step-body">DeepSeek写脚本→剪映数字人配音→自动字幕→定时发布。每天3-5条，全程1.5小时。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--red)">3</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">多账号矩阵同步分发</div>
+          <div class="mc-step-body">同一内容微调后在抖音/快手/视频号/B站同步发，收入叠加，用量弥补单账号不确定性。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--red)">4</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">开通多渠道变现</div>
+          <div class="mc-step-body">1000粉→购物车带货；5000粉→中视频计划；1万粉→品牌合作。三重叠加月入5000+。</div>
+        </div>
+      </div>
+    </div>
+    <div class="mc-right">
+      <div class="mc-income-box">
+        <span class="mc-income-label">90天后预期月收入</span>
+        <div class="mc-income-value">3,000 – 30,000元</div>
+        <div class="mc-income-note">取决于内容质量和账号数量，矩阵运营可达上限</div>
+      </div>
+      <div class="mc-auto-box">
+        <span class="mc-auto-label">⚡ 可自动化的环节</span>
+        <ul class="mc-auto-list">
+          <li>AI写脚本（DeepSeek，10秒/条）</li>
+          <li>AI生成数字人视频（剪映，5分钟/条）</li>
+          <li>AI自动添加字幕（准确率95%+）</li>
+          <li>多平台定时自动发布（Buffer/剪映）</li>
+          <li>数据分析自动报表（抖音后台）</li>
+        </ul>
+      </div>
+      <div style="margin-top:16px">
+        <div class="mc-steps-title">适合你的情况</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:10px">
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 想从零开始，零成本启动</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 有某个领域的兴趣或知识</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 不想露脸（AI数字人代替真人）</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 希望建立长期稳定的流量资产</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Model 2 -->
+  <div class="model-card" id="m2">
+    <div class="mc-left">
+      <div class="mc-head">
+        <span class="mc-emoji">📦</span>
+        <div>
+          <span class="mc-badge" style="background:rgba(46,196,182,.1);color:var(--teal)">推荐指数 ★★★★★</span>
+          <div class="mc-name">AI数字产品商店</div>
+        </div>
+      </div>
+      <div class="mc-desc">用AI批量生产数字产品（模板/工具/资料/课程/Prompt包），在闲鱼/淘宝/爱发电/Gumroad出售，一次制作无限销售，是最接近真正"睡后收入"的模式。</div>
+      <div class="mc-meta">
+        <div class="mc-meta-item"><span class="mc-meta-label">启动资金</span><span class="mc-meta-value">0 元</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">见效时间</span><span class="mc-meta-value">7-14天</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">每日投入</span><span class="mc-meta-value">1-2小时</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">难度</span><span class="mc-meta-value" style="color:var(--green)">低</span></div>
+      </div>
+      <div class="mc-steps-title">核心执行步骤</div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--teal)">1</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">用AI挖掘高需求产品</div>
+          <div class="mc-step-body">闲鱼搜索"已卖出"产品分析什么卖得好：PPT模板/备考资料/Excel工具/Prompt合集/简历模板/行业报告。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--teal)">2</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">批量生产数字产品</div>
+          <div class="mc-step-body">AI生成内容→整理成PDF/Excel/模板文件→制作精美封面→设置自动发货链接。一天可生产10-20个产品。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--teal)">3</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">多平台同步铺货</div>
+          <div class="mc-step-body">同一产品在淘宝+闲鱼+爱发电+小红书引流同步上架，设置自动发货，真正做到无需人工干预。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--teal)">4</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">内容引流扩大销售</div>
+          <div class="mc-step-body">在小红书/知乎发免费干货，文末引流到产品店铺。爆款内容带来的流量持续3年，是最高ROI的引流方式。</div>
+        </div>
+      </div>
+    </div>
+    <div class="mc-right">
+      <div class="mc-income-box">
+        <span class="mc-income-label">90天后预期月收入</span>
+        <div class="mc-income-value">2,000 – 20,000元</div>
+        <div class="mc-income-note">产品越多，覆盖越广，被动收入持续增加</div>
+      </div>
+      <div class="mc-auto-box">
+        <span class="mc-auto-label">⚡ 可自动化的环节</span>
+        <ul class="mc-auto-list">
+          <li>AI批量生产内容（1天产50个产品骨架）</li>
+          <li>自动发货（网盘链接，零人工干预）</li>
+          <li>AI生成产品封面和描述文案</li>
+          <li>多平台库存自动同步管理</li>
+          <li>退款/客服AI自动回复</li>
+        </ul>
+      </div>
+      <div style="margin-top:16px">
+        <div class="mc-steps-title">适合你的情况</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:10px">
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 想要最纯粹的睡后被动收入</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 不想与客户复杂沟通</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 善于整理和归纳信息</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 想最快看到第一笔收入（7天内）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Model 3 -->
+  <div class="model-card" id="m3">
+    <div class="mc-left">
+      <div class="mc-head">
+        <span class="mc-emoji">🎓</span>
+        <div>
+          <span class="mc-badge" style="background:rgba(255,159,28,.1);color:var(--amber)">推荐指数 ★★★★☆</span>
+          <div class="mc-name">知识付费变现</div>
+        </div>
+      </div>
+      <div class="mc-desc">将你在某个领域的知识或经验，打包成课程、社群、咨询服务出售。一次录制持续销售，知识星球订阅制复购，是高客单价、高毛利的商业模式。</div>
+      <div class="mc-meta">
+        <div class="mc-meta-item"><span class="mc-meta-label">启动资金</span><span class="mc-meta-value">0 元</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">见效时间</span><span class="mc-meta-value">30-45天</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">每日投入</span><span class="mc-meta-value">2-3小时</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">难度</span><span class="mc-meta-value" style="color:var(--amber)">中</span></div>
+      </div>
+      <div class="mc-steps-title">核心执行步骤</div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--amber)">1</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">确定你的知识资产</div>
+          <div class="mc-step-body">你不需要是最顶级的专家，只需要比目标学员多知道30%。职场技能、行业经验、副业方法、任何实用技能都可以。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--amber)">2</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">用AI辅助快速制作课程</div>
+          <div class="mc-step-body">AI生成课程大纲→OBS录制讲解（免费）→剪映剪辑→小鹅通/腾讯课堂上架。全套流程1周内完成。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--amber)">3</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">建立付费社群复购体系</div>
+          <div class="mc-step-body">知识星球/微信群，99-299元/年，每周分享干货。500人社群×199元=年收入近10万，且每年持续续费。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--amber)">4</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">内容引流+口碑裂变</div>
+          <div class="mc-step-body">小红书/知乎/公众号持续输出免费内容，建立信任后引导付费。老学员推荐机制（返佣10-15%）实现裂变。</div>
+        </div>
+      </div>
+    </div>
+    <div class="mc-right">
+      <div class="mc-income-box">
+        <span class="mc-income-label">90天后预期月收入</span>
+        <div class="mc-income-value">5,000 – 50,000元</div>
+        <div class="mc-income-note">客单价高，100个付费用户即可达到5位数月收入</div>
+      </div>
+      <div class="mc-auto-box">
+        <span class="mc-auto-label">⚡ 可自动化的环节</span>
+        <ul class="mc-auto-list">
+          <li>AI生成课程脚本和大纲（节省80%备课时间）</li>
+          <li>社群常见问题AI自动回复</li>
+          <li>学员作业AI批改和反馈</li>
+          <li>邮件/微信营销自动化序列</li>
+          <li>课程销售页AI撰写优化</li>
+        </ul>
+      </div>
+      <div style="margin-top:16px">
+        <div class="mc-steps-title">适合你的情况</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:10px">
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 在某个领域有积累（工作经验/爱好技能）</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 想要高客单价、高毛利</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 愿意建立个人品牌和影响力</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 想要最可持续的长期商业模式</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Model 4 -->
+  <div class="model-card" id="m4">
+    <div class="mc-left">
+      <div class="mc-head">
+        <span class="mc-emoji">🛒</span>
+        <div>
+          <span class="mc-badge" style="background:rgba(6,214,160,.1);color:var(--green)">推荐指数 ★★★★☆</span>
+          <div class="mc-name">AI驱动自动化电商</div>
+        </div>
+      </div>
+      <div class="mc-desc">无货源一件代发+AI选品+AI文案+AI客服，打造几乎全自动化的电商运营体系。从淘宝/拼多多/抖音小店起步，用AI把竞争对手需要10人做的事，你一个人完成。</div>
+      <div class="mc-meta">
+        <div class="mc-meta-item"><span class="mc-meta-label">启动资金</span><span class="mc-meta-value">500-2000元</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">见效时间</span><span class="mc-meta-value">15-30天</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">每日投入</span><span class="mc-meta-value">2小时</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">难度</span><span class="mc-meta-value" style="color:var(--amber)">中</span></div>
+      </div>
+      <div class="mc-steps-title">核心执行步骤</div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--green)">1</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">AI数据选品</div>
+          <div class="mc-step-body">用飞瓜数据/蝉妈妈分析抖音爆款，找月销500-3000件、好评率95%+、利润率30%+的蓝海产品。1688找货源，确认支持一件代发。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--green)">2</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">AI生成全套商品素材</div>
+          <div class="mc-step-body">AI写标题、详情页、主图文案。AI生成或优化产品主图。整套素材从原来1-2天缩短到2小时，成本从几百元降为零。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--green)">3</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">多平台铺货+ERP管理</div>
+          <div class="mc-step-body">同一产品在淘宝/拼多多/抖音小店三平台上架。用超级店长ERP半自动化处理订单，一人管理500+SKU不是梦。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--green)">4</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">AI客服+自动化售后</div>
+          <div class="mc-step-body">旺旺设置AI自动回复模板，Coze搭建智能客服机器人，95%的日常问题自动处理，你只需处理5%的复杂情况。</div>
+        </div>
+      </div>
+    </div>
+    <div class="mc-right">
+      <div class="mc-income-box">
+        <span class="mc-income-label">90天后预期月收入</span>
+        <div class="mc-income-value">3,000 – 20,000元</div>
+        <div class="mc-income-note">取决于选品质量和运营投入，规模化后收入显著提升</div>
+      </div>
+      <div class="mc-auto-box">
+        <span class="mc-auto-label">⚡ 可自动化的环节</span>
+        <ul class="mc-auto-list">
+          <li>AI数据分析选品（从几天缩短到几小时）</li>
+          <li>AI批量生成商品文案和详情页</li>
+          <li>ERP半自动化订单处理和发货</li>
+          <li>AI客服机器人处理95%常见问题</li>
+          <li>数据报表自动生成，每日一键查看</li>
+        </ul>
+      </div>
+      <div style="margin-top:16px">
+        <div class="mc-steps-title">适合你的情况</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:10px">
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 有少量启动资金（500元起）</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 对商品、市场有感觉和兴趣</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 喜欢可量化的结果和数据</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 愿意在15-30天内看到明确收益</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Model 5 -->
+  <div class="model-card" id="m5">
+    <div class="mc-left">
+      <div class="mc-head">
+        <span class="mc-emoji">💼</span>
+        <div>
+          <span class="mc-badge" style="background:rgba(123,47,190,.1);color:var(--purple)">推荐指数 ★★★★☆</span>
+          <div class="mc-name">AI技能服务接单</div>
+        </div>
+      </div>
+      <div class="mc-desc">用AI工具武装自己，在威客平台接单：AI写作、视频剪辑、平面设计、配音、翻译、SEO优化等。AI让你的效率是普通服务商的5-10倍，但报价相同甚至更高。</div>
+      <div class="mc-meta">
+        <div class="mc-meta-item"><span class="mc-meta-label">启动资金</span><span class="mc-meta-value">0 元</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">见效时间</span><span class="mc-meta-value">3-7天</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">每日投入</span><span class="mc-meta-value">3-4小时</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">难度</span><span class="mc-meta-value" style="color:var(--green)">低</span></div>
+      </div>
+      <div class="mc-steps-title">核心执行步骤</div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--purple)">1</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">选定1-2个技能方向</div>
+          <div class="mc-step-body">视频剪辑/文案写作/平面设计/AI配音/AI绘图/翻译/SEO，选你最快能用AI出成果的方向，2-3天可以学会基础操作。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--purple)">2</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">建立作品集快速入驻平台</div>
+          <div class="mc-step-body">猪八戒/威客中国/Upwork注册，用AI工具3天制作10件作品集，展示你的能力。评价是最大资产，前3单低价换好评。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--purple)">3</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">AI工具加持，效率碾压同行</div>
+          <div class="mc-step-body">同样的视频剪辑，普通人3小时，你用AI剪映1小时完成，还有2小时接第二单。时间就是利润，AI让你单位时间收入倍增。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--purple)">4</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">发展长期企业客户</div>
+          <div class="mc-step-body">1个长期月度合作客户比每次找新客户效率高10倍。做好每一单，主动提出月度套餐，建立稳定收入基盘。</div>
+        </div>
+      </div>
+    </div>
+    <div class="mc-right">
+      <div class="mc-income-box">
+        <span class="mc-income-label">90天后预期月收入</span>
+        <div class="mc-income-value">5,000 – 25,000元</div>
+        <div class="mc-income-note">AI加持下效率极高，月服务5-8个客户即可达到目标</div>
+      </div>
+      <div class="mc-auto-box">
+        <span class="mc-auto-label">⚡ 可自动化的环节</span>
+        <ul class="mc-auto-list">
+          <li>AI工具将执行效率提升5-10倍</li>
+          <li>作品集AI辅助创作，建立速度极快</li>
+          <li>客户需求分析AI辅助，减少沟通时间</li>
+          <li>标准化服务模板，复用减少重复劳动</li>
+          <li>AI生成报价单和项目提案</li>
+        </ul>
+      </div>
+      <div style="margin-top:16px">
+        <div class="mc-steps-title">适合你的情况</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:10px">
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 需要最快看到收入（3-7天内）</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 零成本启动，立即可以开始</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 可以在正式上班期间兼做副业</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 想用一项技能快速建立信心</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Model 6 -->
+  <div class="model-card" id="m6">
+    <div class="mc-left">
+      <div class="mc-head">
+        <span class="mc-emoji">🔗</span>
+        <div>
+          <span class="mc-badge" style="background:rgba(58,134,255,.1);color:var(--blue)">推荐指数 ★★★★☆</span>
+          <div class="mc-name">联盟营销 + 私域变现</div>
+        </div>
+      </div>
+      <div class="mc-desc">在内容平台发布推荐内容，嵌入联盟推广链接（淘宝联盟/抖音精选联盟），用户购买后自动获得佣金。零库存零售后，内容发布后永久有效，是最纯粹的睡后收入。</div>
+      <div class="mc-meta">
+        <div class="mc-meta-item"><span class="mc-meta-label">启动资金</span><span class="mc-meta-value">0 元</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">见效时间</span><span class="mc-meta-value">14-30天</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">每日投入</span><span class="mc-meta-value">1-2小时</span></div>
+        <div class="mc-meta-item"><span class="mc-meta-label">难度</span><span class="mc-meta-value" style="color:var(--green)">低</span></div>
+      </div>
+      <div class="mc-steps-title">核心执行步骤</div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--blue)">1</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">注册联盟平台获取链接</div>
+          <div class="mc-step-body">淘宝联盟(alimama.com)/京东联盟/抖音精选联盟注册，免费申请。选择佣金率15%以上、月销量1000+、好评率95%+的产品。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--blue)">2</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">AI批量创作推荐内容</div>
+          <div class="mc-step-body">AI写测评文案+Canva制作对比图+剪映做短视频，每天10分钟，产出3-5条推荐内容。内容越真实，转化率越高。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--blue)">3</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">多平台矩阵分发</div>
+          <div class="mc-step-body">小红书/知乎/抖音/公众号同步发布，一篇内容多平台持续引流。一个爆款帖子可能带来几年的持续佣金收入。</div>
+        </div>
+      </div>
+      <div class="mc-step">
+        <div class="mc-step-num" style="background:var(--blue)">4</div>
+        <div class="mc-step-content">
+          <div class="mc-step-title">私域流量池深度变现</div>
+          <div class="mc-step-body">把粉丝引导到微信，建好物推荐群，每天分享1-2个推荐（附链接）。私域转化率比公域高10倍，是稳定的复利增长。</div>
+        </div>
+      </div>
+    </div>
+    <div class="mc-right">
+      <div class="mc-income-box">
+        <span class="mc-income-label">90天后预期月收入</span>
+        <div class="mc-income-value">2,000 – 20,000元</div>
+        <div class="mc-income-note">内容越积累越有价值，是真正的时间复利资产</div>
+      </div>
+      <div class="mc-auto-box">
+        <span class="mc-auto-label">⚡ 可自动化的环节</span>
+        <ul class="mc-auto-list">
+          <li>AI批量生成推荐内容文案（10分钟/天）</li>
+          <li>联盟链接嵌入自动生成</li>
+          <li>多平台定时自动发布</li>
+          <li>佣金数据自动统计汇总</li>
+          <li>私域微信群AI自动回复</li>
+        </ul>
+      </div>
+      <div style="margin-top:16px">
+        <div class="mc-steps-title">适合你的情况</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:10px">
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 想要最轻松的商业模式（无库存/无售后）</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 喜欢分享和推荐好东西</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 已有或计划建立内容账号</li>
+          <li style="font-size:13px;color:var(--ink2);padding:8px 12px;background:var(--bg3);border-radius:var(--r2)">✓ 追求长期稳定的被动复利收入</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 对比表 -->
+  <h3 style="font-family:var(--ff-d);font-size:22px;font-weight:700;margin:40px 0 16px" class="fade-in">6条路径一览对比</h3>
+  <div class="model-compare fade-in">
+    <table class="mctable">
+      <thead>
+        <tr>
+          <th>商业模式</th>
+          <th>启动资金</th>
+          <th>首次收入</th>
+          <th>月收入上限</th>
+          <th>自动化程度</th>
+          <th>推荐人群</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-name">🎬 AI内容矩阵</td><td><span class="pill pill-g">0元</span></td><td>30-60天</td><td>30,000+</td><td><span class="pill pill-g">极高</span></td><td>想建流量资产的人</td></tr>
+        <tr><td class="td-name">📦 数字产品</td><td><span class="pill pill-g">0元</span></td><td><span class="pill pill-r">7天内</span></td><td>20,000+</td><td><span class="pill pill-g">最高</span></td><td>想要睡后收入的人</td></tr>
+        <tr><td class="td-name">🎓 知识变现</td><td><span class="pill pill-g">0元</span></td><td>30-45天</td><td>50,000+</td><td><span class="pill pill-a">中</span></td><td>有专业积累的人</td></tr>
+        <tr><td class="td-name">🛒 自动化电商</td><td><span class="pill pill-a">500元+</span></td><td>15-30天</td><td>20,000+</td><td><span class="pill pill-g">高</span></td><td>有资金启动的人</td></tr>
+        <tr><td class="td-name">💼 AI服务接单</td><td><span class="pill pill-g">0元</span></td><td><span class="pill pill-r">3-7天</span></td><td>25,000+</td><td><span class="pill pill-a">中</span></td><td>急需快速见收入的人</td></tr>
+        <tr><td class="td-name">🔗 联盟营销</td><td><span class="pill pill-g">0元</span></td><td>14-30天</td><td>20,000+</td><td><span class="pill pill-g">极高</span></td><td>想要轻松被动收入的人</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     PART 5: 90天计划
+════════════════════════════════════════════════════ -->
+<section id="plan" class="section fade-in">
+  <div class="sec-tag" style="color:var(--orange)">第五部分</div>
+  <h2 class="sec-h2">你的<em class="c-amber">90天快速启动</em>系统</h2>
+  <p class="sec-lead">不再有模糊的"慢慢来"。以下是精确到每周的行动计划，按照这个执行，90天后你将拥有一个真实运作的网络收入来源。以AI内容矩阵+数字产品双轨为主线。</p>
+
+  <div class="phase-nav fade-in">
+    <button class="phase-btn active" onclick="switchPhase('p1',this)">🔥 第1阶段·启动期（第1-14天）</button>
+    <button class="phase-btn" onclick="switchPhase('p2',this)">🚀 第2阶段·验证期（第15-30天）</button>
+    <button class="phase-btn" onclick="switchPhase('p3',this)">📈 第3阶段·增长期（第31-60天）</button>
+    <button class="phase-btn" onclick="switchPhase('p4',this)">⚡ 第4阶段·规模化（第61-90天）</button>
+  </div>
+
+  <!-- Phase 1 -->
+  <div class="phase-pane active" id="p1">
+    <div class="phase-header" style="--ph-c1:var(--red);--ph-c2:var(--orange)">
+      <span class="ph-icon">🔥</span>
+      <div>
+        <div class="ph-title">启动期：第1-14天</div>
+        <div class="ph-subtitle">不完美地开始，好过完美地等待。这两周的目标是：全部搭建好，发出第一批内容，出第一笔收入。</div>
+        <div class="ph-goal">核心目标：发出30条内容 · 上架5个数字产品 · 赚到第一笔钱（哪怕只有9.9元）</div>
+      </div>
+    </div>
+    <div class="week-grid">
+      <div class="week-card">
+        <div class="wc-head" style="background:var(--red)">📅 第1-3天：基础搭建</div>
+        <div class="wc-body">
+          <div class="day-row"><div class="day-label">Day1</div><div class="day-tasks"><div class="day-task"><strong>选定方向</strong>：用本指南的路径选择器，确定你的唯一商业模式，写在纸上贴在显眼处</div></div></div>
+          <div class="day-row"><div class="day-label">Day1</div><div class="day-tasks"><div class="day-task"><strong>注册工具</strong>：DeepSeek+剪映PC版+即梦AI+Canva+闲鱼，全部免费，当天完成注册</div></div></div>
+          <div class="day-row"><div class="day-label">Day2</div><div class="day-tasks"><div class="day-task"><strong>学习工具</strong>：B站搜索剪映零基础教程，看完3个核心功能视频，做完第一个练习视频</div></div></div>
+          <div class="day-row"><div class="day-label">Day2</div><div class="day-tasks"><div class="day-task"><strong>注册账号</strong>：抖音+快手+视频号+B站，设置好账号名/头像/简介，风格统一</div></div></div>
+          <div class="day-row"><div class="day-label">Day3</div><div class="day-tasks"><div class="day-task"><strong>竞品研究</strong>：找同类账号10个，分析播放量最高的视频，记录：主题/格式/节奏/标题结构</div></div></div>
+        </div>
+      </div>
+      <div class="week-card">
+        <div class="wc-head" style="background:var(--orange)">📅 第4-7天：内容启动</div>
+        <div class="wc-body">
+          <div class="day-row"><div class="day-label">Day4</div><div class="day-tasks"><div class="day-task"><strong>建立内容流水线</strong>：DeepSeek生成第一批10条脚本，检查修改，保存为模板</div></div></div>
+          <div class="day-row"><div class="day-label">Day5</div><div class="day-tasks"><div class="day-task"><strong>生产第一批视频</strong>：剪映数字人生成5条视频，添加字幕+BGM+片头片尾，调整细节</div></div></div>
+          <div class="day-row"><div class="day-label">Day6</div><div class="day-tasks"><div class="day-task"><strong>发布第一条内容</strong>：选最好的1条，认真写标题（含关键词）和简介，多平台发布</div></div></div>
+          <div class="day-row"><div class="day-label">Day7</div><div class="day-tasks"><div class="day-task"><strong>发布数字产品</strong>：用AI整理5个实用资料包（各行业备考资料/模板/工具），上架闲鱼，设置自动发货</div></div></div>
+        </div>
+      </div>
+      <div class="week-card">
+        <div class="wc-head" style="background:var(--amber)">📅 第8-14天：规律化</div>
+        <div class="wc-body">
+          <div class="day-row"><div class="day-label">Day8-14</div><div class="day-tasks"><div class="day-task"><strong>每天发3条内容</strong>：固定流程：晨起30min写脚本→午休30min做视频→晚上20min发布+互动</div></div></div>
+          <div class="day-row"><div class="day-label">Day8-14</div><div class="day-tasks"><div class="day-task"><strong>每天上架2个数字产品</strong>：AI生成内容，整理打包，上架，累计到14天时有20个产品在售</div></div></div>
+          <div class="day-row"><div class="day-label">Day10</div><div class="day-tasks"><div class="day-task"><strong>分析数据</strong>：看哪条视频播放量最高，分析其标题/主题/格式，复制该类内容再产10条</div></div></div>
+          <div class="day-row"><div class="day-label">Day14</div><div class="day-tasks"><div class="day-task"><strong>第一阶段复盘</strong>：统计发布数量/播放量/销售额/粉丝增量，找出表现最好的，重点加大</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kpi-row fade-in">
+      <div class="kpi"><div class="kpi-n" style="color:var(--red)">30+</div><div class="kpi-l">发布内容数</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--amber)">20+</div><div class="kpi-l">数字产品数量</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--green)">¥9.9+</div><div class="kpi-l">第一笔收入</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--teal)">1个</div><div class="kpi-l">跑通的流程</div></div>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="phase-pane" id="p2">
+    <div class="phase-header" style="--ph-c1:var(--teal);--ph-c2:var(--green)">
+      <span class="ph-icon">🚀</span>
+      <div>
+        <div class="ph-title">验证期：第15-30天</div>
+        <div class="ph-subtitle">数据告诉你什么是对的，什么是错的。这两周的任务是：放大有效的，砍掉无效的，开通第一个变现渠道。</div>
+        <div class="ph-goal">核心目标：找到爆款内容方向 · 月收入突破500元 · 开通平台变现资格</div>
+      </div>
+    </div>
+    <div class="week-grid">
+      <div class="week-card">
+        <div class="wc-head" style="background:var(--teal)">📅 第15-21天：数据驱动</div>
+        <div class="wc-body">
+          <div class="day-row"><div class="day-label">Day15</div><div class="day-tasks"><div class="day-task"><strong>深度数据分析</strong>：找出播放量前5的内容，逐一分析：什么主题/什么格式/什么时间发/什么标题</div></div></div>
+          <div class="day-row"><div class="day-label">Day15-21</div><div class="day-tasks"><div class="day-task"><strong>集中复制爆款</strong>：把90%的内容生产资源集中在已验证的方向上，不要再试验新方向</div></div></div>
+          <div class="day-row"><div class="day-label">Day17</div><div class="day-tasks"><div class="day-task"><strong>开通变现资格</strong>：抖音粉丝1000+开购物车，申请中视频计划。闲鱼销量5+申请更多类目</div></div></div>
+          <div class="day-row"><div class="day-label">Day20</div><div class="day-tasks"><div class="day-task"><strong>小红书同步启动</strong>：图文版本的爆款内容同步发小红书，引流至闲鱼数字产品店铺</div></div></div>
+        </div>
+      </div>
+      <div class="week-card">
+        <div class="wc-head" style="background:var(--green)">📅 第22-30天：规模化试验</div>
+        <div class="wc-body">
+          <div class="day-row"><div class="day-label">Day22-30</div><div class="day-tasks"><div class="day-task"><strong>增加内容账号</strong>：在第二个平台注册账号，用相同内容微调后发布，流量叠加</div></div></div>
+          <div class="day-row"><div class="day-label">Day25</div><div class="day-tasks"><div class="day-task"><strong>升级数字产品</strong>：把最受欢迎的单品打包成套餐，价格提升3倍，测试客户接受度</div></div></div>
+          <div class="day-row"><div class="day-label">Day28</div><div class="day-tasks"><div class="day-task"><strong>建立联盟链接</strong>：注册淘宝联盟/抖音精选联盟，在内容中自然嵌入相关产品推荐</div></div></div>
+          <div class="day-row"><div class="day-label">Day30</div><div class="day-tasks"><div class="day-task"><strong>第二阶段复盘</strong>：统计月收入、粉丝增长、转化率，找到最优投入产出比的活动</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-n" style="color:var(--teal)">80+</div><div class="kpi-l">累计内容数</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--green)">¥500+</div><div class="kpi-l">月收入目标</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--amber)">1000+</div><div class="kpi-l">累计粉丝</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--purple)">3个</div><div class="kpi-l">变现渠道</div></div>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="phase-pane" id="p3">
+    <div class="phase-header" style="--ph-c1:var(--purple);--ph-c2:var(--blue)">
+      <span class="ph-icon">📈</span>
+      <div>
+        <div class="ph-title">增长期：第31-60天</div>
+        <div class="ph-subtitle">信心已经建立，系统已经跑通。现在是加速复制、系统优化、开始真正尝到甜头的阶段。</div>
+        <div class="ph-goal">核心目标：月收入突破2000元 · 形成内容-流量-变现完整闭环 · 建立第一批私域用户</div>
+      </div>
+    </div>
+    <div class="week-grid">
+      <div class="week-card">
+        <div class="wc-head" style="background:var(--purple)">📅 第31-45天：深化变现</div>
+        <div class="wc-body">
+          <div class="day-row"><div class="day-label">Day31-45</div><div class="day-tasks"><div class="day-task"><strong>私域流量建立</strong>：视频评论区/简介引导加微信，建立粉丝群，开始私域精准变现</div></div></div>
+          <div class="day-row"><div class="day-label">Day35</div><div class="day-tasks"><div class="day-task"><strong>品牌合作尝试</strong>：主动联系小品牌寻求合作，1000粉账号也可以获得500-2000元/条的广告</div></div></div>
+          <div class="day-row"><div class="day-label">Day40</div><div class="day-tasks"><div class="day-task"><strong>知识星球启动</strong>：如果你在某领域积累了口碑，开设知识星球，59-99元/年，开始订阅制收入</div></div></div>
+          <div class="day-row"><div class="day-label">Day45</div><div class="day-tasks"><div class="day-task"><strong>建立AI自动化流程</strong>：用n8n或Zapier把内容发布流程自动化，节省每天30-60分钟</div></div></div>
+        </div>
+      </div>
+      <div class="week-card">
+        <div class="wc-head" style="background:var(--blue)">📅 第46-60天：矩阵扩张</div>
+        <div class="wc-body">
+          <div class="day-row"><div class="day-label">Day46-60</div><div class="day-tasks"><div class="day-task"><strong>多账号矩阵正式运行</strong>：3-5个账号稳定更新，同一内容微调多平台同步，收入开始叠加</div></div></div>
+          <div class="day-row"><div class="day-label">Day50</div><div class="day-tasks"><div class="day-task"><strong>数字产品升级</strong>：基于用户反馈升级产品质量，推出99-299元中高价位产品，测试接受度</div></div></div>
+          <div class="day-row"><div class="day-label">Day55</div><div class="day-tasks"><div class="day-task"><strong>B端客户开发</strong>：把AI内容生产能力包装成服务，主动联系企业，接代运营/内容制作月度单</div></div></div>
+          <div class="day-row"><div class="day-label">Day60</div><div class="day-tasks"><div class="day-task"><strong>第三阶段复盘</strong>：核算月收入、各渠道ROI、下一阶段重点投入方向</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-n" style="color:var(--purple)">200+</div><div class="kpi-l">累计内容数</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--blue)">¥2000+</div><div class="kpi-l">月收入目标</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--teal)">5000+</div><div class="kpi-l">累计粉丝</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--green)">5+</div><div class="kpi-l">变现渠道</div></div>
+    </div>
+  </div>
+
+  <!-- Phase 4 -->
+  <div class="phase-pane" id="p4">
+    <div class="phase-header" style="--ph-c1:var(--green);--ph-c2:var(--teal)">
+      <span class="ph-icon">⚡</span>
+      <div>
+        <div class="ph-title">规模化：第61-90天</div>
+        <div class="ph-subtitle">你已经证明这个模式是有效的。现在只需要复制、优化、规模化。一人公司的全自动化运转，开始实现。</div>
+        <div class="ph-goal">核心目标：月收入突破5000元 · 70%工作流程自动化 · 决定是否全职投入</div>
+      </div>
+    </div>
+    <div class="week-grid">
+      <div class="week-card">
+        <div class="wc-head" style="background:var(--green)">📅 第61-75天：自动化升级</div>
+        <div class="wc-body">
+          <div class="day-row"><div class="day-label">Day61-75</div><div class="day-tasks"><div class="day-task"><strong>完整自动化系统搭建</strong>：AI写脚本→自动生成视频→自动发布→数据自动收集→自动报表，每天只需30分钟维护</div></div></div>
+          <div class="day-row"><div class="day-label">Day65</div><div class="day-tasks"><div class="day-task"><strong>高价值产品上线</strong>：推出499-999元的深度课程或顾问服务，已有信任基础，转化率会超出预期</div></div></div>
+          <div class="day-row"><div class="day-label">Day70</div><div class="day-tasks"><div class="day-task"><strong>异业合作</strong>：找同量级但不同方向的创作者互推，粉丝快速增长，双赢合作</div></div></div>
+          <div class="day-row"><div class="day-label">Day75</div><div class="day-tasks"><div class="day-task"><strong>用兼职助理扩展产能</strong>：招募兼职内容助理（500-1500元/月），你负责策略，他执行，产能翻倍</div></div></div>
+        </div>
+      </div>
+      <div class="week-card">
+        <div class="wc-head" style="background:var(--teal)">📅 第76-90天：决策时刻</div>
+        <div class="wc-body">
+          <div class="day-row"><div class="day-label">Day76-90</div><div class="day-tasks"><div class="day-task"><strong>全力规模化</strong>：把所有已验证的内容批量扩产，账号数量翻倍，产品数量翻倍</div></div></div>
+          <div class="day-row"><div class="day-label">Day80</div><div class="day-tasks"><div class="day-task"><strong>数据全面分析</strong>：哪个渠道ROI最高，哪个产品利润最高，哪个内容类型效果最好，重点加大</div></div></div>
+          <div class="day-row"><div class="day-label">Day85</div><div class="day-tasks"><div class="day-task"><strong>设定下一个90天目标</strong>：月收入3倍增长计划，是否全职投入，如何建立更完整的商业体系</div></div></div>
+          <div class="day-row"><div class="day-label">Day90</div><div class="day-tasks"><div class="day-task"><strong>完整90天复盘</strong>：总收入/总工时/ROI/最大收获/最大教训，写成文章发布，是最好的品牌内容</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-n" style="color:var(--green)">360+</div><div class="kpi-l">累计内容数</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--amber)">¥5000+</div><div class="kpi-l">月收入目标</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--teal)">10000+</div><div class="kpi-l">累计粉丝</div></div>
+      <div class="kpi"><div class="kpi-n" style="color:var(--purple)">70%</div><div class="kpi-l">自动化程度</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     PART 6: 自动化系统
+════════════════════════════════════════════════════ -->
+<section id="auto" class="section fade-in">
+  <div class="sec-tag" style="color:var(--green)">第六部分</div>
+  <h2 class="sec-h2">打造你的<em class="c-green">全自动化系统</em></h2>
+  <p class="sec-lead">你的最终目标不是每天工作8小时，而是建立一个在你睡觉时也在运转的系统。以下是完整的自动化架构，实现后你每天只需30-60分钟维护。</p>
+
+  <div class="auto-flow fade-in">
+    <div class="af-node" style="--af-c:var(--red)">
+      <div class="af-circle" style="background:rgba(230,57,70,.1)">💡</div>
+      <div>
+        <span class="af-tag">Step 01</span>
+        <div class="af-title">AI内容创意与生产</div>
+        <div class="af-body">DeepSeek根据热门话题自动生成脚本→即梦AI生成封面图→剪映自动生成数字人视频→自动添加字幕BGM。全程10-15分钟/条。</div>
+        <div class="af-tools"><span class="af-tool">DeepSeek</span><span class="af-tool">即梦AI</span><span class="af-tool">剪映电脑版</span><span class="af-tool">ElevenLabs</span></div>
+      </div>
+      <div class="af-saving"><span class="af-saving-n">85%</span><span class="af-saving-l">时间节省</span></div>
+    </div>
+    <div class="af-node" style="--af-c:var(--orange)">
+      <div class="af-circle" style="background:rgba(255,107,53,.1)">📣</div>
+      <div>
+        <span class="af-tag">Step 02</span>
+        <div class="af-title">多平台自动发布</div>
+        <div class="af-body">Buffer/剪映定时功能→设置好发布时间表→自动发布到抖音/快手/视频号/B站/小红书。一次设置，5平台同步，黄金时间段精准触达。</div>
+        <div class="af-tools"><span class="af-tool">Buffer</span><span class="af-tool">剪映定时</span><span class="af-tool">抖音创作者平台</span></div>
+      </div>
+      <div class="af-saving"><span class="af-saving-n">90%</span><span class="af-saving-l">时间节省</span></div>
+    </div>
+    <div class="af-node" style="--af-c:var(--teal)">
+      <div class="af-circle" style="background:rgba(46,196,182,.1)">💬</div>
+      <div>
+        <span class="af-tag">Step 03</span>
+        <div class="af-title">AI自动客服与互动</div>
+        <div class="af-body">Coze搭建智能客服机器人→自动回复评论私信→常见问题自动处理→异常情况推送给你。95%的互动完全自动化，提升用户体验。</div>
+        <div class="af-tools"><span class="af-tool">Coze</span><span class="af-tool">旺旺自动回复</span><span class="af-tool">企业微信机器人</span></div>
+      </div>
+      <div class="af-saving"><span class="af-saving-n">95%</span><span class="af-saving-l">时间节省</span></div>
+    </div>
+    <div class="af-node" style="--af-c:var(--amber)">
+      <div class="af-circle" style="background:rgba(255,159,28,.1)">💰</div>
+      <div>
+        <span class="af-tag">Step 04</span>
+        <div class="af-title">自动化变现与发货</div>
+        <div class="af-body">数字产品设置自动发货（网盘链接）→联盟佣金自动结算→微信/淘宝收款自动到账→月末自动生成收入报表。钱在睡觉时自动流入。</div>
+        <div class="af-tools"><span class="af-tool">淘宝虚拟发货</span><span class="af-tool">夸克网盘</span><span class="af-tool">爱发电</span></div>
+      </div>
+      <div class="af-saving"><span class="af-saving-n">100%</span><span class="af-saving-l">被动收入</span></div>
+    </div>
+    <div class="af-node" style="--af-c:var(--purple)">
+      <div class="af-circle" style="background:rgba(123,47,190,.1)">📊</div>
+      <div>
+        <span class="af-tag">Step 05</span>
+        <div class="af-title">数据自动收集与分析</div>
+        <div class="af-body">各平台数据自动汇总到飞书多维表格→AI自动分析哪些内容表现好→每周自动生成增长报告→你只需15分钟看报告做决策。</div>
+        <div class="af-tools"><span class="af-tool">飞书多维表格</span><span class="af-tool">Google Analytics</span><span class="af-tool">Zapier</span></div>
+      </div>
+      <div class="af-saving"><span class="af-saving-n">80%</span><span class="af-saving-l">时间节省</span></div>
+    </div>
+  </div>
+
+  <div class="auto-stacks fade-in">
+    <div class="stack-card">
+      <div class="sc-head" style="background:linear-gradient(135deg,var(--red),var(--orange));color:#fff">
+        <span class="sc-icon">⚡</span>
+        <span class="sc-title">内容生产自动化栈</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-item"><div class="sc-step-n" style="color:var(--red)">①</div><div class="sc-step-text"><strong>触发器</strong>：设置Zapier监控热门关键词，有热点时自动通知</div></div>
+        <div class="sc-item"><div class="sc-step-n" style="color:var(--red)">②</div><div class="sc-step-text"><strong>脚本生成</strong>：DeepSeek API自动生成对应主题的视频脚本</div></div>
+        <div class="sc-item"><div class="sc-step-n" style="color:var(--red)">③</div><div class="sc-step-text"><strong>视频生成</strong>：脚本自动导入剪映数字人，5分钟生成成品视频</div></div>
+        <div class="sc-item"><div class="sc-step-n" style="color:var(--red)">④</div><div class="sc-step-text"><strong>定时发布</strong>：成品视频自动排入发布队列，最优时间发出</div></div>
+        <div class="sc-item"><div class="sc-step-n" style="color:var(--red)">⑤</div><div class="sc-step-text"><strong>效果追踪</strong>：发布后数据自动收集，汇总到数据看板</div></div>
+      </div>
+    </div>
+    <div class="stack-card">
+      <div class="sc-head" style="background:linear-gradient(135deg,var(--teal),var(--green));color:#fff">
+        <span class="sc-icon">🔄</span>
+        <span class="sc-title">销售变现自动化栈</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-item"><div class="sc-step-n" style="color:var(--teal)">①</div><div class="sc-step-text"><strong>流量入口</strong>：内容平台→简介引导→私信自动回复→发送产品链接</div></div>
+        <div class="sc-item"><div class="sc-step-n" style="color:var(--teal)">②</div><div class="sc-step-text"><strong>购买处理</strong>：用户付款→自动发货（网盘/课程平台）→确认邮件</div></div>
+        <div class="sc-item"><div class="sc-step-n" style="color:var(--teal)">③</div><div class="sc-step-text"><strong>售后服务</strong>：AI机器人处理常见问题，复杂问题标注转人工</div></div>
+        <div class="sc-item"><div class="sc-step-n" style="color:var(--teal)">④</div><div class="sc-step-text"><strong>复购引导</strong>：3天后自动发送相关产品推荐，促进二次购买</div></div>
+        <div class="sc-item"><div class="sc-step-n" style="color:var(--teal)">⑤</div><div class="sc-step-text"><strong>口碑收集</strong>：7天后自动发送好评邀请，优化评价数量</div></div>
+      </div>
+    </div>
+    <div class="stack-card">
+      <div class="sc-head" style="background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff">
+        <span class="sc-icon">📊</span>
+        <span class="sc-title">数据决策自动化栈</span>
+      </div>
+      <div class="sc-body">
+        <div class="sc-item"><div class="sc-step-n" style="color:var(--purple)">①</div><div class="sc-step-text"><strong>数据汇总</strong>：所有平台数据自动同步到飞书表格（Zapier连接）</div></div>
+        <div class="sc-item"><div class="sc-step-n" style="color:var(--purple)">②</div><div class="sc-step-text"><strong>AI分析</strong>：DeepSeek API读取数据，自动生成分析报告和建议</div></div>
+        <div class="sc-item"><div class="sc-step-n" style="color:var(--purple)">③</div><div class="sc-step-text"><strong>推送提醒</strong>：每周一早上8点自动发送上周数据摘要到手机</div></div>
+        <div class="sc-item"><div class="sc-step-n" style="color:var(--purple)">④</div><div class="sc-step-text"><strong>异常预警</strong>：某指标下降超过20%时，自动提醒你关注原因</div></div>
+        <div class="sc-item"><div class="sc-step-n" style="color:var(--purple)">⑤</div><div class="sc-step-text"><strong>优化建议</strong>：AI根据数据自动生成下周内容方向建议</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout purple fade-in">
+    <div class="callout-icon">🤖</div>
+    <div>
+      <div class="callout-title">自动化≠从第一天就全自动</div>
+      <div class="callout-text">自动化是一个逐步搭建的过程。第1个月：手动做所有事，理解每个环节。第2个月：把重复性工作自动化。第3个月：把85%的工作都交给系统，你只负责策略决策。<strong>先跑通，再自动化，顺序不能乱。</strong></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     PART 7: 每日执行系统
+════════════════════════════════════════════════════ -->
+<section id="daily" class="section fade-in">
+  <div class="sec-tag" style="color:var(--blue)">第七部分</div>
+  <h2 class="sec-h2">你的<em class="c-blue">每日执行系统</em></h2>
+  <p class="sec-lead">意志力是最不可靠的资源。真正的执行力来自于：固定时间+固定流程+固定环境。以下是让你每天只需2小时就能高效推进的执行系统。</p>
+
+  <div class="metrics-dashboard fade-in">
+    <div class="metric-card" style="--mc:var(--red)">
+      <span class="metric-icon">📝</span>
+      <div class="metric-n">3条</div>
+      <div class="metric-label">每天最低内容产出</div>
+      <div class="metric-trend trend-up">↑ 90天后累计270+条内容资产</div>
+    </div>
+    <div class="metric-card" style="--mc:var(--teal)">
+      <span class="metric-icon">⏱️</span>
+      <div class="metric-n">2h</div>
+      <div class="metric-label">每天执行时间（可兼职）</div>
+      <div class="metric-trend trend-up">↑ 比看视频刷手机少15分钟</div>
+    </div>
+    <div class="metric-card" style="--mc:var(--amber)">
+      <span class="metric-icon">🔁</span>
+      <div class="metric-n">1件</div>
+      <div class="metric-label">每天核心任务（只专注一件）</div>
+      <div class="metric-trend trend-up">↑ 多任务是效率的最大杀手</div>
+    </div>
+    <div class="metric-card" style="--mc:var(--green)">
+      <span class="metric-icon">📊</span>
+      <div class="metric-n">15min</div>
+      <div class="metric-label">每天数据复盘时间</div>
+      <div class="metric-trend trend-up">↑ 数据说谎，感觉骗人</div>
+    </div>
+    <div class="metric-card" style="--mc:var(--purple)">
+      <span class="metric-icon">🚫</span>
+      <div class="metric-n">0次</div>
+      <div class="metric-label">执行期间刷社交媒体（使用番茄钟）</div>
+      <div class="metric-trend trend-dn">↓ 注意力分散是第一大敌</div>
+    </div>
+  </div>
+
+  <div class="daily-grid fade-in">
+    <div class="time-block">
+      <div class="tb-head" style="background:linear-gradient(135deg,var(--red),var(--orange));color:#fff">
+        <span class="tb-time">⏰ 早上 7:00-8:00</span>
+        <span class="tb-label">黄金创作时间</span>
+      </div>
+      <div class="tb-body">
+        <div class="tb-task">
+          <span class="tb-task-icon">☕</span>
+          <div class="tb-task-content">
+            <div class="tb-task-title">7:00-7:05 · 启动仪式（5分钟）</div>
+            <div class="tb-task-desc">打开任务清单，回顾今天的核心目标，脑子里预演一遍流程。不要看手机新闻。</div>
+          </div>
+        </div>
+        <div class="tb-task">
+          <span class="tb-task-icon">✍️</span>
+          <div class="tb-task-content">
+            <div class="tb-task-title">7:05-7:35 · AI内容创作（30分钟）</div>
+            <div class="tb-task-desc">打开DeepSeek，输入今天的主题，生成3条脚本，检查修改。全程不看其他网站。</div>
+          </div>
+        </div>
+        <div class="tb-task">
+          <span class="tb-task-icon">🎬</span>
+          <div class="tb-task-content">
+            <div class="tb-task-title">7:35-8:00 · 视频制作发布（25分钟）</div>
+            <div class="tb-task-desc">剪映批量生成3条视频，设置定时发布（7:30/12:00/20:00各1条）。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="time-block">
+      <div class="tb-head" style="background:linear-gradient(135deg,var(--teal),var(--green));color:#fff">
+        <span class="tb-time">🌙 晚上 20:00-21:00</span>
+        <span class="tb-label">数据优化时间</span>
+      </div>
+      <div class="tb-body">
+        <div class="tb-task">
+          <span class="tb-task-icon">📊</span>
+          <div class="tb-task-content">
+            <div class="tb-task-title">20:00-20:15 · 数据复盘（15分钟）</div>
+            <div class="tb-task-desc">查看今天发出内容的播放量/点赞/评论/销售额，记录到表格，找规律。</div>
+          </div>
+        </div>
+        <div class="tb-task">
+          <span class="tb-task-icon">📦</span>
+          <div class="tb-task-content">
+            <div class="tb-task-title">20:15-20:35 · 数字产品更新（20分钟）</div>
+            <div class="tb-task-desc">用AI整理今天的新产品（资料包/模板/工具），上架设置自动发货，补充产品库。</div>
+          </div>
+        </div>
+        <div class="tb-task">
+          <span class="tb-task-icon">📋</span>
+          <div class="tb-task-content">
+            <div class="tb-task-title">20:35-21:00 · 明天准备（25分钟）</div>
+            <div class="tb-task-desc">用AI预生成明天的脚本主题，回复重要评论私信，更新任务清单。完成后关掉电脑。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="weekly-review fade-in">
+    <div class="wr-title">📋 每周复盘模板（每周日晚30分钟）</div>
+    <div class="wr-grid">
+      <div class="wr-item">
+        <div class="wr-q">📈 数字指标</div>
+        <div class="wr-a">本周总播放量？总收入？粉丝增量？发布内容数量？哪条内容表现最好？</div>
+      </div>
+      <div class="wr-item">
+        <div class="wr-q">✅ 本周最大收获</div>
+        <div class="wr-a">写下1件让你最有成就感的事，和1个重要的市场发现或用户反馈。</div>
+      </div>
+      <div class="wr-item">
+        <div class="wr-q">🔧 需要改进的</div>
+        <div class="wr-a">哪件事浪费了最多时间？哪个环节效果差？下周如何改进？写具体行动。</div>
+      </div>
+      <div class="wr-item">
+        <div class="wr-q">🎯 下周核心目标</div>
+        <div class="wr-a">只写1个最重要的目标，其他都是次要的。这个目标做到了就是成功的一周。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout tip fade-in">
+    <div class="callout-icon">⚡</div>
+    <div>
+      <div class="callout-title">执行力黑科技：番茄工作法</div>
+      <div class="callout-text">每次执行前：手机调静音放另一个房间，打开番茄钟(25分钟)，告诉自己"我只需要做完这25分钟"。完成后休息5分钟。4个番茄钟=2小时高质量工作，效率是分心工作的3倍。<strong>一个习惯做满21天就会变成自动行为。</strong></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     PART 8: 心理护盾
+════════════════════════════════════════════════════ -->
+<section id="shield" class="section fade-in">
+  <div class="sec-tag" style="color:var(--pink)">第八部分</div>
+  <h2 class="sec-h2">永不放弃的<em class="c-red">心理护盾</em></h2>
+  <p class="sec-lead">你以前放弃，不是因为你懒，而是因为你没有心理系统。以下是6个经过验证的心理机制，帮你在最难的时候撑过去。</p>
+
+  <div class="shield-grid fade-in">
+    <div class="shield-card" style="--sc:var(--red)">
+      <span class="sc-icon2">🎯</span>
+      <div class="sc-title2">制造"不可放弃"的公开承诺</div>
+      <div class="sc-body2">在朋友圈/微博/家人面前公开宣布：我要在90天内做到月收入XXXX元。公开承诺激活大脑的社交压力机制，让你更不容易放弃。退出有成本，坚持才是理性选择。</div>
+      <span class="sc-action">🔧 行动：今天写一条公开宣言，发给3个朋友。</span>
+    </div>
+    <div class="shield-card" style="--sc:var(--teal)">
+      <span class="sc-icon2">📊</span>
+      <div class="sc-title2">数字化你的进度，让进步可见</div>
+      <div class="sc-body2">人类大脑对抽象的"努力"没有感觉，但对数字很敏感。用表格记录每天：发布内容数、收入、粉丝数、产品数。看到数字不断增长，大脑会自动分泌多巴胺，让你想继续。</div>
+      <span class="sc-action">🔧 行动：今天建立一个进度追踪表格（飞书/Excel）。</span>
+    </div>
+    <div class="shield-card" style="--sc:var(--amber)">
+      <span class="sc-icon2">⚓</span>
+      <div class="sc-title2">找到你的"深层动机"锚点</div>
+      <div class="sc-body2">不要说"我想赚钱"，太虚了。写下：你赚到钱后，第一件事是什么？每个月能给家里多少？孩子/父母会过什么样的生活？深层动机越具体，在最难的时刻越有力量。</div>
+      <span class="sc-action">🔧 行动：写下5个"赚到钱后要做的事"贴在桌上。</span>
+    </div>
+    <div class="shield-card" style="--sc:var(--purple)">
+      <span class="sc-icon2">📅</span>
+      <div class="sc-title2">设定"不允许跳过"的最低标准</div>
+      <div class="sc-body2">状态好的时候做很多，状态差的时候什么都不做——这是放弃的根源。设定每天的"最低执行量"：哪怕只有15分钟，哪怕只发1条内容，但绝不跳过。保持连续性比偶尔爆发重要100倍。</div>
+      <span class="sc-action">🔧 行动：写下你的"最低承诺"：每天至少_____。</span>
+    </div>
+    <div class="shield-card" style="--sc:var(--green)">
+      <span class="sc-icon2">🏅</span>
+      <div class="sc-title2">奖励机制：庆祝每一个小里程碑</div>
+      <div class="sc-body2">赚到第一个9.9元→买一杯好咖啡庆祝；第一次有人评论感谢你的内容→记录截图；粉丝第一次破1000→打电话告诉朋友。每一个小里程碑都值得庆祝，这是你的大脑燃料。</div>
+      <span class="sc-action">🔧 行动：现在写下5个里程碑和对应的庆祝方式。</span>
+    </div>
+    <div class="shield-card" style="--sc:var(--blue)">
+      <span class="sc-icon2">🤝</span>
+      <div class="sc-title2">找一个同行者，互相监督打卡</div>
+      <div class="sc-body2">独自前行最容易放弃。找一个有同样目标的人，每天互相分享当天的成果（哪怕只有1条）。有人同行，放弃的概率降低70%。失去伙伴的那一刻，你不是放弃了方法，而是失去了见证者。</div>
+      <span class="sc-action">🔧 行动：今天找1个网络副业同路人，建个2人打卡群。</span>
+    </div>
+  </div>
+
+  <div class="callout warn fade-in">
+    <div class="callout-icon">⚠️</div>
+    <div>
+      <div class="callout-title">遇到这些信号时，是正常的，不是该放弃的信号</div>
+      <div class="callout-text">
+        ❶ <strong>前30天几乎没有收入</strong>：这是正常的，是系统建立期，不是失败信号。<br>
+        ❷ <strong>某条内容0播放</strong>：完全正常，算法需要时间识别你，坚持发才能打开推荐。<br>
+        ❸ <strong>有竞争对手比你做得好</strong>：说明这个方向是对的，你只需要做得比3个月前的自己好。<br>
+        ❹ <strong>某一天什么都不想做</strong>：执行最低标准，哪怕只做15分钟，保持连续不断。<br>
+        ❺ <strong>有人说你的想法不切实际</strong>：不需要说服任何人，只需要证明给自己看。
+      </div>
+    </div>
+  </div>
+
+  <div class="promise-box fade-in">
+    <div class="pb-bg"></div>
+    <div class="pb-inner">
+      <h2 class="pb-title">你只差<em>一次不放弃</em></h2>
+      <p class="pb-body">你之前放弃，不是因为你不行，而是因为你没有地图、没有系统、没有同行者。现在这些你都有了。真正的改变，不是某一天突然顿悟，而是每天执行，直到某天回头看，发现自己早就越过了那道坎。</p>
+      <div class="pb-items">
+        <span class="pb-item">🧠 已有第一性原理思维框架</span>
+        <span class="pb-item">🤖 已有AI武器库清单</span>
+        <span class="pb-item">🎯 已选定商业模式路径</span>
+        <span class="pb-item">📅 已有90天详细执行计划</span>
+        <span class="pb-item">⚡ 已有自动化系统架构</span>
+        <span class="pb-item">📋 已有每日执行系统</span>
+        <span class="pb-item">🛡️ 已有心理护盾机制</span>
+      </div>
+      <p style="color:rgba(255,255,255,.7);font-size:14px;margin-bottom:24px">现在，你缺少的只有一件事：<strong style="color:#FFD700">开始</strong></p>
+      <button class="pb-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ 回到顶部，选择我的路径，今天开始</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-brand">FREEDOM OS · 网络自由完整指南 · 2026年版</div>
+  <div class="ft-note">本指南基于2026年6月最新AI工具和商业实践编写，适合想利用互联网实现经济自由的普通人。所有方法均为可立即执行的实操路径。</div>
+  <div class="ft-ver">v2.0 · 2026.06</div>
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll',()=>{
+  const st=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('pgbar').style.width=(st/h*100)+'%';
+});
+// Fade in
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+// Model tabs
+function switchModel(id,btn){
+  document.querySelectorAll('.model-card').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.mtab').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+// Phase tabs
+function switchPhase(id,btn){
+  document.querySelectorAll('.phase-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+// Milestone checkboxes
+document.querySelectorAll('.mb-check').forEach(c=>{
+  c.addEventListener('click',()=>c.classList.toggle('done'));
+});
+// Animated bars on scroll
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const fills=e.target.querySelectorAll('.dcard-fill,.ocard-impact-fill');
+      fills.forEach(f=>{
+        const w=f.getAttribute('data-w')||'70';
+        setTimeout(()=>f.style.width=w+'%',100);
+      });
+    }
+  });
+},{threshold:.2});
+document.querySelectorAll('.dcard,.ocard').forEach(el=>barObs.observe(el));
+</script>
+</body>
+</html>

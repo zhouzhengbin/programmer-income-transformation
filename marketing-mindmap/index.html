@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>网络营销全景图谱</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-1:#EEF1FB;
+    --bg-2:#F8F9FD;
+    --ink:#1B1E2E;
+    --ink-soft:#5B6178;
+    --line:#E1E4F0;
+    --card:#FFFFFF;
+    --hub:#2A2F55;
+
+    --c1:#2563EB; --c1-bg:#EAF0FE;
+    --c2:#F59E0B; --c2-bg:#FEF4E1;
+    --c3:#EC4899; --c3-bg:#FDEBF4;
+    --c4:#06B6D4; --c4-bg:#E6FAFD;
+    --c5:#10B981; --c5-bg:#E5F9F1;
+    --c6:#8B5CF6; --c6-bg:#F1EBFE;
+    --c7:#F97316; --c7-bg:#FEEEE1;
+    --c8:#6366F1; --c8-bg:#ECEBFE;
+    --c9:#EF4444; --c9-bg:#FDEAEA;
+    --c10:#14B8A6; --c10-bg:#E4F8F5;
+    --c11:#A855F7; --c11-bg:#F4EBFE;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 12% 0%, #E4E9FC 0%, transparent 45%),
+      radial-gradient(circle at 90% 8%, #FDEFE8 0%, transparent 40%),
+      linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 380px, var(--bg-2) 100%);
+    min-height:100vh;
+  }
+  .en{font-family:"Poppins",sans-serif;}
+  .wrap{max-width:560px; margin:0 auto; padding:0 0 60px;}
+
+  /* header */
+  .topbar{
+    position:sticky; top:0; z-index:20;
+    backdrop-filter:blur(10px);
+    background:rgba(248,249,253,0.85);
+    border-bottom:1px solid var(--line);
+    padding:12px 18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .topbar .dot{
+    width:30px;height:30px;border-radius:9px;
+    background:linear-gradient(135deg,var(--hub),#4A4FCF);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff; font-size:15px; flex:none;
+  }
+  .topbar h1{font-size:15px; margin:0; font-weight:700; letter-spacing:.3px;}
+  .topbar .sub{font-size:10.5px; color:var(--ink-soft); margin-top:1px;}
+
+  /* hero */
+  .hero{padding:28px 20px 8px;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:11px; font-weight:700; color:var(--hub);
+    background:#fff; border:1px solid var(--line);
+    padding:5px 10px; border-radius:20px; margin-bottom:14px;
+  }
+  .eyebrow .pulse{width:6px;height:6px;border-radius:50%;background:#22C55E; box-shadow:0 0 0 0 rgba(34,197,94,.6); animation:pulse 1.8s infinite;}
+  @keyframes pulse{ 0%{box-shadow:0 0 0 0 rgba(34,197,94,.55);} 70%{box-shadow:0 0 0 7px rgba(34,197,94,0);} 100%{box-shadow:0 0 0 0 rgba(34,197,94,0);} }
+  h2.title{
+    font-size:27px; line-height:1.28; margin:0 0 10px; font-weight:900;
+    letter-spacing:.2px;
+  }
+  h2.title span{
+    background:linear-gradient(90deg,#2A2F55,#4A4FCF 55%,#8B5CF6);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .desc{font-size:13.5px; line-height:1.75; color:var(--ink-soft); margin:0 0 18px;}
+  .stats{display:flex; gap:10px; margin-bottom:6px;}
+  .stat{
+    flex:1; background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:10px 8px; text-align:center;
+  }
+  .stat b{display:block; font-size:19px; font-weight:800; color:var(--hub);}
+  .stat span{font-size:10.5px; color:var(--ink-soft);}
+
+  /* search + controls */
+  .controls{padding:16px 20px 4px; display:flex; gap:8px;}
+  .search{
+    flex:1; display:flex; align-items:center; gap:8px;
+    background:var(--card); border:1.5px solid var(--line); border-radius:12px;
+    padding:9px 12px;
+  }
+  .search input{
+    border:none; outline:none; font-size:13px; width:100%; background:transparent;
+    font-family:inherit; color:var(--ink);
+  }
+  .search input::placeholder{color:#A6ABC2;}
+  .btn-toggle{
+    background:var(--hub); color:#fff; border:none; border-radius:12px;
+    font-size:12px; font-weight:700; padding:0 14px; white-space:nowrap; cursor:pointer;
+  }
+  .hint{font-size:11px; color:#A6ABC2; padding:8px 22px 0;}
+
+  /* map spine */
+  .map{position:relative; padding:22px 18px 0;}
+  .map::before{
+    content:""; position:absolute; left:38px; top:0; bottom:60px; width:2px;
+    background:repeating-linear-gradient(180deg,var(--line) 0 6px, transparent 6px 12px);
+  }
+
+  .node{position:relative; margin-bottom:12px; padding-left:40px;}
+  .node::before{ /* connector dot */
+    content:""; position:absolute; left:32px; top:22px; width:14px; height:2px;
+    background:var(--line);
+  }
+  .cat{
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    box-shadow:0 2px 10px rgba(30,35,70,0.03);
+    overflow:hidden; transition:box-shadow .2s ease;
+  }
+  .cat.dim{opacity:.32;}
+  .cat-head{
+    display:flex; align-items:center; gap:11px; padding:13px 13px;
+    cursor:pointer; user-select:none;
+  }
+  .icon-badge{
+    width:36px; height:36px; border-radius:11px; flex:none;
+    display:flex; align-items:center; justify-content:center; font-size:17px;
+  }
+  .cat-head .txt{flex:1; min-width:0;}
+  .cat-head .txt .zh{font-size:14.5px; font-weight:700; line-height:1.3;}
+  .cat-head .txt .en{font-size:10px; color:var(--ink-soft); letter-spacing:.3px; margin-top:1px;}
+  .count{
+    font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:20px; flex:none;
+  }
+  .chev{
+    width:20px; height:20px; flex:none; color:#B7BBD1; transition:transform .25s ease;
+  }
+  .cat.open .chev{transform:rotate(180deg);}
+
+  .cat-body{
+    max-height:0; overflow:hidden; transition:max-height .3s ease;
+    padding:0 14px;
+  }
+  .cat.open .cat-body{padding:2px 14px 14px;}
+
+  .l2{position:relative; padding:10px 0 10px 16px; border-top:1px dashed var(--line);}
+  .l2:first-child{border-top:1px solid var(--line); margin-top:2px;}
+  .l2::before{content:""; position:absolute; left:2px; top:19px; width:6px; height:6px; border-radius:50%;}
+  .l2 .l2-title{font-size:12.5px; font-weight:700; margin-bottom:7px; color:var(--ink);}
+  .chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .chip{
+    font-size:11px; padding:5px 9px; border-radius:8px; background:var(--bg-2);
+    color:var(--ink-soft); border:1px solid var(--line); line-height:1.3;
+  }
+  .chip.hit{outline:2px solid #22C55E55; color:var(--ink); font-weight:700;}
+
+  /* per-category color assignment via data-c */
+  .cat[data-c="1"] .icon-badge{background:var(--c1-bg); color:var(--c1);}
+  .cat[data-c="1"] .count{background:var(--c1-bg); color:var(--c1);}
+  .cat[data-c="1"] .l2::before{background:var(--c1);}
+  .cat[data-c="2"] .icon-badge{background:var(--c2-bg); color:var(--c2);}
+  .cat[data-c="2"] .count{background:var(--c2-bg); color:var(--c2);}
+  .cat[data-c="2"] .l2::before{background:var(--c2);}
+  .cat[data-c="3"] .icon-badge{background:var(--c3-bg); color:var(--c3);}
+  .cat[data-c="3"] .count{background:var(--c3-bg); color:var(--c3);}
+  .cat[data-c="3"] .l2::before{background:var(--c3);}
+  .cat[data-c="4"] .icon-badge{background:var(--c4-bg); color:var(--c4);}
+  .cat[data-c="4"] .count{background:var(--c4-bg); color:var(--c4);}
+  .cat[data-c="4"] .l2::before{background:var(--c4);}
+  .cat[data-c="5"] .icon-badge{background:var(--c5-bg); color:var(--c5);}
+  .cat[data-c="5"] .count{background:var(--c5-bg); color:var(--c5);}
+  .cat[data-c="5"] .l2::before{background:var(--c5);}
+  .cat[data-c="6"] .icon-badge{background:var(--c6-bg); color:var(--c6);}
+  .cat[data-c="6"] .count{background:var(--c6-bg); color:var(--c6);}
+  .cat[data-c="6"] .l2::before{background:var(--c6);}
+  .cat[data-c="7"] .icon-badge{background:var(--c7-bg); color:var(--c7);}
+  .cat[data-c="7"] .count{background:var(--c7-bg); color:var(--c7);}
+  .cat[data-c="7"] .l2::before{background:var(--c7);}
+  .cat[data-c="8"] .icon-badge{background:var(--c8-bg); color:var(--c8);}
+  .cat[data-c="8"] .count{background:var(--c8-bg); color:var(--c8);}
+  .cat[data-c="8"] .l2::before{background:var(--c8);}
+  .cat[data-c="9"] .icon-badge{background:var(--c9-bg); color:var(--c9);}
+  .cat[data-c="9"] .count{background:var(--c9-bg); color:var(--c9);}
+  .cat[data-c="9"] .l2::before{background:var(--c9);}
+  .cat[data-c="10"] .icon-badge{background:var(--c10-bg); color:var(--c10);}
+  .cat[data-c="10"] .count{background:var(--c10-bg); color:var(--c10);}
+  .cat[data-c="10"] .l2::before{background:var(--c10);}
+  .cat[data-c="11"] .icon-badge{background:var(--c11-bg); color:var(--c11);}
+  .cat[data-c="11"] .count{background:var(--c11-bg); color:var(--c11);}
+  .cat[data-c="11"] .l2::before{background:var(--c11);}
+
+  .axis-note{
+    margin:4px 0 14px 40px; font-size:11px; color:var(--ink-soft);
+    background:#FFF9E9; border:1px dashed #F0D98A; padding:8px 11px; border-radius:10px;
+  }
+
+  .footer{
+    margin:26px 20px 0; padding:18px 16px; border-radius:16px;
+    background:linear-gradient(135deg,#2A2F55,#4A4FCF);
+    color:#fff;
+  }
+  .footer h3{margin:0 0 6px; font-size:14px;}
+  .footer p{margin:0; font-size:12px; line-height:1.7; color:#D6D9F5;}
+  .footer .steps{margin-top:10px; display:flex; flex-direction:column; gap:6px;}
+  .footer .step{display:flex; gap:8px; font-size:11.5px; align-items:flex-start;}
+  .footer .step b{
+    flex:none; width:18px; height:18px; border-radius:6px; background:rgba(255,255,255,.15);
+    display:flex; align-items:center; justify-content:center; font-size:10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="dot">🧭</div>
+    <div>
+      <h1>网络营销全景图谱</h1>
+      <div class="sub">Digital Marketing Universe · 11 大类 · 结构化拆解</div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="eyebrow"><span class="pulse"></span>第一步：先建立全局认知地图</div>
+    <h2 class="title"><span>把「网络营销」</span>拆到不能再拆</h2>
+    <p class="desc">你提到的 SEO、GEO、建站、平台运营、主动/被动获客、Web3……其实都只是这张地图里的分支。下面按「一级分类 → 二级方向 → 三级具体打法」三层结构，把全网营销体系尽可能穷尽地铺开。点卡片可展开，也可以搜索关键词快速定位。</p>
+    <div class="stats">
+      <div class="stat"><b class="en">11</b><span>一级分类</span></div>
+      <div class="stat"><b class="en">50+</b><span>二级方向</span></div>
+      <div class="stat"><b class="en">150+</b><span>具体打法</span></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="search">
+      <span>🔎</span>
+      <input id="searchInput" placeholder="搜索：如 小红书 / 私域 / Web3 / 转化率">
+    </div>
+    <button class="btn-toggle" id="toggleAll">全部展开</button>
+  </div>
+  <div class="hint">提示：11 号分类是「获客方式」维度，和前 10 类是交叉关系，不是并列——用来帮你理解「主动 vs 被动」怎么套进前面每一类里。</div>
+
+  <div class="map" id="mapRoot"></div>
+
+  <div class="footer">
+    <h3>🚀 这只是第一层地图</h3>
+    <p>你的终局目标是「可复用、可自动化的营销系统」，建议后续这样拆解，而不是一次性铺开：</p>
+    <div class="steps">
+      <div class="step"><b>1</b>先选 1 个类目 + 1 个具体产品/服务做验证，别 11 类同时启动</div>
+      <div class="step"><b>2</b>把这个类目下的动作画成「输入→执行→输出」流程图</div>
+      <div class="step"><b>3</b>找出流程里可以被工具/脚本/AI 替代的重复动作，逐个自动化</div>
+      <div class="step"><b>4</b>验证跑通后，再复制这套自动化框架去接第 2 个类目、第 2 个产品</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const DATA = [
+  {c:1, icon:"🔍", zh:"搜索引擎类营销", en:"SEARCH", children:[
+    {t:"SEO 自然搜索优化", chips:["站内优化","技术SEO","内容优化","外链建设","本地SEO","结构化数据"]},
+    {t:"SEM 付费搜索广告", chips:["关键词竞价","购物广告","品牌保护词"]},
+    {t:"GEO / AEO 生成式引擎优化", chips:["ChatGPT可见度","Perplexity优化","Google AI Overview","内容可信度","结构化问答"]},
+    {t:"ASO 应用商店优化", chips:["关键词优化","评分评论管理","应用素材优化"]},
+  ]},
+  {c:2, icon:"✍️", zh:"内容营销", en:"CONTENT", children:[
+    {t:"长文与图文", chips:["博客/公众号","深度长文","信息图"]},
+    {t:"短视频", chips:["抖音","TikTok","Reels","Shorts"]},
+    {t:"长视频", chips:["YouTube","B站"]},
+    {t:"播客与音频", chips:["播客节目","音频广告"]},
+    {t:"深度内容资产", chips:["白皮书","电子书","案例研究"]},
+    {t:"UGC 用户生成内容", chips:["晒单测评","话题挑战"]},
+  ]},
+  {c:3, icon:"📱", zh:"社交媒体营销 SMM", en:"SOCIAL", children:[
+    {t:"国内平台运营", chips:["公众号","视频号","微博","小红书","抖音","B站","知乎"]},
+    {t:"海外平台运营", chips:["Facebook","Instagram","TikTok","X","LinkedIn","Pinterest","Snapchat"]},
+    {t:"社交广告投放", chips:["信息流广告","Stories广告"]},
+    {t:"KOL / 网红达人营销", chips:["头部KOL","腰部KOC","素人矩阵"]},
+    {t:"私域流量运营", chips:["企业微信","微信群","会员社群"]},
+  ]},
+  {c:4, icon:"🌐", zh:"网站与转化", en:"OWNED WEB", children:[
+    {t:"官网 / 独立站建设", chips:["品牌官网","独立站DTC","多语言站点"]},
+    {t:"落地页优化 LPO", chips:["广告落地页","活动页"]},
+    {t:"转化率优化 CRO", chips:["A/B测试","表单优化","弹窗策略"]},
+    {t:"用户体验 UX/UI", chips:["导航结构","页面速度","移动适配"]},
+    {t:"站内搜索与推荐", chips:["智能搜索","个性化推荐"]},
+  ]},
+  {c:5, icon:"💰", zh:"付费广告投放", en:"PAID MEDIA", children:[
+    {t:"展示广告 Display", chips:["Banner广告","联盟广告位"]},
+    {t:"信息流广告 Feed Ads", chips:["朋友圈广告","抖音信息流","Facebook Ads"]},
+    {t:"程序化购买 Programmatic", chips:["DSP","DMP","RTB实时竞价"]},
+    {t:"再营销 Retargeting", chips:["网站再营销","App再营销","CRM再营销"]},
+    {t:"OTT / 联网电视广告", chips:["视频前贴片","智能电视广告"]},
+  ]},
+  {c:6, icon:"📧", zh:"私域与直连营销", en:"DIRECT", children:[
+    {t:"邮件营销 EDM", chips:["自动化邮件流","促销邮件","邮件列表运营"]},
+    {t:"短信营销 SMS", chips:["验证通知","促销短信"]},
+    {t:"Push 推送通知", chips:["App推送","浏览器推送"]},
+    {t:"企业微信 / 社群运营", chips:["1v1私聊","社群直播","SOP运营"]},
+    {t:"会员体系营销", chips:["积分体系","等级权益","生日营销"]},
+  ]},
+  {c:7, icon:"🛒", zh:"电商与渠道营销", en:"E-COMMERCE", children:[
+    {t:"平台电商运营", chips:["亚马逊","淘宝天猫","京东","Shopee/Lazada"]},
+    {t:"独立站 DTC", chips:["Shopify","自建商城"]},
+    {t:"联盟营销 Affiliate", chips:["分销联盟","CPS推广"]},
+    {t:"直播电商带货", chips:["达人直播","品牌自播"]},
+    {t:"分销 / 代理体系", chips:["代理招募","渠道分层"]},
+  ]},
+  {c:8, icon:"🤖", zh:"营销技术与自动化 MarTech", en:"MARTECH", children:[
+    {t:"CRM 客户管理", chips:["客户画像","生命周期管理"]},
+    {t:"营销自动化", chips:["自动化工作流","触发式营销","线索培育"]},
+    {t:"用户增长 Growth Hacking", chips:["AARRR模型","病毒系数优化"]},
+    {t:"A/B 测试与实验", chips:["多变量测试","实验平台"]},
+    {t:"数据分析与归因", chips:["多触点归因","ROI分析"]},
+    {t:"客户数据平台 CDP", chips:["数据整合","标签体系"]},
+  ]},
+  {c:9, icon:"🎯", zh:"品牌与公关", en:"BRAND & PR", children:[
+    {t:"品牌定位", chips:["心智占领","品牌故事"]},
+    {t:"公共关系 PR", chips:["媒体关系","新闻稿"]},
+    {t:"事件营销", chips:["借势营销","热点营销"]},
+    {t:"危机公关", chips:["舆情监测","应急响应"]},
+    {t:"IP联名 / 跨界合作", chips:["品牌联名","IP授权"]},
+  ]},
+  {c:10, icon:"🚀", zh:"新兴前沿营销", en:"EMERGING", children:[
+    {t:"AI 营销", chips:["AIGC内容生成","AI智能客服","智能推荐算法"]},
+    {t:"GEO 生成式引擎（跨类关联）", chips:["AI搜索可见度","品牌语义优化"]},
+    {t:"Web3 营销", chips:["NFT营销","DAO社区激励","代币经济Token"]},
+    {t:"区块链营销", chips:["链上数据分析","去中心化广告"]},
+    {t:"元宇宙营销", chips:["虚拟空间体验","虚拟人代言"]},
+    {t:"语音搜索优化 VSO", chips:["智能音箱","语音助手"]},
+    {t:"AR / VR 互动营销", chips:["虚拟试用","沉浸式广告"]},
+  ]},
+  {c:11, icon:"🧲", zh:"获客方式维度（交叉视角）", en:"IN/OUTBOUND", children:[
+    {t:"主动营销 Outbound", chips:["广告投放","电销/陌拜","邮件群发","渠道分销"]},
+    {t:"被动/引力营销 Inbound", chips:["SEO自然流量","内容吸引","口碑传播"]},
+    {t:"裂变与推荐 Referral", chips:["转介绍计划","拼团裂变","邀请奖励"]},
+  ]},
+];
+
+const root = document.getElementById('mapRoot');
+DATA.forEach((cat, idx)=>{
+  const node = document.createElement('div');
+  node.className = 'node';
+
+  const el = document.createElement('div');
+  el.className = 'cat';
+  el.dataset.c = cat.c;
+
+  const totalChips = cat.children.reduce((s,c)=>s+c.chips.length,0);
+
+  el.innerHTML = `
+    <div class="cat-head">
+      <div class="icon-badge">${cat.icon}</div>
+      <div class="txt">
+        <div class="zh">${idx+1}. ${cat.zh}</div>
+        <div class="en">${cat.en}</div>
+      </div>
+      <div class="count">${cat.children.length}方向 · ${totalChips}项</div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="cat-body">
+      ${cat.children.map(l2=>`
+        <div class="l2">
+          <div class="l2-title">${l2.t}</div>
+          <div class="chips">${l2.chips.map(ch=>`<span class="chip">${ch}</span>`).join('')}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  el.querySelector('.cat-head').addEventListener('click', ()=>{
+    el.classList.toggle('open');
+    const body = el.querySelector('.cat-body');
+    body.style.maxHeight = el.classList.contains('open') ? body.scrollHeight + 'px' : 0;
+  });
+
+  node.appendChild(el);
+  root.appendChild(node);
+
+  if(cat.c === 10){
+    const note = document.createElement('div');
+    note.className = 'axis-note';
+    note.textContent = '👆 以上 10 类是「渠道/形式」维度，下面第 11 类换一个角度——按「获客方式」重新切一遍，帮你理解同一个动作（比如发内容）到底算主动还是被动。';
+    root.appendChild(note);
+  }
+});
+
+// expand / collapse all
+let expanded = false;
+document.getElementById('toggleAll').addEventListener('click', (e)=>{
+  expanded = !expanded;
+  document.querySelectorAll('.cat').forEach(el=>{
+    el.classList.toggle('open', expanded);
+    const body = el.querySelector('.cat-body');
+    body.style.maxHeight = expanded ? body.scrollHeight + 'px' : 0;
+  });
+  e.target.textContent = expanded ? '全部收起' : '全部展开';
+});
+
+// search
+document.getElementById('searchInput').addEventListener('input', (e)=>{
+  const q = e.target.value.trim().toLowerCase();
+  document.querySelectorAll('.cat').forEach(el=>{
+    const text = el.innerText.toLowerCase();
+    const hit = q === '' || text.includes(q);
+    el.classList.toggle('dim', !hit);
+
+    el.querySelectorAll('.chip').forEach(chip=>{
+      const chipHit = q !== '' && chip.textContent.toLowerCase().includes(q);
+      chip.classList.toggle('hit', chipHit);
+    });
+
+    if(q !== '' && hit && !el.classList.contains('open')){
+      el.classList.add('open');
+      const body = el.querySelector('.cat-body');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+    if(q === ''){
+      el.classList.remove('open');
+      el.querySelector('.cat-body').style.maxHeight = 0;
+    }
+  });
+});
+</script>
+</body>
+</html>

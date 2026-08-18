@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>互联网营销策略全景图鉴 · 204种打法 · 2026.08</title>
+<style>
+:root{
+  --bg:#F5F7FB;
+  --surface:#FFFFFF;
+  --surface-2:#FBFCFE;
+  --primary:#2452B0;
+  --primary-dark:#173B82;
+  --primary-light:#EAF1FF;
+  --accent:#FF7A45;
+  --accent-light:#FFF1EA;
+  --money:#16A34A;
+  --money-light:#E9F9EF;
+  --text:#1B2333;
+  --muted:#6B7686;
+  --muted-2:#98A2B3;
+  --border:#E6EAF2;
+  --shadow-sm:0 1px 2px rgba(23,59,130,0.06);
+  --shadow-md:0 8px 24px rgba(23,59,130,0.08);
+  --shadow-lg:0 16px 48px rgba(23,59,130,0.14);
+  --radius:16px;
+  --radius-sm:10px;
+  --maxw:1240px;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 500px at 100% -10%, rgba(36,82,176,0.08), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgba(255,122,69,0.07), transparent 55%),
+    var(--bg);
+  color:var(--text);
+  font-family:"PingFang SC","Helvetica Neue","Microsoft YaHei","Segoe UI",Roboto,sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;}
+::selection{background:var(--accent-light);color:var(--primary-dark);}
+
+/* ================= layout shells ================= */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+.skip-link{position:absolute;left:-999px;}
+
+/* ================= top bar ================= */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  background:rgba(255,255,255,0.86);
+  backdrop-filter:blur(14px) saturate(160%);
+  border-bottom:1px solid var(--border);
+}
+.topbar-inner{
+  max-width:var(--maxw);margin:0 auto;padding:12px 24px;
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px;white-space:nowrap;color:var(--primary-dark);}
+.brand-mark{
+  width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,var(--primary),#4C7CE0);
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;
+  box-shadow:var(--shadow-sm);
+  flex:none;
+}
+.search-box{
+  flex:1 1 240px;min-width:180px;max-width:460px;
+  display:flex;align-items:center;gap:8px;
+  background:var(--surface-2);border:1.5px solid var(--border);
+  border-radius:999px;padding:9px 16px;
+  transition:border-color .2s,box-shadow .2s;
+}
+.search-box:focus-within{border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-light);}
+.search-box input{
+  border:0;outline:0;background:transparent;width:100%;
+  font-size:14px;color:var(--text);
+}
+.search-box input::placeholder{color:var(--muted-2);}
+.search-box svg{flex:none;opacity:.55;}
+.count-pill{
+  flex:none;font-size:12.5px;color:var(--primary-dark);
+  background:var(--primary-light);border-radius:999px;padding:6px 12px;font-weight:700;white-space:nowrap;
+}
+
+/* ================= stage rail (quick jump) ================= */
+.stage-rail{
+  display:flex;gap:8px;overflow-x:auto;padding:10px 24px 12px;
+  max-width:var(--maxw);margin:0 auto;
+  scrollbar-width:none;
+}
+.stage-rail::-webkit-scrollbar{display:none;}
+.stage-chip{
+  flex:none;display:flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:999px;border:1.5px solid var(--border);
+  background:var(--surface);font-size:13px;color:var(--muted);font-weight:600;
+  transition:all .18s;white-space:nowrap;
+}
+.stage-chip .num{
+  font-family:"DIN Alternate","Helvetica Neue",monospace;font-size:11px;color:var(--muted-2);
+}
+.stage-chip:hover{border-color:var(--primary);color:var(--primary-dark);}
+.stage-chip.active{
+  background:var(--primary);border-color:var(--primary);color:#fff;
+  box-shadow:var(--shadow-sm);
+}
+.stage-chip.active .num{color:rgba(255,255,255,0.75);}
+
+/* ================= hero ================= */
+.hero{padding:56px 0 28px;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent-light);color:#C2410C;font-weight:700;font-size:12.5px;
+  padding:6px 14px;border-radius:999px;margin-bottom:22px;letter-spacing:.3px;
+}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+h1.hero-title{
+  font-size:clamp(30px,5.4vw,54px);
+  font-weight:800;line-height:1.18;margin:0 0 18px;
+  letter-spacing:-0.5px;color:var(--primary-dark);
+}
+h1.hero-title em{
+  font-style:normal;
+  background:linear-gradient(90deg,var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero-sub{
+  font-size:16.5px;color:var(--muted);max-width:680px;margin:0 0 30px;
+}
+.hero-stats{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:8px;}
+.stat-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:16px 20px;min-width:130px;box-shadow:var(--shadow-sm);
+}
+.stat-num{font-size:26px;font-weight:800;color:var(--primary-dark);line-height:1;}
+.stat-num span{font-size:14px;font-weight:700;color:var(--accent);margin-left:2px;}
+.stat-label{font-size:12.5px;color:var(--muted);margin-top:6px;}
+
+/* ================= funnel signature visual ================= */
+.funnel-wrap{margin:36px 0 8px;}
+.funnel-title{font-size:13px;font-weight:700;color:var(--muted);margin:0 0 14px;letter-spacing:.5px;text-transform:uppercase;}
+.funnel-track{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:6px;
+  position:relative;
+}
+.funnel-node{
+  cursor:pointer;
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:12px 8px 10px;text-align:center;transition:all .2s;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+}
+.funnel-node:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--primary);}
+.funnel-node .fi{font-size:19px;}
+.funnel-node .fn{font-size:11px;color:var(--muted);font-weight:700;line-height:1.3;}
+.funnel-node .fs{font-size:10px;color:var(--muted-2);font-family:monospace;}
+.funnel-bar{
+  height:3px;border-radius:3px;margin-top:16px;
+  background:linear-gradient(90deg,var(--primary),var(--accent) 55%, var(--money));
+  opacity:.5;
+}
+
+/* ================= sections ================= */
+.section{padding:56px 0 8px;scroll-margin-top:120px;}
+.section-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:26px;}
+.section-icon{
+  flex:none;width:52px;height:52px;border-radius:14px;
+  background:var(--primary-light);display:flex;align-items:center;justify-content:center;
+  font-size:24px;
+}
+.section-stage{
+  font-family:monospace;font-size:12px;color:var(--accent);font-weight:800;letter-spacing:1px;
+}
+.section-title{font-size:24px;font-weight:800;color:var(--primary-dark);margin:2px 0 6px;}
+.section-sub{font-size:14px;color:var(--muted);}
+.section-count{
+  margin-left:auto;flex:none;font-size:12px;color:var(--primary-dark);
+  background:var(--primary-light);border-radius:999px;padding:5px 12px;font-weight:700;
+  align-self:center;white-space:nowrap;
+}
+
+/* ================= cards grid ================= */
+.grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:16px;padding-bottom:8px;
+}
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px 18px 16px;box-shadow:var(--shadow-sm);
+  transition:box-shadow .2s,border-color .2s,transform .15s;
+  cursor:pointer;
+}
+.card:hover{box-shadow:var(--shadow-md);border-color:#CBD8F2;transform:translateY(-2px);}
+.card.open{border-color:var(--primary);box-shadow:var(--shadow-md);}
+.card-top{display:flex;align-items:flex-start;gap:10px;}
+.card-id{
+  flex:none;width:28px;height:28px;border-radius:8px;
+  background:var(--primary-light);color:var(--primary-dark);
+  font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  font-family:monospace;
+}
+.card-name{font-size:15.5px;font-weight:700;color:var(--text);flex:1;line-height:1.4;}
+.card-chevron{
+  flex:none;color:var(--muted-2);transition:transform .25s;margin-top:4px;
+}
+.card.open .card-chevron{transform:rotate(180deg);color:var(--primary);}
+.card-preview{
+  font-size:13px;color:var(--muted);margin:10px 0 0;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.card.open .card-preview{display:none;}
+.card-detail{
+  max-height:0;overflow:hidden;opacity:0;
+  transition:max-height .35s ease, opacity .3s ease, margin .3s ease;
+}
+.card.open .card-detail{max-height:600px;opacity:1;margin-top:14px;}
+.detail-row{margin-bottom:10px;}
+.detail-row:last-child{margin-bottom:0;}
+.detail-tag{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:800;padding:3px 9px;border-radius:6px;margin-bottom:6px;
+}
+.tag-principle{background:var(--primary-light);color:var(--primary-dark);}
+.tag-core{background:var(--accent-light);color:#C2410C;}
+.tag-layout{background:var(--money-light);color:#15803D;}
+.detail-text{font-size:13.3px;color:var(--text);line-height:1.65;}
+
+/* ================= empty state ================= */
+.empty-state{
+  display:none;text-align:center;padding:80px 20px;color:var(--muted);
+}
+.empty-state.show{display:block;}
+.empty-state .ei{font-size:40px;margin-bottom:14px;}
+
+/* ================= back to top ================= */
+.totop{
+  position:fixed;right:20px;bottom:24px;z-index:50;
+  width:46px;height:46px;border-radius:50%;
+  background:var(--primary);color:#fff;border:none;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow-lg);
+  opacity:0;pointer-events:none;transform:translateY(10px);
+  transition:opacity .2s,transform .2s;
+}
+.totop.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+.totop:hover{background:var(--primary-dark);}
+
+/* ================= footer ================= */
+footer{
+  margin-top:64px;padding:36px 0 48px;border-top:1px solid var(--border);
+  color:var(--muted);font-size:12.5px;text-align:center;
+}
+footer b{color:var(--primary-dark);}
+
+/* ================= usage guide box ================= */
+.guide{
+  background:linear-gradient(135deg,var(--primary-light),#F3F7FF);
+  border:1px solid #D7E4FA;border-radius:var(--radius);
+  padding:24px 26px;margin:40px 0;
+}
+.guide-title{font-size:15px;font-weight:800;color:var(--primary-dark);margin:0 0 10px;display:flex;align-items:center;gap:8px;}
+.guide ol{margin:0;padding-left:20px;color:var(--text);font-size:13.5px;line-height:1.9;}
+.guide ol li b{color:var(--primary-dark);}
+
+/* ================= responsive ================= */
+@media (max-width:900px){
+  .wrap,.topbar-inner,.stage-rail{padding-left:16px;padding-right:16px;}
+  .hero{padding:36px 0 18px;}
+  .hero-stats{gap:10px;}
+  .stat-card{padding:12px 14px;min-width:104px;}
+  .funnel-track{grid-template-columns:repeat(6,1fr);}
+  .section{padding:40px 0 4px;}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(100%,1fr));}
+}
+@media (max-width:560px){
+  .funnel-track{grid-template-columns:repeat(4,1fr);}
+  .funnel-node .fn{font-size:10px;}
+  .brand span.brand-text{display:none;}
+  .section-sub{display:none;}
+  h1.hero-title{font-size:28px;}
+  .hero-sub{font-size:14.5px;}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:0.001ms !important;transition-duration:0.001ms !important;}
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">跳到主内容</a>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="brand-mark">M</span><span class="brand-text">营销策略全景图鉴</span></div>
+    <div class="search-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="searchInput" type="text" placeholder="搜索策略名称 / 关键词，如：裂变、直播、私域…" />
+    </div>
+    <div class="count-pill" id="resultCount">共 204 种策略</div>
+  </div>
+  <div class="stage-rail" id="stageRail"></div>
+</div>
+
+<main id="main">
+<div class="wrap">
+
+  <section class="hero">
+    <div class="hero-badge"><span class="dot"></span>2026年8月 · 互联网端全渠道营销打法合集</div>
+    <h1 class="hero-title">一台电脑就能跑通的<br><em>全网营销策略全景图鉴</em></h1>
+    <p class="hero-sub">
+      从内容获客、广告投放、私域运营到裂变传播、AI智能营销、出海全球化 —— 按照真实的增长漏斗顺序，
+      系统梳理 12 大类、共 204 种可在互联网上独立执行的营销策略。每一种都写清楚
+      <b>原理</b>、<b>核心逻辑</b>与<b>落地布局步骤</b>，零基础也能直接照做。
+    </p>
+    <div class="hero-stats">
+      <div class="stat-card"><div class="stat-num">204<span>种</span></div><div class="stat-label">营销策略总数</div></div>
+      <div class="stat-card"><div class="stat-num">12<span>类</span></div><div class="stat-label">增长漏斗阶段</div></div>
+      <div class="stat-card"><div class="stat-num">100<span>%</span></div><div class="stat-label">纯互联网端可执行</div></div>
+      <div class="stat-card"><div class="stat-num">2026<span>.08</span></div><div class="stat-label">内容更新时间</div></div>
+    </div>
+
+    <div class="funnel-wrap">
+      <p class="funnel-title">🧭 全景漏斗导航 · 点击任意阶段直达</p>
+      <div class="funnel-track" id="funnelTrack"></div>
+      <div class="funnel-bar"></div>
+    </div>
+  </section>
+
+  <div class="guide">
+    <p class="guide-title">📌 小白使用指南</p>
+    <ol>
+      <li>先看顶部<b>「全景漏斗导航」</b>，了解一个用户从"被看见"到"被转化再到主动传播"要经过哪些阶段；</li>
+      <li>不知道从哪开始？新手/小成本起步建议优先看 <b>01内容与SEO</b>、<b>02社交媒体</b>、<b>04私域流量</b> 三个板块，成本最低、可复制性最强；</li>
+      <li>点击任意<b>策略卡片</b>展开查看「原理·核心·具体布局」三段式讲解，布局部分是可以直接照抄的执行步骤；</li>
+      <li>用顶部<b>搜索框</b>按关键词快速定位（例如输入"裂变""直播""AI"），找到最适合当前阶段的打法组合使用。</li>
+    </ol>
+  </div>
+
+  <div id="sectionsRoot"></div>
+
+  <div class="empty-state" id="emptyState">
+    <div class="ei">🔍</div>
+    <div>没有找到匹配的策略，换个关键词试试，比如"内容" "广告" "私域" "裂变" "AI"</div>
+  </div>
+
+</div>
+</main>
+
+<button class="totop" id="totopBtn" aria-label="回到顶部">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<footer>
+  <div class="wrap">
+    互联网营销策略全景图鉴 · 共收录 <b>204</b> 种策略，覆盖内容、SEO、社媒、广告、私域、裂变、达人、自动化、电商、心理学、AI与出海 12 大方向 ·
+    仅作学习整理使用，具体投放请结合自身产品与合规要求调整
+  </div>
+</footer>
+
+<script>
+const DATA = [
+  {
+    "key": "content",
+    "icon": "📝",
+    "stage": "01",
+    "title": "内容与SEO获客",
+    "sub": "让用户在搜索和信息流里“主动找到你”",
+    "items": [
+      {
+        "id": 1,
+        "n": "长尾关键词SEO布局",
+        "p": "搜索引擎按相关性和权威度排序网页，长尾词竞争小、转化意图明确",
+        "c": "用大量具体、精准的搜索词覆盖用户的真实提问，而不是死磕一个大词",
+        "l": "1.用5118/Ahrefs挖掘长尾词 2.每个长尾词写一篇专文 3.持续产出+内链互相指向，3个月起量"
+      },
+      {
+        "id": 2,
+        "n": "高质量原创内容矩阵",
+        "p": "搜索引擎和平台都优先分发原创、有信息增量的内容",
+        "c": "用数量+质量的组合拳占领某个细分话题的全部搜索结果",
+        "l": "1.确定3-5个核心话题柱 2.每个话题下拆10-20篇子内容 3.统一排期发布，形成话题矩阵"
+      },
+      {
+        "id": 3,
+        "n": "深度干货长文/白皮书获客",
+        "p": "专业内容建立信任，愿意留邮箱换干货的人是高意向线索",
+        "c": "用免费的高价值信息交换用户联系方式",
+        "l": "1.整理行业方法论做成PDF 2.落地页设置'留邮箱下载' 3.下载后自动进入邮件培育序列"
+      },
+      {
+        "id": 4,
+        "n": "GEO生成式引擎优化(AI搜索优化)",
+        "p": "AI对话式搜索(如豆包/文心/ChatGPT)会摘要网页内容给出答案，被引用即等于曝光",
+        "c": "让内容结构清晰到AI能直接抓取并当作答案引用",
+        "l": "1.用问答式小标题组织内容 2.首段直接给结论 3.补充数据来源和权威引用提高被引用概率"
+      },
+      {
+        "id": 5,
+        "n": "问答平台软性种草",
+        "p": "知乎/百度知道等问答内容长期占据搜索结果前排，可信度高于广告",
+        "c": "以'亲身经历'口吻回答相关问题，自然带出产品",
+        "l": "1.搜集行业高流量问题 2.用小号真实体验口吻作答 3.评论区置顶引导私信或链接"
+      },
+      {
+        "id": 6,
+        "n": "百科词条布局",
+        "p": "百科类页面权重极高，是用户查证品牌真实性的第一站",
+        "c": "把品牌/创始人/产品做成'可查证的公开事实'",
+        "l": "1.整理权威可查的资料来源 2.提交百度百科/维基百科词条 3.定期维护更新，避免被删"
+      },
+      {
+        "id": 7,
+        "n": "站内外链建设",
+        "p": "搜索引擎把'被多少高权重网站引用'当作信任投票",
+        "c": "让更多相关网站自然地链接到你的内容",
+        "l": "1.产出行业稀缺数据/工具 2.主动投稿到行业媒体 3.互换友链或做嘉宾合作换外链"
+      },
+      {
+        "id": 8,
+        "n": "内容IP化打造(专栏系列)",
+        "p": "持续更新的固定栏目比零散文章更容易被记住和追更",
+        "c": "给内容一个可识别的名字、封面模板和更新节奏",
+        "l": "1.取一个朗朗上口的栏目名 2.统一封面/开头/结尾模板 3.固定每周几更，培养追更习惯"
+      },
+      {
+        "id": 9,
+        "n": "用户生成内容UGC征集",
+        "p": "别人写的比自己写的更可信，也能低成本获得海量素材",
+        "c": "设计机制让用户主动创作并分享与产品相关的内容",
+        "l": "1.发起话题活动+奖励 2.提供简单的创作模板降低门槛 3.精选内容二次传播并公开致谢"
+      },
+      {
+        "id": 10,
+        "n": "案例研究(Case Study)展示",
+        "p": "潜在客户更相信'和我类似的人用了有效'而不是自卖自夸",
+        "c": "用真实客户的问题-方案-数据结果讲一个完整故事",
+        "l": "1.挑选有代表性的成功客户 2.按'背景-痛点-方案-数据'结构撰写 3.放在官网及销售话术中反复使用"
+      },
+      {
+        "id": 11,
+        "n": "免费工具/计算器引流",
+        "p": "免费实用工具能解决一个具体小问题，顺带植入品牌",
+        "c": "把产品能力拆出一个免费迷你功能单独做成落地页",
+        "l": "1.找到用户决策前的一个计算/诊断需求 2.开发轻量小工具 3.工具结果页引导到完整产品"
+      },
+      {
+        "id": 12,
+        "n": "行业报告发布获客",
+        "p": "独家数据和行业洞察天然具有传播力和媒体引用价值",
+        "c": "定期发布'只有你能给'的行业数据报告",
+        "l": "1.沉淀自有业务数据或做行业调研 2.做成图文并茂的报告 3.媒体通稿+留资下载双轨分发"
+      },
+      {
+        "id": 13,
+        "n": "内容再利用(一鱼多吃)",
+        "p": "同一个核心观点可以拆成图文、短视频、播客等多种形态触达不同人群",
+        "c": "一次深度创作，多平台差异化改编分发",
+        "l": "1.先产出一篇深度长文 2.拆成9宫格图/短视频脚本/金句海报 3.分发到不同平台对应人群"
+      },
+      {
+        "id": 14,
+        "n": "站内搜索优化与内链",
+        "p": "官网/App内的搜索和推荐直接影响用户能否找到想要的内容",
+        "c": "让站内内容互相关联，减少用户'找不到就走'的流失",
+        "l": "1.规划清晰的内容标签体系 2.相关文章底部加'猜你想看' 3.定期检查站内搜索无结果的关键词并补内容"
+      },
+      {
+        "id": 15,
+        "n": "视频SEO(标题与标签优化)",
+        "p": "视频平台同样靠标题关键词、简介、标签做检索匹配",
+        "c": "把视频当作一个可被搜索到的网页来优化",
+        "l": "1.标题前置核心关键词 2.简介中自然重复2-3次关键词 3.添加精准标签和字幕文本"
+      },
+      {
+        "id": 16,
+        "n": "播客营销",
+        "p": "音频内容适合通勤碎片时间，深度对话更容易建立人格化信任",
+        "c": "做成'专家聊天'式内容，长期渗透决策层用户",
+        "l": "1.确定固定嘉宾/主题栏目 2.每期结尾植入轻量CTA 3.同步发布到多个播客平台+文字版沉淀SEO"
+      },
+      {
+        "id": 17,
+        "n": "内容日历与选题矩阵化运营",
+        "p": "内容营销效果来自持续性而非单次爆款，需要系统排期",
+        "c": "用选题矩阵保证覆盖面，用日历保证稳定输出",
+        "l": "1.按'认知-兴趣-决策-复购'四阶段规划选题 2.建立月度内容日历表 3.每月复盘哪类选题效果最好并迭代"
+      }
+    ]
+  },
+  {
+    "key": "social",
+    "icon": "🎬",
+    "stage": "02",
+    "title": "社交媒体与短视频运营",
+    "sub": "在用户刷手机的碎片时间里被看见、被记住",
+    "items": [
+      {
+        "id": 18,
+        "n": "短视频黄金3秒法则",
+        "p": "平台算法根据完播率分发，前3秒留不住人后面都白搭",
+        "c": "开头用冲突/悬念/反常识画面瞬间抓住注意力",
+        "l": "1.先写钩子句再写正文 2.开场直接放结果或冲突画面 3.用A/B测试对比不同开场的完播率"
+      },
+      {
+        "id": 19,
+        "n": "直播带货常态化",
+        "p": "高频直播能持续获得平台流量扶持并积累复购型粉丝",
+        "c": "把直播从'活动'变成'日常经营阵地'",
+        "l": "1.固定每天/每周直播时段 2.设计'引流品-利润品-福利品'货盘结构 3.每场直播后复盘停留时长和转化率"
+      },
+      {
+        "id": 20,
+        "n": "话题挑战/Hashtag营销",
+        "p": "统一话题标签能让分散的用户内容聚合成一场传播事件",
+        "c": "发起一个易参与、易模仿的话题动作",
+        "l": "1.设计一个3秒能学会的动作或句式 2.联合达人首发引爆 3.用标签榜单激励更多人跟拍"
+      },
+      {
+        "id": 21,
+        "n": "平台算法养号策略",
+        "p": "新账号或低权重账号会被限流，需要先'喂'数据获得信任",
+        "c": "前期通过互动数据证明账号是真实、优质的",
+        "l": "1.前期垂直领域发布保持内容一致性 2.引导粉丝完成'评论/点赞/收藏'互动 3.避免频繁改名换类目触发限流"
+      },
+      {
+        "id": 22,
+        "n": "矩阵号布局(一个IP多平台分身)",
+        "p": "不同平台用户习惯不同，同一内容需要多入口覆盖",
+        "c": "一个核心人设，衍生多个平台账号协同曝光",
+        "l": "1.确定统一的人设与视觉风格 2.按平台特性微调内容形式 3.账号间互相导流形成闭环"
+      },
+      {
+        "id": 23,
+        "n": "评论区精细化运营",
+        "p": "评论区是第二个内容场，也是用户信任决策的关键参考位",
+        "c": "主动引导、置顶和回复评论，把评论区变成转化区",
+        "l": "1.发布后前30分钟集中回复评论 2.置顶高赞正面评价 3.主动抛问题引导更多人评论提升互动权重"
+      },
+      {
+        "id": 24,
+        "n": "私信自动化承接",
+        "p": "评论区/主页引来的私信如果回复慢会大量流失意向客户",
+        "c": "用关键词自动回复+人工承接组合，第一时间响应",
+        "l": "1.设置常见问题的关键词自动回复 2.复杂问题30分钟内人工介入 3.私信话术脚本化提高转化"
+      },
+      {
+        "id": 25,
+        "n": "图文种草笔记(小红书式)",
+        "p": "真实生活场景+第一人称体验感比硬广更容易被信任",
+        "c": "模拟素人真实使用场景写体验而非卖点堆砌",
+        "l": "1.选取真实使用场景拍摄 2.标题带痛点+结果 3.正文按'痛点-尝试-效果-建议'结构"
+      },
+      {
+        "id": 26,
+        "n": "系列剧情号打造人设",
+        "p": "连续剧式内容让用户产生'追更'心理，粘性远高于单条爆款",
+        "c": "设定人物、冲突和悬念，每集留钩子引导下一集",
+        "l": "1.设计一个鲜明人设和成长主线 2.每集结尾留悬念 3.固定更新时间培养追更习惯"
+      },
+      {
+        "id": 27,
+        "n": "直播预热-爆发-复盘三段式",
+        "p": "单场直播效果由预热流量池大小和话术节奏共同决定",
+        "c": "把一场直播当作一个完整项目管理，而非临时开播",
+        "l": "1.开播前1-3天短视频预热+海报造势 2.直播中按福利节点控节奏留人 3.结束后复盘数据优化下一场"
+      },
+      {
+        "id": 28,
+        "n": "用户互动游戏化(投票连麦)",
+        "p": "参与感越强，用户停留时长和好感度越高",
+        "c": "把单向输出变成双向互动的小游戏",
+        "l": "1.直播/内容中插入投票、抽奖、连麦环节 2.设置轻量奖励刺激参与 3.把互动数据用于优化后续内容"
+      },
+      {
+        "id": 29,
+        "n": "平台专属活动借势",
+        "p": "平台官方活动期间会额外倾斜流量给参与商家/创作者",
+        "c": "主动报名参与平台的流量扶持任务",
+        "l": "1.关注创作者后台的官方活动通知 2.按活动要求调整内容标签 3.活动期集中发力获取额外曝光"
+      },
+      {
+        "id": 30,
+        "n": "跨平台内容分发差异化",
+        "p": "同一条内容直接复制粘贴到多平台效果会打折",
+        "c": "针对每个平台的调性和算法微调呈现形式",
+        "l": "1.抖音强调前3秒和BGM 2.小红书强调封面文字和真实感 3.B站强调完整叙事和弹幕互动点"
+      },
+      {
+        "id": 31,
+        "n": "弹幕/评论区造梗",
+        "p": "有传播力的梗能让内容自发被二次传播和引用",
+        "c": "主动埋设一句易记、易玩梗的台词或画面",
+        "l": "1.设计一句朗朗上口的台词 2.引导粉丝在评论区玩梗接龙 3.把高频梗做成后续内容的固定元素"
+      },
+      {
+        "id": 32,
+        "n": "短视频SEO标题与标签优化",
+        "p": "短视频平台的搜索入口同样重要，很多流量来自主动搜索",
+        "c": "把标题当关键词来写，而不是单纯博眼球",
+        "l": "1.研究该品类下的高频搜索词 2.标题自然植入1-2个关键词 3.标签覆盖精准词+泛流量词组合"
+      },
+      {
+        "id": 33,
+        "n": "账号人设与内容调性统一",
+        "p": "调性混乱的账号让算法难以给账号打精准标签，也难留粉",
+        "c": "确定一个清晰、可持续输出的角色定位",
+        "l": "1.写一份'人设说明书'(性格/口吻/领域) 2.所有内容对照说明书检查是否跑偏 3.定期审视调性是否需要微调而非推翻重来"
+      },
+      {
+        "id": 34,
+        "n": "粉丝群/铁粉俱乐部运营",
+        "p": "公域平台的粉丝随时可能因算法变化流失，需要沉淀私域",
+        "c": "把最忠实的粉丝转移到自己可控的阵地",
+        "l": "1.在内容中引导加群/加好友 2.群内提供专属福利和抢先看 3.定期在群内做深度互动增强粘性"
+      }
+    ]
+  },
+  {
+    "key": "ads",
+    "icon": "💰",
+    "stage": "03",
+    "title": "付费广告投放",
+    "sub": "用真金白银买确定性的曝光和流量",
+    "items": [
+      {
+        "id": 35,
+        "n": "搜索引擎竞价广告(SEM)",
+        "p": "用户主动搜索时意图最强，此时出现在结果最前面转化率最高",
+        "c": "为高转化意图关键词出价，抢占搜索结果首位",
+        "l": "1.按购买意图分层选词(品牌词/竞品词/需求词) 2.分组撰写高相关性广告文案 3.每周根据点击率和转化率调整出价"
+      },
+      {
+        "id": 36,
+        "n": "信息流广告(Feeds Ads)",
+        "p": "用户刷信息流时处于'被动接受'状态，需要素材本身够吸睛",
+        "c": "让广告伪装成一条'看起来不像广告'的内容",
+        "l": "1.用真实场景素材而非纯产品图 2.文案模仿平台原生内容口吻 3.多素材轮播测试找出高点击组合"
+      },
+      {
+        "id": 37,
+        "n": "再营销广告(Retargeting)",
+        "p": "来过但没转化的用户比全新用户转化成本低得多",
+        "c": "对'浏览过但未下单'的人群反复曝光提醒",
+        "l": "1.在官网/App埋入追踪像素 2.按浏览深度分层建人群包 3.用限时优惠等钩子二次触达"
+      },
+      {
+        "id": 38,
+        "n": "相似受众扩量(Lookalike Audience)",
+        "p": "已转化用户的特征最接近下一个潜在客户",
+        "c": "用现有优质客户数据训练平台找到相似新用户",
+        "l": "1.上传现有付费客户名单/像素数据 2.平台生成相似人群包 3.小预算测试后逐步放量"
+      },
+      {
+        "id": 39,
+        "n": "效果广告(CPA/CPS)优化",
+        "p": "按实际成交或行为付费，风险更小、更适合中小预算",
+        "c": "只为真实产生的转化结果付费，而非曝光量",
+        "l": "1.选择支持CPA/CPS结算的渠道或联盟 2.设置清晰的转化事件追踪 3.持续淘汰低效渠道保留高ROI渠道"
+      },
+      {
+        "id": 40,
+        "n": "品牌广告(展示位/开屏)",
+        "p": "品牌广告种下的是长期认知，不追求即时转化",
+        "c": "用高曝光位置反复强化品牌记忆点",
+        "l": "1.选择目标人群高频出现的核心版位 2.统一视觉锤反复曝光 3.配合效果广告承接品牌带来的搜索流量"
+      },
+      {
+        "id": 41,
+        "n": "联盟广告网络投放",
+        "p": "借助第三方广告联盟的海量长尾流量位低成本获取曝光",
+        "c": "把广告投放到成千上万分散的中小网站/App",
+        "l": "1.接入联盟广告平台 2.设置转化目标和出价上限 3.定期剔除低质量流量来源"
+      },
+      {
+        "id": 42,
+        "n": "程序化广告购买(RTB)",
+        "p": "实时竞价能在毫秒级匹配最合适的用户和最优价格",
+        "c": "让算法自动完成'该给谁看、出多少钱'的决策",
+        "l": "1.接入DSP程序化购买平台 2.设定人群、预算与出价策略 3.让系统自动学习优化投放"
+      },
+      {
+        "id": 43,
+        "n": "A/B测试素材迭代",
+        "p": "小样本对比测试能在花大钱前找到更优方案",
+        "c": "同时跑多个变量版本，用数据说话而非直觉",
+        "l": "1.每次只改变一个变量(标题/图片/CTA) 2.均分预算同时测试 3.保留数据最优版本并淘汰其余"
+      },
+      {
+        "id": 44,
+        "n": "落地页专属定制",
+        "p": "广告和落地页信息不一致会导致用户点进来就跳出",
+        "c": "让落地页内容和广告承诺高度一致、聚焦单一目标",
+        "l": "1.每个广告系列对应一个专属落地页 2.页面只保留一个核心行动按钮 3.持续测试标题和按钮文案提升转化率"
+      },
+      {
+        "id": 45,
+        "n": "广告创意疲劳监测与轮换",
+        "p": "同一素材反复曝光后点击率会自然下滑",
+        "c": "定期监测点击率衰减并及时更换新素材",
+        "l": "1.设定点击率下降阈值作为预警线 2.提前准备3-5套备用素材 3.触发预警后自动或手动切换"
+      },
+      {
+        "id": 46,
+        "n": "出价策略(手动/自动智能出价)",
+        "p": "不同阶段适合不同出价方式，早期需要控成本，后期需要跑量",
+        "c": "根据数据积累程度选择手动精细控制或AI自动优化",
+        "l": "1.冷启动期用手动出价控制成本 2.数据积累到阈值后切换智能出价 3.定期检查智能出价是否偏离预期ROI"
+      },
+      {
+        "id": 47,
+        "n": "广告归因模型分析",
+        "p": "一次转化背后往往经过多个触点，需要合理分配'功劳'",
+        "c": "用归因模型判断哪些渠道真正促成了转化",
+        "l": "1.搭建多渠道追踪体系 2.选择适合业务的归因模型(首次/末次/线性) 3.按归因结果重新分配预算"
+      },
+      {
+        "id": 48,
+        "n": "跨渠道预算再分配",
+        "p": "不同渠道的边际转化效率会随时间变化，预算要动态调整",
+        "c": "把钱从效率下降的渠道挪到效率上升的渠道",
+        "l": "1.每周统计各渠道ROI 2.设定预算调整规则(如ROI低于阈值减投) 3.持续把预算向高效渠道倾斜"
+      },
+      {
+        "id": 49,
+        "n": "竞对广告监测",
+        "p": "了解对手的广告策略能帮助自己找到差异化机会",
+        "c": "用工具持续监测竞品的广告素材和落地页变化",
+        "l": "1.用广告情报工具追踪竞品投放 2.分析其素材套路和卖点变化 3.找到竞品未覆盖的用户痛点差异化切入"
+      },
+      {
+        "id": 50,
+        "n": "原生广告(Native Ads)",
+        "p": "越不像广告的广告，用户抵触心理越低",
+        "c": "让广告的形式和风格完全融入所在内容环境",
+        "l": "1.研究所在媒体/平台的内容风格 2.用同样的排版和口吻撰写广告内容 3.避免生硬的促销用语"
+      },
+      {
+        "id": 51,
+        "n": "互动式广告(可玩广告)",
+        "p": "让用户'玩一下'比'看一眼'记忆更深、参与感更强",
+        "c": "把广告做成一个15-30秒能体验的小游戏或互动demo",
+        "l": "1.设计一个和产品核心卖点相关的小互动 2.互动结束后引导下载或跳转 3.测试互动完成率优化难度曲线"
+      }
+    ]
+  },
+  {
+    "key": "private",
+    "icon": "👥",
+    "stage": "04",
+    "title": "私域流量与社群运营",
+    "sub": "把公域买来的流量沉淀成自己可反复触达的资产",
+    "items": [
+      {
+        "id": 52,
+        "n": "企业微信/微信群精细化运营",
+        "p": "私域最大价值在于可以反复、免费触达同一批用户",
+        "c": "把一次性的公域流量转化为长期可运营的关系资产",
+        "l": "1.在每个转化环节设置加微信钩子 2.按标签给用户打分层(新客/复购/沉睡) 3.按分层设计不同的内容和优惠推送节奏"
+      },
+      {
+        "id": 53,
+        "n": "会员体系设计(等级积分)",
+        "p": "游戏化的等级和积分能持续激励用户完成指定行为",
+        "c": "用可视化的进度和奖励驱动用户持续互动和消费",
+        "l": "1.设计消费/互动对应的积分规则 2.设置有吸引力的等级特权 3.定期推送积分即将过期等提醒刺激使用"
+      },
+      {
+        "id": 54,
+        "n": "社群裂变入群",
+        "p": "已在群里的用户是最容易被激活去邀请新人的资源",
+        "c": "设计'邀请几人可获得福利'的入群任务",
+        "l": "1.设置低成本高感知的入群礼 2.用海报+个人二维码裂变工具生成专属邀请链接 3.实时统计邀请榜单激励头部用户"
+      },
+      {
+        "id": 55,
+        "n": "朋友圈人设打造",
+        "p": "私域运营者本人的朋友圈是天然的、免费的广告位",
+        "c": "把个人号打造成'值得信任的朋友'而不是'推销员'",
+        "l": "1.按'生活+专业+互动'比例规划朋友圈内容 2.适度展示真实工作和客户反馈 3.避免刷屏式硬广"
+      },
+      {
+        "id": 56,
+        "n": "私域SOP自动化触达",
+        "p": "人工逐一触达效率低且容易遗漏，需要标准化流程",
+        "c": "把用户旅程中每个节点该发什么内容标准化、自动化",
+        "l": "1.梳理用户从加好友到复购的完整旅程 2.每个节点设计对应话术模板 3.用工具设置定时/触发式自动发送"
+      },
+      {
+        "id": 57,
+        "n": "老客户唤醒与复购激活",
+        "p": "获取新客成本远高于唤醒老客户，沉睡用户是低成本金矿",
+        "c": "定期用专属理由重新触达长期未互动的老用户",
+        "l": "1.按最后互动时间筛选沉睡用户 2.设计'专属回归礼'话术 3.统计唤醒转化率持续优化触达时机"
+      },
+      {
+        "id": 58,
+        "n": "社群内容日历(签到打卡)",
+        "p": "持续的小互动能培养用户每天打开群/App的习惯",
+        "c": "用低门槛的每日任务维持社群活跃度",
+        "l": "1.设计每日签到/打卡任务 2.累计天数兑换奖励 3.在群内公示打卡榜单增加仪式感"
+      },
+      {
+        "id": 59,
+        "n": "一对一顾问式服务(高客单)",
+        "p": "客单价越高，用户越需要被'服务'而非被'推销'",
+        "c": "把销售角色转变为解决用户问题的专业顾问",
+        "l": "1.深入了解用户具体需求和顾虑 2.提供个性化方案而非标准话术 3.成交后持续提供增值服务维护关系"
+      },
+      {
+        "id": 60,
+        "n": "私域专属优惠与秒杀",
+        "p": "专属感能让用户觉得自己享受了公域享受不到的特权",
+        "c": "把最优惠的价格只放在私域，反向促使用户加入私域",
+        "l": "1.设计仅群内可见的限时价格 2.配合倒计时营造紧迫感 3.定期更换福利避免用户免疫"
+      },
+      {
+        "id": 61,
+        "n": "用户分层精细化运营(RFM)",
+        "p": "不同价值的用户需要不同的运营策略和资源投入",
+        "c": "按最近消费/消费频率/消费金额给用户打分分层",
+        "l": "1.统计每个用户的R/F/M三项数据 2.划分高价值/潜力/流失预警等分层 3.针对不同分层设计差异化触达策略"
+      },
+      {
+        "id": 62,
+        "n": "社群KOC培养",
+        "p": "群内活跃、有影响力的普通用户比运营者说话更有说服力",
+        "c": "主动发现并扶持愿意为品牌发声的种子用户",
+        "l": "1.识别群内互动最活跃的用户 2.给予专属身份和小福利 3.鼓励其在群内分享真实体验带动其他人"
+      },
+      {
+        "id": 63,
+        "n": "私域直播专场",
+        "p": "面向已建立信任关系的私域用户直播，转化率远高于公域",
+        "c": "把私域流量集中到一场专属直播中集中转化",
+        "l": "1.提前在群内预告直播福利 2.直播中设置专属优惠码 3.直播后持续跟进未下单用户"
+      },
+      {
+        "id": 64,
+        "n": "小程序商城承接私域",
+        "p": "私域流量最终需要一个轻量、低摩擦的成交场所",
+        "c": "用免安装、打开即用的小程序承接购买行为",
+        "l": "1.搭建轻量小程序商城 2.在群/朋友圈嵌入小程序卡片 3.简化下单流程减少中间步骤"
+      },
+      {
+        "id": 65,
+        "n": "企业微信侧边栏工具应用",
+        "p": "客服/销售在对话时能否快速调取资料直接影响响应效率",
+        "c": "把常用话术、资料、优惠券集成到聊天侧边栏",
+        "l": "1.整理高频问题的标准答案库 2.配置到企业微信侧边栏工具 3.定期更新话术库保持信息准确"
+      },
+      {
+        "id": 66,
+        "n": "群内话题共创与UGC征集",
+        "p": "用户共同参与创造的内容比单向输出更有归属感",
+        "c": "定期发起话题讨论并把优质内容反哺到公域",
+        "l": "1.每周设计一个轻松话题引导讨论 2.精选优质发言公开表扬 3.把优质UGC整理成公域传播素材"
+      },
+      {
+        "id": 67,
+        "n": "私域数据看板监控",
+        "p": "私域运营效果如果无法量化，就无法持续优化",
+        "c": "把加粉、活跃、转化等关键指标可视化跟踪",
+        "l": "1.定义核心私域指标(加粉数/活跃率/复购率) 2.用表格或BI工具每周更新 3.根据数据波动及时调整运营动作"
+      },
+      {
+        "id": 68,
+        "n": "老带新裂变机制(邀请奖励)",
+        "p": "让现有满意用户成为免费的销售渠道",
+        "c": "设计'老用户邀请新用户成交，双方都获益'的机制",
+        "l": "1.设置老带新专属奖励(现金/权益) 2.生成专属邀请链接便于追踪归因 3.定期公示邀请达人榜单激励持续邀请"
+      }
+    ]
+  },
+  {
+    "key": "viral",
+    "icon": "🚀",
+    "stage": "05",
+    "title": "裂变与病毒式传播",
+    "sub": "让用户主动帮你把内容和产品传播出去",
+    "items": [
+      {
+        "id": 69,
+        "n": "拼团裂变",
+        "p": "多人成团享受更低价格，天然驱动用户拉人凑单",
+        "c": "把'省钱'的动力转化为'拉朋友一起买'的动作",
+        "l": "1.设置2-3人成团即可享受的优惠 2.设置成团倒计时制造紧迫感 3.分享链接自动记录邀请关系"
+      },
+      {
+        "id": 70,
+        "n": "助力砍价",
+        "p": "每邀请一人砍一刀，逼近0元的进度条极具驱动力",
+        "c": "用递减的价格进度可视化刺激持续邀请行为",
+        "l": "1.设置递减但趋近但不轻易到0的砍价曲线 2.分享话术自动生成便于转发 3.设置最终兜底门槛防止刷单"
+      },
+      {
+        "id": 71,
+        "n": "分享得优惠券",
+        "p": "分享行为本身能免费换取实际利益，操作门槛极低",
+        "c": "把分享动作和即时可见的利益直接挂钩",
+        "l": "1.设置'分享即领券'按钮 2.券面额设计要有实际吸引力 3.限制单用户领取次数防止薅羊毛"
+      },
+      {
+        "id": 72,
+        "n": "邀请返利/分销奖励",
+        "p": "把普通用户变成兼职推广员，用真实收益驱动传播",
+        "c": "为每一笔通过邀请产生的成交给予邀请人现金奖励",
+        "l": "1.搭建带追踪链接的分销系统 2.设计清晰的多级返利比例 3.定期结算避免拖欠影响信任"
+      },
+      {
+        "id": 73,
+        "n": "社交货币设计(晒图炫耀点)",
+        "p": "人们天然愿意分享能让自己显得'有品味/懂行'的内容",
+        "c": "在产品或内容中设计一个值得截图分享的亮点",
+        "l": "1.设计一个视觉上独特、有梗的元素(如测试结果海报) 2.让分享后的效果本身很好看 3.在分享结果页留下品牌水印和入口"
+      },
+      {
+        "id": 74,
+        "n": "情绪化内容引发自传播",
+        "p": "强烈情绪(感动/愤怒/好笑)是驱动转发最强的心理动因",
+        "c": "围绕一个能引发共鸣情绪的真实故事或反差设计内容",
+        "l": "1.挖掘真实、有冲突感的故事素材 2.用简洁强烈的表达方式呈现 3.结尾留一句易被引用转发的金句"
+      },
+      {
+        "id": 75,
+        "n": "悬念式内容钩子",
+        "p": "没有讲完的故事会让人忍不住想知道结局并分享讨论",
+        "c": "在内容开头埋下疑问，结尾适度留白或反转",
+        "l": "1.标题/开场提出一个强烈疑问 2.正文层层递进但不过早揭晓答案 3.结尾反转或留下讨论空间"
+      },
+      {
+        "id": 76,
+        "n": "挑战赛/模仿传播",
+        "p": "低门槛、易模仿的动作能引发大规模跟风参与",
+        "c": "设计一个任何人都能3秒学会并乐于展示的动作",
+        "l": "1.找达人首发做示范降低模仿门槛 2.设置统一话题标签方便聚合 3.用小奖励激励优质模仿内容"
+      },
+      {
+        "id": 77,
+        "n": "红包裂变",
+        "p": "真金白银的红包是最直接、最不需要解释的传播动力",
+        "c": "用小额红包换取分享行为和新用户关注",
+        "l": "1.设置分享后可领取的随机红包 2.控制单个红包成本在可承受范围 3.提现门槛设计需平衡防羊毛和留存"
+      },
+      {
+        "id": 78,
+        "n": "测试类H5互动传播(性格测试等)",
+        "p": "人们天然对'关于自己'的结果感兴趣并愿意分享给朋友看",
+        "c": "设计一个轻松有趣、结果可分享的小测试嵌入产品元素",
+        "l": "1.设计简短有趣的题目(5-8题为佳) 2.结果页设计成适合截图分享的海报样式 3.结果中自然植入品牌/产品信息"
+      },
+      {
+        "id": 79,
+        "n": "病毒视频脚本设计(反转共鸣)",
+        "p": "有反转或强共鸣的15-30秒短片天然具备转发属性",
+        "c": "用'前半段铺垫+后半段反转/共鸣'的结构设计脚本",
+        "l": "1.先确定一个能引发共鸣的核心情绪点 2.前10秒铺垫制造预期 3.后段用反转或升华收尾"
+      },
+      {
+        "id": 80,
+        "n": "阶梯奖励裂变(邀请越多奖励越大)",
+        "p": "阶梯式奖励让用户不断产生'再邀一个就能升级'的心理",
+        "c": "设置多个邀请人数节点，每个节点奖励递增",
+        "l": "1.设计3-5个邀请人数阶梯 2.每个阶梯对应更有吸引力的奖励 3.实时展示当前进度刺激继续邀请"
+      },
+      {
+        "id": 81,
+        "n": "拼手气抽奖分享",
+        "p": "不确定的奖励(抽奖)比确定的奖励更容易激发参与和分享的冲动",
+        "c": "把分享行为和一次抽奖机会绑定",
+        "l": "1.设置分享后获得抽奖次数 2.奖池设置一定数量的高价值奖品制造话题 3.中奖结果设计成可分享的样式"
+      },
+      {
+        "id": 82,
+        "n": "打卡返现/瓜分奖金池",
+        "p": "集体目标(共同瓜分奖池)能激发用户互相监督和邀请",
+        "c": "设置需要多人共同完成才能瓜分的奖励机制",
+        "l": "1.设定周期性打卡任务 2.奖池金额与参与人数/完成率挂钩 3.定期播报奖池进度制造紧迫感"
+      },
+      {
+        "id": 83,
+        "n": "借势热点二次创作",
+        "p": "热点自带海量关注度，蹭上热点能极大降低传播成本",
+        "c": "在热点发酵的黄金时间内快速产出相关内容",
+        "l": "1.建立热点监测机制(24小时轮值) 2.用品牌视角对热点做二次解读 3.确保内容与品牌调性和安全边界一致"
+      },
+      {
+        "id": 84,
+        "n": "跨界联名话题制造",
+        "p": "两个反差品牌的联合本身就是自带话题度的新闻点",
+        "c": "选择用户群体互补或反差萌的品牌进行联名",
+        "l": "1.筛选调性互补的合作品牌 2.联合设计限定产品或内容 3.双方渠道同步造势扩大声量"
+      },
+      {
+        "id": 85,
+        "n": "种子用户定向裂变启动",
+        "p": "冷启动阶段需要先让一小撮高质量用户带动传播链条",
+        "c": "精选一批高活跃、高影响力的种子用户重点运营",
+        "l": "1.筛选与目标用户画像高度重合的种子用户 2.给予专属特权和一对一维护 3.引导种子用户率先发起裂变行为"
+      }
+    ]
+  },
+  {
+    "key": "kol",
+    "icon": "⭐",
+    "stage": "06",
+    "title": "KOL/网红与达人营销",
+    "sub": "借助他人已建立的信任关系加速你的信任建立",
+    "items": [
+      {
+        "id": 86,
+        "n": "头部KOL品牌背书",
+        "p": "头部达人的信任背书能快速提升品牌可信度和认知度",
+        "c": "用大体量粉丝基础和公信力做品牌层面的曝光和背书",
+        "l": "1.筛选调性和受众高度匹配的头部达人 2.设计既保留达人风格又传达核心卖点的合作内容 3.曝光后承接搜索流量和私域沉淀"
+      },
+      {
+        "id": 87,
+        "n": "腰部KOA矩阵种草",
+        "p": "单个头部成本高且风险集中，多个腰部账号性价比更高、更真实",
+        "c": "用多个垂类腰部账号从不同角度密集种草形成信息包围",
+        "l": "1.筛选10-30个垂类腰部账号 2.每个账号从不同使用场景切入 3.短期内集中发布形成'刷屏'既视感"
+      },
+      {
+        "id": 88,
+        "n": "素人KOC真实测评",
+        "p": "素人的真实体验比明星代言更能打消'广告'的戒备心理",
+        "c": "邀请真实普通用户以第一人称分享使用体验",
+        "l": "1.筛选真实使用过产品的素人用户 2.提供简单拍摄指引但保留真实感 3.精选优质内容用于公域二次传播"
+      },
+      {
+        "id": 89,
+        "n": "网红定制专属优惠码",
+        "p": "专属优惠码既能给粉丝实惠，也能精准追踪该达人带来的转化",
+        "c": "为每个合作达人生成独立追踪的优惠码",
+        "l": "1.为每位达人生成专属折扣码 2.要求达人在内容中露出并解释 3.通过码追踪统计各达人真实ROI"
+      },
+      {
+        "id": 90,
+        "n": "达人直播带货专场",
+        "p": "达人本身的直播间自带高信任度和购买氛围",
+        "c": "把产品放入达人已有的直播购物场景中集中转化",
+        "l": "1.提前和达人团队沟通好话术和排品顺序 2.准备专属直播价和赠品 3.直播中安排客服实时答疑承接下单"
+      },
+      {
+        "id": 91,
+        "n": "内容共创(联名视频)",
+        "p": "品牌和达人共同创作的内容比单纯的广告植入更自然、更有创意",
+        "c": "邀请达人参与内容创意过程而非单纯念广告词",
+        "l": "1.向达人说明核心卖点但不限制表达方式 2.共同讨论内容创意方向 3.联合署名发布提升双方获得感"
+      },
+      {
+        "id": 92,
+        "n": "长期代言vs单次合作策略",
+        "p": "长期反复出现能建立更深的记忆联想，单次合作追求短期爆量",
+        "c": "根据预算和目标选择'深度绑定'或'广度覆盖'策略",
+        "l": "1.预算有限优先选1-2位达人长期合作 2.预算充足可搭配长期+多个单次合作 3.定期评估代言人是否仍符合品牌调性"
+      },
+      {
+        "id": 93,
+        "n": "达人分层筛选(粉丝画像匹配)",
+        "p": "粉丝量大不代表转化好，画像匹配度才是关键指标",
+        "c": "优先看粉丝画像和互动质量而非单纯的粉丝数",
+        "l": "1.要求达人提供粉丝画像后台数据 2.核对互动率、评论质量是否真实 3.小额测试合作后再决定是否深度合作"
+      },
+      {
+        "id": 94,
+        "n": "达人内容二次利用(授权投流)",
+        "p": "优质达人内容配合广告投放能获得比自然流量更大的曝光",
+        "c": "把表现好的达人内容作为素材投入付费广告池",
+        "l": "1.合作前约定内容可用于广告投放 2.筛选自然流量表现最好的内容 3.以达人身份投流保持内容真实感"
+      },
+      {
+        "id": 95,
+        "n": "探店/体验官计划",
+        "p": "线下体验类内容能直观展示产品/门店的真实氛围",
+        "c": "邀请达人到店体验并记录真实过程",
+        "l": "1.设计有记忆点的体验环节 2.准备好拍摄友好的场景和道具 3.引导达人分享真实感受而非通稿式内容"
+      },
+      {
+        "id": 96,
+        "n": "达人培育计划(自建达人库)",
+        "p": "持续依赖外部达人成本高，自建达人库能沉淀长期资产",
+        "c": "筛选潜力素人达人长期陪伴其成长为品牌自己人",
+        "l": "1.从忠实用户中挖掘有创作潜力的人 2.提供内容培训和流量扶持 3.随其成长逐步深化合作关系"
+      },
+      {
+        "id": 97,
+        "n": "效果分成合作(CPS达人)",
+        "p": "按实际带货效果分成能大幅降低前期合作风险",
+        "c": "不付坑位费，只按最终成交额给予达人分成",
+        "l": "1.搭建可追踪的专属带货链接/口令 2.约定清晰的分成比例 3.定期结算并公开透明的数据"
+      },
+      {
+        "id": 98,
+        "n": "跨界网红联合直播",
+        "p": "不同领域达人联合直播能互相导流吸引双方粉丝关注",
+        "c": "邀请调性互补的多位达人同框直播制造话题",
+        "l": "1.选择粉丝群体有交集又有差异的达人 2.设计互动环节增加话题性 3.双方渠道同步预热扩大声量"
+      },
+      {
+        "id": 99,
+        "n": "达人评论区精细化运营",
+        "p": "达人内容下的评论区聚集了高意向潜在客户",
+        "c": "主动在合作内容评论区解答问题、引导转化",
+        "l": "1.合作发布后安排专人蹲守评论区 2.快速、真诚回复用户疑问 3.引导私信或链接完成转化"
+      },
+      {
+        "id": 100,
+        "n": "达人内容数据复盘优化",
+        "p": "没有复盘的达人合作只是一次性投入，无法沉淀经验",
+        "c": "建立标准化的达人效果评估体系持续优化选人策略",
+        "l": "1.统一记录每次合作的曝光/互动/转化数据 2.定期分析哪类达人/内容形式ROI最高 3.把优质经验固化为选人标准"
+      },
+      {
+        "id": 101,
+        "n": "明星色彩的虚拟IP代言",
+        "p": "虚拟形象没有真人代言的负面风险，且可以完全按品牌调性打造",
+        "c": "打造一个专属虚拟形象作为品牌的'代言人'",
+        "l": "1.设计符合品牌调性的虚拟形象 2.赋予其固定人设和内容风格 3.持续输出内容积累虚拟IP自身影响力"
+      },
+      {
+        "id": 102,
+        "n": "达人粉丝群反哺私域",
+        "p": "达人的粉丝群是尚未被自己触达的高质量流量池",
+        "c": "通过合作引导达人粉丝进入品牌自己的私域阵地",
+        "l": "1.合作内容中设计专属福利引导加群 2.提供达人粉丝专属的入群理由 3.入群后按正常私域SOP持续运营"
+      }
+    ]
+  },
+  {
+    "key": "email",
+    "icon": "✉️",
+    "stage": "07",
+    "title": "消息自动化与生命周期营销",
+    "sub": "在正确的时间给正确的人发正确的信息",
+    "items": [
+      {
+        "id": 103,
+        "n": "欢迎邮件/消息序列",
+        "p": "用户注册后的头几天是关注度最高的窗口期，容易被浪费",
+        "c": "用一套自动化的欢迎序列引导新用户完成关键动作",
+        "l": "1.设计3-5封的欢迎序列 2.每封聚焦一个引导目标(完善资料/首次购买等) 3.按天自动触发发送"
+      },
+      {
+        "id": 104,
+        "n": "弃购挽回(购物车召回)",
+        "p": "加购未支付的用户购买意愿明确，只是被某个障碍卡住",
+        "c": "在用户放弃购物车后自动触发提醒和优惠",
+        "l": "1.监测加购未支付行为触发提醒 2.第一封纯提醒，后续可加小额优惠 3.设置3封间隔递进的召回序列"
+      },
+      {
+        "id": 105,
+        "n": "生日/纪念日专属营销",
+        "p": "专属日期的关怀让用户感受到被重视而非被当作数据",
+        "c": "在特殊日期自动触发个性化祝福和专属优惠",
+        "l": "1.收集用户生日等关键日期信息 2.设计当天自动触发的祝福+优惠 3.统计生日营销的转化率并优化礼品力度"
+      },
+      {
+        "id": 106,
+        "n": "邮件分层精细化(细分名单)",
+        "p": "群发同一封邮件给所有人转化率远低于精准分层发送",
+        "c": "按用户属性和行为把名单拆成多个细分群体",
+        "l": "1.按购买历史/兴趣标签给用户分组 2.为每组定制不同的内容和优惠 3.对比各组打开率转化率持续优化分组逻辑"
+      },
+      {
+        "id": 107,
+        "n": "短信营销(SMS Marketing)",
+        "p": "短信打开率远高于邮件，适合高紧迫性的关键提醒",
+        "c": "用简短直接的短信触达对时效敏感的关键信息",
+        "l": "1.仅在重要节点使用(订单/大促/召回) 2.文案控制在一句话讲清楚事情+行动 3.严格遵守发送频率避免被拉黑"
+      },
+      {
+        "id": 108,
+        "n": "微信服务号消息推送",
+        "p": "服务号消息能直达用户微信，适合承接私域关键通知",
+        "c": "用有限的推送额度做最有价值的信息触达",
+        "l": "1.规划每月推送额度的使用优先级 2.优先用于订单物流/专属福利等强相关信息 3.持续监测打开率优化推送时机"
+      },
+      {
+        "id": 109,
+        "n": "App Push智能推送",
+        "p": "不分场景乱推送会导致用户直接关闭通知权限",
+        "c": "基于用户行为和时段做个性化、克制的推送",
+        "l": "1.按用户活跃时段智能选择推送时间 2.基于浏览行为做个性化内容推荐 3.设置推送频率上限保护用户体验"
+      },
+      {
+        "id": 110,
+        "n": "客户旅程自动化(Marketing Automation)",
+        "p": "用户旅程的每个节点都需要对应动作，人工难以覆盖所有细节",
+        "c": "把整个用户生命周期的触达逻辑提前设计成自动化流程",
+        "l": "1.画出完整的用户旅程地图 2.在每个关键节点设置触发条件和对应内容 3.用自动化工具搭建并持续监测效果"
+      },
+      {
+        "id": 111,
+        "n": "邮件A/B测试标题优化",
+        "p": "标题决定打开率，是邮件营销投入产出比最高的优化点",
+        "c": "用小范围测试找出更高打开率的标题再全量发送",
+        "l": "1.准备2个不同风格的标题 2.先对小部分名单测试打开率 3.把打开率更高的版本用于剩余名单"
+      },
+      {
+        "id": 112,
+        "n": "触发式行为营销(浏览未买提醒)",
+        "p": "用户对某商品表现出兴趣但未行动，是极高价值的挽回信号",
+        "c": "监测特定行为自动触发个性化提醒",
+        "l": "1.埋点追踪商品浏览/多次访问行为 2.设定行为阈值触发自动消息 3.消息中直接展示用户浏览过的商品"
+      },
+      {
+        "id": 113,
+        "n": "会员到期提醒续费",
+        "p": "临近到期是用户决策续费与否的关键窗口，提前提醒能提高续费率",
+        "c": "在到期前分阶段自动提醒并给出续费理由",
+        "l": "1.设置到期前7天/3天/1天多次提醒 2.提醒中附带续费专属优惠 3.到期后设计一次挽回触达"
+      },
+      {
+        "id": 114,
+        "n": "满意度调研自动跟进(NPS)",
+        "p": "主动收集反馈既能改进产品，也能识别高忠诚度和高风险用户",
+        "c": "用简单问卷自动触达并按分数分层跟进",
+        "l": "1.在关键节点后自动发送NPS问卷 2.按打分把用户分为推荐者/中立者/批评者 3.对批评者安排人工跟进挽回，对推荐者引导转介绍"
+      },
+      {
+        "id": 115,
+        "n": "邮件模板品牌化设计",
+        "p": "杂乱无章的邮件观感直接影响品牌专业度和信任感",
+        "c": "统一视觉模板让每封邮件都有清晰的品牌识别度",
+        "l": "1.设计统一的邮件头图和配色模板 2.规范字体和按钮样式 3.所有营销邮件复用同一模板保持一致性"
+      },
+      {
+        "id": 116,
+        "n": "退订挽留流程设计",
+        "p": "退订前的最后一刻仍有机会了解原因并挽留部分用户",
+        "c": "在退订流程中加入一步'了解原因'并提供替代方案",
+        "l": "1.退订按钮点击后先展示挽留页面 2.提供'降低频率'而非'全部退订'的选项 3.统计退订原因用于改进后续内容策略"
+      },
+      {
+        "id": 117,
+        "n": "客户生命周期营销地图",
+        "p": "不同阶段的客户需要完全不同的沟通策略，一刀切效果差",
+        "c": "把客户按新客/活跃/沉睡/流失分阶段设计专属打法",
+        "l": "1.定义各生命周期阶段的判定标准 2.为每个阶段设计专属内容和优惠策略 3.定期检查用户所处阶段是否发生变化并调整动作"
+      },
+      {
+        "id": 118,
+        "n": "站内信+多渠道协同触达",
+        "p": "单一渠道触达率有限，多渠道组合能提升整体到达率",
+        "c": "同一条重要信息通过App/短信/微信等多渠道协同发送",
+        "l": "1.确定信息的重要等级决定使用渠道数量 2.不同渠道内容适当差异化避免重复骚扰感 3.统计各渠道实际触达和转化贡献"
+      },
+      {
+        "id": 119,
+        "n": "冷启动名单激活策略",
+        "p": "历史积累但从未激活的名单是被浪费的潜在资产",
+        "c": "用专属'唤醒计划'重新激活沉睡已久的联系人",
+        "l": "1.筛选长期无互动的历史名单 2.设计一次性的'很久不见'专属活动 3.对完全无响应的名单做清理保护发送权重"
+      }
+    ]
+  },
+  {
+    "key": "ecom",
+    "icon": "🛒",
+    "stage": "08",
+    "title": "电商促销与转化技巧",
+    "sub": "把已经进店的用户尽可能多地转化成订单",
+    "items": [
+      {
+        "id": 120,
+        "n": "限时秒杀(稀缺性营造)",
+        "p": "'过了这村没这店'的紧迫感能显著加速决策速度",
+        "c": "用倒计时和限量库存制造真实或合理的紧迫感",
+        "l": "1.选择引流款设置低价秒杀 2.页面醒目展示倒计时和剩余库存 3.秒杀结束后及时引导常规购买"
+      },
+      {
+        "id": 121,
+        "n": "满减/满赠促销",
+        "p": "满减能有效提升客单价，让用户'再买一点凑门槛'",
+        "c": "设计略高于平均客单价的满减门槛引导加购",
+        "l": "1.计算当前平均客单价 2.设置略高于该数值的满减门槛 3.页面清晰提示'再买X元享减免'"
+      },
+      {
+        "id": 122,
+        "n": "预售定金膨胀",
+        "p": "定金膨胀让用户提前锁定优惠，也帮商家提前预测销量",
+        "c": "用小额定金抵扣更大额尾款制造超值感",
+        "l": "1.设置定金金额及膨胀倍数(如定金10抵20) 2.明确预售和发货时间 3.预售期临近结束时提醒尾款支付"
+      },
+      {
+        "id": 123,
+        "n": "组合套餐捆绑销售",
+        "p": "把相关商品打包能同时提升客单价和使用体验",
+        "c": "把互补商品组合成套餐并给予比单买更优惠的价格",
+        "l": "1.分析用户常一起购买的商品组合 2.设计套餐价格略低于单独购买总和 3.在详情页突出套餐相比单买的优惠幅度"
+      },
+      {
+        "id": 124,
+        "n": "会员日专属活动",
+        "p": "固定的会员专属日能培养用户的消费惯性和期待感",
+        "c": "设定固定日期给会员超出日常的专属权益",
+        "l": "1.选定一个易记的固定日期(如每月8号) 2.设计当天专属折扣或福利 3.提前1-2天预热提醒会员关注"
+      },
+      {
+        "id": 125,
+        "n": "详情页转化率优化(FAB法则)",
+        "p": "用户在详情页停留期间是最后的说服窗口",
+        "c": "按'特性-优势-利益'结构把卖点翻译成用户能感知的好处",
+        "l": "1.列出产品的核心特性 2.把每个特性转化为对用户的实际好处 3.用真实场景图和数据佐证利益点"
+      },
+      {
+        "id": 126,
+        "n": "客服话术脚本化提升转化",
+        "p": "客服的临场应答质量直接决定咨询转化率的高低",
+        "c": "把高频问题和最佳应答提前整理成标准话术库",
+        "l": "1.收集历史高频咨询问题 2.整理出转化效果最好的应答话术 3.定期更新话术库并培训客服团队"
+      },
+      {
+        "id": 127,
+        "n": "购物车挽留弹窗",
+        "p": "用户即将离开时是最后一次挽回的机会窗口",
+        "c": "检测到离开意图时弹出针对性的挽留优惠",
+        "l": "1.监测鼠标移出/返回按钮等离开信号 2.触发弹窗提供小额优惠或提醒 3.控制弹窗频率避免打扰体验"
+      },
+      {
+        "id": 128,
+        "n": "信任状展示(评价销量认证)",
+        "p": "陌生用户购买前最需要的是'别人已验证过'的安全感",
+        "c": "把权威认证、真实评价、销量数据放在决策关键位置",
+        "l": "1.收集并展示真实用户评价(含图片) 2.突出累计销量/复购率等数据 3.展示相关资质认证增强信任"
+      },
+      {
+        "id": 129,
+        "n": "价格锚点设计",
+        "p": "有对比才有'划算'的感知，单一价格很难判断贵贱",
+        "c": "展示一个更高的参考价格衬托实际售价的优惠感",
+        "l": "1.展示划线价/建议零售价作为锚点 2.计算并展示节省金额或折扣比例 3.锚点价格需真实合理避免虚假宣传风险"
+      },
+      {
+        "id": 130,
+        "n": "免费试用/无理由退换",
+        "p": "降低决策门槛比降价更能有效促成犹豫用户下单",
+        "c": "用'不满意可退'的承诺消除用户的购买顾虑",
+        "l": "1.明确承诺试用期和退换条件 2.在详情页醒目展示该承诺 3.简化实际退换流程兑现承诺"
+      },
+      {
+        "id": 131,
+        "n": "分期付款降低决策门槛",
+        "p": "把大额支出拆分成小额分期能显著降低心理决策难度",
+        "c": "在支付环节提供分期选项让'贵'变得'可负担'",
+        "l": "1.接入分期付款渠道 2.详情页展示'每月仅需X元'的分摊价 3.在结算页突出分期选项"
+      },
+      {
+        "id": 132,
+        "n": "库存紧张提示(仅剩X件)",
+        "p": "真实的库存紧张信息能有效加速犹豫用户的决策",
+        "c": "实时展示剩余库存数量制造合理的紧迫感",
+        "l": "1.接入真实库存数据展示 2.库存低于阈值时用醒目样式提示 3.确保数据真实避免长期造假损害信任"
+      },
+      {
+        "id": 133,
+        "n": "直播间专属价与专属福利",
+        "p": "专属于直播间的价格能吸引用户守着直播不下单其他渠道",
+        "c": "设置只在直播时段生效的额外优惠或赠品",
+        "l": "1.设计比日常价格更优的直播专属价 2.主播明确强调'仅直播间享有' 3.直播结束后价格恢复保持稀缺性"
+      },
+      {
+        "id": 134,
+        "n": "首单优惠激活新客",
+        "p": "第一单是建立信任和使用习惯的关键，值得用优惠换取尝试",
+        "c": "为从未下单的新用户提供专属首单优惠",
+        "l": "1.系统识别新用户身份 2.首次访问/下单页展示专属新客券 3.统计首单转化率并测算优惠力度的合理性"
+      },
+      {
+        "id": 135,
+        "n": "跨品类关联推荐(交叉销售)",
+        "p": "用户在购买某商品时对相关商品有天然的延伸需求",
+        "c": "在结算/详情页推荐与当前商品搭配使用的其他商品",
+        "l": "1.分析商品间的关联购买数据 2.在购物车/详情页展示'搭配购买'推荐 3.持续优化推荐算法提升点击转化"
+      },
+      {
+        "id": 136,
+        "n": "退货率优化与售后体验营销",
+        "p": "良好的售后体验本身就是促成复购和口碑传播的营销动作",
+        "c": "把退换货和售后流程做得比行业标准更简单、更贴心",
+        "l": "1.简化退换货申请流程 2.主动跟进问题订单而非等用户投诉 3.把优质售后案例整理成传播素材"
+      }
+    ]
+  },
+  {
+    "key": "psych",
+    "icon": "🧠",
+    "stage": "09",
+    "title": "品牌与消费心理学",
+    "sub": "理解人性底层规律，让营销事半功倍",
+    "items": [
+      {
+        "id": 137,
+        "n": "稀缺原理(Scarcity)",
+        "p": "人对'可能失去'的东西比'可以获得'的东西更敏感",
+        "c": "强调数量、时间或资格的有限性提升即时决策意愿",
+        "l": "1.明确限定数量/名额/时间三选一或组合 2.用具体数字而非模糊表述(仅剩37件) 3.确保稀缺信息真实可信"
+      },
+      {
+        "id": 138,
+        "n": "社会认同原理(从众效应)",
+        "p": "人在不确定时会参考他人的选择作为决策依据",
+        "c": "展示'很多人已经这样做了'来降低决策的心理风险",
+        "l": "1.展示销量/用户数/好评数等社会证明数据 2.用真实用户评价佐证 3.突出与目标用户相似人群的选择"
+      },
+      {
+        "id": 139,
+        "n": "锚定效应定价",
+        "p": "第一个看到的数字会成为后续判断的参照标准",
+        "c": "先展示一个较高的参考数字，再展示实际优惠价格",
+        "l": "1.设计原价/划线价作为锚点 2.实际售价紧邻锚点展示形成对比 3.避免锚点设置过于夸张失真"
+      },
+      {
+        "id": 140,
+        "n": "互惠原理(先给后要)",
+        "p": "人在接受了好处后会产生想要回报的心理驱动力",
+        "c": "先无条件给用户一些有价值的东西再提出请求",
+        "l": "1.设计免费试用/免费资料等先行付出 2.在用户获得价值后自然提出转化请求 3.确保'给'的东西真实有用而非噱头"
+      },
+      {
+        "id": 141,
+        "n": "权威背书(专家机构认证)",
+        "p": "人倾向于相信专业权威人士或机构的判断而非自行判断",
+        "c": "借助专家、机构、认证等权威符号增强说服力",
+        "l": "1.寻找与产品相关的权威认证或专家 2.在关键决策页面展示权威背书 3.确保背书来源真实可核实"
+      },
+      {
+        "id": 142,
+        "n": "承诺一致性(小步试探到大转化)",
+        "p": "人一旦做出小承诺，为了保持形象一致性更容易接受后续更大的请求",
+        "c": "先让用户完成一个小的、低门槛的行动，再逐步升级",
+        "l": "1.设计低门槛的第一步行动(关注/领取) 2.在用户完成第一步后引导下一步 3.每一步都建立在前一步的基础上自然过渡"
+      },
+      {
+        "id": 143,
+        "n": "损失厌恶话术设计",
+        "p": "'失去'带来的痛苦感受远大于'获得'同等东西的快乐感",
+        "c": "把优惠信息从'获得多少'改写为'即将失去多少'",
+        "l": "1.计算用户不行动将损失的具体价值 2.用'最后机会/即将过期'类表述强化损失感 3.避免过度使用导致用户产生免疫和反感"
+      },
+      {
+        "id": 144,
+        "n": "故事化品牌叙事",
+        "p": "人类大脑天生对故事结构更容易理解和记忆，也更容易产生情感投入",
+        "c": "用'主角-冲突-转变'的故事结构讲述品牌或产品",
+        "l": "1.找到品牌创立或产品诞生背后的真实冲突 2.按故事结构重新组织叙述 3.在关键触点(官网/详情页)反复讲述"
+      },
+      {
+        "id": 145,
+        "n": "情感共鸣营销",
+        "p": "理性说服卖点，感性打动人心，决策往往是感性先行、理性验证",
+        "c": "围绕用户真实的情感需求而非单纯的功能诉求做内容",
+        "l": "1.研究目标用户在该场景下的真实情绪状态 2.内容先共情再引出解决方案 3.避免自说自话的功能堆砌"
+      },
+      {
+        "id": 146,
+        "n": "品牌色彩与符号识别系统",
+        "p": "统一、独特的视觉符号能让品牌在信息过载环境中被快速识别",
+        "c": "建立并严格执行统一的品牌色彩和视觉符号规范",
+        "l": "1.确定1-2个专属品牌主色 2.设计一个易识别的核心符号/图形 3.在所有触点严格保持视觉一致性"
+      },
+      {
+        "id": 147,
+        "n": "饥饿营销",
+        "p": "刻意制造供不应求的状态能提升产品的感知价值和话题度",
+        "c": "阶段性控制供给量，让需求先于供给积累起来",
+        "l": "1.评估产品是否具备制造话题的势能 2.分阶段小批量投放并对外沟通供给有限的原因 3.把握好度避免长期损害用户体验"
+      },
+      {
+        "id": 148,
+        "n": "反差萌/悬念式话题营销",
+        "p": "出人意料的反差能瞬间打破用户对内容的预期，提升关注度",
+        "c": "在人设、内容或视觉上制造与预期不符的反差点",
+        "l": "1.找到品牌或产品身上真实存在的反差特质 2.用内容放大这个反差点 3.确保反差服务于核心信息而非单纯猎奇"
+      },
+      {
+        "id": 149,
+        "n": "情怀营销(怀旧牌)",
+        "p": "怀旧情绪能唤起用户的美好记忆并转移到品牌好感上",
+        "c": "用经典元素、复古设计或集体记忆连接用户情感",
+        "l": "1.找到目标用户群体的共同时代记忆 2.在产品或内容中融入怀旧元素 3.避免生硬堆砌，需与品牌调性自然结合"
+      },
+      {
+        "id": 150,
+        "n": "价值观营销(品牌立场)",
+        "p": "部分用户愿意为认同的价值观买单，立场能筛选出忠诚客户",
+        "c": "公开表达品牌在某个议题上的真实立场并身体力行",
+        "l": "1.明确品牌自身真正认同的价值主张 2.通过实际行动而非口号表达立场 3.保持长期一致性避免'立场消费'的反噬"
+      },
+      {
+        "id": 151,
+        "n": "仪式感营销(开箱纪念)",
+        "p": "仪式感能把普通的购买行为升级为值得记住和分享的体验",
+        "c": "在包装、开箱、使用等环节设计值得记住的小仪式",
+        "l": "1.设计有记忆点的开箱体验(手写卡片/特殊包装) 2.在关键时刻(首次使用/纪念日)增加仪式元素 3.鼓励用户记录并分享这些体验瞬间"
+      },
+      {
+        "id": 152,
+        "n": "光环效应(明星网红光环嫁接)",
+        "p": "人们会把对一个人的好感自动迁移到与其关联的事物上",
+        "c": "借助已被广泛认可的人物或品牌的光环为自己背书",
+        "l": "1.寻找与品牌调性契合的知名人物或品牌 2.设计自然的关联方式(代言/联名/推荐) 3.确保光环来源本身没有负面争议风险"
+      },
+      {
+        "id": 153,
+        "n": "归属感营销(圈层认同)",
+        "p": "人有强烈的群体归属需求，找到'同类'会显著提升忠诚度",
+        "c": "打造一个有共同标签的用户圈层而非单纯的买卖关系",
+        "l": "1.提炼一个用户群体的共同身份标签 2.围绕该标签设计专属社群和内容 3.让用户在圈层中获得认同感和归属感"
+      }
+    ]
+  },
+  {
+    "key": "ai",
+    "icon": "🤖",
+    "stage": "10",
+    "title": "AI智能与数据驱动营销",
+    "sub": "2026年营销的基础设施：用AI放大人的判断力",
+    "items": [
+      {
+        "id": 154,
+        "n": "AI生成内容矩阵化产出",
+        "p": "AI能大幅降低内容生产成本，让'内容矩阵'从奢侈品变成标配",
+        "c": "用AI批量生产图文、视频素材再由人工精选优化",
+        "l": "1.用AI工具批量生成初稿素材 2.人工筛选并优化最有潜力的版本 3.规模化分发并持续迭代模板"
+      },
+      {
+        "id": 155,
+        "n": "数字人直播/客服",
+        "p": "数字人可以7x24小时不间断工作，大幅降低人力成本",
+        "c": "用虚拟数字人承担高频、标准化的直播和客服场景",
+        "l": "1.根据品牌调性定制数字人形象 2.录入标准话术和常见问答 3.真人负责监控并处理复杂问题的兜底"
+      },
+      {
+        "id": 156,
+        "n": "AI对话式搜索优化(AEO)",
+        "p": "用户越来越多通过AI助手直接获取答案而非点击搜索结果",
+        "c": "让内容结构化到能被AI直接理解并作为答案引用",
+        "l": "1.用清晰的问答结构组织核心内容 2.提供权威数据来源增强可信度 3.持续监测品牌在AI回答中的出现频率"
+      },
+      {
+        "id": 157,
+        "n": "智能获客机器人(7x24拓客)",
+        "p": "潜在客户的咨询时间不分昼夜，人工无法全天候覆盖",
+        "c": "用AI机器人全天候自动识别、初筛和触达潜在客户",
+        "l": "1.设定目标客户画像和触达渠道 2.配置AI自动筛选和初步沟通话术 3.高意向客户自动转接人工跟进"
+      },
+      {
+        "id": 158,
+        "n": "AI精准素材生成与批量测试",
+        "p": "过去靠人工制作多版素材成本高，AI让批量测试成为可能",
+        "c": "用AI快速生成大量素材变体并用真实数据筛选最优版本",
+        "l": "1.用AI生成同一创意的多个视觉/文案变体 2.小预算同时投放测试 3.保留数据最优版本规模化投放"
+      },
+      {
+        "id": 159,
+        "n": "用户行为数据画像分析",
+        "p": "了解用户'做过什么'比问用户'想要什么'更准确",
+        "c": "把用户在各触点的行为数据整合成完整画像",
+        "l": "1.打通网站/App/私域等多渠道数据 2.建立统一用户ID关联行为轨迹 3.基于画像做精细化分层运营"
+      },
+      {
+        "id": 160,
+        "n": "智能推荐算法个性化触达",
+        "p": "千人一面的内容已无法满足用户对个性化体验的期待",
+        "c": "基于用户历史行为动态推荐其最可能感兴趣的内容",
+        "l": "1.收集用户浏览、点击、购买等行为数据 2.训练或接入推荐算法模型 3.持续用实际点击率反馈优化推荐效果"
+      },
+      {
+        "id": 161,
+        "n": "预测性营销(购买意向预测)",
+        "p": "提前识别高转化意向用户能让有限资源用在刀刃上",
+        "c": "用历史数据训练模型预测哪些用户即将产生购买行为",
+        "l": "1.积累足够的历史转化数据 2.训练预测模型识别高意向特征 3.对预测为高意向的用户优先分配资源触达"
+      },
+      {
+        "id": 162,
+        "n": "自动化A/B测试引擎",
+        "p": "人工设置和分析测试效率低，AI可以自动完成整个闭环",
+        "c": "让系统自动生成变体、分配流量、判定优胜方案",
+        "l": "1.接入自动化测试平台 2.设定测试目标和约束条件 3.让系统自动迭代并周期性汇报结果"
+      },
+      {
+        "id": 163,
+        "n": "AI客服与智能话术",
+        "p": "客服质量参差不齐是转化流失的常见原因，AI能标准化并提升响应速度",
+        "c": "用AI理解用户意图并给出标准化、个性化的应答",
+        "l": "1.训练AI熟悉产品知识库和常见问题 2.设置复杂问题自动转人工的规则 3.持续用真实对话数据优化AI应答质量"
+      },
+      {
+        "id": 164,
+        "n": "大数据人群包定向投放",
+        "p": "精准的人群定向能大幅降低无效曝光带来的预算浪费",
+        "c": "基于大数据构建精准人群包用于广告定向投放",
+        "l": "1.整合第一方和第三方数据构建人群标签 2.按业务目标组合出目标人群包 3.持续根据转化效果优化人群包定义"
+      },
+      {
+        "id": 165,
+        "n": "智能定价动态调整",
+        "p": "固定价格无法应对实时变化的供需和竞争环境",
+        "c": "基于实时数据动态调整价格以最大化收益或转化",
+        "l": "1.接入实时销量、库存、竞对价格等数据 2.设定动态定价的规则和边界 3.监测调价后的转化和用户反馈"
+      },
+      {
+        "id": 166,
+        "n": "全域数据中台整合(CDP)",
+        "p": "分散在各渠道的数据如果不整合，就无法形成完整用户认知",
+        "c": "把公域、私域、交易等各类数据统一整合到一个中台",
+        "l": "1.梳理现有各渠道的数据来源 2.搭建统一的客户数据平台(CDP) 3.基于整合数据支撑各业务场景的精准运营"
+      },
+      {
+        "id": 167,
+        "n": "AI选题与热点预测",
+        "p": "内容创作者最大的痛点之一是'不知道写什么'，AI能辅助决策",
+        "c": "用AI分析历史数据和实时趋势辅助选题决策",
+        "l": "1.用AI工具监测行业热点和搜索趋势 2.结合自身内容历史表现数据交叉分析 3.生成选题建议供人工最终把关"
+      },
+      {
+        "id": 168,
+        "n": "语音/图像搜索优化",
+        "p": "越来越多用户通过语音助手或拍照识图进行搜索",
+        "c": "让产品和内容能被语音识别和图像识别系统准确匹配",
+        "l": "1.优化产品图片的清晰度和标签描述 2.内容中使用更自然的口语化关键词 3.测试常见语音搜索指令是否能命中内容"
+      },
+      {
+        "id": 169,
+        "n": "智能广告归因与ROI预测",
+        "p": "传统归因方式难以处理多触点复杂路径，AI能更准确建模",
+        "c": "用机器学习模型更精确地评估各渠道的真实贡献度",
+        "l": "1.接入多渠道完整的转化路径数据 2.用AI归因模型替代简单的末次归因 3.基于更准确的归因结果重新分配预算"
+      },
+      {
+        "id": 170,
+        "n": "AIGC虚拟主播IP打造",
+        "p": "虚拟IP形象一致性强、无负面风险，且可以规模化复用",
+        "c": "打造一个完全由AI驱动内容生产的虚拟品牌IP",
+        "l": "1.设计虚拟IP的人设、形象和内容风格 2.用AIGC工具批量产出其内容 3.持续运营积累该虚拟IP自身的粉丝资产"
+      }
+    ]
+  },
+  {
+    "key": "affiliate",
+    "icon": "🤝",
+    "stage": "11",
+    "title": "联盟分销与跨界合作",
+    "sub": "借助别人的渠道和资源实现共赢式增长",
+    "items": [
+      {
+        "id": 171,
+        "n": "联盟营销(Affiliate Marketing)",
+        "p": "让大量独立推广者按效果分成帮你卖货，风险共担、收益共享",
+        "c": "搭建一个任何人都能加入并按成交获得分成的推广网络",
+        "l": "1.搭建带追踪链接的联盟系统 2.设定清晰透明的分成规则 3.提供素材包降低推广者的参与门槛"
+      },
+      {
+        "id": 172,
+        "n": "分销代理体系搭建",
+        "p": "多层级代理能快速把网络铺向自己触达不到的下沉市场",
+        "c": "设计多级代理体系激励代理商发展下级和消化库存",
+        "l": "1.设计合理的代理层级和价差空间 2.提供培训和物料支持代理招募新代理 3.建立监管机制避免层级过多引发合规风险"
+      },
+      {
+        "id": 173,
+        "n": "品牌跨界联名",
+        "p": "联名能让双方共享彼此的用户认知和话题声量",
+        "c": "选择调性互补的品牌共同推出限定产品或活动",
+        "l": "1.筛选目标用户有交集又不完全重合的品牌 2.联合设计限定款产品或内容 3.双方渠道同步宣发扩大整体声量"
+      },
+      {
+        "id": 174,
+        "n": "渠道合作伙伴计划",
+        "p": "渠道商比自建团队更了解本地市场，合作能加速渗透",
+        "c": "建立标准化的合作伙伴招募、赋能和激励体系",
+        "l": "1.制定清晰的合作伙伴准入标准 2.提供培训、物料和技术支持 3.设计阶梯式返点激励渠道商冲量"
+      },
+      {
+        "id": 175,
+        "n": "异业互推资源置换",
+        "p": "没有直接竞争关系的品牌可以零成本互相导流",
+        "c": "找到用户重合但业务不冲突的品牌互相推荐资源",
+        "l": "1.列出目标用户可能同时关注的异业品牌 2.协商互推的具体形式(内容/优惠券互放) 3.约定周期后评估互推带来的实际效果"
+      },
+      {
+        "id": 176,
+        "n": "众筹预售造势",
+        "p": "众筹本身自带话题属性，也能提前验证市场需求",
+        "c": "把新品发布包装成一场众筹活动预售并造势传播",
+        "l": "1.选择适合讲故事的新品或项目 2.在众筹平台设计有梯度的支持档位 3.配合媒体和达人传播扩大众筹声量"
+      },
+      {
+        "id": 177,
+        "n": "生态合作伙伴分润机制",
+        "p": "让合作伙伴在生态中长期获益，才能维持长期稳定的合作关系",
+        "c": "设计一套让各方在业务增长中都能持续获益的分润规则",
+        "l": "1.梳理生态中各角色的价值贡献 2.设计与贡献匹配的分润比例 3.定期复盘并优化分润机制的公平性"
+      },
+      {
+        "id": 178,
+        "n": "供应链上下游联合营销",
+        "p": "上下游企业联合造势能形成更完整、更有说服力的价值叙事",
+        "c": "联合供应链伙伴共同讲述从原料到成品的完整故事",
+        "l": "1.梳理供应链中有传播价值的环节 2.联合上下游企业共同策划内容 3.多方渠道协同发布放大传播效果"
+      },
+      {
+        "id": 179,
+        "n": "白标/贴牌合作拓展渠道",
+        "p": "通过给别人贴牌，能借助对方渠道快速触达自己触达不到的市场",
+        "c": "把产品能力输出给渠道方，由对方以自有品牌销售",
+        "l": "1.评估自身产品/技术是否具备白标输出能力 2.寻找有渠道无产品的合作方 3.设计清晰的供货和品牌使用协议"
+      },
+      {
+        "id": 180,
+        "n": "行业展会/峰会曝光合作",
+        "p": "行业聚集性场景能高效触达最精准的目标决策人群",
+        "c": "通过参展、演讲、赞助等方式在行业核心场景中曝光",
+        "l": "1.筛选与目标客户高度重合的行业展会 2.准备有信息量而非纯推销的展台/演讲内容 3.展会后及时跟进现场收集的意向客户"
+      },
+      {
+        "id": 181,
+        "n": "公益联名营销",
+        "p": "公益属性能为品牌注入正向情感价值并获得媒体自然关注",
+        "c": "把销售或活动与真实公益议题结合并公开透明地执行",
+        "l": "1.选择与品牌调性相关的真实公益议题 2.设计销售或参与与公益贡献的直接挂钩机制 3.公开透明披露善款/资源的实际去向"
+      },
+      {
+        "id": 182,
+        "n": "开放平台API生态招募开发者",
+        "p": "让第三方开发者基于你的能力做延伸开发，能极大扩展产品边界",
+        "c": "开放核心能力接口吸引开发者生态围绕你构建应用",
+        "l": "1.梳理可对外开放的核心能力做成API 2.提供清晰文档和开发者社区支持 3.设计合理的收益分成吸引开发者持续投入"
+      },
+      {
+        "id": 183,
+        "n": "渠道商专属培训赋能",
+        "p": "渠道商越懂产品，转化效率和服务质量就越高",
+        "c": "定期为渠道伙伴提供产品知识和销售技巧培训",
+        "l": "1.制作标准化的产品培训课件 2.定期开展线上/线下培训 3.用认证考核确保培训效果落地"
+      },
+      {
+        "id": 184,
+        "n": "联合营销活动共享流量池",
+        "p": "多方联合活动能把各自独立的小流量池汇聚成大流量池",
+        "c": "联合多个非竞争关系的品牌共同策划一场活动",
+        "l": "1.筛选目标用户互补的多个品牌 2.共同设计活动主题和权益组合 3.各自渠道同步宣发共享整体流量"
+      },
+      {
+        "id": 185,
+        "n": "战略投资方资源导流",
+        "p": "投资方往往拥有被投企业触达不到的资源和渠道",
+        "c": "主动挖掘并对接股东/投资方体系内可用的资源",
+        "l": "1.梳理投资方在其他被投企业/生态中的资源 2.主动提出具体的资源对接需求 3.建立定期沟通机制保持资源导流的持续性"
+      },
+      {
+        "id": 186,
+        "n": "会员互通(跨品牌积分互认)",
+        "p": "打通积分体系能让用户在多个品牌间感受到统一的会员价值",
+        "c": "与非竞争品牌互认会员积分或等级权益",
+        "l": "1.寻找用户重合度高的非竞争品牌 2.设计积分兑换比例和权益互认规则 3.联合宣传扩大双方会员的活跃度"
+      },
+      {
+        "id": 187,
+        "n": "生态联盟白皮书共创",
+        "p": "联合发布行业白皮书能同时提升多方的行业权威度",
+        "c": "联合生态伙伴共同调研并发布具有行业影响力的报告",
+        "l": "1.联合多方共同确定报告选题和分工 2.整合各方数据和观点形成完整报告 3.联合渠道发布并各自借势传播"
+      }
+    ]
+  },
+  {
+    "key": "global",
+    "icon": "🌍",
+    "stage": "12",
+    "title": "出海与跨境营销",
+    "sub": "把国内验证过的打法带到全球市场因地制宜",
+    "items": [
+      {
+        "id": 188,
+        "n": "独立站DTC出海模式",
+        "p": "绕开第三方平台规则和抽成，直接掌握用户数据和品牌关系",
+        "c": "搭建自有品牌独立站直接面向海外终端消费者销售",
+        "l": "1.选择合适的建站工具搭建独立站 2.配置本地化支付和物流方案 3.用海外广告和SEO为独立站导流"
+      },
+      {
+        "id": 189,
+        "n": "亚马逊/速卖通平台运营",
+        "p": "成熟平台自带海量搜索流量和消费者信任基础，起量更快",
+        "c": "按平台规则精细化运营listing获取平台自然流量",
+        "l": "1.优化标题、关键词和主图提升搜索排名 2.通过平台广告工具补充曝光 3.持续维护评价和评分保持竞争力"
+      },
+      {
+        "id": 190,
+        "n": "海外网红营销",
+        "p": "海外用户同样高度依赖网红推荐做购买决策，尤其是Instagram/TikTok",
+        "c": "借助海外本地网红的影响力向当地用户建立信任",
+        "l": "1.筛选目标市场当地的垂类网红 2.提供产品和创作自由度而非强制脚本 3.用专属折扣码追踪各网红实际转化"
+      },
+      {
+        "id": 191,
+        "n": "本地化SEO(多语言关键词)",
+        "p": "直译的关键词往往不是当地用户真实的搜索习惯用语",
+        "c": "研究目标市场用户的真实搜索习惯而非简单翻译",
+        "l": "1.用当地语言的关键词工具重新调研 2.内容由母语者本地化改写而非机器直译 3.针对不同国家分别做站点优化"
+      },
+      {
+        "id": 192,
+        "n": "Meta/Google海外广告投放",
+        "p": "海外主流广告平台的定向能力成熟，是快速起量的核心渠道",
+        "c": "按目标市场用户习惯定制广告素材和落地页",
+        "l": "1.按国家/地区拆分广告系列分别测试 2.素材本地化(语言/模特/场景) 3.持续优化出价和受众定向"
+      },
+      {
+        "id": 193,
+        "n": "TikTok Shop海外带货",
+        "p": "短视频+直播购物的模式正在被复制到海外年轻用户市场",
+        "c": "把国内验证过的短视频带货打法本地化搬到海外市场",
+        "l": "1.组建或对接当地达人资源 2.内容风格适配当地用户审美习惯 3.打通本地支付和物流保证购物体验"
+      },
+      {
+        "id": 194,
+        "n": "海外社群运营(Discord/群组)",
+        "p": "海外用户习惯在垂直兴趣社群中获取信息和讨论产品",
+        "c": "在目标用户聚集的海外社群平台建立官方阵地",
+        "l": "1.研究目标用户主要活跃的社群平台 2.搭建官方社群并输出有价值内容 3.培养当地社区管理员保持活跃度"
+      },
+      {
+        "id": 195,
+        "n": "支付与物流本地化信任建设",
+        "p": "支付方式不熟悉或物流时效不透明是海外用户下单的最大顾虑",
+        "c": "接入当地用户最熟悉、最信任的支付和物流方式",
+        "l": "1.调研目标市场主流支付方式并接入 2.选择当地认可的物流合作伙伴 3.页面清晰展示物流时效和跟踪信息"
+      },
+      {
+        "id": 196,
+        "n": "文化差异化内容本地化改编",
+        "p": "直接照搬国内爆款内容在海外可能因文化差异而失效甚至冒犯",
+        "c": "理解当地文化禁忌和审美偏好后重新创作而非直译",
+        "l": "1.研究目标市场的文化禁忌和偏好 2.由熟悉当地文化的团队重新创作内容 3.小范围测试确认内容接受度后再规模化"
+      },
+      {
+        "id": 197,
+        "n": "海外KOC测评种草",
+        "p": "海外用户同样信任'和自己一样的普通人'的真实测评",
+        "c": "邀请海外真实用户进行产品测评并分享真实体验",
+        "l": "1.通过社群或达人平台招募当地素人用户 2.提供产品体验但不限制内容表达 3.精选优质内容用于广告投放和官网展示"
+      },
+      {
+        "id": 198,
+        "n": "跨境私域(WhatsApp/Line运营)",
+        "p": "不同国家有各自主导的即时通讯工具，需要因地制宜地做私域",
+        "c": "在目标市场用户主流使用的通讯工具上建立私域触达",
+        "l": "1.识别目标市场的主流通讯工具(WhatsApp/Line/Zalo等) 2.引导用户添加官方账号 3.按当地习惯设计消息触达频率和内容"
+      },
+      {
+        "id": 199,
+        "n": "海外联盟营销网络接入",
+        "p": "接入当地成熟的联盟网络能快速获得大量本地推广资源",
+        "c": "加入目标市场已有的联盟营销平台借力其推广者网络",
+        "l": "1.研究目标市场主流的联盟营销平台 2.设置有竞争力的佣金比例吸引推广者 3.提供本地化的推广素材包"
+      },
+      {
+        "id": 200,
+        "n": "多币种/多语言落地页优化",
+        "p": "价格和语言的本地化程度直接影响用户的信任感和转化率",
+        "c": "按目标市场显示当地货币和语言而非简单的自动翻译",
+        "l": "1.接入自动汇率转换显示当地货币 2.关键页面由母语者校对翻译质量 3.测试不同市场落地页的转化差异"
+      },
+      {
+        "id": 201,
+        "n": "海外节日营销日历(黑五圣诞)",
+        "p": "海外消费旺季集中在特定节日，提前规划能抓住最大流量红利",
+        "c": "提前规划全年海外重点节日的营销活动日历",
+        "l": "1.梳理目标市场全年重点消费节日 2.提前1-2个月开始预热和备货 3.节日期间集中资源投放承接高峰流量"
+      },
+      {
+        "id": 202,
+        "n": "品牌出海公关(PR)造势",
+        "p": "当地权威媒体的报道能快速建立品牌在新市场的可信度",
+        "c": "主动对接当地媒体和行业KOL进行品牌故事传播",
+        "l": "1.准备符合当地媒体口味的品牌故事素材 2.通过公关公司或直接对接当地媒体 3.报道发布后用于官网和广告的信任背书"
+      },
+      {
+        "id": 203,
+        "n": "海外用户评价体系建设",
+        "p": "Trustpilot等第三方评价平台是海外用户决策的重要参考",
+        "c": "主动引导满意用户在权威第三方平台留下真实评价",
+        "l": "1.在订单完成后适时邀请用户评价 2.对负面评价及时公开专业地回应处理 3.把高分评价展示在官网和广告素材中"
+      },
+      {
+        "id": 204,
+        "n": "全球化SEO多站点架构",
+        "p": "不同国家的搜索引擎和用户习惯差异大，需要独立优化而非一个站点通吃",
+        "c": "为主要目标市场分别搭建本地化子站点独立做SEO",
+        "l": "1.按国家/语言拆分独立子站点或子目录 2.分别针对当地搜索引擎习惯优化 3.避免多语言内容重复导致的SEO权重稀释"
+      }
+    ]
+  }
+];
+
+const stageRail = document.getElementById('stageRail');
+const funnelTrack = document.getElementById('funnelTrack');
+const sectionsRoot = document.getElementById('sectionsRoot');
+const resultCount = document.getElementById('resultCount');
+const emptyState = document.getElementById('emptyState');
+const searchInput = document.getElementById('searchInput');
+
+function esc(s){
+  return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+// build stage rail + funnel nav
+DATA.forEach(cat=>{
+  const chip = document.createElement('a');
+  chip.href = '#sec-' + cat.key;
+  chip.className = 'stage-chip';
+  chip.dataset.key = cat.key;
+  chip.innerHTML = '<span class="num">'+cat.stage+'</span><span>'+cat.icon+' '+esc(cat.title)+'</span>';
+  stageRail.appendChild(chip);
+
+  const node = document.createElement('a');
+  node.href = '#sec-' + cat.key;
+  node.className = 'funnel-node';
+  node.innerHTML = '<span class="fi">'+cat.icon+'</span><span class="fn">'+esc(cat.title)+'</span><span class="fs">'+cat.stage+'</span>';
+  funnelTrack.appendChild(node);
+});
+
+// build sections
+function cardHTML(item){
+  return (
+    '<div class="card" data-id="'+item.id+'" data-search="'+esc((item.n+item.p+item.c+item.l).toLowerCase())+'">'+
+      '<div class="card-top">'+
+        '<div class="card-id">'+String(item.id).padStart(3,'0')+'</div>'+
+        '<div class="card-name">'+esc(item.n)+'</div>'+
+        '<div class="card-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></div>'+
+      '</div>'+
+      '<p class="card-preview">'+esc(item.p)+'</p>'+
+      '<div class="card-detail">'+
+        '<div class="detail-row"><span class="detail-tag tag-principle">💡 原理</span><p class="detail-text">'+esc(item.p)+'</p></div>'+
+        '<div class="detail-row"><span class="detail-tag tag-core">🎯 核心</span><p class="detail-text">'+esc(item.c)+'</p></div>'+
+        '<div class="detail-row"><span class="detail-tag tag-layout">🛠️ 具体布局</span><p class="detail-text">'+esc(item.l)+'</p></div>'+
+      '</div>'+
+    '</div>'
+  );
+}
+
+DATA.forEach(cat=>{
+  const sec = document.createElement('section');
+  sec.className = 'section';
+  sec.id = 'sec-' + cat.key;
+  sec.innerHTML =
+    '<div class="section-head">'+
+      '<div class="section-icon">'+cat.icon+'</div>'+
+      '<div>'+
+        '<div class="section-stage">STAGE '+cat.stage+'</div>'+
+        '<div class="section-title">'+esc(cat.title)+'</div>'+
+        '<div class="section-sub">'+esc(cat.sub)+'</div>'+
+      '</div>'+
+      '<div class="section-count">'+cat.items.length+' 种策略</div>'+
+    '</div>'+
+    '<div class="grid" id="grid-'+cat.key+'">'+cat.items.map(cardHTML).join('')+'</div>';
+  sectionsRoot.appendChild(sec);
+});
+
+// card expand/collapse
+sectionsRoot.addEventListener('click', (e)=>{
+  const card = e.target.closest('.card');
+  if(!card) return;
+  card.classList.toggle('open');
+});
+
+// search filter
+function applyFilter(){
+  const q = searchInput.value.trim().toLowerCase();
+  let totalVisible = 0;
+  DATA.forEach(cat=>{
+    let catVisible = 0;
+    const grid = document.getElementById('grid-'+cat.key);
+    grid.querySelectorAll('.card').forEach(card=>{
+      const match = !q || card.dataset.search.includes(q);
+      card.style.display = match ? '' : 'none';
+      if(match) catVisible++;
+    });
+    const sec = document.getElementById('sec-'+cat.key);
+    sec.style.display = catVisible ? '' : 'none';
+    totalVisible += catVisible;
+  });
+  resultCount.textContent = q ? ('匹配到 '+totalVisible+' 种策略') : ('共 204 种策略');
+  emptyState.classList.toggle('show', totalVisible === 0);
+}
+searchInput.addEventListener('input', applyFilter);
+
+// active stage highlight on scroll
+const sections = Array.from(document.querySelectorAll('.section'));
+const chips = Array.from(document.querySelectorAll('.stage-chip'));
+function setActive(key){
+  chips.forEach(c=>c.classList.toggle('active', c.dataset.key === key));
+  const activeChip = chips.find(c=>c.dataset.key===key);
+  if(activeChip) activeChip.scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'});
+}
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      setActive(entry.target.id.replace('sec-',''));
+    }
+  });
+}, {rootMargin:'-40% 0px -50% 0px', threshold:0});
+sections.forEach(s=>io.observe(s));
+if(chips[0]) chips[0].classList.add('active');
+
+// back to top
+const totopBtn = document.getElementById('totopBtn');
+window.addEventListener('scroll', ()=>{
+  totopBtn.classList.toggle('show', window.scrollY > 600);
+});
+totopBtn.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+</script>
+</body>
+</html>

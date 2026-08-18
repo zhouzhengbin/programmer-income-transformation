@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>2026蓝海掘金地图 · 一台电脑的100+赚钱项目</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F8FD;
+    --bg-card:#FFFFFF;
+    --ink:#0E2A3C;
+    --ink-soft:#5A7182;
+    --ink-faint:#93A6B4;
+    --navy:#0B3B5C;
+    --navy-deep:#082B44;
+    --teal:#0FA3A3;
+    --sunrise:#FF7A45;
+    --gold:#FFB627;
+    --line:#E3EEF5;
+    --shadow: 0 10px 30px -12px rgba(11,59,92,0.18);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Manrope','PingFang SC','Microsoft YaHei',-apple-system,BlinkMacSystemFont,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .num, .eyebrow, .stat-num, .chip, .tag{font-family:'Poppins','Manrope',sans-serif;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:
+      radial-gradient(120% 90% at 15% 0%, rgba(255,122,69,0.35), transparent 55%),
+      radial-gradient(120% 90% at 100% 10%, rgba(15,163,163,0.35), transparent 50%),
+      linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 55%, #114E73 100%);
+    color:#fff;
+    padding:44px 20px 64px;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:-1px; height:40px;
+    background:var(--bg);
+    border-radius:50% 50% 0 0 / 100% 100% 0 0;
+    transform:scaleX(1.4);
+  }
+  .route-svg{position:absolute; inset:0; width:100%; height:100%; opacity:0.55; pointer-events:none;}
+  .hero-inner{position:relative; z-index:2; max-width:640px; margin:0 auto;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:12px; font-weight:600; letter-spacing:0.14em;
+    color:#BFE3E3; background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.18);
+    padding:6px 12px; border-radius:999px; text-transform:uppercase;
+  }
+  .hero h1{
+    font-size:34px; line-height:1.2; margin:18px 0 10px; font-weight:800;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 em{
+    font-style:normal;
+    background:linear-gradient(90deg,#FFD8A8,var(--gold));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.sub{
+    font-size:15px; line-height:1.7; color:#CFE2ED; margin:0 0 24px; max-width:520px;
+  }
+  .stat-row{display:flex; gap:10px; flex-wrap:wrap;}
+  .stat-chip{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.16);
+    border-radius:14px; padding:12px 16px; min-width:104px;
+    backdrop-filter:blur(6px);
+  }
+  .stat-num{font-size:20px; font-weight:800; color:#fff; display:block;}
+  .stat-label{font-size:11.5px; color:#AFC9D6; margin-top:2px; display:block;}
+
+  /* ---------- STICKY NAV ---------- */
+  .navwrap{
+    position:sticky; top:0; z-index:50;
+    background:rgba(242,248,253,0.92); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:10px 0;
+    margin-top:-30px;
+  }
+  .navscroll{
+    display:flex; gap:8px; overflow-x:auto; padding:0 16px;
+    scrollbar-width:none;
+  }
+  .navscroll::-webkit-scrollbar{display:none;}
+  .navchip{
+    flex:0 0 auto; display:flex; align-items:center; gap:6px;
+    font-size:12.5px; font-weight:700; white-space:nowrap;
+    padding:8px 13px; border-radius:999px; border:1.5px solid var(--line);
+    background:#fff; color:var(--ink-soft); cursor:pointer;
+    transition:all .2s ease;
+  }
+  .navchip .dot{width:7px; height:7px; border-radius:50%; background:var(--c);}
+  .navchip.active{
+    color:#fff; border-color:transparent;
+    background:var(--c);
+    box-shadow:0 6px 14px -6px var(--c);
+  }
+
+  /* ---------- SEARCH ---------- */
+  .toolbar{max-width:760px; margin:22px auto 0; padding:0 16px;}
+  .search{
+    display:flex; align-items:center; gap:10px;
+    background:#fff; border:1.5px solid var(--line); border-radius:16px;
+    padding:12px 16px; box-shadow:var(--shadow);
+  }
+  .search svg{flex:0 0 auto; opacity:0.5;}
+  .search input{
+    border:none; outline:none; font-size:14.5px; width:100%;
+    font-family:inherit; color:var(--ink); background:transparent;
+  }
+  .search input::placeholder{color:var(--ink-faint);}
+  #resultCount{font-size:12px; color:var(--ink-faint); margin-top:8px; padding-left:4px;}
+
+  /* ---------- MAIN ---------- */
+  main{max-width:760px; margin:0 auto; padding:8px 16px 40px;}
+  .section{margin-top:34px; scroll-margin-top:64px;}
+  .sec-head{
+    display:flex; align-items:center; gap:12px;
+    margin-bottom:14px; padding:14px 16px;
+    border-radius:16px;
+    background:linear-gradient(120deg, color-mix(in srgb, var(--c) 12%, white), #ffffff 70%);
+    border:1px solid color-mix(in srgb, var(--c) 25%, white);
+  }
+  .sec-icon{
+    width:42px; height:42px; border-radius:12px; flex:0 0 auto;
+    display:flex; align-items:center; justify-content:center; font-size:21px;
+    background:var(--c); color:#fff; box-shadow:0 6px 14px -6px var(--c);
+  }
+  .sec-title{font-size:16.5px; font-weight:800; color:var(--ink); margin:0;}
+  .sec-desc{font-size:12px; color:var(--ink-soft); margin:2px 0 0;}
+  .sec-count{
+    margin-left:auto; font-size:12px; font-weight:700; color:var(--c);
+    background:#fff; border:1px solid color-mix(in srgb, var(--c) 35%, white);
+    padding:4px 10px; border-radius:999px; flex:0 0 auto;
+  }
+
+  .grid{display:grid; grid-template-columns:1fr; gap:10px;}
+  @media (min-width:640px){ .grid{grid-template-columns:1fr 1fr;} }
+
+  .card{
+    background:var(--bg-card); border:1px solid var(--line); border-radius:16px;
+    padding:14px 15px 13px; position:relative; overflow:hidden;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .card::before{
+    content:""; position:absolute; left:0; top:0; bottom:0; width:4px;
+    background:var(--c);
+  }
+  .card:hover{ transform:translateY(-2px); box-shadow:var(--shadow); }
+  .card-head{display:flex; align-items:flex-start; gap:9px; margin-bottom:7px;}
+  .card-emoji{
+    font-size:18px; line-height:1; flex:0 0 auto; margin-top:1px;
+  }
+  .card h3{font-size:14.5px; font-weight:700; margin:0; color:var(--ink); line-height:1.35;}
+  .flow{
+    font-size:12.5px; color:var(--ink-soft); line-height:1.6; margin:0 0 10px;
+    padding-left:27px;
+  }
+  .flow b{color:var(--ink); font-weight:600;}
+  .tags{display:flex; gap:6px; flex-wrap:wrap; padding-left:27px;}
+  .tag{
+    font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:7px;
+    letter-spacing:0.02em;
+  }
+  .tag.cost{ background:#EAF6EE; color:#1E8E4E; }
+  .tag.diff{ background:#FFF3E3; color:#B4690E; }
+
+  /* ---------- FOOTER ---------- */
+  .tip-banner{
+    max-width:760px; margin:8px auto 0; padding:0 16px;
+  }
+  .tip-inner{
+    background:linear-gradient(120deg,#FFF6EA,#FFFFFF);
+    border:1px solid #FFE3B8; border-radius:16px; padding:14px 16px;
+    font-size:12.5px; color:#7A5312; line-height:1.7;
+  }
+  footer{
+    max-width:760px; margin:36px auto 0; padding:20px 16px 40px;
+    text-align:center; color:var(--ink-faint); font-size:11.5px; line-height:1.8;
+  }
+  footer strong{color:var(--ink-soft);}
+
+  .no-result{display:none; text-align:center; padding:50px 20px; color:var(--ink-faint); font-size:13px;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <svg class="route-svg" viewBox="0 0 400 320" preserveAspectRatio="none">
+    <path d="M -10 260 C 60 220, 90 300, 150 250 S 260 160, 300 200 S 380 120, 420 140"
+          fill="none" stroke="#FFD8A8" stroke-width="2" stroke-dasharray="1 10" stroke-linecap="round"/>
+    <circle cx="150" cy="250" r="4" fill="#FFB627"/>
+    <circle cx="300" cy="200" r="4" fill="#0FA3A3"/>
+    <circle cx="-10" cy="260" r="4" fill="#FF7A45"/>
+  </svg>
+  <div class="hero-inner">
+    <span class="eyebrow">2026.08 更新 · 蓝海赛道雷达</span>
+    <h1>一台电脑，<br>划出你的<em>蓝海掘金航线</em></h1>
+    <p class="sub">全网调研 + AI 拆解，汇总 10 大赛道、105 个低成本 / 轻竞争的搞钱项目，每条只给你「核心流程」，看完就能上手试水。</p>
+    <div class="stat-row">
+      <div class="stat-chip"><span class="stat-num">105</span><span class="stat-label">可落地项目</span></div>
+      <div class="stat-chip"><span class="stat-num">10</span><span class="stat-label">细分赛道</span></div>
+      <div class="stat-chip"><span class="stat-num">0元</span><span class="stat-label">起步门槛占比高</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="navwrap">
+  <div class="navscroll" id="navscroll"></div>
+</div>
+
+<div class="toolbar">
+  <div class="search">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5A7182" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input id="searchInput" placeholder="搜索项目关键词，比如「数字人」「跨境」「小说」…">
+  </div>
+  <div id="resultCount"></div>
+</div>
+
+<main id="main"></main>
+<div class="no-result" id="noResult">没有找到匹配的项目，换个关键词试试～</div>
+
+<div class="tip-banner">
+  <div class="tip-inner">
+    💡 <strong>选路建议：</strong>先从「零成本、★★☆以下」的项目里挑 1-2 个跑通第一笔收入，再往上叠加投入；所有项目均需真实投入时间打磨内容/产品与获客，天下没有躺赚，只有「用 AI 把单位时间的产出放大」。跨境、金融类项目请留意平台规则与合规风险。
+  </div>
+</div>
+
+<footer>
+  内容基于 2026 年 8 月全网公开资料与趋势综合整理，仅供方向参考，不构成投资 / 收益承诺。<br>
+  <strong>2026 蓝海掘金地图</strong> · 祝你早日跑通第一单
+</footer>
+
+<script>
+const DATA = [
+  { id:"content", name:"AI内容创作", icon:"🎬", color:"#FF7A45", desc:"用AI把内容生产效率放大5-10倍",
+    items:[
+      ["📖","AI小说推文短剧号","选爆款章节 → AI改写文案 → 自动配音配BGM → 发布赚流量分成","零成本","★★☆☆☆"],
+      ["✍️","AI公众号爆文写作","AI生成初稿 → 人工润色加人设 → 挂流量主/付费专栏 → 持续变现","零成本","★★☆☆☆"],
+      ["🎞️","AI影视解说/漫剪号","剪辑素材 → AI生成解说文案 → 配音合成 → 多平台广告分成","低成本","★★★☆☆"],
+      ["💬","AI情感/职场人设号","AI辅助选题脚本 → 真人或数字人出镜 → 私域引流卖课/带货","低成本","★★★☆☆"],
+      ["🛍️","小红书AI种草号","AI选品分析 → 生成图文文案 → 发布种草 → 赚佣金/广告","零成本","★★☆☆☆"],
+      ["🏛️","AI历史科普长视频","AI写脚本 → 配音+素材剪辑 → 上传视频平台 → 广告分成","低成本","★★★☆☆"],
+      ["📚","AI书单/影单解说号","素材整理 → AI摘要提炼 → 配音成片 → 挂电商链接","零成本","★★☆☆☆"],
+      ["🌐","多语种搬运号(出海)","选爆款内容 → AI翻译本地化 → 多国账号矩阵发布 → 广告分成","低成本","★★★☆☆"],
+      ["📰","AI资讯快讯聚合号","抓取热点 → AI摘要改写 → 定时自动发布 → 广告/打赏","零成本","★★☆☆☆"],
+      ["🎙️","播客AI二创切片号","抓取播客内容 → AI转写摘要 → 剪成短视频 → 引流私域","零成本","★★☆☆☆"],
+      ["😂","AI表情包/沙雕图号","AI批量生图 → 合成配文 → 表情平台上架 → 分成变现","零成本","★★☆☆☆"],
+      ["👶","AI育儿/宝妈知识号","收集高频问题 → AI生成图文/视频 → 私域卖课带货","零成本","★★☆☆☆"],
+      ["🎭","AI短剧本创作接单","研究平台约稿需求 → AI辅助创作短剧本 → 投稿获取稿费分成","零成本","★★★☆☆"],
+    ]},
+  { id:"visual", name:"AI设计·数字人", icon:"🎨", color:"#8B5CF6", desc:"用生成式AI承接设计与形象类订单",
+    items:[
+      ["🖼️","AI头像/写真定制","整理提示词模板 → 客户下单 → 批量出图精修 → 交付赚差价","低成本","★★☆☆☆"],
+      ["🐾","AI宠物拟人写真","客户传照片 → AI风格迁移换脸 → 打包精修 → 线上接单出售","低成本","★★☆☆☆"],
+      ["📕","AI儿童绘本定制","输入故事文本 → AI生成插画 → 排版成书 → PDF/实体书销售","低成本","★★★☆☆"],
+      ["🪪","AI证件照/形象照修图","批量修图 → AI背景替换 → 电商平台接单交付","零成本","★★☆☆☆"],
+      ["📢","AI商业海报代做","接需求 → AI生成初稿 → 精修调整 → 按张收费交付","零成本","★★☆☆☆"],
+      ["🧑‍💻","AI数字人IP打造","选数字人形象 → AI配音口播脚本 → 短视频/直播带货","中等成本","★★★★☆"],
+      ["📡","AI虚拟主播无人直播","搭建数字人直播间 → 话术库配置 → 24小时挂播带货","中等成本","★★★★☆"],
+      ["🖥️","AI壁纸/挂历批量生产","主题选定 → AI批量出图 → 图库/电商平台上架走量","零成本","★★☆☆☆"],
+      ["🏷️","AI品牌Logo设计接单","客户需求 → AI生成多方案 → 精修定稿 → 威客平台交付","零成本","★★☆☆☆"],
+      ["👗","AI服装换装图服务","商家提供模特图 → AI批量换装换背景 → 按图收费交付","低成本","★★★☆☆"],
+      ["🏠","AI装修效果图设计","客户提供户型图 → AI生成效果图 → 按套收费交付","低成本","★★★☆☆"],
+    ]},
+  { id:"dev", name:"独立开发·AI工具", icon:"💻", color:"#2E86DE", desc:"一个人 + AI，做一次卖无数次",
+    items:[
+      ["🧩","AI轻应用无代码开发","自然语言描述需求 → AI生成应用 → 上架或按需定制交付","零成本","★★★☆☆"],
+      ["🧷","Chrome浏览器插件","挖掘细分痛点 → AI辅助写代码 → 上架商店 → 订阅收费","零成本","★★★☆☆"],
+      ["📦","小型SaaS工具","定位细分需求 → AI生成MVP → 独立站获客 → 订阅制变现","低成本","★★★★☆"],
+      ["🔑","AI提示词模板库","整理测试优质Prompt → 分类打包 → 线上平台销售","零成本","★★☆☆☆"],
+      ["🤖","智能体(Agent)定制搭建","客户描述场景 → 搭建配置智能体 → 部署交付 → 按次收费","零成本","★★★☆☆"],
+      ["📄","AI简历/求职信生成器","搭建小工具 → AI生成内容 → 增值服务/会员收费","低成本","★★★☆☆"],
+      ["⚖️","垂直行业AI审查工具","定位法律/HR等场景 → AI辅助开发 → SaaS订阅收费","中等成本","★★★★☆"],
+      ["🌐","建站模板售卖","设计网站模板 → 挂载模板市场 → 被动收入","零成本","★★★☆☆"],
+      ["🔌","AI API封装转售","封装大模型接口 → 做垂直场景小工具 → 按调用量收费","低成本","★★★★☆"],
+      ["🗂️","Notion/飞书效率模板","设计高效模板 → 小红书引流 → 付费下载","零成本","★★☆☆☆"],
+      ["💁","AI客服机器人搭建","帮中小商家接入AI客服 → 配置话术 → 部署+维护收费","低成本","★★★☆☆"],
+      ["🕷️","自动化脚本/爬虫定制","接客户需求 → AI辅助开发 → 威客平台交单收费","零成本","★★★☆☆"],
+      ["🧪","游戏内测/众测撮合","收集测试资源 → 撮合企业与测试者 → 收取撮合费","零成本","★★☆☆☆"],
+    ]},
+  { id:"knowledge", name:"知识付费·咨询", icon:"📚", color:"#0FA3A3", desc:"把经验和AI能力打包成可复购的服务",
+    items:[
+      ["🎓","AI工具实操课程","录制实操教学 → 知识平台上架 → 分销招生变现","零成本","★★☆☆☆"],
+      ["🧭","一对一AI陪跑咨询","定位细分人群 → 私域接单 → 按小时收费指导","零成本","★★☆☆☆"],
+      ["🏢","企业AI转型内训","对接中小企业 → 定制培训方案 → 线上线下授课收费","低成本","★★★★☆"],
+      ["🚀","副业/独立开发训练营","打造案例IP → 招募学员 → 社群+课程收费","低成本","★★★☆☆"],
+      ["🗣️","AI语言陪练小程序","开发对话陪练机器人 → 设置付费会员制","低成本","★★★☆☆"],
+      ["📝","考证资料整理售卖","AI整理真题答案 → 打包排版 → 电子资料售卖","零成本","★★☆☆☆"],
+      ["✒️","AI辅助写作训练营","教授AI创作方法论 → 社群化收费招生","零成本","★★☆☆☆"],
+      ["💼","职场技能一对一辅导","结合个人经验+AI分析 → 定制辅导方案收费","零成本","★★☆☆☆"],
+      ["👨‍👩‍👧","亲子教育内容社群","AI生成育儿知识卡片 → 社群会员付费订阅","零成本","★★☆☆☆"],
+      ["👵","中老年数字生活教学","拍摄教程视频 → 短视频获客 → 卖课或接广告","零成本","★★☆☆☆"],
+      ["🎤","AI面试模拟陪练工具","开发对话模拟器 → 设置付费使用制 → 求职人群复购","低成本","★★★☆☆"],
+    ]},
+  { id:"ecom", name:"电商·跨境掘金", icon:"🌏", color:"#FFB627", desc:"信息差+AI选品，把货卖到全世界",
+    items:[
+      ["🛒","TikTok Shop无货源电商","AI分析选品 → 1688代发 → 短视频引流 → 赚差价","低成本","★★★★☆"],
+      ["🎨","Etsy AI设计POD周边","AI生成图案 → 代工厂印刷发货 → 平台上架售卖","低成本","★★★☆☆"],
+      ["📈","亚马逊Listing优化服务","帮卖家做AI选品报告 → 优化文案 → 收咨询服务费","零成本","★★★☆☆"],
+      ["🚚","独立站Dropshipping","AI选品+建站 → 社媒广告投流 → 赚商品差价","中等成本","★★★★☆"],
+      ["♻️","闲鱼无货源转卖","AI比价选品 → 搬运上架 → 接单赚差价","零成本","★★☆☆☆"],
+      ["🤝","中小店铺AI客服代运营","帮商家搭建AI客服 → 配置话术 → 按月收服务费","低成本","★★★☆☆"],
+      ["📦","海外教材/书籍代购转卖","AI比价搜索 → 批量采购 → 平台转卖赚差价","中等成本","★★★☆☆"],
+      ["💾","数字资料店铺","整理模板/素材包 → 自动发货系统 → 闲鱼/Etsy销售","零成本","★★☆☆☆"],
+      ["📱","跨境社媒代运营","AI辅助内容生产 → 帮海外品牌运营账号 → 收月费","低成本","★★★★☆"],
+      ["🧮","AI选品分析工具订阅","开发选品数据工具 → 卖给电商卖家 → 订阅制收费","中等成本","★★★★☆"],
+      ["🔍","亚马逊测评资源中介","组建测评资源池 → 对接卖家撮合 → 收取服务费","零成本","★★★☆☆"],
+      ["👥","私域团购拼团运营","AI辅助选品文案 → 微信群运营 → 抽成变现","零成本","★★☆☆☆"],
+    ]},
+  { id:"auto", name:"自动化·数据服务", icon:"⚙️", color:"#4C5FD5", desc:"帮企业和个人把重复劳动交给脚本",
+    items:[
+      ["🧪","自动化测试脚本代写","接客户需求 → AI辅助编写脚本 → 威客平台交单","零成本","★★★☆☆"],
+      ["🕸️","数据爬取整理服务","明确客户需求 → 爬虫抓取+AI清洗 → 交付Excel报告","零成本","★★★☆☆"],
+      ["📊","Excel/Airtable自动化搭建","梳理业务流程 → AI辅助搭建自动化表格 → 按项目收费","零成本","★★★☆☆"],
+      ["🖇️","AI建站落地页代做","接客户需求 → AI生成设计与代码 → 交付上线收费","低成本","★★★☆☆"],
+      ["✂️","短视频批量剪辑工具","开发批量处理脚本 → 卖给MCN/自媒体机构","低成本","★★★★☆"],
+      ["🏭","中小企业RPA流程外包","梳理重复性工作 → AI+RPA搭建流程 → 项目制收费","中等成本","★★★★☆"],
+      ["📈","数据可视化报告代做","客户提供数据 → AI辅助分析建模 → 交付可视化报告","零成本","★★★☆☆"],
+      ["🧾","AI简历筛选工具","搭建筛选小工具 → 卖给HR/猎头公司使用","低成本","★★★☆☆"],
+      ["📧","邮件营销自动化搭建","帮独立站搭建AI邮件序列 → 按项目收费","零成本","★★★☆☆"],
+      ["🤖","微信/Telegram机器人定制","接客户需求 → AI辅助开发 → 交付+长期维护费","零成本","★★★☆☆"],
+      ["🏋️","AI健身/饮食计划小程序","收集用户数据 → AI生成方案 → 订阅制收费","低成本","★★★☆☆"],
+    ]},
+  { id:"game", name:"游戏·虚拟资产", icon:"🎮", color:"#FF5C93", desc:"低成本内容+AI素材，撬动流水分成",
+    items:[
+      ["📱","抖音弹幕小游戏开发","立项玩法 → AI辅助编程+素材 → 上架平台赚流水分成","中等成本","★★★★☆"],
+      ["🕹️","微信小游戏开发","定位轻量玩法 → AI辅助编程 → 小游戏平台广告分成","中等成本","★★★★☆"],
+      ["🎯","Steam独立游戏制作","立项策划 → AI生成美术+辅助编程 → 上架销售分成","中等成本","★★★★★"],
+      ["🎧","冷门游戏代练陪玩","组建接单群 → 垂直平台接单 → 按小时抽成","零成本","★★☆☆☆"],
+      ["👕","虚拟皮肤/装扮设计","AI辅助设计方案 → 交易平台挂单售卖","零成本","★★☆☆☆"],
+      ["🎵","AI生成音乐素材库","批量生成配乐/音效 → 素材站上架 → 版权分成收益","零成本","★★☆☆☆"],
+      ["🔁","游戏账号装备信息中介","收集买卖信息 → 撮合交易 → 收取中介费","零成本","★★☆☆☆"],
+      ["🕵️","剧本杀本子创作售卖","AI辅助编剧构思 → 打磨成品 → 平台/社群售卖","零成本","★★★☆☆"],
+    ]},
+  { id:"local", name:"本地轻服务", icon:"🛠️", color:"#38B000", desc:"低门槛代做类接单，随做随赚",
+    items:[
+      ["✏️","商家文案代写接单","威客平台接单 → AI辅助撰写 → 交付客户","零成本","★☆☆☆☆"],
+      ["🎬","求职自我介绍视频代做","客户提供素材 → AI剪辑配文案 → 交付成片","零成本","★★☆☆☆"],
+      ["💍","婚礼/生日AI相册视频","客户提供照片 → AI生成动态视频 → 交付客户","零成本","★★☆☆☆"],
+      ["📽️","企业年会PPT代做","明确客户需求 → AI生成框架美化 → 交付定稿","零成本","★★☆☆☆"],
+      ["🎙️","AI语音克隆配音服务","客户提供文本 → AI语音克隆合成 → 交付音频文件","低成本","★★★☆☆"],
+      ["🖌️","老照片修复上色接单","客户提供照片 → AI修复上色批量处理 → 交付高清图","低成本","★★☆☆☆"],
+      ["📞","AI工具使用远程指导","直播/一对一教学 → 按次收咨询指导费","零成本","★☆☆☆☆"],
+      ["🐶","宠物店AI客服代运营","帮宠物商家搭建问答机器人 → 按月收服务费","低成本","★★★☆☆"],
+      ["🗄️","老资料扫描OCR电子化","接单批量扫描 → AI识别整理 → 按份收费交付","零成本","★★☆☆☆"],
+      ["🌍","留学简历翻译润色","客户提供原文 → AI翻译+人工校对 → 按份收费","零成本","★★☆☆☆"],
+    ]},
+  { id:"info", name:"信息差·情报", icon:"🧭", color:"#C97C2D", desc:"用AI快速加工整理，赚认知差的钱",
+    items:[
+      ["🌐","海外副业教程信息整合","收集海外资料 → AI翻译整理 → 打包成资料售卖","零成本","★★☆☆☆"],
+      ["💳","信用卡/权益羊毛攻略号","AI整理羊毛信息 → 私域社群付费订阅","零成本","★★☆☆☆"],
+      ["🔠","二手域名挖掘转手","AI辅助估值筛选 → 低价收购 → 挂平台转手赚差价","低成本","★★★☆☆"],
+      ["🏛️","工商信息代查代办咨询","提供信息查询服务 → 按次收取咨询费","零成本","★★☆☆☆"],
+      ["🎓","海外奖学金资料整理","AI整理各校资料 → 打包成资料包 → 付费下载","零成本","★★☆☆☆"],
+      ["📮","行业情报周报订阅","AI辅助整理行业动态 → 私域/Newsletter付费订阅","零成本","★★☆☆☆"],
+      ["🧾","海外众包任务信息差","整理任务信息 → 分销/代做赚差价","零成本","★★☆☆☆"],
+    ]},
+  { id:"passive", name:"内容平台·被动收入", icon:"💰", color:"#06AED5", desc:"做一次持续卖，睡后也有现金流",
+    items:[
+      ["🎥","YouTube多语言AI混剪矩阵","AI批量生产内容 → 多账号分发 → 广告长期分成","低成本","★★★☆☆"],
+      ["🎧","AI辅助播客制作","AI生成脚本+配音 → 多平台分发 → 赞助会员变现","零成本","★★★☆☆"],
+      ["📬","Newsletter细分领域订阅","AI辅助整理专业资讯 → 付费订阅制","零成本","★★☆☆☆"],
+      ["🖼️","AI生成素材图库上传","批量生成图片/视频素材 → 素材站上架 → 版权分成","零成本","★★☆☆☆"],
+      ["📕","Kindle电子书AI辅助创作","AI辅助写作+封面设计 → 亚马逊KDP上架销售","零成本","★★★☆☆"],
+      ["🎙️","图书拆解音频号","AI辅助拆书提炼 → 音频/图文发布 → 版权分成收益","零成本","★★☆☆☆"],
+      ["🏫","在线课程多平台分销","制作一次课程 → 多平台自动挂载分销 → 持续躺赚","低成本","★★★☆☆"],
+      ["🧵","AI生成SEO内容站群","AI批量生成文章 → 建站矩阵 → 挂载广告联盟变现","低成本","★★★☆☆"],
+    ]},
+];
+
+// ---- render nav ----
+const navEl = document.getElementById('navscroll');
+DATA.forEach(cat=>{
+  const btn = document.createElement('div');
+  btn.className = 'navchip';
+  btn.style.setProperty('--c', cat.color);
+  btn.dataset.id = cat.id;
+  btn.innerHTML = `<span class="dot"></span>${cat.icon} ${cat.name}`;
+  btn.addEventListener('click', ()=>{
+    document.getElementById('sec-'+cat.id).scrollIntoView({behavior:'smooth', block:'start'});
+  });
+  navEl.appendChild(btn);
+});
+
+// ---- render sections ----
+const main = document.getElementById('main');
+let total = 0;
+DATA.forEach(cat=>{
+  total += cat.items.length;
+  const sec = document.createElement('section');
+  sec.className = 'section';
+  sec.id = 'sec-'+cat.id;
+  sec.style.setProperty('--c', cat.color);
+
+  const head = document.createElement('div');
+  head.className = 'sec-head';
+  head.innerHTML = `
+    <div class="sec-icon">${cat.icon}</div>
+    <div>
+      <p class="sec-title">${cat.name}</p>
+      <p class="sec-desc">${cat.desc}</p>
+    </div>
+    <div class="sec-count">${cat.items.length}个</div>
+  `;
+  sec.appendChild(head);
+
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+  cat.items.forEach(it=>{
+    const [emoji,title,flow,cost,diff] = it;
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.setProperty('--c', cat.color);
+    card.dataset.search = (title+flow).toLowerCase();
+    card.innerHTML = `
+      <div class="card-head"><span class="card-emoji">${emoji}</span><h3>${title}</h3></div>
+      <p class="flow">${flow}</p>
+      <div class="tags"><span class="tag cost">${cost}</span><span class="tag diff">${diff}</span></div>
+    `;
+    grid.appendChild(card);
+  });
+  sec.appendChild(grid);
+  main.appendChild(sec);
+});
+document.querySelector('.stat-num').textContent = total;
+
+// ---- search filter ----
+const input = document.getElementById('searchInput');
+const resultCount = document.getElementById('resultCount');
+const noResult = document.getElementById('noResult');
+input.addEventListener('input', ()=>{
+  const q = input.value.trim().toLowerCase();
+  let shown = 0;
+  document.querySelectorAll('.section').forEach(sec=>{
+    let secShown = 0;
+    sec.querySelectorAll('.card').forEach(card=>{
+      const match = !q || card.dataset.search.includes(q);
+      card.style.display = match ? '' : 'none';
+      if(match){ secShown++; shown++; }
+    });
+    sec.style.display = secShown === 0 ? 'none' : '';
+  });
+  resultCount.textContent = q ? `找到 ${shown} 个匹配项目` : '';
+  noResult.style.display = (q && shown===0) ? 'block' : 'none';
+  document.querySelector('.navwrap').style.display = q ? 'none' : '';
+});
+
+// ---- scrollspy ----
+const chips = [...document.querySelectorAll('.navchip')];
+const sections = [...document.querySelectorAll('.section')];
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id = e.target.id.replace('sec-','');
+      chips.forEach(c=>c.classList.toggle('active', c.dataset.id===id));
+      const activeChip = chips.find(c=>c.dataset.id===id);
+      if(activeChip) activeChip.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+    }
+  });
+}, {rootMargin:'-100px 0px -70% 0px', threshold:0});
+sections.forEach(s=>io.observe(s));
+if(chips[0]) chips[0].classList.add('active');
+</script>
+</body>
+</html>

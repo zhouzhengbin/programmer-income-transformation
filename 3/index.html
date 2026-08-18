@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>技术运营与变现基建手册｜从一个静态网页到百宝箱平台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:      #1B2430;
+    --ink-soft: #57626F;
+    --ink-faint:#8B93A0;
+    --paper:    #F5F3EC;
+    --paper-2:  #FFFFFF;
+    --line:     #E1DCCC;
+    --brand:    #2A5C8A;
+    --brand-bg: #E7F0F8;
+    --warm:     #C1671B;
+    --warm-bg:  #FBEEE0;
+    --sage:     #3E7A57;
+    --sage-bg:  #E7F3EC;
+    --plum:     #7B4A8C;
+    --plum-bg:  #F2E9F4;
+    --red:      #A6402F;
+    --red-bg:   #FAEAE6;
+    --teal:     #1F7A72;
+    --teal-bg:  #E4F2F0;
+    --radius:   14px;
+    --radius-lg:20px;
+    --shadow:   0 1px 2px rgba(27,36,48,.05), 0 18px 40px -24px rgba(27,36,48,.22);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Noto Sans SC',-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--paper); color:var(--ink); line-height:1.75; font-size:15.5px;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{ font-family:'Noto Serif SC',Georgia,serif; color:var(--ink); line-height:1.32; font-weight:700; }
+  a{ color:var(--brand); }
+  strong{ color:var(--ink); font-weight:700; }
+  code{ background:#ECE7D8; padding:2px 7px; border-radius:5px; font-size:.87em; font-family:'JetBrains Mono',Consolas,monospace; color:#3A2E1A; word-break:break-all; }
+  pre{ background:#1B2430; color:#E7EEF5; padding:16px 18px; border-radius:var(--radius); overflow-x:auto; font-size:12.8px; font-family:'JetBrains Mono',Consolas,monospace; margin:14px 0; line-height:1.6; }
+  pre code{ background:none; color:inherit; padding:0; }
+  ::selection{ background:var(--warm-bg); color:var(--ink); }
+
+  #progressbar{ position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--brand),var(--teal),var(--warm)); z-index:200; width:0%; transition:width .1s; }
+
+  .topbar{
+    position:sticky; top:0; z-index:60; background:rgba(245,243,236,.94); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between;
+    padding:13px 20px;
+  }
+  .topbar-brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:14.5px; font-family:'Noto Serif SC',serif; }
+  .topbar-brand .mark{ width:30px; height:30px; border-radius:9px; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif SC',serif; font-size:15px; flex-shrink:0; }
+  .topbar-sub{ color:var(--ink-soft); font-size:12px; font-weight:500; font-family:'Noto Sans SC',sans-serif; margin-left:2px; }
+  #nav-toggle{ display:none; }
+  .nav-toggle-label{
+    display:none; align-items:center; gap:8px; font-size:13px; font-weight:600;
+    border:1px solid var(--line); padding:8px 14px; border-radius:999px; cursor:pointer; background:var(--paper-2);
+    white-space:nowrap;
+  }
+
+  .layout{ display:grid; grid-template-columns:284px 1fr; max-width:1280px; margin:0 auto; gap:0; }
+  .sidebar{
+    position:sticky; top:53px; align-self:start; height:calc(100vh - 53px); overflow-y:auto;
+    padding:30px 16px 60px; border-right:1px solid var(--line);
+    scrollbar-width:thin;
+  }
+  .sidebar-title{ font-size:11px; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint); font-weight:700; margin-bottom:12px; padding:0 10px; }
+  .sidebar-title.sub{ margin-top:24px; }
+  .sidebar a{
+    display:block; font-size:13.3px; color:var(--ink-soft); text-decoration:none; padding:6.5px 10px;
+    border-radius:8px; margin-bottom:1px; font-weight:500;
+  }
+  .sidebar a:hover{ background:var(--paper-2); color:var(--ink); }
+  .sidebar .phase-num{ color:var(--warm); font-weight:700; margin-right:6px; font-family:'Noto Serif SC',serif; font-size:12.5px; }
+
+  main{ padding:44px clamp(20px,4vw,60px) 110px; max-width:900px; }
+
+  .intro{ margin-bottom:60px; }
+  .intro .eyebrow{ font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--brand); background:var(--brand-bg); display:inline-block; padding:6px 13px; border-radius:999px; margin-bottom:18px; }
+  .intro h1{ font-size:clamp(28px,4.2vw,42px); margin-bottom:18px; letter-spacing:-.01em; }
+  .intro p.lead{ color:var(--ink-soft); font-size:16.8px; max-width:68ch; }
+
+  .tag{ display:inline-block; font-size:11px; font-weight:700; padding:3px 10px; border-radius:999px; margin-right:5px; white-space:nowrap; }
+  .tag.py{ background:var(--brand-bg); color:var(--brand); }
+  .tag.html{ background:var(--warm-bg); color:var(--warm); }
+  .tag.domestic{ background:var(--sage-bg); color:var(--sage); }
+  .tag.global{ background:var(--plum-bg); color:var(--plum); }
+  .tag.both{ background:#EEF0EC; color:#4B5B4E; }
+  .tag.new{ background:var(--red-bg); color:var(--red); }
+  .tag.free{ background:var(--teal-bg); color:var(--teal); }
+
+  .stat-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin:26px 0; }
+  .stat-card{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow); }
+  .stat-card .num{ font-family:'Noto Serif SC',serif; font-size:24px; font-weight:700; color:var(--brand); }
+  .stat-card .label{ font-size:12.5px; color:var(--ink-soft); margin-top:4px; }
+
+  .overview-table{ width:100%; border-collapse:collapse; margin-top:24px; font-size:13.6px; }
+  .overview-table th{ text-align:left; color:var(--ink-soft); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em; padding:0 12px 10px 0; border-bottom:1px solid var(--line); }
+  .overview-table td{ padding:12px 12px 12px 0; border-bottom:1px solid var(--line); vertical-align:top; }
+  .overview-table tr:last-child td{ border-bottom:none; }
+
+  .phase{ padding-top:68px; margin-top:-16px; border-top:1px solid var(--line); }
+  .phase:first-of-type{ border-top:none; }
+  .phase-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:8px; flex-wrap:wrap; }
+  .phase-num-badge{ font-family:'Noto Serif SC',serif; font-size:15px; font-weight:700; color:var(--warm); background:var(--warm-bg); padding:4px 13px; border-radius:999px; flex-shrink:0; }
+  .phase h2{ font-size:clamp(22px,2.7vw,29px); }
+  .phase-meta{ color:var(--ink-soft); font-size:13.6px; margin-bottom:30px; max-width:74ch; }
+
+  .sub h3{ font-size:17.5px; margin:34px 0 11px; }
+  .sub h4{ font-size:15px; margin:24px 0 9px; color:var(--ink); }
+  .sub p{ color:var(--ink-soft); margin-bottom:13px; }
+  .sub ul, .sub ol{ color:var(--ink-soft); margin:0 0 15px 20px; }
+  .sub li{ margin-bottom:6.5px; }
+
+  .step-list{ counter-reset:step; margin:18px 0 26px; }
+  .step{
+    display:grid; grid-template-columns:34px 1fr; gap:14px; padding:14px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .step:last-child{ border-bottom:none; }
+  .step .num{
+    counter-increment:step; width:30px; height:30px; border-radius:50%; background:var(--ink); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-family:'Noto Serif SC',serif; font-size:13.5px; font-weight:600; flex-shrink:0;
+  }
+  .step .num::before{ content:counter(step); }
+  .step .body strong{ display:block; margin-bottom:3px; font-size:14.6px; }
+  .step .body span{ color:var(--ink-soft); font-size:14px; }
+
+  .callout{ border-radius:var(--radius); padding:16px 20px; margin:20px 0; font-size:14px; display:flex; gap:12px; }
+  .callout .icon{ flex-shrink:0; font-size:16px; line-height:1.5; }
+  .callout.tip{ background:var(--sage-bg); color:#1F4A32; }
+  .callout.warn{ background:var(--red-bg); color:#742A1C; }
+  .callout.info{ background:var(--brand-bg); color:#1B3C5C; }
+  .callout.star{ background:var(--warm-bg); color:#6E3B0C; }
+  .callout.teal{ background:var(--teal-bg); color:#0F433E; }
+  .callout b{ color:inherit; }
+
+  .checklist{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); padding:20px 22px; margin:22px 0; box-shadow:var(--shadow); }
+  .checklist .cl-title{ font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); margin-bottom:12px; }
+  .checklist label{ display:flex; align-items:flex-start; gap:10px; font-size:14.3px; margin-bottom:10px; cursor:pointer; }
+  .checklist input[type=checkbox]{ margin-top:3px; width:16px; height:16px; accent-color:var(--warm); flex-shrink:0; }
+
+  .example{ background:var(--paper-2); border-left:3px solid var(--warm); border-radius:0 var(--radius) var(--radius) 0; padding:14px 18px; margin:16px 0; font-size:13.9px; box-shadow:var(--shadow); }
+  .example .ex-label{ font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--warm); font-weight:700; margin-bottom:6px; }
+
+  table.data{ width:100%; border-collapse:collapse; margin:18px 0; font-size:13.3px; background:var(--paper-2); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
+  table.data th{ text-align:left; background:#EFEBDD; color:var(--ink); font-weight:700; padding:10px 14px; font-size:12.6px; }
+  table.data td{ padding:10px 14px; border-top:1px solid var(--line); color:var(--ink-soft); vertical-align:top; }
+  table.data tr:hover td{ background:#FBFAF6; }
+  .table-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .table-scroll table{ min-width:560px; }
+
+  .card-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin:20px 0; }
+  .mini-card{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); padding:17px 19px; box-shadow:var(--shadow); }
+  .mini-card h4{ margin:0 0 8px; font-size:14.8px; display:flex; align-items:center; gap:8px; }
+  .mini-card p{ font-size:13.3px; margin-bottom:8px; }
+  .mini-card .mc-tags{ margin-top:10px; }
+
+  details{ background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); margin-bottom:10px; box-shadow:var(--shadow); overflow:hidden; }
+  summary{ padding:15px 20px; font-weight:600; font-size:14.4px; cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  summary::-webkit-details-marker{ display:none; }
+  summary .chev{ color:var(--ink-faint); font-weight:400; transition:transform .2s; flex-shrink:0; }
+  details[open] summary .chev{ transform:rotate(45deg); }
+  details p{ padding:0 20px 18px; color:var(--ink-soft); font-size:13.9px; }
+
+  .flow{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:20px 0; }
+  .flow .fnode{ background:var(--paper-2); border:1px solid var(--line); border-radius:10px; padding:9px 14px; font-size:12.8px; font-weight:600; box-shadow:var(--shadow); white-space:nowrap; }
+  .flow .farrow{ color:var(--ink-faint); font-size:15px; }
+
+  .totop{
+    position:fixed; right:22px; bottom:22px; width:42px; height:42px; border-radius:50%; background:var(--ink); color:#fff;
+    border:none; cursor:pointer; font-size:16px; opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; z-index:80;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .totop.show{ opacity:1; pointer-events:auto; }
+  .totop:hover{ transform:translateY(-2px); }
+
+  footer{ text-align:center; color:var(--ink-faint); font-size:11.6px; padding:36px 20px 60px; max-width:900px; margin:0 auto; line-height:1.9; }
+
+  @media (max-width: 900px){
+    .layout{ grid-template-columns:1fr; }
+    .sidebar{
+      position:fixed; top:53px; left:0; right:0; bottom:0; height:auto; z-index:55; background:var(--paper);
+      transform:translateY(-110%); transition:transform .25s ease; padding:20px 20px 100px; border-right:none;
+    }
+    #nav-toggle:checked ~ .layout .sidebar{ transform:translateY(0); }
+    .nav-toggle-label{ display:flex; }
+    main{ padding:32px 18px 90px; }
+    .step{ grid-template-columns:26px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progressbar"></div>
+<input type="checkbox" id="nav-toggle">
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="mark">技</div>
+    <div>技术运营与变现基建手册 <span class="topbar-sub">配套技术实操篇</span></div>
+  </div>
+  <label for="nav-toggle" class="nav-toggle-label">☰ 目录</label>
+</div>
+
+<div class="layout">
+
+  <nav class="sidebar">
+    <div class="sidebar-title">总览</div>
+    <a href="#overview">全书地图</a>
+
+    <div class="sidebar-title sub">基础建设</div>
+    <a href="#phase1"><span class="phase-num">01</span>工具怎么"放上线"</a>
+    <a href="#phase2"><span class="phase-num">02</span>服务器与域名怎么选</a>
+    <a href="#phase3"><span class="phase-num">03</span>Python工具的三种上线路径</a>
+
+    <div class="sidebar-title sub">流量与安全</div>
+    <a href="#phase4"><span class="phase-num">04</span>限流与防超载</a>
+    <a href="#phase5"><span class="phase-num">05</span>防爬虫与防滥用</a>
+
+    <div class="sidebar-title sub">变现与结构</div>
+    <a href="#phase6"><span class="phase-num">06</span>付费功能怎么做</a>
+    <a href="#phase7"><span class="phase-num">07</span>网站布局与信息架构</a>
+    <a href="#phase8"><span class="phase-num">08</span>GEO落地清单</a>
+
+    <div class="sidebar-title sub">增长与执行</div>
+    <a href="#phase9"><span class="phase-num">09</span>营销传播与品牌化</a>
+    <a href="#phase10"><span class="phase-num">10</span>90天技术基建路线图</a>
+
+    <div class="sidebar-title sub">收尾</div>
+    <a href="#risk">总检查清单</a>
+    <a href="#faq">常见问题</a>
+    <a href="#appendix">术语表</a>
+  </nav>
+
+  <main>
+
+    <!-- ================= INTRO ================= -->
+    <section class="intro" id="overview">
+      <span class="eyebrow">配套《数字产品全景作战手册》· 技术实操篇</span>
+      <h1>从一个免费静态网页，<br>走到一个能赚钱的工具百宝箱</h1>
+      <p class="lead">你已经在闲鱼卖出过工具、上传过静态网页，这份手册接着往下讲：这些工具最终要放在哪里运行、怎么防止被薅垮、怎么开始收费、怎么防止被恶意爬取，以及整个网站要怎么搭才能既好用又能被AI和搜索引擎看见。全部按"这一步具体点哪里、填什么"的颗粒度写，不假设你有技术背景。</p>
+
+      <div class="stat-row">
+        <div class="stat-card"><div class="num">10</div><div class="label">个技术基建阶段</div></div>
+        <div class="stat-card"><div class="num">0元起</div><div class="label">起步可用的免费方案</div></div>
+        <div class="stat-card"><div class="num">3档</div><div class="label">从个人玩票到规模化的架构梯度</div></div>
+        <div class="stat-card"><div class="num">90天</div><div class="label">技术基建配套路线图</div></div>
+      </div>
+
+      <div class="callout info">
+        <div class="icon">🧭</div>
+        <div><b>怎么用这本手册：</b>如果你现在只有1～3个纯网页小工具、月访问量还是两三位数，直接看阶段一、二、七就够用，不用一次性把限流、付费系统都搭起来——那是给"东西已经跑起来、开始有人用"之后的你准备的。每章开头都会标注"你现在需不需要看这一章"。</div>
+      </div>
+
+      <h3 style="margin-top:40px;">全书地图：你的网站会长成什么样</h3>
+      <div class="table-scroll">
+      <table class="overview-table">
+        <tr><th>阶段</th><th>解决什么问题</th><th>你现在用得上吗</th></tr>
+        <tr><td>01 工具怎么放上线</td><td>纯前端小工具 vs 需要服务器的工具，怎么分别处理</td><td><span class="tag free">现在就用</span></td></tr>
+        <tr><td>02 服务器与域名</td><td>免费/高性价比空间和域名怎么挑，怎么避坑</td><td><span class="tag free">现在就用</span></td></tr>
+        <tr><td>03 Python工具三种路径</td><td>脚本怎么从"自己电脑能跑"变成"网页上能跑"</td><td><span class="tag both">工具变多后</span></td></tr>
+        <tr><td>04 限流与防超载</td><td>免费工具火了之后怎么不被一个人刷爆</td><td><span class="tag both">有点流量后</span></td></tr>
+        <tr><td>05 防爬虫防滥用</td><td>怎么防止代码、内容、算力被批量搬运</td><td><span class="tag both">有点流量后</span></td></tr>
+        <tr><td>06 付费功能怎么做</td><td>从"白嫖"到"愿意付费"的技术实现方式</td><td><span class="tag both">要收钱时</span></td></tr>
+        <tr><td>07 网站布局与信息架构</td><td>首页/工具页/博客怎么排，让人和AI都看得懂</td><td><span class="tag free">现在就用</span></td></tr>
+        <tr><td>08 GEO落地清单</td><td>对照着改，让网站真的能被AI搜到、引用</td><td><span class="tag free">现在就用</span></td></tr>
+        <tr><td>09 营销传播与品牌化</td><td>怎么让"百宝箱"变成一个别人记得住的名字</td><td><span class="tag both">有基础产品后</span></td></tr>
+        <tr><td>10 90天技术基建路线图</td><td>把以上全部按周拆解成可执行动作</td><td><span class="tag free">现在就用</span></td></tr>
+      </table>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 1 ================= -->
+    <section class="phase" id="phase1">
+      <div class="phase-head"><span class="phase-num-badge">01</span><h2>工具怎么"放上线"</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">先建立一个最重要的判断标准：你的每个工具，到底"要不要服务器"。这个判断决定了后面几乎所有技术选择的复杂度和成本。</div>
+
+      <div class="sub">
+        <h3>第一步：给每个工具做"要不要服务器"分类</h3>
+        <p>做接地气小工具最容易踩的坑，是把所有工具都当成"需要后端"来处理，结果成本和维护复杂度直接翻十倍。实际上大部分个人向实用工具根本不需要服务器参与运算。</p>
+
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>工具类型</th><th>判断标准</th><th>举例</th><th>该放哪</th></tr>
+          <tr><td><b>纯前端工具</b></td><td>所有计算/处理逻辑JS就能写完，不涉及用户隐私文件上传服务器</td><td>装修计算器、单位换算、生成器类、纯本地图片加水印（用Canvas API本地处理）</td><td>静态托管，0服务器成本</td></tr>
+          <tr><td><b>需轻量后端</b></td><td>需要Python专属库、AI调用、大批量文件处理，但单次运算量不大</td><td>OCR识别、PDF批量转换、AI文案生成类</td><td>Serverless函数，按调用量计费</td></tr>
+          <tr><td><b>需常驻后端</b></td><td>需要维持会话状态、大文件长时间处理、数据库读写频繁</td><td>带账号系统的会员工具箱、需要排队处理的批量任务</td><td>轻量云服务器/容器托管</td></tr>
+        </table>
+        </div>
+
+        <div class="callout star">
+          <div class="icon">🎯</div>
+          <div><b>能做成纯前端就优先做成纯前端</b>——这是本章最重要的一句话。它意味着：不产生服务器费用、不用管并发限流、用户的隐私文件（比如身份证复印件）全程不出用户浏览器，天然满足"纯本地处理不上传"这个最重要的信任点。你现在做的证件水印工具，只要用的是Canvas/File API方案，其实就已经是这条路线。</div>
+        </div>
+
+        <h3>第二步：现有免费空间怎么继续用</h3>
+        <p>你目前的免费静态空间可以先按下面这个目录逻辑组织，为以后放更多工具打好底子，不用推倒重来。</p>
+
+        <pre><code>你的网站/
+├── index.html              首页：工具箱总入口，展示所有工具卡片
+├── tools/
+│   ├── id-watermark/       身份证水印工具
+│   │   └── index.html
+│   ├── photo-resize/       证件照裁尺寸工具
+│   │   └── index.html
+│   └── old-photo-sort/     老照片整理工具
+│       └── index.html
+├── blog/                   配套知识科普文章，给GEO用
+│   └── id-copy-watermark-guide/
+│       └── index.html
+├── assets/
+│   ├── css/style.css       全站统一样式（品牌一致性）
+│   └── js/common.js
+├── robots.txt
+├── llms.txt
+└── sitemap.xml</code></pre>
+
+        <p>这样做的好处：每个工具独立一个文件夹和独立网址（比如 <code>你的域名/tools/id-watermark/</code>），既方便单独分享链接、单独做SEO/GEO，以后哪个工具要下线或升级也互不影响。</p>
+
+        <h3>第三步：新工具怎么"发布"——最小可行流程</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>本地写好并自测</strong><span>纯前端工具直接用浏览器打开HTML文件测试；涉及Python的先在本地跑通。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>按上面的目录结构建文件夹</strong><span>一个工具一个独立文件夹，命名用英文短横线，方便以后变成规范的网址路径。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>上传到你的托管空间</strong><span>如果是GitHub Pages/Cloudflare Pages这类，通常是把文件推送到代码仓库，几分钟内自动生效；如果是传统虚拟主机，用FTP工具上传即可。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>在首页工具卡片区加一条入口</strong><span>不要让新工具变成"孤儿页面"，必须要能从首页点进去，否则用户和搜索引擎都找不到。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>更新sitemap.xml</strong><span>把新页面网址加进去，帮助搜索引擎和AI更快发现它（第八章会细讲）。</span></div></div>
+        </div>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>刚开始不需要任何"上传后台"或"管理系统"，一个人维护几十个静态页面，手动按这五步做完全够用。等工具数量超过50个、需要频繁改版时，再考虑用静态网站生成器（比如Astro、Hugo）批量管理，那是"规模化"阶段的问题，不是现在的问题。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 2 ================= -->
+    <section class="phase" id="phase2">
+      <div class="phase-head"><span class="phase-num-badge">02</span><h2>服务器与域名怎么选</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">这一章直接给出可执行的选择清单，按"现在的免费方案""开始有流量后""要处理付费和用户数据"三档梯度排列，不用一步到位。</div>
+
+      <div class="sub">
+        <h3>静态托管：免费方案对比</h3>
+        <p>如果你的工具大多数是纯前端（第一章的分类），这一档基本可以长期免费用下去，不用急着升级。</p>
+
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>平台</th><th>特点</th><th>面向</th><th>适合谁</th></tr>
+          <tr><td><b>GitHub Pages</b></td><td>完全免费，绑定自己域名简单，需要会用Git做基本的上传操作</td><td>全球通用，国内访问偶尔不稳定</td><td>愿意学一点Git的人，长期最省心</td></tr>
+          <tr><td><b>Cloudflare Pages</b></td><td>免费额度充裕，自带全球CDN加速和基础防护，绑定域名和SSL证书全自动</td><td>全球通用，国内访问速度尚可</td><td>兼顾速度和免费防护能力的首选</td></tr>
+          <tr><td><b>Vercel</b></td><td>免费额度对个人项目够用，部署体验非常傻瓜化，特别适合以后要接Serverless函数</td><td>全球通用</td><td>以后要做轻量后端功能的人</td></tr>
+          <tr><td><b>国内对象存储+CDN</b><br><span style="font-size:12px;color:var(--ink-faint);">如阿里云OSS、腾讯云COS静态托管</span></td><td>国内访问速度快，但通常需要完成网站备案才能稳定使用国内节点</td><td>国内用户为主</td><td>确定要长期主打国内市场、愿意走备案流程的人</td></tr>
+        </table>
+        </div>
+
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div><b>关于"备案"：</b>如果用国内云服务商的服务器/CDN节点提供网站访问，通常需要完成ICP备案，流程通常需要提交身份信息并等待审核，具体材料和时长以你使用的服务商当前要求为准。如果暂时不想走备案，用上面几个海外平台（Cloudflare Pages / GitHub Pages / Vercel）是不需要备案的常见起步方式，国内用户访问速度也基本可用，适合验证阶段先用起来。</div>
+        </div>
+
+        <h3>域名：怎么挑、怎么避坑</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>渠道</th><th>说明</th><th>注意点</th></tr>
+          <tr><td>国际域名注册商<br><span style="font-size:12px;color:var(--ink-faint);">如Cloudflare Registrar、Namecheap</span></td><td>价格透明、常年低价续费（不搞"首年低价次年暴涨"那套），管理面板对个人开发者友好</td><td>需要国际支付方式（双币信用卡等）</td></tr>
+          <tr><td>国内域名注册商<br><span style="font-size:12px;color:var(--ink-faint);">如阿里云万网、腾讯云</span></td><td>支付宝/微信直接付款，中文客服，如果要用国内云服务商的服务器通常更方便统一管理</td><td>需要实名认证，.cn域名注册审核通常更严格</td></tr>
+        </table>
+        </div>
+
+        <ul>
+          <li><b>不建议长期用"免费域名"（如某些.tk/.ml后缀）做品牌</b>：这类域名注册商可能随时收回，一旦你的品牌和外部反链已经积累在这个域名上，风险很高，相当于给别人打了白工。</li>
+          <li><b>域名后缀怎么选：</b>面向个人/工具类项目，<code>.com</code> 通用性最强，其次是 <code>.tools</code>/<code>.app</code>/<code>.dev</code> 这类和"工具/开发"语义贴合的新后缀，价格通常比.com略高但更贴题，看预算取舍即可，不是决定成败的关键因素。</li>
+          <li><b>买域名时顺手做的事：</b>开启"域名隐私保护"（不公开你的个人注册信息）、开启自动续费提醒（域名过期最容易被"域名抢注"盯上）。</li>
+        </ul>
+
+        <h3>"升级路线图"：什么时候该从免费方案往上走</h3>
+        <div class="flow">
+          <div class="fnode">纯静态托管（0元）</div><div class="farrow">→</div>
+          <div class="fnode">静态托管 + Serverless函数（按量计费，通常有免费额度）</div><div class="farrow">→</div>
+          <div class="fnode">轻量云服务器（月付几十元级别）</div><div class="farrow">→</div>
+          <div class="fnode">容器/多实例架构（有稳定收入后再考虑）</div>
+        </div>
+        <p>判断该不该升级的标准很简单：<b>不是"我觉得应该更专业"，而是"现在的方案已经真的卡住了某个具体需求"</b>——比如某个工具必须要Python库支持、免费额度经常被用满、需要给付费用户保存账号数据。没出现这些具体情况之前，留在免费档，把省下来的精力放在做更多工具和验证需求上。</p>
+
+        <h4>轻量云服务器：性价比选择方向</h4>
+        <div class="card-grid">
+          <div class="mini-card">
+            <h4>🇨🇳 国内云厂商轻量应用服务器</h4>
+            <p>阿里云、腾讯云、华为云都有面向个人开发者的"轻量应用服务器"产品线，通常价格友好、有新用户优惠，控制面板对新手友好，中文文档齐全。</p>
+            <div class="mc-tags"><span class="tag domestic">国内首选</span></div>
+          </div>
+          <div class="mini-card">
+            <h4>🌍 海外性价比VPS</h4>
+            <p>如Hetzner、DigitalOcean、Vultr等，全球开发者常用，价格通常按小时/月计费，配置透明，缺点是国内直连速度不稳定，需要配合CDN。</p>
+            <div class="mc-tags"><span class="tag global">面向海外用户</span></div>
+          </div>
+          <div class="mini-card">
+            <h4>⚡ Serverless函数平台</h4>
+            <p>Cloudflare Workers、Vercel Functions、腾讯云函数、阿里云函数计算，只在真正被调用时才计费，多数有长期免费额度，特别适合"偶尔被调用"的轻量Python/JS工具。</p>
+            <div class="mc-tags"><span class="tag free">按量付费更省钱</span></div>
+          </div>
+        </div>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>具体价格、免费额度、活动优惠这几个云厂商几乎每季度都在变，下单前一定去官网当前页面核对最新数字，这份手册只给你"该往哪个方向找"的判断框架，不追着报当前价格。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 3 ================= -->
+    <section class="phase" id="phase3">
+      <div class="phase-head"><span class="phase-num-badge">03</span><h2>Python工具的三种上线路径</h2><span class="tag py">Python</span></div>
+      <div class="phase-meta">你自己电脑上能跑的Python脚本，要变成"任何人打开网页就能用"，中间有一步转换。这一章讲清楚三条路径怎么选。</div>
+
+      <div class="sub">
+        <h3>路径一：打包成EXE，让用户下载到本地跑（你已经在做的）</h3>
+        <p>这条路你已经很熟悉，适合处理用户隐私文件、且用户能接受"下载一个程序"的场景。技术上是用 <code>PyInstaller</code> 之类的工具把脚本和依赖打包成一个独立可执行文件。</p>
+        <ul>
+          <li>优点：完全不需要服务器，没有并发压力问题，用户数据不出本地。</li>
+          <li>缺点：Windows/Mac需要分别打包；用户会遇到系统安全警告，需要提前在说明里讲清楚"如何允许运行"；无法直接统计使用数据。</li>
+        </ul>
+
+        <h3>路径二：改写成纯前端JS版本，网页里直接跑（优先推荐）</h3>
+        <p>很多Python脚本的逻辑（尤其是图片处理、文本处理、简单计算类）都可以用JavaScript在浏览器里原生实现，用户打开网页立刻能用，不用下载任何东西。</p>
+
+        <div class="example">
+          <div class="ex-label">举例：身份证水印工具的JS版本思路</div>
+          用户在网页里选择图片文件 → 浏览器用 <code>FileReader</code> 读取图片 → 用 <code>Canvas API</code> 在图片上绘制水印文字/图案 → 用户点击下载，浏览器生成新图片文件直接保存。全程文件不上传到任何服务器，天然满足隐私要求，也不产生你这边的服务器成本。
+        </div>
+
+        <div class="callout star">
+          <div class="icon">🎯</div>
+          <div>这是"一次开发、多平台复用"的关键路径：同一个工具，EXE版继续在闲鱼卖（面向不想折腾浏览器版的用户），网页版免费放独立站引流+做GEO（面向搜索/AI渠道来的新用户），两者不冲突，反而互相导流。</div>
+        </div>
+
+        <h3>路径三：Python逻辑无法用JS替代时，包成后端接口</h3>
+        <p>有些场景JS确实做不了（比如需要特定Python库做OCR、AI模型推理），这时候需要把Python代码包装成一个网页可以调用的接口（API）。</p>
+
+        <pre><code># 用 FastAPI 把已有Python函数包装成一个网页接口，示意结构
+from fastapi import FastAPI, UploadFile
+app = FastAPI()
+
+@app.post("/api/process-image")
+async def process_image(file: UploadFile):
+    # 这里调用你已经写好的处理函数
+    result = your_existing_function(await file.read())
+    return {"result_url": result}
+</code></pre>
+
+        <p>写完之后，这段代码需要"跑在服务器上"网页才能调用它，具体跑在哪由第二章的服务器方案决定：调用不频繁选Serverless函数，调用稳定且计算量大选轻量云服务器。</p>
+
+        <h4>三条路径怎么选：决策表</h4>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>场景</th><th>优先选</th></tr>
+          <tr><td>处理身份证/护照等高隐私文件，逻辑不算太复杂</td><td>JS纯前端版本（首选）+ EXE版本并行</td></tr>
+          <tr><td>纯计算/文案生成/格式转换类，逻辑简单</td><td>JS纯前端版本</td></tr>
+          <tr><td>需要专属AI模型/OCR/复杂图像算法</td><td>后端接口 + Serverless函数起步</td></tr>
+          <tr><td>用户群体明确不介意下载软件、且想直接卖断（闲鱼场景）</td><td>继续做EXE</td></tr>
+        </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 4 ================= -->
+    <section class="phase" id="phase4">
+      <div class="phase-head"><span class="phase-num-badge">04</span><h2>限流与防超载</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">这一章解决的问题：一旦有工具需要服务器算力（第三章路径三），怎么防止免费额度被极少数人/脚本用光，导致真正的用户打不开、你还要额外付费。</div>
+
+      <div class="sub">
+        <h3>先分清楚：纯前端工具根本不存在这个问题</h3>
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>再强调一次第一章的判断：纯前端工具的运算发生在<b>用户自己的浏览器</b>里，不管一天来多少人，你的服务器都不需要承担任何计算压力，这也是为什么第一章反复建议"能做成纯前端就优先做成纯前端"——它顺带解决了这一整章要处理的问题。这一章只对"需要服务器帮你算"的工具生效。</div>
+        </div>
+
+        <h3>三层限流，从简单到完整</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>第一层：平台自带防护（几乎零成本，先开）</strong><span>如果用了Cloudflare作为域名解析/CDN，后台有免费的"Rate Limiting"（速率限制）功能，可以设置"同一个IP每分钟最多请求几次"，超过就自动拦截，几分钟配置好，不用写代码。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>第二层：每日免费次数配额</strong><span>在你的接口逻辑里加一个简单判断：记录每个用户（可以按IP或者按浏览器生成的匿名标识）今天已经用了几次，超过免费额度就提示"今日免费次数已用完，升级为会员解锁无限次"——这一步同时也是第六章付费功能的技术基础。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>第三层：任务队列（工具用的人多起来后再做）</strong><span>如果是耗时较长的处理任务（比如批量OCR），可以让任务排队处理而不是来一个立刻占一份算力，避免瞬间大量请求把服务器压垮。这一层不是起步阶段的必需品。</span></div></div>
+        </div>
+
+        <h4>配额判断的一个简单代码示意（后端伪代码）</h4>
+        <pre><code># 示意：每个用户每天限用5次免费额度，超过就拒绝
+from datetime import date
+
+usage_record = {}  # 实际项目中应存入数据库，而非内存变量
+
+def check_quota(user_id, daily_free_limit=5):
+    key = f"{user_id}:{date.today()}"
+    used = usage_record.get(key, 0)
+    if used >= daily_free_limit:
+        return False, "今日免费次数已用完"
+    usage_record[key] = used + 1
+    return True, "ok"
+</code></pre>
+
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>不要只依赖前端JS做"次数判断"——前端代码用户随时能在浏览器里看到并绕过，任何跟"限制次数""是否付费"相关的判断，最终都必须在服务器端再校验一次，前端的提示只是体验层面的友好提醒。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 5 ================= -->
+    <section class="phase" id="phase5">
+      <div class="phase-head"><span class="phase-num-badge">05</span><h2>防爬虫与防滥用</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">这一章的目标不是"绝对防住"（对个人开发者来说不现实也没必要），而是把成本和门槛提高到"划不来批量搞你"的程度，同时不影响正常用户和搜索引擎/AI的正常抓取。</div>
+
+      <div class="sub">
+        <h3>先想清楚：你到底想防什么</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>担心的场景</th><th>实际风险</th><th>要不要重点防</th></tr>
+          <tr><td>正常搜索引擎/AI来抓取你的网页内容做索引</td><td>这正是GEO需要的，不是威胁</td><td>不防，反而要主动欢迎（见第八章）</td></tr>
+          <tr><td>有人写脚本批量调用你的付费接口，绕过付费直接白嫖算力</td><td>直接增加你的服务器成本</td><td>重点防</td></tr>
+          <tr><td>有人整站扒走你的静态页面内容拿去发别的平台</td><td>影响品牌辨识度，但基本无法从技术上完全杜绝</td><td>适度防，更多靠"先发优势+持续更新"应对</td></tr>
+        </table>
+        </div>
+
+        <h3>面向"接口滥用"的具体做法</h3>
+        <ul>
+          <li><b>用Cloudflare等CDN的免费防护层：</b>开启基础的Bot Fight Mode/机器人识别，能拦掉相当一部分自动化脚本请求，不需要额外开发。</li>
+          <li><b>接口加简单校验：</b>正常用户是从你的网页发起请求的，可以校验请求来源（Referer/Origin）是否是你自己的域名，拦掉直接绕开网页、裸调接口的行为（注意：这不是绝对安全手段，只是提高门槛）。</li>
+          <li><b>涉及付费功能的接口用"密钥/令牌"机制：</b>见第六章，本质上就是给已付费用户发一把"钥匙"，没有钥匙的请求直接拒绝。</li>
+          <li><b>異常流量监控：</b>大部分云平台和CDN后台都有免费的流量看板，养成习惯每周看一眼有没有异常尖峰，发现苗头及时处理，比事后复盘更有效。</li>
+        </ul>
+
+        <h3>面向"内容被搬运"的具体做法</h3>
+        <ul>
+          <li>在每篇知识科普内容里自然带上你的品牌名和独立站链接（不是生硬贴水印，是让内容本身"自证来源"）。</li>
+          <li>持续更新比"锁死内容"更有效——你先发布、先积累搜索/AI引用权重，等别人搬运时你已经在下一篇/下一个产品上，品牌记忆点已经建立。</li>
+          <li>不建议为了防搬运做过度的技术混淆（比如把文字做成图片防复制），这会同时伤害到真正需要抓取你内容的搜索引擎和AI，得不偿失，与GEO目标直接冲突。</li>
+        </ul>
+
+        <div class="callout info">
+          <div class="icon">📎</div>
+          <div>对于纯前端HTML/JS工具，用户在浏览器"查看源代码"本来就能看到你的实现逻辑，这是前端技术的天然特性，无法从根本上避免。真正的护城河是"你先发现需求、先做出来、先积累了口碑和流量入口"，把精力放在这上面，比花大力气做代码混淆划算得多。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 6 ================= -->
+    <section class="phase" id="phase6">
+      <div class="phase-head"><span class="phase-num-badge">06</span><h2>付费功能怎么做</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">从"免费工具"到"能收钱的工具"，技术上不需要一步到位做一整套会员系统，可以按下面的梯度逐步升级。</div>
+
+      <div class="sub">
+        <h3>三种付费模式的技术复杂度对比</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>模式</th><th>怎么实现</th><th>技术复杂度</th><th>适合阶段</th></tr>
+          <tr><td><b>直接卖断</b><br>（你已在做）</td><td>闲鱼/知识星球等平台直接交易，工具本身不需要额外的付费校验逻辑</td><td>⭐ 最简单</td><td>验证需求阶段</td></tr>
+          <tr><td><b>兑换码/激活码</b></td><td>用户在第三方平台付款后，你手动或半自动发一串码，工具里输入码解锁高级功能</td><td>⭐⭐ 简单</td><td>工具数量不多、付费用户量不大时</td></tr>
+          <tr><td><b>Freemium+账号系统</b></td><td>用户注册账号，基础功能免费、高级功能订阅制，网页自动识别付费状态</td><td>⭐⭐⭐⭐ 较复杂</td><td>工具矩阵成型、有稳定复购之后</td></tr>
+        </table>
+        </div>
+
+        <h3>推荐起步方案：兑换码机制</h3>
+        <p>不需要做完整的账号系统，就能实现"部分功能免费、解锁功能付费"，是从0到1最容易落地的方式。</p>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>生成一批唯一兑换码</strong><span>可以是简单的随机字符串，存进一个表格/轻量数据库里，标记"未使用/已使用"。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>用户在闲鱼/独立站完成付款</strong><span>付款后你（前期手动，后期可以自动化）把一个未使用的码发给用户。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>工具页面加一个"输入兑换码解锁"的框</strong><span>用户输入后，网页调用一个简单接口校验这个码是否有效、是否已被使用过。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>校验通过后，解锁高级功能</strong><span>校验状态要存在浏览器本地（比如写入一个凭证），下次打开不用重新输入。</span></div></div>
+        </div>
+
+        <h4>兑换码校验的简单示意逻辑</h4>
+        <pre><code># 示意：兑换码校验接口
+codes_db = {"AB12CD34": {"used": False}}  # 实际项目应存数据库
+
+def redeem_code(code):
+    record = codes_db.get(code)
+    if not record:
+        return False, "兑换码无效"
+    if record["used"]:
+        return False, "兑换码已被使用"
+    record["used"] = True
+    return True, "解锁成功"
+</code></pre>
+
+        <h3>收款渠道怎么选</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>场景</th><th>推荐方式</th><th>说明</th></tr>
+          <tr><td>面向国内用户，小额收款</td><td>微信/支付宝个人或商户收款</td><td>起步最简单，注意及时了解个人收款的合规边界和申报要求</td></tr>
+          <tr><td>面向国内用户，希望有正式发票/更规范经营</td><td>注册个体工商户，走对公/商户收款</td><td>金额做大之后建议尽快规范化，详见《变现手册》第九阶段的税务合规部分</td></tr>
+          <tr><td>面向海外用户</td><td>使用MoR（合规收款代管平台）</td><td>由平台代为处理跨境税务和合规问题，省去自己处理国际税务的复杂度，详细术语见文末附录</td></tr>
+        </table>
+        </div>
+
+        <div class="callout warn">
+          <div class="icon">⚠️</div>
+          <div>收款和税务合规不是纯技术问题，具体到你所在地区的规则和额度，建议实际操作前咨询当地市场监管或税务专业人士确认，这份手册只负责把"技术上怎么实现付费解锁"讲清楚。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 7 ================= -->
+    <section class="phase" id="phase7">
+      <div class="phase-head"><span class="phase-num-badge">07</span><h2>网站布局与信息架构</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">这一章讲你的独立站到底该怎么排版布局，才能同时满足"人一眼看懂能用""在任何屏幕上都好用""搜索引擎和AI也能看懂结构"这三个目标。</div>
+
+      <div class="sub">
+        <h3>百宝箱型网站的标准页面结构</h3>
+        <div class="table-scroll">
+        <table class="data">
+          <tr><th>页面</th><th>作用</th><th>关键要素</th></tr>
+          <tr><td><b>首页</b></td><td>总入口，让人3秒内明白"这是个什么网站"</td><td>一句话说清楚定位 + 工具分类卡片 + 精选/热门工具 + 信任背书（已服务多少人次/免责声明）</td></tr>
+          <tr><td><b>工具分类页</b></td><td>按场景归类（如"证件资料类""家装计算类"），方便用户和搜索引擎理解结构</td><td>每类下面列出对应工具卡片，简短说明每个工具解决什么问题</td></tr>
+          <tr><td><b>单工具页</b></td><td>工具本体+使用说明+FAQ，是流量承接和转化的核心页面</td><td>工具界面本身 + 使用步骤 + 常见问题 + 免责声明 + 相关工具推荐</td></tr>
+          <tr><td><b>知识科普/博客页</b></td><td>解决"为什么需要这个工具"，同时是GEO最主要的内容载体</td><td>围绕具体场景写清楚问题背景，自然带出对应工具链接</td></tr>
+          <tr><td><b>关于/信任页</b></td><td>建立"这是一个可信实体"的认知，对NAP一致性和转化率都重要</td><td>是谁在做这件事、联系方式、免责声明、隐私说明</td></tr>
+        </table>
+        </div>
+
+        <h3>响应式布局：怎么做到"自适应任何屏幕"</h3>
+        <ul>
+          <li><b>移动优先思考：</b>先想清楚手机上怎么排（大多数用户会从小红书/闲鱼链接用手机点进来），再考虑桌面端怎么利用多余空间，而不是反过来。</li>
+          <li><b>用相对单位而非固定像素：</b>布局宽度、字号尽量用 <code>%</code>、<code>rem</code>、<code>clamp()</code> 这类会随屏幕自动调整的单位，而不是写死的像素值。</li>
+          <li><b>用CSS Grid/Flexbox做卡片布局：</b>工具卡片区用 <code>grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))</code> 这样的写法，屏幕越宽卡片自动排更多列，屏幕变窄自动变成单列，不需要为不同屏幕单独写代码。</li>
+          <li><b>移动端导航收起为汉堡菜单：</b>侧边栏/长导航在窄屏下默认隐藏，用一个按钮点开，避免挤占本就不多的手机屏幕空间（本手册页面本身就是这个做法，可以直接参考它的实现方式）。</li>
+          <li><b>触摸目标足够大：</b>手机上的按钮、链接点击区域建议不小于44×44像素，避免误触。</li>
+        </ul>
+
+        <h3>品牌一致性（NAP Consistency）落地清单</h3>
+        <div class="checklist">
+          <div class="cl-title">在独立站、闲鱼、小红书、CSDN等所有平台保持一致</div>
+          <label><input type="checkbox"> 品牌名称/工具箱名称完全一致，不要一个平台叫A另一个平台叫B</label>
+          <label><input type="checkbox"> 头像/Logo视觉风格统一</label>
+          <label><input type="checkbox"> 简介文案核心表述一致（哪怕字数不同）</label>
+          <label><input type="checkbox"> 各平台都能找到指向独立站的链接（小红书除外，视平台规则调整表达方式）</label>
+        </div>
+
+        <div class="callout tip">
+          <div class="icon">💡</div>
+          <div>先别追求"设计得多惊艳"，百宝箱型工具站的核心竞争力是"找得到、看得懂、能信任、真的能用"，视觉上干净清楚、层级分明就足够了，过度设计反而可能拖慢加载速度、增加维护成本。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 8 ================= -->
+    <section class="phase" id="phase8">
+      <div class="phase-head"><span class="phase-num-badge">08</span><h2>GEO落地清单</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">你已经有《GEO/AEO从0到高手手册》讲原理，这一章只做一件事：把原理翻译成你这个百宝箱网站要具体做的动作清单，对照着改就行。</div>
+
+      <div class="sub">
+        <h3>技术层面的GEO必做清单</h3>
+        <div class="checklist">
+          <div class="cl-title">网站根目录必备文件</div>
+          <label><input type="checkbox"> <code>robots.txt</code>：明确允许主流搜索引擎和AI抓取工具页面（除非有明确理由屏蔽）</label>
+          <label><input type="checkbox"> <code>llms.txt</code>：用简洁清单向AI说明网站有哪些工具、分别解决什么问题</label>
+          <label><input type="checkbox"> <code>sitemap.xml</code>：列出所有页面网址，每次新增工具/文章后更新</label>
+        </div>
+
+        <div class="checklist">
+          <div class="cl-title">每个工具页/文章页的结构化数据</div>
+          <label><input type="checkbox"> 每个工具页有清晰的H1标题，一句话说清楚这个工具做什么</label>
+          <label><input type="checkbox"> 用Schema.org的FAQPage标记页面里的常见问题模块</label>
+          <label><input type="checkbox"> 文章类页面用Article/HowTo等对应的结构化数据类型标记</label>
+          <label><input type="checkbox"> 每个页面有独立、准确的meta description</label>
+        </div>
+
+        <div class="checklist">
+          <div class="cl-title">内容层面</div>
+          <label><input type="checkbox"> 每个工具页都配一段"这个工具解决什么具体问题"的说明文字，不只是放一个孤零零的工具界面</label>
+          <label><input type="checkbox"> FAQ部分用真实用户会问的口语化问题作为标题（这类问题最容易被AI直接引用作答）</label>
+          <label><input type="checkbox"> 知识科普文章和对应工具页互相链接，形成内容闭环</label>
+        </div>
+
+        <div class="example">
+          <div class="ex-label">FAQPage结构化数据写法示意</div>
+          <pre style="margin:0;"><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "身份证复印件加水印会不会影响使用？",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "在这里写清楚、准确的回答文本"
+    }
+  }]
+}
+&lt;/script&gt;</code></pre>
+        </div>
+
+        <div class="callout star">
+          <div class="icon">🎯</div>
+          <div>把第七章的"单工具页"结构（工具+说明+FAQ）和这一章的结构化数据结合起来看：你只要把每个工具页都按第七章的模板搭好、把FAQ内容用上面的代码块包一层，GEO基础工作就已经完成了大半，不需要额外单独做一套"GEO专属页面"。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 9 ================= -->
+    <section class="phase" id="phase9">
+      <div class="phase-head"><span class="phase-num-badge">09</span><h2>营销传播与品牌化</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">技术基建搭好之后，怎么让"百宝箱"这个概念真正在别人脑子里立起来，而不只是一堆互不相关的小工具。</div>
+
+      <div class="sub">
+        <h3>内容矩阵：三类平台各自的角色</h3>
+        <div class="card-grid">
+          <div class="mini-card">
+            <h4>🛍️ 闲鱼</h4>
+            <p>自带交易场景和流量，适合放EXE版本工具做直接成交，是最快验证"愿不愿意付费"的渠道。</p>
+          </div>
+          <div class="mini-card">
+            <h4>📕 小红书</h4>
+            <p>负责"发现"环节，用真实生活场景切入（比如"租房必备"），自然带出工具，引导到闲鱼或独立站。</p>
+          </div>
+          <div class="mini-card">
+            <h4>💻 CSDN/技术博客</h4>
+            <p>负责积累技术向内容和外部反链，配合独立站做长期GEO沉淀，吸引对"怎么做的"感兴趣的同类人群。</p>
+          </div>
+        </div>
+        <p>三者不是互相替代关系，而是各自负责一段用户旅程：小红书负责被发现，闲鱼负责第一次成交，独立站负责长期承接和被AI/搜索引擎持续引用。</p>
+
+        <h3>怎么让"百宝箱"变成一个记得住的品牌</h3>
+        <ul>
+          <li><b>取一个具体、好记、和"工具箱/多功能"语义相关的名字</b>，避免过于抽象或难拼写，方便别人口头推荐和搜索。</li>
+          <li><b>统一的视觉标识</b>（配色、Logo、图标风格）贯穿所有工具页面，让用户用了一个工具后能自然联想到"这个人/这个团队应该还有别的好用工具"。</li>
+          <li><b>在每个工具里自然植入"箱子里还有别的工具"</b>——比如工具用完后的结果页推荐2～3个相关工具，这是第15章"产品矩阵"横向导流最直接的技术实现方式。</li>
+          <li><b>把稳定用户沉淀到私域</b>（知识星球/社群），定期同步新工具上线，逐步形成订阅制的持续收入来源，而不是每次都要重新从公域获客。</li>
+        </ul>
+
+        <div class="callout info">
+          <div class="icon">📎</div>
+          <div>营销传播的具体打法（选题验证、渠道测试、数据判断标准）在《数字产品变现全流程手册》里有更细的方法论，这一章只补充"技术基建怎么配合品牌化"这一层，两份手册结合看效果更好。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PHASE 10 ================= -->
+    <section class="phase" id="phase10">
+      <div class="phase-head"><span class="phase-num-badge">10</span><h2>90天技术基建路线图</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">把以上九章按优先级拆到每个阶段，不用一开始就全部做完，跟着你的产品进度走。</div>
+
+      <div class="sub">
+        <h3>第1～30天：把地基打稳</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>整理现有工具，按第一章分类</strong><span>确认哪些能做成纯前端版本，优先处理这部分。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>按第一章目录结构重新组织网站文件</strong><span>确定域名和托管方案（第二章），能不花钱先不花钱。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>首页和工具分类页按第七章结构搭起来</strong><span>哪怕只有2～3个工具，也先把框架搭对，后面加工具直接往里填。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>部署robots.txt、llms.txt、sitemap.xml</strong><span>第八章的基础三件套，成本极低，越早做越早开始被收录。</span></div></div>
+        </div>
+
+        <h3>第31～60天：补内容和信任</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>每个工具页配齐说明文字和FAQ</strong><span>按第八章的结构化数据格式标记。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>产出2～3篇配套知识科普文章</strong><span>和现有工具形成内容闭环。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>三平台的NAP一致性自查</strong><span>按第七章的清单逐项对照。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>开始观察是否有工具接近免费额度上限</strong><span>如果没有，第四、五章可以先不动。</span></div></div>
+        </div>
+
+        <h3>第61～90天：视情况解锁付费和防护</h3>
+        <div class="step-list">
+          <div class="step"><div class="num"></div><div class="body"><strong>如果已有稳定用户和复购意愿，上线兑换码付费机制</strong><span>按第六章的最小方案起步，不做完整账号系统。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>如果某工具流量明显起量，补上限流（第四章）</strong><span>先开CDN自带的免费防护，够用就不用再加复杂度。</span></div></div>
+          <div class="step"><div class="num"></div><div class="body"><strong>盘点90天数据，决定下一轮往哪个方向加码</strong><span>是继续横向扩工具矩阵，还是纵向把某个工具做深，参考《变现手册》的判断标准。</span></div></div>
+        </div>
+
+        <div class="callout star">
+          <div class="icon">🎯</div>
+          <div>这条路线图的核心原则和你已有的商业路线图是一致的：<b>不为还没发生的问题预先建复杂系统</b>。限流、付费系统、防爬虫这些"看起来很专业"的东西，都是在真实数据倒逼你需要它们的那一刻再动手，90天里大概率用得上的只有第1～30天这部分。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 总检查清单 ================= -->
+    <section class="phase" id="risk">
+      <div class="phase-head"><span class="phase-num-badge">✓</span><h2>总检查清单</h2><span class="tag both">通用</span></div>
+      <div class="phase-meta">每上线一个新工具，或者每次做技术架构决策前，从头核对一遍。</div>
+
+      <div class="sub">
+        <div class="checklist">
+          <div class="cl-title">工具上线前</div>
+          <label><input type="checkbox"> 已经判断清楚这个工具是纯前端、轻后端还是常驻后端（第一章）</label>
+          <label><input type="checkbox"> 能做成纯前端的都已经做成纯前端，没有为了"看起来更专业"而无谓上后端</label>
+          <label><input type="checkbox"> 工具页面已按第七章模板配好说明文字和FAQ</label>
+          <label><input type="checkbox"> 新页面已加入首页入口和sitemap.xml</label>
+        </div>
+        <div class="checklist">
+          <div class="cl-title">涉及服务器/接口时</div>
+          <label><input type="checkbox"> 涉及付费/次数限制的判断逻辑都在服务器端二次校验，不只依赖前端</label>
+          <label><input type="checkbox"> CDN的基础速率限制/机器人防护已开启</label>
+          <label><input type="checkbox"> 云服务账单/免费额度用量已设置提醒或每周主动查看</label>
+        </div>
+        <div class="checklist">
+          <div class="cl-title">域名与合规</div>
+          <label><input type="checkbox"> 域名不是用免费/易被收回的后缀做长期品牌</label>
+          <label><input type="checkbox"> 域名隐私保护和自动续费提醒已开启</label>
+          <label><input type="checkbox"> 收款方式的合规边界心里有数，拿不准的部分已咨询过专业人士</label>
+        </div>
+        <div class="checklist">
+          <div class="cl-title">品牌与增长</div>
+          <label><input type="checkbox"> 各平台品牌名称、视觉、简介保持一致（NAP）</label>
+          <label><input type="checkbox"> 每个工具结果页都自然引导到箱子里的其他相关工具</label>
+          <label><input type="checkbox"> 没有为了防搬运/防抄袭做出伤害正常用户或搜索引擎/AI抓取的过度设计</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section class="phase" id="faq">
+      <div class="phase-head"><span class="phase-num-badge">?</span><h2>常见问题</h2></div>
+
+      <details open>
+        <summary>我完全不懂代码，这些技术方案是不是必须要请人做？<span class="chev">+</span></summary>
+        <p>第一、二、七、八章（工具分类、免费托管、页面结构、GEO基础文件）都是配置和文件组织类工作，跟着步骤操作+借助AI辅助写代码，个人完全可以完成，不需要额外雇人。第三章后半段（后端接口）和第六章的账号系统部分技术门槛更高一些，可以先用兑换码等简化方案顶一阵子，等真的需要时再考虑找人协作或深入学习。</p>
+      </details>
+      <details>
+        <summary>要不要一开始就买云服务器，感觉"专业"一点？<span class="chev">+</span></summary>
+        <p>不建议。第二章已经讲过，纯静态托管完全免费且足够专业（很多成熟产品的营销页也是纯静态托管），过早买服务器只会增加你不需要的维护成本和学习曲线。等真的出现"必须要服务器才能实现"的具体需求时再买，那时候你也更清楚该买什么配置。</p>
+      </details>
+      <details>
+        <summary>限流会不会把真实用户也挡在外面？<span class="chev">+</span></summary>
+        <p>如果限流阈值设置合理（比如"同一IP每分钟超过几十次请求"这种明显异于正常人操作速度的阈值），基本不会误伤真实用户——正常人手动点击工具的频率远达不到这个量级。可以先设置得宽松一些，观察一段时间实际数据后再调整，不用一开始就设得很严格。</p>
+      </details>
+      <details>
+        <summary>付费功能是不是必须要接第三方支付接口，很麻烦？<span class="chev">+</span></summary>
+        <p>不是必须。第六章讲的兑换码方案里，"收钱"这一步完全可以走你已经熟悉的闲鱼/微信/支付宝个人收款，只是"收完钱之后发码、验码解锁"这部分走技术实现，比对接完整的第三方支付系统简单得多，适合起步阶段。</p>
+      </details>
+      <details>
+        <summary>国内和海外的技术方案，我该先做哪个？<span class="chev">+</span></summary>
+        <p>和《变现手册》里的建议一致：如果你的选题本身就是强本地化场景（身份证、装修计算这类），先把国内这一套技术方案跑顺，验证清楚需求和转化路径，再考虑要不要做海外版本，不建议一开始就两条线同时铺开分散精力。</p>
+      </details>
+      <details>
+        <summary>防爬虫和GEO要求的"欢迎AI抓取"是不是矛盾的？<span class="chev">+</span></summary>
+        <p>不矛盾，关键是分清楚"抓的是什么、以什么方式抓"。第五章要防的是绕开正常网页调用你的付费接口、消耗你算力的行为；第八章要欢迎的是搜索引擎和AI爬虫正常读取你公开的网页内容做索引和引用。两者的技术拦截逻辑是分开的：接口层面做校验和限流，公开内容页面完全对搜索引擎/AI开放，不冲突。</p>
+      </details>
+      <details>
+        <summary>做了这么多技术基建，是不是意味着我该先把技术都学会再开始卖工具？<span class="chev">+</span></summary>
+        <p>正相反。你现在已经在闲鱼有真实成交，这说明"验证需求"这一步已经跑通了，技术基建的作用是让已经跑通的东西走得更远、更稳，而不是重新开始的前提条件。继续按《变现手册》第16章的节奏推进产品和渠道，这份手册的十个阶段随用随查、遇到具体卡点再回来对照，不需要按顺序一次学完才敢动手。</p>
+      </details>
+    </section>
+
+    <!-- ================= 附录 ================= -->
+    <section class="phase" id="appendix">
+      <div class="phase-head"><span class="phase-num-badge">附</span><h2>术语表</h2></div>
+      <div class="sub">
+        <table class="data">
+          <tr><th>术语</th><th>解释</th></tr>
+          <tr><td>静态托管</td><td>只提供HTML/CSS/JS等固定文件访问，不在服务器端执行程序逻辑的托管方式，成本最低</td></tr>
+          <tr><td>Serverless函数</td><td>代码只在被调用时才运行、按调用量计费的后端形态，不需要自己维护常驻服务器</td></tr>
+          <tr><td>CDN</td><td>把网站内容缓存到全球多个节点，让不同地区用户都能就近加速访问</td></tr>
+          <tr><td>ICP备案</td><td>国内网站使用境内服务器/CDN节点通常需要完成的合规登记流程</td></tr>
+          <tr><td>Rate Limiting（速率限制）</td><td>限制同一来源在单位时间内的请求次数，防止服务被过度调用或恶意刷量</td></tr>
+          <tr><td>Freemium</td><td>基础功能免费、高级功能付费的产品模式</td></tr>
+          <tr><td>MoR（Merchant of Record）</td><td>合规收款代管平台，详见《数字产品变现全流程手册》附录术语表</td></tr>
+          <tr><td>llms.txt</td><td>放在网站根目录、用简洁清单向AI说明网站内容结构的文件</td></tr>
+          <tr><td>NAP Consistency（实体一致性）</td><td>在各平台的账号名称、简介、视觉风格保持一致，帮助AI和搜索引擎识别为同一可信实体</td></tr>
+          <tr><td>Schema.org 结构化数据</td><td>一套通用的网页标记规范，帮助搜索引擎和AI更准确理解页面内容</td></tr>
+          <tr><td>PyInstaller</td><td>把Python脚本打包成独立可执行文件（EXE）的常用工具</td></tr>
+          <tr><td>产品矩阵</td><td>围绕同一批目标用户，横向或纵向扩展出的多个相关产品组合</td></tr>
+        </table>
+
+        <div class="callout info">
+          <div class="icon">📎</div>
+          <div>更多商业向术语（结售汇额度、个体工商户、拒付/Chargeback、UTM参数、A/B测试等）请查阅《数字产品变现全流程手册》附录术语表，GEO原理相关术语请查阅《GEO/AEO从0到高手手册》，三份手册配合查阅使用。</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  技术运营与变现基建手册 · 配套技术实操篇 · 与《数字产品全景作战手册》《数字产品变现全流程手册》《GEO/AEO从0到高手手册》配合使用 · 基于截至2026年8月的公开信息整理，各平台/云厂商的具体价格、免费额度、政策可能随时变化，正式操作前请以官方最新说明为准 · 本手册不构成税务、法律或投资建议 · 建议按第10章90天路线图逐周执行，遇到具体技术卡点随时回查对应章节
+</footer>
+
+<button class="totop" id="toTop" aria-label="回到顶部">↑</button>
+
+<script>
+  var pb = document.getElementById('progressbar');
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement;
+    var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    pb.style.width = scrolled + '%';
+    var toTop = document.getElementById('toTop');
+    if (h.scrollTop > 600) { toTop.classList.add('show'); } else { toTop.classList.remove('show'); }
+  });
+  document.getElementById('toTop').addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+  document.querySelectorAll('.sidebar a').forEach(function(a){
+    a.addEventListener('click', function(){
+      var t = document.getElementById('nav-toggle');
+      if (t) t.checked = false;
+    });
+  });
+</script>
+
+</body>
+</html>
