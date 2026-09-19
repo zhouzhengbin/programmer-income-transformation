@@ -4,7 +4,7 @@
   "use strict";
   var COURSE = window.COURSE;
   var state = { view:"home", book:"all", score:0, speed:1 };
-  var AUDIO_BASE = "assets/audio/";
+  var AUDIO_BASE = "/yingyu/assets/audio/";
 
   /* ---------- 音频播放 ---------- */
   var cur = null;
