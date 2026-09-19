@@ -36,10 +36,7 @@
 <script>
 window.addEventListener('DOMContentLoaded', function() {
     const audios = document.querySelectorAll('audio');
-    audios.forEach(function(audio) {
-        audio.preload = "auto";
-        audio.load();
-    });
+    audios.forEach(function(audio) { audio.preload = "auto"; audio.load(); });
 });
 </script>
 
