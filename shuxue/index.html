@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <base href="/shuxue/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#BFE6FF">
+<title>二年级数学 · 上下册 动画课堂</title>
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgo8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGRkQ5M0QiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGRkE3NEQiLz4KPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgcng9IjE0IiBmaWxsPSJ1cmwoI2cpIi8+Cjx0ZXh0IHg9IjMyIiB5PSI0NSIgZm9udC1zaXplPSIzOCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiCiBmaWxsPSIjRkZGRkZGIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiI+MjwvdGV4dD4KPGNpcmNsZSBjeD0iMTQiIGN5PSIxNCIgcj0iNSIgZmlsbD0iI0ZGNkU5NiIgb3BhY2l0eT0iMC45Ii8+CjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjUiIGZpbGw9IiM0QTlCRTAiIG9wYWNpdHk9IjAuOSIvPgo8L3N2Zz4=">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ==================== 首页 ==================== -->
+  <section id="home" class="screen active">
+    <div class="sky-deco">
+      <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+      <div class="sun"><span class="sun-face"></span></div>
+      <div class="hills"></div>
+      <div class="ground-flowers" id="groundFlowers"></div>
+    </div>
+
+    <header class="home-head">
+      <div class="ip-row">
+        <div class="ip ip-boy"><span class="eye"></span><span class="eye"></span><span class="mouth"></span></div>
+        <div class="ip ip-girl"><span class="hair"></span><span class="eye"></span><span class="eye"></span><span class="mouth"></span></div>
+        <div class="ip ip-cat"><span class="ear"></span><span class="ear"></span><span class="eye"></span><span class="eye"></span><span class="nose"></span></div>
+      </div>
+      <h1 class="game-title">二年级数学</h1>
+      <p class="game-sub">上 下 册 · 动 画 课 堂</p>
+      <div class="head-rule"></div>
+    </header>
+
+    <div class="map-wrap">
+      <div class="section-label">
+        <span class="dot"></span>点一个单元，看动画学数学<span class="dot"></span>
+      </div>
+      <div class="map-grid" id="mapGrid"></div>
+      <div class="map-bottom-pad"></div>
+    </div>
+
+    <footer class="home-foot">
+      <div class="sound-panel">
+        <button class="snd-btn" id="btnVoice" title="语音开关">
+          <span class="ico">🔊</span><span class="snd-label">声音</span>
+        </button>
+        <button class="snd-btn" id="btnSfx" title="音效开关">
+          <span class="ico">🎵</span><span class="snd-label">音效</span>
+        </button>
+        <div class="vol-wrap">
+          <span class="vol-ico">🔈</span>
+          <input type="range" id="volRange" min="0" max="100" value="80" class="vol">
+          <span class="vol-ico">🔊</span>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ==================== 知识页 ==================== -->
+  <section id="lesson" class="screen">
+    <header class="lesson-head">
+      <button class="nav-btn back-btn" id="btnBack">
+        <span class="arrow">‹</span><span class="nav-txt">返回</span>
+      </button>
+      <div class="lesson-title-wrap">
+        <h2 id="lessonTitle"></h2>
+        <p id="lessonPy" class="py-line"></p>
+      </div>
+      <button class="nav-btn replay-btn" id="btnReplay">
+        <span class="arrow">↻</span><span class="nav-txt">重播</span>
+      </button>
+    </header>
+
+    <div class="stage-wrap">
+      <canvas id="stage"></canvas>
+      <div class="stage-hint" id="stageHint"></div>
+      <div class="step-badge" id="stepBadge"></div>
+      <div class="step-text" id="stepText"></div>
+    </div>
+
+    <div class="ctrl-bar">
+      <button class="ctrl-btn play" id="btnPlay">
+        <span class="ico">▶</span><span class="txt">开始</span>
+      </button>
+      <button class="ctrl-btn step" id="btnStep">
+        <span class="ico">⏭</span><span class="txt">下一步</span>
+      </button>
+      <button class="ctrl-btn new" id="btnNew">
+        <span class="ico">🔄</span><span class="txt">换一题</span>
+      </button>
+      <button class="ctrl-btn quiz" id="btnQuiz">
+        <span class="ico">🎯</span><span class="txt">练一题</span>
+      </button>
+      <button class="ctrl-btn challenge" id="btnChallenge">
+        <span class="ico">🏆</span><span class="txt">闯关</span>
+      </button>
+    </div>
+
+    <div class="challenge-bar" id="challengeBar"></div>
+
+    <div class="progress-wrap">
+      <div class="progress-dots" id="progressDots"></div>
+      <div class="progress-label" id="progressLabel">第 0 / 0 步</div>
+    </div>
+  </section>
+
+  <!-- ==================== 答题 ==================== -->
+  <div id="quizLayer" class="quiz-layer">
+    <div class="quiz-card">
+      <div class="quiz-ip"><span class="eye"></span><span class="eye"></span><span class="mouth"></span></div>
+      <div class="quiz-title">算一算</div>
+      <div class="quiz-question" id="quizQ"></div>
+      <div class="quiz-options" id="quizOpts"></div>
+      <div class="quiz-feedback" id="quizFb"></div>
+    </div>
+  </div>
+
+  <!-- ==================== 奖励 ==================== -->
+  <div id="rewardLayer" class="reward-layer">
+    <canvas id="fxCanvas"></canvas>
+    <div class="reward-card" id="rewardCard">
+      <div class="trophy"><span class="trophy-star">★</span></div>
+      <div class="reward-text">太棒了</div>
+      <div class="reward-sub">你学会啦</div>
+      <div class="reward-stars">⭐⭐⭐</div>
+    </div>
+  </div>
+
+</div>
+<script src="js/pinyin.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/lessons.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

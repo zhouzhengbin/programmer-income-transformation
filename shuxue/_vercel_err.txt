@@ -1,0 +1,7 @@
+Vercel CLI 59.23.2 (Node.js 24.13.0)
+> NOTE: The Vercel CLI now collects telemetry regarding usage of the CLI.
+> This information is used to shape the CLI roadmap and prioritize features.
+> You can learn more, including how to opt-out if you'd not like to participate in this program, by visiting the following URL:
+> https://vercel.com/docs/cli/about-telemetry
+x unknown or unexpected option: --public
+  Vercel CLI 59.23.2 accepts: --api, --archive, --build-env, --confirm, --cwd, --debug, --dry, --env, --force, --format, --global-config, --guidance, --help, --json, --local-config, --logs, --meta, --name, --no-clipboard, --no-color, --no-logs, --no-wait, --non-interactive, --prebuilt, --prod, --project, --regions, --scope, --skip-domain, --target, --team, --temporary, --token, --turbo, --version, --with-cache, --yes.
