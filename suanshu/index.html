@@ -797,5 +797,13 @@ document.body.addEventListener('touchstart',function o1(){SFX.init();document.bo
 document.body.addEventListener('click',function o2(){SFX.init();document.body.removeEventListener('click',o2)});
 
 </script>
+
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+    const audios = document.querySelectorAll('audio');
+    audios.forEach(function(audio) { audio.preload = "auto"; audio.load(); });
+});
+</script>
+
 </body>
 </html>
