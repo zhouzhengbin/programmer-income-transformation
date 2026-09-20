@@ -1,0 +1,86 @@
+{
+  "errors": [],
+  "screens": {
+    "phone": {
+      "title": "数学小勇士 · 二年级",
+      "start_btn": 1,
+      "levels": 16,
+      "learn_steps_total": 1,
+      "has_card": 1,
+      "has_tipbox": 1,
+      "py_in_learn": 1,
+      "quiz_phase": 4,
+      "quiz_has_pinyin_ruby": 1,
+      "speak_btn": 1,
+      "feedback_shown": 1,
+      "layout": {
+        "docW": 398,
+        "winW": 390,
+        "stW": 390,
+        "stH": 844
+      },
+      "overflow_x": true
+    },
+    "small": {
+      "title": "数学小勇士 · 二年级",
+      "start_btn": 1,
+      "levels": 16,
+      "learn_steps_total": 1,
+      "has_card": 1,
+      "has_tipbox": 1,
+      "py_in_learn": 1,
+      "quiz_phase": 4,
+      "quiz_has_pinyin_ruby": 1,
+      "speak_btn": 1,
+      "feedback_shown": 1,
+      "layout": {
+        "docW": 328,
+        "winW": 320,
+        "stW": 320,
+        "stH": 568
+      },
+      "overflow_x": true
+    },
+    "tablet": {
+      "title": "数学小勇士 · 二年级",
+      "start_btn": 1,
+      "levels": 16,
+      "learn_steps_total": 1,
+      "has_card": 1,
+      "has_tipbox": 1,
+      "py_in_learn": 1,
+      "quiz_phase": 4,
+      "quiz_has_pinyin_ruby": 1,
+      "speak_btn": 1,
+      "feedback_shown": 1,
+      "layout": {
+        "docW": 776,
+        "winW": 768,
+        "stW": 634.875,
+        "stH": 1024
+      },
+      "overflow_x": true
+    },
+    "desktop": {
+      "title": "数学小勇士 · 二年级",
+      "start_btn": 1,
+      "levels": 16,
+      "learn_steps_total": 1,
+      "has_card": 1,
+      "has_tipbox": 1,
+      "py_in_learn": 1,
+      "quiz_phase": 4,
+      "quiz_has_pinyin_ruby": 1,
+      "speak_btn": 1,
+      "feedback_shown": 1,
+      "layout": {
+        "docW": 1448,
+        "winW": 1440,
+        "stW": 558,
+        "stH": 900
+      },
+      "overflow_x": true
+    }
+  },
+  "ALL_OK": false
+}

@@ -1,0 +1,19 @@
+{
+  "size": 68021,
+  "units": 16,
+  "questions": 127,
+  "learn_steps": 64,
+  "has_doctype": true,
+  "ends_html": true,
+  "script_bal": true,
+  "style_bal": true,
+  "has_voice": true,
+  "has_sfx": true,
+  "has_renderPy": true,
+  "has_startLearn": true,
+  "has_renderLearn": true,
+  "has_renderQuiz": true,
+  "has_finish": true,
+  "has_confetti": true,
+  "has_three_phase": true
+}
