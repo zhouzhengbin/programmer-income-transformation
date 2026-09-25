@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#7fd8ff">
 <meta name="description" content="快乐学习乐园 - 幼儿园语文数学英语互动游戏 H5">
 <title>快乐学习乐园 · 幼儿园互动课堂</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/youer/css/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌈</text></svg>">
 </head>
 <body>
@@ -74,14 +74,22 @@
 
 <footer>用游戏点亮好奇心 · 快乐学习乐园 🌟 星星会一直帮你保存</footer>
 
-<script src="js/audio.js"></script>
-<script src="js/drag.js"></script>
-<script src="js/games/pinyin.js"></script>
-<script src="js/games/stroke.js"></script>
-<script src="js/games/count.js"></script>
-<script src="js/games/math.js"></script>
-<script src="js/games/letter.js"></script>
-<script src="js/games/color.js"></script>
-<script src="js/app.js"></script>
+<script src="/youer/js/audio.js"></script>
+<script src="/youer/js/drag.js"></script>
+<script src="/youer/js/games/pinyin.js"></script>
+<script src="/youer/js/games/stroke.js"></script>
+<script src="/youer/js/games/count.js"></script>
+<script src="/youer/js/games/math.js"></script>
+<script src="/youer/js/games/letter.js"></script>
+<script src="/youer/js/games/color.js"></script>
+<script src="/youer/js/app.js"></script>
+
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+    const audios = document.querySelectorAll('audio');
+    audios.forEach(function(audio) { audio.preload = "auto"; audio.load(); });
+});
+</script>
+
 </body>
 </html>
