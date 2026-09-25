@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#7fd8ff">
+<meta name="description" content="快乐学习乐园 - 幼儿园语文数学英语互动游戏 H5">
+<title>快乐学习乐园 · 幼儿园互动课堂</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌈</text></svg>">
+</head>
+<body>
+
+<!-- 背景装饰层 -->
+<div class="bg-deco" id="bgDeco" aria-hidden="true"></div>
+
+<!-- ============ 顶部导航 ============ -->
+<header class="topbar">
+  <button class="brand" type="button" aria-label="回到首页">
+    <span class="logo" aria-hidden="true">🌈</span>
+    <span>快乐学习乐园</span>
+  </button>
+
+  <nav class="nav-links" aria-label="主导航">
+    <button class="nav-btn active" data-nav="home" type="button">🏠 首页</button>
+    <button class="nav-btn" data-nav="cn"   type="button">📖 语文</button>
+    <button class="nav-btn" data-nav="math" type="button">🔢 数学</button>
+    <button class="nav-btn" data-nav="en"   type="button">🔤 英语</button>
+  </nav>
+
+  <button class="chip active" id="muteBtn" type="button" aria-label="声音开关">🔊 声音已开</button>
+
+  <div class="score-pill" id="scorePill" title="我收集的星星">
+    <span aria-hidden="true">⭐</span>
+    <span id="scoreVal">0</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ 首页 ============ -->
+  <section class="view active" id="view-home">
+    <div class="hero">
+      <span class="mascot" aria-hidden="true">🐻</span>
+      <h1>快来和我一起玩着学！</h1>
+      <p>这里有会说话的拼音、会动的小火车、还有五颜六色的英语单词。<br>
+         拖一拖、点一点，星星就会跑进你的口袋 ✨</p>
+    </div>
+
+    <div class="subject-grid" id="subjectGrid"></div>
+  </section>
+
+  <!-- ============ 学科页 ============ -->
+  <section class="view" id="view-subject">
+    <div class="game-head">
+      <button class="back-btn" id="backHome" type="button">← 回乐园大厅</button>
+      <h2 class="game-title" id="subjTitle">语文乐园</h2>
+      <span class="game-hint" id="subjSub">拼音 · 汉字 · 儿歌</span>
+    </div>
+
+    <div class="panel">
+      <div class="game-switch" id="gameTabs"></div>
+      <p class="game-hint" id="gameHint" style="display:inline-block;margin:0 0 18px"></p>
+      <div id="gameHost"></div>
+      <div class="progress-wrap" style="margin-top:26px">
+        <div class="progress-bar" id="gameBar"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer>用游戏点亮好奇心 · 快乐学习乐园 🌟 星星会一直帮你保存</footer>
+
+<script src="js/audio.js"></script>
+<script src="js/drag.js"></script>
+<script src="js/games/pinyin.js"></script>
+<script src="js/games/stroke.js"></script>
+<script src="js/games/count.js"></script>
+<script src="js/games/math.js"></script>
+<script src="js/games/letter.js"></script>
+<script src="js/games/color.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
