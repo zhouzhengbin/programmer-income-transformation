@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#8fdcff">
+<title>快乐学习乐园 · 幼儿园互动课堂</title>
+<link rel="stylesheet" href="/ertongleyuan/css/style.css">
+</head>
+<body>
+<canvas id="bgCanvas" aria-hidden="true"></canvas>
+<header class="topbar">
+  <button class="brand" type="button">
+    <span class="logo">🌈</span><span>快乐学习乐园</span>
+  </button>
+  <nav class="nav-links">
+    <button class="nav-btn active" data-nav="home" type="button">🏠 首页</button>
+    <button class="nav-btn" data-nav="chinese" type="button">📖 语文</button>
+    <button class="nav-btn" data-nav="math" type="button">🔢 数学</button>
+    <button class="nav-btn" data-nav="english" type="button">🔤 英语</button>
+    <button class="nav-btn" data-nav="world" type="button">🌍 探索</button>
+  </nav>
+  <button class="chip active" id="muteBtn" type="button">🔊 声音开</button>
+  <div class="score-pill" id="scorePill">
+    <span>⭐</span><span id="scoreVal">0</span>
+  </div>
+</header>
+<main>
+  <section class="view active" id="view-home">
+    <div class="hero">
+      <span class="mascot">🐻</span>
+      <h1>快来和我一起玩着学！</h1>
+      <p>21 个好玩的小游戏，会说话的拼音、会动的小火车、能涂色的图画。<br>拖一拖、点一点、涂一涂，星星就会跑进你的口袋 ✨</p>
+    </div>
+    <div class="subject-grid" id="subjectGrid"></div>
+    <div class="achieve-wrap">
+      <div class="achieve-title">🏅 我的成就</div>
+      <div class="achieve-row" id="achieveRow"></div>
+    </div>
+  </section>
+  <section class="view" id="view-subject">
+    <div class="game-head">
+      <button class="back-btn" id="backHome" type="button">← 回乐园大厅</button>
+      <h2 class="game-title" id="subjTitle">语文乐园</h2>
+      <span class="game-hint" id="subjSub"></span>
+    </div>
+    <div class="panel">
+      <div class="game-switch" id="gameTabs"></div>
+      <p class="game-hint" id="gameHint" style="margin:0 0 16px"></p>
+      <div id="gameHost"></div>
+      <div class="progress-wrap" style="margin-top:24px">
+        <div class="progress-bar" id="gameBar"></div>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="toast" id="toast"></div>
+<footer>用游戏点亮好奇心 · 快乐学习乐园 🌟 星星会一直帮你保存</footer>
+<script src="/ertongleyuan/js/audio.js"></script>
+<script src="/ertongleyuan/js/kit.js"></script>
+<script src="/ertongleyuan/js/bg.js"></script>
+<script src="/ertongleyuan/js/data.js"></script>
+<script src="/ertongleyuan/js/games2/pinyin.js"></script>
+<script src="/ertongleyuan/js/games2/stroke.js"></script>
+<script src="/ertongleyuan/js/games2/poem.js"></script>
+<script src="/ertongleyuan/js/games2/song.js"></script>
+<script src="/ertongleyuan/js/games2/antonym.js"></script>
+<script src="/ertongleyuan/js/games2/count.js"></script>
+<script src="/ertongleyuan/js/games2/math.js"></script>
+<script src="/ertongleyuan/js/games2/shape.js"></script>
+<script src="/ertongleyuan/js/games2/compare.js"></script>
+<script src="/ertongleyuan/js/games2/pattern.js"></script>
+<script src="/ertongleyuan/js/games2/clock.js"></script>
+<script src="/ertongleyuan/js/games2/letter.js"></script>
+<script src="/ertongleyuan/js/games2/color.js"></script>
+<script src="/ertongleyuan/js/games2/words.js"></script>
+<script src="/ertongleyuan/js/games2/colorfill.js"></script>
+<script src="/ertongleyuan/js/games2/memory.js"></script>
+<script src="/ertongleyuan/js/games2/bubble.js"></script>
+<script src="/ertongleyuan/js/games2/puzzle.js"></script>
+<script src="/ertongleyuan/js/games2/sort.js"></script>
+<script src="/ertongleyuan/js/games2/shadow.js"></script>
+<script src="/ertongleyuan/js/games2/habit.js"></script>
+<script src="/ertongleyuan/js/app.js"></script>
+
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+    const audios = document.querySelectorAll('audio');
+    audios.forEach(function(audio) { audio.preload = "auto"; audio.load(); });
+});
+</script>
+
+</body>
+</html>
