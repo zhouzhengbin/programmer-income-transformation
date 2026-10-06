@@ -1,0 +1,78 @@
+1	<!DOCTYPE html>
+2	<html lang="zh-CN">
+3	<head>
+4	<meta charset="UTF-8">
+5	<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+6	<meta name="theme-color" content="#0a0f2a">
+7	<title>星际乐园 · 12 种玩法</title>
+8	<style>
+9	:root{
+10	  --glass-bg:rgba(255,255,255,.10);
+11	  --glass-brd:rgba(255,255,255,.24);
+12	  --txt:#f0f5ff;
+13	  --dim:#a5b3da;
+14	  --acc:#5ee7ff;
+15	  --acc2:#b388ff;
+16	  --acc3:#ffd166;
+17	  --ok:#4ade80;
+18	  --bad:#ff6b81;
+19	  --r:20px;
+20	}
+21	*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+22	html,body{margin:0;padding:0;height:100%;overflow:hidden}
+23	body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;color:var(--txt);background:#070b1c;-webkit-font-smoothing:antialiased}
+24	#bg{position:fixed;inset:0;z-index:0;display:block}
+25	#app{position:relative;z-index:2;height:100%;display:flex;flex-direction:column}
+26	#top{flex:0 0 auto;display:flex;align-items:center;gap:10px;padding:12px max(14px,env(safe-area-inset-right)) 12px max(14px,env(safe-area-inset-left));padding-top:max(12px,env(safe-area-inset-top))}
+27	#brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:clamp(15px,4vw,19px);letter-spacing:.5px}
+28	#orb{width:30px;height:30px;border-radius:50%;background:conic-gradient(from 0deg,var(--acc),var(--acc2),var(--acc3),var(--acc));box-shadow:0 0 18px rgba(94,231,255,.7);animation:spin 6s linear infinite}
+29	@keyframes spin{to{transform:rotate(360deg)}}
+30	#stars{margin-left:auto;display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:99px;background:var(--glass-bg);border:1px solid var(--glass-brd);font-weight:800;font-size:14px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+31	#stars b{color:var(--acc3);font-size:18px}
+32	#stage{flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain;padding:6px max(14px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))}
+33	.screen{animation:pop .4s cubic-bezier(.22,1,.36,1)}
+34	@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+35	.hero{position:relative;height:min(44vh,320px);border-radius:var(--r);overflow:hidden;border:1px solid var(--glass-brd);background:rgba(255,255,255,.05);margin-bottom:16px}
+36	#heroCanvas{display:block;width:100%;height:100%}
+37	.hero .hud{position:absolute;left:16px;bottom:14px;font-size:clamp(16px,4.6vw,24px);font-weight:900;letter-spacing:.5px;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+38	.hero .hud small{display:block;font-size:12px;font-weight:600;color:var(--dim);letter-spacing:.5px;margin-top:2px}
+39	.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+40	.cell{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;aspect-ratio:1/1;border-radius:18px;border:1px solid var(--glass-brd);background:var(--glass-bg);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);cursor:pointer;transition:transform .16s,box-shadow .16s;overflow:hidden}
+41	.cell:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(94,231,255,.20)}
+42	.cell:active{transform:scale(.96)}
+43	.cell .icon{font-size:34px;line-height:1;filter:drop-shadow(0 3px 8px rgba(0,0,0,.35))}
+44	.cell .name{font-size:12.5px;font-weight:700;letter-spacing:.3px}
+45	.cell .glow{position:absolute;inset:-30%;background:radial-gradient(circle at 50% 40%,rgba(94,231,255,.22),transparent 62%);opacity:0;transition:opacity .25s}
+46	.cell:hover .glow{opacity:1}
+47	.bar{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+48	.bar button{width:44px;height:44px;flex:0 0 auto;border:1px solid var(--glass-brd);border-radius:14px;background:var(--glass-bg);color:var(--txt);font-size:20px;cursor:pointer;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+49	.bar button:active{transform:scale(.94)}
+50	.bar h2{margin:0;font-size:clamp(17px,4.4vw,22px);font-weight:900;letter-spacing:.4px}
+51	.panel{border-radius:var(--r);border:1px solid var(--glass-brd);background:var(--glass-bg);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);padding:16px;position:relative;overflow:hidden}
+52	.hint{color:var(--dim);font-size:13px;text-align:center;margin-top:10px}
+53	.btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+54	.btns button{padding:12px 22px;border:0;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#06111f;box-shadow:0 8px 22px rgba(94,231,255,.30)}
+55	.btns button.ghost{background:var(--glass-bg);color:var(--txt);border:1px solid var(--glass-brd);box-shadow:none}
+56	.btns button:active{transform:scale(.96)}
+57	canvas.play{display:block;width:100%;border-radius:16px;touch-action:none;background:radial-gradient(circle at 50% 0%,#131c44,#0a0f28)}
+58	#toast{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));transform:translateX(-50%) translateY(140%);z-index:90;padding:12px 22px;border-radius:14px;font-weight:800;font-size:14px;background:rgba(22,28,54,.94);border:1px solid var(--glass-brd);backdrop-filter:blur(14px);transition:transform .38s cubic-bezier(.22,1,.36,1)}
+59	#toast.on{transform:translateX(-50%) translateY(0)}
+60	#fx{position:fixed;inset:0;z-index:80;pointer-events:none}
+61	@media(max-width:520px){.grid{grid-template-columns:repeat(3,1fr);gap:9px}.cell .icon{font-size:28px}.cell .name{font-size:11px}.hero{height:min(36vh,240px)}}
+62	</style>
+63	</head>
+64	<body>
+65	<canvas id="bg"></canvas>
+66	<div id="app">
+67	  <header id="top">
+68	    <div id="brand" onclick="OMNI.home()"><span id="orb"></span>星际乐园</div>
+69	    <div id="stars"><b>★</b><span id="starNum">0</span></div>
+70	  </header>
+71	  <main id="stage"></main>
+72	</div>
+73	<canvas id="fx"></canvas>
+74	<div id="toast"></div>
+75	<script src="js/core/engine.js"></script>
+76	<script>OMNI.boot();</script>
+77	</body>
+78	</html>

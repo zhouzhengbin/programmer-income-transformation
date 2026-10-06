@@ -1,0 +1,129 @@
+{
+  "model": {
+    "provider": "omnibridge",
+    "name": "deepseek-web",
+    "api_base": "http://127.0.0.1:8001/v1",
+    "timeout": 600,
+    "api_key": "sk-omni",
+    "node": "omni",
+    "node_label": "OmniBridge 本地桥接 · 网页模型（8001）",
+    "node_applied": true,
+    "bridge_web_cdp_url": "",
+    "bridge_web_profile_mode": "default",
+    "protocol_budget": 1500,
+    "bridge_web_browser": "",
+    "exec_code_blocks": true
+  },
+  "agent": {
+    "max_steps": 200,
+    "max_tool_calls": 800,
+    "max_seconds": 9000,
+    "max_parallel_tools": 1
+  },
+  "sandbox": {
+    "mode": "host",
+    "network": true
+  },
+  "approval": {
+    "auto_approve_shell": true
+  },
+  "evolution": {
+    "auto_forge_missing": true
+  },
+  "project": {
+    "root": "D:\\omni-agent"
+  },
+  "mcp": {
+    "servers": {
+      "filesystem": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-filesystem",
+          "D:\\omni-agent\\workspace"
+        ],
+        "enabled": true
+      },
+      "memory": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-memory"
+        ],
+        "enabled": true
+      },
+      "sequentialthinking": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-sequentialthinking"
+        ],
+        "enabled": true
+      },
+      "fetch": {
+        "command": "uvx",
+        "args": [
+          "mcp-server-fetch"
+        ],
+        "enabled": true
+      },
+      "time": {
+        "command": "uvx",
+        "args": [
+          "mcp-server-time"
+        ],
+        "enabled": true
+      },
+      "git": {
+        "command": "uvx",
+        "args": [
+          "mcp-server-git",
+          "--repository",
+          "D:\\omni-agent\\workspace"
+        ],
+        "enabled": true
+      },
+      "sqlite": {
+        "command": "uvx",
+        "args": [
+          "mcp-server-sqlite",
+          "--db-path",
+          "D:\\omni-agent\\workspace/.omni/omni.db"
+        ],
+        "enabled": true
+      },
+      "context7": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@upstash/context7-mcp"
+        ],
+        "enabled": true
+      },
+      "desktop-commander": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@wonderwhy-er/desktop-commander"
+        ],
+        "enabled": true
+      },
+      "puppeteer": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-puppeteer"
+        ],
+        "enabled": true
+      },
+      "everything": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-everything"
+        ],
+        "enabled": true
+      }
+    }
+  }
+}

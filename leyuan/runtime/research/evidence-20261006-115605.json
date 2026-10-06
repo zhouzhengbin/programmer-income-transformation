@@ -1,0 +1,69 @@
+{
+  "grounded": true,
+  "reason": "时间预算耗尽，只完成部分检索",
+  "count": 6,
+  "canonical_hits": 0,
+  "queries": [
+    "web page design system best practices 2026",
+    "web page accessibility keyboard touch interaction WCAG guidelines",
+    "web page user expectations evaluation criteria case study 2026",
+    "Core Web Vitals LCP INP CLS thresholds 2026"
+  ],
+  "items": [
+    {
+      "id": "E1",
+      "title": "WINFORM画笔 实现 画板 ( 如何 实现 橡皮擦 和 清空画板 功能)_winfrom ...",
+      "url": "https://www.sogou.com/link?url=hedJjaC291OB0PrGj_c3jLEFOfDkmI-heT-uS8a8_n5WqCE8-l7Zp7Bn4VA8J3SxRC4ZkgGEDmAbGq7qWCCe5g..",
+      "site": "www.sogou.com",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    },
+    {
+      "id": "E2",
+      "title": "Google",
+      "url": "https://zh.wikipedia.org/wiki/Google",
+      "site": "zh.wikipedia.org",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    },
+    {
+      "id": "E3",
+      "title": "点插入表格后, 橡皮檫 为什么不出现呢",
+      "url": "https://www.sogou.com/link?url=hedJjaC291O-PgZ8AiEPUeA1abSU75nkGmr1olsh63U-D1-F9FZt41KPfD5awbRI",
+      "site": "www.sogou.com",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    },
+    {
+      "id": "E4",
+      "title": "互联网顶级域列表",
+      "url": "https://zh.wikipedia.org/wiki/%E4%BA%92%E8%81%94%E7%BD%91%E9%A1%B6%E7%BA%A7%E5%9F%9F%E5%88%97%E8%A1%A8",
+      "site": "zh.wikipedia.org",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    },
+    {
+      "id": "E5",
+      "title": "painter橡皮擦 在哪_infinite painter橡皮擦位置介绍_果粉控",
+      "url": "https://www.sogou.com/link?url=58p16RfDRLvfxyUGPl7X9sPHttIcCgj7_0PHv3aoDyXQGuHk6xSRXg..",
+      "site": "www.sogou.com",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    },
+    {
+      "id": "E6",
+      "title": "重性抑郁障碍",
+      "url": "https://zh.wikipedia.org/wiki/%E9%87%8D%E6%80%A7%E6%8A%91%E9%83%81%E9%9A%9C%E7%A2%8D",
+      "site": "zh.wikipedia.org",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    }
+  ],
+  "elapsed_sec": 25.8
+}

@@ -1,0 +1,24 @@
+{
+  "grounded": true,
+  "reason": "时间预算耗尽，只完成部分检索",
+  "count": 1,
+  "canonical_hits": 0,
+  "queries": [
+    "HTML5 game design system best practices 2026",
+    "HTML5 game accessibility keyboard touch interaction WCAG guidelines",
+    "HTML5 game user expectations evaluation criteria case study 2026",
+    "roguelike / arcade game feel juice design GDC talk"
+  ],
+  "items": [
+    {
+      "id": "E1",
+      "title": "氣候變化緩解",
+      "url": "https://zh.wikipedia.org/wiki/%E6%B0%A3%E5%80%99%E8%AE%8A%E5%8C%96%E7%B7%A9%E8%A7%A3",
+      "site": "zh.wikipedia.org",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    }
+  ],
+  "elapsed_sec": 27.1
+}

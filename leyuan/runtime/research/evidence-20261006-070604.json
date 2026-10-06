@@ -1,0 +1,69 @@
+{
+  "grounded": true,
+  "reason": "未命中任何顶级权威源（standard-body），本次依据以二手资料为主",
+  "count": 6,
+  "canonical_hits": 0,
+  "queries": [
+    "HTML5 game industry standards specification 2026",
+    "HTML5 game accessibility keyboard touch interaction WCAG guidelines",
+    "HTML5 game user expectations evaluation criteria case study 2026",
+    "roguelike / arcade game feel juice design GDC talk"
+  ],
+  "items": [
+    {
+      "id": "E1",
+      "title": "Goodbye and Thanks Mochi Media",
+      "url": "https://www.sogou.com/link?url=hedJjaC291OR1L3dHU_FCw8w5WOItDgEamB0LI8Ok6YHOhbTLrTMyhWkj8kfskgs-PYVcTxCVpkAEf_VZEsbgzLfBMLF8MnRreaVHN88tHY.",
+      "site": "www.sogou.com",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    },
+    {
+      "id": "E2",
+      "title": "GDC Vault - Teams Are Stronger Than Heroes: Bungie Development ...",
+      "url": "https://www.sogou.com/link?url=hedJjaC291O3ECbXWv6DfUJw9U14oc0bQjFVibWD9wzensElfxdwcrIG4JUR_dXCuKt0FG7-82y9-KHeDKlQTBuyYbkiYorQ",
+      "site": "www.sogou.com",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    },
+    {
+      "id": "E3",
+      "title": "7 Phases of the DevOps Lifecycle | Unity",
+      "url": "https://www.sogou.com/link?url=hedJjaC291Oa__o3-tuJwuumze_iPpjJ9tAvw974tbT2YM2RToRXsjTKDWUhDMM_",
+      "site": "www.sogou.com",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    },
+    {
+      "id": "E4",
+      "title": "HTML5 Game Devs Forum - HTML5Game Devs.com",
+      "url": "https://www.sogou.com/link?url=hedJjaC291O7p2BCgx0RbugDZ92HRlTGVc4H97C172o.",
+      "site": "www.sogou.com",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    },
+    {
+      "id": "E5",
+      "title": "Implementing Coordinated Movement",
+      "url": "https://www.sogou.com/link?url=hedJjaC291OR1L3dHU_FCw8w5WOItDgEamB0LI8Ok6YHOhbTLrTMyrnbB2yIjxGpo25vqPgvr3krs0cC5PNnEUqEr1YeRCFdWU84y17_Tpg.",
+      "site": "www.sogou.com",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    },
+    {
+      "id": "E6",
+      "title": "GDC Vault - Security Best Practices â€“ Piracy, Secondary Sales, &...",
+      "url": "https://www.sogou.com/link?url=hedJjaC291O3ECbXWv6DfUJw9U14oc0bQjFVibWD9wyaRM1U5BYsoHDztAogwO77qxMxSIm5VVzi20dxeAOmxjm3EDBvoB4h39Wrhf8DBkI.",
+      "site": "www.sogou.com",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    }
+  ],
+  "elapsed_sec": 26.9
+}

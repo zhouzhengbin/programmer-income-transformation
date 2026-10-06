@@ -1,0 +1,27 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>
+<iframe id="f" src="index.html" style="width:100%;height:100%;border:0"></iframe>
+<pre id="omniResult">pending</pre>
+<script>
+var out = { errs: [], checks: {} };
+var f = document.getElementById('f');
+f.onload = function(){
+  setTimeout(function(){
+    try {
+      var w = f.contentWindow, d = f.contentDocument;
+      out.checks.omni_exists = !!(w && w.OMNI);
+      out.checks.hero = !!(d && d.getElementById('heroCanvas'));
+      out.checks.cells = d ? d.querySelectorAll('#grid .cell').length : 0;
+      out.checks.stage_child = !!(d && d.getElementById('stage') && d.getElementById('stage').children.length > 0);
+      out.checks.scrollW = d ? d.documentElement.scrollWidth : 0;
+      out.checks.innerW = w ? w.innerWidth : 0;
+      out.checks.overflowX = d ? (d.documentElement.scrollWidth > w.innerWidth + 1) : false;
+      if (w && w.OMNI && w.OMNI.open) { w.OMNI.open('wheel'); setTimeout(function(){
+        out.checks.wheelCanvas = !!(d.getElementById('cv'));
+        document.getElementById('omniResult').textContent = JSON.stringify(out);
+      }, 700); } else {
+        document.getElementById('omniResult').textContent = JSON.stringify(out);
+      }
+    } catch(e){ out.errs.push(String(e && e.message)); document.getElementById('omniResult').textContent = JSON.stringify(out); }
+  }, 600);
+};
+</script></body></html>

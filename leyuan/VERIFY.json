@@ -1,0 +1,68 @@
+{
+  "verified_at": "2026-10-06",
+  "stage": "动画玩法版 · 儿童向明亮主题 + 全屏自适应",
+  "static_checks": {
+    "tool": "_check_all.js",
+    "js_count": 29,
+    "syntax_errors": "NONE",
+    "games_registered": 12,
+    "game_ids": [
+      "wheel",
+      "puzzle",
+      "paint",
+      "link",
+      "sort",
+      "rhythm",
+      "balance",
+      "memory",
+      "pipe",
+      "maze",
+      "bubble",
+      "catcher"
+    ],
+    "game_src_missing": "NONE",
+    "over_limit": "NONE"
+  },
+  "runtime_check": {
+    "tool": "_verify_runtime.js (Chrome headless=new, file:// 打开 index.html，三种视口)",
+    "sizes": [
+      {
+        "size": "320x568",
+        "errs": [],
+        "omni_exists": true,
+        "hero": true,
+        "cells": 12,
+        "stage_child": true,
+        "overflowX": false,
+        "wheelCanvas": true
+      },
+      {
+        "size": "768x1024",
+        "errs": [],
+        "omni_exists": true,
+        "hero": true,
+        "cells": 12,
+        "stage_child": true,
+        "overflowX": false,
+        "wheelCanvas": true
+      },
+      {
+        "size": "1440x900",
+        "errs": [],
+        "omni_exists": true,
+        "hero": true,
+        "cells": 12,
+        "stage_child": true,
+        "overflowX": false,
+        "wheelCanvas": true
+      }
+    ]
+  },
+  "fixes_this_round": [
+    "改用 dvh/svh + flex 收缩 + min-height:0，消除固定 vh 造成的溢出",
+    "背景从深色星空改为儿童向明亮糖果色 + 云朵/泡泡/气球三类动效",
+    "新增 js/core/layout.js 统一尺寸广播，全部 12 个玩法改为从 layout 取尺寸",
+    "小屏下翻牌记忆自动减为 8 张，节奏点击自动减为 3 车道，命中区更大"
+  ],
+  "verdict": "PASS(静态+运行期)：三种视口下无 console error、无横向溢出、首屏 hero canvas 存在、12 个入口完整、进入 wheel 后画布可用。"
+}

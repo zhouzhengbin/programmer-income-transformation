@@ -1,0 +1,159 @@
+{
+  "items": [
+    {
+      "id": 11,
+      "subject": "盘点画笔模块现状",
+      "description": "读取 js/games/paint.js，列出当前已有的绘制能力与缺失的编辑功能（橡皮擦 / 清空 / 撤销 / 重做）\n完成标准：输出 paint.js 现有函数清单与缺失功能对照表，至少列出 4 项待补功能",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791258514.5880585,
+      "updated_at": 1791258514.596436,
+      "result": ""
+    },
+    {
+      "id": 12,
+      "subject": "扩展画笔工具条",
+      "description": "在 paint.js 的工具条中加入：橡皮擦（按背景色绘制）、清空（一键重置画布）、撤销（回退上一笔）、重做（恢复被撤销的笔迹），每项为独立按钮并带 aria-label\n完成标准：paint.js 工具条中新增至少 4 个按钮：橡皮 / 清空 / 撤销 / 重做",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791258514.5895975,
+      "updated_at": 1791258514.990391,
+      "result": ""
+    },
+    {
+      "id": 13,
+      "subject": "实现撤销重做栈",
+      "description": "用受限长度的历史栈（如最多 20 步）保存每一步的笔迹数据（起点、终点、颜色、粗细、是否为橡皮），撤销时回退一步并重绘，重做时恢复\n完成标准：连续画 3 笔后点撤销 3 次画布回到空白，再点重做 3 次原样恢复；栈长度超过 20 时最旧笔迹被丢弃",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791258514.5910115,
+      "updated_at": 1791258566.7548828,
+      "result": ""
+    },
+    {
+      "id": 14,
+      "subject": "实现橡皮擦与清空",
+      "description": "橡皮擦模式用画布底色作笔色、按当前粗细擦除；清空按钮把历史栈清空并把画布重置为初始底色（同时支持清空前的撤销）\n完成标准：切到橡皮可擦掉已画内容；点清空后画布回到初始底色，且能用撤销恢复清空前的画面",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791258514.5921988,
+      "updated_at": 1791258621.1721277,
+      "result": ""
+    },
+    {
+      "id": 15,
+      "subject": "统一尺寸与画笔自适应",
+      "description": "paint.js 的 sizeCanvas() 改为读取 js/core/layout.js 的尺寸广播，画布边长提升到 min(stage宽*0.98, stage高*0.96)；resize 时保留已画内容\n完成标准：在 320×568 与 1440×900 两档下画布都占满可用区，resize 后已画内容不丢",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791258514.5931854,
+      "updated_at": 1791258679.165709,
+      "result": ""
+    },
+    {
+      "id": 16,
+      "subject": "写完立即浏览器自检",
+      "description": "用 Chrome headless 打开 index.html 并进入画笔，模拟 pointerdown/move/up 画一笔，再触发撤销/重做/清空/橡皮，断言无 console error 且状态可回退\n完成标准：自检输出 errors=[] 且操作序列（画一笔 → 撤销 → 重做 → 清空）都能得到预期结果，结论写入 VERIFY_PAINT.json",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791258514.5942347,
+      "updated_at": 1791258737.2374375,
+      "result": ""
+    },
+    {
+      "id": 17,
+      "subject": "交付确认",
+      "description": "确认 index.html、css/style.css、js/core/layout.js、js/games/paint.js 全部真实落盘并可直接打开\n完成标准：上述 4 个文件均在磁盘存在，双击 index.html 后画笔工具条可见并可用",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791258514.595265,
+      "updated_at": 1791258804.9088883,
+      "result": ""
+    },
+    {
+      "id": 18,
+      "subject": "整改R1-1·领域专业度｜用 CDP Runtime.callFuncti…",
+      "description": "用 CDP Runtime.callFunctionOn + awaitPromise=true 读 window.__paintState，或在 evaluate 前轮询 document.readyState==='complete'。跑通后写入 VERIFY_PAINT.json",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258986.5638595,
+      "updated_at": 1791258986.8462172,
+      "result": ""
+    },
+    {
+      "id": 19,
+      "subject": "整改R1-2·领域专业度｜清空时把当前整张画布快照作为一条特殊 histo…",
+      "description": "清空时把当前整张画布快照作为一条特殊 history 项压栈（type: 'snapshot'），而不是清空 history 数组；这样撤销即可恢复到清空前",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258986.564782,
+      "updated_at": 1791259044.131684,
+      "result": ""
+    },
+    {
+      "id": 20,
+      "subject": "整改R1-3·领域专业度｜见 U4.fix：补填充、直线/矩形/圆、保存 …",
+      "description": "见 U4.fix：补填充、直线/矩形/圆、保存 PNG",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258986.5658839,
+      "updated_at": 1791259102.2057717,
+      "result": ""
+    },
+    {
+      "id": 21,
+      "subject": "整改R1-4·用户要求未兑现｜→ 利用新加的 window.__paintSt…",
+      "description": "→ 利用新加的 window.__paintState 钩子，用 CDP Runtime.callFunctionOn + awaitPromise=true 在导航完成后断言 strokes/canUndo/canRedo；或先轮询 document.readyState==='c",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258986.5670676,
+      "updated_at": 1791259159.3169246,
+      "result": ""
+    },
+    {
+      "id": 22,
+      "subject": "整改R1-5·无依据｜综合/medium 用 CDP Runtime.…",
+      "description": "综合/medium 用 CDP Runtime.callFunctionOn + awaitPromise=true 读 window.__paintState，或在 evaluate 前轮询 document.readyState==='complete'。跑通后写入 VERIFY_PAINT.json",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258986.568416,
+      "updated_at": 1791259213.8743877,
+      "result": ""
+    },
+    {
+      "id": 23,
+      "subject": "整改R1-6·依据 ['E1'｜] 综合/medium 清空时把当前整张画布快照…",
+      "description": "] 综合/medium 清空时把当前整张画布快照作为一条特殊 history 项压栈（type: 'snapshot'），而不是清空 history 数组；这样撤销即可恢复到清空前",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258986.5697489,
+      "updated_at": 1791259272.3141286,
+      "result": ""
+    },
+    {
+      "id": 24,
+      "subject": "整改R1-7·复检｜调用 review_deliverable 复检，确认分数上升",
+      "description": "以上整改全部落盘后，调用 review_deliverable（task 填原始任务）复检一次。",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258986.5715952,
+      "updated_at": 1791259336.9822779,
+      "result": ""
+    }
+  ],
+  "seq": 24
+}

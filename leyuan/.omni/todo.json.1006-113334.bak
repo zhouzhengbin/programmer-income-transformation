@@ -1,0 +1,236 @@
+{
+  "items": [
+    {
+      "id": 13,
+      "subject": "排查现有屏幕适配问题",
+      "description": "读取 index.html 的 CSS 与 js/core/engine.js 的尺寸计算逻辑，定位布局溢出/无法自适应的具体断点\n完成标准：输出明确列出至少 3 处导致溢出或不适配的具体代码位置（含行号与原因）",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791251496.6832404,
+      "updated_at": 1791251496.697409,
+      "result": ""
+    },
+    {
+      "id": 14,
+      "subject": "重做自适应布局",
+      "description": "改写 index.html 样式：用 dvh/svh 代替固定 vh，容器 flex 收缩、min-height:0，禁止 body 滚动溢出，grid 用 clamp() 控制列宽\n完成标准：在 320×568 与 1920×1080 两种尺寸下，页面无横向滚动，且所有 12 个入口完整可见可点",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791251496.685124,
+      "updated_at": 1791251497.988582,
+      "result": ""
+    },
+    {
+      "id": 15,
+      "subject": "重做儿童向背景与主视觉",
+      "description": "用 Canvas 绘制明亮暖色背景：糖果色渐变、漂浮云朵/泡泡/气球、卡通星球与角色，去除深色冷调背景\n完成标准：首屏背景为明亮色系，背景中至少有 3 类可动元素（泡泡/云朵/气球）持续动画，hero 角色可见",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791251496.6871657,
+      "updated_at": 1791251513.1184824,
+      "result": ""
+    },
+    {
+      "id": 16,
+      "subject": "强化互动与游戏感",
+      "description": "为首页入口加出现动画与 hover/触控缩放反馈；进入玩法加转场；得分加屏幕震动与缩放；奖励弹出星星卡片\n完成标准：点击任一入口有转场动画，得分时有可见震动或缩放，且所有动效在 prefers-reduced-motion 下自动关闭",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791251496.6894536,
+      "updated_at": 1791251542.04578,
+      "result": ""
+    },
+    {
+      "id": 17,
+      "subject": "统一尺寸自适应框架",
+      "description": "写 js/core/layout.js：计算 stage 可用宽高并广播 resize 事件，所有玩法 canvas 从该模块取尺寸，替换各玩法里的 getBoundingClientRect 硬取尺寸\n完成标准：layout.js 存在且被 12 个玩法引入；在 320×568 与 1920×1080 下每个玩法 canvas 都完整显示且无内嵌滚动",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791251496.6912465,
+      "updated_at": 1791251561.9349184,
+      "result": ""
+    },
+    {
+      "id": 18,
+      "subject": "写完立即浏览器自检",
+      "description": "用 Chrome headless 打开 index.html，在 320×568 / 768×1024 / 1440×900 三种视口下断言：无 console error、无横向溢出、12 个入口可点、进入 wheel 后主循环 tick 递增\n完成标准：自检脚本输出 errors=[]、overflow=false、grid_cells=12、tick_advancing=true，并写入 VERIFY.json",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791251496.6931233,
+      "updated_at": 1791251580.6110387,
+      "result": ""
+    },
+    {
+      "id": 19,
+      "subject": "交付确认",
+      "description": "确认 index.html 与 js/ 全部模块真实落盘，临时校验脚本保留但不在交付说明里作为主产物\n完成标准：index.html + js/core/layout.js + js/core/engine.js + 12 个 js/games/*.js 均在磁盘存在，双击 index.html 可直接开局",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791251496.6954596,
+      "updated_at": 1791251614.305679,
+      "result": ""
+    },
+    {
+      "id": 20,
+      "subject": "整改R1-1·领域专业度｜主体验换成 ≥10 种动画玩法",
+      "description": "把主体验换成 ≥10 种动画玩法，选择题仅作为可选补充，并从主入口移除",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791252605.9297357,
+      "updated_at": 1791252871.7826984,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 21,
+      "subject": "整改R1-2·领域专业度｜补齐 js/core/layout.js 与三视…",
+      "description": "补齐 js/core/layout.js 与三视口 overflowX=false 的真实浏览器回执，写入 VERIFY.json",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791252605.931555,
+      "updated_at": 1791252871.7872293,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 22,
+      "subject": "整改R1-3·领域专业度｜背景改为明亮糖果色 + 云朵/泡泡/气球 ≥3 …",
+      "description": "背景改为明亮糖果色 + 云朵/泡泡/气球 ≥3 类动效；首屏 hero 用卡通星球 + 角色",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791252605.933846,
+      "updated_at": 1791252871.7913454,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 23,
+      "subject": "整改R1-4·用户要求未兑现｜→ 把背景改为儿童向：天空蓝→奶油黄渐变 + 太…",
+      "description": "→ 把背景改为儿童向：天空蓝→奶油黄渐变 + 太阳光晕；加入 ≥3 类持续动画元素（云朵 / 泡泡 / 气球）；首屏 hero 用明亮糖果色绘制卡通星球 + 角色；避免深色冷调",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791252605.9357312,
+      "updated_at": 1791252871.795683,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 24,
+      "subject": "整改R1-5·用户要求未兑现｜→ 用 Chrome headless=new …",
+      "description": "→ 用 Chrome headless=new 打开 file:// index.html，三档视口断言 errors=[]、hero canvas 存在、grid cells=12、进入 wheel 后 canvas 可用，结论写入 VERIFY.json 一并交付",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791252605.9376695,
+      "updated_at": 1791252871.7989051,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 25,
+      "subject": "整改R1-6·无依据｜综合/mid 把主体验换成 ≥10 种动画玩法",
+      "description": "综合/mid 把主体验换成 ≥10 种动画玩法，选择题仅作为可选补充，并从主入口移除",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791252605.9402688,
+      "updated_at": 1791252871.802986,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 26,
+      "subject": "整改R1-7·复检｜调用 review_deliverable 复检，确认分数上升",
+      "description": "以上整改全部落盘后，调用 review_deliverable（task 填原始任务）复检一次。",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791252605.9427018,
+      "updated_at": 1791252871.80704,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 27,
+      "subject": "整改R2-1·领域专业度｜VERIFY.json 完整内容随交付包一并呈现…",
+      "description": "将 VERIFY.json 完整内容随交付包一并呈现（或内嵌 README 的『自检回执』一节），使三视口 JSON 原文可见",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791252871.811132,
+      "updated_at": 1791252872.674507,
+      "result": ""
+    },
+    {
+      "id": 28,
+      "subject": "整改R2-2·领域专业度｜见 D3.fix",
+      "description": "见 D3.fix",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791252871.8151922,
+      "updated_at": 1791252896.2937186,
+      "result": ""
+    },
+    {
+      "id": 29,
+      "subject": "整改R2-3·逻辑正确性｜[交叉引用] JS 里对 'card' 做了 c…",
+      "description": "[交叉引用] JS 里对 'card' 做了 className，但样式表里没有 .card —— 这个操作不会产生任何视觉变化，要么补 .card 样式，要么别操作这个类名",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791252871.819669,
+      "updated_at": 1791252916.3057745,
+      "result": ""
+    },
+    {
+      "id": 30,
+      "subject": "整改R2-4·逻辑正确性｜[交叉引用] JS 里对 'tile' 做了 c…",
+      "description": "[交叉引用] JS 里对 'tile' 做了 className，但样式表里没有 .tile —— 这个操作不会产生任何视觉变化，要么补 .tile 样式，要么别操作这个类名",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791252871.8232908,
+      "updated_at": 1791252935.9380243,
+      "result": ""
+    },
+    {
+      "id": 31,
+      "subject": "整改R2-5·无依据｜综合/medium 将 VERIFY.json …",
+      "description": "综合/medium 将 VERIFY.json 完整内容随交付包一并呈现（或内嵌 README 的『自检回执』一节），使三视口 JSON 原文可见",
+      "status": "pending",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791252871.8264074,
+      "updated_at": 1791252871.826408,
+      "result": ""
+    },
+    {
+      "id": 32,
+      "subject": "整改R2-6·无依据｜综合/medium 见 D3.fix",
+      "description": "综合/medium 见 D3.fix",
+      "status": "pending",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791252871.829203,
+      "updated_at": 1791252871.8292036,
+      "result": ""
+    },
+    {
+      "id": 33,
+      "subject": "整改R2-7·复检｜调用 review_deliverable 复检，确认分数上升",
+      "description": "以上整改全部落盘后，调用 review_deliverable（task 填原始任务）复检一次。",
+      "status": "pending",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791252871.8326197,
+      "updated_at": 1791252871.8326213,
+      "result": ""
+    }
+  ],
+  "seq": 33
+}

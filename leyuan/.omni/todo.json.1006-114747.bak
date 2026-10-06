@@ -1,0 +1,313 @@
+{
+  "items": [
+    {
+      "id": 18,
+      "subject": "打开浏览器实测拼图板复现问题",
+      "description": "用 Chrome headless 打开 index.html 进入拼图板，截图并读取控制台，确认「无法玩 / 逻辑不对 / 图片不对 / 靠左不对 / 画面偏小」各自的具体表现\n完成标准：输出至少 4 条具体现象（含截图文件名与控制台错误列表），能一一对上用户的每条抱怨",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791257666.1997287,
+      "updated_at": 1791257666.2078485,
+      "result": ""
+    },
+    {
+      "id": 19,
+      "subject": "重写拼图板交互逻辑",
+      "description": "改写 js/games/puzzle.js：拖拽改为 pointerdown 直接抓起、放置判定用格中心吸附、错误抖动回原位、每次交互都重绘且不重建棋盘\n完成标准：进入拼图板后：按下一块即可拖动、拖到目标格自动吸附、放错有抖动且不重置、放对计数 +1",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791257666.200552,
+      "updated_at": 1791257666.537291,
+      "result": ""
+    },
+    {
+      "id": 20,
+      "subject": "修正拼图块绘制与布局方向",
+      "description": "拼图块用真实图案（渐变 + 图元 + 序号）而非纯色；棋盘靠右、待拼池靠左，符合用户『应该靠右』的期望\n完成标准：棋盘位于画布右侧约 2/3 区域，待拼池在左侧，每块拼块图案彼此可区分",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791257666.2012258,
+      "updated_at": 1791257678.566211,
+      "result": ""
+    },
+    {
+      "id": 21,
+      "subject": "整体放大画面并让拼图自适应",
+      "description": "拼图画布边长改为 min(stage宽*0.98, stage高*0.98) 并乘 DPR；棋盘边长占画布 70%；小屏下自动降到 3x3\n完成标准：在 320×568 与 1440×900 下，拼图画布都占满可用区且无滚动，棋盘与待拼池完整可见",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791257666.202265,
+      "updated_at": 1791257747.2812102,
+      "result": ""
+    },
+    {
+      "id": 22,
+      "subject": "统一放大其它玩法画面",
+      "description": "把所有玩法 canvas 的边长从 min(w-20,h-130) 提升到 min(w-8,h-96)（保留顶部标题栏与底部按钮空间），并统一用 OMNI_LAYOUT 取尺寸\n完成标准：12 个玩法在 320×568 与 1440×900 下画布都占满主要可视区，无被裁切",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791257666.203339,
+      "updated_at": 1791257764.2991753,
+      "result": ""
+    },
+    {
+      "id": 23,
+      "subject": "写完立即浏览器自检",
+      "description": "用 Chrome headless 在 320×568 / 768×1024 / 1440×900 三视口打开 index.html：断言无 console error、无横向溢出、12 入口可点、进入拼图板后能拖到第一块并计数\n完成标准：自检输出 errors=[]、overflowX=false、cells=12，且拼图板拖拽后计数从 0 变为 1",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791257666.2047207,
+      "updated_at": 1791257782.766208,
+      "result": ""
+    },
+    {
+      "id": 24,
+      "subject": "交付确认",
+      "description": "确认 index.html 与 js/games/*.js 全部真实落盘，覆盖更新 VERIFY.json 记录本轮修复\n完成标准：index.html、js/games/puzzle.js、VERIFY.json 均在磁盘且 VERIFY.json 含本轮三视口与拼图交互回执",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791257666.2061565,
+      "updated_at": 1791257803.4013557,
+      "result": ""
+    },
+    {
+      "id": 25,
+      "subject": "整改R1-1·领域专业度｜改断言方式：复制一份 index.html 到 …",
+      "description": "改断言方式：复制一份 index.html 到 _puzzle_page.html，在其末尾内联注入断言脚本（进入 puzzle、模拟 pointerdown/move/up、读取 solved、把结果写到 document.title 与一个 <pre id=\"out\">），然后用单 target 的 --headless=old --dump-dom 拿回结果",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258081.595916,
+      "updated_at": 1791258144.5231104,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 26,
+      "subject": "整改R1-2·领域专业度｜12 个游戏的画布统一改为 min(w-8, h…",
+      "description": "把 12 个游戏的画布统一改为 min(w-8, h-96)，改完在三档视口下断言 canvas 宽度 >= stage 宽度 * 0.9",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258081.596955,
+      "updated_at": 1791258144.5244198,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 27,
+      "subject": "整改R1-3·领域专业度｜puzzle.js 里确认 pointermov…",
+      "description": "在 puzzle.js 里确认 pointermove 只调用 draw() 不调用 newGame()；并在性能侧加一次 requestAnimationFrame 帧计数断言（1 秒内帧数 > 40）",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258081.5987573,
+      "updated_at": 1791258144.5258942,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 28,
+      "subject": "整改R1-4·用户要求未兑现｜→ 改用 Chrome headless=old…",
+      "description": "→ 改用 Chrome headless=old 且用 --dump-dom 只指定一个 file:// target（去掉 iframe 方案，把断言脚本内联进 index.html 副本），或用 Node + CDP 直连；拿到 errors=[] 且 solved>=1 的 J",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258081.5996413,
+      "updated_at": 1791258144.5273333,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 29,
+      "subject": "整改R1-5·依据 ['E4'｜] 综合/high 改断言方式：复制一份 ind…",
+      "description": "] 综合/high 改断言方式：复制一份 index.html 到 _puzzle_page.html，在其末尾内联注入断言脚本（进入 puzzle、模拟 pointerdown/move/up、读取 solved、把结果写到 document.title 与一个 <pre id=\"out\">），然后用单 target 的 --headless=old --dump-dom 拿",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258081.6004996,
+      "updated_at": 1791258144.528707,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 30,
+      "subject": "整改R1-6·无依据｜综合/medium 把 12 个游戏的画布统一改…",
+      "description": "综合/medium 把 12 个游戏的画布统一改为 min(w-8, h-96)，改完在三档视口下断言 canvas 宽度 >= stage 宽度 * 0.9",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258081.6020248,
+      "updated_at": 1791258144.530001,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 31,
+      "subject": "整改R1-7·复检｜调用 review_deliverable 复检，确认分数上升",
+      "description": "以上整改全部落盘后，调用 review_deliverable（task 填原始任务）复检一次。",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258081.603183,
+      "updated_at": 1791258144.5311406,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 32,
+      "subject": "整改R2-1·领域专业度｜用 CDP 直连方案：_probe_puzzle…",
+      "description": "用 CDP 直连方案：_probe_puzzle.js 已写好（--headless=old --remote-debugging-port=9333 启动 Chrome，Node 端通过 WebSocket 发 Runtime.evaluate 拿到断言值），需确认本机 node_modules/ws 存在；若无 ws 则改用 Node 内建的 undici WebSocket 或",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258144.532109,
+      "updated_at": 1791258243.638523,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 33,
+      "subject": "整改R2-2·领域专业度｜12 个游戏画布统一改为 min(w-8, h-…",
+      "description": "12 个游戏画布统一改为 min(w-8, h-96)，改完在三档视口下断言 canvas 宽度 >= stage 宽度 * 0.9",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258144.5332916,
+      "updated_at": 1791258243.639686,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 34,
+      "subject": "整改R2-3·领域专业度｜见 D2.fix",
+      "description": "见 D2.fix",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258144.534535,
+      "updated_at": 1791258243.6413388,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 35,
+      "subject": "整改R2-4·用户要求未兑现｜→ 见 U1.fix 与 D2.fix",
+      "description": "→ 见 U1.fix 与 D2.fix",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258144.5355341,
+      "updated_at": 1791258243.6433074,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 36,
+      "subject": "整改R2-5·依据 ['E4'｜] 综合/high 用 CDP 直连方案：_pr…",
+      "description": "] 综合/high 用 CDP 直连方案：_probe_puzzle.js 已写好（--headless=old --remote-debugging-port=9333 启动 Chrome，Node 端通过 WebSocket 发 Runtime.evaluate 拿到断言值），需确认本机 node_modules/ws 存在；若无 ws 则改用 Node 内建的 undic",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258144.5371115,
+      "updated_at": 1791258243.6446142,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 37,
+      "subject": "整改R2-6·无依据｜综合/medium 12 个游戏画布统一改为 m…",
+      "description": "综合/medium 12 个游戏画布统一改为 min(w-8, h-96)，改完在三档视口下断言 canvas 宽度 >= stage 宽度 * 0.9",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258144.538405,
+      "updated_at": 1791258243.6457992,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 38,
+      "subject": "整改R2-7·复检｜调用 review_deliverable 复检，确认分数上升",
+      "description": "以上整改全部落盘后，调用 review_deliverable（task 填原始任务）复检一次。",
+      "status": "cancelled",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258144.540137,
+      "updated_at": 1791258243.6476195,
+      "result": "已被新一轮整改计划取代"
+    },
+    {
+      "id": 39,
+      "subject": "整改R3-1·领域专业度｜_probe_puzzle2.js 中把 pro…",
+      "description": "在 _probe_puzzle2.js 中把 probe1 / probe2 表达式改为 `JSON.stringify({...})`，Node 端对 `r.result.value` 做 JSON.parse；或改用 `Runtime.callFunctionOn` + `returnByValue:true`；跑通后写入 VERIFY_PUZZLE.json",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258243.6500201,
+      "updated_at": 1791258244.073837,
+      "result": ""
+    },
+    {
+      "id": 40,
+      "subject": "整改R3-2·领域专业度｜12 个游戏画布统一改为 min(w-8, h-…",
+      "description": "12 个游戏画布统一改为 min(w-8, h-96)，改完在三档视口下断言 canvas 宽度 >= stage 宽度 * 0.9",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258243.6525052,
+      "updated_at": 1791258264.3644958,
+      "result": ""
+    },
+    {
+      "id": 41,
+      "subject": "整改R3-3·领域专业度｜见 D2.fix",
+      "description": "见 D2.fix",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258243.655171,
+      "updated_at": 1791258284.9730499,
+      "result": ""
+    },
+    {
+      "id": 42,
+      "subject": "整改R3-4·依据 ['E4'｜] 综合/high 在 _probe_puzzl…",
+      "description": "] 综合/high 在 _probe_puzzle2.js 中把 probe1 / probe2 表达式改为 `JSON.stringify({...})`，Node 端对 `r.result.value` 做 JSON.parse；或改用 `Runtime.callFunctionOn` + `returnByValue:true`；跑通后写入 VERIFY_PUZZLE.j",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258243.657732,
+      "updated_at": 1791258300.3992095,
+      "result": ""
+    },
+    {
+      "id": 43,
+      "subject": "整改R3-5·无依据｜综合/medium 12 个游戏画布统一改为 m…",
+      "description": "综合/medium 12 个游戏画布统一改为 min(w-8, h-96)，改完在三档视口下断言 canvas 宽度 >= stage 宽度 * 0.9",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258243.6696978,
+      "updated_at": 1791258316.0933695,
+      "result": ""
+    },
+    {
+      "id": 44,
+      "subject": "整改R3-6·依据 ['E4'｜] 综合/medium 见 D2.fix",
+      "description": "] 综合/medium 见 D2.fix",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258243.6722374,
+      "updated_at": 1791258333.9575355,
+      "result": ""
+    },
+    {
+      "id": 45,
+      "subject": "整改R3-7·复检｜调用 review_deliverable 复检，确认分数上升",
+      "description": "以上整改全部落盘后，调用 review_deliverable（task 填原始任务）复检一次。",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "polish",
+      "created_at": 1791258243.6747694,
+      "updated_at": 1791258379.4959633,
+      "result": ""
+    }
+  ],
+  "seq": 45
+}

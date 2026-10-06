@@ -1,0 +1,69 @@
+{
+  "grounded": true,
+  "reason": "时间预算耗尽，只完成部分检索",
+  "count": 6,
+  "canonical_hits": 0,
+  "queries": [
+    "HTML5 game design system best practices 2026",
+    "HTML5 game accessibility keyboard touch interaction WCAG guidelines",
+    "HTML5 game user expectations evaluation criteria case study 2026",
+    "roguelike / arcade game feel juice design GDC talk"
+  ],
+  "items": [
+    {
+      "id": "E1",
+      "title": "Goodbye and Thanks Mochi Media",
+      "url": "https://www.sogou.com/link?url=hedJjaC291OR1L3dHU_FCw8w5WOItDgEamB0LI8Ok6YHOhbTLrTMyhWkj8kfskgs-PYVcTxCVpkAEf_VZEsbgzLfBMLF8MnRreaVHN88tHY.",
+      "site": "www.sogou.com",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    },
+    {
+      "id": "E2",
+      "title": "氣候變化緩解",
+      "url": "https://zh.wikipedia.org/wiki/%E6%B0%A3%E5%80%99%E8%AE%8A%E5%8C%96%E7%B7%A9%E8%A7%A3",
+      "site": "zh.wikipedia.org",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    },
+    {
+      "id": "E3",
+      "title": "Adding Languages to Game Engines",
+      "url": "https://www.sogou.com/link?url=hedJjaC291OR1L3dHU_FCw8w5WOItDgEamB0LI8Ok6YHOhbTLrTMykHaggT6YAOpTmWqSL-MqVZawjcNojp1u7iu0AgBExvnczQCg51MrY0.",
+      "site": "www.sogou.com",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    },
+    {
+      "id": "E4",
+      "title": "Catan Universe: Mobile optimization for Unity",
+      "url": "https://www.sogou.com/link?url=hedJjaC291OR1L3dHU_FCw8w5WOItDgEamB0LI8Ok6YHOhbTLrTMyq12RPZaH4bI79RwQjYc9iS0zCdLBPcM3ViudY74ZyOAvpXFYLSNBxutENyqDxcpjA..",
+      "site": "www.sogou.com",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    },
+    {
+      "id": "E5",
+      "title": "Implementing Coordinated Movement",
+      "url": "https://www.sogou.com/link?url=hedJjaC291OR1L3dHU_FCw8w5WOItDgEamB0LI8Ok6YHOhbTLrTMyrnbB2yIjxGpo25vqPgvr3krs0cC5PNnEUqEr1YeRCFdWU84y17_Tpg.",
+      "site": "www.sogou.com",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    },
+    {
+      "id": "E6",
+      "title": "Messing with Tangent Space",
+      "url": "https://www.sogou.com/link?url=hedJjaC291OR1L3dHU_FCw8w5WOItDgEamB0LI8Ok6YHOhbTLrTMyn-SlPVk1Nswoe0CBjrHtcaJA01UU7lqGuxgQpOQmzIj",
+      "site": "www.sogou.com",
+      "authority": 0.5,
+      "dim": "",
+      "has_extract": false
+    }
+  ],
+  "elapsed_sec": 29.2
+}

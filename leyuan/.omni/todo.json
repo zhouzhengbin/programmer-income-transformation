@@ -1,0 +1,71 @@
+{
+  "items": [
+    {
+      "id": 15,
+      "subject": "识图确认转盘的实际位置",
+      "description": "用 Python + Pillow 分析 .omni/uploads/clipboard_20261006041200.png 的尺寸与内容分布，量化转盘在当前屏幕上的水平中心位置占比\n完成标准：输出图片宽高，以及转盘圆心 x 坐标占画布宽度的百分比",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791259971.477168,
+      "updated_at": 1791259971.4834409,
+      "result": ""
+    },
+    {
+      "id": 16,
+      "subject": "定位布局代码中的偏左原因",
+      "description": "检查 js/games/wheel.js 的 layout() 与绘制逻辑，确认画布内转盘圆心是否用了 cx=W/2 或仍沿用旧的中心计算，找到导致偏左的具体行\n完成标准：输出至少 1 处导致偏左的具体代码行与原因",
+      "status": "in_progress",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791259971.4781697,
+      "updated_at": 1791259972.2565708,
+      "result": ""
+    },
+    {
+      "id": 17,
+      "subject": "把转盘居中到可视区",
+      "description": "改写 js/games/wheel.js：画布先按可用区正方形等比铺满 playWrap，转盘圆心锁定为该正方形的几何中心；按钮与提示保持在下方\n完成标准：进入转盘后圆心 x 与画布宽度之比 = 50%（±2%），画面左右对称",
+      "status": "pending",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791259971.4790113,
+      "updated_at": 1791259971.479012,
+      "result": ""
+    },
+    {
+      "id": 18,
+      "subject": "统一修正其它玩法的居中问题",
+      "description": "检查全部 12 个玩法，把仍按旧方式取尺寸或画布宽度与容器不一致的统一改为取 playWrap 的实际宽高\n完成标准：12 个玩法在 320×568 与 1440×900 下均居中，无偏左或偏右",
+      "status": "pending",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791259971.4800966,
+      "updated_at": 1791259971.4800973,
+      "result": ""
+    },
+    {
+      "id": 19,
+      "subject": "写完立即浏览器实测",
+      "description": "用 Chrome headless 打开 index.html 进入转盘，截图并计算转盘圆心相对画布的水平位置；断言无 console error\n完成标准：截图分析显示圆心位于画布水平 50%（±2%），errors=[]",
+      "status": "pending",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791259971.4811578,
+      "updated_at": 1791259971.4811585,
+      "result": ""
+    },
+    {
+      "id": 20,
+      "subject": "交付确认",
+      "description": "确认 index.html、css/style.css、js/core/layout.js、js/games/wheel.js 等改动全部真实落盘\n完成标准：上述文件均在磁盘存在，双击 index.html 后转盘在屏幕水平居中",
+      "status": "pending",
+      "blocked_by": [],
+      "origin": "model",
+      "created_at": 1791259971.4821906,
+      "updated_at": 1791259971.4821913,
+      "result": ""
+    }
+  ],
+  "seq": 20
+}

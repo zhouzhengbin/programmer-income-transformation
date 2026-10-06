@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#a7e4ff">
+<title>星际乐园 · 12 种玩法</title>
+<link rel="stylesheet" href="/leyuan/css/style.css">
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div id="app">
+  <header id="top">
+    <div id="brand" onclick="OMNI.home()"><span id="orb"></span><span class="brandtxt">星际乐园</span></div>
+    <div id="stars"><b>★</b><span id="starNum">0</span></div>
+  </header>
+  <main id="stage"></main>
+</div>
+<canvas id="fx"></canvas>
+<div id="toast"></div>
+<script src="/leyuan/js/core/layout.js"></script>
+<script src="/leyuan/js/core/engine.js"></script>
+<script>OMNI.boot();</script>
+
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+    const audios = document.querySelectorAll('audio');
+    audios.forEach(function(audio) { audio.preload = "auto"; audio.load(); });
+});
+</script>
+
+</body>
+</html>

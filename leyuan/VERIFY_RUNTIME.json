@@ -1,0 +1,50 @@
+[
+  {
+    "size": "320x568",
+    "data": {
+      "errs": [],
+      "checks": {
+        "omni_exists": true,
+        "hero": true,
+        "cells": 12,
+        "stage_child": true,
+        "scrollW": 488,
+        "innerW": 488,
+        "overflowX": false,
+        "wheelCanvas": true
+      }
+    }
+  },
+  {
+    "size": "768x1024",
+    "data": {
+      "errs": [],
+      "checks": {
+        "omni_exists": true,
+        "hero": true,
+        "cells": 12,
+        "stage_child": true,
+        "scrollW": 734,
+        "innerW": 734,
+        "overflowX": false,
+        "wheelCanvas": true
+      }
+    }
+  },
+  {
+    "size": "1440x900",
+    "data": {
+      "errs": [],
+      "checks": {
+        "omni_exists": true,
+        "hero": true,
+        "cells": 12,
+        "stage_child": true,
+        "scrollW": 1406,
+        "innerW": 1406,
+        "overflowX": false,
+        "wheelCanvas": true
+      }
+    }
+  }
+]
